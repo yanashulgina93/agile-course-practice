@@ -52,50 +52,50 @@
 
   1. Создайте новую ветку, в которой вы будете работать над лабораторной:
 
-```bash
+  ```bash
         $ git clone https://github.com/YOUR_GITHUB_NAME/agile-course-practice
         $ cd agile-course-practice
         $ git checkout -b surname-name-lab1
-```
+  ```
 
   1. В подпапке `code` заведите папку со своим именем (вида `surname-name`), и
      поместите туда файл `README.md`. Это будет ваша wiki-страничка в формате
      Markdown со всеми деталями о вашем проекте.
 
-```bash
+  ```bash
         $ cd code
         $ mkdir surname-name
         $ cd surname-name
         $ touch README.md
-```
+  ```
 
   1. Заполните `README.md` информацией, по образу файла в директории
      `code/kornyakov-kirill-lab0`. Просьба следить за грамматикой и
      корректностью [синтаксиса Markdown][gfm]. Также рекомендуется использовать
      кодировку `UTF-8`. Когда закончите, нужно сделать локальный коммит в Git:
 
-```bash
+  ```bash
         $ git add README.md
         $ git commit -m "Added README.md file"
-```
+  ```
 
   1. Далее сделайте `git push` в свой форк проекта:
 
-```bash
+  ```bash
         $ git push origin HEAD
-```
+  ```
 
   1. Проверьте, что GitHub корректно рендерит ваш README файл. Для этого нужно
      выбрать вашу ветку (`surname-name-lab0`), найти ваш файл в браузере кода, и
      кликнуть по нему. GitHub отобразит отрендеренный файл. Если нужно будет
      что-то поправить, используйте следующие команды:
 
-```bash
+  ```bash
         # Editing README.md...
         $ git add README.md
         $ git commit -m "Fixed Markdown syntax"
         $ git push origin HEAD
-```
+  ```
 
 ### Ревью кода
 
@@ -111,11 +111,11 @@
   1. Если будут замечания к вашему коду, вам нужно добавлять коммиты в
      свою ветку, и пулл-реквест будет автоматически обновляться.
 
-```bash
+  ```bash
         $ git add README.md
         $ git commit -m "Fixing comments by Kirill Kornyakov"
         $ git push origin HEAD
-```
+  ```
 
   1. Формально вам нужно получить два комментария вида :+1: (пишется как
      `:+1:`). Наличие такого значка фактически означает одобрение коллегой ваших
