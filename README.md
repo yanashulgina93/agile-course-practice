@@ -4,7 +4,7 @@
 [![Coverage Status][coveralls-badge]][coveralls]
 
  - Нижегородский Государственный Университет им. Н.И. Лобачевского
- - Факультет ВМК, каф. МО ЭВМ
+ - Институт ИТММ (ранее ф-т ВМК), каф. МО ЭВМ
  - __License__: Creative Commons Attribution-Share Alike 3.0 ([CC BY-SA 3.0][cc3])
 
 ## Ресурсы
