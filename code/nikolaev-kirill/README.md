@@ -9,7 +9,7 @@
 
 Реализовать класс, вычисляющий расстояние между float векторами с использованием метрик ![equation][metric_img].
 
-Необходимые сведения о указанных метриках можно найти в статье ["Метрическое пространство"][metric_wiki].
+Необходимые сведения о указанных метриках можно найти в книге А.Н. Колмогорова ["Элементы теории функций и функционального анализа"][metric_book], С. 50, 52.
 
 ## Документация разработчика
 
@@ -17,6 +17,5 @@ TBD
 
 <!-- LINKS -->
 
-[metric_img]: http://mathurl.com/of4ayxj.png
 
-[metric_wiki]: https://ru.wikibooks.org/wiki/%D0%A2%D0%B5%D0%BE%D1%80%D0%B8%D1%8F_%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B9_%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D0%B3%D0%BE_%D0%BF%D0%B5%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE/%D0%9C%D0%B5%D1%82%D1%80%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B5_%D0%BF%D1%80%D0%BE%D1%81%D1%82%D1%80%D0%B0%D0%BD%D1%81%D1%82%D0%B2%D0%BE
+[metric_book]: https://books.google.ru/books?id=fNf5AgAAQBAJ&pg=PA50&lpg=PA50&&source=bl&ots=oWRkDV0ttR&sig=1juW2d_n7EhL6r7MZyaLjNAwp0k&hl=ru&sa=X&redir_esc=y#v=onepage&q&f=true
