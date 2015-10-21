@@ -17,6 +17,6 @@ TBD
 
 <!-- LINKS -->
 
-[metric_img]: http://mathurl.com/of4ayxj.png
+[metric_img]: http://mathurl.com/petl277.png
 
 [metric_book]: https://books.google.ru/books?id=fNf5AgAAQBAJ&pg=PA50&lpg=PA50&&source=bl&ots=oWRkDV0ttR&sig=1juW2d_n7EhL6r7MZyaLjNAwp0k&hl=ru&sa=X&redir_esc=y#v=onepage&q&f=true
