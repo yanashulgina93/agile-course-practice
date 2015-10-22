@@ -6,7 +6,10 @@ public class Length {
     private double value;
     private LengthUnit unitInput;
 
-    Length() { }
+    Length(final double val, final LengthUnit un) {
+        this.value = val;
+        this.unitInput = un;
+    }
 
     @Override
     public int hashCode() {
