@@ -16,11 +16,12 @@ public class Length {
         final int shift = 32;
 
         long temp = Double.doubleToLongBits(value);
-        int result = (int) (temp ^ (temp >>> shift));
-        return result;
+        return (int) (temp ^ (temp >>> shift));
     }
 
-    public boolean equals(final Length length) {
+    @Override
+    public boolean equals(final Object object) {
+        Length length = (Length) object;
         return length.value == value
                 && length.unitInput == unitInput;
     }

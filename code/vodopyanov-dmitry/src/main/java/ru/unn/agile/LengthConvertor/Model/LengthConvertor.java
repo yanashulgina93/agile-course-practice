@@ -1,13 +1,13 @@
 package ru.unn.agile.LengthConvertor.Model;
 
 public class LengthConvertor {
-    private final double inch = 0.0253999998;
-    private final double foot = 0.3048;
-    private final double yard = 0.914399999;
-    private final double mile = 1609.34401;
-    private final double meter = 1;
-    private final double kmeter = 1000;
-    private final double cmeter = 0.01;
+    static final double inch = 0.0253999998;
+    static final double foot = 0.3048;
+    static final double yard = 0.914399999;
+    static final double mile = 1609.34401;
+    static final double meter = 1;
+    static final double kmeter = 1000;
+    static final double cmeter = 0.01;
 
     public LengthConvertor() { }
 
