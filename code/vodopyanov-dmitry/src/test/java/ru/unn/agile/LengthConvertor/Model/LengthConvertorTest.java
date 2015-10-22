@@ -41,7 +41,7 @@ public class LengthConvertorTest {
 
     @Test
     public void canConvertKMetersToMeters() {
-        CLengthConvertor z = new LengthConvertor();
+        LengthConvertor z = new LengthConvertor();
         Length res_z = z.Convert({1, LengthUnit.KMeter}, LengthUnit.Meter);
         assertEquals({1000.0, Meter}, res_z);
     }
