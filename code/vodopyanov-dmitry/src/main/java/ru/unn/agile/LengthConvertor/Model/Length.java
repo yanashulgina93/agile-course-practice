@@ -6,7 +6,7 @@ public class Length {
     private double value;
     private LengthUnit unitInput;
 
-    Length(double val, LengthUnit un) {
+    Length(final double val, final LengthUnit un) {
         this.value = val;
         this.unitInput = un;
     }
@@ -29,7 +29,7 @@ public class Length {
 
     public LengthUnit getUnit() { return unitInput; }
 
-    public void setValue(double val) {
+    public void setValue(final double val) {
         value = val;
     }
 }
