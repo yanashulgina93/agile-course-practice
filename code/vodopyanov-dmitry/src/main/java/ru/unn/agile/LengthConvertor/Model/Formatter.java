@@ -1,4 +1,4 @@
-package ru.unn.agile.LengthConvertor.core;
+package ru.unn.agile.LengthConvertor.Model;
 
 public final class Formatter {
 

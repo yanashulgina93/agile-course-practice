@@ -6,10 +6,7 @@ public class Length {
     private double value;
     private LengthUnit unitInput;
 
-    Length(final double val, final LengthUnit un) {
-        this.value = val;
-        this.unitInput = un;
-    }
+    Length() { }
 
     @Override
     public int hashCode() {
@@ -29,7 +26,7 @@ public class Length {
 
     public LengthUnit getUnit() { return unitInput; }
 
-    public void setValue(final double val) {
-        value = val;
-    }
+    public void setValue(final double val) { value = val; }
+
+    public void setUnitInput(final LengthUnit un) { unitInput = un; }
 }

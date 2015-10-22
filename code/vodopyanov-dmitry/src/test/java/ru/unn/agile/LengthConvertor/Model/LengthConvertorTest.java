@@ -15,34 +15,55 @@ public class LengthConvertorTest {
     @Test
     public void areEqualResultsEqual() {
         LengthConvertor z1 = new LengthConvertor();
-        Length res_z1 = z1.Convert({1, LengthUnit.Meter}, LengthUnit.Yard);
+        Length l1 = new Length();
+        l1.setValue(1);
+        l1.setUnitInput(LengthUnit.Meter);
+        Length res_z1 = z1.convert(l1, LengthUnit.Yard);
         LengthConvertor z2 = new LengthConvertor();
-        Length res_z2 = z2.Convert({1, LengthUnit.Meter}, LengthUnit.Yard);
-        assertTrue(res_z1.equals(rez_z2));
+        Length l2 = new Length();
+        l2.setValue(1);
+        l2.setUnitInput(LengthUnit.Meter);
+        Length res_z2 = z2.convert(l2, LengthUnit.Yard);
+        assertTrue(res_z1.equals(res_z2));
     }
 
     @Test
     public void areResultsWithDifferentValuesNotEqual() {
         LengthConvertor z1 = new LengthConvertor();
-        Length res_z1 = z1.Convert({1, LengthUnit.Meter}, LengthUnit.Yard);
+        Length l1 = new Length();
+        l1.setValue(1);
+        l1.setUnitInput(LengthUnit.Meter);
+        Length res_z1 = z1.convert(l1, LengthUnit.Yard);
         LengthConvertor z2 = new LengthConvertor();
-        Length res_z2 = z2.Convert({2, LengthUnit.Meter}, LengthUnit.Yard);
-        assertFalse(res_z1.equals(rez_z2));
+        Length l2 = new Length();
+        l2.setValue(2);
+        l2.setUnitInput(LengthUnit.Meter);
+        Length res_z2 = z2.convert(l2, LengthUnit.Yard);
+        assertFalse(res_z1.equals(res_z2));
     }
 
     @Test
     public void areResultsWithDifferentOutputUnitNotEqual() {
         LengthConvertor z1 = new LengthConvertor();
-        Length res_z1 = z1.Convert({1, LengthUnit.Meter}, LengthUnit.Yard);
+        Length l1 = new Length();
+        l1.setValue(1);
+        l1.setUnitInput(LengthUnit.Meter);
+        Length res_z1 = z1.convert(l1, LengthUnit.Yard);
         LengthConvertor z2 = new LengthConvertor();
-        Length res_z2 = z2.Convert({1, LengthUnit.Foot}, LengthUnit.Yard);
-        assertFalse(res_z1.equals(rez_z2));
+        Length l2 = new Length();
+        l2.setValue(1);
+        l2.setUnitInput(LengthUnit.Foot);
+        Length res_z2 = z2.convert(l2, LengthUnit.Yard);
+        assertFalse(res_z1.equals(res_z2));
     }
 
     @Test
     public void canConvertKMetersToMeters() {
         LengthConvertor z = new LengthConvertor();
-        Length res_z = z.Convert({1, LengthUnit.KMeter}, LengthUnit.Meter);
-        assertEquals({1000.0, Meter}, res_z);
+        Length l = new Length();
+        l.setValue(1);
+        l.setUnitInput(LengthUnit.KMeter);
+        Length res_z = z.convert(l, LengthUnit.Meter);
+        assertEquals(1000.0, res_z.getValue());
     }
 }
