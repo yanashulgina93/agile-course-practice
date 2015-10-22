@@ -1,4 +1,4 @@
-package ru.unn.agile.LengthConvertor.core;
+package ru.unn.agile.LengthConvertor.Model;
 
 enum LengthUnit { Inch, Foot, Yard, Mile, Meter, KMeter, CMeter }
 
@@ -28,4 +28,8 @@ public class Length {
     public double getValue() { return value; }
 
     public LengthUnit getUnit() { return unitInput; }
+
+    public void setValue(double val) {
+        value = val;
+    }
 }

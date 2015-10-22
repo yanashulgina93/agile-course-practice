@@ -1,4 +1,4 @@
-package ru.unn.agile.LengthConvertor.core;
+package ru.unn.agile.LengthConvertor.Model;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
