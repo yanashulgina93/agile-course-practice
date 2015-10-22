@@ -1,18 +1,18 @@
 package ru.unn.agile.LengthConvertor.Model;
 
 public class LengthConvertor {
-    final double INCH = 0.0253999998;
-    final double FOOT = 0.3048;
-    final double YARD = 0.914399999;
-    final double MILE = 1609.34401;
-    final double METER = 1;
-    final double KMETER = 1000;
-    final double CMETER = 0.01;
+    private final double inch = 0.0253999998;
+    private final double foot = 0.3048;
+    private final double yard = 0.914399999;
+    private final double mile = 1609.34401;
+    private final double meter = 1;
+    private final double kmeter = 1000;
+    private final double cmeter = 0.01;
 
     public LengthConvertor() { }
 
     public Length convert(final Length length, final LengthUnit unitOutput) {
-        double[] multiplierMeter = {INCH, FOOT, YARD, MILE, METER, KMETER, CMETER};
+        double[] multiplierMeter = {inch, foot, yard, mile, meter, kmeter, cmeter};
         if (length.getValue() >= 0) {
             length.setValue(multiplierMeter[length.getUnit().ordinal()]
                           / multiplierMeter[unitOutput.ordinal()] * length.getValue());
@@ -21,4 +21,18 @@ public class LengthConvertor {
         }
         return length;
     }
+
+    public final double getInchToM() { return inch; }
+
+    public final double getFootToM() { return foot; }
+
+    public final double getYardToM() { return yard; }
+
+    public final double getMileToM() { return mile; }
+
+    public final double getMeterToM() { return meter; }
+
+    public final double getKMeterToM() { return kmeter; }
+
+    public final double getCMeterToM() { return cmeter; }
 }
