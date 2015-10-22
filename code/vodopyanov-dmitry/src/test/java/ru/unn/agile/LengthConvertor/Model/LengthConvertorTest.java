@@ -17,10 +17,7 @@ public class LengthConvertorTest {
         LengthConvertor z1 = new LengthConvertor();
         Length l1 = new Length(1, LengthUnit.Meter);
         Length res_z1 = z1.convert(l1, LengthUnit.Yard);
-        LengthConvertor z2 = new LengthConvertor();
-        Length l2 = new Length(1, LengthUnit.Meter);
-        Length res_z2 = z2.convert(l2, LengthUnit.Yard);
-        assertTrue(res_z1.equals(res_z2));
+        assertTrue(res_z1.equals(new Length(1, LengthUnit.Meter)));
     }
 
     @Test
