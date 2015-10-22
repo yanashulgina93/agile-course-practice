@@ -23,18 +23,4 @@ public class LengthConvertor {
         }
         return length;
     }
-
-    public final double getInchToM() { return inch; }
-
-    public final double getFootToM() { return foot; }
-
-    public final double getYardToM() { return yard; }
-
-    public final double getMileToM() { return mile; }
-
-    public final double getMeterToM() { return meter; }
-
-    public final double getKMeterToM() { return kmeter; }
-
-    public final double getCMeterToM() { return cmeter; }
 }
