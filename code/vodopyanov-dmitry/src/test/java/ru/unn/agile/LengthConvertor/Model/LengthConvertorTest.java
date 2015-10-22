@@ -47,6 +47,6 @@ public class LengthConvertorTest {
         LengthConvertor z = new LengthConvertor();
         Length l = new Length(1, LengthUnit.KMeter);
         Length res_z = z.convert(l, LengthUnit.Meter);
-        assertEquals(1000.0, res_z.getValue());
+        assertEquals(1000.0, res_z.getValue(), delta);
     }
 }
