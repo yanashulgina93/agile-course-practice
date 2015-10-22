@@ -86,7 +86,11 @@ project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-l
 // Sulin Dmitrij
 // Timonova Anastasiya
 // Vinnickij Vladimir
-// Vodopyanov Dmitrij
+
+// Vodopyanov Dmitry
+include "code/vodopyanov-dmitry"
+project(":code/vodopyanov-dmitry").name = "vodopyanov-dmitry-lab1-Model"
+
 // Volosenkov Evgenij
 // Voronkov Arsenij
 // Yusipov Igor
