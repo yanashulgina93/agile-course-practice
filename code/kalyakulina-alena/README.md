@@ -15,10 +15,10 @@
 
 Все необходимые математические сведения можно найти в статьях:
 
- -["Квадратный метр"][squaremetre] на сайте Wikipedia
- -["Квадратный километр"][squarekilometre] на сайте Wikipedia
- -["Ар"][are] на сайте Wikipedia
- -["Гектар"][hectare] на сайте Wikipedia
+ - ["Квадратный метр"][squaremetre] на сайте Wikipedia
+ - ["Квадратный километр"][squarekilometre] на сайте Wikipedia
+ - ["Ар"][are] на сайте Wikipedia
+ - ["Гектар"][hectare] на сайте Wikipedia
 
 ## Документация разработчика
 
