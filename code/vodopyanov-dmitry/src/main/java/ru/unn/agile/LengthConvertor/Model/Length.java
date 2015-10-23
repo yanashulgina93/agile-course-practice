@@ -33,4 +33,8 @@ public class Length {
     public void setValue(final double val) { value = val; }
 
     public void setUnitInput(final LengthUnit un) { unitInput = un; }
+
+    public String toString() {
+        return Formatter.getFormatted(this);
+    }
 }

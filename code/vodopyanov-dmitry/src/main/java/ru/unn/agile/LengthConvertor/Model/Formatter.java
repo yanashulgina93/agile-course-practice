@@ -32,4 +32,14 @@ public final class Formatter {
 
         return buffer;
     }
+
+    public static String getFormatted(final Length length) {
+        StringBuffer buffer = new StringBuffer();
+        String value = formatPositiveDouble(Math.abs(length.getValue()));
+        String unitOutput = length.getUnit().toString();
+        buffer.append(value);
+        buffer.append(" ");
+        buffer.append(unitOutput);
+        return buffer.toString();
+    }
 }
