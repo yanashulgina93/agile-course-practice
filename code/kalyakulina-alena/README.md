@@ -19,7 +19,7 @@
  -["Квадратный километр"][squarekilometre] на сайте Wikipedia
  -["Ар"][are] на сайте Wikipedia
  -["Гектар"][hectare] на сайте Wikipedia
- 
+
 ## Документация разработчика
 
 TBD
