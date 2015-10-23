@@ -25,7 +25,7 @@ public class FormatterTest {
 
     @Test
     public void canConvertFloatingNumberToString() {
-        Length length = new Length (2.45, LengthUnit.Yard);
+        Length length = new Length(2.45, LengthUnit.Yard);
         assertEquals("2.45 Yard", length.toString());
     }
 
