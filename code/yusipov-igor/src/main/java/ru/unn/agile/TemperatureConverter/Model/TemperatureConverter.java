@@ -2,8 +2,8 @@ package ru.unn.agile.TemperatureConverter.Model;
 
 public class TemperatureConverter {
 
-        private double base;
-        private double scale;
+        private final double base;
+        private final double scale;
 
         public TemperatureConverter(final double base, final double scale) {
             this.base = base;
