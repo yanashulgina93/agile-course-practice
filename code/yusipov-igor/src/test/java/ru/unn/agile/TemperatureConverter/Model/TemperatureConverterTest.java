@@ -77,7 +77,7 @@ public class TemperatureConverterTest {
     }
 
     @Test
-    public void ConvertCelsiusToNewtonNotThrowsOnLargeDouble() {
+    public void convertCelsiusToNewtonNotThrowsOnLargeDouble() {
         TemperatureConverter converter = converterCreator.create(TemperatureScaleName.NEWTON);
         double temperatureInKelvin = converter.convert(Double.MAX_VALUE);
     }
