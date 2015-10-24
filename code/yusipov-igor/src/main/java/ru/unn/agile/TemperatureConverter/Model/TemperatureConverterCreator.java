@@ -9,7 +9,7 @@ public class TemperatureConverterCreator {
     private static final double NEWTON_BASE = 0.0;
     private static final double NEWTON_SCALE = 0.33;
 
-    public TemperatureConverter createTemperatureConverter(final TemperatureScaleName scaleName) {
+    public TemperatureConverter create(final TemperatureScaleName scaleName) {
         switch (scaleName) {
             case FAHRENHEIT:
                 return new TemperatureConverter(FAHRENHEIT_BASE, FAHRENHEIT_SCALE);
