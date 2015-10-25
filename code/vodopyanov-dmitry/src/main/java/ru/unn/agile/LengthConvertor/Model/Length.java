@@ -11,26 +11,25 @@ public class Length {
         this.unitInput = un;
     }
 
-    @Override
-    public int hashCode() {
-        final int shift = 32;
-
-        long temp = Double.doubleToLongBits(value);
-        return (int) (temp ^ (temp >>> shift));
-    }
-
-    @Override
-    public boolean equals(final Object object) {
+    public boolean isEqual(final Object object) {
         Length length = (Length) object;
         return length.value == value
                 && length.unitInput == unitInput;
     }
 
-    public double getValue() { return value; }
+    public double getValue() {
+        return value;
+    }
 
-    public LengthUnit getUnit() { return unitInput; }
+    public LengthUnit getUnit() {
+        return unitInput;
+    }
 
-    public void setValue(final double val) { value = val; }
+    public void setValue(final double val) {
+        value = val;
+    }
 
-    public void setUnitInput(final LengthUnit un) { unitInput = un; }
+    public void setUnitInput(final LengthUnit un) {
+        unitInput = un;
+    }
 }
