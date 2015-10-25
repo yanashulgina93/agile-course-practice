@@ -1,33 +1,42 @@
 package ru.unn.agile.statistics.model;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 public class StatisticValues
 {
-    public StatisticValues(Integer number) {
-        processedData = new double[1];
-        processedData[0] = number;
+    public StatisticValues(Collection<IStatisticDataInstance> dataForStatistics) {
+        getData(dataForStatistics);
     }
 
-    public StatisticValues(Integer[] dataForStatistics) {
-        processedData = new double[dataForStatistics.length];
-        for(int i = 0; i < dataForStatistics.length; i++){
-            processedData[i] = dataForStatistics[i];
+    public StatisticValues() {
+        processedData = null;
+    }
+
+    public void getData(Collection<IStatisticDataInstance> dataForStatistics){
+        if(dataForStatistics == null)
+        {
+            processedData = null;
+            return;
         }
-    }
 
-    public StatisticValues(int[] dataForStatistics) {
-        processedData = new double[dataForStatistics.length];
-        for(int i = 0; i < dataForStatistics.length; i++){
-            processedData[i] = dataForStatistics[i];
+        int dataSize = dataForStatistics.size();
+        processedData = new double[dataSize];
+        Iterator<IStatisticDataInstance> dataIterator = dataForStatistics.iterator();
+        for(int i = 0; i < dataSize; i++){
+            processedData[i] = dataIterator.next().getInstance();
         }
     }
 
     public double enumeration() {
         double result = 0.0;
-        for(double instance : processedData)
-        {
-            result += instance;
+
+        if(processedData != null) {
+            for (double instance : processedData) {
+                result += instance;
+            }
+            result /= processedData.length;
         }
-        result /= processedData.length;
 
         return result;
     }
