@@ -11,6 +11,7 @@
 
 - Построение
 - Поиск по ключу
+- Усечение
 
 Все необходимые математические сведения можно найти в статье
 ["Деревья"][trees] на сайте Wikipedia.
@@ -21,4 +22,4 @@ TBD
 
 <!-- LINKS -->
 
-[trees]: https://en.wikipedia.org/wiki/Tree_(data_structure)
+[trees]: https://ru.wikipedia.org/wiki/%D0%94%D0%B5%D1%80%D0%B5%D0%B2%D0%BE_(%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0_%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85)
