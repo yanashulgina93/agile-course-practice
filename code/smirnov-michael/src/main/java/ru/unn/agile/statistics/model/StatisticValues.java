@@ -51,7 +51,7 @@ public class StatisticValues
         double probability = 0.0;
 
         for(double instanceOfData : processedData){
-            if(instanceOfData == instanceOfEvent){
+            if(areTwoDoublesEqual(instanceOfData, instanceOfEvent)){
                 probability++;
             }
         }
@@ -59,7 +59,31 @@ public class StatisticValues
         return probability;
     }
 
+    public double variance() {
+        if(processedData == null){
+            return VARIANCE_OF_EMPTY_DATA;
+        }
+
+        double en = enumeration();
+        double var = 0.0;
+
+        for(double instanceOfData : processedData){
+            var += Math.pow(instanceOfData - en, 2);
+        }
+        var /= (processedData.length - 1);
+
+        return var;
+    }
+
+    private boolean areTwoDoublesEqual(double firstNumber, double secondNumber){
+        return Math.abs(firstNumber - secondNumber) <= EPS_FOR_DOUBLE_COMPARISON;
+    }
+
     private double[] processedData;
+
+    private final double EPS_FOR_DOUBLE_COMPARISON = 1e-3;
+
     private final double ENUMERATION_OF_EMPTY_DATA = 0.0;
     private final double PROBABILITY_OF_EVENT_WITH_EMPTY_DATA = 0.0;
+    private final double VARIANCE_OF_EMPTY_DATA = 0.0;
 }

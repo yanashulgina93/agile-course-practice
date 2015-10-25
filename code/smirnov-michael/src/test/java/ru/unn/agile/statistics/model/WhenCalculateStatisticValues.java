@@ -19,8 +19,7 @@ public class WhenCalculateStatisticValues {
     @Test
     public void enumerationOfSimpleIntArrayIsCorrect(){
         int[] data = {5, 5, 5, 5};
-        Collection<IStatisticDataInstance> dataInstances = StatisticDataConverter.ConvertFromIntArray(data);
-        statVal.getData(dataInstances);
+        formDataInstances(data);
 
         checkEnumerationWith(5.0);
     }
@@ -32,8 +31,7 @@ public class WhenCalculateStatisticValues {
         for(int i = 0; i < data.length; i++){
             data[i] = i;
         }
-        Collection<IStatisticDataInstance> dataInstances = StatisticDataConverter.ConvertFromIntArray(data);
-        statVal.getData(dataInstances);
+        formDataInstances(data);
 
         checkEnumerationWith(49.5);
     }
@@ -45,24 +43,21 @@ public class WhenCalculateStatisticValues {
         for(int i = 0; i < data.length; i++){
             data[i] = Math.sin(i*2*Math.PI/1000.0);
         }
-        Collection<IStatisticDataInstance> dataInstances = StatisticDataConverter.ConvertFromDoubleArray(data);
-        statVal.getData(dataInstances);
+        formDataInstances(data);
 
-       checkEnumerationWith(0.0);
+        checkEnumerationWith(0.0);
     }
 
     @Test
     public void enumerationOfFloatArrayWithOneElementIsCorrect(){
         float[] data = {3.14f};
-        Collection<IStatisticDataInstance> dataInstances = StatisticDataConverter.ConvertFromFloatArray(data);
-        statVal.getData(dataInstances);
+        formDataInstances(data);
 
         checkEnumerationWith(3.14f);
     }
 
     @Test
-    public void enumerationIsZeroWhenStatisticDataIsEmpty()
-    {
+    public void enumerationIsZeroWhenStatisticDataIsEmpty() {
         statVal.getData(null);
         checkEnumerationWith(0.0);
     }
@@ -97,11 +92,11 @@ public class WhenCalculateStatisticValues {
         IStatisticDataInstance event = new NumericStatisticDataInstance(3.14f);
         formDataInstances(data);
 
-        checkProbabilityWith(1/3, event);
+        checkProbabilityWith(1./3, event);
     }
 
     @Test
-    public void probabilityWithoutDataIsNull(){
+    public void probabilityWithoutDataIsZero(){
         double[] data = null;
         IStatisticDataInstance event = new NumericStatisticDataInstance(0);
         formDataInstances(data);
@@ -109,10 +104,43 @@ public class WhenCalculateStatisticValues {
         checkProbabilityWith(0.0, event);
     }
 
+    @Test
+    public void varianceOfConstantDataIsZero(){
+        int[] data = {1, 1, 1, 1, 1};
+        formDataInstances(data);
+
+        checkVarianceWith(0);
+    }
+
+    @Test
+    public void varianceWithoutDataIsZero(){
+        int[] data = null;
+        formDataInstances(data);
+
+        checkVarianceWith(0);
+    }
+
+    @Test
+    public void varianceOfDataRepresentsOneCosPeriodIsEqualToOneHalf(){
+        double[] data = new double[1000];
+        for(int i = 0; i < data.length; i++){
+            data[i] = Math.cos(i * 2 * Math.PI / 1000.0);
+        }
+        formDataInstances(data);
+
+        checkVarianceWith(1./2);
+    }
+
     private void checkEnumerationWith(final double destination)
     {
         double enumOfData = statVal.enumeration();
         assertEquals(destination, enumOfData, deltaForDoubleAssertEquals);
+    }
+
+    private void checkVarianceWith(final double destination)
+    {
+        double varOfData = statVal.variance();
+        assertEquals(varOfData, destination, deltaForDoubleAssertEquals);
     }
 
     private void checkProbabilityWith(final double destination, final IStatisticDataInstance event)
@@ -138,5 +166,5 @@ public class WhenCalculateStatisticValues {
 
     private StatisticValues statVal;
     private Collection<IStatisticDataInstance> dataInstances;
-    private double deltaForDoubleAssertEquals = 1e-8;
+    private double deltaForDoubleAssertEquals = 1e-3;
 }
