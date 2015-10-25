@@ -11,8 +11,8 @@ public class TemperatureConverter {
         }
 
         public double convert(final double temperatureInCelsius) {
-
             double temperatureInOtherScale = scale * temperatureInCelsius + base;
+
             if (temperatureInOtherScale >= Double.MAX_VALUE) {
                 throw new IllegalArgumentException();
             }
