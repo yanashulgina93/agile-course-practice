@@ -33,13 +33,13 @@ public class StatisticValues
             return ENUMERATION_OF_EMPTY_DATA;
         }
 
-        double result = 0.0;
+        double en = 0.0;
         for (double instance : processedData) {
-            result += instance;
+            en += instance;
         }
-        result /= processedData.length;
+        en /= processedData.length;
 
-        return result;
+        return en;
     }
 
     public double probabilityOf(IStatisticDataInstance event) {
@@ -75,6 +75,20 @@ public class StatisticValues
         return var;
     }
 
+    public double rawMoment(int order) {
+        if(processedData == null) {
+            return RAW_MOMENT_OF_EMPTY_DATA;
+        }
+
+        double rawMom = 0.0;
+        for (double instance : processedData) {
+            rawMom += Math.pow(instance, order);
+        }
+        rawMom /= processedData.length;
+
+        return rawMom;
+    }
+
     private boolean areTwoDoublesEqual(double firstNumber, double secondNumber){
         return Math.abs(firstNumber - secondNumber) <= EPS_FOR_DOUBLE_COMPARISON;
     }
@@ -86,4 +100,5 @@ public class StatisticValues
     private final double ENUMERATION_OF_EMPTY_DATA = 0.0;
     private final double PROBABILITY_OF_EVENT_WITH_EMPTY_DATA = 0.0;
     private final double VARIANCE_OF_EMPTY_DATA = 0.0;
+    private final double RAW_MOMENT_OF_EMPTY_DATA = 0.0;
 }

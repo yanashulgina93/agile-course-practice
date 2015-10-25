@@ -131,6 +131,48 @@ public class WhenCalculateStatisticValues {
         checkVarianceWith(1./2);
     }
 
+    @Test
+    public void rawMomentOfThirdOrderWithoutDataIsZero(){
+        int[] data = null;
+        formDataInstances(data);
+
+        double rawMoment = statVal.rawMoment(3);
+        assertEquals(rawMoment, 0.0, deltaForDoubleAssertEquals);
+    }
+
+    @Test
+    public void rawMomentOfFirstOrderIsEqualToEnumeration(){
+        double[] data = new double[1000];
+        for(int i = 0; i < data.length; i++){
+            data[i] = Math.log10((i + 1) * Math.PI / 1000.0);
+        }
+        formDataInstances(data);
+
+        double enumeration = statVal.enumeration();
+        double rawMoment = statVal.rawMoment(1);
+        assertEquals(rawMoment, enumeration, deltaForDoubleAssertEquals);
+    }
+
+    @Test
+    public void rawMomentOfSecondOrderSmallerThanFourthOrderWhenDataHasBigVariance(){
+        int[] data = {-1, -1, 5, 8, 10, 4, 4, 8};
+        formDataInstances(data);
+
+        double rawMoment2 = statVal.rawMoment(2);
+        double rawMoment4 = statVal.rawMoment(4);
+        assertTrue(rawMoment2 < rawMoment4);
+    }
+
+    @Test
+    public void rawMomentOfSixOrderBiggerThanEighthOrderWhenDataHasSmallVariance(){
+        double[] data = {-0.1, -0.1, 0.5, 0.8, 1.0, 0.4, 0.4, 0.8};
+        formDataInstances(data);
+
+        double rawMoment6 = statVal.rawMoment(6);
+        double rawMoment8 = statVal.rawMoment(8);
+        assertTrue(rawMoment6 > rawMoment8);
+    }
+
     private void checkEnumerationWith(final double destination)
     {
         double enumOfData = statVal.enumeration();
