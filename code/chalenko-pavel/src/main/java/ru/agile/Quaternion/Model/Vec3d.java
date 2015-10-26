@@ -52,23 +52,37 @@ public class Vec3d {
 	}
 
 	public double getX() {
-		// TODO Auto-generated method stub
 		return this.x;
 	}
 	
 	public double getY() {
-		// TODO Auto-generated method stub
 		return this.y;
 	}
 	
 	public double getZ() {
-		// TODO Auto-generated method stub
 		return this.z;
 	}
 
 	public Vec3d add(Vec3d other) {
-		// TODO Auto-generated method stub
 		return new Vec3d(this.x + other.x, this.y + other.y, this.z + other.z);
 	}
 
+	public double dot(Vec3d other) {
+		return this.x * other.x + this.y * other.y + this.z * other.z;
+	}
+
+	public double length() {
+		return Math.sqrt(this.dot(this));
+	}
+
+	public Vec3d mul(Vec3d other) {
+		double tmpX = this.y * other.z - this.z * other.y;
+		double tmpY = - this.x * other.z + this.z * other.x;
+		double tmpZ = this.x * other.y - this.y * other.x;
+		return new Vec3d(tmpX, tmpY, tmpZ);
+	}
+
+	public Vec3d mul(double scalar) {
+		return new Vec3d(scalar * this.x, scalar * this.y, scalar * this.z);
+	}
 }
