@@ -1,11 +1,13 @@
 package ru.unn.agile.Vec3.Model;
 
-public class Precision
-{
-    private static double myConfusion = 1e-7;
+public final class Precision  {
+    private static final double THE_DEFAULT_CONFUSION = 1e-7;
 
-    public static double Confusion()
-    {
-        return myConfusion;
+    private Precision() {
+        /* none */
+    }
+
+    public static double confusion() {
+        return THE_DEFAULT_CONFUSION;
     }
 }

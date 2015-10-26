@@ -1,13 +1,11 @@
 package ru.unn.agile.Vec3.Model;
 
-public class Vec3
-{
+public class Vec3 {
     private double x;
     private double y;
     private double z;
 
-    public Vec3()
-    {
+    public Vec3() {
         x = 0.0;
         y = 0.0;
         z = 0.0;
@@ -15,60 +13,50 @@ public class Vec3
 
     public Vec3(final double theX,
                 final double theY,
-                final double theZ)
-    {
+                final double theZ) {
         x = theX;
         y = theY;
         z = theZ;
     }
 
-    public Vec3(final double[] theArray)
-    {
+    public Vec3(final double[] theArray) {
         x = theArray[0];
         y = theArray[1];
         z = theArray[2];
     }
 
-    public double X()
-    {
+    public double x() {
         return x;
     }
 
-    public double Y()
-    {
+    public double y() {
         return y;
     }
 
-    public double Z()
-    {
+    public double z() {
         return z;
     }
 
-    public boolean IsEqual(final double theX,
+    public boolean isEqual(final double theX,
                            final double theY,
-                           final double theZ)
-    {
-        return (Math.abs(x - theX) < Precision.Confusion())
-            && (Math.abs(y - theY) < Precision.Confusion())
-            && (Math.abs(z - theZ) < Precision.Confusion());
+                           final double theZ) {
+        return Math.abs(x - theX) < Precision.confusion()
+            && Math.abs(y - theY) < Precision.confusion()
+            && Math.abs(z - theZ) < Precision.confusion();
     }
 
-    public boolean IsEqual(final Vec3 theVec)
-    {
-        return IsEqual(theVec.X(), theVec.Y(), theVec.Z());
+    public boolean isEqual(final Vec3 theVec) {
+        return isEqual(theVec.x(), theVec.y(), theVec.z());
     }
 
-    public double Norm()
-    {
-        return Math.sqrt(Dot(this));
+    public double norm() {
+        return Math.sqrt(dot(this));
     }
 
-    public void Normalize()
-    {
-        final double aNorm = Norm();
+    public void normalize() {
+        final double aNorm = norm();
 
-        if (aNorm < Precision.Confusion())
-        {
+        if (aNorm < Precision.confusion()) {
             throw new ArithmeticException("Vector's norm is small: " + aNorm);
         }
 
@@ -77,15 +65,13 @@ public class Vec3
         z /= aNorm;
     }
 
-    public double Dot(final Vec3 theVec)
-    {
-        return x * theVec.X() + y * theVec.Y() + z * theVec.Z();
+    public double dot(final Vec3 theVec) {
+        return x * theVec.x() + y * theVec.y() + z * theVec.z();
     }
 
-    public Vec3 Cross(final Vec3 theVec)
-    {
-        return new Vec3(y * theVec.Z() - z * theVec.Y(),
-                        z * theVec.X() - x * theVec.Z(),
-                        x * theVec.Y() - y * theVec.X());
+    public Vec3 cross(final Vec3 theVec) {
+        return new Vec3(y * theVec.z() - z * theVec.y(),
+                        z * theVec.x() - x * theVec.z(),
+                        x * theVec.y() - y * theVec.x());
     }
 }
