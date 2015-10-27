@@ -24,39 +24,15 @@ public class BitArray {
     }
 
     public BitArray and(final BitArray arr) {
-        BitArray res = new BitArray(this.size);
-        if (arr.getSize() == this.size) {
-            for (int i = 0; i < size; i++) {
-                res.setBit(i, arr.getBit(i) & this.getBit(i));
-            }
-        } else {
-            throw new BitArrayDifferentSizeException("Different size of arrays");
-        }
-        return res;
+        return this.doOperationWithArr(arr, '*');
     }
 
     public BitArray or(final BitArray arr) {
-        BitArray res = new BitArray(this.size);
-        if (arr.getSize() == this.size) {
-            for (int i = 0; i < size; i++) {
-                res.setBit(i, arr.getBit(i) | this.getBit(i));
-            }
-        } else {
-            throw new BitArrayDifferentSizeException("Different size of arrays");
-        }
-        return res;
+        return this.doOperationWithArr(arr, '|');
     }
 
     public BitArray xor(final BitArray arr) {
-        BitArray res = new BitArray(this.size);
-        if (arr.getSize() == this.size) {
-            for (int i = 0; i < size; i++) {
-                res.setBit(i, arr.getBit(i) ^ this.getBit(i));
-            }
-        } else {
-            throw new BitArrayDifferentSizeException("Different size of arrays");
-        }
-        return res;
+        return this.doOperationWithArr(arr, '^');
     }
 
     public BitArray not() {
@@ -73,5 +49,31 @@ public class BitArray {
 
     public int getSize() {
         return this.size;
+    }
+
+    private BitArray doOperationWithArr(final BitArray arr, final char op) {
+        BitArray res = new BitArray(this.size);
+        if (arr.getSize() == this.size) {
+            for (int i = 0; i < size; i++) {
+                switch (op) {
+                    case '^':
+                        res.setBit(i, arr.getBit(i) ^ this.getBit(i));
+                        break;
+                    case '*':
+                        res.setBit(i, arr.getBit(i) & this.getBit(i));
+                        break;
+                    case '|':
+                        res.setBit(i, arr.getBit(i) | this.getBit(i));
+                        break;
+                    default:
+                        res.setBit(i, arr.getBit(i) ^ this.getBit(i));
+                        break;
+                }
+
+            }
+        } else {
+            throw new BitArrayDifferentSizeException("Different size of arrays");
+        }
+        return res;
     }
 }

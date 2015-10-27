@@ -98,12 +98,12 @@ public class BitArrayTest {
         BitArray arr1 = new BitArray(5);
         BitArray arr2 = new BitArray(5);
         BitArray resArr;
-        boolean[] allTrueArr = new boolean[arr1.getSize()];
-        Arrays.fill(allTrueArr, true);
-        arr1.setAll(false);
+        boolean[] allFalseArr = new boolean[arr1.getSize()];
+        Arrays.fill(allFalseArr, false);
+        arr1.setAll(true);
         arr2.setAll(true);
         resArr = arr1.xor(arr2);
-        assertTrue(Arrays.equals(resArr.getArrBit(), allTrueArr));
+        assertTrue(Arrays.equals(resArr.getArrBit(), allFalseArr));
     }
 
     @Test(expected = BitArrayDifferentSizeException.class)
