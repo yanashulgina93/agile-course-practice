@@ -1,0 +1,71 @@
+package ru.unn.agile.HexBinOctCalculator.Model;
+
+enum NumeralSystem {
+    HEX(16),
+    BIN(2),
+    OCT(8);
+
+    private final int value;
+
+    NumeralSystem(final int newValue) {
+        value = newValue;
+    }
+
+    public int getValue() {
+        return value;
+    }
+}
+
+public final class HexBinOctCalculator {
+    private HexBinOctCalculator() {
+        //not called
+    }
+
+    private static String returnResult(final Integer res, final NumeralSystem system) {
+        switch (system) {
+            case HEX:
+                return Integer.toHexString(res);
+            case BIN:
+                return Integer.toBinaryString(res);
+            case OCT:
+                return Integer.toOctalString(res);
+            default:
+                return Integer.toString(res);
+        }
+    }
+
+    public static String add(final String firstNumber, final String secondNumber,
+                             final NumeralSystem system) {
+        int left = Integer.parseInt(firstNumber, system.getValue());
+        int right = Integer.parseInt(secondNumber, system.getValue());
+        int sum = left + right;
+        return returnResult(sum, system);
+    }
+
+    public static String subtract(final String firstNumber, final String secondNumber,
+                                  final NumeralSystem system) {
+        int left = Integer.parseInt(firstNumber, system.getValue());
+        int right = Integer.parseInt(secondNumber, system.getValue());
+        int diff = left - right;
+        return returnResult(diff, system);
+    }
+
+    public static String multiply(final String firstNumber, final String secondNumber,
+                                  final NumeralSystem system) {
+        int left = Integer.parseInt(firstNumber, system.getValue());
+        int right = Integer.parseInt(secondNumber, system.getValue());
+        int prod = left * right;
+        return returnResult(prod, system);
+    }
+
+    public static String divide(final String firstNumber, final String secondNumber,
+                                final NumeralSystem system) {
+        int left = Integer.parseInt(firstNumber, system.getValue());
+        int right = Integer.parseInt(secondNumber, system.getValue());
+        if (right == 0) {
+            return "Division by zero!";
+        }
+        int quotient = left / right;
+        return returnResult(quotient, system);
+    }
+}
