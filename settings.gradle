@@ -6,10 +6,6 @@ project(":code/bevzuk-anton").name = "bevzuk-anton-Model"
 include "code/kornyakov-kirill-lab1"
 project(":code/kornyakov-kirill-lab1").name = "kornyakov-kirill-lab1-Model"
 
-// Kochanova Ksenya
-include "code/kochanova-ksenya"
-project(":code/kochanova-ksenya").name = "kochanova-ksenya-Model"
-
 // Kornyakov Kirill, lab2-legacy
 include "code/kornyakov-kirill-lab2-legacy/Model"
 project(":code/kornyakov-kirill-lab2-legacy/Model").name = "kornyakov-kirill-lab2-Model-legacy"
@@ -65,6 +61,8 @@ project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-l
 // Kazanbaev Dmitrij
 // Khanova Tatyana
 // Kochanova Kseniya
+include "code/kochanova-ksenya"
+project(":code/kochanova-ksenya").name = "kochanova-ksenya-Model"
 // Korotaev Aleksej
 // Korotaev Pavel
 // Kumaev Vasilij
