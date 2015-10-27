@@ -18,6 +18,10 @@ public class Deque<T> {
         return list.toArray();
     }
 
+    public boolean isEmpty() {
+        return list.isEmpty();
+    }
+
     public void pushFront(final T item) {
         if (item == null) {
             return; //null-safe behavior
@@ -33,7 +37,7 @@ public class Deque<T> {
     }
 
     public T popBack() {
-        if (!list.isEmpty()) {
+        if (!isEmpty()) {
             T item = list.get(list.size() - 1);
             list.remove(list.size() - 1);
             return item;
@@ -42,7 +46,7 @@ public class Deque<T> {
     }
 
     public T popFront() {
-        if (!list.isEmpty()) {
+        if (!isEmpty()) {
             T item = list.get(0);
             list.remove(0);
             return item;
