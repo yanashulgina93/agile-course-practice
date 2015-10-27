@@ -69,17 +69,35 @@ public class Quat {
 	}
 
 	public Quat add(Quat q2) {
-		// TODO Auto-generated method stub
 		return new Quat(this.scalar + q2.scalar, this.getVec().add(q2.getVec()));
 	}
 
 	public double length() {
-		// TODO Auto-generated method stub
 		return Math.sqrt(scalar * scalar + vec.dot(vec));
 	}
 
 	public Quat conj() {
-		// TODO Auto-generated method stub
 		return new Quat(scalar, vec.mul(-1));
+	}
+
+	public Quat mul(Quat other) {
+		Vec3d tmpVecPath = other.vec.mul(this.scalar).add(this.vec.mul(other.scalar));
+		return new Quat(this.scalar * other.scalar - this.vec.dot(other.vec), this.vec.mul(other.vec).add(tmpVecPath));
+	}
+	
+	public Quat mul(double scalar) {
+		return new Quat(this.scalar * scalar, this.vec.mul(scalar));
+	}
+
+	public Quat inv() {
+		Quat conjQuat = this.conj();
+		double len2 = this.length() * this.length();
+		double coeff = 1.0 / len2;
+		return conjQuat.mul(coeff);
+	}
+
+	public double getArg() {
+		// TODO Auto-generated method stub
+		return Math.acos(this.getScalar()/this.length());
 	}
 }

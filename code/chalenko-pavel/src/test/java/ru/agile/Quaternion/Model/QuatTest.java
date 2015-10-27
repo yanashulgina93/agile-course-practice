@@ -128,9 +128,101 @@ public class QuatTest {
 	}
 	
 	@Test
-	public void isConjConjIdentical(){
+	public void isConjConjEqualsIdentical(){
 		Quat actualConjConjQuat = q1.conj().conj();
 		
 		assertTrue("Can't calculate conjugate quaternion", actualConjConjQuat.equals(q1));
 	}
+	
+	@Test
+	public void canMulScalarQuat(){
+		Quat expectedMulQuat = new Quat(8, 0, 0, 0);
+		q1 = new Quat(2, 0, 0, 0);
+		q2 = new Quat(4, 0, 0, 0);
+		
+		Quat actualMulQuat = q1.mul(q2);
+		
+		assertTrue("Can't multiplicate quaternion", actualMulQuat.equals(expectedMulQuat));
+	}
+	
+	@Test
+	public void canMulVecQuat(){
+		Quat expectedMulQuat = new Quat(-10, -4, 8, -4);
+		q1 = new Quat(0, 1, 2, 3);
+		q2 = new Quat(0, 3, 2, 1);
+		
+		Quat actualMulQuat = q1.mul(q2);
+		
+		assertTrue("Can't multiplicate quaternion", actualMulQuat.equals(expectedMulQuat));
+	}
+	
+	@Test
+	public void canMulScalalToVecQuat(){
+		Quat expectedMulQuat = new Quat(0, 6, 4, 2);
+		q1 = new Quat(2, 0, 0, 0);
+		q2 = new Quat(0, 3, 2, 1);
+		
+		Quat actualMulQuat = q1.mul(q2);
+		
+		assertTrue("Can't multiplicate quaternion", actualMulQuat.equals(expectedMulQuat));
+	}
+	
+	@Test
+	public void canMul(){
+		Quat expectedMulQuat = new Quat(-2.5, 3.75, 10, 6.25);
+		
+		Quat actualMulQuat = q1.mul(q2);
+		
+		assertTrue("Can't multiplicate quaternion", actualMulQuat.equals(expectedMulQuat));
+	}
+	
+	@Test
+	public void isMulNonComutative(){
+		Quat q12 = q1.mul(q2);
+		Quat q21 = q2.mul(q1);
+		boolean actual = q12.equals(q21);
+		
+		assertFalse("Quaternions mul is comutative", actual);
+	}
+	
+	@Test
+	public void canInv(){
+		Quat expectedInvQuat = new Quat(0.033, -0.067, -0.1, -0.133);
+		
+		Quat actualInvQuat = q1.inv();
+		
+		assertEquals("Can't inverse quaternion", actualInvQuat.getScalar(), expectedInvQuat.getScalar(), eps);
+		assertEquals("Can't inverse quaternion", actualInvQuat.getI(), expectedInvQuat.getI(), eps);
+		assertEquals("Can't inverse quaternion", actualInvQuat.getJ(), expectedInvQuat.getJ(), eps);
+		assertEquals("Can't inverse quaternion", actualInvQuat.getK(), expectedInvQuat.getK(), eps);
+	}
+	
+	@Test
+	public void isInvInvEqualsIdentical(){
+		Quat actualInvInvQuat = q1.inv().inv();
+		
+		assertEquals("Can't inverse quaternion", actualInvInvQuat.getScalar(), q1.getScalar(), eps);
+		assertEquals("Can't inverse quaternion", actualInvInvQuat.getI(), q1.getI(), eps);
+		assertEquals("Can't inverse quaternion", actualInvInvQuat.getJ(), q1.getJ(), eps);
+		assertEquals("Can't inverse quaternion", actualInvInvQuat.getK(), q1.getK(), eps);
+	}
+	
+	@Test
+	public void isQuatMulInvEqualsIdentical(){
+		Quat expectedIdentical = new Quat(1, 0, 0, 0);
+		
+		Quat actualMulInvt = q1.mul(q1.inv());
+		
+		assertTrue("Can't inverse quaternion", actualMulInvt.equals(expectedIdentical));
+	}
+	
+	@Test
+	public void canGetArg(){
+		double expectedAngle = 1.387;
+		
+		double actualAngle = q1.getArg();
+		
+		assertEquals("Can't get argument of quaternion", expectedAngle, actualAngle, eps);
+	}
+	
 }
