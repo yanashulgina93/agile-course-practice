@@ -17,7 +17,7 @@ public class CurrencyConverter {
         {
             double[] someCurrencyToDollar = {DOLLAR, EURO, RUBLE, POUND};
             Currency outputCurrency = new Currency(0, Unit.Dollar);
-            RoundUp valueAfterRound = new RoundUp();
+            AccuracyCorrector valueAfterRound = new AccuracyCorrector();
 
             int indexOfInputUnit = inputCurrency.getUnit().ordinal();
             int indexOfOutputUnit = unitOutputCurrency.ordinal();

@@ -4,9 +4,9 @@ package ru.unn.agile.CurrencyConverter.Model;
 /**
  * Created by ksenyako on 26.10.2015.
  */
-public class RoundUp {
+public class AccuracyCorrector {
     static final double HUNDREDTH_PATH  = 100;
-    public RoundUp() {
+    public AccuracyCorrector() {
     //empty
     }
 
