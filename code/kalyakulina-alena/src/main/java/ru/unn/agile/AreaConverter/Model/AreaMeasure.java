@@ -1,4 +1,4 @@
-package ru.unn.agile.AreaConverter.Model;
+package ru.unn.agile.AreaConverter.core;
 
 public enum AreaMeasure {
     SQUARE_METER(1.0),
