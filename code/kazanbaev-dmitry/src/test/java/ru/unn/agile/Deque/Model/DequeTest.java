@@ -3,27 +3,28 @@ package deque.Model;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class DequeTest {
     @Test
-    public void createdDequeWithoutParametersIsNotNull() {
+    public void createdDequeWithoutParameterIsNotNull() {
         Deque<Integer> deque = new Deque<>();
 
         assertNotNull(deque);
     }
 
     @Test
-    public void createdDequeWithParametersIsNotNull() {
+    public void createdDequeWithParameterContainsProperInformation() {
         List<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(9);
 
         Deque<Integer> deque = new Deque<>(list);
 
-        assertNotNull(deque);
+        assertTrue(Arrays.equals(deque.toArray(), list.toArray()));
     }
 
     @Test
@@ -33,7 +34,7 @@ public class DequeTest {
         deque.pushFront(9);
         deque.pushFront(-1);
 
-        assertEquals("[-1, 9, 1]", deque.toString());
+        assertArrayEquals(new Integer[]{-1, 9, 1}, deque.toArray());
     }
 
     @Test
@@ -43,7 +44,7 @@ public class DequeTest {
         deque.pushFront(null);
         deque.pushFront(-1);
 
-        assertEquals("[-1, 1]", deque.toString());
+        assertArrayEquals(new Integer[]{-1, 1}, deque.toArray());
     }
 
     @Test
@@ -53,7 +54,7 @@ public class DequeTest {
         deque.pushBack(9);
         deque.pushBack(-1);
 
-        assertEquals("[1, 9, -1]", deque.toString());
+        assertArrayEquals(new Integer[]{1, 9, -1}, deque.toArray());
     }
 
     @Test
@@ -63,6 +64,6 @@ public class DequeTest {
         deque.pushBack(null);
         deque.pushBack(-1);
 
-        assertEquals("[1, -1]", deque.toString());
+        assertArrayEquals(new Integer[]{1, -1}, deque.toArray());
     }
 }

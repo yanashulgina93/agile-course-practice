@@ -7,28 +7,27 @@ public class Deque<T> {
     private final List<T> list;
 
     public Deque() {
-        list = new ArrayList<>();
+        this.list = new ArrayList<>();
     }
 
     public Deque(final List<T> list) {
-        this.list = list;
+        this.list = new ArrayList<>(list);
     }
 
-    @Override
-    public String toString() {
-        return list.toString();
+    public Object[] toArray() {
+        return list.toArray();
     }
 
     public void pushFront(final T item) {
         if (item == null) {
-            return;
+            return; //null-safe behavior
         }
         list.add(0, item);
     }
 
     public void pushBack(final T item) {
         if (item == null) {
-            return;
+            return; //null-safe behavior
         }
         list.add(item);
     }
