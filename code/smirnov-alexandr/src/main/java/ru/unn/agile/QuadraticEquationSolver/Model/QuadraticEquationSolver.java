@@ -1,7 +1,7 @@
 package ru.unn.agile.QuadraticEquationSolver.Model;
 
 public class QuadraticEquationSolver {
-    private static final float COEFICIENT_IN_FORMULA_DISCRIMINANT = 4.0f;
+    private static final float COEFFICIENT_IN_FORMULA_DISCRIMINANT = 4.0f;
     private static final float COEFFICIENT_IN_FORMULA_ROOTS = 2.0f;
 
     public String solve(final float a, final float b, final float c) {
@@ -31,7 +31,7 @@ public class QuadraticEquationSolver {
     }
 
     private float calcDiscriminant(final float a, final float b, final float c) {
-        return b * b - COEFICIENT_IN_FORMULA_DISCRIMINANT * a * c;
+        return b * b - COEFFICIENT_IN_FORMULA_DISCRIMINANT * a * c;
     }
 
     private String calcOneRootByFormula(final float a, final float b) {
