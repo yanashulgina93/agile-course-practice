@@ -2,7 +2,7 @@ package ru.unn.agile.AreaConverter.Model;
 
 public class AreaConverterBuilder {
 
-    public AreaConverter buildConverter(AreaMeasure from, AreaMeasure to) {
+    public AreaConverter buildConverter(final AreaMeasure from, final AreaMeasure to) {
 
         double convertCoeff = from.getMeasureCoeff() / to.getMeasureCoeff();
 
