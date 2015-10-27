@@ -6,9 +6,6 @@ package ru.unn.agile.CurrencyConverter.Model;
  */
 public class AccuracyCorrector {
     static final double HUNDREDTH_PATH  = 100;
-    public AccuracyCorrector() {
-    //empty
-    }
 
     public double rounding(final double valueBeforeRound) {
         double tempValue = (int) Math.round(valueBeforeRound * HUNDREDTH_PATH);

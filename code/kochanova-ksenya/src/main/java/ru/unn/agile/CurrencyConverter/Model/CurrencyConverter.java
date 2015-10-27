@@ -9,10 +9,6 @@ public class CurrencyConverter {
         static final double RUBLE = 0.016;
         static final double POUND = 1.59;
 
-        public CurrencyConverter() {
-            //empty
-        }
-
         public Currency convertCurrency(final Currency inputCurrency, final Unit unitOutputCurrency)
         {
             double[] someCurrencyToDollar = {DOLLAR, EURO, RUBLE, POUND};
