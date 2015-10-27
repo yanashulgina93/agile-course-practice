@@ -3,9 +3,22 @@ package ru.unn.agile.statistics.model;
 import java.util.Collection;
 import java.util.Iterator;
 
-public class StatisticValuesCalculator
-{
-    public StatisticValuesCalculator(Collection<IStatisticDataInstance> dataForStatistics) {
+public class StatisticValuesCalculator {
+
+    private double[] processedStatistics;
+
+    private static final double EPS_FOR_DOUBLE_COMPARISON = 1e-3;
+
+    private static final double ENUMERATION_OF_EMPTY_DATA = 0.0;
+    private static final double PROBABILITY_OF_EVENT_WITH_EMPTY_DATA = 0.0;
+    private static final double VARIANCE_OF_EMPTY_DATA = 0.0;
+    private static final double VARIANCE_OF_DATA_WITH_SINGLE_INSTANCE = 0.0;
+    private static final double RAW_MOMENT_OF_EMPTY_DATA = 0.0;
+    private static final double RAW_MOMENT_WITH_NOT_POSITIVE_ORDER = 0.0;
+    private static final double CENTRAL_MOMENT_OF_EMPTY_DATA = 0.0;
+    private static final double CENTRAL_MOMENT_WITH_NOT_POSITIVE_ORDER = 0.0;
+
+    public StatisticValuesCalculator(final Collection<IStatisticDataInstance> dataForStatistics) {
         setUsedStatistics(dataForStatistics);
     }
 
@@ -13,9 +26,8 @@ public class StatisticValuesCalculator
         processedStatistics = null;
     }
 
-    public void setUsedStatistics(Collection<IStatisticDataInstance> dataForStatistics){
-        if(dataForStatistics == null)
-        {
+    public void setUsedStatistics(final Collection<IStatisticDataInstance> dataForStatistics) {
+        if (dataForStatistics == null) {
             processedStatistics = null;
             return;
         }
@@ -23,13 +35,13 @@ public class StatisticValuesCalculator
         int dataSize = dataForStatistics.size();
         processedStatistics = new double[dataSize];
         Iterator<IStatisticDataInstance> dataIterator = dataForStatistics.iterator();
-        for(int i = 0; i < dataSize; i++){
+        for (int i = 0; i < dataSize; i++) {
             processedStatistics[i] = dataIterator.next().getInstance();
         }
     }
 
     public double calculateEnumerationOfStatistics() {
-        if(processedStatistics == null) {
+        if (processedStatistics == null) {
             return ENUMERATION_OF_EMPTY_DATA;
         }
 
@@ -42,16 +54,16 @@ public class StatisticValuesCalculator
         return enumeration;
     }
 
-    public double calculateProbabilityInStatisticsOfEvent(IStatisticDataInstance event) {
-        if(processedStatistics == null){
+    public double calculateProbabilityInStatisticsOfEvent(final IStatisticDataInstance event) {
+        if (processedStatistics == null) {
             return PROBABILITY_OF_EVENT_WITH_EMPTY_DATA;
         }
 
         double instanceOfEvent = event.getInstance();
         double probability = 0.0;
 
-        for(double instanceOfData : processedStatistics){
-            if(areTwoDoublesEqual(instanceOfData, instanceOfEvent)){
+        for (double instanceOfData : processedStatistics) {
+            if (areTwoDoublesEqual(instanceOfData, instanceOfEvent)) {
                 probability++;
             }
         }
@@ -60,74 +72,61 @@ public class StatisticValuesCalculator
     }
 
     public double calculateVarianceOfStatistics() {
-        if(processedStatistics == null){
+        if (processedStatistics == null) {
             return VARIANCE_OF_EMPTY_DATA;
         }
 
-        if(processedStatistics.length == 1){
-            return VARIANCE_OF_DATA_WITH_SIGLE_INSTANCE;
+        if (processedStatistics.length == 1) {
+            return VARIANCE_OF_DATA_WITH_SINGLE_INSTANCE;
         }
 
-        double en = calculateEnumerationOfStatistics();
-        double var = 0.0;
+        double enumeration = calculateEnumerationOfStatistics();
+        double variance = 0.0;
 
-        for(double instanceOfData : processedStatistics){
-            var += Math.pow(instanceOfData - en, 2);
+        for (double instanceOfData : processedStatistics) {
+            variance += Math.pow(instanceOfData - enumeration, 2);
         }
-        var /= (processedStatistics.length - 1);
+        variance = variance / (processedStatistics.length - 1);
 
-        return var;
+        return variance;
     }
 
-    public double calculateRawMomentOfStatistics(int order) {
-        if(processedStatistics == null) {
+    public double calculateRawMomentOfStatistics(final int order) {
+        if (processedStatistics == null) {
             return RAW_MOMENT_OF_EMPTY_DATA;
         }
 
-        if(order <= 0){
+        if (order <= 0) {
             return RAW_MOMENT_WITH_NOT_POSITIVE_ORDER;
         }
 
-        double rawMom = 0.0;
+        double rawMoment = 0.0;
         for (double instance : processedStatistics) {
-            rawMom += Math.pow(instance, order);
+            rawMoment += Math.pow(instance, order);
         }
-        rawMom /= processedStatistics.length;
+        rawMoment /= processedStatistics.length;
 
-        return rawMom;
+        return rawMoment;
     }
 
-    public double calculateCentralMomentOfStatistics(int order) {
-        if(processedStatistics == null){
+    public double calculateCentralMomentOfStatistics(final int order) {
+        if (processedStatistics == null) {
             return CENTRAL_MOMENT_OF_EMPTY_DATA;
         }
-        if(order <= 0){
+        if (order <= 0) {
             return CENTRAL_MOMENT_WITH_NOT_POSITIVE_ORDER;
         }
 
-        double centralMom = 0.0;
+        double centralMoment = 0.0;
         double en = calculateEnumerationOfStatistics();
-        for(double instance : processedStatistics){
-            centralMom += Math.pow(instance - en, order);
+        for (double instance : processedStatistics) {
+            centralMoment += Math.pow(instance - en, order);
         }
-        centralMom /= processedStatistics.length;
-        return centralMom;
+        centralMoment /= processedStatistics.length;
+        return centralMoment;
     }
 
-    private boolean areTwoDoublesEqual(double firstNumber, double secondNumber){
-        return (Math.abs(firstNumber - secondNumber) <= EPS_FOR_DOUBLE_COMPARISON);
+    private boolean areTwoDoublesEqual(final double firstNumber, final double secondNumber) {
+        return Math.abs(firstNumber - secondNumber) <= EPS_FOR_DOUBLE_COMPARISON;
     }
-
-    private double[] processedStatistics;
-
-    private final double EPS_FOR_DOUBLE_COMPARISON = 1e-3;
-
-    private final double ENUMERATION_OF_EMPTY_DATA = 0.0;
-    private final double PROBABILITY_OF_EVENT_WITH_EMPTY_DATA = 0.0;
-    private final double VARIANCE_OF_EMPTY_DATA = 0.0;
-    private final double VARIANCE_OF_DATA_WITH_SIGLE_INSTANCE = 0.0;
-    private final double RAW_MOMENT_OF_EMPTY_DATA = 0.0;
-    private final double RAW_MOMENT_WITH_NOT_POSITIVE_ORDER = 0.0;
-    private final double CENTRAL_MOMENT_OF_EMPTY_DATA = 0.0;
-    private final double CENTRAL_MOMENT_WITH_NOT_POSITIVE_ORDER = 0.0;
 }
