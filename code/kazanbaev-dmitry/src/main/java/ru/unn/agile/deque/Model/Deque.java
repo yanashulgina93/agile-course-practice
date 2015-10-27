@@ -1,4 +1,4 @@
-package deque.Model;
+package ru.unn.agile.deque.Model;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,10 @@
-package deque.Model;
+package ru.unn.agile.deque.Model;
 
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -12,6 +13,17 @@ public class DequeTest {
     @Test
     public void createdDequeWithoutParameterIsNotNull() {
         Deque<Integer> deque = new Deque<>();
+
+        assertNotNull(deque);
+    }
+
+    @Test
+    public void createdDequeWithParameterIsNotNull() {
+        List<Integer> list = new ArrayList<>();
+        list.add(2);
+        list.add(-5);
+
+        Deque<Integer> deque = new Deque<>(list);
 
         assertNotNull(deque);
     }
@@ -38,6 +50,15 @@ public class DequeTest {
     }
 
     @Test
+    public void doesPushFrontWorkProperlyWithDates() {
+        Deque<Date> deque = new Deque<>();
+        deque.pushFront(new Date(750384000));
+        deque.pushFront(new Date(1444608000));
+
+        assertArrayEquals(new Date[]{new Date(1444608000), new Date(750384000)}, deque.toArray());
+    }
+
+    @Test
     public void doesPushFrontWorkProperlyWithNull() {
         Deque<Integer> deque = new Deque<>();
         deque.pushFront(1);
@@ -55,6 +76,15 @@ public class DequeTest {
         deque.pushBack(-1);
 
         assertArrayEquals(new Integer[]{1, 9, -1}, deque.toArray());
+    }
+
+    @Test
+    public void doesPushBackWorkProperlyWithDates() {
+        Deque<Date> deque = new Deque<>();
+        deque.pushBack(new Date(750384000));
+        deque.pushBack(new Date(1444608000));
+
+        assertArrayEquals(new Date[]{new Date(750384000), new Date(1444608000)}, deque.toArray());
     }
 
     @Test
