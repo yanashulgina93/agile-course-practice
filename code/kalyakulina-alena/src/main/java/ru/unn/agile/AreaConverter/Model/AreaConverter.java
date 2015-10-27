@@ -2,7 +2,7 @@ package ru.unn.agile.AreaConverter.Model;
 
 public class AreaConverter {
 
-    public double convertFromTo(final AreaMeasure from, final AreaMeasure to, final double value) {
+    public double fromTo(final AreaMeasure from, final AreaMeasure to, final double value) {
         if (value < 0.0) {
             throw new IllegalArgumentException("Negative input area");
         }
