@@ -3,12 +3,14 @@
  */
 package test.java.ru.agile.Quaternion.Model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import main.java.ru.agile.Quaternion.Model.Vec3d;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import main.java.ru.agile.Quaternion.Model.Vec3d;
 
 /**
  * @author User
@@ -39,6 +41,16 @@ public class Vec3dTest {
 		Vec3d vec3 = new Vec3d(1, 2.0, 3.0);
 		
 		assertTrue("Two vectors are not equals", vec1.equals(vec3));
+	}
+	
+	@Test
+	public void isVec3dEqualsComutative(){
+		Vec3d vec = new Vec3d(1, 2.0, 3.0);
+		
+		boolean e1 = vec1.equals(vec);
+		boolean e2 = vec.equals(vec1);
+		
+		assertEquals("Equals isn't comutative", e1, e2);
 	}
 	
 	@Test
@@ -80,14 +92,14 @@ public class Vec3dTest {
 	public void canSetInitialValueY(){
 		double y = vec1.getY();
 		
-		assertEquals("Can't set initial x value", 2.0, y, eps);
+		assertEquals("Can't set initial y value", 2.0, y, eps);
 	}
 	
 	@Test
 	public void canSetInitialValueZ(){
 		double z = vec1.getZ();
 		
-		assertEquals("Can't set initial x value", 3.0, z, eps);
+		assertEquals("Can't set initial z value", 3.0, z, eps);
 	}
 	
 	@Test
@@ -97,6 +109,15 @@ public class Vec3dTest {
 		Vec3d actualSumVec = vec1.add(vec2);
 		
 		assertTrue("Can't added vectors", actualSumVec.equals(expectedSumVec));
+	}
+	
+	@Test
+	public void isAddComutative(){
+		Vec3d add12 = vec1.add(vec2);
+		Vec3d add21 = vec2.add(vec1);
+		boolean actual = add12.equals(add21);
+		
+		assertTrue("Vector add isn't comutative", actual);
 	}
 	
 	@Test
@@ -150,10 +171,12 @@ public class Vec3dTest {
 	
 	@Test
 	public void isVecMulNonComutative(){
-		Vec3d actualVec12 = vec1.mul(vec2);
-		Vec3d actualVec21 = vec2.mul(vec1);
+		Vec3d mul12 = vec1.mul(vec2);
+		Vec3d mul21 = vec2.mul(vec1);
 		
-		assertTrue("Can't vector multiply", !actualVec12.equals(actualVec21));
+		boolean actual = mul12.equals(mul21);
+		
+		assertFalse("Vector multiply isn't comutative", actual);
 	}
 	
 	@Test
@@ -163,5 +186,13 @@ public class Vec3dTest {
 		Vec3d actualVec = vec1.mul(2);
 		
 		assertTrue("Can't calculate length", actualVec.equals(expectedVec));
-		}
+	}
+	
+	@Test
+	public void canCopy(){
+		Vec3d actualVec = new Vec3d(vec1);
+		
+		assertTrue("Can't copy vector", actualVec.equals(vec1));
+		assertFalse("Can't copy vector", actualVec.equals(vec2));
+	}
 }
