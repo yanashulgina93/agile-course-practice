@@ -56,7 +56,11 @@ project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-l
 // Golodyaev Andrej
 // Goroxov Dmitrij
 // Kajnov Oleg
+
 // Kalyakulina Alyona
+include "code/kalyakulina-alena"
+project(":code/kalyakulina-alena").name = "kalyakulina-alena-Model"
+
 // Karpunin Yaroslav
 // Kazanbaev Dmitrij
 // Khanova Tatyana
