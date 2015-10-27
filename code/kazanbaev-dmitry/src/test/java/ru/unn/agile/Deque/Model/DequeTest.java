@@ -27,7 +27,7 @@ public class DequeTest {
     }
 
     @Test
-    public void doesPushFrontWorkProperly() {
+    public void doesPushFrontWorkProperlyWithIntegers() {
         Deque<Integer> deque = new Deque<>();
         deque.pushFront(1);
         deque.pushFront(9);
@@ -37,12 +37,32 @@ public class DequeTest {
     }
 
     @Test
-    public void doesPushBackWorkProperly() {
+    public void doesPushFrontWorkProperlyWithNull() {
+        Deque<Integer> deque = new Deque<>();
+        deque.pushFront(1);
+        deque.pushFront(null);
+        deque.pushFront(-1);
+
+        assertEquals("[-1, 1]", deque.toString());
+    }
+
+    @Test
+    public void doesPushBackWorkProperlyWithIntegers() {
         Deque<Integer> deque = new Deque<>();
         deque.pushBack(1);
         deque.pushBack(9);
         deque.pushBack(-1);
 
         assertEquals("[1, 9, -1]", deque.toString());
+    }
+
+    @Test
+    public void doesPushBackWorkProperlyWithNull() {
+        Deque<Integer> deque = new Deque<>();
+        deque.pushBack(1);
+        deque.pushBack(null);
+        deque.pushBack(-1);
+
+        assertEquals("[1, -1]", deque.toString());
     }
 }

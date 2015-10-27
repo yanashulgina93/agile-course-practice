@@ -20,10 +20,16 @@ public class Deque<T> {
     }
 
     public void pushFront(final T item) {
+        if (item == null) {
+            return;
+        }
         list.add(0, item);
     }
 
     public void pushBack(final T item) {
+        if (item == null) {
+            return;
+        }
         list.add(item);
     }
 }
