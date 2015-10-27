@@ -9,6 +9,9 @@ public class Length {
     Length(final double val, final LengthUnit un) {
         this.value = val;
         this.unitInput = un;
+        if (val < 0) {
+            throw new IllegalArgumentException();
+        }
     }
 
     public boolean isEqual(final Object object) {

@@ -86,4 +86,9 @@ public class LengthConvertorTest {
         assertEquals(LengthUnit.CMeter, length.getUnit());
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void throwsOnNegativeValue() {
+        Length length = new Length(-1.0, LengthUnit.Yard);
+    }
+
 }

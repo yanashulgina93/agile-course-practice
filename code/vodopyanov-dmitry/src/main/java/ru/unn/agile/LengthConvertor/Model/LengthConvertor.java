@@ -9,19 +9,15 @@ public class LengthConvertor {
     static final double KMETER = 1000;
     static final double CMETER = 0.01;
 
-    public LengthConvertor() {
-        // The default constructor
-    }
-
     public Length convert(final Length length, final LengthUnit unitOutput) {
         double[] multiplierMeter = {INCH, FOOT, YARD, MILE, METER, KMETER, CMETER};
         if (length.getValue() >= 0) {
             length.setValue(multiplierMeter[length.getUnit().ordinal()]
                           / multiplierMeter[unitOutput.ordinal()] * length.getValue());
+            length.setUnitInput(unitOutput);
         } else {
-            length.setValue(-1);
+            throw new IllegalArgumentException();
         }
-        length.setUnitInput(unitOutput);
         return length;
     }
 }
