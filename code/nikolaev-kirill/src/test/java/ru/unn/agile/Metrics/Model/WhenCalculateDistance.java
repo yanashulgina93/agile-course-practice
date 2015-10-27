@@ -16,22 +16,20 @@ public class WhenCalculateDistance {
         distanceCalculator = new DistanceCalculator();
     }
 
-    @Test
-    public void nullGivesMinusOneInRhoInf() {
+    @Test(expected = IllegalArgumentException.class)
+    public void nullThrowsInRhoInf() {
         float[] firstVector = null;
         float[] secondVector = {1, -2, 3};
         float result = distanceCalculator.calculateDistance(firstVector, secondVector,
                 Metric.RHO_INF);
-        assertEquals(-1.0f, result, delta);
     }
 
-    @Test
-    public void vectorsWithDifferentSizesGivesMinusOneInRhoInf() {
+    @Test(expected = IllegalArgumentException.class)
+    public void vectorsWithDifferentSizesThrowsInRhoInf() {
         float[] firstVector = {3, -4, 5};
         float[] secondVector = {-6, 7, -8, 9};
         float result = distanceCalculator.calculateDistance(firstVector, secondVector,
                 Metric.RHO_INF);
-        assertEquals(-1.0f, result, delta);
     }
 
 
@@ -52,22 +50,20 @@ public class WhenCalculateDistance {
         assertEquals(5.0f, result, delta);
     }
 
-    @Test
-    public void nullGivesMinusOneInRhoOne() {
+    @Test(expected = IllegalArgumentException.class)
+    public void nullThrowsInRhoOne() {
         float[] firstVector = null;
         float[] secondVector = {1, -2, 3};
         float result = distanceCalculator.calculateDistance(firstVector, secondVector,
             Metric.RHO_ONE);
-        assertEquals(-1.0f, result, delta);
     }
 
-    @Test
-    public void vectorsWithDifferentSizesGivesMinusOneInRhoOne() {
+    @Test(expected = IllegalArgumentException.class)
+    public void vectorsWithDifferentSizesThrowsInRhoOne() {
         float[] firstVector = {3, -4, 5};
         float[] secondVector = {-6, 7, -8, 9};
         float result = distanceCalculator.calculateDistance(firstVector, secondVector,
             Metric.RHO_ONE);
-        assertEquals(-1.0f, result, delta);
     }
 
     @Test
@@ -87,22 +83,20 @@ public class WhenCalculateDistance {
         assertEquals(12.0f, result, delta);
     }
 
-    @Test
-    public void nullGivesMinusOneInRhoTwo() {
+    @Test(expected = IllegalArgumentException.class)
+    public void nullThrowsInRhoTwo() {
         float[] firstVector = null;
         float[] secondVector = {1, -2, 3};
         float result = distanceCalculator.calculateDistance(firstVector, secondVector,
             Metric.RHO_TWO);
-        assertEquals(-1.0f, result, delta);
     }
 
-    @Test
-    public void vectorsWithDifferentSizesGivesMinusOneInRhoTwo() {
+    @Test(expected = IllegalArgumentException.class)
+    public void vectorsWithDifferentSizesThrowsInRhoTwo() {
         float[] firstVector = {3, -4, 5};
         float[] secondVector = {-6, 7, -8, 9};
         float result = distanceCalculator.calculateDistance(firstVector, secondVector,
             Metric.RHO_TWO);
-        assertEquals(-1.0f, result, delta);
     }
 
     @Test
@@ -122,22 +116,20 @@ public class WhenCalculateDistance {
         assertEquals(6.0f, result, delta);
     }
 
-    @Test
-    public void nullGivesMinusOneInRhoThree() {
+    @Test(expected = IllegalArgumentException.class)
+    public void nullThrowsInRhoThree() {
         float[] firstVector = null;
         float[] secondVector = {1, -2, 3};
         float result = distanceCalculator.calculateDistance(firstVector, secondVector,
                 Metric.RHO_THREE);
-        assertEquals(-1.0f, result, delta);
     }
 
-    @Test
-    public void vectorsWithDifferentSizesGivesMinusOneInRhoThree() {
+    @Test(expected = IllegalArgumentException.class)
+    public void vectorsWithDifferentSizesThrowsInRhoThree() {
         float[] firstVector = {3, -4, 5};
         float[] secondVector = {-6, 7, -8, 9};
         float result = distanceCalculator.calculateDistance(firstVector, secondVector,
                 Metric.RHO_THREE);
-        assertEquals(-1.0f, result, delta);
     }
 
     @Test
@@ -157,22 +149,20 @@ public class WhenCalculateDistance {
         assertEquals(4.0f, result, delta);
     }
 
-    @Test
-    public void nullGivesMinusOneInRhoFour() {
+    @Test(expected = IllegalArgumentException.class)
+    public void nullThrowsInRhoFour() {
         float[] firstVector = null;
         float[] secondVector = {1, -2, 3};
         float result = distanceCalculator.calculateDistance(firstVector, secondVector,
                 Metric.RHO_FOUR);
-        assertEquals(-1.0f, result, delta);
     }
 
-    @Test
-    public void vectorsWithDifferentSizesGivesMinusOneInRhoFour() {
+    @Test(expected = IllegalArgumentException.class)
+    public void vectorsWithDifferentSizesThrowsInRhoFour() {
         float[] firstVector = {3, -4, 5};
         float[] secondVector = {-6, 7, -8, 9};
         float result = distanceCalculator.calculateDistance(firstVector, secondVector,
                 Metric.RHO_FOUR);
-        assertEquals(-1.0f, result, delta);
     }
 
     @Test

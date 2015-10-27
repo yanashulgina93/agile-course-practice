@@ -9,7 +9,7 @@ class DistanceCalculator {
     public float calculateDistance(final float[] firstVector, final float[] secondVector,
                                    final Metric metric) {
         if (isIncorrectInput(firstVector, secondVector)) {
-            return -1.0f;
+            throw new IllegalArgumentException("Input is incorrect: null or different size");
         }
         if (isTheSame(firstVector, secondVector)) {
             return 0.0f;
