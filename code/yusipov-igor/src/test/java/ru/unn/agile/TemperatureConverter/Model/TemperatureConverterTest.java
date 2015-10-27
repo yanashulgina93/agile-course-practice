@@ -1,4 +1,4 @@
-package ru.unn.agile.TemperatureConverter.Model;
+package ru.unn.agile.TemperatureConverter.core;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
