@@ -81,7 +81,11 @@ project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-l
 // Sevrikov Ilya
 // Shulgina Yana
 // Smirnov Aleksandr
+
 // Smirnov Mixail
+include "code/smirnov-michael"
+project(":code/smirnov-michael").name = "smirnov-michael-Model"
+
 // Smirnov Vyacheslav
 // Sulin Dmitrij
 // Timonova Anastasiya
