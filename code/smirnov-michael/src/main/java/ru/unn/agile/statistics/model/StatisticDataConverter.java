@@ -3,7 +3,7 @@ package ru.unn.agile.statistics.model;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class StatisticDataConverter {
+public final class StatisticDataConverter {
     public static Collection<IStatisticDataInstance> ConvertFromIntArray(int[] data){
         if(data == null) {
             return null;
