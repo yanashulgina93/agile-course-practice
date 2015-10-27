@@ -2,13 +2,9 @@ package ru.unn.agile.BitArray.core;
 
 import org.junit.Test;
 import java.util.Arrays;
-import org.junit.Rule;
-import org.junit.rules.ExpectedException;
 import static org.junit.Assert.*;
 
 public class BitArrayTest {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
 //    @Test
 //    public void failingTest() {
@@ -27,10 +23,9 @@ public class BitArrayTest {
         assertNotNull(bitArr.getBit(0));
     }
 
-    @Test()
+    @Test(expected = IndexOutOfBoundsException.class)
     public void failWhenGetValueBitWithIndexOutOfRangeSize() {
         BitArray bitArr = new BitArray(5);
-        thrown.expect(Exception.class);
         bitArr.getBit(6);
     }
 
@@ -41,10 +36,9 @@ public class BitArrayTest {
         assertTrue(bitArr.getBit(1));
     }
 
-    @Test()
+    @Test(expected = IndexOutOfBoundsException.class)
     public void failWhenSetValueBitWithIndexOutOfRangeSize() {
         BitArray bitArr = new BitArray(5);
-        //thrown.expect(Exception.class);
         bitArr.setBit(-1, true);
     }
 
@@ -70,7 +64,7 @@ public class BitArrayTest {
         assertTrue(Arrays.equals(resArr.getArrBit(), allFalseArr));
     }
 
-    @Test
+    @Test(expected = BitArrayDifferentSizeException.class)
     public void failWhenAndArrsWithDifferentSize() {
         BitArray arr1 = new BitArray(5);
         BitArray arr2 = new BitArray(6);
@@ -91,7 +85,7 @@ public class BitArrayTest {
         assertTrue(Arrays.equals(resArr.getArrBit(), allTrueArr));
     }
 
-    @Test
+    @Test(expected = BitArrayDifferentSizeException.class)
     public void failWhenOrArrsWithDifferentSize() {
         BitArray arr1 = new BitArray(5);
         BitArray arr2 = new BitArray(6);
@@ -112,7 +106,7 @@ public class BitArrayTest {
         assertTrue(Arrays.equals(resArr.getArrBit(), allTrueArr));
     }
 
-    @Test
+    @Test(expected = BitArrayDifferentSizeException.class)
     public void failWhenXorArrsWithDifferentSize() {
         BitArray arr1 = new BitArray(5);
         BitArray arr2 = new BitArray(6);
