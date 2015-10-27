@@ -57,7 +57,7 @@ public class Vec3 {
         final double aNorm = norm();
 
         if (aNorm < Precision.confusion()) {
-            throw new ArithmeticException("Vector's norm is small: " + aNorm);
+            throw new ArithmeticException("Norm of vector is small: " + aNorm);
         }
 
         x /= aNorm;

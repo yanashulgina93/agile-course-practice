@@ -4,22 +4,23 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class Vec3Test {
+
     @Test
-    public void defaultInitialize() {
+    public void canDefaultInitialize() {
         final Vec3 aVec = new Vec3();
 
         assert aVec.isEqual(0.0, 0.0, 0.0);
     }
 
     @Test
-    public void initializeFromValues() {
+    public void canInitializeFromValues() {
         final Vec3 aVec = new Vec3(6.0, 6.0, 6.0);
 
         assert aVec.isEqual(6.0, 6.0, 6.0);
     }
 
     @Test
-    public void initializeFromArray() {
+    public void canInitializeFromArray() {
         final double[] anArray = {9.0, 9.0, 9.0};
         final Vec3     aVec    = new Vec3(anArray);
 
@@ -29,8 +30,8 @@ public class Vec3Test {
     @Test
     public void isEqualTwoVectors() {
         final double[] anArray = {9.0, 9.0, 9.0};
-        final Vec3 aVecOne = new Vec3(anArray);
-        final Vec3 aVecTwo = new Vec3(9.0, 9.0, 9.0);
+        final Vec3     aVecOne = new Vec3(anArray);
+        final Vec3     aVecTwo = new Vec3(9.0, 9.0, 9.0);
 
         assert aVecOne.isEqual(aVecTwo);
     }
@@ -48,9 +49,9 @@ public class Vec3Test {
 
     @Test
     public void isCorrectNorm() {
-        final Vec3 aVec = new Vec3(8.0, 0.0, 6.0);
+        final Vec3 aVec = new Vec3(9.0, 2.0, 6.0);
 
-        final double anExpectedNorm = 10.0;
+        final double anExpectedNorm = 11.0;
         final double anActualNorm   = aVec.norm();
 
         assertEquals(anExpectedNorm, anActualNorm, Precision.confusion());
@@ -58,8 +59,9 @@ public class Vec3Test {
 
     @Test
     public void isCorrectNormalize() {
-        Vec3 anActualVec         = new Vec3(8.0, 0.0, 6.0);
-        final Vec3 anExpectedVec = new Vec3(0.8, 0.0, 0.6);
+        final double anInvNorm     = 1.0 / Math.sqrt(14.0);
+        Vec3         anActualVec   = new Vec3(1.0, 2.0, 3.0);
+        final Vec3   anExpectedVec = new Vec3(1.0 * anInvNorm, 2.0 * anInvNorm, 3.0 * anInvNorm);
 
         anActualVec.normalize();
 
