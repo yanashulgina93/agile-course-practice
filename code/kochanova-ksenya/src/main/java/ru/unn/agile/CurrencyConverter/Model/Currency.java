@@ -11,12 +11,16 @@ public class Currency {
     private Unit unit;
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Currency)) return false;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Currency)) {
+            return false;
+        }
         Currency currency = (Currency) o;
-        return Objects.equals(value, currency.value) &&
-                Objects.equals(unit, currency.unit);
+        return Objects.equals(value, currency.value)
+                && Objects.equals(unit, currency.unit);
     }
 
     @Override

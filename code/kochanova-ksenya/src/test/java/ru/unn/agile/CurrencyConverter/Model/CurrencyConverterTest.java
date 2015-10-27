@@ -1,12 +1,8 @@
 package ru.unn.agile.CurrencyConverter.Model;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.assertArrayEquals;
+import org.junit.Test;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by ksenyako on 26.10.2015.
