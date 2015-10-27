@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public final class StatisticDataConverter {
-    public static Collection<IStatisticDataInstance> ConvertFromIntArray(int[] data){
+    public static Collection<IStatisticDataInstance> convertFromIntArray(int[] data){
         if(data == null) {
             return null;
         }
@@ -16,7 +16,7 @@ public final class StatisticDataConverter {
         return dataInstances;
     }
 
-    public static Collection<IStatisticDataInstance> ConvertFromFloatArray(float[] data){
+    public static Collection<IStatisticDataInstance> convertFromFloatArray(float[] data){
         if(data == null) {
             return null;
         }
@@ -28,7 +28,7 @@ public final class StatisticDataConverter {
         return dataInstances;
     }
 
-    public static Collection<IStatisticDataInstance> ConvertFromDoubleArray(double[] data){
+    public static Collection<IStatisticDataInstance> convertFromDoubleArray(double[] data){
         if(data == null) {
             return null;
         }

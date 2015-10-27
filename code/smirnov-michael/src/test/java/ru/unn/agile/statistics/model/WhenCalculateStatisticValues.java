@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 public class WhenCalculateStatisticValues {
     @Before
-    public void Preparing()
+    public void preparing()
     {
         statisticsCalculator = new StatisticValuesCalculator();
         dataInstances = null;
@@ -56,7 +56,7 @@ public class WhenCalculateStatisticValues {
 
     @Test
     public void statisticDataIsEmptyWhenConvertingIntArrayIsEmpty(){
-        Collection<IStatisticDataInstance> dataInstances = StatisticDataConverter.ConvertFromIntArray(null);
+        Collection<IStatisticDataInstance> dataInstances = StatisticDataConverter.convertFromIntArray(null);
         assertEquals(dataInstances, null);
     }
 
@@ -262,17 +262,17 @@ public class WhenCalculateStatisticValues {
     }
 
     private void formDataInstances(double[] data){
-        Collection<IStatisticDataInstance> dataInstances = StatisticDataConverter.ConvertFromDoubleArray(data);
+        Collection<IStatisticDataInstance> dataInstances = StatisticDataConverter.convertFromDoubleArray(data);
         statisticsCalculator.setUsedStatistics(dataInstances);
     }
 
     private void formDataInstances(float[] data){
-        Collection<IStatisticDataInstance> dataInstances = StatisticDataConverter.ConvertFromFloatArray(data);
+        Collection<IStatisticDataInstance> dataInstances = StatisticDataConverter.convertFromFloatArray(data);
         statisticsCalculator.setUsedStatistics(dataInstances);
     }
 
     private void formDataInstances(int[] data){
-        Collection<IStatisticDataInstance> dataInstances = StatisticDataConverter.ConvertFromIntArray(data);
+        Collection<IStatisticDataInstance> dataInstances = StatisticDataConverter.convertFromIntArray(data);
         statisticsCalculator.setUsedStatistics(dataInstances);
     }
 
