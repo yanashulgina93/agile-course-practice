@@ -31,4 +31,22 @@ public class Deque<T> {
         }
         list.add(item);
     }
+
+    public T popBack() {
+        if (!list.isEmpty()) {
+            T item = list.get(list.size() - 1);
+            list.remove(list.size() - 1);
+            return item;
+        }
+        return null;
+    }
+
+    public T popFront() {
+        if (!list.isEmpty()) {
+            T item = list.get(0);
+            list.remove(0);
+            return item;
+        }
+        return null;
+    }
 }

@@ -96,4 +96,38 @@ public class DequeTest {
 
         assertArrayEquals(new Integer[]{1, -1}, deque.toArray());
     }
+
+    @Test
+    public void doesPopBackWorkProperlyWhenDequeIsNotEmpty() {
+        Deque<Integer> deque = new Deque<>();
+        deque.pushBack(1);
+        deque.pushFront(6);
+        deque.pushBack(3);
+
+        assertEquals(new Integer(3), deque.popBack());
+    }
+
+    @Test
+    public void doesPopBackWorkProperlyWhenDequeIsEmpty() {
+        Deque<Integer> deque = new Deque<>();
+
+        assertNull(deque.popBack());
+    }
+
+    @Test
+    public void doesPopFrontWorkProperlyWhenDequeIsNotEmpty() {
+        Deque<Integer> deque = new Deque<>();
+        deque.pushFront(6);
+        deque.pushBack(1);
+        deque.pushBack(55);
+
+        assertEquals(new Integer(6), deque.popFront());
+    }
+
+    @Test
+    public void doesPopFrontWorkProperlyWhenDequeIsEmpty() {
+        Deque<Integer> deque = new Deque<>();
+
+        assertNull(deque.popFront());
+    }
 }
