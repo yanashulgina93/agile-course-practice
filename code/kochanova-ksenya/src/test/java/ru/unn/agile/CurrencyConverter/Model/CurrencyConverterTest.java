@@ -1,7 +1,10 @@
 package ru.unn.agile.CurrencyConverter.Model;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -19,18 +22,11 @@ public class CurrencyConverterTest {
                 Unit.Dollar);
         assertEquals(expectedCurrency, currencyAfterConvert);
     }
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void cannotConvertNegativeValue() {
-        boolean thrown = false;
         Currency currencyBeforeConvert = new Currency(-100, Unit.Dollar);
-        try {
-            Currency currencyAfterConvert = converter.convertCurrency(currencyBeforeConvert,
-                    Unit.Dollar);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Please, use positive value.");
-            thrown = true;
-        }
-        assertTrue(thrown);
+        Currency currencyAfterConvert = converter.convertCurrency(currencyBeforeConvert,
+                Unit.Dollar);
     }
     @Test
     public void canConvertRubleToDollar() {

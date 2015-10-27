@@ -1,5 +1,7 @@
 package ru.unn.agile.CurrencyConverter.Model;
 
+import java.util.Objects;
+
 /**
  * Created by ksenyako on 25.10.2015.
  */
@@ -8,21 +10,25 @@ public class Currency {
     private double value;
     private Unit unit;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Currency)) return false;
+        Currency currency = (Currency) o;
+        return Objects.equals(value, currency.value) &&
+                Objects.equals(unit, currency.unit);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value, unit);
+    }
+
     public Currency(final double value, final Unit unit) {
         this.value = value;
         this.unit = unit;
     }
-    public int hashCode() {
-        final int shift = 32;
 
-        long temp = Double.doubleToLongBits(value);
-        return (int) (temp ^ (temp >>> shift));
-    }
-    public boolean equals(final Object object) {
-        Currency cur = (Currency) object;
-        return cur.value == value
-                && cur.unit == unit;
-    }
     public void setValue(final double value) {
         this.value = value;
     }
