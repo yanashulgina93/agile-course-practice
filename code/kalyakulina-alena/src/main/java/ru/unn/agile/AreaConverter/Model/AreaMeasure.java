@@ -8,7 +8,7 @@ public enum AreaMeasure {
 
     private final double measureCoeff;
 
-    AreaMeasure(double measureCoeff) {
+    AreaMeasure(final double measureCoeff) {
         this.measureCoeff = measureCoeff;
     }
 
