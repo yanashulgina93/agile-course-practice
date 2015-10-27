@@ -11,6 +11,7 @@ public class WhenCalculateStatisticValues {
     @Before
     public void preparing() {
         statisticsCalculator = new StatisticValuesCalculator();
+        numericalConverter = new NumericStatisticsConverter();
         dataInstances = null;
     }
 
@@ -20,7 +21,7 @@ public class WhenCalculateStatisticValues {
         formDataInstances(data);
 
         assertEqualsForDoublesWithStandardDelta(5.0,
-                statisticsCalculator.calculateEnumerationOfStatistics());
+                statisticsCalculator.calculateEnumeration());
     }
 
     @Test
@@ -28,7 +29,7 @@ public class WhenCalculateStatisticValues {
         formDataInstances(formBigIntArray());
 
         assertEqualsForDoublesWithStandardDelta(49.5,
-                statisticsCalculator.calculateEnumerationOfStatistics());
+                statisticsCalculator.calculateEnumeration());
     }
 
     @Test
@@ -36,7 +37,7 @@ public class WhenCalculateStatisticValues {
         formDataInstances(formBigDoubleArray());
 
         assertEqualsForDoublesWithStandardDelta(0.0,
-                statisticsCalculator.calculateEnumerationOfStatistics());
+                statisticsCalculator.calculateEnumeration());
     }
 
     @Test
@@ -45,21 +46,23 @@ public class WhenCalculateStatisticValues {
         formDataInstances(data);
 
         assertEqualsForDoublesWithStandardDelta(3.14f,
-                statisticsCalculator.calculateEnumerationOfStatistics());
+                statisticsCalculator.calculateEnumeration());
     }
 
     @Test
     public void enumerationIsZeroWhenStatisticDataIsEmpty() {
-        statisticsCalculator.setUsedStatistics(null);
+        statisticsCalculator.setStatisticData(null);
 
         assertEqualsForDoublesWithStandardDelta(0.0,
-                statisticsCalculator.calculateEnumerationOfStatistics());
+                statisticsCalculator.calculateEnumeration());
     }
 
     @Test
     public void statisticDataIsEmptyWhenConvertingIntArrayIsEmpty() {
+        numericalConverter.setData(null);
         Collection<IStatisticDataInstance> dataInstances =
-                IStatisticsInstanceArrayConverterFromNumericData.convert(null);
+                numericalConverter.convertDataToStatistics();
+
         assertEquals(dataInstances, null);
     }
 
@@ -70,7 +73,7 @@ public class WhenCalculateStatisticValues {
         formDataInstances(data);
 
         assertEqualsForDoublesWithStandardDelta(1,
-                statisticsCalculator.calculateProbabilityInStatisticsOfEvent(event));
+                statisticsCalculator.calculateProbabilityOfEvent(event));
     }
 
     @Test
@@ -80,7 +83,7 @@ public class WhenCalculateStatisticValues {
         formDataInstances(data);
 
         assertEqualsForDoublesWithStandardDelta(0.0,
-                statisticsCalculator.calculateProbabilityInStatisticsOfEvent(event));
+                statisticsCalculator.calculateProbabilityOfEvent(event));
     }
 
     @Test
@@ -90,7 +93,7 @@ public class WhenCalculateStatisticValues {
         formDataInstances(data);
 
         assertEqualsForDoublesWithStandardDelta(1. / 3,
-                statisticsCalculator.calculateProbabilityInStatisticsOfEvent(event));
+                statisticsCalculator.calculateProbabilityOfEvent(event));
     }
 
     @Test
@@ -100,7 +103,7 @@ public class WhenCalculateStatisticValues {
         formDataInstances(data);
 
         assertEqualsForDoublesWithStandardDelta(0.0,
-                statisticsCalculator.calculateProbabilityInStatisticsOfEvent(event));
+                statisticsCalculator.calculateProbabilityOfEvent(event));
     }
 
     @Test
@@ -109,7 +112,7 @@ public class WhenCalculateStatisticValues {
         formDataInstances(data);
 
         assertEqualsForDoublesWithStandardDelta(0.0,
-                statisticsCalculator.calculateVarianceOfStatistics());
+                statisticsCalculator.calculateVariance());
     }
 
     @Test
@@ -118,7 +121,7 @@ public class WhenCalculateStatisticValues {
         formDataInstances(data);
 
         assertEqualsForDoublesWithStandardDelta(0.0,
-                statisticsCalculator.calculateVarianceOfStatistics());
+                statisticsCalculator.calculateVariance());
     }
 
     @Test
@@ -127,7 +130,7 @@ public class WhenCalculateStatisticValues {
         formDataInstances(data);
 
         assertEqualsForDoublesWithStandardDelta(0.0,
-                statisticsCalculator.calculateVarianceOfStatistics());
+                statisticsCalculator.calculateVariance());
     }
 
     @Test
@@ -135,7 +138,7 @@ public class WhenCalculateStatisticValues {
         formDataInstances(formBigDoubleArray());
 
         assertEqualsForDoublesWithStandardDelta(1. / 2,
-                statisticsCalculator.calculateVarianceOfStatistics());
+                statisticsCalculator.calculateVariance());
     }
 
     @Test
@@ -144,7 +147,7 @@ public class WhenCalculateStatisticValues {
         formDataInstances(data);
 
         assertEqualsForDoublesWithStandardDelta(0.0,
-                statisticsCalculator.calculateRawMomentOfStatistics(3));
+                statisticsCalculator.calculateRawMoment(3));
     }
 
     @Test
@@ -152,8 +155,8 @@ public class WhenCalculateStatisticValues {
         formDataInstances(formBigDoubleArray());
 
         assertEqualsForDoublesWithStandardDelta(
-                statisticsCalculator.calculateRawMomentOfStatistics(1),
-                statisticsCalculator.calculateEnumerationOfStatistics());
+                statisticsCalculator.calculateRawMoment(1),
+                statisticsCalculator.calculateEnumeration());
     }
 
     @Test
@@ -161,8 +164,8 @@ public class WhenCalculateStatisticValues {
         formDataInstances(formShortIntArray());
 
         assertTrue(
-                statisticsCalculator.calculateRawMomentOfStatistics(2)
-                        < statisticsCalculator.calculateRawMomentOfStatistics(4)
+                statisticsCalculator.calculateRawMoment(2)
+                        < statisticsCalculator.calculateRawMoment(4)
         );
     }
 
@@ -171,8 +174,8 @@ public class WhenCalculateStatisticValues {
         formDataInstances(formShortDoubleArray());
 
         assertTrue(
-                statisticsCalculator.calculateRawMomentOfStatistics(6)
-                        > statisticsCalculator.calculateRawMomentOfStatistics(8)
+                statisticsCalculator.calculateRawMoment(6)
+                        > statisticsCalculator.calculateRawMoment(8)
         );
     }
 
@@ -181,7 +184,7 @@ public class WhenCalculateStatisticValues {
         formDataInstances(formShortDoubleArray());
 
         assertEqualsForDoublesWithStandardDelta(0.0,
-                statisticsCalculator.calculateRawMomentOfStatistics(0));
+                statisticsCalculator.calculateRawMoment(0));
     }
 
     @Test
@@ -189,7 +192,7 @@ public class WhenCalculateStatisticValues {
         formDataInstances(formShortFloatArray());
 
         assertEqualsForDoublesWithStandardDelta(0.0,
-                statisticsCalculator.calculateRawMomentOfStatistics(-5));
+                statisticsCalculator.calculateRawMoment(-5));
     }
 
     @Test
@@ -198,7 +201,7 @@ public class WhenCalculateStatisticValues {
         formDataInstances(data);
 
         assertEqualsForDoublesWithStandardDelta(0.0,
-                statisticsCalculator.calculateCentralMomentOfStatistics(2));
+                statisticsCalculator.calculateCentralMoment(2));
     }
 
     @Test
@@ -206,7 +209,7 @@ public class WhenCalculateStatisticValues {
         formDataInstances(formShortFloatArray());
 
         assertEqualsForDoublesWithStandardDelta(0.0,
-                statisticsCalculator.calculateCentralMomentOfStatistics(1));
+                statisticsCalculator.calculateCentralMoment(1));
     }
 
     @Test
@@ -215,9 +218,9 @@ public class WhenCalculateStatisticValues {
         formDataInstances(data);
 
         double unbiasedVariance = ((double) (data.length - 1)) / data.length
-                * statisticsCalculator.calculateVarianceOfStatistics();
+                * statisticsCalculator.calculateVariance();
         assertEqualsForDoublesWithStandardDelta(unbiasedVariance,
-                statisticsCalculator.calculateCentralMomentOfStatistics(2));
+                statisticsCalculator.calculateCentralMoment(2));
     }
 
     @Test
@@ -225,8 +228,8 @@ public class WhenCalculateStatisticValues {
         formDataInstances(formShortIntArray());
 
         assertTrue(
-                statisticsCalculator.calculateCentralMomentOfStatistics(2)
-                        < statisticsCalculator.calculateCentralMomentOfStatistics(4)
+                statisticsCalculator.calculateCentralMoment(2)
+                        < statisticsCalculator.calculateCentralMoment(4)
         );
     }
 
@@ -235,8 +238,8 @@ public class WhenCalculateStatisticValues {
         formDataInstances(formShortDoubleArray());
 
         assertTrue(
-                statisticsCalculator.calculateCentralMomentOfStatistics(6)
-                        > statisticsCalculator.calculateCentralMomentOfStatistics(8));
+                statisticsCalculator.calculateCentralMoment(6)
+                        > statisticsCalculator.calculateCentralMoment(8));
     }
 
     @Test
@@ -244,7 +247,7 @@ public class WhenCalculateStatisticValues {
         formDataInstances(formShortIntArray());
 
         assertEqualsForDoublesWithStandardDelta(0.0,
-                statisticsCalculator.calculateCentralMomentOfStatistics(-3));
+                statisticsCalculator.calculateCentralMoment(-3));
     }
 
     @Test
@@ -252,7 +255,7 @@ public class WhenCalculateStatisticValues {
         formDataInstances(formShortDoubleArray());
 
         assertEqualsForDoublesWithStandardDelta(0.0,
-                statisticsCalculator.calculateCentralMomentOfStatistics(0));
+                statisticsCalculator.calculateCentralMoment(0));
     }
 
     private Integer[] formShortIntArray() {
@@ -292,24 +295,34 @@ public class WhenCalculateStatisticValues {
     }
 
     private void formDataInstances(final Double[] data) {
+        numericalConverter.setData(data);
+
         Collection<IStatisticDataInstance> dataInstances =
-                IStatisticsInstanceArrayConverterFromNumericData.convert(data);
-        statisticsCalculator.setUsedStatistics(dataInstances);
+                numericalConverter.convertDataToStatistics();
+
+        statisticsCalculator.setStatisticData(dataInstances);
     }
 
     private void formDataInstances(final Float[] data) {
+        numericalConverter.setData(data);
+
         Collection<IStatisticDataInstance> dataInstances =
-                IStatisticsInstanceArrayConverterFromNumericData.convert(data);
-        statisticsCalculator.setUsedStatistics(dataInstances);
+                numericalConverter.convertDataToStatistics();
+
+        statisticsCalculator.setStatisticData(dataInstances);
     }
 
     private void formDataInstances(final Integer[] data) {
+        numericalConverter.setData(data);
+
         Collection<IStatisticDataInstance> dataInstances =
-                IStatisticsInstanceArrayConverterFromNumericData.convert(data);
-        statisticsCalculator.setUsedStatistics(dataInstances);
+                numericalConverter.convertDataToStatistics();
+
+        statisticsCalculator.setStatisticData(dataInstances);
     }
 
     private StatisticValuesCalculator statisticsCalculator;
     private Collection<IStatisticDataInstance> dataInstances;
     private double deltaForDoubleAssertEquals = 1e-3;
+    private NumericStatisticsConverter numericalConverter;
 }

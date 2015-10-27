@@ -19,14 +19,14 @@ public class StatisticValuesCalculator {
     private static final double CENTRAL_MOMENT_WITH_NOT_POSITIVE_ORDER = 0.0;
 
     public StatisticValuesCalculator(final Collection<IStatisticDataInstance> dataForStatistics) {
-        setUsedStatistics(dataForStatistics);
+        setStatisticData(dataForStatistics);
     }
 
     public StatisticValuesCalculator() {
         processedStatistics = null;
     }
 
-    public void setUsedStatistics(final Collection<IStatisticDataInstance> dataForStatistics) {
+    public void setStatisticData(final Collection<IStatisticDataInstance> dataForStatistics) {
         if (dataForStatistics == null) {
             processedStatistics = null;
             return;
@@ -40,7 +40,7 @@ public class StatisticValuesCalculator {
         }
     }
 
-    public double calculateEnumerationOfStatistics() {
+    public double calculateEnumeration() {
         if (processedStatistics == null) {
             return ENUMERATION_OF_EMPTY_DATA;
         }
@@ -54,7 +54,7 @@ public class StatisticValuesCalculator {
         return enumeration;
     }
 
-    public double calculateProbabilityInStatisticsOfEvent(final IStatisticDataInstance event) {
+    public double calculateProbabilityOfEvent(final IStatisticDataInstance event) {
         if (processedStatistics == null) {
             return PROBABILITY_OF_EVENT_WITH_EMPTY_DATA;
         }
@@ -71,7 +71,7 @@ public class StatisticValuesCalculator {
         return probability;
     }
 
-    public double calculateVarianceOfStatistics() {
+    public double calculateVariance() {
         if (processedStatistics == null) {
             return VARIANCE_OF_EMPTY_DATA;
         }
@@ -80,7 +80,7 @@ public class StatisticValuesCalculator {
             return VARIANCE_OF_DATA_WITH_SINGLE_INSTANCE;
         }
 
-        double enumeration = calculateEnumerationOfStatistics();
+        double enumeration = calculateEnumeration();
         double variance = 0.0;
 
         for (double instanceOfData : processedStatistics) {
@@ -91,7 +91,7 @@ public class StatisticValuesCalculator {
         return variance;
     }
 
-    public double calculateRawMomentOfStatistics(final int order) {
+    public double calculateRawMoment(final int order) {
         if (processedStatistics == null) {
             return RAW_MOMENT_OF_EMPTY_DATA;
         }
@@ -109,7 +109,7 @@ public class StatisticValuesCalculator {
         return rawMoment;
     }
 
-    public double calculateCentralMomentOfStatistics(final int order) {
+    public double calculateCentralMoment(final int order) {
         if (processedStatistics == null) {
             return CENTRAL_MOMENT_OF_EMPTY_DATA;
         }
@@ -118,7 +118,7 @@ public class StatisticValuesCalculator {
         }
 
         double centralMoment = 0.0;
-        double en = calculateEnumerationOfStatistics();
+        double en = calculateEnumeration();
         for (double instance : processedStatistics) {
             centralMoment += Math.pow(instance - en, order);
         }
