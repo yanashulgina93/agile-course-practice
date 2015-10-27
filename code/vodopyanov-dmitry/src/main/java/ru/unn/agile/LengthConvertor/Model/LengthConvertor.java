@@ -21,6 +21,7 @@ public class LengthConvertor {
         } else {
             length.setValue(-1);
         }
+        length.setUnitInput(unitOutput);
         return length;
     }
 }
