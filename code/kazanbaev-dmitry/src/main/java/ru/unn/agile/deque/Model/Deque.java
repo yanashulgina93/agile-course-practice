@@ -61,4 +61,8 @@ public class Deque<T> {
     public void clear() {
         list.clear();
     }
+
+    public int getSize() {
+        return list.size();
+    }
 }

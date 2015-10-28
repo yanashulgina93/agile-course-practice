@@ -46,6 +46,20 @@ public class DequeTest {
     }
 
     @Test
+    public void dequeSizeIs3() {
+        deque.pushBack(99);
+        deque.pushFront(9);
+        deque.pushFront(31);
+
+        assertEquals(3, deque.getSize());
+    }
+
+    @Test
+    public void createdDequeSizeIs0() {
+        assertEquals(0, deque.getSize());
+    }
+
+    @Test
     public void pushFrontWorksProperlyWithIntegers() {
         deque.pushFront(1);
         deque.pushFront(9);
