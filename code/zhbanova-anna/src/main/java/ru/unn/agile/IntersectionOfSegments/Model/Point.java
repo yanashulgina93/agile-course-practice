@@ -1,0 +1,33 @@
+package ru.unn.agile.IntersectionOfSegments;
+
+public class Point {
+    private double x;
+    private double y;
+
+    Point(double _x, double _y){
+        x = _x;
+        y = _y;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    @Override
+    public boolean equals(final Object object) {
+        Point point = (Point) object;
+        return (this.x == point.getX() && this.y == point.getY());
+    }
+}
