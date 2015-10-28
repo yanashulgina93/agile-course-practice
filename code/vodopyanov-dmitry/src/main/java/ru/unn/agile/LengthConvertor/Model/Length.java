@@ -6,10 +6,10 @@ public class Length {
     private double value;
     private LengthUnit unitInput;
 
-    Length(final double val, final LengthUnit un) {
-        this.value = val;
-        this.unitInput = un;
-        if (val < 0) {
+    Length(final double value, final LengthUnit unit) {
+        this.value = value;
+        this.unitInput = unit;
+        if (value < 0) {
             throw new IllegalArgumentException();
         }
     }

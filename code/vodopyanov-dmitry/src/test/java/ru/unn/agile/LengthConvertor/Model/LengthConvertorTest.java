@@ -5,14 +5,7 @@ import static org.junit.Assert.*;
 
 public class LengthConvertorTest {
     private final double delta = 0.001;
-    private LengthConvertor lengthConv1 = new LengthConvertor();
-    private LengthConvertor lengthConv2 = new LengthConvertor();
-
-    // @Test
-    // public void failingTest()
-    // {
-    //     fail();
-    // }
+    private LengthConvertor lengthConv = new LengthConvertor();
 
     @Test
     public void canCreateLengthClassWithInitialValues() {
@@ -23,40 +16,40 @@ public class LengthConvertorTest {
     @Test
     public void areEqualResultsEqual() {
         Length length1 = new Length(1, LengthUnit.METER);
-        Length res1 = lengthConv1.convert(length1, LengthUnit.YARD);
-        assertTrue(res1.equals(lengthConv2.convert(
+        Length res1 = lengthConv.convert(length1, LengthUnit.YARD);
+        assertTrue(res1.equals(lengthConv.convert(
                 new Length(1, LengthUnit.METER), LengthUnit.YARD)));
     }
 
     @Test
     public void areResultsWithDifferentValuesNotEqual() {
         Length length1 = new Length(1, LengthUnit.METER);
-        Length res1 = lengthConv1.convert(length1, LengthUnit.YARD);
+        Length res1 = lengthConv.convert(length1, LengthUnit.YARD);
         Length length2 = new Length(2, LengthUnit.METER);
-        Length res2 = lengthConv2.convert(length2, LengthUnit.YARD);
+        Length res2 = lengthConv.convert(length2, LengthUnit.YARD);
         assertFalse(res1.equals(res2));
     }
 
     @Test
     public void areResultsWithDifferentOutputUnitNotEqual() {
         Length length1 = new Length(1, LengthUnit.METER);
-        Length res1 = lengthConv1.convert(length1, LengthUnit.YARD);
+        Length res1 = lengthConv.convert(length1, LengthUnit.YARD);
         Length length2 = new Length(1, LengthUnit.FOOT);
-        Length res2 = lengthConv2.convert(length2, LengthUnit.YARD);
+        Length res2 = lengthConv.convert(length2, LengthUnit.YARD);
         assertFalse(res1.equals(res2));
     }
 
     @Test
     public void canConvertKMetersToMeters() {
         Length length = new Length(1, LengthUnit.KMETER);
-        Length res = lengthConv1.convert(length, LengthUnit.METER);
+        Length res = lengthConv.convert(length, LengthUnit.METER);
         assertEquals(1000.0, res.getValue(), delta);
     }
 
     @Test
     public void canConvertYardsToInches() {
         Length length = new Length(5, LengthUnit.YARD);
-        Length res = lengthConv1.convert(length, LengthUnit.INCH);
+        Length res = lengthConv.convert(length, LengthUnit.INCH);
         assertEquals(180.0, res.getValue(), delta);
     }
 
