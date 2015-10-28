@@ -3,23 +3,27 @@ package ru.unn.agile.BitArray.core;
 import java.util.Arrays;
 
 public class BitArray {
-    private final boolean[] arrBit;
+    private final Boolean[] arrBit;
     private final int size;
 
     public BitArray(final int size) {
-        this.arrBit = new boolean[size];
+        this.arrBit = new Boolean[size];
+        Arrays.fill(this.arrBit, false);
         this.size = size;
     }
 
-    public boolean getBit(final int index) {
+    public Boolean getBit(final int index) {
         return arrBit[index];
     }
 
-    public void setBit(final int index, final boolean value) {
+    public void setBit(final int index, final Boolean value) {
+        if (value == null) {
+            return;
+        }
         arrBit[index] = value;
     }
 
-    public void setAll(final boolean value) {
+    public void setAll(final Boolean value) {
         Arrays.fill(this.arrBit, value);
     }
 
@@ -43,7 +47,7 @@ public class BitArray {
         return res;
     }
 
-    public boolean[] getArrBit() {
+    public Boolean[] getArrBit() {
         return this.arrBit;
     }
 
@@ -66,10 +70,8 @@ public class BitArray {
                         res.setBit(i, arr.getBit(i) | this.getBit(i));
                         break;
                     default:
-                        res.setBit(i, arr.getBit(i) ^ this.getBit(i));
-                        break;
+                        throw new BitArrayUnsupportedOperationException("Unsupported operation");
                 }
-
             }
         } else {
             throw new BitArrayDifferentSizeException("Different size of arrays");

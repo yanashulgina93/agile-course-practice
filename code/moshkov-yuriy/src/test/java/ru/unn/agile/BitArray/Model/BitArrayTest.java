@@ -36,6 +36,13 @@ public class BitArrayTest {
         assertTrue(bitArr.getBit(1));
     }
 
+    @Test()
+    public void canNotSetNullValueBit() {
+        BitArray bitArr = new BitArray(5);
+        bitArr.setBit(1, null);
+        assertNotNull(bitArr.getBit(1));
+    }
+
     @Test(expected = IndexOutOfBoundsException.class)
     public void failWhenSetValueBitWithIndexOutOfRangeSize() {
         BitArray bitArr = new BitArray(5);
@@ -45,7 +52,7 @@ public class BitArrayTest {
     @Test
     public void canSetAllValuesInArr() {
         BitArray bitArr = new BitArray(5);
-        boolean[] allFalseArr = new boolean[bitArr.getSize()];
+        Boolean[] allFalseArr = new Boolean[bitArr.getSize()];
         Arrays.fill(allFalseArr, false);
         bitArr.setAll(false);
         assertTrue(Arrays.equals(bitArr.getArrBit(), allFalseArr));
@@ -56,7 +63,7 @@ public class BitArrayTest {
         BitArray arr1 = new BitArray(5);
         BitArray arr2 = new BitArray(5);
         BitArray resArr;
-        boolean[] allFalseArr = new boolean[arr1.getSize()];
+        Boolean[] allFalseArr = new Boolean[arr1.getSize()];
         Arrays.fill(allFalseArr, false);
         arr1.setAll(false);
         arr2.setAll(true);
@@ -77,7 +84,7 @@ public class BitArrayTest {
         BitArray arr1 = new BitArray(5);
         BitArray arr2 = new BitArray(5);
         BitArray resArr;
-        boolean[] allTrueArr = new boolean[arr1.getSize()];
+        Boolean[] allTrueArr = new Boolean[arr1.getSize()];
         Arrays.fill(allTrueArr, true);
         arr1.setAll(false);
         arr2.setAll(true);
@@ -98,7 +105,7 @@ public class BitArrayTest {
         BitArray arr1 = new BitArray(5);
         BitArray arr2 = new BitArray(5);
         BitArray resArr;
-        boolean[] allFalseArr = new boolean[arr1.getSize()];
+        Boolean[] allFalseArr = new Boolean[arr1.getSize()];
         Arrays.fill(allFalseArr, false);
         arr1.setAll(true);
         arr2.setAll(true);
@@ -118,7 +125,7 @@ public class BitArrayTest {
     public void canNotArr() {
         BitArray arr = new BitArray(5);
         BitArray resArr;
-        boolean[] allTrueArr = new boolean[arr.getSize()];
+        Boolean[] allTrueArr = new Boolean[arr.getSize()];
         Arrays.fill(allTrueArr, true);
         arr.setAll(false);
         resArr = arr.not();
