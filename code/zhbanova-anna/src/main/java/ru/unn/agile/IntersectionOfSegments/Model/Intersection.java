@@ -35,4 +35,8 @@ public class Intersection {
     public Point getStart() {
         return start;
     }
+
+    public void setLength_of_intersection(double length_of_intersection) {
+        this.length_of_intersection = length_of_intersection;
+    }
 }

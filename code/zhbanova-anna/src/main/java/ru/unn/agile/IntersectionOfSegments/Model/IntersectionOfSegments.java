@@ -66,7 +66,7 @@ public class IntersectionOfSegments {
     }
 
     private boolean IsIntersection(Point p1, Point p2, Point p3, Point p4) {
-        //[1, 2, 3] * [1, 2, 4] < 0 и [3, 4, 1] * [3, 4, 2] < 0 - пересекаются
+        //[1, 2, 3] * [1, 2, 4] < 0 и [3, 4, 1] * [3, 4, 2] < 0
         if((Vector_multiplication(p1, p2, p3) * Vector_multiplication(p1, p2, p4) <= 0) &&
                 (Vector_multiplication(p3, p4, p1) * Vector_multiplication(p3, p4, p2)<= 0))
             return true;
