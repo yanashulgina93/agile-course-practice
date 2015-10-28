@@ -40,7 +40,7 @@ public class DequeTest {
     }
 
     @Test
-    public void doesPushFrontWorkProperlyWithIntegers() {
+    public void pushFrontWorksProperlyWithIntegers() {
         Deque<Integer> deque = new Deque<>();
         deque.pushFront(1);
         deque.pushFront(9);
@@ -50,7 +50,7 @@ public class DequeTest {
     }
 
     @Test
-    public void doesPushFrontWorkProperlyWithDates() {
+    public void pushFrontWorksProperlyWithDates() {
         Deque<Date> deque = new Deque<>();
         deque.pushFront(new Date(750384000));
         deque.pushFront(new Date(1444608000));
@@ -59,7 +59,7 @@ public class DequeTest {
     }
 
     @Test
-    public void doesPushFrontWorkProperlyWithNull() {
+    public void pushFrontDoesNotAddNull() {
         Deque<Integer> deque = new Deque<>();
         deque.pushFront(1);
         deque.pushFront(null);
@@ -69,7 +69,7 @@ public class DequeTest {
     }
 
     @Test
-    public void doesPushBackWorkProperlyWithIntegers() {
+    public void pushBackWorksProperlyWithIntegers() {
         Deque<Integer> deque = new Deque<>();
         deque.pushBack(1);
         deque.pushBack(9);
@@ -79,7 +79,7 @@ public class DequeTest {
     }
 
     @Test
-    public void doesPushBackWorkProperlyWithDates() {
+    public void pushBackWorksProperlyWithDates() {
         Deque<Date> deque = new Deque<>();
         deque.pushBack(new Date(750384000));
         deque.pushBack(new Date(1444608000));
@@ -88,7 +88,7 @@ public class DequeTest {
     }
 
     @Test
-    public void doesPushBackWorkProperlyWithNull() {
+    public void pushBackDoesNotAddNull() {
         Deque<Integer> deque = new Deque<>();
         deque.pushBack(1);
         deque.pushBack(null);
@@ -98,7 +98,7 @@ public class DequeTest {
     }
 
     @Test
-    public void doesPopBackWorkProperlyWhenDequeIsNotEmpty() {
+    public void popBackWorksProperlyWhenDequeIsNotEmpty() {
         Deque<Integer> deque = new Deque<>();
         deque.pushBack(1);
         deque.pushFront(6);
@@ -108,14 +108,14 @@ public class DequeTest {
     }
 
     @Test
-    public void doesPopBackWorkProperlyWhenDequeIsEmpty() {
+    public void popBackWorksProperlyWhenDequeIsEmpty() {
         Deque<Integer> deque = new Deque<>();
 
         assertNull(deque.popBack());
     }
 
     @Test
-    public void doesPopFrontWorkProperlyWhenDequeIsNotEmpty() {
+    public void popFrontWorksProperlyWhenDequeIsNotEmpty() {
         Deque<Integer> deque = new Deque<>();
         deque.pushFront(6);
         deque.pushBack(1);
@@ -125,9 +125,45 @@ public class DequeTest {
     }
 
     @Test
-    public void doesPopFrontWorkProperlyWhenDequeIsEmpty() {
+    public void popFrontWorksProperlyWhenDequeIsEmpty() {
         Deque<Integer> deque = new Deque<>();
 
         assertNull(deque.popFront());
+    }
+
+    @Test
+    public void isEmptyDequeReallyEmpty() {
+        Deque<Integer> deque = new Deque<>();
+
+        assertTrue(deque.isEmpty());
+    }
+
+    @Test
+    public void dequeContainsNumber42() {
+        Deque<Integer> deque = new Deque<>();
+        deque.pushBack(4);
+        deque.pushFront(2);
+        deque.pushFront(42);
+
+        assertTrue(deque.contains(42));
+    }
+
+    @Test
+    public void dequeDoesNotContainNumber7() {
+        Deque<Integer> deque = new Deque<>();
+        deque.pushBack(2);
+        deque.pushFront(66);
+        deque.pushFront(3);
+
+        assertFalse(deque.contains(7));
+    }
+
+    @Test
+    public void dequeDoesNotContainNull() {
+        Deque<Integer> deque = new Deque<>();
+        deque.pushBack(4);
+        deque.pushFront(2);
+
+        assertFalse(deque.contains(null));
     }
 }

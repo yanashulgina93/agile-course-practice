@@ -53,4 +53,8 @@ public class Deque<T> {
         }
         return null;
     }
+
+    public boolean contains(final T item) {
+        return list.contains(item);
+    }
 }
