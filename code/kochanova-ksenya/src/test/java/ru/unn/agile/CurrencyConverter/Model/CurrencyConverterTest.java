@@ -18,12 +18,14 @@ public class CurrencyConverterTest {
                 Unit.Dollar);
         assertEquals(expectedCurrency, currencyAfterConvert);
     }
+
     @Test(expected = IllegalArgumentException.class)
     public void cannotConvertNegativeValue() {
         Currency currencyBeforeConvert = new Currency(-100, Unit.Dollar);
         Currency currencyAfterConvert = converter.convertCurrency(currencyBeforeConvert,
                 Unit.Dollar);
     }
+
     @Test
     public void canConvertRubleToDollar() {
         Currency expectedCurrency = new Currency(1.6, Unit.Dollar);
@@ -32,6 +34,7 @@ public class CurrencyConverterTest {
                 Unit.Dollar);
         assertEquals(expectedCurrency, currencyAfterConvert);
     }
+
     @Test
     public void canConvertRubleToEuro() {
         Currency expectedCurrency = new Currency(1.38, Unit.Euro);
@@ -40,6 +43,7 @@ public class CurrencyConverterTest {
                 Unit.Euro);
         assertEquals(expectedCurrency, currencyAfterConvert);
     }
+
     @Test
     public void canConvertRubleToPound() {
         Currency expectedCurrency = new Currency(1.01, Unit.Pound);
@@ -48,6 +52,7 @@ public class CurrencyConverterTest {
                 Unit.Pound);
         assertEquals(expectedCurrency, currencyAfterConvert);
     }
+
     @Test
     public void canConvertDollarToEuro() {
         Currency expectedCurrency = new Currency(86.21, Unit.Euro);
@@ -56,6 +61,7 @@ public class CurrencyConverterTest {
                 Unit.Euro);
         assertEquals(expectedCurrency, currencyAfterConvert);
     }
+
     @Test
     public void canConvertDollarToPound() {
         Currency expectedCurrency = new Currency(62.89, Unit.Pound);
@@ -64,6 +70,7 @@ public class CurrencyConverterTest {
                 Unit.Pound);
         assertEquals(expectedCurrency, currencyAfterConvert);
     }
+
     @Test
     public void canConvertDollarToRuble() {
         Currency expectedCurrency = new Currency(6250, Unit.Ruble);
@@ -72,6 +79,7 @@ public class CurrencyConverterTest {
                 Unit.Ruble);
         assertEquals(expectedCurrency, currencyAfterConvert);
     }
+
     @Test
     public void canConvertEuroToRuble() {
         Currency expectedCurrency = new Currency(7250, Unit.Ruble);
@@ -80,6 +88,7 @@ public class CurrencyConverterTest {
                 Unit.Ruble);
         assertEquals(expectedCurrency, currencyAfterConvert);
     }
+
     @Test
     public void canConvertEuroToDollar() {
         Currency expectedCurrency = new Currency(116, Unit.Dollar);
@@ -88,6 +97,7 @@ public class CurrencyConverterTest {
                 Unit.Dollar);
         assertEquals(expectedCurrency, currencyAfterConvert);
     }
+
     @Test
     public void canConvertEuroToPound() {
         Currency expectedCurrency = new Currency(72.96, Unit.Pound);
@@ -96,6 +106,7 @@ public class CurrencyConverterTest {
                 Unit.Pound);
         assertEquals(expectedCurrency, currencyAfterConvert);
     }
+
     @Test
     public void canConvertPoundToDollar() {
         Currency expectedCurrency = new Currency(159, Unit.Dollar);
@@ -104,6 +115,7 @@ public class CurrencyConverterTest {
                 Unit.Dollar);
         assertEquals(expectedCurrency, currencyAfterConvert);
     }
+
     @Test
     public void canConvertPoundToEuro() {
         Currency expectedCurrency = new Currency(137.07, Unit.Euro);
@@ -112,6 +124,7 @@ public class CurrencyConverterTest {
                 Unit.Euro);
         assertEquals(expectedCurrency, currencyAfterConvert);
     }
+
     @Test
     public void canConvertPoundToRuble() {
         Currency expectedCurrency = new Currency(9937.5, Unit.Ruble);
@@ -120,6 +133,4 @@ public class CurrencyConverterTest {
                 Unit.Ruble);
         assertEquals(expectedCurrency, currencyAfterConvert);
     }
-
-
 }

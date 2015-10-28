@@ -15,9 +15,11 @@ public class Currency {
         if (this == o) {
             return true;
         }
+
         if (!(o instanceof Currency)) {
             return false;
         }
+
         Currency currency = (Currency) o;
         return Objects.equals(value, currency.value)
                 && Objects.equals(unit, currency.unit);
@@ -48,5 +50,4 @@ public class Currency {
     public Unit getUnit() {
         return unit;
     }
-
 }

@@ -15,6 +15,7 @@ public class AccuracyCorrectorTest {
         double expectedValueAfterRound = 12.46;
         assertEquals(expectedValueAfterRound, actualValueAfterRound, 0.001);
     }
+
     @Test
     public void canCorrectAccuracyCorrectorIntegerNumber() {
         double actualValueAfterRound = corrector.rounding(12);
