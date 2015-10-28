@@ -18,7 +18,9 @@ public class TemperatureConverterCorrectnessTest {
     private double temperature;
     private double temperatureConverted;
 
-    public TemperatureConverterCorrectnessTest(final TemperatureScaleName scale, final double temperature, final double temperatureConverted) {
+    public TemperatureConverterCorrectnessTest(final TemperatureScaleName scale,
+                                               final double temperature,
+                                               final double temperatureConverted) {
         this.scale = scale;
         this.temperature = temperature;
         this.temperatureConverted = temperatureConverted;
@@ -27,15 +29,15 @@ public class TemperatureConverterCorrectnessTest {
     @Parameterized.Parameters
     public static Collection temperatureScales() {
         return Arrays.asList(new Object[][] {
-                { TemperatureScaleName.FAHRENHEIT, 0.0, 32.0 },
-                { TemperatureScaleName.FAHRENHEIT, 1.0, 33.8 },
-                { TemperatureScaleName.FAHRENHEIT, -1.0, 30.2 },
-                { TemperatureScaleName.KELVIN, 0.0, 273.0 },
-                { TemperatureScaleName.KELVIN, 1.0, 274.0 },
-                { TemperatureScaleName.KELVIN, -1.0, 272.0 },
-                { TemperatureScaleName.NEWTON, 0.0, 0.0 },
-                { TemperatureScaleName.NEWTON, 1.0, 0.33 },
-                { TemperatureScaleName.NEWTON, -1.0, -0.33 }
+                {TemperatureScaleName.FAHRENHEIT, 0.0, 32.0},
+                {TemperatureScaleName.FAHRENHEIT, 1.0, 33.8},
+                {TemperatureScaleName.FAHRENHEIT, -1.0, 30.2},
+                {TemperatureScaleName.KELVIN, 0.0, 273.0},
+                {TemperatureScaleName.KELVIN, 1.0, 274.0},
+                {TemperatureScaleName.KELVIN, -1.0, 272.0},
+                {TemperatureScaleName.NEWTON, 0.0, 0.0},
+                {TemperatureScaleName.NEWTON, 1.0, 0.33},
+                {TemperatureScaleName.NEWTON, -1.0, -0.33}
         });
     }
 
