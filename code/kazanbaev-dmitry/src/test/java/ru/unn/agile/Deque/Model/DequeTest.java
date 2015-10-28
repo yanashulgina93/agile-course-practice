@@ -132,7 +132,7 @@ public class DequeTest {
     }
 
     @Test
-    public void isEmptyDequeReallyEmpty() {
+    public void emptyDequeIsReallyEmpty() {
         Deque<Integer> deque = new Deque<>();
 
         assertTrue(deque.isEmpty());
@@ -165,5 +165,16 @@ public class DequeTest {
         deque.pushFront(2);
 
         assertFalse(deque.contains(null));
+    }
+
+    @Test
+    public void dequeIsEmptyAfterClear() {
+        Deque<Integer> deque = new Deque<>();
+        deque.pushBack(4);
+        deque.pushFront(2);
+
+        deque.clear();
+
+        assertTrue(deque.isEmpty());
     }
 }

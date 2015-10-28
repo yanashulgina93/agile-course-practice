@@ -57,4 +57,8 @@ public class Deque<T> {
     public boolean contains(final T item) {
         return list.contains(item);
     }
+
+    public void clear() {
+        list.clear();
+    }
 }
