@@ -24,7 +24,7 @@ public class LengthConvertorTest {
     public void areEqualResultsEqual() {
         Length length1 = new Length(1, LengthUnit.Meter);
         Length res1 = lengthConv1.convert(length1, LengthUnit.Yard);
-        assertTrue(res1.isEqual(lengthConv2.convert(
+        assertTrue(res1.equals(lengthConv2.convert(
                 new Length(1, LengthUnit.Meter), LengthUnit.Yard)));
     }
 
@@ -34,7 +34,7 @@ public class LengthConvertorTest {
         Length res1 = lengthConv1.convert(length1, LengthUnit.Yard);
         Length length2 = new Length(2, LengthUnit.Meter);
         Length res2 = lengthConv2.convert(length2, LengthUnit.Yard);
-        assertFalse(res1.isEqual(res2));
+        assertFalse(res1.equals(res2));
     }
 
     @Test
@@ -43,7 +43,7 @@ public class LengthConvertorTest {
         Length res1 = lengthConv1.convert(length1, LengthUnit.Yard);
         Length length2 = new Length(1, LengthUnit.Foot);
         Length res2 = lengthConv2.convert(length2, LengthUnit.Yard);
-        assertFalse(res1.isEqual(res2));
+        assertFalse(res1.equals(res2));
     }
 
     @Test

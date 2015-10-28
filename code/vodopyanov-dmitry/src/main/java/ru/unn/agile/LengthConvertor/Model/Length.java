@@ -1,6 +1,6 @@
 package ru.unn.agile.LengthConvertor.Model;
 
-enum LengthUnit { Inch, Foot, Yard, Mile, Meter, KMeter, CMeter }
+import java.util.Objects;
 
 public class Length {
     private double value;
@@ -14,7 +14,13 @@ public class Length {
         }
     }
 
-    public boolean isEqual(final Object object) {
+    @Override
+    public int hashCode() {
+        return Objects.hash(value, unitInput);
+    }
+
+    @Override
+    public boolean equals(final Object object) {
         Length length = (Length) object;
         return length.value == value
                 && length.unitInput == unitInput;
