@@ -1,21 +1,5 @@
 package ru.unn.agile.HexBinOctCalculator.Model;
 
-enum NumeralSystem {
-    HEX(16),
-    BIN(2),
-    OCT(8);
-
-    private final int value;
-
-    NumeralSystem(final int newValue) {
-        value = newValue;
-    }
-
-    public int getValue() {
-        return value;
-    }
-}
-
 public final class HexBinOctCalculator {
     private HexBinOctCalculator() {
         //not called
@@ -63,9 +47,10 @@ public final class HexBinOctCalculator {
         int left = Integer.parseInt(firstNumber, system.getValue());
         int right = Integer.parseInt(secondNumber, system.getValue());
         if (right == 0) {
-            return "Division by zero!";
+            throw new IllegalArgumentException("Division by zero!");
+        } else {
+            int quotient = left / right;
+            return returnResult(quotient, system);
         }
-        int quotient = left / right;
-        return returnResult(quotient, system);
     }
 }

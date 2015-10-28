@@ -124,13 +124,11 @@ public class HexBinOctCalculatorTest {
         assertTrue(result.equals("11"));
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void canNotDivideToZero() {
         String firstNumber = "23";
         String secondNumber = "0";
 
         String result = HexBinOctCalculator.divide(firstNumber, secondNumber, NumeralSystem.HEX);
-
-        assertTrue(result.equals("Division by zero!"));
     }
 }
