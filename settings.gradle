@@ -80,6 +80,8 @@ project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-l
 // Pronina Anastasiya
 // Sevrikov Ilya
 // Shulgina Yana
+include "code/shulgina-yana"
+project(":code/shulgina-yana").name = "shulgina-yana-Model"
 // Smirnov Aleksandr
 // Smirnov Mixail
 // Smirnov Vyacheslav
