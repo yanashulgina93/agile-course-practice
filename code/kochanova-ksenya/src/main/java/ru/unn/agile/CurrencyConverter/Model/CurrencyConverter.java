@@ -13,7 +13,7 @@ public class CurrencyConverter {
                                         final Unit unitOutputCurrency) {
             double[] someCurrencyToDollar = {DOLLAR, EURO, RUBLE, POUND};
             Currency outputCurrency = new Currency(0, Unit.Dollar);
-            AccuracyCorrector valueAfterRound = new AccuracyCorrector();
+            AccuracyCorrector corrector = new AccuracyCorrector();
 
             int indexOfInputUnit = inputCurrency.getUnit().ordinal();
             int indexOfOutputUnit = unitOutputCurrency.ordinal();
@@ -24,7 +24,7 @@ public class CurrencyConverter {
 
             double outputCurrencyBeforeRound = someCurrencyToDollar[indexOfInputUnit]
                     * inputCurrency.getValue() / someCurrencyToDollar[indexOfOutputUnit];
-            double valueOutputCurrencyAfterRound = valueAfterRound.rounding(
+            double valueOutputCurrencyAfterRound = corrector.rounding(
                     outputCurrencyBeforeRound);
 
             outputCurrency.setValue(valueOutputCurrencyAfterRound);
