@@ -34,11 +34,11 @@ public class Length {
         return unitInput;
     }
 
-    public void setValue(final double val) {
-        value = val;
+    public void setValue(final double value) {
+        this.value = value;
     }
 
-    public void setUnitInput(final LengthUnit un) {
-        unitInput = un;
+    public void setUnitInput(final LengthUnit unit) {
+        this.unitInput = unit;
     }
 }
