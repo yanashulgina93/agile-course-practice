@@ -49,6 +49,20 @@ public class IntegratorTest {
         double correctValue = 1.5;
         assertEquals(correctValue, integral, delta);
     }
+    @Test
+    public void canUseTrapezes() {
+        Integrator integrator = new Integrator(1.0, 2.0, "x");
+        double integral = integrator.trapezes();
+        double correctValue = 1.5;
+        assertEquals(correctValue, integral, delta);
+    }
+    @Test
+    public void canUseSimpson() {
+        Integrator integrator = new Integrator(1.0, 2.0, "x");
+        double integral = integrator.simpson();
+        double correctValue = 1.5;
+        assertEquals(correctValue, integral, delta);
+    }
 
 }
 
