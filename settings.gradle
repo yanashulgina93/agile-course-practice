@@ -78,6 +78,9 @@ project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-l
 // Paramuzov Vladimir
 // Plankina Elena
 // Pronina Anastasiya
+// Sabanov Denis
+include "code/sabanov-denis"
+project(":code/sabanov-denis").name = "sabanov-denis-Model"
 // Sevrikov Ilya
 // Shulgina Yana
 // Smirnov Aleksandr
