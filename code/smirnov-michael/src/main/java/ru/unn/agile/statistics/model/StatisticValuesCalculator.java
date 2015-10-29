@@ -41,7 +41,7 @@ public class StatisticValuesCalculator {
     }
 
     public double calculateEnumeration() {
-        if (processedStatistics == null) {
+        if (isProcessedStatisticsEmpty()) {
             return ENUMERATION_OF_EMPTY_DATA;
         }
 
@@ -55,7 +55,7 @@ public class StatisticValuesCalculator {
     }
 
     public double calculateProbabilityOfEvent(final IStatisticDataInstance event) {
-        if (processedStatistics == null) {
+        if (isProcessedStatisticsEmpty()) {
             return PROBABILITY_OF_EVENT_WITH_EMPTY_DATA;
         }
 
@@ -72,7 +72,7 @@ public class StatisticValuesCalculator {
     }
 
     public double calculateVariance() {
-        if (processedStatistics == null) {
+        if (isProcessedStatisticsEmpty()) {
             return VARIANCE_OF_EMPTY_DATA;
         }
 
@@ -92,7 +92,7 @@ public class StatisticValuesCalculator {
     }
 
     public double calculateRawMoment(final int order) {
-        if (processedStatistics == null) {
+        if (isProcessedStatisticsEmpty()) {
             return RAW_MOMENT_OF_EMPTY_DATA;
         }
 
@@ -110,7 +110,7 @@ public class StatisticValuesCalculator {
     }
 
     public double calculateCentralMoment(final int order) {
-        if (processedStatistics == null) {
+        if (isProcessedStatisticsEmpty()) {
             return CENTRAL_MOMENT_OF_EMPTY_DATA;
         }
         if (order <= 0) {
@@ -126,6 +126,9 @@ public class StatisticValuesCalculator {
         return centralMoment;
     }
 
+    private boolean isProcessedStatisticsEmpty() {
+        return (processedStatistics == null) || (processedStatistics.length == 0);
+    }
     private boolean areTwoDoublesEqual(final double firstNumber, final double secondNumber) {
         return Math.abs(firstNumber - secondNumber) <= EPS_FOR_DOUBLE_COMPARISON;
     }

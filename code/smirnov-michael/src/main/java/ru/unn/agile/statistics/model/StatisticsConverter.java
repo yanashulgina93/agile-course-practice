@@ -3,14 +3,14 @@ package ru.unn.agile.statistics.model;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class NumericStatisticsConverter {
+public class StatisticsConverter {
     private ArrayList<IStatisticDataInstance> dataInstances;
 
-    public NumericStatisticsConverter() {
+    public StatisticsConverter() {
         dataInstances = null;
     }
 
-    public NumericStatisticsConverter(final Number[] data) {
+    public StatisticsConverter(final Number[] data) {
         setData(data);
     }
 
@@ -24,7 +24,7 @@ public class NumericStatisticsConverter {
             dataInstances.add(new NumericStatisticDataInstance(data[i].doubleValue()));
         }
     }
-    public Collection<IStatisticDataInstance> convertDataToStatistics() {
+    public Collection<IStatisticDataInstance> convertNumericalDataToStatistics() {
         return dataInstances;
     }
 }
