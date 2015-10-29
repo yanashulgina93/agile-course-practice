@@ -87,4 +87,22 @@ public class WhenSortingArrayWithMergeSort {
 
         assertArrayEquals(new Integer[]{-1, 6, -1, 4, -6}, sortableArray);
     }
+
+    @Test
+    public void canSortFloatArray() {
+        Float[] sortableArray = {5.4f, 8.1f, 1.3f, 2.0f, 3.5f};
+
+        MergeSort.sort(sortableArray);
+
+        assertArrayEquals(new Float[]{1.3f, 2.0f, 3.5f, 5.4f, 8.1f}, sortableArray);
+    }
+
+    @Test
+    public void canSortDoubleArray() {
+        Double[] sortableArray = {8.6, 9.0, 1.1, 5.0, 4.9};
+
+        MergeSort.sort(sortableArray);
+
+        assertArrayEquals(new Double[]{1.1, 4.9, 5.0, 8.6, 9.0}, sortableArray);
+    }
 }

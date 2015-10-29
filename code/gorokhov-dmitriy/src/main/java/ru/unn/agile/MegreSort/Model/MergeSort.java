@@ -1,19 +1,19 @@
+import java.util.Vector;
+
 /**
  * Created by Dmitriy on 28.10.2015.
  */
 
 final class MergeSort {
-    public static void sort(final Integer[] sortingArray) {
-            Integer[] bufferArray = new Integer[sortingArray.length];
-
-            mergeSort(sortingArray, bufferArray, 0, sortingArray.length - 1);
+    public static <Type extends Comparable<Type>> void sort(final Type[] sortingArray) {
+        mergeSort(sortingArray, 0, sortingArray.length - 1);
     }
 
-    public static void sort(final Integer[] sortingArray, final int fromIndex, final int toIndex) {
+    public static <Type extends Comparable<Type>> void sort(final Type[] sortingArray,
+                                                            final int fromIndex,
+                                                            final int toIndex) {
         if (isSortingRangeBiggerOneElement(fromIndex, toIndex)) {
-            Integer[] bufferArray = new Integer[sortingArray.length];
-
-            mergeSort(sortingArray, bufferArray, fromIndex, toIndex);
+            mergeSort(sortingArray, fromIndex, toIndex);
         }
     }
 
@@ -25,44 +25,49 @@ final class MergeSort {
         }
     }
 
-    private static void mergeSort(final Integer[] sortingArray, final Integer[] bufferArray,
-                                  final int fromIndex, final int toIndex) {
+    private static <Type extends Comparable<Type>> void mergeSort(final Type[] sortingArray,
+                                                                  final int fromIndex,
+                                                                  final int toIndex) {
         if (isSortingRangeBiggerOneElement(fromIndex, toIndex)) {
             int middleIndex = fromIndex + (toIndex - fromIndex) / 2;
 
-            mergeSort(sortingArray, bufferArray, fromIndex, middleIndex);
-            mergeSort(sortingArray, bufferArray, middleIndex + 1, toIndex);
+            mergeSort(sortingArray, fromIndex, middleIndex);
+            mergeSort(sortingArray, middleIndex + 1, toIndex);
 
-            merge(sortingArray, bufferArray, fromIndex, middleIndex + 1, toIndex);
+            merge(sortingArray, fromIndex, middleIndex + 1, toIndex);
         }
     }
 
-    private static void merge(final Integer[] sortingArray, final Integer[] bufferArray,
-                              final int leftStartIndex, final int rightStartIndex,
-                              final int rightEndIndex) {
+    private static <Type extends Comparable<Type>> void merge(final Type[] sortingArray,
+                                                              final int leftStartIndex,
+                                                              final int rightStartIndex,
+                                                              final int rightEndIndex) {
         int leftEndIndex = rightStartIndex - 1;
         int currentLeftPos = leftStartIndex;
         int currentRightPos = rightStartIndex;
-        int currentBufferPos = leftStartIndex;
+
+        Vector<Type> bufferArray = new Vector<Type>(sortingArray.length);
 
         while (currentLeftPos <= leftEndIndex && currentRightPos <= rightEndIndex) {
             if (sortingArray[currentLeftPos].compareTo(sortingArray[currentRightPos]) <= 0) {
-                bufferArray[currentBufferPos++] = sortingArray[currentLeftPos++];
+                bufferArray.add(sortingArray[currentLeftPos++]);
             } else {
-                bufferArray[currentBufferPos++] = sortingArray[currentRightPos++];
+                bufferArray.add(sortingArray[currentRightPos++]);
             }
         }
 
         while (currentLeftPos <= leftEndIndex) {
-            bufferArray[currentBufferPos++] = sortingArray[currentLeftPos++];
+            bufferArray.add(sortingArray[currentLeftPos++]);
         }
 
         while (currentRightPos <= rightEndIndex) {
-            bufferArray[currentBufferPos++] = sortingArray[currentRightPos++];
+            bufferArray.add(sortingArray[currentRightPos++]);
         }
 
-        System.arraycopy(bufferArray, leftStartIndex, sortingArray, leftStartIndex,
-                         rightEndIndex + 1 - leftStartIndex);
+        int bufferPosition = 0;
+        for (int i = leftStartIndex; i <= rightEndIndex; i++) {
+            sortingArray[i] = bufferArray.get(bufferPosition++);
+        }
     }
 
     private MergeSort() {
