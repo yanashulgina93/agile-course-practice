@@ -11,6 +11,7 @@ public class StatisticValuesCalculator {
 
     private static final double ENUMERATION_OF_EMPTY_DATA = 0.0;
     private static final double PROBABILITY_OF_EVENT_WITH_EMPTY_DATA = 0.0;
+    private static final double PROBABILITY_OF_NULL_EVENT = 0.0;
     private static final double VARIANCE_OF_EMPTY_DATA = 0.0;
     private static final double VARIANCE_OF_DATA_WITH_SINGLE_INSTANCE = 0.0;
     private static final double RAW_MOMENT_OF_EMPTY_DATA = 0.0;
@@ -57,6 +58,10 @@ public class StatisticValuesCalculator {
     public double calculateProbabilityOfEvent(final IStatisticDataInstance event) {
         if (isProcessedStatisticsEmpty()) {
             return PROBABILITY_OF_EVENT_WITH_EMPTY_DATA;
+        }
+
+        if (event == null) {
+            return PROBABILITY_OF_NULL_EVENT;
         }
 
         double instanceOfEvent = event.getInstance();
