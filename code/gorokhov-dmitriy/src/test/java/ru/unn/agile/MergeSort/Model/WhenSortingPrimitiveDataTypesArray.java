@@ -4,6 +4,8 @@
 
 import org.junit.Test;
 import static org.junit.Assert.assertArrayEquals;
+import java.util.Arrays;
+import java.util.Random;
 
 public class WhenSortingPrimitiveDataTypesArray {
     @Test
@@ -104,5 +106,43 @@ public class WhenSortingPrimitiveDataTypesArray {
         MergeSort.sort(sortableArray);
 
         assertArrayEquals(new Double[]{1.1, 4.9, 5.0, 8.6, 9.0}, sortableArray);
+    }
+
+    @Test
+    public void canSortBigRandomIntegerArray() {
+        int arraySize = 10000;
+        int randomValue = 0;
+        Random randomGenerator = new Random();
+        Integer[] sortableArray = new Integer[arraySize];
+        Integer[] correctArray = new Integer[arraySize];
+        for (int i = 0; i < arraySize; i++) {
+            randomValue = randomGenerator.nextInt();
+            correctArray[i] = randomValue;
+            sortableArray[i] = randomValue;
+        }
+
+        Arrays.sort(correctArray);
+        MergeSort.sort(sortableArray);
+
+        assertArrayEquals(correctArray, sortableArray);
+    }
+
+    @Test
+    public void canSortBigRandomDoubleArray() {
+        int arraySize = 10000;
+        double randomValue = 0;
+        Random randomGenerator = new Random();
+        Double[] sortableArray = new Double[arraySize];
+        Double[] correctArray = new Double[arraySize];
+        for (int i = 0; i < arraySize; i++) {
+            randomValue = randomGenerator.nextDouble();
+            correctArray[i] = randomValue;
+            sortableArray[i] = randomValue;
+        }
+
+        Arrays.sort(correctArray);
+        MergeSort.sort(sortableArray);
+
+        assertArrayEquals(correctArray, sortableArray);
     }
 }
