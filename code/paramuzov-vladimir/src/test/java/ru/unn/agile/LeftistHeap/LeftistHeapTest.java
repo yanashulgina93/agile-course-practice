@@ -15,18 +15,20 @@ import static org.junit.Assert.assertTrue;
 @RunWith(JUnitParamsRunner.class)
 public class LeftistHeapTest {
     @Before
-    public void initializeHeaps(){
+    public void initializeHeaps() {
         firstHeap = new LeftistHeap<>();
         secondHeap = new LeftistHeap<>();
     }
+
     @Test
-    public void canCreateEmptyLeftistHeap(){
+    public void canCreateEmptyLeftistHeap() {
         setUpHeap(firstHeap, 0);
 
         assertTrue(firstHeap.isEmpty());
     }
+
     @Test
-    public void heapWorkProperlyWithDates(){
+    public void heapWorkProperlyWithDates() {
         LeftistHeap<Date> dateHeap = new LeftistHeap<>();
         Date[] dateArray = {new Date(1245624241), new Date(2132524677)};
 
@@ -35,68 +37,76 @@ public class LeftistHeapTest {
 
         assertTrue(Arrays.equals(dateArray,dateHeap.toSortedArray()));
     }
+
     @Test
     @Parameters({"0,0,0","0,1,1","1,0,1","1,1,2","3,5,8","250,260,510"})
-    public void canMergeTwoHeaps(int firstHeapSize, int secondHeapSize, int resultHeapSize){
+    public void canMergeTwoHeaps(int firstHeapSize, int secondHeapSize, int resultHeapSize) {
         setUpTwoHeaps(firstHeapSize, secondHeapSize);
 
         firstHeap.merge(secondHeap);
 
         assertEquals(resultHeapSize,firstHeap.getSize());
     }
+
     @Test
     @Parameters ({"0,1","1,2","10,11"})
-    public void canInsertOneComparableElementToHeap(int startHeapSize, int resultHeapSize){
+    public void canInsertOneComparableElementToHeap(int startHeapSize, int resultHeapSize) {
         setUpHeap(firstHeap, startHeapSize);
 
         firstHeap.insert(heapElement);
 
         assertEquals(resultHeapSize, firstHeap.getSize());
     }
+
     @Test
-    public void createdHeapContainProperInformation(){
+    public void createdHeapContainProperInformation() {
         setUpHeap(firstHeap,5);
         Integer[] arrayOfValues = {0,1,2,3,4};
 
         assertTrue(Arrays.equals(arrayOfValues, firstHeap.toSortedArray()));
     }
+
     @Test
     @Parameters(method = "deleteFromHeapSizesAndResults")
-    public void canDeleteMinElementFromHeap(int elementsInHeap, Integer returnValue){
+    public void canDeleteMinElementFromHeap(int elementsInHeap, Integer returnValue) {
         setUpHeap(firstHeap, elementsInHeap);
 
         Integer deleteResult = firstHeap.extractMin();
 
         assertEquals(returnValue, deleteResult);
     }
+
     @Test
-    public void canClearNotEmptyHeap(){
+    public void canClearNotEmptyHeap() {
         setUpHeap(firstHeap, 5);
 
         firstHeap.clear();
 
-        assertEmptyHeap(firstHeap);
+        assertTrue(firstHeap.isEmpty());
     }
+
     @Test
-    public void canDeleteNotRootElementFromNotEmptyHeap(){
+    public void canDeleteNotRootElementFromNotEmptyHeap() {
         setUpHeap(firstHeap, 10);
 
         firstHeap.delete(firstHeap.getRoot().rightChild);
 
         assertEquals(9, firstHeap.getSize());
     }
+
     @Test
     @Parameters({"1","2","3","10"})
-    public void canDecreaseKeyOfRootElement(int heapSize){
+    public void canDecreaseKeyOfRootElement(int heapSize) {
         setUpHeap(firstHeap, heapSize);
 
         firstHeap.decreaseKey(firstHeap.getRoot(),smallestKey);
 
         assertEquals(smallestKey, firstHeap.getRoot().element);
     }
+
     @Test
     @Parameters({"1","2","3","10"})
-    public void canDecreaseKeyOfNotRootElement(int heapSize){
+    public void canDecreaseKeyOfNotRootElement(int heapSize) {
         setUpHeap(firstHeap, heapSize);
         LeftistHeapNode<Integer> child = getHeapElementFromMiddle(heapSize);
 
@@ -104,47 +114,49 @@ public class LeftistHeapTest {
 
         assertEquals(smallestKey,firstHeap.getRoot().element);
     }
+
     @Test
-    public void IsParentFieldInNodeSetsCorrect(){
+    public void IsParentFieldInNodeSetsCorrect() {
         setUpHeap(firstHeap, 10);
 
         LeftistHeapNode<Integer> child = firstHeap.getRoot().leftChild;
 
         assertEquals(child.parent,firstHeap.getRoot());
     }
+
     @SuppressWarnings("unused")
-    private Object[] deleteFromHeapSizesAndResults(){
+    private Object[] deleteFromHeapSizesAndResults() {
         return new Object[]{
                 new Object[]{0, null},
                 new Object[]{1,0},
                 new Object[]{5,0}
         };
     }
-    private LeftistHeapNode<Integer> getHeapElementFromMiddle(int heapSize){
+
+    private LeftistHeapNode<Integer> getHeapElementFromMiddle(int heapSize) {
         LeftistHeapNode<Integer> child = firstHeap.getRoot();
         for (int i = 0; i < heapSize/2; i++) {
-            if(child.leftChild != null)
+            if(child.hasLeftChild())
                 child = child.leftChild;
-            else if(child.rightChild != null)
+            else if(child.hasRightChild())
                 child = child.rightChild;
             else
                 break;
         }
         return child;
     }
-    private void assertEmptyHeap(LeftistHeap<Integer> heap){
-        assertTrue(heap.isEmpty());
-        assertEquals(0, heap.getSize());
-    }
-    private void setUpHeap(LeftistHeap heap, int numberOfElements){
+
+    private void setUpHeap(LeftistHeap heap, int numberOfElements) {
         heap.clear();
         for(int i = 0; i < numberOfElements; i++)
             heap.insert(i);
     }
-    private void setUpTwoHeaps(int elementsInFirstHeap, int elementsInSecondHeap){
+
+    private void setUpTwoHeaps(int elementsInFirstHeap, int elementsInSecondHeap) {
         setUpHeap(firstHeap, elementsInFirstHeap);
         setUpHeap(secondHeap, elementsInSecondHeap);
     }
+
     private static final Integer heapElement = 10;
     private LeftistHeap<Integer> firstHeap;
     private LeftistHeap<Integer> secondHeap;
