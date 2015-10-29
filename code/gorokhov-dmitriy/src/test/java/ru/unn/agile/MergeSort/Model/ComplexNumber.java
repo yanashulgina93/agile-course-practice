@@ -1,6 +1,5 @@
-/**
- * Created by Dmitriy on 29.10.2015.
- */
+package ru.unn.agile.MergeSort.Model;
+
 class ComplexNumber implements Comparable<ComplexNumber> {
     public ComplexNumber(final double real, final double imaginary) {
         this.real = real;

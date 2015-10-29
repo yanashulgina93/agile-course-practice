@@ -1,148 +1,138 @@
-/**
- * Created by Dmitriy on 28.10.2015.
- */
+package ru.unn.agile.MergeSort.Model;
 
 import org.junit.Test;
-import static org.junit.Assert.assertArrayEquals;
+import org.junit.experimental.runners.Enclosed;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Random;
 
+import static org.junit.Assert.assertArrayEquals;
+
+@RunWith(Enclosed.class)
 public class WhenSortingPrimitiveDataTypesArray {
-    @Test
-    public void canSortEmptyArray() {
-        Integer[] sortableArray = {};
-
-        MergeSort.sort(sortableArray);
-
-        assertArrayEquals(new Integer[]{}, sortableArray);
-    }
-
-    @Test
-    public void canSortOneElementArray() {
-        Integer[] sortableArray = {1};
-
-        MergeSort.sort(sortableArray);
-
-        assertArrayEquals(new Integer[]{1}, sortableArray);
-    }
-
-    @Test
-    public void canSortTwoElementsArray() {
-        Integer[] sortableArray = {5, 1};
-
-        MergeSort.sort(sortableArray);
-
-        assertArrayEquals(new Integer[]{1, 5}, sortableArray);
-    }
-
-
-    @Test
-    public void canSortSmallArray() {
-        Integer[] sortableArray = {2, 1, 5, 8, 3};
-
-        MergeSort.sort(sortableArray);
-
-        assertArrayEquals(new Integer[]{1, 2, 3, 5, 8}, sortableArray);
-    }
-
-    @Test
-    public void canSortArrayWithRepeatedElements() {
-        Integer[] sortableArray = {5, 5, 1, 1, 3};
-
-        MergeSort.sort(sortableArray);
-
-        assertArrayEquals(new Integer[]{1, 1, 3, 5, 5}, sortableArray);
-    }
-
-    @Test
-    public void canSortArrayWithNegativeElements() {
-        Integer[] sortableArray = {-1, -6, -3, 0, 6};
-
-        MergeSort.sort(sortableArray);
-
-        assertArrayEquals(new Integer[]{-6, -3, -1, 0, 6}, sortableArray);
-    }
-
-    @Test
-    public void canSortArrayWithRangeParameters() {
-        Integer[] sortableArray = {-1, 6, -1, 4, -6};
-
-        MergeSort.sort(sortableArray, 1, 3);
-
-        assertArrayEquals(new Integer[]{-1, -1, 4, 6, -6}, sortableArray);
-    }
-
-    @Test
-    public void canSortArrayWithZeroRange() {
-        Integer[] sortableArray = {-1, 6, -1, 4, -6};
-
-        MergeSort.sort(sortableArray, 1, 1);
-
-        assertArrayEquals(new Integer[]{-1, 6, -1, 4, -6}, sortableArray);
-    }
-
-    @Test
-    public void canSortArrayWithNegativeRange() {
-        Integer[] sortableArray = {-1, 6, -1, 4, -6};
-
-        MergeSort.sort(sortableArray, -5, -1);
-
-        assertArrayEquals(new Integer[]{-1, 6, -1, 4, -6}, sortableArray);
-    }
-
-    @Test
-    public void canSortFloatArray() {
-        Float[] sortableArray = {5.4f, 8.1f, 1.3f, 2.0f, 3.5f};
-
-        MergeSort.sort(sortableArray);
-
-        assertArrayEquals(new Float[]{1.3f, 2.0f, 3.5f, 5.4f, 8.1f}, sortableArray);
-    }
-
-    @Test
-    public void canSortDoubleArray() {
-        Double[] sortableArray = {8.6, 9.0, 1.1, 5.0, 4.9};
-
-        MergeSort.sort(sortableArray);
-
-        assertArrayEquals(new Double[]{1.1, 4.9, 5.0, 8.6, 9.0}, sortableArray);
-    }
-
-    @Test
-    public void canSortBigRandomIntegerArray() {
-        int arraySize = 10000;
-        int randomValue = 0;
-        Random randomGenerator = new Random();
-        Integer[] sortableArray = new Integer[arraySize];
-        Integer[] correctArray = new Integer[arraySize];
-        for (int i = 0; i < arraySize; i++) {
-            randomValue = randomGenerator.nextInt();
-            correctArray[i] = randomValue;
-            sortableArray[i] = randomValue;
+    @RunWith(Parameterized.class)
+    public static class MergeSortTestWithSmallIntegerArrays {
+        public MergeSortTestWithSmallIntegerArrays(final Integer[] correctArray,
+                                                   final Integer[] sortingArray) {
+            this.correctArray = correctArray;
+            this.sortingArray = sortingArray;
         }
 
-        Arrays.sort(correctArray);
-        MergeSort.sort(sortableArray);
-
-        assertArrayEquals(correctArray, sortableArray);
-    }
-
-    @Test
-    public void canSortBigRandomDoubleArray() {
-        int arraySize = 10000;
-        double randomValue = 0;
-        Random randomGenerator = new Random();
-        Double[] sortableArray = new Double[arraySize];
-        Double[] correctArray = new Double[arraySize];
-        for (int i = 0; i < arraySize; i++) {
-            randomValue = randomGenerator.nextDouble();
-            correctArray[i] = randomValue;
-            sortableArray[i] = randomValue;
+        @Parameterized.Parameters
+        public static Collection<Object[]> testSmallIntegerArrays() {
+            return Arrays.asList(new Object[][]{
+                    {new Integer[]{}, new Integer[]{}},
+                    {new Integer[]{1}, new Integer[]{1}},
+                    {new Integer[]{1, 5}, new Integer[]{5, 1}},
+                    {new Integer[]{1, 2, 3, 5, 8}, new Integer[]{2, 1, 5, 8, 3}},
+                    {new Integer[]{1, 1, 3, 5, 5}, new Integer[]{5, 5, 1, 1, 3}},
+                    {new Integer[]{-6, -3, -1, 0, 6}, new Integer[]{-1, -6, -3, 0, 6}}
+            });
         }
 
-        Arrays.sort(correctArray);
-        MergeSort.sort(sortableArray);
+        @Test
+        public void canSortSmallIntegerArrays() {
+            MergeSort.sort(sortingArray);
 
-        assertArrayEquals(correctArray, sortableArray);
+            assertArrayEquals(correctArray, sortingArray);
+        }
+
+        private Integer[] correctArray;
+        private Integer[] sortingArray;
+    }
+
+    @RunWith(Parameterized.class)
+    public static class MergeSortRangeTestWithSmallIntegerArrays {
+        public MergeSortRangeTestWithSmallIntegerArrays(final Integer[] correctArray,
+                                                        final Integer[] sortingArray,
+                                                        final int fromIndex,
+                                                        final int toIndex) {
+            this.correctArray = correctArray;
+            this.sortingArray = sortingArray;
+            this.fromIndex = fromIndex;
+            this.toIndex = toIndex;
+        }
+
+        @Parameterized.Parameters
+        public static Collection<Object[]> testSmallIntegerArraysWithRange() {
+            return Arrays.asList(new Object[][]{
+                    {new Integer[]{-1, -1, 4, 6, -6}, new Integer[]{-1, 6, -1, 4, -6}, 1, 3},
+                    {new Integer[]{-1, 6, -1, 4, -6}, new Integer[]{-1, 6, -1, 4, -6}, 1, 1},
+                    {new Integer[]{-1, 6, -1, 4, -6}, new Integer[]{-1, 6, -1, 4, -6}, -5, -1}
+            });
+        }
+
+        @Test
+        public void canSortSmallIntegerArraysWithRange() {
+            MergeSort.sort(sortingArray, fromIndex, toIndex);
+
+            assertArrayEquals(correctArray, sortingArray);
+        }
+
+        private Integer[] correctArray;
+        private Integer[] sortingArray;
+        private int fromIndex;
+        private int toIndex;
+    }
+
+    public static class MergeSortSpecialTests {
+        @Test
+        public void canSortFloatArray() {
+            Float[] sortingArray = {5.4f, 8.1f, 1.3f, 2.0f, 3.5f};
+
+            MergeSort.sort(sortingArray);
+
+            assertArrayEquals(new Float[]{1.3f, 2.0f, 3.5f, 5.4f, 8.1f}, sortingArray);
+        }
+
+        @Test
+        public void canSortDoubleArray() {
+            Double[] sortingArray = {8.6, 9.0, 1.1, 5.0, 4.9};
+
+            MergeSort.sort(sortingArray);
+
+            assertArrayEquals(new Double[]{1.1, 4.9, 5.0, 8.6, 9.0}, sortingArray);
+        }
+
+        @Test
+        public void canSortBigRandomIntegerArray() {
+            int arraySize = 10000;
+            int randomValue = 0;
+            Random randomGenerator = new Random();
+            Integer[] sortingArray = new Integer[arraySize];
+            Integer[] correctArray = new Integer[arraySize];
+            for (int i = 0; i < arraySize; i++) {
+                randomValue = randomGenerator.nextInt();
+                correctArray[i] = randomValue;
+                sortingArray[i] = randomValue;
+            }
+
+            Arrays.sort(correctArray);
+            MergeSort.sort(sortingArray);
+
+            assertArrayEquals(correctArray, sortingArray);
+        }
+
+        @Test
+        public void canSortBigRandomDoubleArray() {
+            int arraySize = 10000;
+            double randomValue = 0;
+            Random randomGenerator = new Random();
+            Double[] sortingArray = new Double[arraySize];
+            Double[] correctArray = new Double[arraySize];
+            for (int i = 0; i < arraySize; i++) {
+                randomValue = randomGenerator.nextDouble();
+                correctArray[i] = randomValue;
+                sortingArray[i] = randomValue;
+            }
+
+            Arrays.sort(correctArray);
+            MergeSort.sort(sortingArray);
+
+            assertArrayEquals(correctArray, sortingArray);
+        }
     }
 }

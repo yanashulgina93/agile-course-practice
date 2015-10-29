@@ -1,8 +1,6 @@
-import java.util.Vector;
+package ru.unn.agile.MergeSort.Model;
 
-/**
- * Created by Dmitriy on 28.10.2015.
- */
+import java.util.Vector;
 
 final class MergeSort {
     public static <Type extends Comparable<Type>> void sort(final Type[] sortingArray) {

@@ -1,28 +1,46 @@
-/**
- * Created by Dmitriy on 29.10.2015.
- */
+package ru.unn.agile.MergeSort.Model;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
+import java.util.Arrays;
+import java.util.Collection;
+
 import static org.junit.Assert.assertArrayEquals;
 
+@RunWith(Parameterized.class)
 public class WhenSortingUsersDataTypesArray {
-    @Test
-    public void canSortOneElementArray() {
-        ComplexNumber[] sortableArray = {new ComplexNumber(0, 0)};
+    public WhenSortingUsersDataTypesArray(final ComplexNumber[] correctArray,
+                                          final ComplexNumber[] sortingArray) {
+        this.correctArray = correctArray;
+        this.sortingArray = sortingArray;
+    }
 
-        MergeSort.sort(sortableArray);
-
-        assertArrayEquals(new ComplexNumber[]{new ComplexNumber(0, 0)}, sortableArray);
+    @Parameterized.Parameters
+    public static Collection<Object[]> testComplexNumberArrays() {
+        return Arrays.asList(new Object[][]{
+            {
+                new ComplexNumber[]{new ComplexNumber(0, 0)},
+                new ComplexNumber[]{new ComplexNumber(0, 0)}
+            },
+            {
+                new ComplexNumber[]{new ComplexNumber(0, 1), new ComplexNumber(1, 3),
+                                    new ComplexNumber(4, 9), new ComplexNumber(5, 1)},
+                new ComplexNumber[]{new ComplexNumber(5, 1), new ComplexNumber(4, 9),
+                                    new ComplexNumber(1, 3), new ComplexNumber(0, 1)}
+            }
+        });
     }
 
     @Test
-    public void canSortTwoElementsArray() {
-        ComplexNumber[] sortableArray = {new ComplexNumber(5, 4),
-                                         new ComplexNumber(5, 1)};
+    public void canSortComplexNumberArrays() {
+        MergeSort.sort(sortingArray);
 
-        MergeSort.sort(sortableArray);
-
-        assertArrayEquals(new ComplexNumber[]{new ComplexNumber(5, 1),
-                                              new ComplexNumber(5, 4)}, sortableArray);
+        assertArrayEquals(correctArray, sortingArray);
     }
+
+    private ComplexNumber[] correctArray;
+    private ComplexNumber[] sortingArray;
 }
+
