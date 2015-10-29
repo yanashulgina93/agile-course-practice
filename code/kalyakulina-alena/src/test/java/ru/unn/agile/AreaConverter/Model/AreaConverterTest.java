@@ -1,198 +1,59 @@
 package ru.unn.agile.AreaConverter.core;
 
+import java.util.Arrays;
+import java.util.Collection;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
+@RunWith(Parameterized.class)
 public class AreaConverterTest {
 
     private static final double DELTA = 1e-10;
 
+    private final AreaMeasure fromMeasure;
+    private final AreaMeasure toMeasure;
+    private final double inputArea;
+    private final double outputArea;
+
     private AreaConverterBuilder builder = new AreaConverterBuilder();
 
-    @Test
-    public void isZeroConvertedToZero() {
-        AreaConverter converter = builder.buildConverter(AreaMeasure.ARE,
-                                                         AreaMeasure.HECTARE);
+    public AreaConverterTest(final AreaMeasure fromMeasure,
+                             final AreaMeasure toMeasure,
+                             final double inputArea,
+                             final double outputArea) {
+        this.fromMeasure = fromMeasure;
+        this.toMeasure = toMeasure;
+        this.inputArea = inputArea;
+        this.outputArea = outputArea;
+    }
 
-        final double resultArea = converter.convert(0.0);
-
-        assertEquals(resultArea, 0.0, DELTA);
+    @Parameterized.Parameters
+    public static Collection measures() {
+        return Arrays.asList(new Object[][] {
+                {AreaMeasure.ARE, AreaMeasure.HECTARE, 0.0, 0.0},
+                {AreaMeasure.SQUARE_METER, AreaMeasure.SQUARE_KILOMETER, 152.0, 0.000152},
+                {AreaMeasure.SQUARE_METER, AreaMeasure.ARE, 10.0, 0.1},
+                {AreaMeasure.SQUARE_METER, AreaMeasure.HECTARE, 0.5, 0.00005},
+                {AreaMeasure.SQUARE_KILOMETER, AreaMeasure.SQUARE_METER, 7.5, 7500000.0},
+                {AreaMeasure.SQUARE_KILOMETER, AreaMeasure.ARE, 25.0, 250000.0},
+                {AreaMeasure.SQUARE_KILOMETER, AreaMeasure.HECTARE, 0.01, 1.0},
+                {AreaMeasure.ARE, AreaMeasure.SQUARE_METER, 500.0, 50000.0},
+                {AreaMeasure.ARE, AreaMeasure.SQUARE_KILOMETER, 6.4, 0.00064},
+                {AreaMeasure.ARE, AreaMeasure.HECTARE, 12.3, 0.123},
+                {AreaMeasure.HECTARE, AreaMeasure.SQUARE_METER, 0.2, 2000.0},
+                {AreaMeasure.HECTARE, AreaMeasure.SQUARE_KILOMETER, 78.0, 0.78},
+                {AreaMeasure.HECTARE, AreaMeasure.ARE, 0.01, 1.0}
+        });
     }
 
     @Test
-    public void isCorrectConvertedFromMeterToMeter() {
-        AreaConverter converter = builder.buildConverter(AreaMeasure.SQUARE_METER,
-                                                         AreaMeasure.SQUARE_METER);
+    public void isCorrectConverting() {
+        AreaConverter converter = builder.buildConverter(fromMeasure, toMeasure);
 
-        final double resultArea = converter.convert(1.0);
+        final double resultArea = converter.convert(inputArea);
 
-        assertEquals(resultArea, 1.0, DELTA);
-    }
-
-    @Test
-    public void isCorrectConvertedFromMeterToKilometer() {
-        AreaConverter converter = builder.buildConverter(AreaMeasure.SQUARE_METER,
-                                                         AreaMeasure.SQUARE_KILOMETER);
-
-        final double resultArea = converter.convert(152.0);
-
-        assertEquals(resultArea, 0.000152, DELTA);
-    }
-
-    @Test
-    public void isCorrectConvertedFromMeterToAre() {
-        AreaConverter converter = builder.buildConverter(AreaMeasure.SQUARE_METER,
-                                                         AreaMeasure.ARE);
-
-        final double resultArea = converter.convert(10.0);
-
-        assertEquals(resultArea, 0.1, DELTA);
-    }
-
-    @Test
-    public void isCorrectConvertedFromMeterToHectare() {
-        AreaConverter converter = builder.buildConverter(AreaMeasure.SQUARE_METER,
-                                                         AreaMeasure.HECTARE);
-
-        final double resultArea = converter.convert(0.5);
-
-        assertEquals(resultArea, 0.00005, DELTA);
-    }
-
-    @Test
-    public void isCorrectConvertedFromKilometerToMeter() {
-        AreaConverter converter = builder.buildConverter(AreaMeasure.SQUARE_KILOMETER,
-                                                         AreaMeasure.SQUARE_METER);
-
-        final double resultArea = converter.convert(7.5);
-
-        assertEquals(resultArea, 7500000.0, DELTA);
-    }
-
-    @Test
-    public void isCorrectConvertedFromKilometerToKilometer() {
-        AreaConverter converter = builder.buildConverter(AreaMeasure.SQUARE_KILOMETER,
-                                                         AreaMeasure.SQUARE_KILOMETER);
-
-        final double resultArea = converter.convert(1.11);
-
-        assertEquals(resultArea, 1.11, DELTA);
-    }
-
-    @Test
-    public void isCorrectConvertedFromKilometerToAre() {
-        AreaConverter converter = builder.buildConverter(AreaMeasure.SQUARE_KILOMETER,
-                                                         AreaMeasure.ARE);
-
-        final double resultArea = converter.convert(25.0);
-
-        assertEquals(resultArea, 250000.0, DELTA);
-    }
-
-    @Test
-    public void isCorrectConvertedFromKilometerToHectare() {
-        AreaConverter converter = builder.buildConverter(AreaMeasure.SQUARE_KILOMETER,
-                                                         AreaMeasure.HECTARE);
-
-        final double resultArea = converter.convert(0.01);
-
-        assertEquals(resultArea, 1.0, DELTA);
-    }
-
-    @Test
-    public void isCorrectConvertedFromAreToMeter() {
-        AreaConverter converter = builder.buildConverter(AreaMeasure.ARE,
-                                                         AreaMeasure.SQUARE_METER);
-
-        final double resultArea = converter.convert(500.0);
-
-        assertEquals(resultArea, 50000.0, DELTA);
-    }
-
-    @Test
-    public void isCorrectConvertedFromAreToKilometer() {
-        AreaConverter converter = builder.buildConverter(AreaMeasure.ARE,
-                                                         AreaMeasure.SQUARE_KILOMETER);
-
-        final double resultArea = converter.convert(6.4);
-
-        assertEquals(resultArea, 0.00064, DELTA);
-    }
-
-    @Test
-    public void isCorrectConvertedFromAreToAre() {
-        AreaConverter converter = builder.buildConverter(AreaMeasure.ARE,
-                                                         AreaMeasure.ARE);
-
-        final double resultArea = converter.convert(300.0);
-
-        assertEquals(resultArea, 300.0, DELTA);
-    }
-
-    @Test
-    public void isCorrectConvertedFromAreToHectare() {
-        AreaConverter converter = builder.buildConverter(AreaMeasure.ARE,
-                                                         AreaMeasure.HECTARE);
-
-        final double resultArea = converter.convert(12.3);
-
-        assertEquals(resultArea, 0.123, DELTA);
-    }
-
-    @Test
-    public void isCorrectConvertedFromHectareToMeter() {
-        AreaConverter converter = builder.buildConverter(AreaMeasure.HECTARE,
-                                                         AreaMeasure.SQUARE_METER);
-
-        final double resultArea = converter.convert(0.2);
-
-        assertEquals(resultArea, 2000.0, DELTA);
-    }
-
-    @Test
-    public void isCorrectConvertedFromHectareToKilometer() {
-        AreaConverter converter = builder.buildConverter(AreaMeasure.HECTARE,
-                                                         AreaMeasure.SQUARE_KILOMETER);
-
-        final double resultArea = converter.convert(78.0);
-
-        assertEquals(resultArea, 0.78, DELTA);
-    }
-
-    @Test
-    public void isCorrectConvertedFromHectareToAre() {
-        AreaConverter converter = builder.buildConverter(AreaMeasure.HECTARE,
-                                                         AreaMeasure.ARE);
-
-        final double resultArea = converter.convert(0.01);
-
-
-        assertEquals(resultArea, 1.0, DELTA);
-    }
-
-    @Test
-    public void isCorrectConvertedFromHectareToHectare() {
-        AreaConverter converter = builder.buildConverter(AreaMeasure.HECTARE,
-                                                         AreaMeasure.HECTARE);
-
-        final double resultArea = converter.convert(0.62);
-
-        assertEquals(resultArea, 0.62, DELTA);
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void throwsExceptionWithNegativeArea() {
-        AreaConverter converter = builder.buildConverter(AreaMeasure.HECTARE,
-                                                         AreaMeasure.SQUARE_METER);
-
-        final double resultArea = converter.convert(-1.0);
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void throwsExceptionWithLargeResultArea() {
-        AreaConverter converter = builder.buildConverter(AreaMeasure.SQUARE_KILOMETER,
-                                                         AreaMeasure.SQUARE_METER);
-
-        final double resultArea = converter.convert(Double.MAX_VALUE);
+        assertEquals(resultArea, outputArea, DELTA);
     }
 }
