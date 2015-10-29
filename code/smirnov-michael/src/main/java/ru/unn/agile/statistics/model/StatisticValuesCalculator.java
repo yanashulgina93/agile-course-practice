@@ -127,7 +127,8 @@ public class StatisticValuesCalculator {
     }
 
     private boolean isProcessedStatisticsEmpty() {
-        return (processedStatistics == null) || (processedStatistics.length == 0);
+        return processedStatistics == null
+                || processedStatistics.length == 0;
     }
     private boolean areTwoDoublesEqual(final double firstNumber, final double secondNumber) {
         return Math.abs(firstNumber - secondNumber) <= EPS_FOR_DOUBLE_COMPARISON;

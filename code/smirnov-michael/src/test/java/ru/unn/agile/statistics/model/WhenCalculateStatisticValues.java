@@ -12,12 +12,12 @@ public class WhenCalculateStatisticValues {
     private StatisticValuesCalculator statisticsCalculator;
     private Collection<IStatisticDataInstance> dataInstances;
     private double deltaForDoubleAssertEquals = 1e-3;
-    private StatisticsConverter numericalConverter;
+    private StatisticsConverter statisticsConverter;
 
     @Before
     public void preparing() {
         statisticsCalculator = new StatisticValuesCalculator();
-        numericalConverter = new StatisticsConverter();
+        statisticsConverter = new StatisticsConverter();
         dataInstances = null;
     }
 
@@ -31,9 +31,9 @@ public class WhenCalculateStatisticValues {
 
     @Test
     public void statisticDataIsEmptyWhenConvertingIntArrayIsEmpty() {
-        numericalConverter.setData(null);
+        statisticsConverter.setData(null);
         Collection<IStatisticDataInstance> dataInstances =
-                numericalConverter.convertNumericalDataToStatistics();
+                statisticsConverter.convertNumericalDataToStatistics();
 
         assertEquals(dataInstances, null);
     }
@@ -214,17 +214,17 @@ public class WhenCalculateStatisticValues {
         return result;
     }
 
+    private void formDataInstances(final Number[] data) {
+        statisticsConverter.setData(data);
+
+        Collection<IStatisticDataInstance> dataInstances =
+                statisticsConverter.convertNumericalDataToStatistics();
+
+        statisticsCalculator.setStatisticData(dataInstances);
+    }
+
     private void assertEqualsForDoublesWithStandardDelta(final double firstValue,
                                                          final double secondValue) {
         assertEquals(firstValue, secondValue, deltaForDoubleAssertEquals);
-    }
-
-    private void formDataInstances(final Number[] data) {
-        numericalConverter.setData(data);
-
-        Collection<IStatisticDataInstance> dataInstances =
-                numericalConverter.convertNumericalDataToStatistics();
-
-        statisticsCalculator.setStatisticData(dataInstances);
     }
 }
