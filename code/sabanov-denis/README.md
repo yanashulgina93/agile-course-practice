@@ -1,4 +1,4 @@
-#Наращение процентов
+﻿#Наращение процентов
 
 Выполнил: 
 
@@ -24,4 +24,3 @@ TBD
 
 [simple]: http://ios.sseu.ru/public/eresmat/fm/razd1_fm/par1_1_2.htm
 [hard]: http://ios.sseu.ru/public/eresmat/fm/razd2_fm/par1_2_1.htm
-
