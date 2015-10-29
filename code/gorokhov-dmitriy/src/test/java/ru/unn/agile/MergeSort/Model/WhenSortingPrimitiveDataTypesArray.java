@@ -5,7 +5,7 @@
 import org.junit.Test;
 import static org.junit.Assert.assertArrayEquals;
 
-public class WhenSortingArrayWithMergeSort {
+public class WhenSortingPrimitiveDataTypesArray {
     @Test
     public void canSortEmptyArray() {
         Integer[] sortableArray = {};
