@@ -34,7 +34,7 @@ public class Integrator {
     }
     public double midpointRectangles() {
         double result = 0.0;
-        for (double x = lowerLimit + (step / 2.0); x < upperLimit; x += step) {
+        for (double x = lowerLimit + step / 2.0; x < upperLimit; x += step) {
             result += func.getValue(x);
         }
         result *= step;
