@@ -14,6 +14,30 @@ public class Integrator {
         step = (upperLimit - lowerLimit) / segmentsNumber;
         func = new Function(strFunc);
     }
+    public double leftRectangles() {
+        double result = 0.0;
+        for (double x = lowerLimit; x < upperLimit; x += step) {
+            result += func.getValue(x);
+        }
+        result *= step;
+        return result;
+    }
+    public double rightRectangles() {
+        double result = 0.0;
+        for (double x = lowerLimit + step; x <= upperLimit; x += step) {
+            result += func.getValue(x);
+        }
+        result *= step;
+        return result;
+    }
+    public double midpointRectangles() {
+        double result = 0.0;
+        for (double x = lowerLimit + (step / 2.0); x < upperLimit; x += step) {
+            result += func.getValue(x);
+        }
+        result *= step;
+        return result;
+    }
     public void setLowerLimit(final double lowerLim) {
         this.lowerLimit = lowerLim;
     }
