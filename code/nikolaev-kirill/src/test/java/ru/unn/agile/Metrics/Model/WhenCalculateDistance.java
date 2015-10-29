@@ -31,7 +31,7 @@ public class WhenCalculateDistance {
         float result = distanceCalculator.calculateDistance(firstVector, secondVector,
                 Metric.RHO_INF);
     }
-    
+
     @Test
     public void sameVectorsGivesZeroInRhoInf() {
         float[] someVector = {1, -2 , 3};
