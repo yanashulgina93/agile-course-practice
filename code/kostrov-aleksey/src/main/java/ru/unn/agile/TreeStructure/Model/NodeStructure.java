@@ -1,10 +1,10 @@
 package ru.unn.agile.TreeStructure.Model;
 
 
-public class NodeStructure<TypeKey extends Comparable, TypeData> {
+public class NodeStructure<TypeKey extends Comparable<TypeKey>, TypeData> {
     private TypeData data;
     private final TypeKey key;
-    private NodeStructure leftChild, rightChild;
+    private NodeStructure<TypeKey, TypeData> leftChild, rightChild;
 
     public NodeStructure(final TypeKey key, final TypeData data) {
         leftChild = null;
@@ -25,19 +25,19 @@ public class NodeStructure<TypeKey extends Comparable, TypeData> {
         this.data = data;
     }
 
-    public void setLeftChild(final NodeStructure node) {
+    public void setLeftChild(final NodeStructure<TypeKey, TypeData> node) {
        leftChild = node;
     }
 
-    public NodeStructure getLeftChild() {
+    public NodeStructure<TypeKey, TypeData> getLeftChild() {
         return leftChild;
     }
 
-    public void setRightChild(final NodeStructure node) {
+    public void setRightChild(final NodeStructure<TypeKey, TypeData> node) {
         rightChild = node;
     }
 
-    public NodeStructure getRightChild() {
+    public NodeStructure<TypeKey, TypeData> getRightChild() {
         return rightChild;
     }
 }

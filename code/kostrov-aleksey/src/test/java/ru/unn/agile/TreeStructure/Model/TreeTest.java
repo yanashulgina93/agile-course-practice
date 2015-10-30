@@ -25,8 +25,14 @@ public class TreeTest {
     }
 
     @Test
-    public void canAddNewNode() {
+    public void canAddNewNodeRoot() {
         tree = new TreeStructure<>();
         assertTrue(tree.addNode(100, "root"));
+    }
+
+    @Test
+    public void canAddNewNodeNotRoot() {
+        tree = new TreeStructure<>(100, "root");
+        assertTrue(tree.addNode(80, "child"));
     }
 }
