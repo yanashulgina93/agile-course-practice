@@ -4,7 +4,7 @@ public class Intersection {
     private TypeOfIntersection typeOfIntersection;
     private Segment segment;
 
-    Intersection(TypeOfIntersection typeOfIntersection, Segment segment) {
+    Intersection(final TypeOfIntersection typeOfIntersection, final Segment segment) {
         this.typeOfIntersection = typeOfIntersection;
         this.segment = segment;
     }
