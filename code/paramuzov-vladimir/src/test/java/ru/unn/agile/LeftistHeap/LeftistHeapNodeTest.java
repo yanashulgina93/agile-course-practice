@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class LeftistHeapNodeTest {
@@ -18,7 +17,8 @@ public class LeftistHeapNodeTest {
 
         node.swapChildren();
 
-        assertTrue(Arrays.equals(new Object[]{leftChild, rightChild}, new Object[]{node.getRightChild(), node.getLeftChild()}));
+        assertTrue(Arrays.equals(new Object[]{leftChild, rightChild},
+                new Object[]{node.getRightChild(), node.getLeftChild()}));
     }
 
     @Test

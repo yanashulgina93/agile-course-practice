@@ -2,15 +2,18 @@ package ru.unn.agile.LeftistHeap;
 
 import java.util.ArrayList;
 
-public class LeftistHeap <Type extends Comparable<Type>> {
+public class LeftistHeap<Type extends Comparable<Type>> {
+    private LeftistHeapNode<Type> root;
+    private int size;
+
     LeftistHeap() {
         root = null;
         size = 0;
     }
 
-    public Object[] toSortedArray(){
+    public Object[] toSortedArray() {
         ArrayList<Type> sortedList = new ArrayList<>();
-        while(size > 0) {
+        while (size > 0) {
             sortedList.add(extractMin());
         }
 
@@ -22,8 +25,12 @@ public class LeftistHeap <Type extends Comparable<Type>> {
         size = 0;
     }
 
-    public void delete(LeftistHeapNode<Type> heapNode) {
-        if(heapNode == root) {
+    public void delete(final LeftistHeapNode<Type> heapNode) {
+        if (heapNode == null) {
+            return;
+        }
+
+        if (heapNode.equals(root)) {
             extractMin();
             return;
         }
@@ -33,12 +40,12 @@ public class LeftistHeap <Type extends Comparable<Type>> {
         heapNode.clear();
     }
 
-    public void decreaseKey(LeftistHeapNode<Type> heapNode, Type key) {
-        if(key.compareTo(heapNode.getElement()) > 0) {
+    public void decreaseKey(final LeftistHeapNode<Type> heapNode, final Type key) {
+        if (key.compareTo(heapNode.getElement()) > 0) {
             return;
         }
 
-        if(heapNode == root) {
+        if (heapNode.equals(root)) {
             heapNode.setElement(key);
             return;
         }
@@ -52,7 +59,7 @@ public class LeftistHeap <Type extends Comparable<Type>> {
         return root == null;
     }
 
-    public void merge(LeftistHeap<Type> rhsHeap) {
+    public void merge(final LeftistHeap<Type> rhsHeap) {
         if (this == rhsHeap) {
             return;
         }
@@ -67,7 +74,7 @@ public class LeftistHeap <Type extends Comparable<Type>> {
     }
 
     public Type extractMin() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             return null;
         }
 
@@ -87,19 +94,19 @@ public class LeftistHeap <Type extends Comparable<Type>> {
 
     private void cut(final LeftistHeapNode<Type> heapNode) {
         boolean left = heapNode.getParent().getLeftChild() == heapNode;
-        LeftistHeapNode<Type> replacement = merge(heapNode.getLeftChild(), heapNode.getRightChild());
+        LeftistHeapNode<Type> sub = merge(heapNode.getLeftChild(), heapNode.getRightChild());
         LeftistHeapNode<Type> parent = heapNode.getParent();
-        if(left) {
-            parent.setLeftChild(replacement);
+        if (left) {
+            parent.setLeftChild(sub);
         } else {
-            parent.setRightChild(replacement);
+            parent.setRightChild(sub);
         }
 
-        if(replacement != null) {
-            replacement.setParent(parent);
+        if (sub != null) {
+            sub.setParent(parent);
         }
 
-        if(parent.hasLeftChild() && !parent.hasRightChild()) {
+        if (parent.hasLeftChild() && !parent.hasRightChild()) {
             parent.swapChildren();
             parent.setRank(0);
         } else {
@@ -114,37 +121,35 @@ public class LeftistHeap <Type extends Comparable<Type>> {
         heapNode.clear();
     }
 
-    private LeftistHeapNode<Type> merge(LeftistHeapNode<Type> firstRoot, LeftistHeapNode<Type> secondRoot) {
-        if(firstRoot == null) {
+    private LeftistHeapNode<Type> merge(final LeftistHeapNode<Type> firstRoot,
+                                        final LeftistHeapNode<Type> secondRoot) {
+        if (firstRoot == null) {
             return secondRoot;
         }
 
-        if(secondRoot == null) {
+        if (secondRoot == null) {
             return firstRoot;
         }
 
-        if(firstRoot.compareTo(secondRoot) > 0) {
-            LeftistHeapNode<Type> temp = firstRoot;
-            firstRoot = secondRoot;
-            secondRoot = temp;
+        LeftistHeapNode<Type> first = firstRoot;
+        LeftistHeapNode<Type> second = secondRoot;
+        if (first.compareTo(second) > 0) {
+            LeftistHeapNode<Type> temp = first;
+            first = second;
+            second = temp;
         }
 
-        firstRoot.setRightChild(merge(firstRoot.getRightChild(), secondRoot));
-        firstRoot.getRightChild().setParent(firstRoot);
+        first.setRightChild(merge(first.getRightChild(), second));
+        first.getRightChild().setParent(first);
 
-        if(!firstRoot.hasLeftChild()) {
-            firstRoot.swapChildren();
-        } else {
-            if(firstRoot.isRightChildHasLargerRank()) {
-                firstRoot.swapChildren();
-            }
-
-            firstRoot.setRank(firstRoot.getRightChild().getRank() + 1);
+        if (!first.hasLeftChild() || first.isRightChildHasLargerRank()) {
+            first.swapChildren();
         }
 
-        return firstRoot;
+        if (first.hasRightChild()) {
+            first.setRank(first.getRightChild().getRank() + 1);
+        }
+
+        return first;
     }
-
-    private LeftistHeapNode<Type> root;
-    private int size;
 }

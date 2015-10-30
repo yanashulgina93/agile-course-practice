@@ -1,8 +1,14 @@
 package ru.unn.agile.LeftistHeap;
 
-public class LeftistHeapNode <Type extends Comparable<Type>>{
-    LeftistHeapNode(Type element) {
-        this(element,null,null,null);
+public class LeftistHeapNode<Type extends Comparable<Type>> {
+    private Type element;
+    private LeftistHeapNode<Type> leftChild;
+    private LeftistHeapNode<Type> rightChild;
+    private LeftistHeapNode<Type> parent;
+    private int rank;
+
+    LeftistHeapNode(final Type element) {
+        this(element, null, null, null);
     }
 
     public void swapChildren() {
@@ -38,7 +44,7 @@ public class LeftistHeapNode <Type extends Comparable<Type>>{
     public boolean isRightChildHasLargerRank() {
         return rightChild.getRank() > leftChild.getRank();
     }
-    public int compareTo(LeftistHeapNode<Type> rhsNode) {
+    public int compareTo(final LeftistHeapNode<Type> rhsNode) {
         return this.element.compareTo(rhsNode.element);
     }
 
@@ -46,7 +52,7 @@ public class LeftistHeapNode <Type extends Comparable<Type>>{
         return rank;
     }
 
-    public void setRank(int rank) {
+    public void setRank(final int rank) {
         this.rank = rank;
     }
 
@@ -54,7 +60,7 @@ public class LeftistHeapNode <Type extends Comparable<Type>>{
         return element;
     }
 
-    public void setElement(Type element) {
+    public void setElement(final Type element) {
         this.element = element;
     }
 
@@ -62,7 +68,7 @@ public class LeftistHeapNode <Type extends Comparable<Type>>{
         return leftChild;
     }
 
-    public void setLeftChild(LeftistHeapNode<Type> leftChild) {
+    public void setLeftChild(final LeftistHeapNode<Type> leftChild) {
         this.leftChild = leftChild;
     }
 
@@ -70,7 +76,7 @@ public class LeftistHeapNode <Type extends Comparable<Type>>{
         return rightChild;
     }
 
-    public void setRightChild(LeftistHeapNode<Type> rightChild) {
+    public void setRightChild(final LeftistHeapNode<Type> rightChild) {
         this.rightChild = rightChild;
     }
 
@@ -78,21 +84,18 @@ public class LeftistHeapNode <Type extends Comparable<Type>>{
         return parent;
     }
 
-    public void setParent(LeftistHeapNode<Type> parent) {
+    public void setParent(final LeftistHeapNode<Type> parent) {
         this.parent = parent;
     }
 
-    private LeftistHeapNode(Type element, LeftistHeapNode<Type> leftChild, LeftistHeapNode<Type> rightChild, LeftistHeapNode<Type> parent) {
+    private LeftistHeapNode(final Type element,
+                            final LeftistHeapNode<Type> leftChild,
+                            final LeftistHeapNode<Type> rightChild,
+                            final LeftistHeapNode<Type> parent) {
         this.element = element;
         this.leftChild = leftChild;
         this.rightChild = rightChild;
         this.parent = parent;
         this.rank = 0;
     }
-
-    private Type element;
-    private LeftistHeapNode<Type> leftChild;
-    private LeftistHeapNode<Type> rightChild;
-    private LeftistHeapNode<Type> parent;
-    private int rank;
 }
