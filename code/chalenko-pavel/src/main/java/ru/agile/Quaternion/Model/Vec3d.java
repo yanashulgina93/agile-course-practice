@@ -23,9 +23,13 @@ public class Vec3d {
 	}
 
 	public Vec3d(Vec3d vec) {
-		this.x = vec.x;
-		this.y = vec.y;
-		this.z = vec.z;
+		if (vec != null){
+			this.x = vec.x;
+			this.y = vec.y;
+			this.z = vec.z;
+		} else {
+			throw new NullPointerException();
+		}
 	}
 
 	/* (non-Javadoc)
@@ -90,5 +94,16 @@ public class Vec3d {
 
 	public Vec3d mul(double scalar) {
 		return new Vec3d(scalar * this.x, scalar * this.y, scalar * this.z);
+	}
+
+	public void norm() {
+		double len = length();
+		if (len != 0) {
+			this.x /= len;
+			this.y /= len;
+			this.z /= len;
+		} else {
+			throw new ArithmeticException("Division by zero");
+		}
 	}
 }

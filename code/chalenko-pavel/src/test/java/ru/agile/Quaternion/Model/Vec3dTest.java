@@ -20,7 +20,7 @@ public class Vec3dTest {
 
 	private Vec3d vec1;
 	private Vec3d vec2;
-	private double eps = 0.0001;
+	private double eps = 0.001;
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -130,6 +130,16 @@ public class Vec3dTest {
 	}
 	
 	@Test
+	public void canDotZeroVector(){
+		double expectedDot = 0;
+		vec2 = new Vec3d(0, 0, 0);
+		
+		double actualDot = vec1.dot(vec2);
+		
+		assertEquals("Can't scalar multiply", expectedDot, actualDot, eps);
+	}
+	
+	@Test
 	public void isDotComutative(){
 		double actualDot12 = vec1.dot(vec2);
 		double actualDot21 = vec2.dot(vec1);
@@ -140,6 +150,16 @@ public class Vec3dTest {
 	@Test
 	public void canLength(){
 		double expectedLen = 3.74166;
+		
+		double actualLen = vec1.length();
+		
+		assertEquals("Can't calculate length", expectedLen, actualLen, eps);
+	}
+	
+	@Test
+	public void canLengthZeroVector(){
+		double expectedLen = 0;
+		vec1 = new Vec3d(0, 0, 0);
 		
 		double actualLen = vec1.length();
 		
@@ -185,7 +205,16 @@ public class Vec3dTest {
 		
 		Vec3d actualVec = vec1.mul(2);
 		
-		assertTrue("Can't calculate length", actualVec.equals(expectedVec));
+		assertTrue("Can't multiply vectors to scalar", actualVec.equals(expectedVec));
+	}
+	
+	@Test
+	public void canMulZero(){
+		Vec3d expectedVec = new Vec3d(0, 0, 0);
+		
+		Vec3d actualVec = vec1.mul(0);
+		
+		assertTrue("Can't multiply vectors to scalar", actualVec.equals(expectedVec));
 	}
 	
 	@Test
@@ -194,5 +223,58 @@ public class Vec3dTest {
 		
 		assertTrue("Can't copy vector", actualVec.equals(vec1));
 		assertFalse("Can't copy vector", actualVec.equals(vec2));
+	}
+	
+	@Test (expected = NullPointerException.class)
+	public void canThrowExceptionWhenCopyNull(){
+		Vec3d actualVec = new Vec3d(null);
+		
+		assertTrue("Can't copy vector", actualVec.equals(vec1));
+		assertFalse("Can't copy vector", actualVec.equals(vec2));
+	}
+	
+	@Test
+	public void canNorm(){
+		Vec3d expectedVec = new Vec3d(0.577, .577, .577);
+		Vec3d actualVec = new Vec3d(1, 1, 1);
+		
+		actualVec.norm();
+		
+		assertEquals("Can't normalize vector", actualVec.getX(), expectedVec.getX(), eps);
+		assertEquals("Can't normalize vector", actualVec.getY(), expectedVec.getY(), eps);
+		assertEquals("Can't normalize vector", actualVec.getZ(), expectedVec.getZ(), eps);
+	}
+	
+	@Test
+	public void canNormOrt(){
+		Vec3d expectedVec = new Vec3d(1, 0, 0);
+		Vec3d actualVec = new Vec3d(1, 0, 0);
+		
+		actualVec.norm();
+		
+		assertEquals("Can't normalize vector", actualVec.getX(), expectedVec.getX(), eps);
+		assertEquals("Can't normalize vector", actualVec.getY(), expectedVec.getY(), eps);
+		assertEquals("Can't normalize vector", actualVec.getZ(), expectedVec.getZ(), eps);
+	}
+	
+	@Test
+	public void canNormVectorWithLength2(){
+		Vec3d expectedVec = new Vec3d(0, 1, 0);
+		Vec3d actualVec = new Vec3d(0, 2, 0);
+		
+		actualVec.norm();
+		
+		assertEquals("Can't normalize vector", actualVec.getX(), expectedVec.getX(), eps);
+		assertEquals("Can't normalize vector", actualVec.getY(), expectedVec.getY(), eps);
+		assertEquals("Can't normalize vector", actualVec.getZ(), expectedVec.getZ(), eps);
+	}
+	
+	@Test (expected = ArithmeticException.class)
+	public void canNotNorm(){
+		Vec3d actualVec = new Vec3d(0., .0, .0);
+		
+		actualVec.norm();
+		
+		assertTrue(false);
 	}
 }

@@ -3,15 +3,13 @@
  */
 package test.java.ru.agile.Quaternion.Model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import main.java.ru.agile.Quaternion.Model.Quat;
-import main.java.ru.agile.Quaternion.Model.Vec3d;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import main.java.ru.agile.Quaternion.Model.Quat;
+import main.java.ru.agile.Quaternion.Model.Vec3d;
 
 /**
  * @author User
@@ -225,4 +223,107 @@ public class QuatTest {
 		assertEquals("Can't get argument of quaternion", expectedAngle, actualAngle, eps);
 	}
 	
+	@Test
+	public void canEqualsEps(){
+		q2 = new Quat(1, 2.001, 2.999, 4.);
+		Quat q3 = new Quat(1, 2.002, 3, 4);
+		
+		boolean q1equalsq2 = q1.equals(q2, eps);
+		boolean q1equalsq3 = q1.equals(q3, eps);
+		
+		assertTrue("Can't equals quaternions with precission", q1equalsq2);
+		assertFalse("Can't equals quaternions with precission", q1equalsq3);
+	}
+	
+	@Test
+	public void canCreateQuaternionFromAxisAngleX0(){
+		Quat expectedQuat = new Quat(1, 0., 0, 0);
+		
+		Quat actualQuat = Quat.createFromAxisAngle(new Vec3d(1, 0, 0), 0);
+		
+		assertTrue("Can't create quaternion from axis-angle", expectedQuat.equals(actualQuat, eps));
+	}
+	
+	@Test
+	public void canCreateQuaternionFromAxisAngleX90(){
+		Quat expectedQuat = new Quat(0.707, 0.707, 0, 0);
+		
+		Quat actualQuat = Quat.createFromAxisAngle(new Vec3d(1, 0, 0), Math.PI/2);
+		
+		assertTrue("Can't create quaternion from axis-angle", expectedQuat.equals(actualQuat, eps));
+	}
+	
+	@Test
+	public void canCreateQuaternionFromAxisAngleX180(){
+		Quat expectedQuat = new Quat(0, 1, 0, 0);
+		
+		Quat actualQuat = Quat.createFromAxisAngle(new Vec3d(1, 0, 0), Math.PI);
+		
+		assertTrue("Can't create quaternion from axis-angle", expectedQuat.equals(actualQuat, eps));
+	}
+	
+	@Test
+	public void canCreateQuaternionFromAxisAngleZ180(){
+		Quat expectedQuat = new Quat(0., 0., 0, 1);
+		
+		Quat actualQuat = Quat.createFromAxisAngle(new Vec3d(0, 0, 1), Math.PI);
+		
+		assertTrue("Can't create quaternion from axis-angle", expectedQuat.equals(actualQuat, eps));
+	}
+	
+	@Test
+	public void canCreateQuaternionFromAxisAngleXYZ180(){
+		Quat expectedQuat = new Quat(0., 0.577, 0.577, 0.577);
+		Vec3d axis = new Vec3d(1, 1, 1);
+		axis.norm();
+		
+		Quat actualQuat = Quat.createFromAxisAngle(axis, Math.PI);
+		
+		assertTrue("Can't create quaternion from axis-angle", expectedQuat.equals(actualQuat, eps));
+	}
+	
+	@Test
+	public void canCreateQuaternionFromYPR0(){
+		Quat expectedQuat = new Quat(1, 0, 0, 0);
+		
+		Quat actualQuat = Quat.createFromYPR(0, 0, 0);
+		
+		assertTrue("Can't create quaternion from YAW, PITCH, ROLL", expectedQuat.equals(actualQuat));
+	}
+	
+	@Test
+	public void canCreateQuaternionFromYPR0090(){
+		Quat expectedQuat = new Quat(0.707, 0.707, 0, 0);
+		
+		Quat actualQuat = Quat.createFromYPR(0, 0, Math.PI / 2);
+		
+		assertTrue("Can't create quaternion from YAW, PITCH, ROLL", expectedQuat.equals(actualQuat, eps));
+	}
+	
+	@Test
+	public void canCreateQuaternionFromYPR00180(){
+		Quat expectedQuat = new Quat(0, 1, 0, 0);
+		
+		Quat actualQuat = Quat.createFromYPR(0, 0, Math.PI);
+		
+		assertTrue("Can't create quaternion from YAW, PITCH, ROLL", expectedQuat.equals(actualQuat, eps));
+	}
+	
+	@Test
+	public void canCreateQuaternionFromYPR18000(){
+		Quat expectedQuat = new Quat(0., 0., 0, 1);
+		
+		Quat actualQuat = Quat.createFromYPR(Math.PI, 0, 0);
+		
+		assertTrue("Can't create quaternion from YAW, PITCH, ROLL", expectedQuat.equals(actualQuat, eps));
+	}
+	
+	@Test
+	public void canCreateQuaternionFromYPR(){
+		Quat expectedQuat = new Quat(0.146, 0.854, 0.354, -0.354);
+		
+		Quat actualQuat = Quat.createFromYPR(Math.PI / 4, Math.PI / 4, Math.PI);
+		
+		assertTrue("Can't create quaternion from YAW, PITCH, ROLL", expectedQuat.equals(actualQuat, eps));
+	}
 }

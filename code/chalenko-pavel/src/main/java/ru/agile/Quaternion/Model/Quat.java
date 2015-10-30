@@ -97,7 +97,54 @@ public class Quat {
 	}
 
 	public double getArg() {
-		// TODO Auto-generated method stub
-		return Math.acos(this.getScalar()/this.length());
+		return Math.acos(this.getScalar() / this.length());
 	}
+	
+	public boolean equals(Quat other, double eps) {
+		boolean isEqualsScalar = Math.abs(this.scalar - other.scalar) < eps;
+		boolean isEqualsI = Math.abs(this.getI() - other.getI()) < eps;
+		boolean isEqualsJ = Math.abs(this.getJ() - other.getJ()) < eps;
+		boolean isEqualsK = Math.abs(this.getK() - other.getK()) < eps;
+		return isEqualsScalar && isEqualsI && isEqualsJ && isEqualsK;
+	}
+
+	public static Quat createFromAxisAngle(Vec3d vec, double angle) {
+		double qw = Math.cos(angle / 2);
+		double qx = vec.getX() * Math.sin(angle / 2);
+		double qy = vec.getY() * Math.sin(angle / 2);
+		double qz = vec.getZ() * Math.sin(angle / 2);
+		return new Quat(qw, qx, qy, qz);
+	}
+
+	public static Quat createFromYPR(double yaw, double pitch, double roll) {
+		double sr,sp,sy,cr,cp,cy;
+		sy = Math.sin(yaw * 0.5);		cy = Math.cos(yaw * 0.5);
+		sp = Math.sin(pitch * 0.5);		cp = Math.cos(pitch * 0.5);
+		sr = Math.sin(roll * 0.5);		cr = Math.cos(roll * 0.5);
+		
+		double w = (sy * sp * sr + cy * cp * cr);
+		double x = (-sy * sp * cr + cy * cp * sr);
+		double y = (sy * cp * sr + cy * sp * cr);
+		double z = (sy * cp * cr - cy * sp * sr);
+		
+		return new Quat(w, x, y, z);
+	}
+	
+	public static Quat createFromYPR(Vec3d vec) {
+		double sr,sp,sy,cr,cp,cy;
+		sy = Math.sin(vec.getX() * 0.5);	cy = Math.cos(vec.getX() * 0.5);
+		sp = Math.sin(vec.getY() * 0.5);	cp = Math.cos(vec.getY() * 0.5);
+		sr = Math.sin(vec.getZ() * 0.5);	cr = Math.cos(vec.getZ() * 0.5);
+		
+		double srcp = sr * cp, crsp = cr * sp;
+		double crcp = cr * cp, srsp = sr * sp;
+		
+		double w=(crcp * cy + srsp * sy);
+		double x=(srcp * cy - crsp * sy);
+		double y=(crsp * cy + srcp * sy);
+		double z=(crcp * sy - srsp * cy);
+		
+		return new Quat(w, x, y, z);
+	}
+
 }
