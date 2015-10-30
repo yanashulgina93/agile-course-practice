@@ -93,13 +93,13 @@ public class Segment {
                     makeFirstPointWithLessX(segment1);
                     makeFirstPointWithLessX(segment2);
 
-                    if (segment1.getStartX() < segment2.getStartX() &&
-                            segment1.getFinishX() > segment2.getFinishX()) {
+                    if (segment1.getStartX() < segment2.getStartX()
+                            && segment1.getFinishX() > segment2.getFinishX()) {
                         typeOfIntersection = TypeOfIntersection.OnePartOfOther;
                         startPointOfIntersection = segment2.getStart();
                         finishPointOfIntersection = segment2.getFinish();
-                    } else if (segment1.getStartX() > segment2.getStartX() &&
-                            segment1.getFinishX() < segment2.getFinishX()) {
+                    } else if (segment1.getStartX() > segment2.getStartX()
+                            && segment1.getFinishX() < segment2.getFinishX()) {
                         typeOfIntersection = TypeOfIntersection.OnePartOfOther;
                         startPointOfIntersection = segment1.getStart();
                         finishPointOfIntersection = segment1.getFinish();
@@ -122,14 +122,11 @@ public class Segment {
             //[1, 2, 3] * [1, 2, 4] < 0 è [3, 4, 1] * [3, 4, 2] < 0
             if (vectorMultiplication(segment1.getStart(),
                     segment1.getFinish(), segment2.getStart())
-                    *
-                    vectorMultiplication(segment1.getStart(),
+                    * vectorMultiplication(segment1.getStart(),
                             segment1.getFinish(), segment2.getFinish()) <= 0
-                    &&
-                    vectorMultiplication(segment2.getStart(),
+                    && vectorMultiplication(segment2.getStart(),
                             segment2.getFinish(), segment1.getStart())
-                            *
-                            vectorMultiplication(segment2.getStart(),
+                            * vectorMultiplication(segment2.getStart(),
                                     segment2.getFinish(), segment1.getFinish()) <= 0) {
                 return true;
             }
@@ -137,16 +134,16 @@ public class Segment {
         }
 
         private double vectorMultiplication(final Point p1, final Point p2, final Point p3) {
-            return (p1.getX() - p3.getX()) * (p2.getY() - p3.getY()) -
-                    (p1.getY() - p3.getY()) * (p2.getX() - p3.getX());
+            return (p1.getX() - p3.getX()) * (p2.getY() - p3.getY())
+                    - (p1.getY() - p3.getY()) * (p2.getX() - p3.getX());
         }
 
         private double calculateSlope(final Segment segment) {
             if (segment.getStartY() == segment.getFinishY()) {
                 return 0;
             }
-            return (segment.getFinishY() - segment.getStartY()) /
-                    (segment.getFinishX() - segment.getStartX());
+            return (segment.getFinishY() - segment.getStartY())
+                    / (segment.getFinishX() - segment.getStartX());
         }
 
         private void makeFirstPointWithLessX(final Segment segment) {
@@ -169,7 +166,7 @@ public class Segment {
         if (start == null || finish == null) {
             return -1.0;
         }
-        return Math.sqrt(Math.pow(start.getX() - finish.getX(), 2) +
-                Math.pow(start.getY() - finish.getY(), 2));
+        return Math.sqrt(Math.pow(start.getX() - finish.getX(), 2)
+                + Math.pow(start.getY() - finish.getY(), 2));
     }
 }
