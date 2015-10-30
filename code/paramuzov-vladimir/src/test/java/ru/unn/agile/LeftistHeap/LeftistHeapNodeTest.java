@@ -2,8 +2,8 @@ package ru.unn.agile.LeftistHeap;
 
 import org.junit.Test;
 
-import java.util.Arrays;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertTrue;
 
 public class LeftistHeapNodeTest {
@@ -17,8 +17,8 @@ public class LeftistHeapNodeTest {
 
         node.swapChildren();
 
-        assertTrue(Arrays.equals(new Object[]{leftChild, rightChild},
-                new Object[]{node.getRightChild(), node.getLeftChild()}));
+        assertArrayEquals(new Object[]{leftChild, rightChild},
+                new Object[]{node.getRightChild(), node.getLeftChild()});
     }
 
     @Test

@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -146,9 +147,9 @@ public class LeftistHeapTest {
     }
 
     @RunWith(Parameterized.class)
-    public static class WhenDeleteElementsFromHeap {
-        public WhenDeleteElementsFromHeap(final int elementsInHeap,
-                                          final Integer returnValue) {
+    public static class WhenDeleteRootElementFromHeap {
+        public WhenDeleteRootElementFromHeap(final int elementsInHeap,
+                                             final Integer returnValue) {
             this.elementsInHeap = elementsInHeap;
             this.returnValue = returnValue;
             heap = new LeftistHeap<>();
@@ -165,22 +166,12 @@ public class LeftistHeapTest {
         }
 
         @Test
-        public void canDeleteMinElementFromHeap() {
+        public void canDeleteRootElementFromHeap() {
             setUpHeap(heap, elementsInHeap);
 
             Integer deleteResult = heap.extractMin();
 
             assertEquals(returnValue, deleteResult);
-        }
-
-        @Test
-        public void canDeleteNotRootElementFromNotEmptyHeap() {
-            elementsInHeap += 5;
-            setUpHeap(heap, elementsInHeap);
-
-            heap.delete(heap.getRoot().getRightChild());
-
-            assertEquals(elementsInHeap - 1, heap.getSize());
         }
 
         private int elementsInHeap;
@@ -192,6 +183,7 @@ public class LeftistHeapTest {
         public LeftistHeapSimpleTests() {
             heap = new LeftistHeap<>();
         }
+
         @Test
         public void canCreateEmptyLeftistHeap() {
             setUpHeap(heap, 0);
@@ -207,15 +199,15 @@ public class LeftistHeapTest {
             dateHeap.insert(dateArray[0]);
             dateHeap.insert(dateArray[1]);
 
-            assertTrue(Arrays.equals(dateArray, dateHeap.toSortedArray()));
+            assertArrayEquals(dateArray, dateHeap.toSortedArray());
         }
 
         @Test
         public void createdHeapContainProperInformation() {
             setUpHeap(heap, 5);
-            Integer[] arrayOfValues = {0, 1, 2, 3, 4};
+            Integer[] correctValues = {0, 1, 2, 3, 4};
 
-            assertTrue(Arrays.equals(arrayOfValues, heap.toSortedArray()));
+            assertArrayEquals(correctValues, heap.toSortedArray());
         }
 
         @Test
@@ -234,6 +226,16 @@ public class LeftistHeapTest {
             LeftistHeapNode<Integer> child = heap.getRoot().getLeftChild();
 
             assertEquals(child.getParent(), heap.getRoot());
+        }
+
+        @Test
+        public void canDeleteNotRootElementFromNotEmptyHeap() {
+            int elementsInHeap = 5;
+            setUpHeap(heap, elementsInHeap);
+
+            heap.delete(heap.getRoot().getRightChild());
+
+            assertEquals(elementsInHeap - 1, heap.getSize());
         }
 
         private LeftistHeap<Integer> heap;
