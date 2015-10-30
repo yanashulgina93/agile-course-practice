@@ -20,16 +20,12 @@ public class WhenSortingUsersDataTypesArray {
     @Parameterized.Parameters
     public static Collection<Object[]> testComplexNumberArrays() {
         return Arrays.asList(new Object[][]{
-            {
-                new ComplexNumber[]{new ComplexNumber(0, 0)},
-                new ComplexNumber[]{new ComplexNumber(0, 0)}
-            },
-            {
-                new ComplexNumber[]{new ComplexNumber(0, 1), new ComplexNumber(1, 3),
-                                    new ComplexNumber(4, 9), new ComplexNumber(5, 1)},
-                new ComplexNumber[]{new ComplexNumber(5, 1), new ComplexNumber(4, 9),
-                                    new ComplexNumber(1, 3), new ComplexNumber(0, 1)}
-            }
+            {new ComplexNumber[]{new ComplexNumber(0, 0)},
+             new ComplexNumber[]{new ComplexNumber(0, 0)}},
+            {new ComplexNumber[]{new ComplexNumber(0, 1), new ComplexNumber(1, 3),
+                                 new ComplexNumber(4, 9), new ComplexNumber(5, 1)},
+             new ComplexNumber[]{new ComplexNumber(5, 1), new ComplexNumber(4, 9),
+                                 new ComplexNumber(1, 3), new ComplexNumber(0, 1)}}
         });
     }
 

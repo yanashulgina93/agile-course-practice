@@ -10,17 +10,18 @@ final class MergeSort {
     public static <Type extends Comparable<Type>> void sort(final Type[] sortingArray,
                                                             final int fromIndex,
                                                             final int toIndex) {
-        if (isSortingRangeBiggerOneElement(fromIndex, toIndex)) {
+        if (isSortingRangeCorrect(fromIndex, toIndex, sortingArray.length)) {
             mergeSort(sortingArray, fromIndex, toIndex);
         }
     }
 
+    private static boolean isSortingRangeCorrect(final int fromIndex, final int toIndex,
+                                                 final int arrayLength) {
+        return fromIndex < toIndex && fromIndex >= 0 && toIndex < arrayLength;
+    }
+
     private static boolean isSortingRangeBiggerOneElement(final int fromIndex, final int toIndex) {
-        if (fromIndex >= 0 && toIndex >= 0) {
-            return fromIndex < toIndex;
-        } else {
-            return false;
-        }
+        return  fromIndex < toIndex;
     }
 
     private static <Type extends Comparable<Type>> void mergeSort(final Type[] sortingArray,
