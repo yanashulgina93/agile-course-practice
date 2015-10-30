@@ -12,7 +12,6 @@ import static org.junit.Assert.*;
 
 @RunWith(JUnitParamsRunner.class)
 public class WhenFindIntersectionOfSegmentsTest {
-
     public enum TypeOfSegments { not_intersect, parallel, have_common_end, intersect_at_one_point,
         same, one_segment_contained_in_another, have_common_part
     }

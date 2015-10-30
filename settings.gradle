@@ -94,5 +94,4 @@ project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-l
 // Zhbanova Anna
 include "code/zhbanova-anna"
 project(":code/zhbanova-anna").name = "zhbanova-anna-Model"
-
 // Zykov Ilya

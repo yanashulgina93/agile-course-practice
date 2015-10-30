@@ -63,7 +63,6 @@ public class Segment {
     }
 
     private class IntersectionOfSegments {
-
         public Intersection findIntersection(Segment segment1, Segment segment2) {
 
             TypeOfIntersection typeOfIntersection;
