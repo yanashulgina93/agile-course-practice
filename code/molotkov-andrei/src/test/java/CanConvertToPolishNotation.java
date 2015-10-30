@@ -1,5 +1,5 @@
 import org.junit.Test;
-import ru.unn.agile.NetonMethod.InfixExpressionToPolishExpressionConverter;
+import ru.unn.agile.NewtonMethod.InfixExpressionToPolishExpressionConverter;
 
 import static org.junit.Assert.assertEquals;
 

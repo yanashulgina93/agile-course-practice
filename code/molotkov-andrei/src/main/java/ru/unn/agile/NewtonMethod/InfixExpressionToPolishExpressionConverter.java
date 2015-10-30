@@ -8,8 +8,7 @@ public class InfixExpressionToPolishExpressionConverter {
 
     int indexChar = 0;
 
-    private int getOperationPriority(char operator)
-    {
+    private int getOperationPriority(char operator) {
         int prioritet = -1;
         switch (operator){
             case '*':
@@ -85,6 +84,15 @@ public class InfixExpressionToPolishExpressionConverter {
         operationStak.push(Character.toString(ch));
     }
 
+    private void calculateInBrackets(){
+        while(true) {
+            char tempChar = operationStak.pop().charAt(0);
+            if (tempChar == '(')
+                break;
+            reversPolishStack.push(Character.toString(tempChar));
+        }
+    }
+
     public String convert(String infixExpression) {
         char ch;
 
@@ -96,6 +104,10 @@ public class InfixExpressionToPolishExpressionConverter {
                 indexChar--;
                 collectingNumber(infixExpression);
             }
+            else if(ch == '(')
+                operationStak.push(Character.toString(ch));
+            else if(ch == ')')
+                calculateInBrackets();
             else if(isOperator(ch)){
                 setOperatorToStack(ch);
             }
