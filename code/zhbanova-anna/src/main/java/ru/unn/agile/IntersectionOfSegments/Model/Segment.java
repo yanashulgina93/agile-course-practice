@@ -58,19 +58,17 @@ public class Segment {
         return (this.getStart() == segment.getStart() && this.getFinish() == segment.getFinish());
     }
 
-    public Pair<TypeOfIntersection, Segment> isIntersectedWith(Segment segment) {
+    public Intersection isIntersectedWith(Segment segment) {
         return new IntersectionOfSegments().findIntersection(this, segment);
     }
 
-
     private class IntersectionOfSegments {
 
-        public Pair<TypeOfIntersection, Segment> findIntersection(Segment segment1, Segment segment2) {
+        public Intersection findIntersection(Segment segment1, Segment segment2) {
 
             TypeOfIntersection typeOfIntersection;
             Point startPointOfIntersection;
             Point finishPointOfIntersection;
-
 
             if(!isIntersection(segment1, segment2)) {
                 typeOfIntersection = TypeOfIntersection.NotIntersection;
@@ -117,7 +115,7 @@ public class Segment {
                     }
                 }
             }
-            return new Pair<TypeOfIntersection, Segment>(typeOfIntersection, new Segment(startPointOfIntersection, finishPointOfIntersection));
+            return new Intersection(typeOfIntersection, new Segment(startPointOfIntersection, finishPointOfIntersection));
         }
 
         private boolean isIntersection(Segment segment1, Segment segment2) {
