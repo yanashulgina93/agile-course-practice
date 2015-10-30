@@ -87,18 +87,19 @@ public class WhenSortingPrimitiveDataTypesArray {
     @RunWith(Parameterized.class)
     public static class MergeSortTestWithBigRandomArrays {
         public MergeSortTestWithBigRandomArrays(final int arraySize,
-                                                final int maxElementValue) {
+                                                final int maxElementValue,
+                                                final long seed) {
             this.arraySize = arraySize;
             this.maxElementValue = maxElementValue;
+            this.seed = seed;
         }
 
         @Parameterized.Parameters
         public static Collection<Object[]> testBigRandomArrays() {
             return Arrays.asList(new Object[][]{
-                {1000, 20},
-                {1000, 2000000},
-                {50000, 20},
-                {50000, 2000000}
+                    {1000, 20, 34516},
+                    {10000, 20000, 86724},
+                    {20000, 2000000, 49246},
             });
         }
 
@@ -106,7 +107,7 @@ public class WhenSortingPrimitiveDataTypesArray {
         public void canSortBigRandomArrays() {
             Long[] sortingArray = new Long[arraySize];
             Long[] correctArray = new Long[arraySize];
-            Random randomGenerator = new Random();
+            Random randomGenerator = new Random(seed);
             Long randomValue;
             for (int i = 0; i < arraySize; i++) {
                 randomValue = randomGenerator.nextLong() % maxElementValue;
@@ -122,6 +123,7 @@ public class WhenSortingPrimitiveDataTypesArray {
 
         private int arraySize;
         private int maxElementValue;
+        private long seed;
     }
 }
 
