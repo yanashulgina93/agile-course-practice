@@ -1,53 +1,61 @@
 package ru.unn.agile.IntersectionOfSegments;
 
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.Collection;
 
 import static org.junit.Assert.*;
 
-@RunWith(JUnitParamsRunner.class)
+@RunWith(Parameterized.class)
 public class WhenFindIntersectionOfSegmentsTest {
-    public enum TypeOfSegments { not_intersect, parallel, have_common_end, intersect_at_one_point,
+    private enum TypeOfSegments { not_intersect, parallel, have_common_end, intersect_at_one_point,
         same, one_segment_contained_in_another, have_common_part
     }
 
+    public  WhenFindIntersectionOfSegmentsTest(final TypeOfSegments typeOfSegments) {
+        this.typeOfSegments = typeOfSegments;
+    }
+
+    @Parameterized.Parameters
+    public static Collection<Object[]> testTypeOfSegments() {
+        return Arrays.asList(new Object[][]{
+                {TypeOfSegments.not_intersect},
+                {TypeOfSegments.parallel},
+                {TypeOfSegments.have_common_end},
+                {TypeOfSegments.intersect_at_one_point},
+                {TypeOfSegments.same},
+                {TypeOfSegments.one_segment_contained_in_another},
+                {TypeOfSegments.have_common_part}
+        });
+    }
+
     @Test
-    @Parameters({"not_intersect", "parallel", "have_common_end", "intersect_at_one_point", "same",
-            "one_segment_contained_in_another", "have_common_part"})
-    public void canReturnCorrectTypeOfIntersection(String typeOfSegments) {
-        initializeTestData(TypeOfSegments.valueOf(typeOfSegments));
+    public void canReturnCorrectTypeOfIntersection() {
+        initializeTestData(typeOfSegments);
 
         assertEquals(correctResult.getTypeOfIntersection(), resultIsIntersectedWith.getTypeOfIntersection());
     }
 
     @Test
-    @Parameters({"not_intersect", "parallel", "have_common_end", "intersect_at_one_point", "same",
-            "one_segment_contained_in_another", "have_common_part"})
-    public void canReturnCorrectStartPointOfCommonPart(String typeOfSegments) {
-        initializeTestData(TypeOfSegments.valueOf(typeOfSegments));
+    public void canReturnCorrectStartPointOfCommonPart() {
+        initializeTestData(typeOfSegments);
 
         assertEquals(correctResult.getSegment().getStart(), resultIsIntersectedWith.getSegment().getStart());
     }
 
     @Test
-    @Parameters({"not_intersect", "parallel", "have_common_end", "intersect_at_one_point", "same",
-            "one_segment_contained_in_another", "have_common_part"})
-    public void canReturnCorrectFinishPointOfCommonPart(String typeOfSegments) {
-        initializeTestData(TypeOfSegments.valueOf(typeOfSegments));
+    public void canReturnCorrectFinishPointOfCommonPart() {
+        initializeTestData(typeOfSegments);
 
         assertEquals(correctResult.getSegment().getFinish(), resultIsIntersectedWith.getSegment().getFinish());
     }
 
     @Test
-    @Parameters({"not_intersect", "parallel", "have_common_end", "intersect_at_one_point", "same",
-            "one_segment_contained_in_another", "have_common_part"})
-    public void canReturnCorrectLengthCommonPart(String typeOfSegments) {
-        initializeTestData(TypeOfSegments.valueOf(typeOfSegments));
+    public void canReturnCorrectLengthCommonPart() {
+        initializeTestData(typeOfSegments);
 
         assertEquals(correctLengthOfCommonPart, resultIsIntersectedWith.getSegment().getLengthSegment(), 0.0);
     }
@@ -108,6 +116,7 @@ public class WhenFindIntersectionOfSegmentsTest {
         resultIsIntersectedWith = testSegment1.isIntersectedWith(testSegment2);
     }
 
+    private TypeOfSegments typeOfSegments;
     private Segment testSegment1;
     private Segment testSegment2;
     private Intersection resultIsIntersectedWith;
