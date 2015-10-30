@@ -63,6 +63,9 @@ project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-l
 // Kochanova Kseniya
 // Korotaev Aleksej
 // Korotaev Pavel
+// Kostrov Aleksey
+include "code/kostrov-aleksey"
+project(":code/kostrov-aleksey").name = "kostrov-aleksey-Model"
 // Kumaev Vasilij
 // Kuznecov Aleksandr
 // Larin Sergej
