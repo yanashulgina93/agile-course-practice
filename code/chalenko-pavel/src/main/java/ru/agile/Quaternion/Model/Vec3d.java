@@ -73,6 +73,13 @@ public class Vec3d {
 		return this.z;
 	}
 
+	public boolean equals(Vec3d other, double eps) {
+		boolean isEqualsX = Math.abs(this.getX() - other.getX()) < eps;
+		boolean isEqualsY = Math.abs(this.getY() - other.getY()) < eps;
+		boolean isEqualsZ = Math.abs(this.getZ() - other.getZ()) < eps;
+		return isEqualsX && isEqualsY && isEqualsZ;
+	}
+
 	public Vec3d add(Vec3d other) {
 		return new Vec3d(this.x + other.x, this.y + other.y, this.z + other.z);
 	}

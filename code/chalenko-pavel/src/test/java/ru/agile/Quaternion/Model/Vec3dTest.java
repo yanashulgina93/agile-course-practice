@@ -234,15 +234,25 @@ public class Vec3dTest {
 	}
 	
 	@Test
+	public void canEqualsEps(){
+		vec2 = new Vec3d(1, 2.001, 2.999);
+		Vec3d vec3 = new Vec3d(1, 2.002, 3);
+		
+		boolean v1equalsv2 = vec1.equals(vec2, eps);
+		boolean v1equalsv3 = vec1.equals(vec3, eps);
+		
+		assertTrue("Can't equals quaternions with precission", v1equalsv2);
+		assertFalse("Can't equals quaternions with precission", v1equalsv3);
+	}
+	
+	@Test
 	public void canNorm(){
 		Vec3d expectedVec = new Vec3d(0.577, .577, .577);
 		Vec3d actualVec = new Vec3d(1, 1, 1);
 		
 		actualVec.norm();
 		
-		assertEquals("Can't normalize vector", actualVec.getX(), expectedVec.getX(), eps);
-		assertEquals("Can't normalize vector", actualVec.getY(), expectedVec.getY(), eps);
-		assertEquals("Can't normalize vector", actualVec.getZ(), expectedVec.getZ(), eps);
+		assertTrue("Can't normalize vector", actualVec.equals(expectedVec, eps));
 	}
 	
 	@Test
@@ -252,9 +262,7 @@ public class Vec3dTest {
 		
 		actualVec.norm();
 		
-		assertEquals("Can't normalize vector", actualVec.getX(), expectedVec.getX(), eps);
-		assertEquals("Can't normalize vector", actualVec.getY(), expectedVec.getY(), eps);
-		assertEquals("Can't normalize vector", actualVec.getZ(), expectedVec.getZ(), eps);
+		assertTrue("Can't normalize ort", actualVec.equals(expectedVec, eps));
 	}
 	
 	@Test
@@ -264,9 +272,7 @@ public class Vec3dTest {
 		
 		actualVec.norm();
 		
-		assertEquals("Can't normalize vector", actualVec.getX(), expectedVec.getX(), eps);
-		assertEquals("Can't normalize vector", actualVec.getY(), expectedVec.getY(), eps);
-		assertEquals("Can't normalize vector", actualVec.getZ(), expectedVec.getZ(), eps);
+		assertTrue("Can't normalize vector", actualVec.equals(expectedVec, eps));
 	}
 	
 	@Test (expected = ArithmeticException.class)
