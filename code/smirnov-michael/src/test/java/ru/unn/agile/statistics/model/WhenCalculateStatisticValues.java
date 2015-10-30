@@ -10,7 +10,6 @@ import static org.junit.Assert.*;
 public class WhenCalculateStatisticValues {
 
     private StatisticValuesCalculator statisticsCalculator;
-    private Collection<IStatisticDataInstance> dataInstances;
     private double deltaForDoubleAssertEquals = 1e-3;
     private StatisticsConverter statisticsConverter;
 
@@ -18,7 +17,6 @@ public class WhenCalculateStatisticValues {
     public void preparing() {
         statisticsCalculator = new StatisticValuesCalculator();
         statisticsConverter = new StatisticsConverter();
-        dataInstances = null;
     }
 
     @Test
@@ -76,8 +74,7 @@ public class WhenCalculateStatisticValues {
 
         double rawMomentOfThirdOrder = statisticsCalculator.calculateRawMoment(3);
 
-        assertEqualsForDoublesWithStandardDelta(0.0,
-                rawMomentOfThirdOrder);
+        assertEqualsForDoublesWithStandardDelta(0.0, rawMomentOfThirdOrder);
     }
 
     @Test
