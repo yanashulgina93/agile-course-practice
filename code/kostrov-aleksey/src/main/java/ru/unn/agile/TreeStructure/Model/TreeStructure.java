@@ -25,14 +25,14 @@ public class TreeStructure<TypeKey extends Comparable<TypeKey>, TypeData> {
     private boolean add(final NodeStructure<TypeKey, TypeData> currentNode,
                         final NodeStructure<TypeKey, TypeData> newNode) {
 
-        if (newNode.getKey().compareTo(currentNode.getKey()) == -1) {
+        if (currentNode.getKey().compareTo(newNode.getKey()) == 1) {
             if (currentNode.getLeftChild() == null) {
                 currentNode.setLeftChild(newNode);
                 return true;
             }
             return add(currentNode.getLeftChild(), newNode);
         }
-        if (newNode.getKey().compareTo(currentNode.getKey()) == 1) {
+        if (currentNode.getKey().compareTo(newNode.getKey()) == -1) {
             if (currentNode.getRightChild() == null) {
                 currentNode.setRightChild(newNode);
                 return true;
@@ -42,4 +42,22 @@ public class TreeStructure<TypeKey extends Comparable<TypeKey>, TypeData> {
         return false;
     }
 
+    public NodeStructure<TypeKey, TypeData> searchByKey(final TypeKey key) {
+        return search(root, key);
+    }
+
+    private NodeStructure<TypeKey, TypeData> search(final NodeStructure<TypeKey, TypeData> node,
+                                                    final TypeKey key) {
+        if (node == null) {
+            return null;
+        }
+        if (node.getKey().compareTo(key) == 0) {
+            return node;
+        }
+        if (node.getKey().compareTo(key) == 1) {
+            return search(node.getLeftChild(), key);
+        } else {
+            return search(node.getRightChild(), key);
+        }
+    }
 }
