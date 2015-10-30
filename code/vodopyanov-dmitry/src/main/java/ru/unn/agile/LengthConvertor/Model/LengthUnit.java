@@ -15,15 +15,14 @@ public enum LengthUnit {
         this.multiplierMeter = multiplierMeter;
     }
 
-    public Length convert(final Length length, final LengthUnit unitOutput) {
-        if (length.getValue() >= 0) {
-            length.setValue(length.getUnit().multiplierMeter
-                    / unitOutput.multiplierMeter * length.getValue());
-            length.setUnitInput(unitOutput);
+    public double convert(final double value, final LengthUnit unitInput) {
+        if (value >= 0 && value < Double.MAX_VALUE) {
+            double result = unitInput.multiplierMeter
+                    / multiplierMeter * value;
+            return result;
         } else {
             throw new IllegalArgumentException();
         }
-        return length;
     }
 
     public double getMultiplierMeter() {
