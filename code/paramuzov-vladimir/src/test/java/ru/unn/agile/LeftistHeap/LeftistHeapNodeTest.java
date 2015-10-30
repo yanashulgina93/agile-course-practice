@@ -13,19 +13,19 @@ public class LeftistHeapNodeTest {
         LeftistHeapNode<Integer> node = new LeftistHeapNode<>(5);
         LeftistHeapNode<Integer> leftChild = new LeftistHeapNode<>(8);
         LeftistHeapNode<Integer> rightChild = new LeftistHeapNode<>(9);
-        node.leftChild = leftChild;
-        node.rightChild = rightChild;
+        node.setLeftChild(leftChild);
+        node.setRightChild(rightChild);
 
         node.swapChildren();
 
-        assertTrue(Arrays.equals(new Object[]{leftChild, rightChild}, new Object[]{node.rightChild, node.leftChild}));
+        assertTrue(Arrays.equals(new Object[]{leftChild, rightChild}, new Object[]{node.getRightChild(), node.getLeftChild()}));
     }
 
     @Test
     public void canClearNode() {
         LeftistHeapNode<Integer> node = new LeftistHeapNode<>(5);
         LeftistHeapNode<Integer> leftChild = new LeftistHeapNode<>(8);
-        node.leftChild = leftChild;
+        node.setLeftChild(leftChild);
 
         node.clear();
 

@@ -10,8 +10,10 @@ public class LeftistHeap <Type extends Comparable<Type>> {
 
     public Object[] toSortedArray(){
         ArrayList<Type> sortedList = new ArrayList<>();
-        while(size > 0)
+        while(size > 0) {
             sortedList.add(extractMin());
+        }
+
         return sortedList.toArray(new Object[sortedList.size()]);
     }
 
@@ -25,21 +27,25 @@ public class LeftistHeap <Type extends Comparable<Type>> {
             extractMin();
             return;
         }
+
         cut(heapNode);
         size--;
         heapNode.clear();
     }
 
     public void decreaseKey(LeftistHeapNode<Type> heapNode, Type key) {
-        if(key.compareTo(heapNode.element) > 0)
-            return;
-        if(heapNode == root){
-            heapNode.element = key;
+        if(key.compareTo(heapNode.getElement()) > 0) {
             return;
         }
+
+        if(heapNode == root) {
+            heapNode.setElement(key);
+            return;
+        }
+
         cut(heapNode);
-        heapNode.element = key;
-        root = merge(root,heapNode);
+        heapNode.setElement(key);
+        root = merge(root, heapNode);
     }
 
     public boolean isEmpty() {
@@ -47,8 +53,10 @@ public class LeftistHeap <Type extends Comparable<Type>> {
     }
 
     public void merge(LeftistHeap<Type> rhsHeap) {
-        if (this == rhsHeap)
+        if (this == rhsHeap) {
             return;
+        }
+
         root = merge(root, rhsHeap.getRoot());
         size += rhsHeap.getSize();
     }
@@ -59,10 +67,12 @@ public class LeftistHeap <Type extends Comparable<Type>> {
     }
 
     public Type extractMin() {
-        if(isEmpty())
+        if(isEmpty()) {
             return null;
-        Type minElement = root.element;
-        root = merge(root.leftChild, root.rightChild);
+        }
+
+        Type minElement = root.getElement();
+        root = merge(root.getLeftChild(), root.getRightChild());
         size--;
         return minElement;
     }
@@ -76,56 +86,65 @@ public class LeftistHeap <Type extends Comparable<Type>> {
     }
 
     private void cut(final LeftistHeapNode<Type> heapNode) {
-        boolean left = heapNode.parent.leftChild == heapNode;
-        LeftistHeapNode<Type> replacement = merge(heapNode.leftChild,heapNode.rightChild);
-        LeftistHeapNode<Type> parent = heapNode.parent;
-        if(left)
-            parent.leftChild = replacement;
-        else
-            parent.rightChild = replacement;
+        boolean left = heapNode.getParent().getLeftChild() == heapNode;
+        LeftistHeapNode<Type> replacement = merge(heapNode.getLeftChild(), heapNode.getRightChild());
+        LeftistHeapNode<Type> parent = heapNode.getParent();
+        if(left) {
+            parent.setLeftChild(replacement);
+        } else {
+            parent.setRightChild(replacement);
+        }
 
-        if(replacement != null)
-            replacement.parent = parent;
+        if(replacement != null) {
+            replacement.setParent(parent);
+        }
+
         if(parent.hasLeftChild() && !parent.hasRightChild()) {
             parent.swapChildren();
-            parent.nullPathLength = 0;
+            parent.setRank(0);
+        } else {
+            if (parent.haveChildren() && parent.isRightChildHasLargerRank()) {
+                parent.swapChildren();
+                parent.setRank(parent.getRightChild().getRank() + 1);
+            } else {
+                parent.setRank(0);
+            }
         }
-        else if(parent.haveChildren() && parent.rightChild.nullPathLength > parent.leftChild.nullPathLength) {
-            parent.swapChildren();
-            parent.nullPathLength = parent.rightChild.nullPathLength + 1;
-        }
-        else {
-            parent.nullPathLength = 0;
-        }
+
         heapNode.clear();
     }
 
     private LeftistHeapNode<Type> merge(LeftistHeapNode<Type> firstRoot, LeftistHeapNode<Type> secondRoot) {
-        if(firstRoot == null)
+        if(firstRoot == null) {
             return secondRoot;
-        if(secondRoot == null)
+        }
+
+        if(secondRoot == null) {
             return firstRoot;
+        }
+
         if(firstRoot.compareTo(secondRoot) > 0) {
             LeftistHeapNode<Type> temp = firstRoot;
             firstRoot = secondRoot;
             secondRoot = temp;
         }
 
-        firstRoot.rightChild = merge(firstRoot.rightChild, secondRoot);
-        firstRoot.rightChild.parent = firstRoot;
+        firstRoot.setRightChild(merge(firstRoot.getRightChild(), secondRoot));
+        firstRoot.getRightChild().setParent(firstRoot);
 
         if(!firstRoot.hasLeftChild()) {
             firstRoot.swapChildren();
-        }
-        else {
-            if(firstRoot.leftChild.nullPathLength < firstRoot.rightChild.nullPathLength)
+        } else {
+            if(firstRoot.isRightChildHasLargerRank()) {
                 firstRoot.swapChildren();
-            firstRoot.nullPathLength = firstRoot.rightChild.nullPathLength + 1;
+            }
+
+            firstRoot.setRank(firstRoot.getRightChild().getRank() + 1);
         }
+
         return firstRoot;
     }
 
     private LeftistHeapNode<Type> root;
     private int size;
-
 }
