@@ -70,18 +70,14 @@ public class Segment {
         Point startPointOfIntersection;
         Point finishPointOfIntersection;
 
-        if (!segment1.isIntersection(segment2)) {
-            typeOfIntersection = TypeOfIntersection.NotIntersection;
-            startPointOfIntersection = null;
-            finishPointOfIntersection = null;
-        } else {
+        if (segment1.isIntersection(segment2)) {
             double k1 = calculateSlope(segment1);
             double k2 = calculateSlope(segment2);
 
             double b1 = segment1.getStartY() - k1 * segment1.getStartX();
             double b2 = segment2.getStartY() - k2 * segment2.getStartX();
 
-            if (k1 == k2) {
+            if (isEquals(k1, k2)) {
                 makeFirstPointWithLessX(segment1);
                 makeFirstPointWithLessX(segment2);
                 if (segment1.getStartX() < segment2.getStartX()
@@ -110,9 +106,17 @@ public class Segment {
                 startPointOfIntersection = new Point(x, y);
                 finishPointOfIntersection = new Point(x, y);
             }
+        } else {
+            typeOfIntersection = TypeOfIntersection.NotIntersection;
+            startPointOfIntersection = null;
+            finishPointOfIntersection = null;
         }
         return new Intersection(typeOfIntersection,
                 new Segment(startPointOfIntersection, finishPointOfIntersection));
+    }
+
+    private boolean isEquals(final double a, final double b) {
+        return a == b;
     }
 
     private boolean isIntersection(final Segment segment) {
