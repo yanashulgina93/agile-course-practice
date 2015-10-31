@@ -4,12 +4,20 @@ import java.util.Vector;
 
 final class MergeSort {
     public static <Type extends Comparable<Type>> void sort(final Type[] sortingArray) {
+        if (sortingArray == null) {
+            return;
+        }
+
         mergeSort(sortingArray, 0, sortingArray.length - 1);
     }
 
     public static <Type extends Comparable<Type>> void sort(final Type[] sortingArray,
                                                             final int fromIndex,
                                                             final int toIndex) {
+        if (sortingArray == null) {
+            return;
+        }
+
         if (isSortingRangeCorrect(fromIndex, toIndex, sortingArray.length)) {
             mergeSort(sortingArray, fromIndex, toIndex);
         }

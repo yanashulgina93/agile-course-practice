@@ -24,6 +24,7 @@ public class WhenSortingPrimitiveDataTypesArray {
         @Parameterized.Parameters
         public static Collection<Object[]> testSmallArrays() {
             return Arrays.asList(new Object[][]{
+                {null, null},
                 {new Integer[]{}, new Integer[]{}},
                 {new Integer[]{1}, new Integer[]{1}},
                 {new Integer[]{1, 5}, new Integer[]{5, 1}},
@@ -58,6 +59,8 @@ public class WhenSortingPrimitiveDataTypesArray {
         @Parameterized.Parameters
         public static Collection<Object[]> testSmallArraysWithRange() {
             return Arrays.asList(new Object[][]{
+                {null,
+                 null, 0, 0},
                 {new Double[]{1.1, 4.9, 5.0, 8.6, 9.0},
                  new Double[]{8.6, 9.0, 1.1, 5.0, 4.9}, 0, 4},
                 {new Double[]{8.6, 1.1, 5.0, 9.0, 4.9},

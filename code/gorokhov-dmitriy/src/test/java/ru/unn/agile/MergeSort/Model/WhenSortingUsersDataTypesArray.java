@@ -11,8 +11,8 @@ import static org.junit.Assert.assertArrayEquals;
 
 @RunWith(Parameterized.class)
 public class WhenSortingUsersDataTypesArray {
-    public WhenSortingUsersDataTypesArray(final ComplexNumber[] correctArray,
-                                          final ComplexNumber[] sortingArray) {
+    public WhenSortingUsersDataTypesArray(final Point2D[] correctArray,
+                                          final Point2D[] sortingArray) {
         this.correctArray = correctArray;
         this.sortingArray = sortingArray;
     }
@@ -20,12 +20,12 @@ public class WhenSortingUsersDataTypesArray {
     @Parameterized.Parameters
     public static Collection<Object[]> testComplexNumberArrays() {
         return Arrays.asList(new Object[][]{
-            {new ComplexNumber[]{new ComplexNumber(0, 0)},
-             new ComplexNumber[]{new ComplexNumber(0, 0)}},
-            {new ComplexNumber[]{new ComplexNumber(0, 1), new ComplexNumber(1, 3),
-                                 new ComplexNumber(4, 9), new ComplexNumber(5, 1)},
-             new ComplexNumber[]{new ComplexNumber(5, 1), new ComplexNumber(4, 9),
-                                 new ComplexNumber(1, 3), new ComplexNumber(0, 1)}}
+            {new Point2D[]{new Point2D(0, 0)},
+             new Point2D[]{new Point2D(0, 0)}},
+            {new Point2D[]{new Point2D(0, 1), new Point2D(4, 3),
+                           new Point2D(4, 9), new Point2D(5, 1)},
+             new Point2D[]{new Point2D(5, 1), new Point2D(4, 9),
+                           new Point2D(4, 3), new Point2D(0, 1)}}
         });
     }
 
@@ -36,7 +36,7 @@ public class WhenSortingUsersDataTypesArray {
         assertArrayEquals(correctArray, sortingArray);
     }
 
-    private ComplexNumber[] correctArray;
-    private ComplexNumber[] sortingArray;
+    private Point2D[] correctArray;
+    private Point2D[] sortingArray;
 }
 
