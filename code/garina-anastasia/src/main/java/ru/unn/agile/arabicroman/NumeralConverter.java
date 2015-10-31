@@ -2,11 +2,12 @@ package ru.unn.agile.arabicroman;
 
 public class NumeralConverter {
 
-    private final String [] primaryRomanSymbols  = {"I", "V", "X", "L", "C", "D", "M"};
-    private final Integer [] numbersRelatedToRomanSymbols  = {1, 5, 10, 50, 100, 500, 1000};
+    private final String [] primaryRomanSymbols = {"I", "V", "X", "L", "C", "D", "M"};
+    private final Integer [] numbersRelatedToRomanSymbols = {1, 5, 10, 50, 100, 500, 1000};
+    
      String convertArabicToRoman(final int arabicNumber) {
         final int maxValidNumber = 3999;
-        if (arabicNumber  < 0 || arabicNumber > maxValidNumber) {
+        if (arabicNumber < 0 || arabicNumber > maxValidNumber) {
             throw new IllegalArgumentException();
         } else {
             String romanNumber = "";
@@ -53,7 +54,7 @@ public class NumeralConverter {
     }
 
     int convertRomanToArabic(final String romanNumber) {
-        if (romanNumber == null ||  romanNumber.isEmpty()) {
+        if (romanNumber == null || romanNumber.isEmpty()) {
             return 0;
         }
         int arabicNumber = 0;
@@ -91,7 +92,7 @@ public class NumeralConverter {
     }
 
     private boolean newPositionSurpassOld(final int oldPos, final int newPos) {
-        if (newPos == (oldPos + 1) ||  newPos == (oldPos + 2)) {
+        if (newPos == (oldPos + 1) || newPos == (oldPos + 2)) {
             if (oldPos % 2 == 1) {
                 throw new IllegalArgumentException();
             }
