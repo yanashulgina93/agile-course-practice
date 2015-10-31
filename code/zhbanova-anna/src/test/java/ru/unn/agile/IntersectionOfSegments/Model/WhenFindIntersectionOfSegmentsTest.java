@@ -36,84 +36,115 @@ public class WhenFindIntersectionOfSegmentsTest {
     public void canReturnCorrectTypeOfIntersection() {
         initializeTestData(typeOfSegments);
 
-        assertEquals(correctResult.getTypeOfIntersection(), resultIsIntersectedWith.getTypeOfIntersection());
+        assertEquals(correctResult.getTypeOfIntersection(),
+                resultIsIntersectedWith.getTypeOfIntersection());
     }
 
     @Test
     public void canReturnCorrectStartPointOfCommonPart() {
         initializeTestData(typeOfSegments);
 
-        assertEquals(correctResult.getSegment().getStart(), resultIsIntersectedWith.getSegment().getStart());
+        assertEquals(correctResult.getSegment().getStart(),
+                resultIsIntersectedWith.getSegment().getStart());
     }
 
     @Test
     public void canReturnCorrectFinishPointOfCommonPart() {
         initializeTestData(typeOfSegments);
 
-        assertEquals(correctResult.getSegment().getFinish(), resultIsIntersectedWith.getSegment().getFinish());
+        assertEquals(correctResult.getSegment().getFinish(),
+                resultIsIntersectedWith.getSegment().getFinish());
     }
 
     @Test
     public void canReturnCorrectLengthCommonPart() {
         initializeTestData(typeOfSegments);
 
-        assertEquals(correctLengthOfCommonPart, resultIsIntersectedWith.getSegment().getLengthSegment(), 0.0);
+        assertEquals(correctLengthOfCommonPart,
+                resultIsIntersectedWith.getSegment().getLengthSegment(), 0.0);
     }
 
-    private void initializeTestData(TypeOfSegments typeOfSegments){
+    private void initializeTestData(TypeOfSegments typeOfSegments) {
         switch (typeOfSegments) {
-            case not_intersect: {
-                testSegment1 = new Segment(new Point(1.0, 2.0), new Point(5.0, 4.0));
-                testSegment2 = new Segment(new Point(3.0, 1.0), new Point(6.0, 1.0));
-                correctResult = new Intersection(TypeOfIntersection.NotIntersection, new Segment(null, null));
-                correctLengthOfCommonPart = -1;
+            case not_intersect:
+                setUpSegmentsWhichNotIntersect();
                 break;
-            }
-            case parallel: {
-                testSegment1 = new Segment(new Point(0.0, 0.0), new Point(5.0, 5.0));
-                testSegment2 = new Segment(new Point(0.0, 1.0), new Point(5.0, 6.0));
-                correctResult = new Intersection(TypeOfIntersection.NotIntersection, new Segment(null, null));
-                correctLengthOfCommonPart = -1;
+            case parallel:
+                setUpParallelSegments();
                 break;
-            }
-            case have_common_end: {
-                testSegment1 = new Segment(new Point(5.2, 3.0), new Point(5.0, 5.0));
-                testSegment2 = new Segment(new Point(0.0, 1.0), new Point(5.2, 3.0));
-                correctResult = new Intersection(TypeOfIntersection.IntersectionInOnePoint, new Segment(testSegment1.getStart(), testSegment1.getStart()));
-                correctLengthOfCommonPart = 0;
+            case have_common_end:
+                setUpSegmentsWhichHaveCommonEnd();
                 break;
-            }
-            case intersect_at_one_point: {
-                testSegment1 = new Segment(new Point(0.0, 0.0), new Point(4.0, 2.0));
-                testSegment2 = new Segment(new Point(0.0, 2.0), new Point(4.0, 0.0));
-                correctResult = new Intersection(TypeOfIntersection.IntersectionInOnePoint, new Segment(new Point(2.0, 1.0), new Point(2.0, 1.0)));
-                correctLengthOfCommonPart = 0;
+            case intersect_at_one_point:
+                setUpSegmentsWhichIntersectAtOnePoint();
                 break;
-            }
-            case same: {
-                testSegment1 = new Segment(new Point(5.0, 10.0), new Point(10.0, 10.0));
-                testSegment2 = new Segment(new Point(5.0, 10.0), new Point(10.0, 10.0));
-                correctResult = new Intersection(TypeOfIntersection.SegmentsHaveCommonPart, testSegment1);
-                correctLengthOfCommonPart = 5;
+            case same:
+                setUpTheSameSegments();
                 break;
-            }
-            case one_segment_contained_in_another: {
-                testSegment1 = new Segment(new Point(0.0, 0.0), new Point(10.0, 10.0));
-                testSegment2 = new Segment(new Point(2.0, 2.0), new Point(5.0, 5.0));
-                correctResult = new Intersection(TypeOfIntersection.OnePartOfOther, testSegment2);
-                correctLengthOfCommonPart = Math.sqrt(18);
+            case one_segment_contained_in_another:
+                setUpSegmentsWhichOneContainedInAnother();
                 break;
-            }
-            case have_common_part: {
-                testSegment1 = new Segment(new Point(0.0, 0.0), new Point(5.0, 5.0));
-                testSegment2 = new Segment(new Point(2.0, 2.0), new Point(8.0, 8.0));
-                correctResult = new Intersection(TypeOfIntersection.SegmentsHaveCommonPart,  new Segment(testSegment2.getStart(), testSegment1.getFinish()));
-                correctLengthOfCommonPart = Math.sqrt(18);
+            default:
+                setUpSegmentsWithCommonPart();
                 break;
-            }
         }
 
         resultIsIntersectedWith = testSegment1.isIntersectedWith(testSegment2);
+    }
+
+    private void setUpSegmentsWhichNotIntersect() {
+        testSegment1 = new Segment(new Point(1.0, 2.0), new Point(5.0, 4.0));
+        testSegment2 = new Segment(new Point(3.0, 1.0), new Point(6.0, 1.0));
+        correctResult = new Intersection(TypeOfIntersection.NotIntersection,
+                new Segment(null, null));
+        correctLengthOfCommonPart = -1;
+    }
+
+    private void setUpParallelSegments() {
+        testSegment1 = new Segment(new Point(0.0, 0.0), new Point(5.0, 5.0));
+        testSegment2 = new Segment(new Point(0.0, 1.0), new Point(5.0, 6.0));
+        correctResult = new Intersection(TypeOfIntersection.NotIntersection,
+                new Segment(null, null));
+        correctLengthOfCommonPart = -1;
+    }
+
+    private void setUpSegmentsWhichHaveCommonEnd() {
+        testSegment1 = new Segment(new Point(5.2, 3.0), new Point(5.0, 5.0));
+        testSegment2 = new Segment(new Point(0.0, 1.0), new Point(5.2, 3.0));
+        correctResult = new Intersection(TypeOfIntersection.IntersectionInOnePoint,
+                new Segment(testSegment1.getStart(), testSegment1.getStart()));
+        correctLengthOfCommonPart = 0;
+    }
+
+    private void setUpSegmentsWhichIntersectAtOnePoint() {
+        testSegment1 = new Segment(new Point(0.0, 0.0), new Point(4.0, 2.0));
+        testSegment2 = new Segment(new Point(0.0, 2.0), new Point(4.0, 0.0));
+        correctResult = new Intersection(TypeOfIntersection.IntersectionInOnePoint,
+                new Segment(new Point(2.0, 1.0), new Point(2.0, 1.0)));
+        correctLengthOfCommonPart = 0;
+    }
+
+    private void setUpTheSameSegments() {
+        testSegment1 = new Segment(new Point(5.0, 10.0), new Point(10.0, 10.0));
+        testSegment2 = new Segment(new Point(5.0, 10.0), new Point(10.0, 10.0));
+        correctResult = new Intersection(TypeOfIntersection.SegmentsHaveCommonPart,
+                testSegment1);
+        correctLengthOfCommonPart = 5;
+    }
+
+    private void setUpSegmentsWhichOneContainedInAnother() {
+        testSegment1 = new Segment(new Point(0.0, 0.0), new Point(10.0, 10.0));
+        testSegment2 = new Segment(new Point(2.0, 2.0), new Point(5.0, 5.0));
+        correctResult = new Intersection(TypeOfIntersection.OnePartOfOther, testSegment2);
+        correctLengthOfCommonPart = Math.sqrt(18);
+    }
+
+    private void setUpSegmentsWithCommonPart() {
+        testSegment1 = new Segment(new Point(0.0, 0.0), new Point(5.0, 5.0));
+        testSegment2 = new Segment(new Point(2.0, 2.0), new Point(8.0, 8.0));
+        correctResult = new Intersection(TypeOfIntersection.SegmentsHaveCommonPart,
+                new Segment(testSegment2.getStart(), testSegment1.getFinish()));
+        correctLengthOfCommonPart = Math.sqrt(18);
     }
 
     private TypeOfSegments typeOfSegments;
