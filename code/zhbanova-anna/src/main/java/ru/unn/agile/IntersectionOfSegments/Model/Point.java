@@ -30,9 +30,9 @@ public class Point {
         return 0;
     }
 
-        @Override
+    @Override
     public boolean equals(final Object object) {
         Point point = (Point) object;
-        return (this.x == point.getX() && this.y == point.getY());
+        return this.x == point.getX() && this.y == point.getY();
     }
 }

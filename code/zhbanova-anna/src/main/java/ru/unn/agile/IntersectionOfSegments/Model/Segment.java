@@ -58,108 +58,104 @@ public class Segment {
     @Override
     public boolean equals(final Object object) {
         Segment segment = (Segment) object;
-        return (this.getStart() == segment.getStart() && this.getFinish() == segment.getFinish());
+        return this.getStart() == segment.getStart() && this.getFinish() == segment.getFinish();
     }
 
     public Intersection isIntersectedWith(final Segment segment) {
-        return new IntersectionOfSegments().findIntersection(this, segment);
+        return findIntersection(this, segment);
     }
 
-    private class IntersectionOfSegments {
-        public Intersection findIntersection(final Segment segment1, final Segment segment2) {
+    private Intersection findIntersection(final Segment segment1, final Segment segment2) {
+        TypeOfIntersection typeOfIntersection;
+        Point startPointOfIntersection;
+        Point finishPointOfIntersection;
 
-            TypeOfIntersection typeOfIntersection;
-            Point startPointOfIntersection;
-            Point finishPointOfIntersection;
+        if (!segment1.isIntersection(segment2)) {
+            typeOfIntersection = TypeOfIntersection.NotIntersection;
+            startPointOfIntersection = null;
+            finishPointOfIntersection = null;
+        } else {
+            double k1 = calculateSlope(segment1);
+            double k2 = calculateSlope(segment2);
 
-            if (!isIntersection(segment1, segment2)) {
-                typeOfIntersection = TypeOfIntersection.NotIntersection;
-                startPointOfIntersection = null;
-                finishPointOfIntersection = null;
-            } else {
-                double k1 = calculateSlope(segment1);
-                double k2 = calculateSlope(segment2);
+            double b1 = segment1.getStartY() - k1 * segment1.getStartX();
+            double b2 = segment2.getStartY() - k2 * segment2.getStartX();
 
-                double b1 = segment1.getStartY() - k1 * segment1.getStartX();
-                double b2 = segment2.getStartY() - k2 * segment2.getStartX();
-
-                if (k1 != k2) {
-                    double x = (b2 - b1) / (k1 - k2);
-                    double y = k1 * x + b1;
-                    typeOfIntersection = TypeOfIntersection.IntersectionInOnePoint;
-                    startPointOfIntersection = new Point(x, y);
-                    finishPointOfIntersection = new Point(x, y);
+            if (k1 == k2) {
+                makeFirstPointWithLessX(segment1);
+                makeFirstPointWithLessX(segment2);
+                if (segment1.getStartX() < segment2.getStartX()
+                        && segment1.getFinishX() > segment2.getFinishX()) {
+                    typeOfIntersection = TypeOfIntersection.OnePartOfOther;
+                    startPointOfIntersection = segment2.getStart();
+                    finishPointOfIntersection = segment2.getFinish();
+                } else if (segment1.getStartX() > segment2.getStartX()
+                        && segment1.getFinishX() < segment2.getFinishX()) {
+                    typeOfIntersection = TypeOfIntersection.OnePartOfOther;
+                    startPointOfIntersection = segment1.getStart();
+                    finishPointOfIntersection = segment1.getFinish();
+                } else if (segment1.getFinishX() > segment2.getStartX()) {
+                    typeOfIntersection = TypeOfIntersection.SegmentsHaveCommonPart;
+                    startPointOfIntersection = segment2.getStart();
+                    finishPointOfIntersection = segment1.getFinish();
                 } else {
-                    makeFirstPointWithLessX(segment1);
-                    makeFirstPointWithLessX(segment2);
-
-                    if (segment1.getStartX() < segment2.getStartX()
-                            && segment1.getFinishX() > segment2.getFinishX()) {
-                        typeOfIntersection = TypeOfIntersection.OnePartOfOther;
-                        startPointOfIntersection = segment2.getStart();
-                        finishPointOfIntersection = segment2.getFinish();
-                    } else if (segment1.getStartX() > segment2.getStartX()
-                            && segment1.getFinishX() < segment2.getFinishX()) {
-                        typeOfIntersection = TypeOfIntersection.OnePartOfOther;
-                        startPointOfIntersection = segment1.getStart();
-                        finishPointOfIntersection = segment1.getFinish();
-                    } else if (segment1.getFinishX() > segment2.getStartX()) {
-                        typeOfIntersection = TypeOfIntersection.SegmentsHaveCommonPart;
-                        startPointOfIntersection = segment2.getStart();
-                        finishPointOfIntersection = segment1.getFinish();
-                    } else {
-                        typeOfIntersection = TypeOfIntersection.SegmentsHaveCommonPart;
-                        startPointOfIntersection = segment1.getStart();
-                        finishPointOfIntersection = segment2.getFinish();
-                    }
+                    typeOfIntersection = TypeOfIntersection.SegmentsHaveCommonPart;
+                    startPointOfIntersection = segment1.getStart();
+                    finishPointOfIntersection = segment2.getFinish();
                 }
-            }
-            return new Intersection(typeOfIntersection,
-                    new Segment(startPointOfIntersection, finishPointOfIntersection));
-        }
-
-        private boolean isIntersection(final Segment segment1, final Segment segment2) {
-            //[1, 2, 3] * [1, 2, 4] < 0 è [3, 4, 1] * [3, 4, 2] < 0
-            if (vectorMultiplication(segment1.getStart(),
-                    segment1.getFinish(), segment2.getStart())
-                    * vectorMultiplication(segment1.getStart(),
-                            segment1.getFinish(), segment2.getFinish()) <= 0
-                    && vectorMultiplication(segment2.getStart(),
-                            segment2.getFinish(), segment1.getStart())
-                            * vectorMultiplication(segment2.getStart(),
-                                    segment2.getFinish(), segment1.getFinish()) <= 0) {
-                return true;
-            }
-            return false;
-        }
-
-        private double vectorMultiplication(final Point p1, final Point p2, final Point p3) {
-            return (p1.getX() - p3.getX()) * (p2.getY() - p3.getY())
-                    - (p1.getY() - p3.getY()) * (p2.getX() - p3.getX());
-        }
-
-        private double calculateSlope(final Segment segment) {
-            if (segment.getStartY() == segment.getFinishY()) {
-                return 0;
-            }
-            return (segment.getFinishY() - segment.getStartY())
-                    / (segment.getFinishX() - segment.getStartX());
-        }
-
-        private void makeFirstPointWithLessX(final Segment segment) {
-            if (segment.getStartX() >= segment.getFinishX()) {
-                changePoints(segment.getStart(), segment.getFinish());
+            } else {
+                double x = (b2 - b1) / (k1 - k2);
+                double y = k1 * x + b1;
+                typeOfIntersection = TypeOfIntersection.IntersectionInOnePoint;
+                startPointOfIntersection = new Point(x, y);
+                finishPointOfIntersection = new Point(x, y);
             }
         }
+        return new Intersection(typeOfIntersection,
+                new Segment(startPointOfIntersection, finishPointOfIntersection));
+    }
 
-        private void changePoints(final Point p1, final Point p2) {
-            double tmpCoordinate = p1.getX();
-            p1.setX(p2.getX());
-            p2.setX(tmpCoordinate);
-            tmpCoordinate = p1.getY();
-            p1.setY(p2.getY());
-            p2.setY(tmpCoordinate);
+    private boolean isIntersection(final Segment segment) {
+        //[1, 2, 3] * [1, 2, 4] < 0 è [3, 4, 1] * [3, 4, 2] < 0
+        if (vectorMultiplication(this.getStart(),
+                this.getFinish(), segment.getStart())
+                * vectorMultiplication(this.getStart(),
+                this.getFinish(), segment.getFinish()) <= 0
+                && vectorMultiplication(segment.getStart(),
+                segment.getFinish(), this.getStart())
+                * vectorMultiplication(segment.getStart(),
+                segment.getFinish(), this.getFinish()) <= 0) {
+            return true;
         }
+        return false;
+    }
+
+    private double vectorMultiplication(final Point p1, final Point p2, final Point p3) {
+        return (p1.getX() - p3.getX()) * (p2.getY() - p3.getY())
+                - (p1.getY() - p3.getY()) * (p2.getX() - p3.getX());
+    }
+
+    private double calculateSlope(final Segment segment) {
+        if (segment.getStartY() == segment.getFinishY()) {
+            return 0;
+        }
+        return (segment.getFinishY() - segment.getStartY())
+                / (segment.getFinishX() - segment.getStartX());
+    }
+
+    private void makeFirstPointWithLessX(final Segment segment) {
+        if (segment.getStartX() >= segment.getFinishX()) {
+            changePoints(segment.getStart(), segment.getFinish());
+        }
+    }
+
+    private void changePoints(final Point p1, final Point p2) {
+        double tmpCoordinate = p1.getX();
+        p1.setX(p2.getX());
+        p2.setX(tmpCoordinate);
+        tmpCoordinate = p1.getY();
+        p1.setY(p2.getY());
+        p2.setY(tmpCoordinate);
     }
 
     private double calculationLengthOfSegment() {

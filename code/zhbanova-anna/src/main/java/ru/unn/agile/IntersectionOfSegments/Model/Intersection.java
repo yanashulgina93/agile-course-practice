@@ -1,8 +1,8 @@
 package ru.unn.agile.IntersectionOfSegments;
 
 public class Intersection {
-    private TypeOfIntersection typeOfIntersection;
-    private Segment segment;
+    private final TypeOfIntersection typeOfIntersection;
+    private final Segment segment;
 
     Intersection(final TypeOfIntersection typeOfIntersection, final Segment segment) {
         this.typeOfIntersection = typeOfIntersection;
