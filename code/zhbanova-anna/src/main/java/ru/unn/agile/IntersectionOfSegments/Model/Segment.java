@@ -71,13 +71,13 @@ public class Segment {
         Point finishPointOfIntersection;
 
         if (segment1.isIntersection(segment2)) {
-            double k1 = calculateSlope(segment1);
-            double k2 = calculateSlope(segment2);
+            Double k1 = calculateSlope(segment1);
+            Double k2 = calculateSlope(segment2);
 
             double b1 = segment1.getStartY() - k1 * segment1.getStartX();
             double b2 = segment2.getStartY() - k2 * segment2.getStartX();
 
-            if (isEquals(k1, k2)) {
+            if (k1.equals(k2)) {
                 makeFirstPointWithLessX(segment1);
                 makeFirstPointWithLessX(segment2);
                 if (segment1.getStartX() < segment2.getStartX()
@@ -115,23 +115,15 @@ public class Segment {
                 new Segment(startPointOfIntersection, finishPointOfIntersection));
     }
 
-    private boolean isEquals(final double a, final double b) {
-        return a == b;
-    }
-
     private boolean isIntersection(final Segment segment) {
-        //[1, 2, 3] * [1, 2, 4] < 0 è [3, 4, 1] * [3, 4, 2] < 0
-        if (vectorMultiplication(this.getStart(),
+        return vectorMultiplication(this.getStart(),
                 this.getFinish(), segment.getStart())
                 * vectorMultiplication(this.getStart(),
                 this.getFinish(), segment.getFinish()) <= 0
                 && vectorMultiplication(segment.getStart(),
                 segment.getFinish(), this.getStart())
                 * vectorMultiplication(segment.getStart(),
-                segment.getFinish(), this.getFinish()) <= 0) {
-            return true;
-        }
-        return false;
+                segment.getFinish(), this.getFinish()) <= 0;
     }
 
     private double vectorMultiplication(final Point p1, final Point p2, final Point p3) {
