@@ -4,7 +4,6 @@ public class NumeralConverter {
 
     private final String [] primaryRomanSymbols = {"I", "V", "X", "L", "C", "D", "M"};
     private final Integer [] numbersRelatedToRomanSymbols = {1, 5, 10, 50, 100, 500, 1000};
-    
      String convertArabicToRoman(final int arabicNumber) {
         final int maxValidNumber = 3999;
         if (arabicNumber < 0 || arabicNumber > maxValidNumber) {
