@@ -1,118 +1,114 @@
 package ru.unn.agile.arabicroman;
 
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class NumeralConverterTest {
+    private NumeralConverter conv;
+
+    @Before public void setUp() {
+       conv = new NumeralConverter();
+    }
 
     @Test
     public void canConvertZeroToEmptyString() {
-        NumeralConverter conv = new NumeralConverter();
-        String romanNumber = conv.arabicToRoman(0);
+        String romanNumber = conv.convertArabicToRoman(0);
         assertEquals("", romanNumber);
     }
 
     @Test
     public void canConvertEmptyStringToZero() {
-        NumeralConverter conv = new NumeralConverter();
-        assertEquals(0, conv.romanToArabic(""));
+        assertEquals(0, conv.convertRomanToArabic(""));
     }
 
     @Test
     public void canConvertOneToI() {
-        NumeralConverter conv = new NumeralConverter();
-        assertEquals("I", conv.arabicToRoman(1));
+        assertEquals("I", conv.convertArabicToRoman(1));
     }
-
 
     @Test
     public void canConvertThirtyToXXX() {
-        NumeralConverter conv = new NumeralConverter();
-        assertEquals("XXX", conv.arabicToRoman(30));
+        assertEquals("XXX", conv.convertArabicToRoman(30));
     }
 
     @Test
     public void canConvertTwelveToXII() {
-        NumeralConverter conv = new NumeralConverter();
-        assertEquals("XII", conv.arabicToRoman(12));
+        assertEquals("XII", conv.convertArabicToRoman(12));
     }
 
     @Test
     public void canConvertEightToVIII() {
-        NumeralConverter conv = new NumeralConverter();
-        assertEquals("VIII", conv.arabicToRoman(8));
+        assertEquals("VIII", conv.convertArabicToRoman(8));
     }
 
     @Test
     public void canConvertFirtyToL() {
-        NumeralConverter conv = new NumeralConverter();
-        assertEquals("L", conv.arabicToRoman(50));
+        assertEquals("L", conv.convertArabicToRoman(50));
     }
 
     @Test
     public void canConvertNinetyToXC() {
-        NumeralConverter conv = new NumeralConverter();
-        assertEquals("XC", conv.arabicToRoman(90));
+        assertEquals("XC", conv.convertArabicToRoman(90));
     }
 
     @Test
     public void canConvert2014ToMMXIV() {
-        NumeralConverter conv = new NumeralConverter();
-        assertEquals("MMXIV", conv.arabicToRoman(2014));
+        assertEquals("MMXIV", conv.convertArabicToRoman(2014));
     }
 
     @Test
     public void canConvertIToOne() {
-        NumeralConverter conv = new NumeralConverter();
-        assertEquals(1, conv.romanToArabic("I"));
+        assertEquals(1, conv.convertRomanToArabic("I"));
     }
 
     @Test
     public void canConvertMTo1000() {
-        NumeralConverter conv = new NumeralConverter();
-        assertEquals(1000, conv.romanToArabic("M"));
+        assertEquals(1000, conv.convertRomanToArabic("M"));
     }
     @Test
     public void canConvertCCCXXXIIITo333() {
-        NumeralConverter conv = new NumeralConverter();
-        assertEquals(333, conv.romanToArabic("CCCXXXIII"));
+        assertEquals(333, conv.convertRomanToArabic("CCCXXXIII"));
     }
 
     @Test
     public void canConvertIXTo9() {
-        NumeralConverter conv = new NumeralConverter();
-        assertEquals(9, conv.romanToArabic("IX"));
+        assertEquals(9, conv.convertRomanToArabic("IX"));
     }
 
     @Test
     public void canConvertCMXIVTo914() {
-        NumeralConverter conv = new NumeralConverter();
-        assertEquals(914, conv.romanToArabic("CMXIV"));
+        assertEquals(914, conv.convertRomanToArabic("CMXIV"));
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void throwOnIncorrectNumberForArabicToRomanConverter() {
-        NumeralConverter conv = new NumeralConverter();
-        conv.arabicToRoman(5000);
+    public void throwOnNumberBiggerThanMax() {
+        conv.convertArabicToRoman(5000);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void throwOnNegativeNumber() {
+        conv.convertArabicToRoman(-1);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void throwOnInvalidSymbolInRomanNumber() {
-        NumeralConverter conv = new NumeralConverter();
-        conv.romanToArabic("KLN");
+        conv.convertRomanToArabic("KLN");
     }
-
 
     @Test (expected = IllegalArgumentException.class)
     public void throwOnIncorrectOrderOfSymbolsInRomanNumber() {
-        NumeralConverter conv = new NumeralConverter();
-        conv.romanToArabic("IMC");
+        conv.convertRomanToArabic("IMC");
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void throwOnIncorrectWritingOfRomanNumber() {
-        NumeralConverter conv = new NumeralConverter();
-        conv.romanToArabic("VXVI");
+        conv.convertRomanToArabic("VXVI");
+    }
+
+    @Test
+    public void canConvertWithNullAsArgument() {
+        assertEquals(0, conv.convertRomanToArabic(null));
     }
 
 }

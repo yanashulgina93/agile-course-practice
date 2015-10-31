@@ -4,25 +4,24 @@ public class NumeralConverter {
 
     private final String [] primaryRomanSymbols  = {"I", "V", "X", "L", "C", "D", "M"};
     private final Integer [] numbersRelatedToRomanSymbols  = {1, 5, 10, 50, 100, 500, 1000};
-     String arabicToRoman(final int arabicNumber) {
+     String convertArabicToRoman(final int arabicNumber) {
         final int maxValidNumber = 3999;
         if (arabicNumber  < 0 || arabicNumber > maxValidNumber) {
             throw new IllegalArgumentException();
         } else {
             String romanNumber = "";
-            if (arabicNumber == 0) {
-                return "";
-            }
-            int divisionResult;
-            int tempNumber = arabicNumber;
-            int positionInNumbersArrays = primaryRomanSymbols.length - 1;
-            while (positionInNumbersArrays >= 0) {
-                divisionResult = tempNumber
-                        / numbersRelatedToRomanSymbols[positionInNumbersArrays];
-                romanNumber += simpleRomanNumber(divisionResult, positionInNumbersArrays);
-                tempNumber -= numbersRelatedToRomanSymbols[positionInNumbersArrays]
-                        * divisionResult;
-                positionInNumbersArrays -= 2;
+            if (arabicNumber != 0) {
+                int divisionResult;
+                int tempNumber = arabicNumber;
+                int positionInNumbersArrays = primaryRomanSymbols.length - 1;
+                while (positionInNumbersArrays >= 0) {
+                    divisionResult = tempNumber
+                            / numbersRelatedToRomanSymbols[positionInNumbersArrays];
+                    romanNumber += simpleRomanNumber(divisionResult, positionInNumbersArrays);
+                    tempNumber -= numbersRelatedToRomanSymbols[positionInNumbersArrays]
+                            * divisionResult;
+                    positionInNumbersArrays -= 2;
+                }
             }
             return romanNumber;
         }
@@ -53,8 +52,8 @@ public class NumeralConverter {
         }
     }
 
-    int romanToArabic(final String romanNumber) {
-        if (romanNumber.isEmpty()) {
+    int convertRomanToArabic(final String romanNumber) {
+        if (romanNumber == null ||  romanNumber.isEmpty()) {
             return 0;
         }
         int arabicNumber = 0;
