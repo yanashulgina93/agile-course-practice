@@ -1,5 +1,6 @@
 package ru.unn.agile.LeftistHeap;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
@@ -25,6 +26,12 @@ public class LeftistHeapTest {
             this.resultHeapSize = resultHeapSize;
         }
 
+        @Before
+        public void initializeHeaps() {
+            firstHeap = new LeftistHeap<>();
+            secondHeap = new LeftistHeap<>();
+        }
+
         @Parameterized.Parameters
         public static Collection<Object[]> getHeapSizes() {
             return Arrays.asList(new Object[][]{
@@ -39,8 +46,6 @@ public class LeftistHeapTest {
 
         @Test
         public void canMergeTwoHeaps() {
-            firstHeap = new LeftistHeap<>();
-            secondHeap = new LeftistHeap<>();
             setUpHeap(firstHeap, firstHeapSize);
             setUpHeap(secondHeap, secondHeapSize);
 
@@ -63,6 +68,11 @@ public class LeftistHeapTest {
             this.resultHeapSize = resultHeapSize;
         }
 
+        @Before
+        public void initializeHeap() {
+            heap = new LeftistHeap<>();
+        }
+
         @Parameterized.Parameters
         public static Collection<Object[]> getHeapSizes() {
             return Arrays.asList(new Object[][]{
@@ -75,7 +85,6 @@ public class LeftistHeapTest {
 
         @Test
         public void canMergeTwoHeaps() {
-            heap = new LeftistHeap<>();
             setUpHeap(heap, startHeapSize);
 
             heap.insert(heapElementToInsert);
@@ -94,6 +103,10 @@ public class LeftistHeapTest {
         public WhenDecreasingKeyOfElement(final int heapSize, final Integer targetKey) {
             this.heapSize = heapSize;
             this.targetKey = targetKey;
+        }
+
+        @Before
+        public void initializeHeap() {
             heap = new LeftistHeap<>();
         }
 
@@ -152,6 +165,10 @@ public class LeftistHeapTest {
                                              final Integer returnValue) {
             this.elementsInHeap = elementsInHeap;
             this.returnValue = returnValue;
+        }
+
+        @Before
+        public void initializeHeap() {
             heap = new LeftistHeap<>();
         }
 
@@ -180,7 +197,8 @@ public class LeftistHeapTest {
     }
 
     public static class LeftistHeapSimpleTests {
-        public LeftistHeapSimpleTests() {
+        @Before
+        public void initializeHeap() {
             heap = new LeftistHeap<>();
         }
 
@@ -242,7 +260,6 @@ public class LeftistHeapTest {
     }
 
     private static void setUpHeap(final LeftistHeap<Integer> heap, final int numberOfElements) {
-        heap.clear();
         for (int i = 0; i < numberOfElements; i++) {
             heap.insert(i);
         }
