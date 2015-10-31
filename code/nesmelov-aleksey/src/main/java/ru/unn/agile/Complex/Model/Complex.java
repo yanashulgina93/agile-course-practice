@@ -14,8 +14,8 @@ public class Complex {
     }
 
     public Complex() {
-        real = 0;
-        imaginary = 0;
+        real = 0.0;
+        imaginary = 0.0;
     }
 
     @Override
