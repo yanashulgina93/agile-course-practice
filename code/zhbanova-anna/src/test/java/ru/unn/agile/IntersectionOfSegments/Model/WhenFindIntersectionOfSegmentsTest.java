@@ -64,7 +64,7 @@ public class WhenFindIntersectionOfSegmentsTest {
                 resultIsIntersectedWith.getSegment().getLengthSegment(), 0.0);
     }
 
-    private void initializeTestData(TypeOfSegments typeOfSegments) {
+    private void initializeTestData(final TypeOfSegments typeOfSegments) {
         switch (typeOfSegments) {
             case not_intersect:
                 setUpSegmentsWhichNotIntersect();
@@ -72,6 +72,14 @@ public class WhenFindIntersectionOfSegmentsTest {
             case parallel:
                 setUpParallelSegments();
                 break;
+            default:
+                setUpTestDataWhenSegmentsIntersect(typeOfSegments);
+        }
+        resultIsIntersectedWith = testSegment1.isIntersectedWith(testSegment2);
+    }
+
+    private  void  setUpTestDataWhenSegmentsIntersect(final TypeOfSegments typeOfSegments) {
+        switch (typeOfSegments) {
             case have_common_end:
                 setUpSegmentsWhichHaveCommonEnd();
                 break;
@@ -88,8 +96,6 @@ public class WhenFindIntersectionOfSegmentsTest {
                 setUpSegmentsWithCommonPart();
                 break;
         }
-
-        resultIsIntersectedWith = testSegment1.isIntersectedWith(testSegment2);
     }
 
     private void setUpSegmentsWhichNotIntersect() {
