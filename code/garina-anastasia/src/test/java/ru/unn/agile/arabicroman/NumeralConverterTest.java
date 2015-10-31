@@ -13,8 +13,7 @@ public class NumeralConverterTest {
 
     @Test
     public void canConvertZeroToEmptyString() {
-        String romanNumber = conv.convertArabicToRoman(0);
-        assertEquals("", romanNumber);
+        assertEquals("", conv.convertArabicToRoman(0));
     }
 
     @Test
