@@ -6,6 +6,7 @@ public class Integrator {
     private double upperLimit;
     private double step;
     private Function func;
+    private double integralValue;
     static final double FOUR = 4.0;
     static final double THREE = 3.0;
 
@@ -15,52 +16,55 @@ public class Integrator {
         int segmentsNumber = (int) ((upperLimit - lowerLimit) / MAX_STEP) + 1;
         step = (upperLimit - lowerLimit) / segmentsNumber;
         func = new Function(strFunc);
+        integralValue = 0.0;
     }
+
     public double leftRectangles() {
-        double result = 0.0;
         for (double x = lowerLimit; x < upperLimit; x += step) {
-            result += func.getValue(x);
+            integralValue += func.getValue(x);
         }
-        result *= step;
-        return result;
+        integralValue *= step;
+        return integralValue;
     }
+
     public double rightRectangles() {
-        double result = 0.0;
         for (double x = lowerLimit + step; x <= upperLimit; x += step) {
-            result += func.getValue(x);
+            integralValue += func.getValue(x);
         }
-        result *= step;
-        return result;
+        integralValue *= step;
+        return integralValue;
     }
+
     public double midpointRectangles() {
-        double result = 0.0;
         for (double x = lowerLimit + step / 2.0; x < upperLimit; x += step) {
-            result += func.getValue(x);
+            integralValue += func.getValue(x);
         }
-        result *= step;
-        return result;
+        integralValue *= step;
+        return integralValue;
     }
+
     public double trapezes() {
-        double result = 0.0;
         for (double x = lowerLimit; x < upperLimit; x += step) {
-            result += (func.getValue(x) + func.getValue(x + step)) / 2.0;
+            integralValue += (func.getValue(x) + func.getValue(x + step)) / 2.0;
         }
-        result *= step;
-        return result;
+        integralValue *= step;
+
+        return integralValue;
     }
+
     public double simpson() {
-        double result = 0.0;
         double smallStep = step / 2.0;
-        result += func.getValue(lowerLimit) + func.getValue(upperLimit);
+        integralValue += func.getValue(lowerLimit) + func.getValue(upperLimit);
         for (double x = lowerLimit + smallStep; x < upperLimit; x += step) {
-            result += FOUR * func.getValue(x);
+            integralValue += FOUR * func.getValue(x);
         }
         for (double x = lowerLimit + step; x < upperLimit; x += step) {
-            result += 2.0 * func.getValue(x);
+            integralValue += 2.0 * func.getValue(x);
         }
-        result *= smallStep / THREE;
-        return result;
+        integralValue *= smallStep / THREE;
+        return integralValue;
     }
+
     public void setLowerLimit(final double lowerLim) {
         this.lowerLimit = lowerLim;
     }
@@ -84,6 +88,7 @@ public class Integrator {
     public double getStep() {
         return step;
     }
+
     public void setFunc(final Function func) {
         this.func = func;
     }
@@ -92,5 +97,11 @@ public class Integrator {
         return func;
     }
 
-}
+    public void setIntegralValue(final double value) {
+        this.integralValue = value;
+    }
 
+    public double getIntegralValue() {
+        return integralValue;
+    }
+}

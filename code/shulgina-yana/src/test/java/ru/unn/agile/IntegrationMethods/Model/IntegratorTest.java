@@ -6,7 +6,6 @@ import static org.junit.Assert.*;
 public class IntegratorTest {
     private final double delta = 0.001;
 
-
     @Test
     public void canCreateIntegrator() {
         Integrator integrator = new Integrator(1.0, 2.0, "x");
@@ -63,6 +62,5 @@ public class IntegratorTest {
         double correctValue = 1.5;
         assertEquals(correctValue, integral, delta);
     }
-
 }
 
