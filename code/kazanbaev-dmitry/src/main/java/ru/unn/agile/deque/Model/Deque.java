@@ -1,21 +1,22 @@
 package ru.unn.agile.deque.Model;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Deque<T> {
     private final List<T> list;
 
     public Deque() {
-        this.list = new ArrayList<>();
+        this.list = new LinkedList<>();
     }
 
     public Deque(final List<T> list) {
-        this.list = new ArrayList<>(list);
+        this.list = new LinkedList<>(list);
     }
 
-    public Object[] toArray() {
-        return list.toArray();
+    @SuppressWarnings("unchecked")
+    public T[] toArray() {
+        return (T[]) (list.toArray());
     }
 
     public boolean isEmpty() {

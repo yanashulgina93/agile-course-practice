@@ -15,7 +15,7 @@ public class DequeTest {
 
     @Before
     public void initializeDeque() {
-        deque = new Deque<Integer>();
+        deque = new Deque<>();
     }
 
     @Test
@@ -46,6 +46,33 @@ public class DequeTest {
     }
 
     @Test
+    public void pushFrontDoesNotAddNull() {
+        deque.pushFront(1);
+        deque.pushFront(null);
+        deque.pushFront(-1);
+
+        assertArrayEquals(new Integer[]{-1, 1}, deque.toArray());
+    }
+
+    @Test
+    public void pushBackDoesNotAddNull() {
+        deque.pushBack(1);
+        deque.pushBack(null);
+        deque.pushBack(-1);
+
+        assertArrayEquals(new Integer[]{1, -1}, deque.toArray());
+    }
+
+    @Test
+    public void dequeCanNotContainNull() {
+        deque.pushBack(15);
+        deque.pushFront(16);
+        deque.pushFront(null);
+
+        assertFalse(deque.contains(null));
+    }
+
+    @Test
     public void dequeSizeIs3() {
         deque.pushBack(99);
         deque.pushFront(9);
@@ -60,7 +87,7 @@ public class DequeTest {
     }
 
     @Test
-    public void pushFrontWorksProperlyWithIntegers() {
+    public void pushFrontAddsIntegersToDequeFront() {
         deque.pushFront(1);
         deque.pushFront(9);
         deque.pushFront(-1);
@@ -69,7 +96,7 @@ public class DequeTest {
     }
 
     @Test
-    public void pushFrontWorksProperlyWithDates() {
+    public void pushFrontAddsDatesToDequeFront() {
         Deque<Date> deque = new Deque<>();
         deque.pushFront(new Date(750384000));
         deque.pushFront(new Date(1444608000));
@@ -78,16 +105,7 @@ public class DequeTest {
     }
 
     @Test
-    public void pushFrontDoesNotAddNull() {
-        deque.pushFront(1);
-        deque.pushFront(null);
-        deque.pushFront(-1);
-
-        assertArrayEquals(new Integer[]{-1, 1}, deque.toArray());
-    }
-
-    @Test
-    public void pushBackWorksProperlyWithIntegers() {
+    public void pushBackAddsIntegersToDequeBack() {
         deque.pushBack(1);
         deque.pushBack(9);
         deque.pushBack(-1);
@@ -96,7 +114,7 @@ public class DequeTest {
     }
 
     @Test
-    public void pushBackWorksProperlyWithDates() {
+    public void pushBackAddsDatesToDequeBack() {
         Deque<Date> deque = new Deque<>();
         deque.pushBack(new Date(750384000));
         deque.pushBack(new Date(1444608000));
@@ -105,16 +123,7 @@ public class DequeTest {
     }
 
     @Test
-    public void pushBackDoesNotAddNull() {
-        deque.pushBack(1);
-        deque.pushBack(null);
-        deque.pushBack(-1);
-
-        assertArrayEquals(new Integer[]{1, -1}, deque.toArray());
-    }
-
-    @Test
-    public void popBackWorksProperlyWhenDequeIsNotEmpty() {
+    public void popBackReturnsLastItemWhenDequeIsNotEmpty() {
         deque.pushBack(1);
         deque.pushFront(6);
         deque.pushBack(3);
@@ -123,12 +132,12 @@ public class DequeTest {
     }
 
     @Test
-    public void popBackWorksProperlyWhenDequeIsEmpty() {
+    public void popBackReturnsNullWhenDequeIsEmpty() {
         assertNull(deque.popBack());
     }
 
     @Test
-    public void popFrontWorksProperlyWhenDequeIsNotEmpty() {
+    public void popFrontReturnsFirstItemWhenDequeIsNotEmpty() {
         deque.pushFront(6);
         deque.pushBack(1);
         deque.pushBack(55);
@@ -137,7 +146,7 @@ public class DequeTest {
     }
 
     @Test
-    public void popFrontWorksProperlyWhenDequeIsEmpty() {
+    public void popFrontReturnsNullWhenDequeIsEmpty() {
         assertNull(deque.popFront());
     }
 
@@ -161,15 +170,6 @@ public class DequeTest {
         deque.pushFront(8);
 
         assertFalse(deque.contains(7));
-    }
-
-    @Test
-    public void dequeCanNotContainNull() {
-        deque.pushBack(15);
-        deque.pushFront(16);
-        deque.pushFront(null);
-
-        assertFalse(deque.contains(null));
     }
 
     @Test
