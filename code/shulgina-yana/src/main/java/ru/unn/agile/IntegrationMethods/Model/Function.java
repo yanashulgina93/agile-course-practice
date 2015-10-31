@@ -9,6 +9,7 @@ public class Function {
 
     public double getValue(final double x) {
         double y = 0.0;
+
         if (stringFunc == "x") {
             y = x;
         } else if (stringFunc == "exp(x)") {
@@ -16,6 +17,7 @@ public class Function {
         } else if (stringFunc == "cos(x)") {
             y = Math.cos(x);
         }
+
         return y;
     }
 

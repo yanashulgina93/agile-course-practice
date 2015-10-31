@@ -9,6 +9,7 @@ public class FunctionTest {
     @Test
     public void canCreateFunction() {
        Function function = new Function("x");
+
        assertNotNull(function);
     }
 
@@ -17,6 +18,7 @@ public class FunctionTest {
         Function function = new Function("exp(x)");
         double x = 1.5;
         double correctValue = 4.481689;
+
         assertEquals(correctValue, function.getValue(x), delta);
     }
 }

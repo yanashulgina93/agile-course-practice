@@ -7,8 +7,10 @@ public class Integrator {
     private double step;
     private Function func;
     private double integralValue;
-    static final double FOUR = 4.0;
-    static final double THREE = 3.0;
+
+    static final double ODD_TERMS_SYMPSON_COEF = 4.0;
+    static final double EVEN_TERMS_SYMPSON_COEF = 2.0;
+    static final double FINAL_SYMPSON_COEF = 3.0;
 
     public Integrator(final double lowerLim, final double upperLim, final String strFunc) {
         this.lowerLimit = lowerLim;
@@ -24,6 +26,7 @@ public class Integrator {
             integralValue += func.getValue(x);
         }
         integralValue *= step;
+
         return integralValue;
     }
 
@@ -32,6 +35,7 @@ public class Integrator {
             integralValue += func.getValue(x);
         }
         integralValue *= step;
+
         return integralValue;
     }
 
@@ -40,6 +44,7 @@ public class Integrator {
             integralValue += func.getValue(x);
         }
         integralValue *= step;
+
         return integralValue;
     }
 
@@ -54,14 +59,16 @@ public class Integrator {
 
     public double simpson() {
         double smallStep = step / 2.0;
+
         integralValue += func.getValue(lowerLimit) + func.getValue(upperLimit);
         for (double x = lowerLimit + smallStep; x < upperLimit; x += step) {
-            integralValue += FOUR * func.getValue(x);
+            integralValue += ODD_TERMS_SYMPSON_COEF * func.getValue(x);
         }
         for (double x = lowerLimit + step; x < upperLimit; x += step) {
-            integralValue += 2.0 * func.getValue(x);
+            integralValue += EVEN_TERMS_SYMPSON_COEF * func.getValue(x);
         }
-        integralValue *= smallStep / THREE;
+        integralValue *= smallStep / FINAL_SYMPSON_COEF;
+
         return integralValue;
     }
 
