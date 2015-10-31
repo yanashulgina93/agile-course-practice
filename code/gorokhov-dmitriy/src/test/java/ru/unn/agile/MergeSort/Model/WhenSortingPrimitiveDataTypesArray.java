@@ -61,6 +61,8 @@ public class WhenSortingPrimitiveDataTypesArray {
             return Arrays.asList(new Object[][]{
                 {null,
                  null, 0, 0},
+                {new Double[]{},
+                 new Double[]{}, 0, 0},
                 {new Double[]{1.1, 4.9, 5.0, 8.6, 9.0},
                  new Double[]{8.6, 9.0, 1.1, 5.0, 4.9}, 0, 4},
                 {new Double[]{8.6, 1.1, 5.0, 9.0, 4.9},
