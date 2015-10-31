@@ -71,6 +71,8 @@ project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-l
 // Moshkov Yurij
 // Mozerov Ilya
 // Nesmelov Aleksej
+include "code/nesmelov-aleksey"
+project(":code/nesmelov-aleksey").name = "nesmelov-aleksey-Model"
 // Nikolaev Kirill
 // Nistratov Andrej
 // Nistratov Artyom
