@@ -131,8 +131,8 @@ public class WhenFindIntersectionOfSegmentsTest {
     }
 
     private void setUpTheSameSegments() {
-        testSegment1 = new Segment(new Point(5.0, 10.0), new Point(10.0, 10.0));
-        testSegment2 = new Segment(new Point(5.0, 10.0), new Point(10.0, 10.0));
+        testSegment1 = new Segment(new Point(10.0, 5.0), new Point(5.0, 5.0));
+        testSegment2 = new Segment(new Point(10.0, 5.0), new Point(5.0, 5.0));
         correctResult = new Intersection(TypeOfIntersection.SegmentsHaveCommonPart,
                 testSegment1);
         correctLengthOfCommonPart = 5;

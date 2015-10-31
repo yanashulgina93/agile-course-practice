@@ -9,6 +9,11 @@ public class Point {
         this.y = y;
     }
 
+    Point(final Point p) {
+        this.x = p.getX();
+        this.y = p.getY();
+    }
+
     public double getX() {
         return x;
     }
@@ -23,6 +28,11 @@ public class Point {
 
     public void setY(final double y) {
         this.y = y;
+    }
+
+    public void set(final Point p) {
+        this.x = p.getX();
+        this.y = p.getY();
     }
 
     @Override
