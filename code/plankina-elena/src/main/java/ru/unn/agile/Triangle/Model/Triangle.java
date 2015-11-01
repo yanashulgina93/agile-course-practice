@@ -61,8 +61,7 @@ public class Triangle {
             }
             length = sqrt(sum);
             return length;
-        }
-        else {
+        } else {
             System.out.println("Two points have the same set of coordinates!");
             return 0.0;
         }
@@ -125,11 +124,14 @@ public class Triangle {
 
     public List<Double> getAngles3d() {
         List<Double> lengths = this.getLengths3d();
-        double angle1 = acos((pow(lengths.get(1), 2) + pow(lengths.get(2), 2) - pow(lengths.get(0), 2))
-                        / (2 * lengths.get(1) * lengths.get(2)));
-        double angle2 = acos((pow(lengths.get(0), 2) + pow(lengths.get(2), 2) - pow(lengths.get(1), 2))
+        double angle1 = acos((pow(lengths.get(1), 2) + pow(lengths.get(2), 2)
+                - pow(lengths.get(0), 2))
+                / (2 * lengths.get(1) * lengths.get(2)));
+        double angle2 = acos((pow(lengths.get(0), 2) + pow(lengths.get(2), 2)
+                - pow(lengths.get(1), 2))
                 / (2 * lengths.get(0) * lengths.get(2)));
-        double angle3 = acos((pow(lengths.get(0), 2) + pow(lengths.get(1), 2) - pow(lengths.get(2), 2))
+        double angle3 = acos((pow(lengths.get(0), 2) + pow(lengths.get(1), 2)
+                - pow(lengths.get(2), 2))
                 / (2 * lengths.get(0) * lengths.get(1)));
         List<Double> angles = Arrays.asList(angle1, angle2, angle3);
         return angles;
