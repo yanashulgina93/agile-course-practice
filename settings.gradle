@@ -54,7 +54,11 @@ project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-l
 // Garina Anastasiya
 // Gatchenko Viktor
 // Golodyaev Andrej
+
 // Goroxov Dmitrij
+include "code/gorokhov-dmitriy"
+project(":code/gorokhov-dmitriy").name = "gorokhov-dmitriy-Model"
+
 // Kajnov Oleg
 // Kalyakulina Alyona
 // Karpunin Yaroslav
@@ -76,6 +80,8 @@ project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-l
 // Nistratov Artyom
 // Nistratova Elena
 // Paramuzov Vladimir
+include "code/paramuzov-vladimir"
+project(":code/paramuzov-vladimir").name = "paramuzov-vladimir-Model"
 // Plankina Elena
 // Pronina Anastasiya
 // Sevrikov Ilya
@@ -86,7 +92,11 @@ project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-l
 // Sulin Dmitrij
 // Timonova Anastasiya
 // Vinnickij Vladimir
-// Vodopyanov Dmitrij
+
+// Vodopyanov Dmitry
+include "code/vodopyanov-dmitry"
+project(":code/vodopyanov-dmitry").name = "vodopyanov-dmitry-lab1-Model"
+
 // Volosenkov Evgenij
 
 // Voronkov Arsenij
@@ -94,6 +104,9 @@ include "code/voronkov-arseny"
 project(":code/voronkov-arseny").name = "voronkov-arseny-lab1-Model"
 
 // Yusipov Igor
+include "code/yusipov-igor"
+project(":code/yusipov-igor").name = "yusipov-igor-Model"
+
 // Zajdullova Alina
 // Zhbanova Anna
 // Zykov Ilya
