@@ -120,6 +120,14 @@ public class VolumesComputerTest {
         VolumesComputer.rightCircularCone(5.0, -1.0);
     }
 
+    @Test
+    public void rightCircularConeLargeParams() {
+        final double r = Double.MAX_VALUE, h = Double.MAX_VALUE;
+        final double goodVolume = Double.POSITIVE_INFINITY;
+        final double volume = VolumesComputer.rightCircularCone(r, h);
+        assertEquals(volume, goodVolume, 0.0);
+    }
+
 
     private static final double m_epsilon = 0.0000001;
 }
