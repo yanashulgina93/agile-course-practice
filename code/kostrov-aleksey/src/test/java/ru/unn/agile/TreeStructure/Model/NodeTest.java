@@ -56,7 +56,7 @@ public class NodeTest {
         nodeWithDataString = new NodeStructure<>(100, "root");
         nodeChild = new NodeStructure<>(80, "child");
         nodeWithDataString.setLeftChild(nodeChild);
-        assertEquals("child", nodeWithDataString.getLeftChild().getData());
+        assertEquals(nodeChild, nodeWithDataString.getLeftChild());
     }
 
     @Test
@@ -72,7 +72,7 @@ public class NodeTest {
         nodeWithDataString = new NodeStructure<>(100, "root");
         nodeChild = new NodeStructure<>(80, "child");
         nodeWithDataString.setRightChild(nodeChild);
-        assertEquals("child", nodeWithDataString.getRightChild().getData());
+        assertEquals(nodeChild, nodeWithDataString.getRightChild());
     }
 
     @Test

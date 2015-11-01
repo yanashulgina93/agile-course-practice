@@ -1,6 +1,5 @@
 package ru.unn.agile.TreeStructure.Model;
 
-
 public class TreeStructure<TypeKey extends Comparable<TypeKey>, TypeData> {
     private NodeStructure<TypeKey, TypeData> root;
 
@@ -58,6 +57,24 @@ public class TreeStructure<TypeKey extends Comparable<TypeKey>, TypeData> {
             return search(node.getLeftChild(), key);
         } else {
             return search(node.getRightChild(), key);
+        }
+    }
+
+    public boolean truncateByKey(final TypeKey key) {
+        NodeStructure<TypeKey, TypeData> foundNode = searchByKey(key);
+        if (foundNode == null) {
+            return false;
+        }
+        deleteNode(foundNode);
+        return true;
+    }
+
+    private void deleteNode(final NodeStructure<TypeKey, TypeData> foundNode) {
+        if (foundNode != null) {
+            deleteNode(foundNode.getLeftChild());
+            deleteNode(foundNode.getRightChild());
+            foundNode.setLeftChild(null);
+            foundNode.setRightChild(null);
         }
     }
 }

@@ -39,7 +39,8 @@ public class TreeTest {
     @Test
     public void canAddNodeWithDuplicateKey() {
         tree = new TreeStructure<>(100, "root");
-        assertEquals(false, tree.addNode(100, "child"));
+        boolean resultAdd = tree.addNode(100, "child");
+        assertFalse(resultAdd);
     }
 
     @Test
@@ -47,13 +48,36 @@ public class TreeTest {
         tree = new TreeStructure<>(100, "root");
         tree.addNode(50, "leftChild");
         tree.addNode(150, "rightChild");
-        assertEquals("leftChild", tree.searchByKey(50).getData());
+        NodeStructure searchedNode = tree.searchByKey(50);
+        assertEquals("leftChild", searchedNode.getData());
     }
 
     @Test
-    public void canSearchNotAddElement() {
+    public void canSearchNotAddedElement() {
         tree = new TreeStructure<>(100, "root");
         tree.addNode(50, "leftChild");
-        assertEquals(null, tree.searchByKey(20));
+        assertNull(tree.searchByKey(20));
+    }
+
+    @Test
+    public void canDeleteSubTree() {
+        tree = new TreeStructure<>(100, "root");
+        tree.addNode(50, "1");
+        tree.addNode(150, "2");
+        tree.addNode(40, "3");
+        tree.addNode(60, "4");
+        boolean resultTruncated = tree.truncateByKey(50);
+        assertTrue(resultTruncated);
+    }
+
+    @Test
+    public void canDeleteAllTree() {
+        tree = new TreeStructure<>(100, "root");
+        tree.addNode(50, "1");
+        tree.addNode(150, "2");
+        tree.addNode(40, "3");
+        tree.addNode(60, "4");
+        boolean resultTruncated = tree.truncateByKey(100);
+        assertTrue(resultTruncated);
     }
 }
