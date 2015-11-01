@@ -46,6 +46,8 @@ project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-l
 // Burago Pavel
 // Chataev Gleb
 // Cheboksarinov Andrej
+include "code/cheboksarinov-andrey-lab1"
+project(":code/cheboksarinov-andrey-lab1").name = "cheboksarinov-andrey-lab1-Model"
 // Eremeeva Aleksandra
 // Esyagin Ivan
 // Filicheva Svetlana
