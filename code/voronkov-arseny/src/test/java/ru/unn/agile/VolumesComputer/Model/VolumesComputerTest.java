@@ -89,6 +89,14 @@ public class VolumesComputerTest {
         VolumesComputer.rightCylinder(5.0, 4.0, -1.0);
     }
 
+    @Test
+    public void rightCylinderLargeParams() {
+        final double a = Double.MAX_VALUE, b = Double.MAX_VALUE, h = 1.0;
+        final double goodVolume = Double.POSITIVE_INFINITY;
+        final double volume = VolumesComputer.rightCylinder(a, b, h);
+        assertEquals(volume, goodVolume, 0.0);
+    }
+
 
     private static final double m_epsilon = 0.0000001;
 }
