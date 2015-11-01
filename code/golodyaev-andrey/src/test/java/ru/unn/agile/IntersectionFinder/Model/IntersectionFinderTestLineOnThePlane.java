@@ -9,10 +9,10 @@ import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
 public class IntersectionFinderTestLineOnThePlane {
-    private Vector3D pointLine;
-    private Vector3D vectorLine;
     private Vector3D pointPlane;
     private Vector3D normalPlane;
+    private Vector3D pointLine;
+    private Vector3D vectorLine;
     private Line line;
     private Plane plane;
     private IntersectionFinder intersectionFinder;
@@ -20,6 +20,16 @@ public class IntersectionFinderTestLineOnThePlane {
                                         PlaneXOZAndLineZ,
                                         PlaneAndLineOnThePlane };
     private TypeOfLineOnThePlane type;
+
+    @Parameterized.Parameters
+    public static Iterable<Object[]> typeOfLineOnThePlane() {
+        return Arrays.asList(new Object[][] {
+                        {TypeOfLineOnThePlane.PlaneXOYAndLineXY } ,
+                        {TypeOfLineOnThePlane.PlaneXOZAndLineZ } ,
+                        {TypeOfLineOnThePlane.PlaneAndLineOnThePlane }
+                }
+        );
+    }
 
     public void setUpPlaneXOYAndLineXY() {
         pointLine = new Vector3D(0.0, 0.0, 0.0);
@@ -60,16 +70,6 @@ public class IntersectionFinderTestLineOnThePlane {
         line = new Line(pointLine, vectorLine);
         plane = new Plane(pointPlane, normalPlane);
         intersectionFinder = new IntersectionFinder(line, plane);
-    }
-
-    @Parameterized.Parameters
-    public static Iterable<Object[]> typeOfLineOnThePlane() {
-        return Arrays.asList(new Object[][] {
-                        {TypeOfLineOnThePlane.PlaneXOYAndLineXY } ,
-                        {TypeOfLineOnThePlane.PlaneXOZAndLineZ } ,
-                        {TypeOfLineOnThePlane.PlaneAndLineOnThePlane }
-                }
-        );
     }
 
     public IntersectionFinderTestLineOnThePlane(final TypeOfLineOnThePlane type) {

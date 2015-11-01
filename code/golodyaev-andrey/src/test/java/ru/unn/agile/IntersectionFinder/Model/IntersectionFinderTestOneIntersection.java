@@ -22,6 +22,16 @@ public class IntersectionFinderTestOneIntersection {
                                          PlaneAndLine };
     private TypeOfOneIntersection type;
 
+    @Parameterized.Parameters
+    public static Iterable<Object[]> typeOfNoIntersection() {
+        return Arrays.asList(new Object[][]{
+                        {TypeOfOneIntersection.PlaneXOYAndLineZ},
+                        {TypeOfOneIntersection.PlaneXOZAndLineXY},
+                        {TypeOfOneIntersection.PlaneAndLine}
+                }
+        );
+    }
+
     public void setUpPlaneXOYAndLineZ() {
         pointLine = new Vector3D(0.0, 0.0, 0.0);
         vectorLine = new Vector3D(0.0, 0.0, 1.0);
@@ -64,16 +74,6 @@ public class IntersectionFinderTestOneIntersection {
         line = new Line(pointLine, vectorLine);
         plane = new Plane(pointPlane, normalPlane);
         intersectionFinder = new IntersectionFinder(line, plane);
-    }
-
-    @Parameterized.Parameters
-    public static Iterable<Object[]> typeOfNoIntersection() {
-        return Arrays.asList(new Object[][]{
-                        {TypeOfOneIntersection.PlaneXOYAndLineZ},
-                        {TypeOfOneIntersection.PlaneXOZAndLineXY},
-                        {TypeOfOneIntersection.PlaneAndLine}
-                }
-        );
     }
 
     public IntersectionFinderTestOneIntersection(final TypeOfOneIntersection type) {

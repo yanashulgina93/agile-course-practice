@@ -21,6 +21,16 @@ public class IntersectionFinderTestNoIntersection {
                                         PlaneAndParallelLine };
     private TypeOfNoIntersection type;
 
+    @Parameterized.Parameters
+    public static Iterable<Object[]> typeOfNoIntersection() {
+        return Arrays.asList(new Object[][] {
+                        {TypeOfNoIntersection.PlaneXOYAndLineXYWithOffset } ,
+                        {TypeOfNoIntersection.PlaneXOZAndLineZWithOffset } ,
+                        {TypeOfNoIntersection.PlaneAndParallelLine }
+                }
+        );
+    }
+
     public void setUpPlaneXOYAndLineXYWithOffset() {
         pointLine = new Vector3D(0.0, 0.0, 3.0);
         vectorLine = new Vector3D(1.0, 1.0, 0.0);
@@ -60,16 +70,6 @@ public class IntersectionFinderTestNoIntersection {
         line = new Line(pointLine, vectorLine);
         plane = new Plane(pointPlane, normalPlane);
         intersectionFinder = new IntersectionFinder(line, plane);
-    }
-
-    @Parameterized.Parameters
-    public static Iterable<Object[]> typeOfNoIntersection() {
-        return Arrays.asList(new Object[][] {
-                        {TypeOfNoIntersection.PlaneXOYAndLineXYWithOffset } ,
-                        {TypeOfNoIntersection.PlaneXOZAndLineZWithOffset } ,
-                        {TypeOfNoIntersection.PlaneAndParallelLine }
-                                 }
-                            );
     }
 
     public IntersectionFinderTestNoIntersection(final TypeOfNoIntersection type) {
