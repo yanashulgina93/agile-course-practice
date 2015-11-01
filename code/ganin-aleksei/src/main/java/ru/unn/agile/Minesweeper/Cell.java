@@ -1,11 +1,86 @@
 package ru.unn.agile.Minesweeper;
 
-public class Cell {
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+public class Cell extends JLabel {
     private boolean mine = false;
     private boolean issue = false;
     private boolean flag = false;
     private boolean _open = false;
     private int value = 0;
+
+    private Board board;
+    private int positionY;
+    private int positionX;
+
+    private static ImageIcon flagIcon = new ImageIcon("images/flag_20x20.png");
+    private static ImageIcon closeIcon = new ImageIcon("images/close_20x20.png");
+    private static ImageIcon issueIcon = new ImageIcon("images/issue_20x20.png");
+    private static ImageIcon mineIcon = new ImageIcon("images/mine_20x20.png");
+
+    private static ImageIcon val0Icon = new ImageIcon("images/val_0_20x20.png");
+    private static ImageIcon val1Icon = new ImageIcon("images/val_1_20x20.png");
+    private static ImageIcon val2Icon = new ImageIcon("images/val_2_20x20.png");
+    private static ImageIcon val3Icon = new ImageIcon("images/val_3_20x20.png");
+    private static ImageIcon val4Icon = new ImageIcon("images/val_4_20x20.png");
+    private static ImageIcon val5Icon = new ImageIcon("images/val_5_20x20.png");
+    private static ImageIcon val6Icon = new ImageIcon("images/val_6_20x20.png");
+    private static ImageIcon val7Icon = new ImageIcon("images/val_7_20x20.png");
+    private static ImageIcon val8Icon = new ImageIcon("images/val_8_20x20.png");
+
+
+    public Cell(Board _board, int _positionY, int _positionX){
+
+        board = _board;
+        positionY = _positionY;
+        positionX = _positionX;
+
+        setIcon(closeIcon);
+        addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(SwingUtilities.isRightMouseButton(e)) {
+                    if(!isOpen() && !board.isLost()) {
+                        if (isFlag()) {
+                            board.unsetFlag(positionY, positionX);
+                            setIssue();
+                        } else if (isIssue()) {
+                            unsetIssue();
+                        } else {
+                            board.setFlag(positionY, positionX);
+                        }
+                    }
+                }
+                if(SwingUtilities.isLeftMouseButton(e)){
+                    board.openCell(positionY, positionX);
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    }
 
     public void setMine(){
         mine = true;
@@ -23,6 +98,7 @@ public class Cell {
     }
 
     public void setIssue(){
+        setIcon(issueIcon);
         issue = true;
     }
 
@@ -31,10 +107,12 @@ public class Cell {
     }
 
     public void unsetIssue() {
+        setIcon(closeIcon);
         issue = false;
     }
 
     public void setFlag(){
+        setIcon(flagIcon);
         flag = true;
     }
 
@@ -43,14 +121,62 @@ public class Cell {
     }
 
     public void unsetFlag(){
+        setIcon(closeIcon);
         flag = false;
     }
 
     public void open(){
         _open = true;
+        if(isMine()){
+            setIcon(mineIcon);
+        } else {
+            switch (getValue()) {
+                case 0:  setIcon(val0Icon);
+                    break;
+                case 1:  setIcon(val1Icon);
+                    break;
+                case 2:  setIcon(val2Icon);
+                    break;
+                case 3:  setIcon(val3Icon);
+                    break;
+                case 4:  setIcon(val4Icon);
+                    break;
+                case 5:  setIcon(val5Icon);
+                    break;
+                case 6:  setIcon(val6Icon);
+                    break;
+                case 7:  setIcon(val7Icon);
+                    break;
+                case 8:  setIcon(val8Icon);
+                    break;
+            }
+        }
     }
 
     public boolean isOpen(){
         return  _open;
+    }
+
+    public void clear(){
+        unsetIssue();
+        unsetFlag();
+        setValue(0);
+        mine = false;
+        _open = false;
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, getWidth(), getHeight());
+        super.paintComponent(g);
+    }
+
+    public int getPositionX(){
+        return positionX;
+    }
+
+    public int getPositionY(){
+        return positionY;
     }
 }

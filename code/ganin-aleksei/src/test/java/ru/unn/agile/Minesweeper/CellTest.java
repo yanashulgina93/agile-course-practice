@@ -6,11 +6,14 @@ import static org.junit.Assert.assertEquals;
 
 public class CellTest {
 
-    Cell cell;
+    private Cell cell;
+    private int cellPositionX = 12;
+    private int cellPositionY = 23;
+
 
     @Before
     public void runBeforeEveryTest() {
-        cell = new Cell();
+        cell = new Cell(new Board(new Minesweeper(), 32, 32), cellPositionY, cellPositionX);
     }
 
     @Test
@@ -54,5 +57,22 @@ public class CellTest {
     public void open_cell(){
         cell.open();
         assertEquals(true, cell.isOpen());
+    }
+
+    @Test
+    public void when_clear_mine_unset(){
+        cell.setMine();
+        cell.clear();
+        assertEquals(false, cell.isMine());
+    }
+
+    @Test
+    public void get_cell_position_x(){
+        assertEquals(cellPositionX, cell.getPositionX());
+    }
+
+    @Test
+    public void get_cell_position_y(){
+        assertEquals(cellPositionY, cell.getPositionY());
     }
 }
