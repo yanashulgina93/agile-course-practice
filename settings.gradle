@@ -77,6 +77,11 @@ project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-l
 // Nistratova Elena
 // Paramuzov Vladimir
 // Plankina Elena
+
+// Plankina Elena
+include "code/plankina-elena"
+project(":code/plankina-elena").name = "plankina-elena-Model"
+
 // Pronina Anastasiya
 // Sevrikov Ilya
 // Shulgina Yana
@@ -93,6 +98,7 @@ project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-l
 // Yusipov Igor
 include "code/yusipov-igor"
 project(":code/yusipov-igor").name = "yusipov-igor-Model"
+
 
 // Zajdullova Alina
 // Zhbanova Anna
