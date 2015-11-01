@@ -15,6 +15,13 @@ public class VolumesComputer {
             throw new IllegalArgumentException(m_negativeParamsError);
     }
 
+    public static double rightCylinder(double a, double b, double h) {
+        if(a >= 0.0 && b >= 0.0 && h >= 0.0)
+            return Math.PI * a * b * h;
+        else
+            throw new IllegalArgumentException(m_negativeParamsError);
+    }
+
     private static final String m_negativeParamsError =
             "Parameters can not be negative.";
 }
