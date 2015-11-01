@@ -26,4 +26,6 @@ public class VolumesComputerTest {
 	public void cuboidNegativeParams() {
 	    VolumesComputer.cuboid(5.0, 4.0, -1.0);
 	}
+
+    private static final double m_epsilon = 0.0000001;
 }
