@@ -1,14 +1,11 @@
 package ru.unn.agile.Minesweeper;
 
-/**
- * Created by aleksei on 01.11.15.
- */
 public class Cell {
     private boolean mine = false;
     private boolean issue = false;
     private boolean flag = false;
     private boolean _open = false;
-    private char value = 0;
+    private int value = 0;
 
     public void setMine(){
         mine = true;
@@ -17,11 +14,11 @@ public class Cell {
         return  mine;
     }
 
-    public void setValue(char val){
+    public void setValue(int val){
         value = val;
     }
 
-    public char getValue(){
+    public int getValue(){
         return value;
     }
 

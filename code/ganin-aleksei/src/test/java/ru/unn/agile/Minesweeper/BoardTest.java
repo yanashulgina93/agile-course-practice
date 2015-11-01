@@ -35,4 +35,10 @@ public class BoardTest {
         board.openCell(0, 0);
         assertEquals(false, board.isLost());
     }
+
+    @Test
+    public void when_set_one_mine_in_neighboring_cell_set_value_1(){
+        board.setMine(0, 0);
+        assertEquals(1, board.getValue(1, 1));
+    }
 }
