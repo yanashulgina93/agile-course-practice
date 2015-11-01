@@ -84,6 +84,11 @@ public class VolumesComputerTest {
         assertEquals(volume, goodVolume, m_epsilon);
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void rightCylinderNegativeParams() {
+        VolumesComputer.rightCylinder(5.0, 4.0, -1.0);
+    }
+
 
     private static final double m_epsilon = 0.0000001;
 }
