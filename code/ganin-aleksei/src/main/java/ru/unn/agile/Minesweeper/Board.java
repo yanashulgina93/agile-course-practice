@@ -2,6 +2,7 @@ package ru.unn.agile.Minesweeper;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Board extends JPanel{
@@ -48,7 +49,30 @@ public class Board extends JPanel{
         return  boardWidth * boardHeight;
     }
 
+    private ArrayList<Cell> getNeighboringCells(int positionY, int positionX){
+        ArrayList<Cell> neighboringCells = new ArrayList<Cell>();
+        for(int y = positionY > 0 ? positionY - 1 : positionY,
+            yStop = positionY < boardHeight - 1 ? positionY + 1 : positionY;
+            y <= yStop; y++){
+            for(int x = positionX > 0 ? positionX - 1 : positionX,
+                xStop = positionX < boardWidth - 1 ? positionX + 1 : positionX;
+                x <= xStop; x++){
+                if(!(y == positionY && x == positionX)){
+                    neighboringCells.add(cells[y][x]);
+                }
+            }
+
+        }
+        return  neighboringCells;
+    }
+
     private void incValues(int positionY, int positionX){
+        ArrayList<Cell> neighboringCells = getNeighboringCells(positionY, positionX);
+        for(int i = 0; i < neighboringCells.size(); i++){
+            Cell cell = neighboringCells.get(i);
+            cell.setValue(cell.getValue() + 1);
+        }
+        /*
         for(int y = positionY > 0 ? positionY - 1 : positionY,
             yStop = positionY < boardHeight - 1 ? positionY + 1 : positionY;
             y <= yStop; y++){
@@ -63,6 +87,7 @@ public class Board extends JPanel{
             }
 
         }
+        */
     }
 
     public void setMine(int positionY, int positionX){
@@ -74,6 +99,15 @@ public class Board extends JPanel{
     }
 
     private void openNeighboringCells(int positionY, int positionX){
+        ArrayList<Cell> neighboringCells = getNeighboringCells(positionY, positionX);
+        for(int i = 0; i < neighboringCells.size(); i++){
+            Cell cell = neighboringCells.get(i);
+            if(!cell.isMine()){
+                openCell(cell.getPositionY(), cell.getPositionY());
+            }
+        }
+
+        /*
         for(int y = positionY > 0 ? positionY - 1 : positionY,
             yStop = positionY < boardHeight - 1 ? positionY + 1 : positionY;
             y <= yStop; y++){
@@ -88,6 +122,7 @@ public class Board extends JPanel{
             }
 
         }
+        */
     }
 
     public void openCell(int positionY, int positionX){
