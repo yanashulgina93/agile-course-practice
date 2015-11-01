@@ -21,4 +21,9 @@ public class VolumesComputerTest {
         final double volume = VolumesComputer.cuboid(w, h, l);
         assertEquals(volume, goodVolume, m_epsilon);
 	}
+
+    @Test (expected = IllegalArgumentException.class)
+	public void cuboidNegativeParams() {
+	    VolumesComputer.cuboid(5.0, 4.0, -1.0);
+	}
 }
