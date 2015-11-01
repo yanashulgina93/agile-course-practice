@@ -31,4 +31,8 @@ public class Cell {
         return issue;
     }
 
+    public void unsetIssue(){
+        issue = false;
+    }
+
 }

@@ -31,4 +31,10 @@ public class CellTest {
         cell.setIssue();
         assertEquals(true, cell.getIssue());
     }
+
+    @Test
+    public void unset_issue(){
+        cell.unsetIssue();
+        assertEquals(false, cell.getIssue());
+    }
 }
