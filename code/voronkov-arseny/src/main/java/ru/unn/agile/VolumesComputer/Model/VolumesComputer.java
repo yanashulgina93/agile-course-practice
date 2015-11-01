@@ -22,6 +22,13 @@ public class VolumesComputer {
             throw new IllegalArgumentException(m_negativeParamsError);
     }
 
+    public static double rightCircularCone(double r, double h) {
+        if(r >= 0.0 && h >= 0.0)
+            return Math.PI / 3.0 * r * r * h;
+        else
+            throw new IllegalArgumentException(m_negativeParamsError);
+    }
+
     private static final String m_negativeParamsError =
             "Parameters can not be negative.";
 }
