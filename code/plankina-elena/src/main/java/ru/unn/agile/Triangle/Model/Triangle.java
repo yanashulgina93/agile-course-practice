@@ -11,8 +11,10 @@ public class Triangle {
     private List<Double> coordinates1;
     private List<Double> coordinates2;
     private List<Double> coordinates3;
+    private static final double THEHALF = 0.5;
 
-    public Triangle(List<Double> inputCoordinates1,List<Double> inputCoordinates2, List<Double> inputCoordinates3) {
+    public Triangle(final List<Double> inputCoordinates1, final List<Double> inputCoordinates2,
+                    final List<Double> inputCoordinates3) {
         this.coordinates1 = inputCoordinates1;
         this.coordinates2 = inputCoordinates2;
         this.coordinates3 = inputCoordinates3;
@@ -30,35 +32,35 @@ public class Triangle {
         return coordinates3;
     }
 
-    public boolean hasEqualNumberOfCoordinates(List<Double> coordinates1, List<Double> coordinates2) {
+    public boolean hasEqualNumberOfCoordinates(final List<Double> coordinates1,
+                                               final List<Double> coordinates2) {
         return (coordinates1.size() == coordinates2.size());
     }
 
-    public boolean areNotEqual(List<Double> coordinates1, List<Double> coordinates2) {
+    public boolean areNotEqual(final List<Double> coordinates1, final List<Double> coordinates2) {
         return !(coordinates1.equals(coordinates2));
     }
 
     public boolean isPossible() {
-        boolean condition1 = hasEqualNumberOfCoordinates(this.coordinates1, this.coordinates2) &&
-                            hasEqualNumberOfCoordinates(this.coordinates1, this.coordinates3) &&
-                            hasEqualNumberOfCoordinates(this.coordinates2, this.coordinates3);
-        boolean condition2 = areNotEqual(this.coordinates1, this.coordinates2) &&
-                            areNotEqual(this.coordinates1, this.coordinates3) &&
-                            areNotEqual(this.coordinates2, this.coordinates3);
+        boolean condition1 = hasEqualNumberOfCoordinates(this.coordinates1, this.coordinates2)
+                && hasEqualNumberOfCoordinates(this.coordinates1, this.coordinates3)
+                && hasEqualNumberOfCoordinates(this.coordinates2, this.coordinates3);
+        boolean condition2 = areNotEqual(this.coordinates1, this.coordinates2)
+                && areNotEqual(this.coordinates1, this.coordinates3)
+                && areNotEqual(this.coordinates2, this.coordinates3);
         return condition1 && condition2;
     }
 
     public double getLength(List<Double> coordinates1, List<Double> coordinates2) {
         double length;
-        if (this.hasEqualNumberOfCoordinates(coordinates1,coordinates2)
+        if (this.hasEqualNumberOfCoordinates(coordinates1, coordinates2)
                 && this.areNotEqual(coordinates1, coordinates2)) {
             double sum = 0.0;
             for (int i = 0; i < coordinates1.size(); i++) {
                 sum += pow(coordinates1.get(i) - coordinates2.get(i), 2);
             }
             length = sqrt(sum);
-            return length;
-        }
+            return length; }
         else {
             System.out.println("Two points have the same set of coordinates!");
             return 0.0;
@@ -80,15 +82,18 @@ public class Triangle {
     public double getSquare3d() {
         List<Double> lengths = this.getLengths3d();
         double halfPerimeter = this.getPerimeter3d() / 2;
-        return sqrt(halfPerimeter * (halfPerimeter - lengths.get(0)) * (halfPerimeter - lengths.get(1))
-                * (halfPerimeter - lengths.get(2)));
+        return sqrt(halfPerimeter * (halfPerimeter - lengths.get(0))
+                * (halfPerimeter - lengths.get(1)) * (halfPerimeter - lengths.get(2)));
     }
 
     public List<Double> getMedians3d() {
         List<Double> lengths = this.getLengths3d();
-        double median1 = 0.5 * sqrt(2 * pow(lengths.get(1), 2) + 2 * pow(lengths.get(2), 2) - pow(lengths.get(0),2));
-        double median2 = 0.5 * sqrt(2 * pow(lengths.get(0), 2) + 2 * pow(lengths.get(2), 2) - pow(lengths.get(1),2));
-        double median3 = 0.5 * sqrt(2 * pow(lengths.get(0), 2) + 2 * pow(lengths.get(1), 2) - pow(lengths.get(2),2));
+        double median1 = THEHALF * sqrt(2 * pow(lengths.get(1), 2) +
+                2 * pow(lengths.get(2), 2) - pow(lengths.get(0), 2));
+        double median2 = THEHALF * sqrt(2 * pow(lengths.get(0), 2) +
+                2 * pow(lengths.get(2), 2) - pow(lengths.get(1), 2));
+        double median3 = THEHALF * sqrt(2 * pow(lengths.get(0), 2) +
+                2 * pow(lengths.get(1), 2) - pow(lengths.get(2), 2));
         List<Double> medians = Arrays.asList(median1, median2, median3);
         return medians;
     }

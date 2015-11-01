@@ -11,7 +11,8 @@ import static java.lang.Math.sqrt;
 import static org.junit.Assert.assertEquals;
 
 public class TriangleCorrectnessTests {
-    private final double delta = 0.00001;
+    private static final double delta = 0.00001;
+    private static final double THEHALF = 0.5;
     Triangle triangle = new Triangle(Arrays.asList(1.9,-2.3,4.56),
             Arrays.asList(0.0,3.5,5.12),Arrays.asList(4.0,5.0,10.2));
     double length1 = sqrt(pow(1.9 - 0.0, 2) + pow(-2.3 - 3.5, 2) + pow(4.56 - 5.12, 2));
@@ -45,7 +46,7 @@ public class TriangleCorrectnessTests {
 
     @Test
     public void canFindCorrectMedian3d(){
-        double trueMedian = 0.5 * sqrt(2 * pow(length2,2) + 2 * pow(length3,2) - pow(length1,2));
+        double trueMedian = THEHALF * sqrt(2 * pow(length2,2) + 2 * pow(length3,2) - pow(length1,2));
         List<Double> resultMedians = triangle.getMedians3d();
         double resultMedian = resultMedians.get(0);
         assertEquals(trueMedian, resultMedian, delta);
