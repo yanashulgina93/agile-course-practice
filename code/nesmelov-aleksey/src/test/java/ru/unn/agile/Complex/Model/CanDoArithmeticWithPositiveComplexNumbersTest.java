@@ -10,7 +10,7 @@ public class CanDoArithmeticWithPositiveComplexNumbersTest {
     private Complex second;
 
     @Before
-    private void setUpPositiveComplexNumbers() {
+    public void setUpPositiveComplexNumbers() {
         first = new Complex(2, 3);
         second = new Complex(1, 1);
     }

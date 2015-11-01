@@ -5,12 +5,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import main.java.ru.unn.agile.Complex.Model.*;
 
-public class CanDoArithmeticWithComplexNumberAndZero {
+public class CanDoArithmeticWithComplexNumberAndZeroTest {
     private Complex first;
     private Complex second;
 
     @Before
-    private void setUpComplexNumberAndZero() {
+    public void setUpComplexNumberAndZero() {
         first = new Complex(2, 3);
         second = new Complex(0, 0);
     }
