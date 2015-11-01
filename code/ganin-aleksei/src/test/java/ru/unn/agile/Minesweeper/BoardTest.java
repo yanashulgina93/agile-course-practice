@@ -41,4 +41,11 @@ public class BoardTest {
         board.setMine(0, 0);
         assertEquals(1, board.getValue(1, 1));
     }
+
+    @Test
+    public void when_neighboring_cells_set_two_mines_cell_set_value_2(){
+        board.setMine(0, 0);
+        board.setMine(2, 2);
+        assertEquals(2, board.getValue(1, 1));
+    }
 }
