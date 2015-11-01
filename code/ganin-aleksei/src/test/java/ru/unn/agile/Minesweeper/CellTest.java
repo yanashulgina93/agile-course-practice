@@ -14,13 +14,13 @@ public class CellTest {
     }
 
     @Test
-    public  void  set_bomb_to_cell(){
+    public  void  set_bomb(){
         cell.setBomb();
         assertEquals(true, cell.isBomb());
     }
 
     @Test
-    public  void  set_value_to_cell(){
+    public  void  set_value(){
         char value = 8;
         cell.setValue(value);
         assertEquals(value, cell.getValue());
