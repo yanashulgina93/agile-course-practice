@@ -24,7 +24,7 @@ public class CellTest {
 
     @Test
     public  void  set_value(){
-        char value = 8;
+        int value = 8;
         cell.setValue(value);
         assertEquals(value, cell.getValue());
     }

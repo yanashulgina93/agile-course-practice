@@ -9,7 +9,7 @@ public class Cell extends JLabel {
     private boolean mine = false;
     private boolean issue = false;
     private boolean flag = false;
-    private boolean _open = false;
+    private boolean openV = false;
     private int value = 0;
 
     private Board board;
@@ -31,12 +31,11 @@ public class Cell extends JLabel {
     private static ImageIcon val7Icon = new ImageIcon("images/val_7_20x20.png");
     private static ImageIcon val8Icon = new ImageIcon("images/val_8_20x20.png");
 
+    public Cell(Board boardA, int positionYA, int positionXA) {
 
-    public Cell(Board _board, int _positionY, int _positionX){
-
-        board = _board;
-        positionY = _positionY;
-        positionX = _positionX;
+        board = boardA;
+        positionY = positionYA;
+        positionX = positionXA;
 
         setIcon(closeIcon);
         addMouseListener(new MouseListener() {
@@ -54,7 +53,7 @@ public class Cell extends JLabel {
                         }
                     }
                 }
-                if(SwingUtilities.isLeftMouseButton(e)){
+                if(SwingUtilities.isLeftMouseButton(e)) {
                     board.openCell(positionY, positionX);
                 }
             }
@@ -82,27 +81,27 @@ public class Cell extends JLabel {
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
-    public void setMine(){
+    public void setMine() {
         mine = true;
     }
-    public boolean isMine(){
+    public boolean isMine() {
         return  mine;
     }
 
-    public void setValue(int val){
+    public void setValue(int val) {
         value = val;
     }
 
-    public int getValue(){
+    public int getValue() {
         return value;
     }
 
-    public void setIssue(){
+    public void setIssue() {
         setIcon(issueIcon);
         issue = true;
     }
 
-    public boolean isIssue(){
+    public boolean isIssue() {
         return issue;
     }
 
@@ -111,23 +110,23 @@ public class Cell extends JLabel {
         issue = false;
     }
 
-    public void setFlag(){
+    public void setFlag() {
         setIcon(flagIcon);
         flag = true;
     }
 
-    public boolean isFlag(){
+    public boolean isFlag() {
         return  flag;
     }
 
-    public void unsetFlag(){
+    public void unsetFlag() {
         setIcon(closeIcon);
         flag = false;
     }
 
-    public void open(){
-        _open = true;
-        if(isMine()){
+    public void open() {
+        openV = true;
+        if(isMine()) {
             setIcon(mineIcon);
         } else {
             switch (getValue()) {
@@ -153,16 +152,16 @@ public class Cell extends JLabel {
         }
     }
 
-    public boolean isOpen(){
-        return  _open;
+    public boolean isOpen() {
+        return  openV;
     }
 
-    public void clear(){
+    public void clear() {
         unsetIssue();
         unsetFlag();
         setValue(0);
         mine = false;
-        _open = false;
+        openV = false;
     }
 
     @Override
@@ -172,11 +171,11 @@ public class Cell extends JLabel {
         super.paintComponent(g);
     }
 
-    public int getPositionX(){
+    public int getPositionX() {
         return positionX;
     }
 
-    public int getPositionY(){
+    public int getPositionY() {
         return positionY;
     }
 }

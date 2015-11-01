@@ -15,13 +15,33 @@ public class Minesweeper {
     private JLabel smile;
     private JLabel mineCounter;
 
-    private boolean _isEnd = false;
+    private int windowHeight = 700;
+    private int windowWidth = 700;
+
+    private int boardHeight = 32;
+    private int boardWidth = 32;
+
+
+    private int smilePositionX = 640;
+    private int smilePositionY = 0;
+    private int smileHeigth = 50;
+    private int smileWidth = 50;
+
+    private int mineCounterPositionX = 640;
+    private int mineCounterPositionY = 70;
+    private int mineCounterHeigth = 20;
+    private int mineCounterWidth = 50;
+
+    private int defaultMines = 100;
+
+
+    private boolean isEndV = false;
 
     public Minesweeper(){
         JFrame frame = new JFrame("Сапер");
-        frame.setSize(700, 700);
+        frame.setSize(windowWidth, windowHeight);
 
-        board = new Board(this, 32, 32);
+        board = new Board(this, boardHeight, boardWidth);
 
 
         smile = new JLabel(){
@@ -62,10 +82,10 @@ public class Minesweeper {
             }
         });
         smile.setIcon(smileIcon);
-        smile.setBounds(640, 0, 50, 50);
+        smile.setBounds(smilePositionX, smilePositionY, smileWidth, smileHeigth);
 
         mineCounter = new JLabel();
-        mineCounter.setBounds(640, 70, 50, 20);
+        mineCounter.setBounds(mineCounterPositionX, mineCounterPositionX, mineCounterWidth, mineCounterHeigth);
 
 
         frame.add(smile);
@@ -82,23 +102,23 @@ public class Minesweeper {
         new Minesweeper();
     }
 
-    public void newGame(){
+    public void newGame() {
         smile.setIcon(smileIcon);
-        _isEnd = false;
+        isEndV = false;
         board.clear();
-        board.setMinesRandom(100);
+        board.setMinesRandom(defaultMines);
     }
 
-    public boolean isEnd(){
-        return _isEnd;
+    public boolean isEnd() {
+        return isEndV;
     }
 
-    public void end(boolean isWinner){
-        _isEnd = true;
+    public void end(boolean isWinner) {
+        isEndV = true;
         smile.setIcon(isWinner ? winnerIcon : deadIcon);
     }
 
-    public void setMineCounter(int count){
+    public void setMineCounter(int count) {
         mineCounter.setText(String.valueOf(count));
     }
 }
