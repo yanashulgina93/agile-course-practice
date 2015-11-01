@@ -5,7 +5,6 @@ public final class NumeralConverter {
     private static final int [] NUMBERS_RELATED_TO_ROMAN_SYMBOLS = {1, 5, 10, 50, 100, 500, 1000};
 
     private NumeralConverter() {
-        //never called
     }
 
     static String convert(final int arabicNumber) {

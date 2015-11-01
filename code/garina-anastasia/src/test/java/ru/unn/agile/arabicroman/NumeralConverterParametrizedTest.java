@@ -4,19 +4,17 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-
 import java.util.Arrays;
 import java.util.Collection;
 
 @RunWith(Parameterized.class)
 public class NumeralConverterParametrizedTest {
-    private int inputNumber;
-    private String expectedRomanNumber;
+    private int arabicNumber;
+    private String romanNumber;
 
-    public NumeralConverterParametrizedTest(final int inputNumber,
-                                            final String expectedRomanNumber) {
-        this.inputNumber = inputNumber;
-        this.expectedRomanNumber = expectedRomanNumber;
+    public NumeralConverterParametrizedTest(final int arabicNumber, final String romanNumber) {
+        this.arabicNumber = arabicNumber;
+        this.romanNumber = romanNumber;
     }
 
 @Parameterized.Parameters
@@ -28,11 +26,16 @@ public class NumeralConverterParametrizedTest {
                 {499, "CDXCIX"}
         });
     }
+
     @Test
     public void canConvertGivenNumbersToRoman() {
-        assertEquals(expectedRomanNumber, NumeralConverter.convert(inputNumber));
+        assertEquals(romanNumber, NumeralConverter.convert(arabicNumber));
     }
 
+    @Test
+    public void canConvertGivenNumbersToArabic() {
+        assertEquals(arabicNumber, NumeralConverter.convert(romanNumber));
+    }
 }
 
 
