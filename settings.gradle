@@ -76,6 +76,8 @@ project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-l
 // Nistratov Artyom
 // Nistratova Elena
 // Paramuzov Vladimir
+include "code/paramuzov-vladimir"
+project(":code/paramuzov-vladimir").name = "paramuzov-vladimir-Model"
 // Plankina Elena
 // Pronina Anastasiya
 // Sevrikov Ilya
