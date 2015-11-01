@@ -43,4 +43,8 @@ public class Cell {
     public boolean isFlag(){
         return  flag;
     }
+
+    public void unsetFlag(){
+        flag = false;
+    }
 }

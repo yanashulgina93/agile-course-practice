@@ -43,4 +43,10 @@ public class CellTest {
         cell.setFlag();
         assertEquals(true, cell.isFlag());
     }
+
+    @Test
+    public void unset_flag(){
+        cell.unsetFlag();
+        assertEquals(false, cell.isFlag());
+    }
 }
