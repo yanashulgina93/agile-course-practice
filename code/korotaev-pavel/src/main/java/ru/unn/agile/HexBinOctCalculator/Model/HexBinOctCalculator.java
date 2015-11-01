@@ -2,10 +2,10 @@ package ru.unn.agile.HexBinOctCalculator.Model;
 
 public final class HexBinOctCalculator {
     private HexBinOctCalculator() {
-        //not called
+
     }
 
-    private static String returnResult(final Integer res, final NumeralSystem system) {
+    private static String convertResult(final Integer res, final NumeralSystem system) {
         switch (system) {
             case HEX:
                 return Integer.toHexString(res);
@@ -23,7 +23,7 @@ public final class HexBinOctCalculator {
         int left = Integer.parseInt(firstNumber, system.getValue());
         int right = Integer.parseInt(secondNumber, system.getValue());
         int sum = left + right;
-        return returnResult(sum, system);
+        return convertResult(sum, system);
     }
 
     public static String subtract(final String firstNumber, final String secondNumber,
@@ -31,7 +31,7 @@ public final class HexBinOctCalculator {
         int left = Integer.parseInt(firstNumber, system.getValue());
         int right = Integer.parseInt(secondNumber, system.getValue());
         int diff = left - right;
-        return returnResult(diff, system);
+        return convertResult(diff, system);
     }
 
     public static String multiply(final String firstNumber, final String secondNumber,
@@ -39,7 +39,7 @@ public final class HexBinOctCalculator {
         int left = Integer.parseInt(firstNumber, system.getValue());
         int right = Integer.parseInt(secondNumber, system.getValue());
         int prod = left * right;
-        return returnResult(prod, system);
+        return convertResult(prod, system);
     }
 
     public static String divide(final String firstNumber, final String secondNumber,
@@ -50,7 +50,7 @@ public final class HexBinOctCalculator {
             throw new IllegalArgumentException("Division by zero!");
         } else {
             int quotient = left / right;
-            return returnResult(quotient, system);
+            return convertResult(quotient, system);
         }
     }
 }
