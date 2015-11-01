@@ -2,9 +2,6 @@ package ru.unn.agile.CurrencyConverter.Model;
 
 import java.util.Objects;
 
-/**
- * Created by ksenyako on 25.10.2015.
- */
 enum Unit { Dollar, Euro, Ruble, Pound }
 public class Currency {
     private double value;
