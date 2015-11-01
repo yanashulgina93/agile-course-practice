@@ -19,4 +19,12 @@ public class BoardTest {
         board.openCell(0, 0);
         assertEquals(true, board.isLost());
     }
+
+    @Test
+    public void  when_set_issue_open_mine(){
+        board.setMine(0,0);
+        board.setIssue(0, 0);
+        board.openCell(0, 0);
+        assertEquals(false, board.isLost());
+    }
 }
