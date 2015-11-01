@@ -66,18 +66,16 @@ public class TreeTest {
         tree.addNode(150, "2");
         tree.addNode(40, "3");
         tree.addNode(60, "4");
-        boolean resultTruncated = tree.truncateByKey(50);
-        assertTrue(resultTruncated);
+        assertTrue(tree.truncateByKey(50));
     }
 
     @Test
     public void canDeleteAllTree() {
-        tree = new TreeStructure<>(100, "root");
-        tree.addNode(50, "1");
-        tree.addNode(150, "2");
-        tree.addNode(40, "3");
-        tree.addNode(60, "4");
-        boolean resultTruncated = tree.truncateByKey(100);
-        assertTrue(resultTruncated);
+        tree = new TreeStructure<>(200, "root");
+        tree.addNode(100, "Child#1");
+        tree.addNode(150, "Child#2");
+        tree.addNode(210, "Child#3");
+        tree.addNode(220, "Child#4");
+        assertTrue(tree.truncateByKey(200));
     }
 }
