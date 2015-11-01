@@ -28,7 +28,7 @@ public class Board {
             for(int x = positionX > 0 ? positionX - 1 : positionX,
                 xStop = positionX < boardWidth - 1 ? positionX + 1 : positionX;
                 x <= xStop; x++){
-                if(y != positionY && x != positionX){
+                if(!(y == positionY && x == positionX)){
                     Cell cell = cells[y][x];
                     cell.setValue(cell.getValue() + 1);
 

@@ -48,4 +48,17 @@ public class BoardTest {
         board.setMine(2, 2);
         assertEquals(2, board.getValue(1, 1));
     }
+
+    @Test
+    public void when_around_mines_cell_set_value_8(){
+        board.setMine(0, 0);
+        board.setMine(0, 1);
+        board.setMine(0, 2);
+        board.setMine(1, 0);
+        board.setMine(1, 2);
+        board.setMine(2, 0);
+        board.setMine(2, 1);
+        board.setMine(2, 2);
+        assertEquals(8, board.getValue(1, 1));
+    }
 }
