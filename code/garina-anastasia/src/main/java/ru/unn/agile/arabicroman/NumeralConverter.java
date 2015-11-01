@@ -1,10 +1,14 @@
 package ru.unn.agile.arabicroman;
 
-public class NumeralConverter {
+public final class NumeralConverter {
+    private static final String [] PRIMARY_ROMAN_SYMBOLS = {"I", "V", "X", "L", "C", "D", "M"};
+    private static final int [] NUMBERS_RELATED_TO_ROMAN_SYMBOLS = {1, 5, 10, 50, 100, 500, 1000};
 
-    private final String [] primaryRomanSymbols = {"I", "V", "X", "L", "C", "D", "M"};
-    private final Integer [] numbersRelatedToRomanSymbols = {1, 5, 10, 50, 100, 500, 1000};
-     String convertArabicToRoman(final int arabicNumber) {
+    private NumeralConverter() {
+        //never called
+    }
+
+    static String convert(final int arabicNumber) {
         final int maxValidNumber = 3999;
         if (arabicNumber < 0 || arabicNumber > maxValidNumber) {
             throw new IllegalArgumentException();
@@ -13,12 +17,12 @@ public class NumeralConverter {
             if (arabicNumber != 0) {
                 int divisionResult;
                 int tempNumber = arabicNumber;
-                int positionInNumbersArrays = primaryRomanSymbols.length - 1;
+                int positionInNumbersArrays = PRIMARY_ROMAN_SYMBOLS.length - 1;
                 while (positionInNumbersArrays >= 0) {
                     divisionResult = tempNumber
-                            / numbersRelatedToRomanSymbols[positionInNumbersArrays];
+                            / NUMBERS_RELATED_TO_ROMAN_SYMBOLS[positionInNumbersArrays];
                     romanNumber += simpleRomanNumber(divisionResult, positionInNumbersArrays);
-                    tempNumber -= numbersRelatedToRomanSymbols[positionInNumbersArrays]
+                    tempNumber -= NUMBERS_RELATED_TO_ROMAN_SYMBOLS[positionInNumbersArrays]
                             * divisionResult;
                     positionInNumbersArrays -= 2;
                 }
@@ -27,50 +31,51 @@ public class NumeralConverter {
         }
     }
 
-    private String simpleRomanNumber(final int divisionResult, final int pos) {
+    private static String simpleRomanNumber(final int divisionResult, final int pos) {
         final int four = 4;
         final int five = 5;
         final int nine = 9;
         switch (divisionResult) {
-            case 0: return "";
-            case four: return primaryRomanSymbols[pos]
-                    + primaryRomanSymbols[pos + 1];
-            case nine: return primaryRomanSymbols[pos]
-                    + primaryRomanSymbols[pos + 2];
+            case 0:
+                return "";
+            case four:
+                return PRIMARY_ROMAN_SYMBOLS[pos] + PRIMARY_ROMAN_SYMBOLS[pos + 1];
+            case nine:
+                return PRIMARY_ROMAN_SYMBOLS[pos] + PRIMARY_ROMAN_SYMBOLS[pos + 2];
             default:
                 String simpleRoman = "";
                 int tempNumber = divisionResult;
                 if (tempNumber >= five) {
-                    simpleRoman = primaryRomanSymbols[pos + 1];
+                    simpleRoman = PRIMARY_ROMAN_SYMBOLS[pos + 1];
                     tempNumber -= five;
                 }
                 while (tempNumber > 0) {
-                    simpleRoman += primaryRomanSymbols[pos];
+                    simpleRoman += PRIMARY_ROMAN_SYMBOLS[pos];
                     tempNumber--;
                 }
                 return simpleRoman;
         }
     }
 
-    int convertRomanToArabic(final String romanNumber) {
+    static int convert(final String romanNumber) {
         if (romanNumber == null || romanNumber.isEmpty()) {
             return 0;
         }
         int arabicNumber = 0;
         int currentPositionOfSymbolInArray =
                 getPosition(romanNumber.charAt(0));
-        arabicNumber += numbersRelatedToRomanSymbols[currentPositionOfSymbolInArray];
+        arabicNumber += NUMBERS_RELATED_TO_ROMAN_SYMBOLS[currentPositionOfSymbolInArray];
         for (int stringIndex = 1; stringIndex < romanNumber.length(); stringIndex++) {
             int positionOfNewSymbolInArray =
                     getPosition(romanNumber.charAt(stringIndex));
             if (newPositionSurpassOld(currentPositionOfSymbolInArray,
                     positionOfNewSymbolInArray)) {
                 arabicNumber +=
-                        numbersRelatedToRomanSymbols[positionOfNewSymbolInArray]
-                        - 2 * numbersRelatedToRomanSymbols[currentPositionOfSymbolInArray];
+                        NUMBERS_RELATED_TO_ROMAN_SYMBOLS[positionOfNewSymbolInArray]
+                        - 2 * NUMBERS_RELATED_TO_ROMAN_SYMBOLS[currentPositionOfSymbolInArray];
             } else {
                 if (positionOfNewSymbolInArray <= currentPositionOfSymbolInArray) {
-                    arabicNumber += numbersRelatedToRomanSymbols[positionOfNewSymbolInArray];
+                    arabicNumber += NUMBERS_RELATED_TO_ROMAN_SYMBOLS[positionOfNewSymbolInArray];
                 } else {
                     throw new IllegalArgumentException();
                 }
@@ -80,9 +85,9 @@ public class NumeralConverter {
         return arabicNumber;
     }
 
-    private int getPosition(final char romanSymbol) {
-        for (int pos = 0; pos < primaryRomanSymbols.length; pos++) {
-            if (primaryRomanSymbols[pos].equals(Character.toString(romanSymbol))) {
+    private static int getPosition(final char romanSymbol) {
+        for (int pos = 0; pos < PRIMARY_ROMAN_SYMBOLS.length; pos++) {
+            if (PRIMARY_ROMAN_SYMBOLS[pos].equals(Character.toString(romanSymbol))) {
                 return pos;
             }
         }
@@ -90,7 +95,7 @@ public class NumeralConverter {
 
     }
 
-    private boolean newPositionSurpassOld(final int oldPos, final int newPos) {
+    private static boolean newPositionSurpassOld(final int oldPos, final int newPos) {
         if (newPos == (oldPos + 1) || newPos == (oldPos + 2)) {
             if (oldPos % 2 == 1) {
                 throw new IllegalArgumentException();
