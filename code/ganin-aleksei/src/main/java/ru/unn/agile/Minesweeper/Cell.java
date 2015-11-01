@@ -6,6 +6,7 @@ package ru.unn.agile.Minesweeper;
 public class Cell {
     private boolean bomb = false;
     private boolean issue = false;
+    private boolean flag = false;
     private char value = 0;
 
     public void setBomb(){
@@ -31,8 +32,15 @@ public class Cell {
         return issue;
     }
 
-    public void unsetIssue(){
+    public void unsetIssue() {
         issue = false;
     }
 
+    public void setFlag(){
+        flag = true;
+    }
+
+    public boolean isFlag(){
+        return  flag;
+    }
 }
