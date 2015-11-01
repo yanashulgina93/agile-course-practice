@@ -45,14 +45,14 @@ public class IntersectionFinderTestNoIntersection {
     @Before
     public void setUp() {
         switch (type) {
+            case PlaneAndParallelLine:
+                setUpPlaneAndParallelLine();
+                break;
             case PlaneXOYAndLineXYWithOffset:
                 setUpPlaneXOYAndLineXYWithOffset();
                 break;
             case PlaneXOZAndLineZWithOffset:
                 setUpPlaneXOZAndLineZWithOffset();
-                break;
-            case PlaneAndParallelLine:
-                setUpPlaneAndParallelLine();
                 break;
             default:
                 break;

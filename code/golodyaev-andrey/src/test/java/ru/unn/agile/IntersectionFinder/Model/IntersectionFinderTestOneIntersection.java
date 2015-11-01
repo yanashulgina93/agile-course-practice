@@ -49,14 +49,14 @@ public class IntersectionFinderTestOneIntersection {
     @Before
     public void setUp() {
         switch (type) {
+            case PlaneAndLine:
+                setUpPlaneAndLine();
+                break;
             case PlaneXOYAndLineZ:
                 setUpPlaneXOYAndLineZ();
                 break;
             case PlaneXOZAndLineXY:
                 setUpPlaneXOZAndLineXY();
-                break;
-            case PlaneAndLine:
-                setUpPlaneAndLine();
                 break;
             default:
                 break;
