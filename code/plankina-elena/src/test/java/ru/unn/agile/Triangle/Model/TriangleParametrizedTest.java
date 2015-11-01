@@ -11,7 +11,7 @@ import java.util.List;
 @RunWith(Parameterized.class)
 public class TriangleParametrizedTest {
 
-    Triangle triangle;
+    private Triangle triangle;
     public TriangleParametrizedTest(final Triangle triangle) {
         this.triangle = triangle;
     }
@@ -34,9 +34,6 @@ public class TriangleParametrizedTest {
                 new Object[]{new Triangle(Arrays.asList(-14.9, -11.32, -700.56),
                         Arrays.asList(2.0, 323.8293, -55.12),
                         Arrays.asList(-4.0, -5.0, 5.2))},
-                new Object[]{new Triangle(Arrays.asList(-1.9, -24.3, -4.56),
-                        Arrays.asList(-50.0, -34.5, -51.12),
-                        Arrays.asList(-42.0, -54.0, -10.2))},
         });
     }
 
@@ -50,7 +47,7 @@ public class TriangleParametrizedTest {
     public void canFindLengthCorrectly() {
         List<Double> lengths = triangle.getLengths3d();
         double length1 = lengths.get(0);
-        assert(length1 >= 0.0);
+        assert (length1 >= 0.0);
     }
 }
 
