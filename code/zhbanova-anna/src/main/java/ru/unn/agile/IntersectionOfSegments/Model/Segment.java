@@ -81,6 +81,11 @@ public class Segment {
             double b2 = segment2.getStartY() - k2 * segment2.getStartX();
 
             if (k1.equals(k2)) {
+                //segment x = const convert to y = const
+                if (k1.equals(Double.MAX_VALUE)) {
+                    swapXY(segment1);
+                    swapXY(segment2);
+                }
                 makeFirstPointWithLessX(segment1);
                 makeFirstPointWithLessX(segment2);
                 if (segment1.getStartX() < segment2.getStartX()
@@ -102,12 +107,28 @@ public class Segment {
                     startPointOfIntersection = segment1.getStart();
                     finishPointOfIntersection = segment2.getFinish();
                 }
+                if (k1.equals(Double.MAX_VALUE)) {
+                    startPointOfIntersection.swapXY();
+                    finishPointOfIntersection.swapXY();
+                }
             } else {
-                double x = (b2 - b1) / (k1 - k2);
-                double y = k1 * x + b1;
                 typeOfIntersection = TypeOfIntersection.IntersectionInOnePoint;
-                startPointOfIntersection = new Point(x, y);
-                finishPointOfIntersection = new Point(x, y);
+                if (k1 == Double.MAX_VALUE) {
+                    double x = segment1.getStartX();
+                    double y = k2 * x + b2;
+                    startPointOfIntersection = new Point(x, y);
+                    finishPointOfIntersection = new Point(x, y);
+                } else if (k2 == Double.MAX_VALUE) {
+                    double x = segment2.getStartX();
+                    double y = k1 * x + b1;
+                    startPointOfIntersection = new Point(x, y);
+                    finishPointOfIntersection = new Point(x, y);
+                } else {
+                    double x = (b2 - b1) / (k1 - k2);
+                    double y = k1 * x + b1;
+                    startPointOfIntersection = new Point(x, y);
+                    finishPointOfIntersection = new Point(x, y);
+                }
             }
         } else {
             typeOfIntersection = TypeOfIntersection.NotIntersection;
@@ -138,6 +159,9 @@ public class Segment {
     }
 
     private double calculateSlope(final Segment segment) {
+        if (segment.getFinishX() == segment.getStartX()) {
+            return Double.MAX_VALUE;
+        }
         return (segment.getFinishY() - segment.getStartY())
                 / (segment.getFinishX() - segment.getStartX());
     }
@@ -160,5 +184,10 @@ public class Segment {
         }
         return Math.sqrt(Math.pow(start.getX() - finish.getX(), 2)
                 + Math.pow(start.getY() - finish.getY(), 2));
+    }
+
+    private void swapXY(final Segment segment) {
+        segment.getStart().swapXY();
+        segment.getFinish().swapXY();
     }
 }

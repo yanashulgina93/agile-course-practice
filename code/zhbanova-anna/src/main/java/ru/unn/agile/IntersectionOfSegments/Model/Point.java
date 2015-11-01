@@ -51,4 +51,11 @@ public class Point {
         Point point = (Point) object;
         return this.x == point.getX() && this.y == point.getY();
     }
+
+    public void swapXY() {
+        double tmp = x;
+        x = y;
+        y = tmp;
+
+    }
 }
