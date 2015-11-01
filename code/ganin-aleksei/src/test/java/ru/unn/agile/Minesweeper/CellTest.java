@@ -25,4 +25,10 @@ public class CellTest {
         cell.setValue(value);
         assertEquals(value, cell.getValue());
     }
+
+    @Test
+    public void set_issue(){
+        cell.setIssue();
+        assertEquals(true, cell.getIssue());
+    }
 }
