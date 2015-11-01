@@ -67,7 +67,11 @@ project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-l
 // Kuznecov Aleksandr
 // Larin Sergej
 // Mixejceva Lyudmila
+
 // Molotkov Andrej
+include "code/molotkov-andrei"
+project(":code/molotkov-andrei").name = "molotkov-andrei-Model"
+
 // Moshkov Yurij
 // Mozerov Ilya
 // Nesmelov Aleksej
