@@ -27,4 +27,12 @@ public class BoardTest {
         board.openCell(0, 0);
         assertEquals(false, board.isLost());
     }
+
+    @Test
+    public void  when_set_flag_open_mine(){
+        board.setMine(0,0);
+        board.setFlag(0, 0);
+        board.openCell(0, 0);
+        assertEquals(false, board.isLost());
+    }
 }

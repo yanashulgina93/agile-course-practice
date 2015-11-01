@@ -27,7 +27,7 @@ public class Board {
 
     public void openCell(int positionY, int positionX){
         Cell cell = cells[positionY][positionX];
-        if(!lost && !cell.isIssue()){
+        if(!lost && !cell.isIssue() && !cell.isFlag()){
             cell.open();
             lost = cell.isMine();
         }
@@ -39,5 +39,9 @@ public class Board {
 
     public void  setIssue(int positionY, int positionX){
         cells[positionY][positionX].setIssue();
+    }
+
+    public void setFlag(int positionY, int positionX){
+        cells[positionY][positionX].setFlag();
     }
 }
