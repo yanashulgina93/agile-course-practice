@@ -51,7 +51,7 @@ public class Triangle {
         return condition1 && condition2;
     }
 
-    public double getLength(List<Double> coordinates1, List<Double> coordinates2) {
+    public double getLength(final List<Double> coordinates1, final List<Double> coordinates2) {
         double length;
         if (this.hasEqualNumberOfCoordinates(coordinates1, coordinates2)
                 && this.areNotEqual(coordinates1, coordinates2)) {
@@ -60,7 +60,8 @@ public class Triangle {
                 sum += pow(coordinates1.get(i) - coordinates2.get(i), 2);
             }
             length = sqrt(sum);
-            return length; }
+            return length;
+        }
         else {
             System.out.println("Two points have the same set of coordinates!");
             return 0.0;
@@ -88,12 +89,12 @@ public class Triangle {
 
     public List<Double> getMedians3d() {
         List<Double> lengths = this.getLengths3d();
-        double median1 = THEHALF * sqrt(2 * pow(lengths.get(1), 2) +
-                2 * pow(lengths.get(2), 2) - pow(lengths.get(0), 2));
-        double median2 = THEHALF * sqrt(2 * pow(lengths.get(0), 2) +
-                2 * pow(lengths.get(2), 2) - pow(lengths.get(1), 2));
-        double median3 = THEHALF * sqrt(2 * pow(lengths.get(0), 2) +
-                2 * pow(lengths.get(1), 2) - pow(lengths.get(2), 2));
+        double median1 = THEHALF * sqrt(2 * pow(lengths.get(1), 2)
+                + 2 * pow(lengths.get(2), 2) - pow(lengths.get(0), 2));
+        double median2 = THEHALF * sqrt(2 * pow(lengths.get(0), 2)
+                + 2 * pow(lengths.get(2), 2) - pow(lengths.get(1), 2));
+        double median3 = THEHALF * sqrt(2 * pow(lengths.get(0), 2)
+                + 2 * pow(lengths.get(1), 2) - pow(lengths.get(2), 2));
         List<Double> medians = Arrays.asList(median1, median2, median3);
         return medians;
     }
@@ -109,14 +110,14 @@ public class Triangle {
 
     public List<Double> getBisectrices3d() {
         List<Double> lengths = this.getLengths3d();
-        double bisectrix1 = sqrt(lengths.get(1) * lengths.get(2) * this.getPerimeter3d() *
-                            (lengths.get(1) + lengths.get(2) - lengths.get(0)))
-                            / (lengths.get(1) + lengths.get(2));
-        double bisectrix2 = sqrt(lengths.get(0) * lengths.get(2) * this.getPerimeter3d() *
-                (lengths.get(0) + lengths.get(2) - lengths.get(1)))
+        double bisectrix1 = sqrt(lengths.get(1) * lengths.get(2) * this.getPerimeter3d()
+                * (lengths.get(1) + lengths.get(2) - lengths.get(0)))
+                / (lengths.get(1) + lengths.get(2));
+        double bisectrix2 = sqrt(lengths.get(0) * lengths.get(2) * this.getPerimeter3d()
+                * (lengths.get(0) + lengths.get(2) - lengths.get(1)))
                 / (lengths.get(0) + lengths.get(2));
-        double bisectrix3 = sqrt(lengths.get(0) * lengths.get(1) * this.getPerimeter3d() *
-                (lengths.get(0) + lengths.get(1) - lengths.get(2)))
+        double bisectrix3 = sqrt(lengths.get(0) * lengths.get(1) * this.getPerimeter3d()
+                * (lengths.get(0) + lengths.get(1) - lengths.get(2)))
                 / (lengths.get(0) + lengths.get(1));
         List<Double> bisectrices = Arrays.asList(bisectrix1, bisectrix2, bisectrix3);
         return bisectrices;
@@ -124,11 +125,11 @@ public class Triangle {
 
     public List<Double> getAngles3d() {
         List<Double> lengths = this.getLengths3d();
-        double angle1 = acos((pow(lengths.get(1),2) + pow(lengths.get(2),2) - pow(lengths.get(0),2))
+        double angle1 = acos((pow(lengths.get(1), 2) + pow(lengths.get(2), 2) - pow(lengths.get(0), 2))
                         / (2 * lengths.get(1) * lengths.get(2)));
-        double angle2 = acos((pow(lengths.get(0),2) + pow(lengths.get(2),2) - pow(lengths.get(1),2))
+        double angle2 = acos((pow(lengths.get(0), 2) + pow(lengths.get(2), 2) - pow(lengths.get(1), 2))
                 / (2 * lengths.get(0) * lengths.get(2)));
-        double angle3 = acos((pow(lengths.get(0),2) + pow(lengths.get(1),2) - pow(lengths.get(2),2))
+        double angle3 = acos((pow(lengths.get(0), 2) + pow(lengths.get(1), 2) - pow(lengths.get(2), 2))
                 / (2 * lengths.get(0) * lengths.get(1)));
         List<Double> angles = Arrays.asList(angle1, angle2, angle3);
         return angles;
