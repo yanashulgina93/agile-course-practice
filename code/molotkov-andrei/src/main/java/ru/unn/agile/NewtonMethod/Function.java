@@ -29,6 +29,50 @@ public class Function {
     private final Stack<Double> calculateStack;
     private final FunctionComponent []component;
 
+    public Function(final String formula) {
+        ConverterToPolishNotation converter = new ConverterToPolishNotation();
+        String polishNotation = converter.convert(formula);
+        component = new FunctionComponent[polishNotation.length()];
+        for (int i = 0; i < polishNotation.length(); i++) {
+            component[i] = new FunctionComponent();
+        }
+        calculateStack = new Stack<>();
+        setComponents(polishNotation);
+    }
+
+    public double calculate(final double x) {
+        int currentComponent = 0;
+        double result = 0;
+        while (component[currentComponent].getType() != TypeComponent.equally) {
+            switch (component[currentComponent].getType()) {
+                case digit:
+                    calculateStack.push(Double.valueOf(component[currentComponent].getValue()));
+                    break;
+                case alpha:
+                    calculateStack.push(Double.valueOf(x));
+                    break;
+                case add:
+                    runOperation('+');
+                    break;
+                case diff:
+                    runOperation('-');
+                    break;
+                case mult:
+                    runOperation('*');
+                    break;
+                case div:
+                    runOperation('/');
+                    break;
+                default:
+            }
+            currentComponent++;
+        }
+        if (!calculateStack.isEmpty()) {
+            return calculateStack.pop();
+        }
+        return result;
+    }
+
     private void setComponents(final String polishNotation) {
         char ch;
         int indexChar = 0;
@@ -71,32 +115,17 @@ public class Function {
         } while (ch != '=' && indexChar < polishNotation.length());
     }
 
-    public Function(final String formula) {
-        ConverterToPolishNotation converter = new ConverterToPolishNotation();
-        String polishNotation = converter.convert(formula);
-        component = new FunctionComponent[polishNotation.length()];
-        for (int i = 0; i < polishNotation.length(); i++) {
-            component[i] = new FunctionComponent();
-        }
-        calculateStack = new Stack<Double>();
-        setComponents(polishNotation);
-    }
-
     private void runOperation(final char ch) {
         final double delta = 0.000000000001;
         boolean resultGetOperands = false;
-        Double operand1 = new Double(0);
-        Double operand2 = new Double(0);
-        if (calculateStack.isEmpty()) {
-            resultGetOperands = false;
-        } else {
+        Double operand1 = 0.0;
+        Double operand2 = 0.0;
+        if (calculateStack.size() > 1) {
             operand1 = calculateStack.pop();
-        }
-        if (calculateStack.isEmpty()) {
-            resultGetOperands = false;
-        } else {
             operand2 = calculateStack.pop();
             resultGetOperands = true;
+        } else {
+            resultGetOperands = false;
         }
         if (resultGetOperands) {
             switch (ch) {
@@ -121,39 +150,5 @@ public class Function {
         } else {
             calculateStack.clear();
         }
-    }
-
-    public double calculate(final double x) {
-        int currentComponent = 0;
-        double result = 0;
-        while (component[currentComponent].getType() != TypeComponent.equally) {
-            switch (component[currentComponent].getType()) {
-                case digit:
-                    calculateStack.push(Double.valueOf(component[currentComponent].getValue()));
-                    break;
-                case alpha:
-                    calculateStack.push(Double.valueOf(x));
-                    break;
-                case add:
-                    runOperation('+');
-                    break;
-                case diff:
-                    runOperation('-');
-                    break;
-                case mult:
-                    runOperation('*');
-                    break;
-                case div:
-                    runOperation('/');
-                    break;
-                default:
-            }
-            currentComponent++;
-        }
-        if (!calculateStack.isEmpty()) {
-            return calculateStack.pop();
-        }
-        return result;
-
     }
 }

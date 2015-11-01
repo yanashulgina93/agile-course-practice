@@ -11,70 +11,6 @@ public class NewtonMethod {
         this.derivativeFunc = new Function(derivativeFunc);
     }
 
-    private double calculateNextPoint(final double point) {
-        return point - basicFunc.calculate(point) / derivativeFunc.calculate(point);
-    }
-
-    private boolean isStopAlgorithm() {
-        final double eps = 0.000001;
-        if (Math.abs(nextPoint - previousPoint) > eps) {
-            return false;
-        }
-        return true;
-    }
-
-    private boolean rootIsInRange(final double leftPointRange, final double rightPointRange) {
-        if (basicFunc.calculate(leftPointRange) * basicFunc.calculate(rightPointRange) > 0) {
-            return false;
-        }
-        return true;
-    }
-
-    private int getSingDerivative(final double point) {
-        double singDerivative = derivativeFunc.calculate(point);
-        if (singDerivative > 0) {
-            return 1;
-        } else if (singDerivative < 0) {
-            return -1;
-        }
-        return 0;
-    }
-
-    private boolean isMonotonicFunc(final double leftPointRange, final double rightPointRange) {
-        final int countRangesForMonotonic = 10;
-        final int countPointsForMonotonic = countRangesForMonotonic + 1;
-        double stepLength = (rightPointRange - leftPointRange) / countRangesForMonotonic;
-        boolean result = true;
-
-        int singDerivativeFirstPoint = getSingDerivative(leftPointRange);
-        int singDerivativeSecondPoint = getSingDerivative(leftPointRange + stepLength);
-
-        if (singDerivativeFirstPoint != singDerivativeSecondPoint) {
-            return false;
-        }
-        int singDerivative;
-        double nextPoint;
-        for (int numberPoint = 2; numberPoint < countPointsForMonotonic; numberPoint++) {
-            nextPoint = leftPointRange + stepLength * numberPoint;
-            singDerivative = getSingDerivative(nextPoint);
-            if (singDerivative != singDerivativeFirstPoint) {
-                result = false;
-                break;
-            }
-        }
-        return result;
-    }
-
-    private boolean canCalculateRoot(final double leftPointRange, final double rightPointRange) {
-        if (!rootIsInRange(leftPointRange, rightPointRange)) {
-            return false;
-        }
-        if (!isMonotonicFunc(leftPointRange, rightPointRange)) {
-            return false;
-        }
-        return true;
-    }
-
     public Double searchRoot(final double leftPointRange, final double rightPointRange) {
         if (!canCalculateRoot(leftPointRange, rightPointRange)) {
             return null;
@@ -86,5 +22,58 @@ public class NewtonMethod {
             nextPoint = calculateNextPoint(previousPoint);
         }
         return nextPoint;
+    }
+
+    private double calculateNextPoint(final double point) {
+        return point - basicFunc.calculate(point) / derivativeFunc.calculate(point);
+    }
+
+    private boolean isStopAlgorithm() {
+        final double eps = 0.000001;
+        return Math.abs(nextPoint - previousPoint) < eps;
+    }
+
+    private boolean rootIsInRange(final double leftPointRange, final double rightPointRange) {
+        return basicFunc.calculate(leftPointRange) * basicFunc.calculate(rightPointRange) < 0;
+    }
+
+    private int getSignDerivative(final double point) {
+        double signDerivative = derivativeFunc.calculate(point);
+        if (signDerivative > 0) {
+            return 1;
+        } else if (signDerivative < 0) {
+            return -1;
+        }
+        return 0;
+    }
+
+    private boolean isMonotonicFunc(final double leftPointRange, final double rightPointRange) {
+        final int countRangesForMonotonic = 10;
+        final int countPointsForMonotonic = countRangesForMonotonic + 1;
+        double stepLength = (rightPointRange - leftPointRange) / countRangesForMonotonic;
+        boolean result = true;
+
+        int signDerivativeFirstPoint = getSignDerivative(leftPointRange);
+        int signDerivativeSecondPoint = getSignDerivative(leftPointRange + stepLength);
+
+        if (signDerivativeFirstPoint != signDerivativeSecondPoint) {
+            return false;
+        }
+        int signDerivative;
+        double nextPoint;
+        for (int numberPoint = 2; numberPoint < countPointsForMonotonic; numberPoint++) {
+            nextPoint = leftPointRange + stepLength * numberPoint;
+            signDerivative = getSignDerivative(nextPoint);
+            if (signDerivative != signDerivativeFirstPoint) {
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
+
+    private boolean canCalculateRoot(final double leftPointRange, final double rightPointRange) {
+        return rootIsInRange(leftPointRange, rightPointRange)
+                && isMonotonicFunc(leftPointRange, rightPointRange);
     }
 }

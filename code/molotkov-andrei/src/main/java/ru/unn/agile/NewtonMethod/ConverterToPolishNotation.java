@@ -7,13 +7,33 @@ enum Prioritet { low, equally, bracket, addDiff, multDiv }
 public class ConverterToPolishNotation {
     private final Stack<String> reversPolishStack;
     private final Stack<String> operationStak;
-
     private int indexChar;
 
     public ConverterToPolishNotation() {
-        reversPolishStack = new Stack<String>();
-        operationStak     = new Stack<String>();
+        reversPolishStack = new Stack<>();
+        operationStak     = new Stack<>();
         indexChar = 0;
+    }
+
+    public String convert(final String infixExpression) {
+        char ch;
+        do {
+            ch = infixExpression.charAt(indexChar++);
+            if (Character.isAlphabetic(ch)) {
+                reversPolishStack.push(Character.toString(ch));
+            } else if (Character.isDigit(ch)) {
+                indexChar--;
+                collectingNumber(infixExpression);
+            } else if (ch == '(') {
+                operationStak.push(Character.toString(ch));
+            } else if (ch == ')') {
+                calculateInBrackets();
+            } else if (isOperator(ch)) {
+                setOperatorToStack(ch);
+            }
+        } while (ch != '=' && indexChar < infixExpression.length());
+
+        return createPolishExpression();
     }
 
     private Prioritet getOperationPriority(final char operator) {
@@ -102,26 +122,5 @@ public class ConverterToPolishNotation {
             }
             reversPolishStack.push(Character.toString(tempChar));
         }
-    }
-
-    public String convert(final String infixExpression) {
-        char ch;
-        do {
-            ch = infixExpression.charAt(indexChar++);
-            if (Character.isAlphabetic(ch)) {
-                reversPolishStack.push(Character.toString(ch));
-            } else if (Character.isDigit(ch)) {
-                indexChar--;
-                collectingNumber(infixExpression);
-            } else if (ch == '(') {
-                operationStak.push(Character.toString(ch));
-            } else if (ch == ')') {
-                calculateInBrackets();
-            } else if (isOperator(ch)) {
-                setOperatorToStack(ch);
-            }
-        } while (ch != '=' && indexChar < infixExpression.length());
-
-        return createPolishExpression();
     }
 }
