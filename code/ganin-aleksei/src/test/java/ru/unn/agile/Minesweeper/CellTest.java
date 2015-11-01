@@ -29,13 +29,13 @@ public class CellTest {
     @Test
     public void set_issue(){
         cell.setIssue();
-        assertEquals(true, cell.getIssue());
+        assertEquals(true, cell.isIssue());
     }
 
     @Test
     public void unset_issue(){
         cell.unsetIssue();
-        assertEquals(false, cell.getIssue());
+        assertEquals(false, cell.isIssue());
     }
 
     @Test

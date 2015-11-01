@@ -28,7 +28,7 @@ public class Cell {
         issue = true;
     }
 
-    public boolean getIssue(){
+    public boolean isIssue(){
         return issue;
     }
 
