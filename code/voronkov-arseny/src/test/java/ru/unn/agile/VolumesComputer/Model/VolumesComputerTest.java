@@ -98,5 +98,15 @@ public class VolumesComputerTest {
     }
 
 
+    @Test
+    public void rightCircularConeGoodParams() {
+        final double r = 5.0, h = 4.0;
+        final double goodVolume = 104.71975511965977461542144610932;
+        // Pi * 5^2 * 4 / 3
+        final double volume = VolumesComputer.rightCircularCone(r, h);
+        assertEquals(volume, goodVolume, m_epsilon);
+    }
+
+
     private static final double m_epsilon = 0.0000001;
 }
