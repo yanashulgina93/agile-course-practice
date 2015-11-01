@@ -14,6 +14,7 @@ public class Board extends JPanel {
     private int minesCount = 0;
     private int openCellsCount = 0;
     private int flagCellsCount = 0;
+    private int cellSize = 20;
 
     private Cell[][] cells;
 
@@ -34,11 +35,11 @@ public class Board extends JPanel {
         setLayout(null);
 
         cells = new Cell[boardHeight][boardWidth];
-        for(int positionY = 0; positionY < boardHeight; positionY++) {
+        for (int positionY = 0; positionY < boardHeight; positionY++) {
             cells[positionY] = new Cell[boardWidth];
-            for(int positionX = 0; positionX < boardWidth; positionX++) {
+            for (int positionX = 0; positionX < boardWidth; positionX++) {
                 Cell cell = new Cell(this, positionY, positionX);
-                cell.setBounds(positionY * 20, positionX * 20, 20, 20);
+                cell.setBounds(positionY * cellSize, positionX * cellSize, cellSize, cellSize);
                 add(cell);
                 cells[positionY][positionX] = cell;
             }
@@ -51,13 +52,13 @@ public class Board extends JPanel {
 
     private ArrayList<Cell> getNeighboringCells(int positionY, int positionX) {
         ArrayList<Cell> neighboringCells = new ArrayList<Cell>();
-        for(int y = positionY > 0 ? positionY - 1 : positionY,
+        for (int y = positionY > 0 ? positionY - 1 : positionY,
             yStop = positionY < boardHeight - 1 ? positionY + 1 : positionY;
             y <= yStop; y++) {
-            for(int x = positionX > 0 ? positionX - 1 : positionX,
+            for (int x = positionX > 0 ? positionX - 1 : positionX,
                 xStop = positionX < boardWidth - 1 ? positionX + 1 : positionX;
                 x <= xStop; x++) {
-                if(!(y == positionY && x == positionX)) {
+                if (!(y == positionY && x == positionX)) {
                     neighboringCells.add(cells[y][x]);
                 }
             }
@@ -68,7 +69,7 @@ public class Board extends JPanel {
 
     private void incValues(int positionY, int positionX) {
         ArrayList<Cell> neighboringCells = getNeighboringCells(positionY, positionX);
-        for(int i = 0; i < neighboringCells.size(); i++) {
+        for (int i = 0; i < neighboringCells.size(); i++) {
             Cell cell = neighboringCells.get(i);
             cell.setValue(cell.getValue() + 1);
         }
@@ -76,7 +77,7 @@ public class Board extends JPanel {
 
     public void setMine(int positionY, int positionX) {
         Cell cell = cells[positionY][positionX];
-        if(!cell.isMine()) {
+        if (!cell.isMine()) {
             cell.setMine();
             incValues(positionY, positionX);
         }
@@ -84,9 +85,9 @@ public class Board extends JPanel {
 
     private void openNeighboringCells(int positionY, int positionX) {
         ArrayList<Cell> neighboringCells = getNeighboringCells(positionY, positionX);
-        for(int i = 0; i < neighboringCells.size(); i++) {
+        for (int i = 0; i < neighboringCells.size(); i++) {
             Cell cell = neighboringCells.get(i);
-            if(!cell.isMine()){
+            if (!cell.isMine()) {
                 openCell(cell.getPositionY(), cell.getPositionY());
             }
         }
@@ -94,15 +95,15 @@ public class Board extends JPanel {
 
     public void openCell(int positionY, int positionX) {
         Cell cell = cells[positionY][positionX];
-        if(!lost && !cell.isIssue() && !cell.isFlag() && !cell.isOpen()) {
+        if (!lost && !cell.isIssue() && !cell.isFlag() && !cell.isOpen()) {
             cell.open();
             openCellsCount++;
-            if(cell.isMine()) {
+            if (cell.isMine()) {
                 lost = true;
                 minesweeper.end(false);
-            } else if(allCellsCount() - openCellsCount == minesCount) {
+            } else if (allCellsCount() - openCellsCount == minesCount) {
                 minesweeper.end(true);
-            } else if(cell.getValue() == 0){
+            } else if (cell.getValue() == 0) {
                 openNeighboringCells(positionY, positionX);
             }
         }
@@ -114,7 +115,7 @@ public class Board extends JPanel {
 
     public void  setFlag(int positionY, int positionX) {
         Cell cell = cells[positionY][positionX];
-        if(!cell.isFlag()) {
+        if (!cell.isFlag()) {
             setFlagCellsCount(flagCellsCount + 1);
             cell.setFlag();
         }
@@ -122,7 +123,7 @@ public class Board extends JPanel {
 
     public void  unsetFlag(int positionY, int positionX) {
         Cell cell = cells[positionY][positionX];
-        if(cell.isFlag()){
+        if (cell.isFlag()) {
             setFlagCellsCount(flagCellsCount - 1);
             cell.unsetFlag();
         }
@@ -133,8 +134,8 @@ public class Board extends JPanel {
     }
 
     public void clear(){
-        for(int positionY = 0; positionY < boardHeight; positionY++) {
-            for(int positionX = 0; positionX < boardWidth; positionX++) {
+        for (int positionY = 0; positionY < boardHeight; positionY++) {
+            for (int positionX = 0; positionX < boardWidth; positionX++) {
                 cells[positionY][positionX].clear();
             }
         }
@@ -149,7 +150,7 @@ public class Board extends JPanel {
 
     public void setMinesRandom(int numMines) {
         Random random = new Random();
-        for(int i = 0; i < numMines; i++) {
+        for (int i = 0; i < numMines; i++) {
             int positionY = 0;
             int positionX = 0;
             while (isMine(positionY, positionX)) {
@@ -164,9 +165,9 @@ public class Board extends JPanel {
 
     public int findMinesCount() {
         int minesCount = 0;
-        for(int positionY = 0; positionY < boardHeight; positionY++) {
-            for(int positionX = 0; positionX < boardWidth; positionX++) {
-                if(cells[positionY][positionX].isMine()) {
+        for (int positionY = 0; positionY < boardHeight; positionY++) {
+            for (int positionX = 0; positionX < boardWidth; positionX++) {
+                if (cells[positionY][positionX].isMine()) {
                     minesCount++;
                 }
             }

@@ -15,24 +15,24 @@ public class Minesweeper {
     private JLabel smile;
     private JLabel mineCounter;
 
-    private int windowHeight = 700;
-    private int windowWidth = 700;
+    private final int windowHeight = 700;
+    private final int windowWidth = 700;
 
-    private int boardHeight = 32;
-    private int boardWidth = 32;
+    private final int boardHeight = 32;
+    private final int boardWidth = 32;
 
 
-    private int smilePositionX = 640;
-    private int smilePositionY = 0;
-    private int smileHeigth = 50;
-    private int smileWidth = 50;
+    private final int smilePositionX = 640;
+    private final int smilePositionY = 0;
+    private final int smileHeigth = 50;
+    private final int smileWidth = 50;
 
-    private int mineCounterPositionX = 640;
-    private int mineCounterPositionY = 70;
-    private int mineCounterHeigth = 20;
-    private int mineCounterWidth = 50;
+    private final int mineCounterPositionX = 640;
+    private final int mineCounterPositionY = 70;
+    private final int mineCounterHeigth = 20;
+    private final int mineCounterWidth = 50;
 
-    private int defaultMines = 100;
+    private final int defaultMines = 100;
 
 
     private boolean isEndV = false;

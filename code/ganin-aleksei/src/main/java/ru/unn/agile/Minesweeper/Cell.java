@@ -31,6 +31,16 @@ public class Cell extends JLabel {
     private static ImageIcon val7Icon = new ImageIcon("images/val_7_20x20.png");
     private static ImageIcon val8Icon = new ImageIcon("images/val_8_20x20.png");
 
+    private final int cellValue0 = 0;
+    private final int cellValue1 = 1;
+    private final int cellValue2 = 2;
+    private final int cellValue3 = 3;
+    private final int cellValue4 = 4;
+    private final int cellValue5 = 5;
+    private final int cellValue6 = 6;
+    private final int cellValue7 = 7;
+    private final int cellValue8 = 8;
+
     public Cell(Board boardA, int positionYA, int positionXA) {
 
         board = boardA;
@@ -41,8 +51,8 @@ public class Cell extends JLabel {
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(SwingUtilities.isRightMouseButton(e)) {
-                    if(!isOpen() && !board.isLost()) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    if (!isOpen() && !board.isLost()) {
                         if (isFlag()) {
                             board.unsetFlag(positionY, positionX);
                             setIssue();
@@ -53,7 +63,7 @@ public class Cell extends JLabel {
                         }
                     }
                 }
-                if(SwingUtilities.isLeftMouseButton(e)) {
+                if (SwingUtilities.isLeftMouseButton(e)) {
                     board.openCell(positionY, positionX);
                 }
             }
@@ -126,28 +136,27 @@ public class Cell extends JLabel {
 
     public void open() {
         openV = true;
-        if(isMine()) {
+        if (isMine()) {
             setIcon(mineIcon);
         } else {
-            switch (getValue()) {
-                case 0:  setIcon(val0Icon);
-                    break;
-                case 1:  setIcon(val1Icon);
-                    break;
-                case 2:  setIcon(val2Icon);
-                    break;
-                case 3:  setIcon(val3Icon);
-                    break;
-                case 4:  setIcon(val4Icon);
-                    break;
-                case 5:  setIcon(val5Icon);
-                    break;
-                case 6:  setIcon(val6Icon);
-                    break;
-                case 7:  setIcon(val7Icon);
-                    break;
-                case 8:  setIcon(val8Icon);
-                    break;
+            if (getValue() == cellValue0) {
+                setIcon(val0Icon);
+            } else if (getValue() == cellValue1) {
+                setIcon(val1Icon);
+            } else if (getValue() == cellValue2) {
+                setIcon(val2Icon);
+            } else if (getValue() == cellValue3) {
+                setIcon(val3Icon);
+            } else if (getValue() == cellValue4) {
+                setIcon(val4Icon);
+            } else if (getValue() == cellValue5) {
+                setIcon(val5Icon);
+            } else if (getValue() == cellValue6) {
+                setIcon(val6Icon);
+            } else if (getValue() == cellValue7) {
+                setIcon(val7Icon);
+            } else if (getValue() == cellValue8) {
+                setIcon(val8Icon);
             }
         }
     }
