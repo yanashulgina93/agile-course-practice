@@ -51,7 +51,7 @@ public class CellTest {
     }
 
     @Test
-    public void open(){
+    public void open_cell(){
         cell.open();
         assertEquals(true, cell.isOpen());
     }

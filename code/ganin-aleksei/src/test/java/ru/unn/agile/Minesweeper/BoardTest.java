@@ -12,4 +12,11 @@ public class BoardTest {
     public void runBeforeEveryTest() {
         board = new Board();
     }
+
+    @Test
+    public void open_mine(){
+        board.setMine(0, 0);
+        board.openCell(0, 0);
+        assertEquals(true, board.isLost());
+    }
 }
