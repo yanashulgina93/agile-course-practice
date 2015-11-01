@@ -50,7 +50,11 @@ project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-l
 // Esyagin Ivan
 // Filicheva Svetlana
 // Francuzova Natalya
+
 // Ganin Aleksej
+include "code/ganin-aleksei"
+project(":code/ganin-aleksei").name = "ganin-aleksei"
+
 // Garina Anastasiya
 // Gatchenko Viktor
 // Golodyaev Andrej
