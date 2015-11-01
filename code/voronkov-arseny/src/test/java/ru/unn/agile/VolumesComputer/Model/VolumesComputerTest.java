@@ -27,5 +27,13 @@ public class VolumesComputerTest {
 	    VolumesComputer.cuboid(5.0, 4.0, -1.0);
 	}
 
+    @Test
+	public void cuboidLargeParams() {
+	    final double w = Double.MAX_VALUE, h = Double.MAX_VALUE, l = 1.0;
+        final double goodVolume = Double.POSITIVE_INFINITY;
+        final double volume = VolumesComputer.cuboid(w, h, l);
+        assertEquals(volume, goodVolume, 0.0);
+	}
+
     private static final double m_epsilon = 0.0000001;
 }
