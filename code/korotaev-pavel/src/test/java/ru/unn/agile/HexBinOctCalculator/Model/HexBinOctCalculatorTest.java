@@ -124,6 +124,66 @@ public class HexBinOctCalculatorTest {
         assertEquals(result, "11");
     }
 
+    @Test
+    public void canMultiplyTwoNegativeBinNumbers() {
+        String firstNumber = "11111111111111111111111111101111";
+        String secondNumber = "11111111111111111111111111111110";
+
+        String result = HexBinOctCalculator.multiply(firstNumber, secondNumber, NumeralSystem.BIN);
+
+        assertEquals(result, "100010");
+    }
+
+    @Test
+    public void canDivideFirstNegativeSecondPositiveBinNumbers() {
+        String firstNumber = "11111111111111111111111111100101";
+        String secondNumber = "11";
+
+        String result = HexBinOctCalculator.divide(firstNumber, secondNumber, NumeralSystem.BIN);
+
+        assertEquals(result, "11111111111111111111111111110111");
+    }
+
+    @Test
+    public void canDivideTwoNegativeHexNumbers() {
+        String firstNumber = "ffffffc1";
+        String secondNumber = "fffffffd";
+
+        String result = HexBinOctCalculator.divide(firstNumber, secondNumber, NumeralSystem.HEX);
+
+        assertEquals(result, "15");
+    }
+
+    @Test
+    public void canMultiplyFirstNegativeSecondPositiveHexNumbers() {
+        String firstNumber = "fffffffa";
+        String secondNumber = "16";
+
+        String result = HexBinOctCalculator.multiply(firstNumber, secondNumber, NumeralSystem.HEX);
+
+        assertEquals(result, "ffffff7c");
+    }
+
+    @Test
+    public void canMultiplyTwoNegativeOctNumbers() {
+        String firstNumber = "37777777724";
+        String secondNumber = "37777777707";
+
+        String result = HexBinOctCalculator.multiply(firstNumber, secondNumber, NumeralSystem.OCT);
+
+        assertEquals(result, "4714");
+    }
+
+    @Test
+    public void canDivideFirstPositiveSecondNegativeOctNumbers() {
+        String firstNumber = "55";
+        String secondNumber = "37777777761";
+
+        String result = HexBinOctCalculator.divide(firstNumber, secondNumber, NumeralSystem.OCT);
+
+        assertEquals(result, "37777777775");
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void canNotDivideToZero() {
         String firstNumber = "23";
