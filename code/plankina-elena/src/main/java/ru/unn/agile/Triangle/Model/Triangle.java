@@ -8,9 +8,9 @@ import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
 public class Triangle {
-    private List<Double> coordinates1;
-    private List<Double> coordinates2;
-    private List<Double> coordinates3;
+    private final List<Double> coordinates1;
+    private final List<Double> coordinates2;
+    private final List<Double> coordinates3;
     private static final double THEHALF = 0.5;
 
     public Triangle(final List<Double> inputCoordinates1, final List<Double> inputCoordinates2,
@@ -34,7 +34,7 @@ public class Triangle {
 
     public boolean hasEqualNumberOfCoordinates(final List<Double> coordinates1,
                                                final List<Double> coordinates2) {
-        return (coordinates1.size() == coordinates2.size());
+        return coordinates1.size() == coordinates2.size();
     }
 
     public boolean areNotEqual(final List<Double> coordinates1, final List<Double> coordinates2) {
@@ -94,8 +94,7 @@ public class Triangle {
                 + 2 * pow(lengths.get(2), 2) - pow(lengths.get(1), 2));
         double median3 = THEHALF * sqrt(2 * pow(lengths.get(0), 2)
                 + 2 * pow(lengths.get(1), 2) - pow(lengths.get(2), 2));
-        List<Double> medians = Arrays.asList(median1, median2, median3);
-        return medians;
+        return Arrays.asList(median1, median2, median3);
     }
 
     public List<Double> getAltitudes3d() {
@@ -103,8 +102,7 @@ public class Triangle {
         double altitude1 = 2 * this.getPerimeter3d() / lengths.get(0);
         double altitude2 = 2 * this.getPerimeter3d() / lengths.get(1);
         double altitude3 = 2 * this.getPerimeter3d() / lengths.get(2);
-        List<Double> altitudes = Arrays.asList(altitude1, altitude2, altitude3);
-        return altitudes;
+        return Arrays.asList(altitude1, altitude2, altitude3);
     }
 
     public List<Double> getBisectrices3d() {
@@ -118,8 +116,7 @@ public class Triangle {
         double bisectrix3 = sqrt(lengths.get(0) * lengths.get(1) * this.getPerimeter3d()
                 * (lengths.get(0) + lengths.get(1) - lengths.get(2)))
                 / (lengths.get(0) + lengths.get(1));
-        List<Double> bisectrices = Arrays.asList(bisectrix1, bisectrix2, bisectrix3);
-        return bisectrices;
+        return Arrays.asList(bisectrix1, bisectrix2, bisectrix3);
     }
 
     public List<Double> getAngles3d() {
@@ -133,7 +130,6 @@ public class Triangle {
         double angle3 = acos((pow(lengths.get(0), 2) + pow(lengths.get(1), 2)
                 - pow(lengths.get(2), 2))
                 / (2 * lengths.get(0) * lengths.get(1)));
-        List<Double> angles = Arrays.asList(angle1, angle2, angle3);
-        return angles;
+        return Arrays.asList(angle1, angle2, angle3);
     }
 }
