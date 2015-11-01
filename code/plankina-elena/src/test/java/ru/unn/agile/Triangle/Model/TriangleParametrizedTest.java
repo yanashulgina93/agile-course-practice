@@ -40,14 +40,14 @@ public class TriangleParametrizedTest {
     @Test
     public void canFindPerimeterCorrectly() {
         double perimeter = triangle.getPerimeter3d();
-        assert (perimeter >= 0.0);
+        assert perimeter >= 0.0;
     }
 
     @Test
     public void canFindLengthCorrectly() {
         List<Double> lengths = triangle.getLengths3d();
         double length1 = lengths.get(0);
-        assert (length1 >= 0.0);
+        assert length1 >= 0.0;
     }
 }
 
