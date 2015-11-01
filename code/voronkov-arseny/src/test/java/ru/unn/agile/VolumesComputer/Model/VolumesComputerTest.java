@@ -58,6 +58,14 @@ public class VolumesComputerTest {
         VolumesComputer.spheroid(5.0, -1.0);
     }
 
+    @Test
+    public void spheroidLargeParams() {
+        final double a = Double.MAX_VALUE, b = Double.MAX_VALUE;
+        final double goodVolume = Double.POSITIVE_INFINITY;
+        final double volume = VolumesComputer.spheroid(a, b);
+        assertEquals(volume, goodVolume, 0.0);
+    }
+
 
     private static final double m_epsilon = 0.0000001;
 }
