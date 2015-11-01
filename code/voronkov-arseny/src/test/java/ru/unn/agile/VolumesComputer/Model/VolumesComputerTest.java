@@ -67,5 +67,15 @@ public class VolumesComputerTest {
     }
 
 
+    @Test
+    public void rightCylinderGoodParams() {
+        final double a = 5.0, b = 4.0, h = 3.0;
+        final double goodVolume = 188.49555921538759430775860299677;
+        // Pi * 5 * 4 * 3
+        final double volume = VolumesComputer.rightCylinder(a, b, h);
+        assertEquals(volume, goodVolume, m_epsilon);
+    }
+
+
     private static final double m_epsilon = 0.0000001;
 }
