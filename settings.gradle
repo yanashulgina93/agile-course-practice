@@ -53,7 +53,10 @@ project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-l
 // Ganin Aleksej
 // Garina Anastasiya
 // Gatchenko Viktor
+
 // Golodyaev Andrej
+include "code/golodyaev-andrey"
+project(":code/golodyaev-andrey").name = "golodyaev-andrey-Model"
 
 // Goroxov Dmitrij
 include "code/gorokhov-dmitriy"
