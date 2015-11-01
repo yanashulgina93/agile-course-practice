@@ -37,7 +37,13 @@ public class Point {
 
     @Override
     public int hashCode() {
-        return 0;
+        final int prime = 31;
+        int result = 1;
+        long longX = Double.doubleToLongBits(x);
+        long longY = Double.doubleToLongBits(y);
+        result = prime * result + (int) (longX ^ (longX >>> (prime + 1)));
+        result = prime * result + (int) (longY ^ (longY >>> (prime + 1)));
+        return result;
     }
 
     @Override

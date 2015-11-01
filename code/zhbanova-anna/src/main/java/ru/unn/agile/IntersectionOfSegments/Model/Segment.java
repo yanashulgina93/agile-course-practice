@@ -51,7 +51,11 @@ public class Segment {
 
     @Override
     public int hashCode() {
-        return 0;
+        final int prime = 21;
+        int result = 1;
+        result = prime * result + start.hashCode();
+        result = prime * result + finish.hashCode();
+        return result;
     }
 
     @Override
