@@ -35,5 +35,16 @@ public class VolumesComputerTest {
         assertEquals(volume, goodVolume, 0.0);
 	}
 
+
+    @Test
+    public void spheroidGoodParams() {
+        final double a = 5.0, b = 4.0;
+        final double goodVolume = 335.10321638291127876934862754981;
+        // 4 * Pi * 5 * 4^2 / 3
+        final double volume = VolumesComputer.spheroid(a, b);
+        assertEquals(volume, goodVolume, m_epsilon);
+    }
+
+
     private static final double m_epsilon = 0.0000001;
 }
