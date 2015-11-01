@@ -1,65 +1,47 @@
 package ru.unn.agile.NewtonMethod;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
+@RunWith(Parameterized.class)
 public class CanCalculateValueOfFunction {
+    private final String testFunc;
+    private final double testPoint;
+    private final double expected;
     private double delta = 0.000001;
 
-    @Test
-    public void canCalculateEmptyFunction() {
-        Function function = new Function("=");
-        double valueFunction = function.calculate(0);
-        assertEquals(0.0, valueFunction, delta);
+    public CanCalculateValueOfFunction(final String testFunc,
+                                       final double testPoint,
+                                       final double expected) {
+        this.testFunc = testFunc;
+        this.testPoint = testPoint;
+        this.expected = expected;
+    }
+
+    @Parameterized.Parameters
+    public static List<Object[]> testDataFunc() {
+        return Arrays.asList(new Object[][]{
+                {"=", 0.0, 0.0},
+                {"3=", 0.0, 3},
+                {"x=", 6.0, 6.0},
+                {"3+x=", 4.0, 7.0},
+                {"3*x=", 4.0, 12.0},
+                {"x*x*x+3*x*x-2*x-5=", 1.0, -3.0},
+                {"5/x=", 0.00000000001, 5.0E11},
+                {"x/3=", 10.0, 3.333333}
+        });
     }
 
     @Test
-    public void canCalculateConstFunction() {
-        Function function = new Function("3=");
-        double valueFunction = function.calculate(0);
-        assertEquals(3, valueFunction, delta);
-    }
-
-    @Test
-    public void canCalculateVariableFunction() {
-        Function function = new Function("x=");
-        double valueFunction = function.calculate(6);
-        assertEquals(6, valueFunction, delta);
-    }
-
-    @Test
-    public void canCalculateAddFunction() {
-        Function function = new Function("3+x=");
-        double valueFunction = function.calculate(4);
-        assertEquals(7, valueFunction, delta);
-    }
-
-    @Test
-    public void canCalculateMultFunction() {
-        Function function = new Function("3*x=");
-        double valueFunction = function.calculate(4);
-        assertEquals(12, valueFunction, delta);
-    }
-
-    @Test
-    public void canCalculateCubePolinomeFunction() {
-        Function function = new Function("x*x*x+3*x*x-2*x-5=");
-        double valueFunction = function.calculate(1);
-        assertEquals(-3, valueFunction, delta);
-    }
-
-    @Test
-    public void canCalculateDiving0Function() {
-        Function function = new Function("5/x=");
-        double valueFunction = function.calculate(0.00000000001);
-        assertEquals(5.0E11, valueFunction, delta);
-    }
-
-    @Test
-    public void canCalculateRealNumberFunction() {
-        Function function = new Function("x/3=");
-        double valueFunction = function.calculate(10);
-        assertEquals(3.333333, valueFunction, delta);
+    public void canCalculateFunctionValue() {
+        Function function = new Function(testFunc);
+        double valueFunction = function.calculate(testPoint);
+        assertEquals(expected, valueFunction, delta);
     }
 }

@@ -1,10 +1,36 @@
 package ru.unn.agile.NewtonMethod;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
+@RunWith(Parameterized.class)
 public class CanConvertToPolishNotation {
+    private final String testData;
+    private final String expected;
+
+    public CanConvertToPolishNotation(final String testData, final String expected) {
+        this.testData = testData;
+        this.expected = expected;
+    }
+
+    @Parameterized.Parameters
+    public static List<Object[]> primitiveOperations() {
+        return Arrays.asList(new Object[][] {
+                {"x+x=", "xx+="},
+                {"x-x=", "xx-="},
+                {"x*x=", "xx*="},
+                {"x/x=", "xx/="},
+                {"3+x=", "3x+="},
+                {"48*x=", "48x*="}
+        });
+    }
+
     @Test
     public void canConvertEmptyStringToPolishNotation() {
         ConverterToPolishNotation converter = new ConverterToPolishNotation();
@@ -13,31 +39,10 @@ public class CanConvertToPolishNotation {
     }
 
     @Test
-    public void canConvertAddToPolishNotation() {
+    public void canConvertPrimitiveOperationsToPolishNotation() {
         ConverterToPolishNotation converter = new ConverterToPolishNotation();
-        String polishNotation = converter.convert("x+x=");
-        assertEquals("xx+=", polishNotation);
-    }
-
-    @Test
-    public void canConvertMultiplyToPolishNotation() {
-        ConverterToPolishNotation converter = new ConverterToPolishNotation();
-        String polishNotation = converter.convert("x*x=");
-        assertEquals("xx*=", polishNotation);
-    }
-
-    @Test
-    public void canConvertDifferenceToPolishNotation() {
-        ConverterToPolishNotation converter = new ConverterToPolishNotation();
-        String polishNotation = converter.convert("x-x=");
-        assertEquals("xx-=", polishNotation);
-    }
-
-    @Test
-    public void canConvertDivisionToPolishNotation() {
-        ConverterToPolishNotation converter = new ConverterToPolishNotation();
-        String polishNotation = converter.convert("x/x=");
-        assertEquals("xx/=", polishNotation);
+        String polishNotation = converter.convert(testData);
+        assertEquals(expected, polishNotation);
     }
 
     @Test
@@ -45,20 +50,6 @@ public class CanConvertToPolishNotation {
         ConverterToPolishNotation converter = new ConverterToPolishNotation();
         String polishNotation = converter.convert("x*x+x=");
         assertEquals("xx*x+=", polishNotation);
-    }
-
-    @Test
-    public void canConvertDigitAndAlphaToPolishNotation() {
-        ConverterToPolishNotation converter = new ConverterToPolishNotation();
-        String polishNotation = converter.convert("3-x=");
-        assertEquals("3x-=", polishNotation);
-    }
-
-    @Test
-    public void canConvertSomeDigitsAndAlphaToPolishNotation() {
-        ConverterToPolishNotation converter = new ConverterToPolishNotation();
-        String polishNotation = converter.convert("39*x=");
-        assertEquals("39x*=", polishNotation);
     }
 
     @Test
