@@ -4,16 +4,16 @@ package ru.unn.agile.Minesweeper;
  * Created by aleksei on 01.11.15.
  */
 public class Cell {
-    private boolean bomb = false;
+    private boolean mine = false;
     private boolean issue = false;
     private boolean flag = false;
     private char value = 0;
 
-    public void setBomb(){
-        bomb = true;
+    public void setMine(){
+        mine = true;
     }
-    public boolean isBomb(){
-        return  bomb;
+    public boolean isMine(){
+        return  mine;
     }
 
     public void setValue(char val){

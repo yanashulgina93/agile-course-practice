@@ -15,8 +15,8 @@ public class CellTest {
 
     @Test
     public  void  set_bomb(){
-        cell.setBomb();
-        assertEquals(true, cell.isBomb());
+        cell.setMine();
+        assertEquals(true, cell.isMine());
     }
 
     @Test
