@@ -13,4 +13,12 @@ public class Cell {
     public boolean isBomb(){
         return  bomb;
     }
+
+    public void setValue(char val){
+        value = val;
+    }
+
+    public char getValue(){
+        return value;
+    }
 }
