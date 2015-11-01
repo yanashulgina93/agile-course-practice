@@ -21,11 +21,10 @@ public class Board {
         }
     }
 
-    public void setMine(int positionY, int positionX){
-        cells[positionY][positionX].setMine();
+    private void incValues(int positionY, int positionX){
         for(int y = positionY > 0 ? positionY - 1 : positionY,
-                yStop = positionY < boardHeight - 1 ? positionY + 1 : positionY;
-                y <= yStop; y++){
+            yStop = positionY < boardHeight - 1 ? positionY + 1 : positionY;
+            y <= yStop; y++){
             for(int x = positionX > 0 ? positionX - 1 : positionX,
                 xStop = positionX < boardWidth - 1 ? positionX + 1 : positionX;
                 x <= xStop; x++){
@@ -36,6 +35,14 @@ public class Board {
                 }
             }
 
+        }
+    }
+
+    public void setMine(int positionY, int positionX){
+        Cell cell = cells[positionY][positionX];
+        if(!cell.isMine()) {
+            cell.setMine();
+            incValues(positionY, positionX);
         }
     }
 
