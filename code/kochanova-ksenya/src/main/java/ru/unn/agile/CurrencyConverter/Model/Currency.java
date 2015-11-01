@@ -8,7 +8,7 @@ import java.util.Objects;
 enum Unit { Dollar, Euro, Ruble, Pound }
 public class Currency {
     private double value;
-    private Unit unit;
+    private UnitCurrency unit;
 
     @Override
     public boolean equals(final Object o) {
@@ -30,7 +30,7 @@ public class Currency {
         return Objects.hash(value, unit);
     }
 
-    public Currency(final double value, final Unit unit) {
+    public Currency(final double value, final UnitCurrency unit) {
         this.value = value;
         this.unit = unit;
     }
@@ -43,11 +43,11 @@ public class Currency {
         return value;
     }
 
-    public void setUnit(final Unit unit) {
+    public void setUnit(final UnitCurrency unit) {
         this.unit = unit;
     }
 
-    public Unit getUnit() {
+    public UnitCurrency getUnit() {
         return unit;
     }
 }

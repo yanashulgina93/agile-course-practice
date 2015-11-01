@@ -1,136 +1,64 @@
 package ru.unn.agile.CurrencyConverter.Model;
 
-
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import java.util.Arrays;
+import java.util.Collection;
 
-/**
- * Created by ksenyako on 26.10.2015.
- */
+@RunWith(Parameterized.class)
+
 public class CurrencyConverterTest {
-    private CurrencyConverter converter = new CurrencyConverter();
 
-    @Test
-    public void canConvertNullToNull() {
-        Currency expectedCurrency = new Currency(0, Unit.Dollar);
-        Currency currencyBeforeConvert = new Currency(0, Unit.Dollar);
-        Currency currencyAfterConvert = converter.convertCurrency(currencyBeforeConvert,
-                Unit.Dollar);
-        assertEquals(expectedCurrency, currencyAfterConvert);
+    @Parameterized.Parameters
+    public static Collection testValue() {
+        return Arrays.asList(new Object[][]{
+                {0, UnitCurrency.DOLLAR, 0.0, UnitCurrency.DOLLAR},
+                {100, UnitCurrency.RUBLE, 1.6, UnitCurrency.DOLLAR},
+                {100, UnitCurrency.RUBLE, 1.38, UnitCurrency.EURO},
+                {100, UnitCurrency.RUBLE, 1.01, UnitCurrency.POUND},
+                {100, UnitCurrency.DOLLAR, 86.21, UnitCurrency.EURO},
+                {100, UnitCurrency.DOLLAR, 6250.00, UnitCurrency.RUBLE},
+                {100, UnitCurrency.DOLLAR, 62.89, UnitCurrency.POUND},
+                {100, UnitCurrency.EURO, 116.00, UnitCurrency.DOLLAR},
+                {100, UnitCurrency.EURO, 7250.00, UnitCurrency.RUBLE},
+                {100, UnitCurrency.EURO, 72.96, UnitCurrency.POUND},
+                {100, UnitCurrency.POUND, 137.07, UnitCurrency.EURO},
+                {100, UnitCurrency.POUND, 9937.50, UnitCurrency.RUBLE},
+                {100, UnitCurrency.POUND, 159.00, UnitCurrency.DOLLAR},
+        });
+        }
+    private double inputValue, outputValue;
+    private UnitCurrency inputUnit, outputUnit;
+    public CurrencyConverterTest(final double inputValue, final UnitCurrency inputUnit,
+                                  final double outputValue, final UnitCurrency outputUnit) {
+        this.inputValue = inputValue;
+        this.outputValue = outputValue;
+        this.inputUnit = inputUnit;
+        this.outputUnit = outputUnit;
     }
+    @Test
+    public void canConvertInputUnitToOutputUnit() {
+    Currency expectedCurrency = new Currency(outputValue, outputUnit);
+    Currency currencyBeforeConvert = new Currency(inputValue, inputUnit);
+    Currency currencyAfterConvert = inputUnit.convertCurrency(currencyBeforeConvert,
+            outputUnit);
+    assertEquals(expectedCurrency, currencyAfterConvert);
 
-    @Test(expected = IllegalArgumentException.class)
+    }
+    @Test
     public void cannotConvertNegativeValue() {
-        Currency currencyBeforeConvert = new Currency(-100, Unit.Dollar);
-        Currency currencyAfterConvert = converter.convertCurrency(currencyBeforeConvert,
-                Unit.Dollar);
-    }
-
-    @Test
-    public void canConvertRubleToDollar() {
-        Currency expectedCurrency = new Currency(1.6, Unit.Dollar);
-        Currency currencyBeforeConvert = new Currency(100, Unit.Ruble);
-        Currency currencyAfterConvert = converter.convertCurrency(currencyBeforeConvert,
-                Unit.Dollar);
-        assertEquals(expectedCurrency, currencyAfterConvert);
-    }
-
-    @Test
-    public void canConvertRubleToEuro() {
-        Currency expectedCurrency = new Currency(1.38, Unit.Euro);
-        Currency currencyBeforeConvert = new Currency(100, Unit.Ruble);
-        Currency currencyAfterConvert = converter.convertCurrency(currencyBeforeConvert,
-                Unit.Euro);
-        assertEquals(expectedCurrency, currencyAfterConvert);
-    }
-
-    @Test
-    public void canConvertRubleToPound() {
-        Currency expectedCurrency = new Currency(1.01, Unit.Pound);
-        Currency currencyBeforeConvert = new Currency(100, Unit.Ruble);
-        Currency currencyAfterConvert = converter.convertCurrency(currencyBeforeConvert,
-                Unit.Pound);
-        assertEquals(expectedCurrency, currencyAfterConvert);
-    }
-
-    @Test
-    public void canConvertDollarToEuro() {
-        Currency expectedCurrency = new Currency(86.21, Unit.Euro);
-        Currency currencyBeforeConvert = new Currency(100, Unit.Dollar);
-        Currency currencyAfterConvert = converter.convertCurrency(currencyBeforeConvert,
-                Unit.Euro);
-        assertEquals(expectedCurrency, currencyAfterConvert);
-    }
-
-    @Test
-    public void canConvertDollarToPound() {
-        Currency expectedCurrency = new Currency(62.89, Unit.Pound);
-        Currency currencyBeforeConvert = new Currency(100, Unit.Dollar);
-        Currency currencyAfterConvert = converter.convertCurrency(currencyBeforeConvert,
-                Unit.Pound);
-        assertEquals(expectedCurrency, currencyAfterConvert);
-    }
-
-    @Test
-    public void canConvertDollarToRuble() {
-        Currency expectedCurrency = new Currency(6250, Unit.Ruble);
-        Currency currencyBeforeConvert = new Currency(100, Unit.Dollar);
-        Currency currencyAfterConvert = converter.convertCurrency(currencyBeforeConvert,
-                Unit.Ruble);
-        assertEquals(expectedCurrency, currencyAfterConvert);
-    }
-
-    @Test
-    public void canConvertEuroToRuble() {
-        Currency expectedCurrency = new Currency(7250, Unit.Ruble);
-        Currency currencyBeforeConvert = new Currency(100, Unit.Euro);
-        Currency currencyAfterConvert = converter.convertCurrency(currencyBeforeConvert,
-                Unit.Ruble);
-        assertEquals(expectedCurrency, currencyAfterConvert);
-    }
-
-    @Test
-    public void canConvertEuroToDollar() {
-        Currency expectedCurrency = new Currency(116, Unit.Dollar);
-        Currency currencyBeforeConvert = new Currency(100, Unit.Euro);
-        Currency currencyAfterConvert = converter.convertCurrency(currencyBeforeConvert,
-                Unit.Dollar);
-        assertEquals(expectedCurrency, currencyAfterConvert);
-    }
-
-    @Test
-    public void canConvertEuroToPound() {
-        Currency expectedCurrency = new Currency(72.96, Unit.Pound);
-        Currency currencyBeforeConvert = new Currency(100, Unit.Euro);
-        Currency currencyAfterConvert = converter.convertCurrency(currencyBeforeConvert,
-                Unit.Pound);
-        assertEquals(expectedCurrency, currencyAfterConvert);
-    }
-
-    @Test
-    public void canConvertPoundToDollar() {
-        Currency expectedCurrency = new Currency(159, Unit.Dollar);
-        Currency currencyBeforeConvert = new Currency(100, Unit.Pound);
-        Currency currencyAfterConvert = converter.convertCurrency(currencyBeforeConvert,
-                Unit.Dollar);
-        assertEquals(expectedCurrency, currencyAfterConvert);
-    }
-
-    @Test
-    public void canConvertPoundToEuro() {
-        Currency expectedCurrency = new Currency(137.07, Unit.Euro);
-        Currency currencyBeforeConvert = new Currency(100, Unit.Pound);
-        Currency currencyAfterConvert = converter.convertCurrency(currencyBeforeConvert,
-                Unit.Euro);
-        assertEquals(expectedCurrency, currencyAfterConvert);
-    }
-
-    @Test
-    public void canConvertPoundToRuble() {
-        Currency expectedCurrency = new Currency(9937.5, Unit.Ruble);
-        Currency currencyBeforeConvert = new Currency(100, Unit.Pound);
-        Currency currencyAfterConvert = converter.convertCurrency(currencyBeforeConvert,
-                Unit.Ruble);
-        assertEquals(expectedCurrency, currencyAfterConvert);
+        boolean thrown = false;
+        Currency currencyBeforeConvert = new Currency(-100, UnitCurrency.DOLLAR);
+        try {
+            Currency currencyAfterConvert = UnitCurrency.DOLLAR.convertCurrency(
+                    currencyBeforeConvert, UnitCurrency.DOLLAR);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Please, use positive value.");
+            thrown = true;
+        }
+        assertTrue(thrown);
     }
 }
