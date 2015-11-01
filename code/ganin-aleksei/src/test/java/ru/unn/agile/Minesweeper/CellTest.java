@@ -49,4 +49,10 @@ public class CellTest {
         cell.unsetFlag();
         assertEquals(false, cell.isFlag());
     }
+
+    @Test
+    public void open(){
+        cell.open();
+        assertEquals(true, cell.isOpen());
+    }
 }

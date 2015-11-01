@@ -7,6 +7,7 @@ public class Cell {
     private boolean mine = false;
     private boolean issue = false;
     private boolean flag = false;
+    private boolean _open = false;
     private char value = 0;
 
     public void setMine(){
@@ -46,5 +47,13 @@ public class Cell {
 
     public void unsetFlag(){
         flag = false;
+    }
+
+    public void open(){
+        _open = true;
+    }
+
+    public boolean isOpen(){
+        return  _open;
     }
 }
