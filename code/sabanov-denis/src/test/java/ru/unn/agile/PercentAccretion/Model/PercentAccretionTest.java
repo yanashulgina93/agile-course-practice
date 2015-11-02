@@ -74,7 +74,7 @@ public class PercentAccretionTest {
     @Test
     public void compareNominalAndEffectiveSum() {
         double delta = 0.0001;
-        assertEquals(PercentAccretion.calculateSumWithNominalPercentRate(1000,10,12,3),
-                PercentAccretion.calculateSumWithEffectivePercentRate(1000,10,12,3), delta);
+        assertEquals(PercentAccretion.calculateSumWithNominalPercentRate(1000, 10, 12, 3),
+                PercentAccretion.calculateSumWithEffectivePercentRate(1000, 10, 12, 3), delta);
     }
 }
