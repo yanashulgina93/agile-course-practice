@@ -56,4 +56,37 @@ public class StackTest {
 
         assertEquals("1 2 3 4 5 6 7 8 9 10", myStack.toString());
     }
+
+    @Test
+    public void Pop_Element_From_1_2_3_Stack() {
+        Integer[] inputArray = {1, 2, 3};
+        Stack myStack = new Stack(inputArray);
+
+        assertEquals(3, myStack.pop());
+    }
+
+    @Test
+    public void Pop_Element_From_1_2_3_Stack_And_Watch_Which_Will_Stay() {
+        Integer[] inputArray = {1, 2, 3};
+        Stack myStack = new Stack(inputArray);
+        myStack.pop();
+
+        assertEquals("1 2", myStack.toString());
+    }
+
+    @Test
+    public void Pop_Element_From_String_Stack() {
+        String[] inputArray = {"one", "two", "three"};
+        Stack myStack = new Stack(inputArray);
+
+        assertEquals("three", myStack.pop());
+    }
+
+    @Test
+    public void Pop_Element_From_Empty_Stack_And_Watch_Which_Will_Stay() {
+        Stack myStack = new Stack();
+        myStack.pop();
+
+        assertEquals("", myStack.toString());
+    }
 }

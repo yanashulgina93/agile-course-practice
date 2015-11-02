@@ -39,4 +39,9 @@ public class Stack {
         }
         values[size-1] = element;
     }
+
+    public Object pop() {
+        size--;
+        return values[size];
+    }
 }
