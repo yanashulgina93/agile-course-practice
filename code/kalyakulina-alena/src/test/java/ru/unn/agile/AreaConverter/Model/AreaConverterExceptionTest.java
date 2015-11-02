@@ -13,11 +13,11 @@ public class AreaConverterExceptionTest {
     private final AreaMeasure toMeasure;
     private final double inputArea;
 
-    private AreaConverterBuilder builder = new AreaConverterBuilder();
+    private AreaConverter converter;
 
     public AreaConverterExceptionTest(final AreaMeasure fromMeasure,
-                             final AreaMeasure toMeasure,
-                             final double inputArea) {
+                                      final AreaMeasure toMeasure,
+                                      final double inputArea) {
         this.fromMeasure = fromMeasure;
         this.toMeasure = toMeasure;
         this.inputArea = inputArea;
@@ -33,7 +33,7 @@ public class AreaConverterExceptionTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void throwsExceptionWithWrongInput() {
-        AreaConverter converter = builder.buildConverter(fromMeasure, toMeasure);
+        converter = new AreaConverter(fromMeasure, toMeasure);
 
         final double resultArea = converter.convert(inputArea);
     }

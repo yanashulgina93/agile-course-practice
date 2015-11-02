@@ -4,8 +4,8 @@ public class AreaConverter {
 
     private final double convertCoeff;
 
-    public AreaConverter(final double convertCoeff) {
-        this.convertCoeff = convertCoeff;
+    public AreaConverter(final AreaMeasure from, final AreaMeasure to) {
+        convertCoeff = from.getMeasureCoeff() / to.getMeasureCoeff();
     }
 
     public double convert(final double value) {

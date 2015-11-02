@@ -17,7 +17,7 @@ public class AreaConverterTest {
     private final double inputArea;
     private final double outputArea;
 
-    private AreaConverterBuilder builder = new AreaConverterBuilder();
+    private AreaConverter converter;
 
     public AreaConverterTest(final AreaMeasure fromMeasure,
                              final AreaMeasure toMeasure,
@@ -50,7 +50,7 @@ public class AreaConverterTest {
 
     @Test
     public void isCorrectConverting() {
-        AreaConverter converter = builder.buildConverter(fromMeasure, toMeasure);
+        converter = new AreaConverter(fromMeasure, toMeasure);
 
         final double resultArea = converter.convert(inputArea);
 
