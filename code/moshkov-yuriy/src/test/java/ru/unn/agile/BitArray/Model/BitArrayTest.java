@@ -6,11 +6,6 @@ import static org.junit.Assert.*;
 
 public class BitArrayTest {
 
-//    @Test
-//    public void failingTest() {
-//        fail();
-//    }
-
     @Test
     public void canCreateBitArrayWithSize() {
         BitArray bitArr = new BitArray(5);
