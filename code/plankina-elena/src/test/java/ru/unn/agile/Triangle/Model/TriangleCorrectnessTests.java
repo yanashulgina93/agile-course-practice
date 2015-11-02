@@ -14,7 +14,7 @@ public class TriangleCorrectnessTests {
     private static final double DELTA = 0.00001;
     private static final double THEHALF = 0.5;
     private Triangle triangle = new Triangle(Arrays.asList(1.9, -2.3, 4.56),
-            Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(4.0, 5.0, 10.2));
+            Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(4.0, 5.0, 10.2), 3);
     private double length1 = sqrt(pow(1.9 - 0.0, 2) + pow(-2.3 - 3.5, 2) + pow(4.56 - 5.12, 2));
     private double length2 = sqrt(pow(4.0 - 0.0, 2) + pow(5.0 - 3.5, 2) + pow(10.2 - 5.12, 2));
     private double length3 = sqrt(pow(1.9 - 4.0, 2) + pow(-2.3 - 5.0, 2) + pow(4.56 - 10.2, 2));
@@ -28,10 +28,10 @@ public class TriangleCorrectnessTests {
 
     @Test
     public void canFindCorrectLength() {
-        List<Double> coordinates1 = triangle.getValueOfCoordinates1();
-        List<Double> coordinates2 = triangle.getValueOfCoordinates2();
+        List<Double> coordinatesOfPoint1 = triangle.getValueOfCoordinatesOfPoint1();
+        List<Double> coordinatesOfPoint2 = triangle.getValueOfCoordinatesOfPoint2();
         double trueLength = sqrt(pow(1.9 - 0.0, 2) + pow(-2.3 - 3.5, 2) + pow(4.56 - 5.12, 2));
-        double resultLength = triangle.getLength(coordinates1, coordinates2);
+        double resultLength = triangle.getLength(coordinatesOfPoint1, coordinatesOfPoint2);
         assertEquals(trueLength, resultLength, DELTA);
     }
 
@@ -85,7 +85,7 @@ public class TriangleCorrectnessTests {
     @Test
     public void canComputeLargeNumberCorrectly() {
         Triangle triangleLarge = new Triangle(Arrays.asList(Double.MAX_VALUE, -2.3, 4.56),
-                Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(Double.MAX_VALUE, 5.0, 10.2));
+                Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(Double.MAX_VALUE, 5.0, 10.2), 3);
         double length1 = sqrt(pow(Double.MAX_VALUE - 0.0, 2) + pow(-2.3 - 3.5, 2)
                 + pow(4.56 - 5.12, 2));
         double length2 = sqrt(pow(Double.MAX_VALUE - 0.0, 2) + pow(5.0 - 3.5, 2)

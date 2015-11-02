@@ -11,7 +11,7 @@ import static org.junit.Assert.assertNotNull;
 
 public class TriangleExceptionsTests {
     private Triangle triangle = new Triangle(Arrays.asList(1.9, -2.3, 4.56),
-            Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(4.0, 5.0, 10.2));
+            Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(4.0, 5.0, 10.2), 3);
     @Test
     public void canCreateNewTriangle() {
         assertNotNull(triangle);
@@ -19,48 +19,48 @@ public class TriangleExceptionsTests {
 
     @Test
     public void numberOfCoordinatesOfFirstAndSecondPointsIsEqual() {
-        List<Double> coordinates1 = triangle.getValueOfCoordinates1();
-        List<Double> coordinates2 = triangle.getValueOfCoordinates2();
-        assertEquals(triangle.hasEqualNumberOfCoordinates(coordinates1, coordinates2), true);
+        List<Double> coordinates1 = triangle.getValueOfCoordinatesOfPoint1();
+        List<Double> coordinates2 = triangle.getValueOfCoordinatesOfPoint2();
+        assertEquals(triangle.hasEqualDimensions(coordinates1, coordinates2), true);
     }
 
     @Test
     public void numberOfCoordinatesOfFirstAndThirdPointsIsEqual() {
-        List<Double> coordinates1 = triangle.getValueOfCoordinates1();
-        List<Double> coordinates3 = triangle.getValueOfCoordinates3();
-        assertEquals(triangle.hasEqualNumberOfCoordinates(coordinates1, coordinates3), true);
+        List<Double> coordinates1 = triangle.getValueOfCoordinatesOfPoint1();
+        List<Double> coordinates3 = triangle.getValueOfCoordinatesOfPoint3();
+        assertEquals(triangle.hasEqualDimensions(coordinates1, coordinates3), true);
     }
 
     @Test
     public void areFirstAndSecondPointsNotEqual() {
-        List<Double> coordinates1 = triangle.getValueOfCoordinates1();
-        List<Double> coordinates2 = triangle.getValueOfCoordinates2();
+        List<Double> coordinates1 = triangle.getValueOfCoordinatesOfPoint1();
+        List<Double> coordinates2 = triangle.getValueOfCoordinatesOfPoint2();
         assertEquals(triangle.areNotEqual(coordinates1, coordinates2), true);
     }
 
     @Test
     public void areFirstAndThirdPointsNotEqual() {
-        List<Double> coordinates1 = triangle.getValueOfCoordinates1();
-        List<Double> coordinates3 = triangle.getValueOfCoordinates3();
+        List<Double> coordinates1 = triangle.getValueOfCoordinatesOfPoint1();
+        List<Double> coordinates3 = triangle.getValueOfCoordinatesOfPoint3();
         assertEquals(triangle.areNotEqual(coordinates1, coordinates3), true);
     }
 
     @Test
     public void isTriangle() {
-        assertEquals(triangle.isPossible(), true);
+        assertEquals(triangle.isPossibleToBuildTriangle(), true);
     }
 
     @Test
     public void canFindLength() {
-        List<Double> coordinates1 = triangle.getValueOfCoordinates1();
-        List<Double> coordinates2 = triangle.getValueOfCoordinates2();
+        List<Double> coordinates1 = triangle.getValueOfCoordinatesOfPoint1();
+        List<Double> coordinates2 = triangle.getValueOfCoordinatesOfPoint2();
         double length = triangle.getLength(coordinates1, coordinates2);
         assertNotEquals(length, 0.0);
     }
 
     @Test
     public void canFindLengths() {
-        List<Double> lengths = triangle.getLengths3d();
+        List<Double> lengths = triangle.getLengthsOfEdges();
         assertNotNull(lengths);
     }
 
@@ -91,9 +91,9 @@ public class TriangleExceptionsTests {
     @Test
     public void canUseLargeNumber() {
         Triangle triangleLarge = new Triangle(Arrays.asList(Double.MAX_VALUE, -2.3, 4.56),
-                Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(Double.MAX_VALUE, 5.0, 10.2));
-        List<Double> coordinates1 = triangleLarge.getValueOfCoordinates1();
-        List<Double> coordinates2 = triangleLarge.getValueOfCoordinates2();
+                Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(Double.MAX_VALUE, 5.0, 10.2), 3);
+        List<Double> coordinates1 = triangleLarge.getValueOfCoordinatesOfPoint1();
+        List<Double> coordinates2 = triangleLarge.getValueOfCoordinatesOfPoint2();
         double length = triangleLarge.getLength(coordinates1, coordinates2);
         assertNotEquals(length, 0.0);
     }

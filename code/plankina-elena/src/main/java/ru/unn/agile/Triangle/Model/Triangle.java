@@ -8,86 +8,96 @@ import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
 public class Triangle {
-    private final List<Double> coordinates1;
-    private final List<Double> coordinates2;
-    private final List<Double> coordinates3;
+    private final List<Double> coordinatesOfPoint1;
+    private final List<Double> coordinatesOfPoint2;
+    private final List<Double> coordinatesOfPoint3;
+    private int dimension;
     private static final double THEHALF = 0.5;
 
-    public Triangle(final List<Double> inputCoordinates1, final List<Double> inputCoordinates2,
-                    final List<Double> inputCoordinates3) {
-        this.coordinates1 = inputCoordinates1;
-        this.coordinates2 = inputCoordinates2;
-        this.coordinates3 = inputCoordinates3;
+    public Triangle(final List<Double> inputCoordinatesOfPoint1,
+                    final List<Double> inputCoordinatesOfPoint2,
+                    final List<Double> inputCoordinatesOfPoint3,
+                    final int inputDimension) {
+        this.coordinatesOfPoint1 = inputCoordinatesOfPoint1;
+        this.coordinatesOfPoint2 = inputCoordinatesOfPoint2;
+        this.coordinatesOfPoint3 = inputCoordinatesOfPoint3;
+        this.dimension = inputDimension;
     }
 
-    public List<Double> getValueOfCoordinates1() {
-        return coordinates1;
+    public List<Double> getValueOfCoordinatesOfPoint1() {
+        return coordinatesOfPoint1;
     }
 
-    public List<Double> getValueOfCoordinates2() {
-        return coordinates2;
+    public List<Double> getValueOfCoordinatesOfPoint2() {
+        return coordinatesOfPoint2;
     }
 
-    public List<Double> getValueOfCoordinates3() {
-        return coordinates3;
+    public List<Double> getValueOfCoordinatesOfPoint3() {
+        return coordinatesOfPoint3;
     }
 
-    public boolean hasEqualNumberOfCoordinates(final List<Double> coordinates1,
-                                               final List<Double> coordinates2) {
-        return coordinates1.size() == coordinates2.size();
+    public int getDimension() { return dimension; }
+
+    public boolean hasEqualDimensions(final List<Double> coordinatesOfPoint1,
+                                               final List<Double> coordinatesOfPoint2) {
+        return coordinatesOfPoint1.size() == this.getDimension()
+                && coordinatesOfPoint2.size() == this.getDimension();
     }
 
-    public boolean areNotEqual(final List<Double> coordinates1, final List<Double> coordinates2) {
-        return !(coordinates1.equals(coordinates2));
+    public boolean areNotEqual(final List<Double> coordinatesOfPoint1,
+                               final List<Double> coordinatesOfPoint2) {
+        return !(coordinatesOfPoint1.equals(coordinatesOfPoint2));
     }
 
-    public boolean isPossible() {
-        boolean condition1 = hasEqualNumberOfCoordinates(this.coordinates1, this.coordinates2)
-                && hasEqualNumberOfCoordinates(this.coordinates1, this.coordinates3)
-                && hasEqualNumberOfCoordinates(this.coordinates2, this.coordinates3);
-        boolean condition2 = areNotEqual(this.coordinates1, this.coordinates2)
-                && areNotEqual(this.coordinates1, this.coordinates3)
-                && areNotEqual(this.coordinates2, this.coordinates3);
+    public boolean isPossibleToBuildTriangle() {
+        boolean condition1 = hasEqualDimensions(this.coordinatesOfPoint1,
+                this.coordinatesOfPoint2)
+                && hasEqualDimensions(this.coordinatesOfPoint1, this.coordinatesOfPoint3)
+                && hasEqualDimensions(this.coordinatesOfPoint2, this.coordinatesOfPoint3);
+        boolean condition2 = areNotEqual(this.coordinatesOfPoint1, this.coordinatesOfPoint2)
+                && areNotEqual(this.coordinatesOfPoint1, this.coordinatesOfPoint3)
+                && areNotEqual(this.coordinatesOfPoint2, this.coordinatesOfPoint3);
         return condition1 && condition2;
     }
 
-    public double getLength(final List<Double> coordinates1, final List<Double> coordinates2) {
+    public double getLength(final List<Double> coordinatesOfPoint1,
+                            final List<Double> coordinatesOfPoint2) {
         double length;
-        if (this.hasEqualNumberOfCoordinates(coordinates1, coordinates2)
-                && this.areNotEqual(coordinates1, coordinates2)) {
+        if (this.hasEqualDimensions(coordinatesOfPoint1, coordinatesOfPoint2)
+                && this.areNotEqual(coordinatesOfPoint1, coordinatesOfPoint2)) {
             double sum = 0.0;
-            for (int i = 0; i < coordinates1.size(); i++) {
-                sum += pow(coordinates1.get(i) - coordinates2.get(i), 2);
+            for (int i = 0; i < coordinatesOfPoint1.size(); i++) {
+                sum += pow(coordinatesOfPoint1.get(i) - coordinatesOfPoint2.get(i), 2);
             }
             length = sqrt(sum);
             return length;
         } else {
-            System.out.println("Two points have the same set of coordinates!");
+            System.out.println("Can't build a triangle!");
             return 0.0;
         }
     }
 
-    public List<Double> getLengths3d() {
-        double length1 = this.getLength(this.coordinates1, this.coordinates2);
-        double length2 = this.getLength(this.coordinates2, this.coordinates3);
-        double length3 = this.getLength(this.coordinates3, this.coordinates1);
+    public List<Double> getLengthsOfEdges() {
+        double length1 = this.getLength(this.coordinatesOfPoint1, this.coordinatesOfPoint2);
+        double length2 = this.getLength(this.coordinatesOfPoint2, this.coordinatesOfPoint3);
+        double length3 = this.getLength(this.coordinatesOfPoint3, this.coordinatesOfPoint1);
         return Arrays.asList(length1, length2, length3);
     }
 
     public double getPerimeter3d() {
-        List<Double> lengths = this.getLengths3d();
+        List<Double> lengths = this.getLengthsOfEdges();
             return lengths.get(0) + lengths.get(1) + lengths.get(2);
     }
 
     public double getSquare3d() {
-        List<Double> lengths = this.getLengths3d();
+        List<Double> lengths = this.getLengthsOfEdges();
         double halfPerimeter = this.getPerimeter3d() / 2;
         return sqrt(halfPerimeter * (halfPerimeter - lengths.get(0))
                 * (halfPerimeter - lengths.get(1)) * (halfPerimeter - lengths.get(2)));
     }
 
     public List<Double> getMedians3d() {
-        List<Double> lengths = this.getLengths3d();
+        List<Double> lengths = this.getLengthsOfEdges();
         double median1 = THEHALF * sqrt(2 * pow(lengths.get(1), 2)
                 + 2 * pow(lengths.get(2), 2) - pow(lengths.get(0), 2));
         double median2 = THEHALF * sqrt(2 * pow(lengths.get(0), 2)
@@ -98,7 +108,7 @@ public class Triangle {
     }
 
     public List<Double> getAltitudes3d() {
-        List<Double> lengths = this.getLengths3d();
+        List<Double> lengths = this.getLengthsOfEdges();
         double altitude1 = 2 * this.getPerimeter3d() / lengths.get(0);
         double altitude2 = 2 * this.getPerimeter3d() / lengths.get(1);
         double altitude3 = 2 * this.getPerimeter3d() / lengths.get(2);
@@ -106,7 +116,7 @@ public class Triangle {
     }
 
     public List<Double> getBisectrices3d() {
-        List<Double> lengths = this.getLengths3d();
+        List<Double> lengths = this.getLengthsOfEdges();
         double bisectrix1 = sqrt(lengths.get(1) * lengths.get(2) * this.getPerimeter3d()
                 * (lengths.get(1) + lengths.get(2) - lengths.get(0)))
                 / (lengths.get(1) + lengths.get(2));
@@ -120,7 +130,7 @@ public class Triangle {
     }
 
     public List<Double> getAngles3d() {
-        List<Double> lengths = this.getLengths3d();
+        List<Double> lengths = this.getLengthsOfEdges();
         double angle1 = acos((pow(lengths.get(1), 2) + pow(lengths.get(2), 2)
                 - pow(lengths.get(0), 2))
                 / (2 * lengths.get(1) * lengths.get(2)));
