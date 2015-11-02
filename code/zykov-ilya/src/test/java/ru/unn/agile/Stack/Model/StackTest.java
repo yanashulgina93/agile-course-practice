@@ -18,4 +18,18 @@ public class StackTest {
         Stack myStack = new Stack(inputArray);
         assertEquals("one two three", myStack.toString());
     }
+
+    @Test
+    public void Initiating_Empty_Stack() {
+        Stack myStack = new Stack();
+        assertEquals("", myStack.toString());
+    }
+
+    @Test
+    public void Push_Element_To_Empty_Stack() {
+        Stack myStack = new Stack();
+        Integer element = 1;
+        myStack.push(element);
+        assertEquals("1", myStack.toString());
+    }
 }
