@@ -13,13 +13,13 @@ public class MinesweeperTest {
     }
 
     @Test
-    public void post_end_is_end_set(){
+    public void postEndIsEndSet() {
         minesweeper.end(true);
         assertEquals(true, minesweeper.isEnd());
     }
 
     @Test
-    public void post_end_new_game_is_end_unset(){
+    public void postEndNewGameIsEndUnset() {
         minesweeper.end(true);
         minesweeper.newGame();
         assertEquals(false, minesweeper.isEnd());

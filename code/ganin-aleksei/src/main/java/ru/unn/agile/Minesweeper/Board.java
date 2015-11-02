@@ -6,22 +6,22 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Board extends JPanel {
-    private static int boardWidth;
-    private static int boardHeight;
+    private final int boardWidth;
+    private final int boardHeight;
 
-    private final int cellSize = 20;
+    public static final int CELL_SIZE = 20;
 
     private boolean lost = false;
-    private Minesweeper minesweeper;
+    private final Minesweeper minesweeper;
 
     private int minesCount;
     private int openCellsCount;
     private int flagCellsCount;
 
 
-    private Cell[][] cells;
+    private final Cell[][] cells;
 
-    Board(Minesweeper minesweeper, int boardHeight, int boardWidth) {
+    Board(final Minesweeper minesweeper, final int boardHeight, final int boardWidth) {
         minesCount = 0;
         openCellsCount = 0;
         flagCellsCount = 0;
@@ -36,19 +36,19 @@ public class Board extends JPanel {
             cells[positionY] = new Cell[boardWidth];
             for (int positionX = 0; positionX < boardWidth; positionX++) {
                 Cell cell = new Cell(this, positionY, positionX);
-                cell.setBounds(positionY * cellSize, positionX * cellSize, cellSize, cellSize);
+                cell.setBounds(positionY * CELL_SIZE, positionX * CELL_SIZE, CELL_SIZE, CELL_SIZE);
                 add(cell);
                 cells[positionY][positionX] = cell;
             }
         }
     }
 
-    private void setMinesCount(int minesCount) {
+    private void setMinesCount(final int minesCount) {
         this.minesCount = minesCount;
         minesweeper.setMineCounter(minesCount - flagCellsCount);
     }
 
-    private void setFlagCellsCount(int flagCellsCount) {
+    private void setFlagCellsCount(final int flagCellsCount) {
         this.flagCellsCount = flagCellsCount;
         minesweeper.setMineCounter(minesCount - flagCellsCount);
     }
@@ -57,7 +57,7 @@ public class Board extends JPanel {
         return  boardWidth * boardHeight;
     }
 
-    private ArrayList<Cell> getNeighboringCells(int positionY, int positionX) {
+    private ArrayList<Cell> getNeighboringCells(final int positionY, final int positionX) {
         ArrayList<Cell> neighboringCells = new ArrayList<Cell>();
         for (int y = positionY > 0 ? positionY - 1 : positionY,
             yStop = positionY < boardHeight - 1 ? positionY + 1 : positionY;
@@ -74,7 +74,7 @@ public class Board extends JPanel {
         return  neighboringCells;
     }
 
-    private void incValues(int positionY, int positionX) {
+    private void incValues(final int positionY, final int positionX) {
         ArrayList<Cell> neighboringCells = getNeighboringCells(positionY, positionX);
         for (int i = 0; i < neighboringCells.size(); i++) {
             Cell cell = neighboringCells.get(i);
@@ -82,7 +82,7 @@ public class Board extends JPanel {
         }
     }
 
-    public void setMine(int positionY, int positionX) {
+    public void setMine(final int positionY, final int positionX) {
         Cell cell = cells[positionY][positionX];
         if (!cell.isMine()) {
             cell.setMine();
@@ -90,7 +90,7 @@ public class Board extends JPanel {
         }
     }
 
-    private void openNeighboringCells(int positionY, int positionX) {
+    private void openNeighboringCells(final int positionY, final int positionX) {
         ArrayList<Cell> neighboringCells = getNeighboringCells(positionY, positionX);
         for (int i = 0; i < neighboringCells.size(); i++) {
             Cell cell = neighboringCells.get(i);
@@ -100,7 +100,7 @@ public class Board extends JPanel {
         }
     }
 
-    public void openCell(int positionY, int positionX) {
+    public void openCell(final int positionY, final int positionX) {
         Cell cell = cells[positionY][positionX];
         if (!lost && !cell.isIssue() && !cell.isFlag() && !cell.isOpen()) {
             cell.open();
@@ -120,7 +120,7 @@ public class Board extends JPanel {
         return  lost;
     }
 
-    public void  setFlag(int positionY, int positionX) {
+    public void  setFlag(final int positionY, final int positionX) {
         Cell cell = cells[positionY][positionX];
         if (!cell.isFlag()) {
             setFlagCellsCount(flagCellsCount + 1);
@@ -128,7 +128,7 @@ public class Board extends JPanel {
         }
     }
 
-    public void  unsetFlag(int positionY, int positionX) {
+    public void  unsetFlag(final int positionY, final int positionX) {
         Cell cell = cells[positionY][positionX];
         if (cell.isFlag()) {
             setFlagCellsCount(flagCellsCount - 1);
@@ -136,11 +136,11 @@ public class Board extends JPanel {
         }
     }
 
-    public int getValue(int positionY, int positionX) {
+    public int getValue(final int positionY, final int positionX) {
         return cells[positionY][positionX].getValue();
     }
 
-    public void clear(){
+    public void clear() {
         for (int positionY = 0; positionY < boardHeight; positionY++) {
             for (int positionX = 0; positionX < boardWidth; positionX++) {
                 cells[positionY][positionX].clear();
@@ -151,11 +151,11 @@ public class Board extends JPanel {
         setFlagCellsCount(0);
     }
 
-    public boolean isMine(int positionY, int positionX) {
+    public boolean isMine(final int positionY, final int positionX) {
         return cells[positionY][positionX].isMine();
     }
 
-    public void setMinesRandom(int numMines) {
+    public void setMinesRandom(final int numMines) {
         Random random = new Random();
         for (int i = 0; i < numMines; i++) {
             int positionY = 0;

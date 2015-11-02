@@ -11,42 +11,42 @@ public class Minesweeper {
     private static ImageIcon deadIcon = new ImageIcon("images/dead_50x50.png");
     private static ImageIcon winnerIcon = new ImageIcon("images/winner_50x50.png");
 
-    private Board board;
-    private JLabel smile;
-    private JLabel mineCounter;
+    private final  Board board;
+    private final  JLabel smile;
+    private final  JLabel mineCounter;
 
-    private final int windowHeight = 700;
-    private final int windowWidth = 700;
+    private static final int WINDOW_HEIGHT = 700;
+    private static final int WINDOW_WIDTH = 700;
 
-    private final int boardHeight = 32;
-    private final int boardWidth = 32;
+    private static final int BOARD_HEIGHT = 32;
+    private static final int BOARD_WIDTH = 32;
 
 
-    private final int smilePositionX = 640;
-    private final int smilePositionY = 0;
-    private final int smileHeigth = 50;
-    private final int smileWidth = 50;
+    private static final int SMILE_POSITION_X = 640;
+    private static final int SMILE_POSITION_Y = 0;
+    private static final int SMILE_HEIGHT = 50;
+    private static final int SMILE_WIDTH = 50;
 
-    private final int mineCounterPositionX = 640;
-    private final int mineCounterPositionY = 70;
-    private final int mineCounterHeigth = 20;
-    private final int mineCounterWidth = 50;
+    private static final int MINE_COUNTER_POSITION_X = 640;
+    private static final int MINE_COUNTER_POSITION_Y = 70;
+    private static final int MINE_COUNTER_HEIGHT = 20;
+    private static final int MINE_COUNTER_WIDTH = 50;
 
-    private final int defaultMines = 100;
+    private static final int DEFAULT_MINES = 100;
 
 
     private boolean isEndV = false;
 
     public Minesweeper() {
         JFrame frame = new JFrame("Сапер");
-        frame.setSize(windowWidth, windowHeight);
+        frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-        board = new Board(this, boardHeight, boardWidth);
+        board = new Board(this, BOARD_HEIGHT, BOARD_WIDTH);
 
 
         smile = new JLabel() {
             @Override
-            protected void paintComponent(Graphics g) {
+            protected void paintComponent(final Graphics g) {
                 g.setColor(Color.WHITE);
                 g.fillRect(0, 0, getWidth(), getHeight());
                 super.paintComponent(g);
@@ -55,41 +55,42 @@ public class Minesweeper {
 
         smile.addMouseListener(new MouseListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseClicked(final MouseEvent e) {
                 if (SwingUtilities.isLeftMouseButton(e)) {
                     newGame();
                 }
             }
 
             @Override
-            public void mousePressed(MouseEvent e) {
+            public void mousePressed(final MouseEvent es) {
+                /* empty */
 
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
-
+            public void mouseReleased(final MouseEvent es) {
+                /* empty */
             }
 
             @Override
-            public void mouseEntered(MouseEvent e) {
-
+            public void mouseEntered(final MouseEvent es) {
+                /* empty */
             }
 
             @Override
-            public void mouseExited(MouseEvent e) {
-
+            public void mouseExited(final MouseEvent es) {
+                /* empty */
             }
         });
         smile.setIcon(smileIcon);
-        smile.setBounds(smilePositionX, smilePositionY, smileWidth, smileHeigth);
+        smile.setBounds(SMILE_POSITION_X, SMILE_POSITION_Y, SMILE_WIDTH, SMILE_HEIGHT);
 
         mineCounter = new JLabel();
         mineCounter.setBounds(
-                mineCounterPositionX,
-                mineCounterPositionX,
-                mineCounterWidth,
-                mineCounterHeigth
+                MINE_COUNTER_POSITION_X,
+                MINE_COUNTER_POSITION_Y,
+                MINE_COUNTER_WIDTH,
+                MINE_COUNTER_HEIGHT
         );
 
 
@@ -103,27 +104,27 @@ public class Minesweeper {
         newGame();
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         new Minesweeper();
     }
 
-    public void newGame() {
+    public final void newGame() {
         smile.setIcon(smileIcon);
         isEndV = false;
         board.clear();
-        board.setMinesRandom(defaultMines);
+        board.setMinesRandom(DEFAULT_MINES);
     }
 
     public boolean isEnd() {
         return isEndV;
     }
 
-    public void end(boolean isWinner) {
+    public void end(final boolean isWinner) {
         isEndV = true;
         smile.setIcon(isWinner ? winnerIcon : deadIcon);
     }
 
-    public void setMineCounter(int count) {
+    public void setMineCounter(final int count) {
         mineCounter.setText(String.valueOf(count));
     }
 }
