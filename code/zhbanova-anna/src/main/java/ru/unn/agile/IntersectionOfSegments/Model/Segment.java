@@ -74,31 +74,30 @@ public class Segment {
         Point finishPointOfIntersection;
 
         if (segment1.isIntersection(segment2)) {
-            Double k1 = calculateSlope(segment1);
-            Double k2 = calculateSlope(segment2);
+            Double slope1 = calculateSlope(segment1);
+            Double slope2 = calculateSlope(segment2);
 
-            double b1 = segment1.getStartY() - k1 * segment1.getStartX();
-            double b2 = segment2.getStartY() - k2 * segment2.getStartX();
+            double b1 = segment1.getStartY() - slope1 * segment1.getStartX();
+            double b2 = segment2.getStartY() - slope2 * segment2.getStartX();
 
-            if (k1.equals(k2)) {
+            if (slope1.equals(slope2)) {
                 //segment x = const convert to y = const
-                if (k1.equals(Double.MAX_VALUE)) {
+                if (slope1.equals(Double.MAX_VALUE)) {
                     swapXY(segment1);
                     swapXY(segment2);
                 }
                 makeFirstPointWithLessX(segment1);
                 makeFirstPointWithLessX(segment2);
-                if (segment1.getStartX() < segment2.getStartX()
-                        && segment1.getFinishX() > segment2.getFinishX()) {
+                if (isFirstSegmentPartOfSecondWhenSlopeSame(segment2, segment1)) {
                     typeOfIntersection = TypeOfIntersection.OnePartOfOther;
                     startPointOfIntersection = segment2.getStart();
                     finishPointOfIntersection = segment2.getFinish();
-                } else if (segment1.getStartX() > segment2.getStartX()
-                        && segment1.getFinishX() < segment2.getFinishX()) {
+                } else if (isFirstSegmentPartOfSecondWhenSlopeSame(segment1, segment2)) {
                     typeOfIntersection = TypeOfIntersection.OnePartOfOther;
                     startPointOfIntersection = segment1.getStart();
                     finishPointOfIntersection = segment1.getFinish();
-                } else if (segment1.getFinishX() > segment2.getStartX()) {
+                } else if (isEndOfFirstSegmentIsBeginningOfSecondWhenSlopeSame(
+                        segment1, segment2)) {
                     typeOfIntersection = TypeOfIntersection.SegmentsHaveCommonPart;
                     startPointOfIntersection = segment2.getStart();
                     finishPointOfIntersection = segment1.getFinish();
@@ -107,25 +106,25 @@ public class Segment {
                     startPointOfIntersection = segment1.getStart();
                     finishPointOfIntersection = segment2.getFinish();
                 }
-                if (k1.equals(Double.MAX_VALUE)) {
+                if (slope1.equals(Double.MAX_VALUE)) {
                     startPointOfIntersection.swapXY();
                     finishPointOfIntersection.swapXY();
                 }
             } else {
                 typeOfIntersection = TypeOfIntersection.IntersectionInOnePoint;
-                if (k1 == Double.MAX_VALUE) {
+                if (slope1 == Double.MAX_VALUE) {
                     double x = segment1.getStartX();
-                    double y = k2 * x + b2;
+                    double y = slope2 * x + b2;
                     startPointOfIntersection = new Point(x, y);
                     finishPointOfIntersection = new Point(x, y);
-                } else if (k2 == Double.MAX_VALUE) {
+                } else if (slope2 == Double.MAX_VALUE) {
                     double x = segment2.getStartX();
-                    double y = k1 * x + b1;
+                    double y = slope1 * x + b1;
                     startPointOfIntersection = new Point(x, y);
                     finishPointOfIntersection = new Point(x, y);
                 } else {
-                    double x = (b2 - b1) / (k1 - k2);
-                    double y = k1 * x + b1;
+                    double x = (b2 - b1) / (slope1 - slope2);
+                    double y = slope1 * x + b1;
                     startPointOfIntersection = new Point(x, y);
                     finishPointOfIntersection = new Point(x, y);
                 }
@@ -137,6 +136,17 @@ public class Segment {
         }
         return new Intersection(typeOfIntersection,
                 new Segment(startPointOfIntersection, finishPointOfIntersection));
+    }
+
+    private boolean isFirstSegmentPartOfSecondWhenSlopeSame(final Segment segment1,
+                                                            final Segment segment2) {
+        return segment1.getStartX() > segment2.getStartX()
+                && segment1.getFinishX() < segment2.getFinishX();
+    }
+
+    private  boolean isEndOfFirstSegmentIsBeginningOfSecondWhenSlopeSame(final Segment segment1,
+                                                                         final Segment segment2) {
+        return segment1.getFinishX() > segment2.getStartX();
     }
 
     private boolean isIntersection(final Segment segment) {
