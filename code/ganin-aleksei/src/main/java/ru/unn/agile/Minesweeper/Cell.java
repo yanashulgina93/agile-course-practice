@@ -132,30 +132,34 @@ public class Cell extends JLabel {
         flag = false;
     }
 
+    private void setIconForValue(int value){
+        if (value == CELL_VALUE_0) {
+            setIcon(val0Icon);
+        } else if (value == CELL_VALUE_1) {
+            setIcon(val1Icon);
+        } else if (value == CELL_VALUE_2) {
+            setIcon(val2Icon);
+        } else if (value == CELL_VALUE_3) {
+            setIcon(val3Icon);
+        } else if (value == CELL_VALUE_4) {
+            setIcon(val4Icon);
+        } else if (value == CELL_VALUE_5) {
+            setIcon(val5Icon);
+        } else if (value == CELL_VALUE_6) {
+            setIcon(val6Icon);
+        } else if (value == CELL_VALUE_7) {
+            setIcon(val7Icon);
+        } else if (value == CELL_VALUE_8) {
+            setIcon(val8Icon);
+        }
+    }
+
     public void open() {
         openV = true;
         if (isMine()) {
             setIcon(mineIcon);
         } else {
-            if (getValue() == CELL_VALUE_0) {
-                setIcon(val0Icon);
-            } else if (getValue() == CELL_VALUE_1) {
-                setIcon(val1Icon);
-            } else if (getValue() == CELL_VALUE_2) {
-                setIcon(val2Icon);
-            } else if (getValue() == CELL_VALUE_3) {
-                setIcon(val3Icon);
-            } else if (getValue() == CELL_VALUE_4) {
-                setIcon(val4Icon);
-            } else if (getValue() == CELL_VALUE_5) {
-                setIcon(val5Icon);
-            } else if (getValue() == CELL_VALUE_6) {
-                setIcon(val6Icon);
-            } else if (getValue() == CELL_VALUE_7) {
-                setIcon(val7Icon);
-            } else if (getValue() == CELL_VALUE_8) {
-                setIcon(val8Icon);
-            }
+            setIconForValue(getValue());
         }
     }
 

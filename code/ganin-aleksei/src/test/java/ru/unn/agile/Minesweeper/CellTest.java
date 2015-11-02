@@ -3,6 +3,7 @@ package ru.unn.agile.Minesweeper;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class CellTest {
 
@@ -74,5 +75,75 @@ public class CellTest {
     @Test
     public void getCellPositionY() {
         assertEquals(cellPositionY, cell.getPositionY());
+    }
+
+    @Test
+    public void openCellWithValue0(){
+        cell.setValue(0);
+        cell.open();
+        assertTrue(cell.isOpen());
+    }
+
+    @Test
+    public void openCellWithValue1(){
+        cell.setValue(1);
+        cell.open();
+        assertTrue(cell.isOpen());
+    }
+
+    @Test
+    public void openCellWithValue2(){
+        cell.setValue(2);
+        cell.open();
+        assertTrue(cell.isOpen());
+    }
+
+    @Test
+    public void openCellWithValue3(){
+        cell.setValue(3);
+        cell.open();
+        assertTrue(cell.isOpen());
+    }
+
+    @Test
+    public void openCellWithValue4(){
+        cell.setValue(4);
+        cell.open();
+        assertTrue(cell.isOpen());
+    }
+
+    @Test
+    public void openCellWithValue5(){
+        cell.setValue(5);
+        cell.open();
+        assertTrue(cell.isOpen());
+    }
+
+    @Test
+    public void openCellWithValue6(){
+        cell.setValue(6);
+        cell.open();
+        assertTrue(cell.isOpen());
+    }
+
+    @Test
+    public void openCellWithValue7(){
+        cell.setValue(7);
+        cell.open();
+        assertTrue(cell.isOpen());
+    }
+
+    @Test
+    public void openCellWithValue8(){
+        cell.setValue(8);
+        cell.open();
+        assertTrue(cell.isOpen());
+    }
+
+    @Test
+    public void openCellWithMine(){
+        cell.setMine();
+        cell.open();
+        assertTrue(cell.isOpen());
     }
 }

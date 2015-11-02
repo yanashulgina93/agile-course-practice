@@ -3,6 +3,7 @@ package ru.unn.agile.Minesweeper;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class BoardTest {
 
@@ -73,5 +74,12 @@ public class BoardTest {
     public void setRandom100Mines() {
         board.setMinesRandom(100);
         assertEquals(100, board.findMinesCount());
+    }
+
+    @Test
+    public void unsetFlag(){
+        board.setFlag(0, 0);
+        board.unsetFlag(0, 0);
+        assertFalse(board.getCell(0, 0).isFlag());
     }
 }
