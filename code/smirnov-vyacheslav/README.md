@@ -15,7 +15,7 @@
  - Деление
 
 Все необходимые математические сведения можно найти в статье
-["Многочлены. Арифметические операции над многочленами"][complex] на сайте ЯКласс.
+["Многочлены. Арифметические операции над многочленами"][polinom] на сайте ЯКласс.
 
 ## Документация разработчика
 
@@ -23,4 +23,4 @@ TBD
 
 <!-- LINKS -->
 
-[complex]: http://www.yaklass.ru/p/algebra/7-klass/mnogochleny-arifmeticheskie-operatcii-nad-mnogochlenami-11002
+[polinom]: http://www.yaklass.ru/p/algebra/7-klass/mnogochleny-arifmeticheskie-operatcii-nad-mnogochlenami-11002
