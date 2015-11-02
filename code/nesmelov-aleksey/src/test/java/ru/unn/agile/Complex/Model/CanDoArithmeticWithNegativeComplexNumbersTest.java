@@ -17,8 +17,6 @@ public class CanDoArithmeticWithNegativeComplexNumbersTest {
 
     @Test
     public void canAddComplexNumbersWithNegativeParts() {
-        setUpNegativeComplexNumbers();
-
         Complex result = first.add(second);
 
         assertEquals(result, new Complex(-3, -4));
@@ -26,8 +24,6 @@ public class CanDoArithmeticWithNegativeComplexNumbersTest {
 
     @Test
     public void canSubtractComplexNumbersWithNegativeParts() {
-        setUpNegativeComplexNumbers();
-
         Complex result = first.subtract(second);
 
         assertEquals(result, new Complex(-1, -2));
@@ -35,8 +31,6 @@ public class CanDoArithmeticWithNegativeComplexNumbersTest {
 
     @Test
     public void canMultiplyComplexNumbersWithNegativeParts() {
-        setUpNegativeComplexNumbers();
-
         Complex result = first.multiply(second);
 
         assertEquals(result, new Complex(-1, 5));
@@ -44,8 +38,6 @@ public class CanDoArithmeticWithNegativeComplexNumbersTest {
 
     @Test
     public void canDivideComplexNumbersWithNegativeParts() {
-        setUpNegativeComplexNumbers();
-
         Complex result = first.divide(second);
 
         assertEquals(result, new Complex(2.5, 0.5));
