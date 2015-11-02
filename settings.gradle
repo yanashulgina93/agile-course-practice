@@ -65,6 +65,8 @@ project(":code/gorokhov-dmitriy").name = "gorokhov-dmitriy-Model"
 // Kazanbaev Dmitrij
 // Khanova Tatyana
 // Kochanova Kseniya
+include "code/kochanova-ksenya"
+project(":code/kochanova-ksenya").name = "kochanova-ksenya-Model"
 // Korotaev Aleksej
 // Korotaev Pavel
 // Kumaev Vasilij
