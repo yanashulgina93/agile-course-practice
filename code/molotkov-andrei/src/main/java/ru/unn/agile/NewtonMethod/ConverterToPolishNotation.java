@@ -2,7 +2,7 @@ package ru.unn.agile.NewtonMethod;
 
 import java.util.Stack;
 
-enum Prioritet { low, equally, bracket, addDiff, multDiv }
+enum Priority { low, equally, bracket, addDiff, multDiv }
 
 public class ConverterToPolishNotation {
     private final Stack<String> reversPolishStack;
@@ -36,22 +36,22 @@ public class ConverterToPolishNotation {
         return createPolishExpression();
     }
 
-    private Prioritet getOperationPriority(final char operator) {
-        Prioritet prioritet = Prioritet.low;
+    private Priority getOperationPriority(final char operator) {
+        Priority prioritet = Priority.low;
         switch (operator) {
             case '*':
             case '/':
-                prioritet = Prioritet.multDiv;
+                prioritet = Priority.multDiv;
                 break;
             case '+':
             case '-':
-                prioritet = Prioritet.addDiff;
+                prioritet = Priority.addDiff;
                 break;
             case '(':
-                prioritet = Prioritet.bracket;
+                prioritet = Priority.bracket;
                 break;
             case '=':
-                prioritet = Prioritet.equally;
+                prioritet = Priority.equally;
                 break;
             default:
         }

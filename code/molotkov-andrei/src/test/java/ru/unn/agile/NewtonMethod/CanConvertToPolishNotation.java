@@ -11,65 +11,36 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class CanConvertToPolishNotation {
-    private final String testData;
-    private final String expected;
+    private final String infixFormula;
+    private final String postfixFormula;
 
-    public CanConvertToPolishNotation(final String testData, final String expected) {
-        this.testData = testData;
-        this.expected = expected;
+    public CanConvertToPolishNotation(final String infixFormula,
+                                      final String postfixFormula) {
+        this.infixFormula = infixFormula;
+        this.postfixFormula = postfixFormula;
     }
 
     @Parameterized.Parameters
-    public static List<Object[]> primitiveOperations() {
+    public static List<Object[]> getFormulas() {
         return Arrays.asList(new Object[][] {
+                {"=", "="},
                 {"x+x=", "xx+="},
                 {"x-x=", "xx-="},
                 {"x*x=", "xx*="},
                 {"x/x=", "xx/="},
                 {"3+x=", "3x+="},
-                {"48*x=", "48x*="}
+                {"48*x=", "48x*="},
+                {"x*x+x=", "xx*x+="},
+                {"5*x*x+2*x-3=", "5x*x*2x*+3-="},
+                {"(3+x)*x=", "3x+x*="},
+                {"x+(x-3)*y-35/(x+y)=", "xx3-y*+35xy+/-="}
         });
-    }
-
-    @Test
-    public void canConvertEmptyStringToPolishNotation() {
-        ConverterToPolishNotation converter = new ConverterToPolishNotation();
-        String polishNotation = converter.convert("=");
-        assertEquals("=", polishNotation);
     }
 
     @Test
     public void canConvertPrimitiveOperationsToPolishNotation() {
         ConverterToPolishNotation converter = new ConverterToPolishNotation();
-        String polishNotation = converter.convert(testData);
-        assertEquals(expected, polishNotation);
-    }
-
-    @Test
-    public void canConvertMultiplyAndAddToPolishNotation() {
-        ConverterToPolishNotation converter = new ConverterToPolishNotation();
-        String polishNotation = converter.convert("x*x+x=");
-        assertEquals("xx*x+=", polishNotation);
-    }
-
-    @Test
-    public void canConvertPolinomToPolishNotation() {
-        ConverterToPolishNotation converter = new ConverterToPolishNotation();
-        String polishNotation = converter.convert("5*x*x+2*x-3=");
-        assertEquals("5x*x*2x*+3-=", polishNotation);
-    }
-
-    @Test
-    public void canConvertWithBracketToPolishNotation() {
-        ConverterToPolishNotation converter = new ConverterToPolishNotation();
-        String polishNotation = converter.convert("(3+x)*x=");
-        assertEquals("3x+x*=", polishNotation);
-    }
-
-    @Test
-    public void canConvertAllOperationsToPolishNotation() {
-        ConverterToPolishNotation converter = new ConverterToPolishNotation();
-        String polishNotation = converter.convert("x+(x-3)*y-35/(x+y)=");
-        assertEquals("xx3-y*+35xy+/-=", polishNotation);
+        String polishNotation = converter.convert(infixFormula);
+        assertEquals(postfixFormula, polishNotation);
     }
 }

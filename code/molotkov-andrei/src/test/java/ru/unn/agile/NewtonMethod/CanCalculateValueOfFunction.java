@@ -29,7 +29,7 @@ public class CanCalculateValueOfFunction {
         return Arrays.asList(new Object[][]{
                 {"=", 0.0, 0.0},
                 {"3=", 0.0, 3},
-                {"x=", 6.0, 6.0},
+                {"3*x+5=", 1.0, 8.0},
                 {"3+x=", 4.0, 7.0},
                 {"3*x=", 4.0, 12.0},
                 {"x*x*x+3*x*x-2*x-5=", 1.0, -3.0},
