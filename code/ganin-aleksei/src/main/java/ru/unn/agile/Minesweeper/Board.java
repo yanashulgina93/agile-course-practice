@@ -100,6 +100,17 @@ public class Board extends JPanel {
         }
     }
 
+    private void openAllMines() {
+        for (int positionY = 0; positionY < boardHeight; positionY++) {
+            for (int positionX = 0; positionX < boardWidth; positionX++) {
+                Cell cell = cells[positionY][positionX];
+                if (cell.isMine()) {
+                    cell.open();
+                }
+            }
+        }
+    }
+
     public void openCell(final int positionY, final int positionX) {
         Cell cell = cells[positionY][positionX];
         if (!lost && !cell.isIssue() && !cell.isFlag() && !cell.isOpen()) {
@@ -108,6 +119,7 @@ public class Board extends JPanel {
             if (cell.isMine()) {
                 lost = true;
                 minesweeper.end(false);
+                openAllMines();
             } else if (allCellsCount() - openCellsCount == minesCount) {
                 minesweeper.end(true);
             } else if (cell.getValue() == 0) {
