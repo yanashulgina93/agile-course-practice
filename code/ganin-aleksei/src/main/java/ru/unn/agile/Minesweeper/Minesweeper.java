@@ -37,14 +37,14 @@ public class Minesweeper {
 
     private boolean isEndV = false;
 
-    public Minesweeper(){
+    public Minesweeper() {
         JFrame frame = new JFrame("Сапер");
         frame.setSize(windowWidth, windowHeight);
 
         board = new Board(this, boardHeight, boardWidth);
 
 
-        smile = new JLabel(){
+        smile = new JLabel() {
             @Override
             protected void paintComponent(Graphics g) {
                 g.setColor(Color.WHITE);
@@ -85,7 +85,12 @@ public class Minesweeper {
         smile.setBounds(smilePositionX, smilePositionY, smileWidth, smileHeigth);
 
         mineCounter = new JLabel();
-        mineCounter.setBounds(mineCounterPositionX, mineCounterPositionX, mineCounterWidth, mineCounterHeigth);
+        mineCounter.setBounds(
+                mineCounterPositionX,
+                mineCounterPositionX,
+                mineCounterWidth,
+                mineCounterHeigth
+        );
 
 
         frame.add(smile);

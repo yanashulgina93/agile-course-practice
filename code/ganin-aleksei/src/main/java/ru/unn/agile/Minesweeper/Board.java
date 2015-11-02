@@ -9,26 +9,23 @@ public class Board extends JPanel {
     private static int boardWidth;
     private static int boardHeight;
 
+    private final int cellSize = 20;
+
     private boolean lost = false;
     private Minesweeper minesweeper;
-    private int minesCount = 0;
-    private int openCellsCount = 0;
-    private int flagCellsCount = 0;
-    private int cellSize = 20;
+
+    private int minesCount;
+    private int openCellsCount;
+    private int flagCellsCount;
+
 
     private Cell[][] cells;
 
-    private void setMinesCount(int minesCount) {
-        this.minesCount = minesCount;
-        minesweeper.setMineCounter(minesCount - flagCellsCount);
-    }
-
-    private void setFlagCellsCount(int flagCellsCount) {
-        this.flagCellsCount = flagCellsCount;
-        minesweeper.setMineCounter(minesCount - flagCellsCount);
-    }
-
     Board(Minesweeper minesweeper, int boardHeight, int boardWidth) {
+        minesCount = 0;
+        openCellsCount = 0;
+        flagCellsCount = 0;
+
         this.minesweeper = minesweeper;
         this.boardHeight = boardHeight;
         this.boardWidth = boardWidth;
@@ -44,6 +41,16 @@ public class Board extends JPanel {
                 cells[positionY][positionX] = cell;
             }
         }
+    }
+
+    private void setMinesCount(int minesCount) {
+        this.minesCount = minesCount;
+        minesweeper.setMineCounter(minesCount - flagCellsCount);
+    }
+
+    private void setFlagCellsCount(int flagCellsCount) {
+        this.flagCellsCount = flagCellsCount;
+        minesweeper.setMineCounter(minesCount - flagCellsCount);
     }
 
     private int allCellsCount() {
