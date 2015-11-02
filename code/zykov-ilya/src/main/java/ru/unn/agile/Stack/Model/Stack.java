@@ -4,9 +4,9 @@ package ru.unn.agile.Stack.Model;
  * Created by Ilya on 02.11.2015.
  */
 public class Stack {
-    private int[] values;
+    private Object[] values = new Object[0];
 
-    public Stack(int[] inputArray) {
+    public Stack(Object[] inputArray) {
         values = inputArray.clone();
     }
 
