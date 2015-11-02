@@ -36,7 +36,7 @@ public class BitArray {
     }
 
     public BitArray xor(final BitArray arr) {
-        return this.doOperationWithArr(arr, new BitArrayAndOperation());
+        return this.doOperationWithArr(arr, new BitArrayXorOperation());
     }
 
     public BitArray not() {
