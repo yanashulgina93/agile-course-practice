@@ -11,7 +11,7 @@ public class VolumesComputerTest {
 	    final double w = 5.0, h = 4.0, l = 3.0;
 	    final double goodVolume = 60.0;  // 5 * 4 * 3
 	    final double volume = VolumesComputer.cuboid(w, h, l);
-	    assertEquals(volume, goodVolume, m_epsilon);
+	    assertEquals(volume, goodVolume, EPSILON);
 	}
 
     @Test
@@ -19,7 +19,7 @@ public class VolumesComputerTest {
 	    final double w = 5.0, h = 4.0, l = 0.0;
         final double goodVolume = 0.0;  // 5 * 4 * 0
         final double volume = VolumesComputer.cuboid(w, h, l);
-        assertEquals(volume, goodVolume, m_epsilon);
+        assertEquals(volume, goodVolume, EPSILON);
 	}
 
     @Test (expected = IllegalArgumentException.class)
@@ -42,7 +42,7 @@ public class VolumesComputerTest {
         final double goodVolume = 335.10321638291127876934862754981;
         // 4 * Pi * 5 * 4^2 / 3
         final double volume = VolumesComputer.spheroid(a, b);
-        assertEquals(volume, goodVolume, m_epsilon);
+        assertEquals(volume, goodVolume, EPSILON);
     }
 
     @Test
@@ -50,7 +50,7 @@ public class VolumesComputerTest {
         final double a = 5.0, b = 0.0;
         final double goodVolume = 0.0;  // 4 * Pi * 5 * 0^2 / 3
         final double volume = VolumesComputer.spheroid(a, b);
-        assertEquals(volume, goodVolume, m_epsilon);
+        assertEquals(volume, goodVolume, EPSILON);
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -73,7 +73,7 @@ public class VolumesComputerTest {
         final double goodVolume = 188.49555921538759430775860299677;
         // Pi * 5 * 4 * 3
         final double volume = VolumesComputer.rightCylinder(a, b, h);
-        assertEquals(volume, goodVolume, m_epsilon);
+        assertEquals(volume, goodVolume, EPSILON);
     }
 
     @Test
@@ -81,7 +81,7 @@ public class VolumesComputerTest {
         final double a = 5.0, b = 4.0, h = 0.0;
         final double goodVolume = 0.0;  // Pi * 5 * 4 * 0
         final double volume = VolumesComputer.rightCylinder(a, b, h);
-        assertEquals(volume, goodVolume, m_epsilon);
+        assertEquals(volume, goodVolume, EPSILON);
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -104,7 +104,7 @@ public class VolumesComputerTest {
         final double goodVolume = 104.71975511965977461542144610932;
         // Pi * 5^2 * 4 / 3
         final double volume = VolumesComputer.rightCircularCone(r, h);
-        assertEquals(volume, goodVolume, m_epsilon);
+        assertEquals(volume, goodVolume, EPSILON);
     }
 
     @Test
@@ -112,7 +112,7 @@ public class VolumesComputerTest {
         final double r = 5.0, h = 0.0;
         final double goodVolume = 0.0;  // Pi * 5^2 * 0 / 3
         final double volume = VolumesComputer.rightCircularCone(r, h);
-        assertEquals(volume, goodVolume, m_epsilon);
+        assertEquals(volume, goodVolume, EPSILON);
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -129,5 +129,5 @@ public class VolumesComputerTest {
     }
 
 
-    private static final double m_epsilon = 0.0000001;
+    private static final double EPSILON = 0.0000001;
 }
