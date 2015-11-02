@@ -32,4 +32,28 @@ public class StackTest {
         myStack.push(element);
         assertEquals("1", myStack.toString());
     }
+
+    @Test
+    public void Push_10_Integer_Elements_To_Empty_Stack() {
+        Stack myStack = new Stack();
+        Integer[] elements = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+        for (int i = 0; i < elements.length; ++i ) {
+            myStack.push(elements[i]);
+        }
+
+        assertEquals("1 2 3 4 5 6 7 8 9 10", myStack.toString());
+    }
+
+    @Test
+    public void Push_10_String_Elements_To_Empty_Stack() {
+        Stack myStack = new Stack();
+        String[] elements = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+
+        for (int i = 0; i < elements.length; ++i ) {
+            myStack.push(elements[i]);
+        }
+
+        assertEquals("1 2 3 4 5 6 7 8 9 10", myStack.toString());
+    }
 }
