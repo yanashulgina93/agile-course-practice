@@ -17,8 +17,6 @@ public class CanDoArithmeticWithComplexNumberAndZeroTest {
 
     @Test
     public void canAddComplexNumberWitZero() {
-        setUpComplexNumberAndZero();
-
         Complex result = first.add(second);
 
         assertEquals(result, new Complex(2, 3));
@@ -26,8 +24,6 @@ public class CanDoArithmeticWithComplexNumberAndZeroTest {
 
     @Test
     public void canSubtractComplexNumberFromZero() {
-        setUpComplexNumberAndZero();
-
         Complex result = second.subtract(first);
 
         assertEquals(result, new Complex(-2, -3));
@@ -35,8 +31,6 @@ public class CanDoArithmeticWithComplexNumberAndZeroTest {
 
     @Test
     public void canMultiplyComplexNumberWithZero() {
-        setUpComplexNumberAndZero();
-
         Complex result = first.multiply(second);
 
         assertEquals(result, new Complex(0, 0));
@@ -44,8 +38,6 @@ public class CanDoArithmeticWithComplexNumberAndZeroTest {
 
     @Test(expected = Exception.class)
     public void canNotDivideComplexNumbersToZero() {
-        setUpComplexNumberAndZero();
-
         Complex result = first.divide(second);
     }
 }
