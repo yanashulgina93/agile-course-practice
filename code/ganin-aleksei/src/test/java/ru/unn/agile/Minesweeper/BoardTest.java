@@ -77,7 +77,7 @@ public class BoardTest {
     }
 
     @Test
-    public void unsetFlag(){
+    public void unsetFlag() {
         board.setFlag(0, 0);
         board.unsetFlag(0, 0);
         assertFalse(board.getCell(0, 0).isFlag());

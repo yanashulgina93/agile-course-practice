@@ -182,7 +182,7 @@ public class Board extends JPanel {
         return  minesCount;
     }
 
-    public Cell getCell(final  int positionY, final int positionX){
+    public Cell getCell(final  int positionY, final int positionX) {
         return cells[positionY][positionX];
     }
 }

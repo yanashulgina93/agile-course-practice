@@ -132,7 +132,7 @@ public class Cell extends JLabel {
         flag = false;
     }
 
-    private void setIconForValue(int value){
+    private void setIconForValue(final int value) {
         if (value == CELL_VALUE_0) {
             setIcon(val0Icon);
         } else if (value == CELL_VALUE_1) {
