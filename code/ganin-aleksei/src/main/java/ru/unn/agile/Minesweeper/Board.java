@@ -95,7 +95,7 @@ public class Board extends JPanel {
         for (int i = 0; i < neighboringCells.size(); i++) {
             Cell cell = neighboringCells.get(i);
             if (!cell.isMine()) {
-                openCell(cell.getPositionY(), cell.getPositionY());
+                openCell(cell.getPositionY(), cell.getPositionX());
             }
         }
     }
