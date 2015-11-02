@@ -105,8 +105,6 @@ public class Board extends JPanel {
         if (!lost && !cell.isIssue() && !cell.isFlag() && !cell.isOpen()) {
             cell.open();
             openCellsCount++;
-            System.out.println(openCellsCount);
-            System.out.println(allCellsCount());
             if (cell.isMine()) {
                 lost = true;
                 minesweeper.end(false);
