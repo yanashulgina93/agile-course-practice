@@ -2,9 +2,9 @@ package ru.unn.agile.TreeStructure.Model;
 
 public class TreeStructure<TypeKey extends Comparable<TypeKey>, TypeData> {
     private NodeStructure<TypeKey, TypeData> root;
-    private static int firstValueMore = 1;
-    private static int firstValueLess = -1;
-    private static int valuesAreEqual = 0;
+    static final int FIRST_VALUE_MORE = 1;
+    static final int FIRST_VALUE_LESS = -1;
+    static final int VALUES_ARE_EQUAL = 0;
 
     public TreeStructure() {
         root = null;
@@ -12,7 +12,6 @@ public class TreeStructure<TypeKey extends Comparable<TypeKey>, TypeData> {
 
     public TreeStructure(final TypeKey key, final TypeData data) {
         root = new NodeStructure<>(key, data);
-
     }
 
     public boolean addNode(final TypeKey key, final TypeData data) {
@@ -27,16 +26,18 @@ public class TreeStructure<TypeKey extends Comparable<TypeKey>, TypeData> {
     private boolean add(final NodeStructure<TypeKey, TypeData> currentNode,
                         final NodeStructure<TypeKey, TypeData> newNode) {
 
-        if (currentNode.getKey().compareTo(newNode.getKey()) == firstValueMore) {
+        if (currentNode.getKey().compareTo(newNode.getKey()) == FIRST_VALUE_MORE) {
             if (currentNode.getLeftChild() == null) {
                 currentNode.setLeftChild(newNode);
+                newNode.setParent(currentNode);
                 return true;
             }
             return add(currentNode.getLeftChild(), newNode);
         }
-        if (currentNode.getKey().compareTo(newNode.getKey()) == firstValueLess) {
+        if (currentNode.getKey().compareTo(newNode.getKey()) == FIRST_VALUE_LESS) {
             if (currentNode.getRightChild() == null) {
                 currentNode.setRightChild(newNode);
+                newNode.setParent(currentNode);
                 return true;
             }
             return add(currentNode.getRightChild(), newNode);
@@ -53,10 +54,10 @@ public class TreeStructure<TypeKey extends Comparable<TypeKey>, TypeData> {
         if (node == null) {
             return null;
         }
-        if (node.getKey().compareTo(key) == valuesAreEqual) {
+        if (node.getKey().compareTo(key) == VALUES_ARE_EQUAL) {
             return node;
         }
-        if (node.getKey().compareTo(key) == firstValueMore) {
+        if (node.getKey().compareTo(key) == FIRST_VALUE_MORE) {
             return search(node.getLeftChild(), key);
         } else {
             return search(node.getRightChild(), key);
@@ -64,11 +65,23 @@ public class TreeStructure<TypeKey extends Comparable<TypeKey>, TypeData> {
     }
 
     public boolean truncateByKey(final TypeKey key) {
-        NodeStructure<TypeKey, TypeData> foundNode = searchByKey(key);
+        NodeStructure<TypeKey, TypeData> foundNode;
+        foundNode = searchByKey(key);
+
         if (foundNode == null) {
             return false;
         }
+        if (!root.equals(foundNode)) {
+            if (foundNode.getParent().getRightChild().getKey().compareTo(key) == VALUES_ARE_EQUAL) {
+                foundNode.getParent().setRightChild(null);
+            } else {
+                foundNode.getParent().setLeftChild(null);
+            }
+        }
         deleteNode(foundNode);
+        if (root.equals(foundNode)) {
+            root = null;
+        }
         return true;
     }
 
@@ -78,6 +91,7 @@ public class TreeStructure<TypeKey extends Comparable<TypeKey>, TypeData> {
             deleteNode(foundNode.getRightChild());
             foundNode.setLeftChild(null);
             foundNode.setRightChild(null);
+            foundNode.setParent(null);
         }
     }
 }

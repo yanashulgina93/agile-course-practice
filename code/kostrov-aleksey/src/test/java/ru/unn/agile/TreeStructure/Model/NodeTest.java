@@ -76,4 +76,18 @@ public class NodeTest {
         nodeWithDataString.setRightChild(nodeChild);
         assertEquals(nodeChild, nodeWithDataString.getRightChild());
     }
+
+    @Test
+    public void canSetParent() {
+        nodeChild = new NodeStructure<>(80, "child");
+        nodeChild.setParent(nodeWithDataString);
+        assertNotNull(nodeChild.getParent());
+    }
+
+    @Test
+    public void canGetParent() {
+        nodeChild = new NodeStructure<>(80, "child");
+        nodeChild.setParent(nodeWithDataString);
+        assertEquals(nodeWithDataString, nodeChild.getParent());
+    }
 }
