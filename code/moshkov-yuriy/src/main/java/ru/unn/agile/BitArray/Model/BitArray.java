@@ -28,15 +28,15 @@ public class BitArray {
     }
 
     public BitArray and(final BitArray arr) {
-        return this.doOperationWithArr(arr, '*');
+        return this.doOperationWithArr(arr, new BitArrayAndOperation());
     }
 
     public BitArray or(final BitArray arr) {
-        return this.doOperationWithArr(arr, '|');
+        return this.doOperationWithArr(arr, new BitArrayOrOperation());
     }
 
     public BitArray xor(final BitArray arr) {
-        return this.doOperationWithArr(arr, '^');
+        return this.doOperationWithArr(arr, new BitArrayAndOperation());
     }
 
     public BitArray not() {
@@ -55,24 +55,25 @@ public class BitArray {
         return this.size;
     }
 
-    private BitArray doOperationWithArr(final BitArray arr, final char op) {
-        BitArray res = new BitArray(this.size);
+    private BitArray doOperationWithArr(final BitArray arr, final IBitArrayOperation operation) {
+        BitArray res;
         if (arr.getSize() == this.size) {
-            for (int i = 0; i < size; i++) {
-                switch (op) {
-                    case '^':
-                        res.setBit(i, arr.getBit(i) ^ this.getBit(i));
-                        break;
-                    case '*':
-                        res.setBit(i, arr.getBit(i) & this.getBit(i));
-                        break;
-                    case '|':
-                        res.setBit(i, arr.getBit(i) | this.getBit(i));
-                        break;
-                    default:
-                        throw new BitArrayUnsupportedOperationException("Unsupported operation");
-                }
-            }
+            // for (int i = 0; i < size; i++) {
+            //     switch (op) {
+            //         case '^':
+            //             res.setBit(i, arr.getBit(i) ^ this.getBit(i));
+            //             break;
+            //         case '*':
+            //             res.setBit(i, arr.getBit(i) & this.getBit(i));
+            //             break;
+            //         case '|':
+            //             res.setBit(i, arr.getBit(i) | this.getBit(i));
+            //             break;
+            //         default:
+            //             throw new BitArrayUnsupportedOperationException("Unsupported operation");
+            //     }
+            // }
+            res = operation.doOperation(this, arr);
         } else {
             throw new BitArrayDifferentSizeException("Different size of arrays");
         }
