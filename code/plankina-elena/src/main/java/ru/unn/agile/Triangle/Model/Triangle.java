@@ -11,7 +11,7 @@ public class Triangle {
     private final List<Double> coordinatesOfPoint1;
     private final List<Double> coordinatesOfPoint2;
     private final List<Double> coordinatesOfPoint3;
-    private int dimension;
+    private final int dimension;
     private static final double THEHALF = 0.5;
 
     public Triangle(final List<Double> inputCoordinatesOfPoint1,
