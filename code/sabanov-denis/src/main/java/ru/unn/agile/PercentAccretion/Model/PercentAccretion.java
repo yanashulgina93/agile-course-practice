@@ -11,7 +11,7 @@ public final class PercentAccretion {
                                                        final double percentRate,
                                                        final int countOfYears) {
         if (initialSum > 0 && percentRate > 0 && countOfYears > 0) {
-            return initialSum * (1 + percentRate * FROMPERCENT * countOfYears);
+            return initialSum * (1 + percentRate * FROM_PERCENT * countOfYears);
         } else {
             throw new IllegalArgumentException();
         }
@@ -21,7 +21,7 @@ public final class PercentAccretion {
                                                         final double percentRate,
                                                         final int countOfYears) {
         if (initialSum > 0 && percentRate > 0 && countOfYears > 0) {
-            return initialSum * Math.pow(1 + percentRate * FROMPERCENT, countOfYears);
+            return initialSum * Math.pow(1 + percentRate * FROM_PERCENT, countOfYears);
         } else {
             throw new IllegalArgumentException();
         }
@@ -33,7 +33,7 @@ public final class PercentAccretion {
                                                             final int countOfYears) {
         if (initialSum > 0 && percentRate > 0 && countOfYears > 0
                 && percentPayingPerYear > 0) {
-            return initialSum * Math.pow(1 + percentRate * FROMPERCENT / percentPayingPerYear,
+            return initialSum * Math.pow(1 + percentRate * FROM_PERCENT / percentPayingPerYear,
                     countOfYears * percentPayingPerYear);
         } else {
             throw new IllegalArgumentException();
@@ -43,7 +43,7 @@ public final class PercentAccretion {
     public static double calculateEffectivePercentRate(final double percentRate,
                                                        final int percentPayingPerYear) {
         if (percentRate > 0 && percentPayingPerYear > 0) {
-            return TOPERCENT * (Math.pow(1 + (percentRate * FROMPERCENT)
+            return TO_PERCENT * (Math.pow(1 + (percentRate * FROM_PERCENT)
                     / percentPayingPerYear, percentPayingPerYear) - 1);
         } else {
             throw new IllegalArgumentException();
@@ -56,7 +56,7 @@ public final class PercentAccretion {
                                                             final int countOfYears) {
         if (initialSum > 0 && percentRate > 0 && countOfYears > 0
                 && percentPayingPerYear > 0) {
-            return initialSum * Math.pow(1 + FROMPERCENT
+            return initialSum * Math.pow(1 + FROM_PERCENT
                             * calculateEffectivePercentRate(percentRate, percentPayingPerYear),
                     countOfYears);
         } else {
