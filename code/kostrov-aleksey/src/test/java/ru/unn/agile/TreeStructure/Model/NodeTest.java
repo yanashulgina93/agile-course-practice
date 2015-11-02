@@ -21,13 +21,12 @@ public class NodeTest {
 
     @Test
     public void canGetKey() {
-        nodeWithDataString = new NodeStructure<>(100, "");
-        assertEquals((Integer) 100, nodeWithDataString.getKey());
+        Integer resultGetKey = nodeWithDataString.getKey();
+        assertEquals((Integer) 1, resultGetKey);
     }
 
     @Test
     public void canSetString() {
-        nodeWithDataString = new NodeStructure<>(1, "question");
         nodeWithDataString.setData("answer");
         assertEquals("answer", nodeWithDataString.getData());
     }
@@ -47,21 +46,18 @@ public class NodeTest {
 
     @Test
     public void canGetString() {
-        nodeWithDataString = new NodeStructure<>(10, "qwerty");
-        assertEquals("qwerty", nodeWithDataString.getData());
+        assertEquals("initialString", nodeWithDataString.getData());
     }
 
     @Test
     public void canSetLeftChild() {
-        nodeWithDataString = new NodeStructure<>(100, "root");
         nodeChild = new NodeStructure<>(80, "child");
         nodeWithDataString.setLeftChild(nodeChild);
-        assertEquals(nodeChild, nodeWithDataString.getLeftChild());
+        assertNotNull(nodeWithDataString.getLeftChild());
     }
 
     @Test
     public void canGetLeftChild() {
-        nodeWithDataString = new NodeStructure<>(100, "root");
         nodeChild = new NodeStructure<>(80, "child");
         nodeWithDataString.setLeftChild(nodeChild);
         assertEquals(nodeChild, nodeWithDataString.getLeftChild());
@@ -69,15 +65,13 @@ public class NodeTest {
 
     @Test
     public void canSetRightChild() {
-        nodeWithDataString = new NodeStructure<>(100, "root");
         nodeChild = new NodeStructure<>(80, "child");
         nodeWithDataString.setRightChild(nodeChild);
-        assertEquals(nodeChild, nodeWithDataString.getRightChild());
+        assertNotNull(nodeWithDataString.getRightChild());
     }
 
     @Test
     public void canGetRightChild() {
-        nodeWithDataString = new NodeStructure<>(100, "root");
         nodeChild = new NodeStructure<>(80, "child");
         nodeWithDataString.setRightChild(nodeChild);
         assertEquals(nodeChild, nodeWithDataString.getRightChild());

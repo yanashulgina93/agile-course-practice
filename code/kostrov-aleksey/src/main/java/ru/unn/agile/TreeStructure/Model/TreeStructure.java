@@ -2,6 +2,9 @@ package ru.unn.agile.TreeStructure.Model;
 
 public class TreeStructure<TypeKey extends Comparable<TypeKey>, TypeData> {
     private NodeStructure<TypeKey, TypeData> root;
+    private static int firstValueMore = 1;
+    private static int firstValueLess = -1;
+    private static int valuesAreEqual = 0;
 
     public TreeStructure() {
         root = null;
@@ -24,14 +27,14 @@ public class TreeStructure<TypeKey extends Comparable<TypeKey>, TypeData> {
     private boolean add(final NodeStructure<TypeKey, TypeData> currentNode,
                         final NodeStructure<TypeKey, TypeData> newNode) {
 
-        if (currentNode.getKey().compareTo(newNode.getKey()) == 1) {
+        if (currentNode.getKey().compareTo(newNode.getKey()) == firstValueMore) {
             if (currentNode.getLeftChild() == null) {
                 currentNode.setLeftChild(newNode);
                 return true;
             }
             return add(currentNode.getLeftChild(), newNode);
         }
-        if (currentNode.getKey().compareTo(newNode.getKey()) == -1) {
+        if (currentNode.getKey().compareTo(newNode.getKey()) == firstValueLess) {
             if (currentNode.getRightChild() == null) {
                 currentNode.setRightChild(newNode);
                 return true;
@@ -50,10 +53,10 @@ public class TreeStructure<TypeKey extends Comparable<TypeKey>, TypeData> {
         if (node == null) {
             return null;
         }
-        if (node.getKey().compareTo(key) == 0) {
+        if (node.getKey().compareTo(key) == valuesAreEqual) {
             return node;
         }
-        if (node.getKey().compareTo(key) == 1) {
+        if (node.getKey().compareTo(key) == firstValueMore) {
             return search(node.getLeftChild(), key);
         } else {
             return search(node.getRightChild(), key);

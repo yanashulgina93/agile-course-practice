@@ -6,15 +6,21 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class TreeTest {
-    private TreeStructure<Integer, java.lang.String> tree = null;
+    private TreeStructure<Integer, java.lang.String> tree;
 
     @Before
     public void initializeTree() {
-        tree = new TreeStructure<>();
+        tree = new TreeStructure<>(200, "root");
+        tree.addNode(100, "Child#1");
+        tree.addNode(150, "Child#2");
+        tree.addNode(210, "Child#3");
+        tree.addNode(220, "Child#4");
+        tree.addNode(80, "Child#5");
       }
 
     @Test
     public void createTreeWithoutParameterIsNotNull() {
+        tree = new TreeStructure<>();
         assertNotNull(tree);
     }
 
@@ -27,55 +33,42 @@ public class TreeTest {
     @Test
     public void canAddNewNodeRoot() {
         tree = new TreeStructure<>();
-        assertTrue(tree.addNode(100, "root"));
+        assertTrue(tree.addNode(80, "root"));
     }
 
     @Test
     public void canAddNewNodeNotRoot() {
-        tree = new TreeStructure<>(100, "root");
-        assertTrue(tree.addNode(80, "child"));
+        boolean resultAddNotRoot = tree.addNode(280, "Child#6");
+        assertTrue(resultAddNotRoot);
     }
 
     @Test
     public void canAddNodeWithDuplicateKey() {
-        tree = new TreeStructure<>(100, "root");
         boolean resultAdd = tree.addNode(100, "child");
         assertFalse(resultAdd);
     }
 
     @Test
     public void canSearchByKeyword() {
-        tree = new TreeStructure<>(100, "root");
-        tree.addNode(50, "leftChild");
-        tree.addNode(150, "rightChild");
-        NodeStructure searchedNode = tree.searchByKey(50);
-        assertEquals("leftChild", searchedNode.getData());
+        NodeStructure searchedNode = tree.searchByKey(150);
+        assertEquals("Child#2", searchedNode.getData());
     }
 
     @Test
     public void canSearchNotAddedElement() {
-        tree = new TreeStructure<>(100, "root");
-        tree.addNode(50, "leftChild");
-        assertNull(tree.searchByKey(20));
+        NodeStructure searchedNode = tree.searchByKey(20);
+        assertNull(searchedNode);
     }
 
     @Test
     public void canDeleteSubTree() {
-        tree = new TreeStructure<>(100, "root");
-        tree.addNode(50, "1");
-        tree.addNode(150, "2");
-        tree.addNode(40, "3");
-        tree.addNode(60, "4");
-        assertTrue(tree.truncateByKey(50));
+        boolean resultDelete = tree.truncateByKey(100);
+        assertTrue(resultDelete);
     }
 
     @Test
     public void canDeleteAllTree() {
-        tree = new TreeStructure<>(200, "root");
-        tree.addNode(100, "Child#1");
-        tree.addNode(150, "Child#2");
-        tree.addNode(210, "Child#3");
-        tree.addNode(220, "Child#4");
-        assertTrue(tree.truncateByKey(200));
+        boolean resultDeleteTree = tree.truncateByKey(200);
+        assertTrue(resultDeleteTree);
     }
 }
