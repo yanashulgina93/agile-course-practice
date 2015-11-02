@@ -2,8 +2,8 @@ package ru.unn.agile.PercentAccretion.Model;
 
 public final class PercentAccretion {
 
-    static final double FROMPERCENT = 0.01;
-    static final double TOPERCENT = 100;
+    static final double FROM_PERCENT = 0.01;
+    static final double TO_PERCENT = 100;
 
     private PercentAccretion() { }
 
