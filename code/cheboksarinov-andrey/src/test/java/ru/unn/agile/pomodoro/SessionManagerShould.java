@@ -18,19 +18,20 @@ public class SessionManagerShould {
     @Test
     public void decreaseSecondByOneIfPomodoroStartAndOneSecondLeft() {
         sessionManager.startNewPomodoro();
+        final int secondCountAfterOneTick = 59;
 
-       mockTimer.throwTicks(1);
+        mockTimer.throwTicks(1);
 
-        assertEquals(59, sessionManager.getSecond());
+        assertEquals(secondCountAfterOneTick, sessionManager.getSecond());
     }
 
     @Test
     public void decreaseMinuteByOneIfPomodoroStartAndOneMinuteLeft() {
         sessionManager.startNewPomodoro();
-
+        final int minuteCountAfterOneLeft = 24;
         tickOneMinute();
 
-        assertEquals(24, sessionManager.getMinute());
+        assertEquals(minuteCountAfterOneLeft, sessionManager.getMinute());
     }
 
     @Test
@@ -54,10 +55,11 @@ public class SessionManagerShould {
     @Test
     public void minutesSetOnFiveWhenPomodoroIsOverAndNotTimeForBigBreak() {
         sessionManager.startNewPomodoro();
+        final int minuteCountForBreak = 5;
 
         completePomodoro();
 
-        assertEquals(5, sessionManager.getMinute());
+        assertEquals(minuteCountForBreak, sessionManager.getMinute());
     }
 
     @Test
@@ -91,10 +93,11 @@ public class SessionManagerShould {
     @Test
     public void minuteSetOnThirtyWhenPomodoroIsOverAndTimeForBigBreak() {
         sessionManager.startNewPomodoro();
+        final int minuteCountForBigBreak = 30;
 
         completeFourPomodoros();
 
-        assertEquals(30, sessionManager.getMinute());
+        assertEquals(minuteCountForBigBreak, sessionManager.getMinute());
     }
 
     @Test
