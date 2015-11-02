@@ -58,21 +58,6 @@ public class BitArray {
     private BitArray doOperationWithArr(final BitArray arr, final IBitArrayOperation operation) {
         BitArray res;
         if (arr.getSize() == this.size) {
-            // for (int i = 0; i < size; i++) {
-            //     switch (op) {
-            //         case '^':
-            //             res.setBit(i, arr.getBit(i) ^ this.getBit(i));
-            //             break;
-            //         case '*':
-            //             res.setBit(i, arr.getBit(i) & this.getBit(i));
-            //             break;
-            //         case '|':
-            //             res.setBit(i, arr.getBit(i) | this.getBit(i));
-            //             break;
-            //         default:
-            //             throw new BitArrayUnsupportedOperationException("Unsupported operation");
-            //     }
-            // }
             res = operation.doOperation(this, arr);
         } else {
             throw new BitArrayDifferentSizeException("Different size of arrays");
