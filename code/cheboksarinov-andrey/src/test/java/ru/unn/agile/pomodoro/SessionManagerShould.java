@@ -7,11 +7,11 @@ import static org.junit.Assert.assertEquals;
 
 public class SessionManagerShould {
     private SessionManager sessionManager;
-    private MockTimer mockTimer;
+    private MockTimerWithListener mockTimer;
 
     @Before
     public void setUp() {
-        mockTimer = new MockTimer();
+        mockTimer = new MockTimerWithListener();
         sessionManager = new SessionManager(mockTimer);
     }
 

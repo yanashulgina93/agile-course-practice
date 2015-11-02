@@ -1,31 +1,25 @@
 package ru.unn.agile.pomodoro;
 
+import javax.swing.*;
 import java.awt.event.ActionListener;
 
-public class MockTimer implements ITimer {
+public class TimerWithListenerInApp implements ITimerWithListener {
+    private javax.swing.Timer swingTimer;
     private ActionListener tickListener;
-
     @Override
     public void start() {
-        final int mock = 1;
+        final int oneSecond = 1000;
+        swingTimer = new Timer(oneSecond, tickListener);
+        swingTimer.start();
     }
 
     @Override
     public void stop() {
-        final int mock = 1;
+        swingTimer.stop();
     }
 
     @Override
     public void addTickActionListener(final ActionListener tickListener) {
         this.tickListener = tickListener;
     }
-
-    public void throwTicks(final int tickNumber) {
-        for (int i = 0; i < tickNumber; i++) {
-            tickListener.actionPerformed(null);
-        }
-    }
-
-
 }
-

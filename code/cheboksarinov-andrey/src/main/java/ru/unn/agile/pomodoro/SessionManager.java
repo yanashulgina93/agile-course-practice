@@ -5,27 +5,24 @@ import java.awt.event.ActionListener;
 
 public class SessionManager implements ActionListener {
     static final int POMODORO_MINUTE_COUNT = 25;
-    static final int POMODORO_SECOND_COUNT = 0;
     static final int BREAK_MINUTE_COUNT = 5;
-    static final int BREAK_SECOND_COUNT = 0;
     static final int BIG_BREAK_MINUTE_COUNT = 30;
-    static final int BIG_BREAK_SECOND_COUNT = 0;
     private int secondCounter;
     private int minuteCounter;
     private int pomodoroCounter;
 
     private String status;
 
-    private final ITimer internalTimer;
+    private final ITimerWithListener internalTimer;
 
-    public SessionManager(final ITimer internalTimer) {
+    public SessionManager(final ITimerWithListener internalTimer) {
         this.internalTimer = internalTimer;
         setStatus("Waiting");
-        setTime(POMODORO_MINUTE_COUNT, POMODORO_SECOND_COUNT);
+        setTime(POMODORO_MINUTE_COUNT, 0);
     }
 
     public void startNewPomodoro() {
-        setTime(POMODORO_MINUTE_COUNT, POMODORO_SECOND_COUNT);
+        setTime(POMODORO_MINUTE_COUNT, 0);
         setStatus("Pomodoro");
         internalTimer.addTickActionListener(this);
         internalTimer.start();
@@ -64,11 +61,11 @@ public class SessionManager implements ActionListener {
     private void setRestTimer() {
         final int pomodorosForBigBreak = 4;
         if (isItTimeForBigBreak(pomodorosForBigBreak)) {
-            setTime(BIG_BREAK_MINUTE_COUNT, BIG_BREAK_SECOND_COUNT);
+            setTime(BIG_BREAK_MINUTE_COUNT, 0);
             setStatus("Big break");
             internalTimer.start();
         } else {
-            setTime(BREAK_MINUTE_COUNT, BREAK_SECOND_COUNT);
+            setTime(BREAK_MINUTE_COUNT, 0);
             setStatus("Break");
             internalTimer.start();
         }
