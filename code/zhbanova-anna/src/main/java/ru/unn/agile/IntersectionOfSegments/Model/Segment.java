@@ -74,15 +74,15 @@ public class Segment {
         Point finishPointOfIntersection;
 
         if (segment1.isIntersection(segment2)) {
-            Double slope1 = calculateSlope(segment1);
-            Double slope2 = calculateSlope(segment2);
+            double slope1 = calculateSlope(segment1);
+            double slope2 = calculateSlope(segment2);
 
             double b1 = segment1.getStartY() - slope1 * segment1.getStartX();
             double b2 = segment2.getStartY() - slope2 * segment2.getStartX();
 
-            if (slope1.equals(slope2)) {
+            if (Math.abs(slope1 - slope2) < Double.MIN_VALUE) {
                 //segment x = const convert to y = const
-                if (slope1.equals(Double.MAX_VALUE)) {
+                if (slope1 == Double.MAX_VALUE) {
                     swapXY(segment1);
                     swapXY(segment2);
                 }
@@ -106,7 +106,7 @@ public class Segment {
                     startPointOfIntersection = segment1.getStart();
                     finishPointOfIntersection = segment2.getFinish();
                 }
-                if (slope1.equals(Double.MAX_VALUE)) {
+                if (slope1 == Double.MAX_VALUE) {
                     startPointOfIntersection.swapXY();
                     finishPointOfIntersection.swapXY();
                 }
