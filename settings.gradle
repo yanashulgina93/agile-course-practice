@@ -84,6 +84,8 @@ project(":code/kochanova-ksenya").name = "kochanova-ksenya-Model"
 include "code/nesmelov-aleksey"
 project(":code/nesmelov-aleksey").name = "nesmelov-aleksey-Model"
 // Nikolaev Kirill
+include "code/nikolaev-kirill"
+project(":code/nikolaev-kirill").name = "nikolaev-kirill-Model"
 // Nistratov Andrej
 // Nistratov Artyom
 // Nistratova Elena
