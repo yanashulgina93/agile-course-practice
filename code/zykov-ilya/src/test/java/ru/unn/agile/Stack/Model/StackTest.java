@@ -113,4 +113,25 @@ public class StackTest {
 
         assertEquals("11", myStack.toString());
     }
+
+    @Test
+    public void peakFromStackWithFewElements() {
+        Stack myStack = new Stack(new Integer[]{1, 2, 3});
+
+        assertEquals(3, myStack.peak());
+    }
+
+    @Test
+    public void peakFromEmptyStack() {
+        Stack myStack = new Stack();
+
+        assertEquals(null, myStack.peak());
+    }
+
+    @Test
+    public void checkIsPeakNotChangeSteck() {
+        Stack myStack = new Stack(new Integer[]{1, 2, 3});
+
+        assertEquals("1 2 3", myStack.toString());
+    }
 }

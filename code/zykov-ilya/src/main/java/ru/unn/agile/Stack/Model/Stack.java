@@ -45,4 +45,12 @@ public class Stack {
             return null;
         }
     }
+
+    public Object peak() {
+        if (size > 0) {
+            return values[size - 1];
+        } else {
+            return null;
+        }
+    }
 }
