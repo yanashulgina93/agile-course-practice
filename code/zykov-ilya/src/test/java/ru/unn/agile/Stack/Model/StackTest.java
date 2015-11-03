@@ -6,27 +6,27 @@ import static org.junit.Assert.assertEquals;
 
 public class StackTest {
     @Test
-    public void Initiating_Stack_From_Int_Array() {
+    public void initiatingStackFromIntArray() {
         Integer[] inputArray = {1, 2, 3};
         Stack myStack = new Stack(inputArray);
         assertEquals("1 2 3", myStack.toString());
     }
 
     @Test
-     public void Initiating_Stack_From_String_Array() {
+     public void initiatingStackFromStringArray() {
         String[] inputArray = {"one", "two", "three"};
         Stack myStack = new Stack(inputArray);
         assertEquals("one two three", myStack.toString());
     }
 
     @Test
-    public void Initiating_Empty_Stack() {
+    public void initiatingEmptyStack() {
         Stack myStack = new Stack();
         assertEquals("", myStack.toString());
     }
 
     @Test
-    public void Push_Element_To_Empty_Stack() {
+    public void pushElementToEmptyStack() {
         Stack myStack = new Stack();
         Integer element = 1;
         myStack.push(element);
@@ -34,11 +34,11 @@ public class StackTest {
     }
 
     @Test
-    public void Push_10_Integer_Elements_To_Empty_Stack() {
+    public void pushTenIntegerElementsToEmptyStack() {
         Stack myStack = new Stack();
         Integer[] elements = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
-        for (int i = 0; i < elements.length; ++i ) {
+        for (int i = 0; i < elements.length; ++i) {
             myStack.push(elements[i]);
         }
 
@@ -46,11 +46,11 @@ public class StackTest {
     }
 
     @Test
-    public void Push_10_String_Elements_To_Empty_Stack() {
+    public void pushTenStringElementsToEmptyStack() {
         Stack myStack = new Stack();
         String[] elements = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
-        for (int i = 0; i < elements.length; ++i ) {
+        for (int i = 0; i < elements.length; ++i) {
             myStack.push(elements[i]);
         }
 
@@ -58,7 +58,7 @@ public class StackTest {
     }
 
     @Test
-    public void Pop_Element_From_1_2_3_Stack() {
+    public void popElementFrom123Stack() {
         Integer[] inputArray = {1, 2, 3};
         Stack myStack = new Stack(inputArray);
 
@@ -66,7 +66,7 @@ public class StackTest {
     }
 
     @Test
-    public void Pop_Element_From_1_2_3_Stack_And_Watch_Which_Will_Stay() {
+    public void popElementFrom123StackAndWatchWhichWillStay() {
         Integer[] inputArray = {1, 2, 3};
         Stack myStack = new Stack(inputArray);
         myStack.pop();
@@ -75,7 +75,7 @@ public class StackTest {
     }
 
     @Test
-    public void Pop_Element_From_String_Stack() {
+    public void popElementFromStringStack() {
         String[] inputArray = {"one", "two", "three"};
         Stack myStack = new Stack(inputArray);
 
@@ -83,7 +83,7 @@ public class StackTest {
     }
 
     @Test
-    public void Pop_Element_From_Empty_Stack_And_Watch_Which_Will_Stay() {
+    public void popElementFromEmptyStackAndWatchWhichWillStay() {
         Stack myStack = new Stack();
         myStack.pop();
 
@@ -91,14 +91,14 @@ public class StackTest {
     }
 
     @Test
-    public void Pop_Element_From_Empty_Stack() {
+    public void popElementFromEmptyStack() {
         Stack myStack = new Stack();
 
         assertEquals(null, myStack.pop());
     }
 
     @Test
-    public void Push_and_Pop_To_Empty_Stack() {
+    public void pushAndPopToEmptyStack() {
         Stack myStack = new Stack();
         myStack.push(10);
 
@@ -106,7 +106,7 @@ public class StackTest {
     }
 
     @Test
-    public void Pop_and_Push_To_Empty_Stack() {
+    public void popAndPushToEmptyStack() {
         Stack myStack = new Stack();
         myStack.pop();
         myStack.push(11);

@@ -1,15 +1,15 @@
 package ru.unn.agile.Stack.Model;
 
-import java.util.Objects;
-
 public class Stack {
-    private Object[] values = new Object[0];
-    int size = 0;
+    private Object[] values;
+    private int size;
 
     public Stack() {
+        values = new Object[0];
+        size = 0;
     }
 
-    public Stack(Object[] inputArray) {
+    public Stack(final Object[] inputArray) {
         values = inputArray.clone();
         size = inputArray.length;
     }
@@ -25,7 +25,7 @@ public class Stack {
         return res;
     }
 
-    public void push(Object element) {
+    public void push(final Object element) {
         size++;
         if (values.length < size) {
             Object[] newValues = new Object[size * 2];
@@ -34,15 +34,14 @@ public class Stack {
             }
             values = newValues;
         }
-        values[size-1] = element;
+        values[size - 1] = element;
     }
 
     public Object pop() {
         if (size > 0) {
             size--;
             return values[size];
-        }
-        else {
+        } else {
             return null;
         }
     }
