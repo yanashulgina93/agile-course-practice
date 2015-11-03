@@ -7,13 +7,14 @@ public final class QuadraticEquationSolutionFormer {
     }
 
     public static float [] form(final ArrayList<Float> roots) {
-        float [] ans = null;
+        if (roots == null) {
+            return null;
+        }
+        float [] ans;
         int length = roots.size();
-        if (length > 0) {
-            ans = new float[length];
-            for (int i = 0; i < length; i++) {
-                ans[i] = roots.get(i);
-            }
+        ans = new float[length];
+        for (int i = 0; i < length; i++) {
+            ans[i] = roots.get(i);
         }
         return ans;
     }

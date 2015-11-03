@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public final class QuadraticEquationSolver {
     private static final float COEFFICIENT_DISCRIMINANT = 4.0f;
-    private static final float COEFFICIENT_IN_FORMULA_ROOTS = 2.0f;
+    private static final float COEFFICIENT_ROOTS = 2.0f;
 
     private static ArrayList<Float> roots;
 
@@ -12,11 +12,12 @@ public final class QuadraticEquationSolver {
     }
 
     public static float[] solve(final float a, final float b, final float c) {
-        roots = new ArrayList<Float>();
         if (isQuadraticEquation(a)) {
+            roots = new ArrayList<Float>();
             getSolution(a, b, c);
+            return QuadraticEquationSolutionFormer.form(roots);
         }
-        return QuadraticEquationSolutionFormer.form(roots);
+        return QuadraticEquationSolutionFormer.form(null);
     }
 
     private static void getSolution(final float a, final float b, final float c) {
@@ -36,12 +37,12 @@ public final class QuadraticEquationSolver {
     }
 
     private static void calcSolution(final float a, final float b) {
-        roots.add((-b) / (COEFFICIENT_IN_FORMULA_ROOTS * a));
+        roots.add((-b) / (COEFFICIENT_ROOTS * a));
     }
 
     private static void calcSolution(final float a, final float b, final float discriminant) {
         float discriminantSqrt = (float) Math.sqrt(discriminant);
-        float divider = COEFFICIENT_IN_FORMULA_ROOTS * a;
+        float divider = COEFFICIENT_ROOTS * a;
         float firstTerm = (-b) / divider;
         float secondTerm = discriminantSqrt / divider;
 

@@ -7,14 +7,13 @@ public class QuadraticEquationTest {
     private final float delta = 0.0001f;
 
     @Test
-    public void canGetEmptyAnswerFromEquationWithFirstZeroCoefficient() {
+    public void canGetNullFromEquationWithFirstZeroCoefficient() {
         float [] answer = getSolutionOfQuadraticEquation(0, 2, 3);
         assertNull(answer);
     }
 
-
     @Test
-    public void canGetEmptyAnswerFromEquationWithAllZeroCoefficients() {
+    public void canGetNullFromEquationWithAllZeroCoefficients() {
         float [] answer = getSolutionOfQuadraticEquation(0, 0, 0);
         assertNull(answer);
     }
@@ -34,7 +33,7 @@ public class QuadraticEquationTest {
     @Test
     public void canGetEmptyAnswerFromEquationWithNegativeDiscriminant() {
         float [] answer = getSolutionOfQuadraticEquation(1, 2, 3);
-        assertNull(answer);
+        assertArrayEquals(answer, new float[]{}, delta);
     }
 
     @Test
