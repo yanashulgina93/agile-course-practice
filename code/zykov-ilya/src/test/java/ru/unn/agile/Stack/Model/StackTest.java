@@ -89,4 +89,28 @@ public class StackTest {
 
         assertEquals("", myStack.toString());
     }
+
+    @Test
+    public void Pop_Element_From_Empty_Stack() {
+        Stack myStack = new Stack();
+
+        assertEquals(null, myStack.pop());
+    }
+
+    @Test
+    public void Push_and_Pop_To_Empty_Stack() {
+        Stack myStack = new Stack();
+        myStack.push(10);
+
+        assertEquals(10, myStack.pop());
+    }
+
+    @Test
+    public void Pop_and_Push_To_Empty_Stack() {
+        Stack myStack = new Stack();
+        myStack.pop();
+        myStack.push(11);
+
+        assertEquals("11", myStack.toString());
+    }
 }

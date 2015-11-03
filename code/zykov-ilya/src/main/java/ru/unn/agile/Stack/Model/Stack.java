@@ -2,9 +2,6 @@ package ru.unn.agile.Stack.Model;
 
 import java.util.Objects;
 
-/**
- * Created by Ilya on 02.11.2015.
- */
 public class Stack {
     private Object[] values = new Object[0];
     int size = 0;
@@ -41,7 +38,12 @@ public class Stack {
     }
 
     public Object pop() {
-        size--;
-        return values[size];
+        if (size > 0) {
+            size--;
+            return values[size];
+        }
+        else {
+            return null;
+        }
     }
 }
