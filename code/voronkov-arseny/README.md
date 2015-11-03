@@ -1,4 +1,4 @@
-﻿#Реализация приложения для рассчета объемов трехмерных фигур
+﻿#Реализация приложения для расчета объемов трехмерных фигур
 
 Выполнил:
 
@@ -16,17 +16,11 @@
 
 Необходимую информацию о методике можно найти по следующим ссылкам:
 
- - ["Справочная информация по прямоугольному параллелепипеду"][cuboidlink]
- - ["Справочная информация по эллипсоиду вращения"][spheroidlink]
- - ["Справочная информация по прямому цилиндру"][cylinderlink]
- - ["Справочная информация по круговому конусу"][conelink]
+ - ["Формулы для нахождения объемов геометрических фигур"][volumeslink]
 
 ## Документация разработчика
 
 TBD
 
 <!-- LINKS -->
- [cuboidlink]: https://en.wikipedia.org/wiki/Cuboid
- [spheroidlink]: https://en.wikipedia.org/wiki/Spheroid
- [cylinderlink]: https://en.wikipedia.org/wiki/Cylinder_(geometry)
- [conelink]: https://en.wikipedia.org/wiki/Cone
+ [volumeslink]: http://ru.onlinemschool.com/math/formula/volume/
