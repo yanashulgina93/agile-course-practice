@@ -1,4 +1,4 @@
-package ru.unn.agile.TemperatureConverter.core;
+package ru.unn.agile.TemperatureConverter.Model;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -11,7 +11,6 @@ import static org.junit.Assert.assertEquals;
 public class TemperatureConverterCorrectnessTest {
 
     private static final double DELTA = 1e-16;
-    private TemperatureConverterCreator converterCreator = new TemperatureConverterCreator();
     private TemperatureConverter converter;
 
     private TemperatureScaleName scale;
@@ -43,10 +42,10 @@ public class TemperatureConverterCorrectnessTest {
 
     @Test
     public void isCorrectConvertSimpleNumbers() {
-        converter = converterCreator.create(scale);
+        converter = new TemperatureConverter(scale);
 
-        double temperatureInFahrenheit = converter.convert(temperature);
+        double temperatureInOtherScale = converter.convert(temperature);
 
-        assertEquals(temperatureInFahrenheit, temperatureConverted, DELTA);
+        assertEquals(temperatureInOtherScale, temperatureConverted, DELTA);
     }
 }

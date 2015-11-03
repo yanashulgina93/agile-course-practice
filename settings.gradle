@@ -105,8 +105,8 @@ project(":code/vodopyanov-dmitry").name = "vodopyanov-dmitry-lab1-Model"
 // Voronkov Arsenij
 
 // Yusipov Igor
-include "code/yusipov-igor"
-project(":code/yusipov-igor").name = "yusipov-igor-Model"
+include "code/yusipov-igor/Model"
+project(":code/yusipov-igor/Model").name = "yusipov-igor-Model"
 
 // Zajdullova Alina
 // Zhbanova Anna

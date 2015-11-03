@@ -1,13 +1,13 @@
-package ru.unn.agile.TemperatureConverter.core;
+package ru.unn.agile.TemperatureConverter.Model;
 
 public class TemperatureConverter {
 
     private final double base;
     private final double scaling;
 
-    public TemperatureConverter(final double base, final double scale) {
-        this.base = base;
-        this.scaling = scale;
+    public TemperatureConverter(final TemperatureScaleName scaleName) {
+        base = scaleName.getBase();
+        scaling = scaleName.getScaling();
     }
 
     public double convert(final double temperatureInCelsius) {
