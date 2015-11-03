@@ -8,10 +8,12 @@ public class IntegratorTest {
     private final double delta = 0.001;
     private Integrator integrator;
     private double analyticalIntegralValue;
+    private IFunction function;
 
     @Before
     public void setUp() {
-        integrator = new Integrator(0.0, 1.0, "cos(x)");
+        function = new CosFunction();
+        integrator = new Integrator(0.0, 1.0, function);
         analyticalIntegralValue = Math.sin(1.0);
     }
 

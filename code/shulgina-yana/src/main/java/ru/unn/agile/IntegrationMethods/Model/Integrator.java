@@ -5,18 +5,18 @@ public class Integrator {
     private double lowerLimit;
     private double upperLimit;
     private double step;
-    private Function function;
+    private IFunction function;
     private double integralValue;
 
     static final double ODD_TERMS_SIMPSON_COEF = 4.0;
     static final double EVEN_TERMS_SIMPSON_COEF = 2.0;
     static final double FINAL_SIMPSON_COEF = 3.0;
 
-    public Integrator(final double lowerLim, final double upperLim, final String stringFunction) {
+    public Integrator(final double lowerLim, final double upperLim, final IFunction function) {
         this.lowerLimit = lowerLim;
         this.upperLimit = upperLim;
         step = DEFAULT_STEP;
-        function = new Function(stringFunction);
+        this.function = function;
         integralValue = 0.0;
     }
 
@@ -95,15 +95,15 @@ public class Integrator {
         return step;
     }
 
-    public void setFunction(final Function function) {
+    public double getIntegralValue() {
+        return integralValue;
+    }
+
+    public void setFunction(final IFunction function) {
         this.function = function;
     }
 
-    public Function getFunc() {
+    public IFunction getFunction() {
         return function;
-    }
-
-    public double getIntegralValue() {
-        return integralValue;
     }
 }
