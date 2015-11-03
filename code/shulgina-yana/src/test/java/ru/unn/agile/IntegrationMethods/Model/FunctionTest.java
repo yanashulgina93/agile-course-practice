@@ -14,11 +14,29 @@ public class FunctionTest {
     }
 
     @Test
-    public void canGetValue() {
+    public void canGetValueWhenLinearFunction() {
+        Function function = new Function("x");
+        double x = 1.5;
+        double analyticalFunctionValue = 1.5;
+
+        assertEquals(analyticalFunctionValue, function.getValue(x), delta);
+    }
+
+    @Test
+    public void canGetValueWhenCosinus() {
+        Function function = new Function("cos(x)");
+        double x = Math.PI / 3;
+        double analyticalFunctionValue = 0.5;
+
+        assertEquals(analyticalFunctionValue, function.getValue(x), delta);
+    }
+
+    @Test
+    public void canGetValueWhenExponenta() {
         Function function = new Function("exp(x)");
         double x = 1.5;
-        double correctValue = 4.481689;
+        double standartFunctionValue = Math.exp(1.5);
 
-        assertEquals(correctValue, function.getValue(x), delta);
+        assertEquals(standartFunctionValue, function.getValue(x), delta);
     }
 }

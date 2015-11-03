@@ -1,78 +1,86 @@
 package ru.unn.agile.IntegrationMethods.core;
 
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class IntegratorTest {
     private final double delta = 0.001;
+    private Integrator integrator;
+    private double analyticalIntegralValue;
+
+    @Before
+    public void setUp() {
+        integrator = new Integrator(0.0, 1.0, "cos(x)");
+        analyticalIntegralValue = Math.sin(1.0);
+    }
 
     @Test
     public void canCreateIntegrator() {
-        Integrator integrator = new Integrator(1.0, 2.0, "x");
-
         assertNotNull(integrator);
     }
 
     @Test
     public void canSetLowerLimit() {
-        Integrator integrator = new Integrator(1.0, 2.0, "x");
-
-        assertEquals(1.0, integrator.getLowerLimit(), delta);
+        assertEquals(0.0, integrator.getLowerLimit(), delta);
     }
 
     @Test
     public void canSetUpperLimit() {
-        Integrator integrator = new Integrator(1.0, 2.0, "x");
-
-        assertEquals(2.0, integrator.getUpperLimit(), delta);
+        assertEquals(1.0, integrator.getUpperLimit(), delta);
     }
 
     @Test
     public void canSetStep() {
-        Integrator integrator = new Integrator(1.0, 2.0, "x");
-        double correctValue = 0.0001;
+        double correctStep = 0.0001;
 
-        assertEquals(correctValue, integrator.getStep(), delta);
+        assertEquals(correctStep, integrator.getStep(), delta);
     }
 
     @Test
     public void canUseLeftRectangles() {
-        Integrator integrator = new Integrator(1.0, 2.0, "x");
-        double correctValue = 1.5;
-
-        assertEquals(correctValue, integrator.leftRectangles(), delta);
+        assertEquals(analyticalIntegralValue, integrator.leftRectangles(), delta);
     }
 
     @Test
     public void canUseRightRectangles() {
-        Integrator integrator = new Integrator(1.0, 2.0, "x");
-        double correctValue = 1.5;
-
-        assertEquals(correctValue, integrator.rightRectangles(), delta);
+        assertEquals(analyticalIntegralValue, integrator.rightRectangles(), delta);
     }
 
     @Test
     public void canUseMidpointRectangles() {
-        Integrator integrator = new Integrator(1.0, 2.0, "x");
-        double correctValue = 1.5;
-
-        assertEquals(correctValue, integrator.midpointRectangles(), delta);
+        assertEquals(analyticalIntegralValue, integrator.midpointRectangles(), delta);
     }
 
     @Test
     public void canUseTrapezes() {
-        Integrator integrator = new Integrator(1.0, 2.0, "x");
-        double correctValue = 1.5;
-
-        assertEquals(correctValue, integrator.trapezes(), delta);
+        assertEquals(analyticalIntegralValue, integrator.trapezes(), delta);
     }
 
     @Test
     public void canUseSimpson() {
-        Integrator integrator = new Integrator(1.0, 2.0, "x");
-        double correctValue = 1.5;
+        assertEquals(analyticalIntegralValue, integrator.simpson(), delta);
+    }
 
-        assertEquals(correctValue, integrator.simpson(), delta);
+    @Test
+    public void canDetermineTheMostAccurateMethod() {
+        double[] accuracy = new double[5];
+        accuracy[0] = Math.abs(integrator.leftRectangles() - analyticalIntegralValue);
+        accuracy[1] = Math.abs(integrator.rightRectangles() - analyticalIntegralValue);
+        accuracy[2] = Math.abs(integrator.midpointRectangles() - analyticalIntegralValue);
+        accuracy[3] = Math.abs(integrator.trapezes() - analyticalIntegralValue);
+        accuracy[4] = Math.abs(integrator.simpson() - analyticalIntegralValue);
+
+        int minIndex = 0;
+        double minAccuracy = accuracy[0];
+        for (int i = 1; i < 5; i++) {
+            if (accuracy[i] < minAccuracy) {
+                minAccuracy = accuracy[i];
+                minIndex = i;
+            }
+        }
+
+        assertEquals(4, minIndex);
     }
 }
 

@@ -1,29 +1,28 @@
 package ru.unn.agile.IntegrationMethods.core;
 
 public class Integrator {
-    static final double MAX_STEP = 0.0001;
+    static final double DEFAULT_STEP = 0.0001;
     private double lowerLimit;
     private double upperLimit;
     private double step;
-    private Function func;
+    private Function function;
     private double integralValue;
 
-    static final double ODD_TERMS_SYMPSON_COEF = 4.0;
-    static final double EVEN_TERMS_SYMPSON_COEF = 2.0;
-    static final double FINAL_SYMPSON_COEF = 3.0;
+    static final double ODD_TERMS_SIMPSON_COEF = 4.0;
+    static final double EVEN_TERMS_SIMPSON_COEF = 2.0;
+    static final double FINAL_SIMPSON_COEF = 3.0;
 
-    public Integrator(final double lowerLim, final double upperLim, final String strFunc) {
+    public Integrator(final double lowerLim, final double upperLim, final String stringFunction) {
         this.lowerLimit = lowerLim;
         this.upperLimit = upperLim;
-        int segmentsNumber = (int) ((upperLimit - lowerLimit) / MAX_STEP) + 1;
-        step = (upperLimit - lowerLimit) / segmentsNumber;
-        func = new Function(strFunc);
+        step = DEFAULT_STEP;
+        function = new Function(stringFunction);
         integralValue = 0.0;
     }
 
     public double leftRectangles() {
         for (double x = lowerLimit; x < upperLimit; x += step) {
-            integralValue += func.getValue(x);
+            integralValue += function.getValue(x);
         }
         integralValue *= step;
 
@@ -32,7 +31,7 @@ public class Integrator {
 
     public double rightRectangles() {
         for (double x = lowerLimit + step; x <= upperLimit; x += step) {
-            integralValue += func.getValue(x);
+            integralValue += function.getValue(x);
         }
         integralValue *= step;
 
@@ -41,7 +40,7 @@ public class Integrator {
 
     public double midpointRectangles() {
         for (double x = lowerLimit + step / 2.0; x < upperLimit; x += step) {
-            integralValue += func.getValue(x);
+            integralValue += function.getValue(x);
         }
         integralValue *= step;
 
@@ -50,7 +49,7 @@ public class Integrator {
 
     public double trapezes() {
         for (double x = lowerLimit; x < upperLimit; x += step) {
-            integralValue += (func.getValue(x) + func.getValue(x + step)) / 2.0;
+            integralValue += (function.getValue(x) + function.getValue(x + step)) / 2.0;
         }
         integralValue *= step;
 
@@ -60,14 +59,14 @@ public class Integrator {
     public double simpson() {
         double smallStep = step / 2.0;
 
-        integralValue += func.getValue(lowerLimit) + func.getValue(upperLimit);
+        integralValue += function.getValue(lowerLimit) + function.getValue(upperLimit);
         for (double x = lowerLimit + smallStep; x < upperLimit; x += step) {
-            integralValue += ODD_TERMS_SYMPSON_COEF * func.getValue(x);
+            integralValue += ODD_TERMS_SIMPSON_COEF * function.getValue(x);
         }
         for (double x = lowerLimit + step; x < upperLimit; x += step) {
-            integralValue += EVEN_TERMS_SYMPSON_COEF * func.getValue(x);
+            integralValue += EVEN_TERMS_SIMPSON_COEF * function.getValue(x);
         }
-        integralValue *= smallStep / FINAL_SYMPSON_COEF;
+        integralValue *= smallStep / FINAL_SIMPSON_COEF;
 
         return integralValue;
     }
@@ -96,16 +95,12 @@ public class Integrator {
         return step;
     }
 
-    public void setFunc(final Function func) {
-        this.func = func;
+    public void setFunction(final Function function) {
+        this.function = function;
     }
 
     public Function getFunc() {
-        return func;
-    }
-
-    public void setIntegralValue(final double value) {
-        this.integralValue = value;
+        return function;
     }
 
     public double getIntegralValue() {
