@@ -103,6 +103,8 @@ project(":code/paramuzov-vladimir").name = "paramuzov-vladimir-Model"
 // Smirnov Mixail
 // Smirnov Vyacheslav
 // Sulin Dmitrij
+include "code/sulin-dmitriy"
+project(":code/sulin-dmitriy").name = "sulin-dmitriy-Model"
 // Timonova Anastasiya
 // Vinnickij Vladimir
 
