@@ -116,4 +116,6 @@ project(":code/yusipov-igor").name = "yusipov-igor-Model"
 
 // Zajdullova Alina
 // Zhbanova Anna
+include "code/zhbanova-anna"
+project(":code/zhbanova-anna").name = "zhbanova-anna-Model"
 // Zykov Ilya
