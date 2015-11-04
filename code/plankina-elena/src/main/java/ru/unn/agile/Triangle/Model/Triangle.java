@@ -139,7 +139,8 @@ public class Triangle {
 
     public List<Double> getAngles() throws Exception {
         List<Double> lengths = this.getLengthsOfEdges();
-        if (lengths.get(0) == 0.0 || lengths.get(1) == 0.0 || lengths.get(2) == 0.0) {
+        if ((lengths.get(1) * lengths.get(2) == 0.0) || (lengths.get(0) * lengths.get(2) == 0.0)
+                || (lengths.get(0) * lengths.get(1) == 0.0)) {
             throw new ArithmeticException("/0");
         }
         double angle1 = acos((pow(lengths.get(1), 2) + pow(lengths.get(2), 2)
