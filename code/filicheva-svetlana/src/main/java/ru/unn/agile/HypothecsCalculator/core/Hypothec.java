@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.GregorianCalendar;
 import java.util.Calendar;
+import javax.swing.JTable;
 
 public class Hypothec {
     private final double creditSum;
@@ -27,8 +28,8 @@ public class Hypothec {
 
     private double computeMonthlyPayment(final int numberOfMonth) {
 
-        double monthlyPayment = creditSum * computePaymentCoefficient(numberOfMonth) +
-                computeMonthlyFee(numberOfMonth);
+        double monthlyPayment = creditSum * computePaymentCoefficient(numberOfMonth)
+                + computeMonthlyFee(numberOfMonth);
 
         return roundMoneySum(monthlyPayment);
     }
@@ -73,7 +74,6 @@ public class Hypothec {
                 break;
             case CREDIT_BALANCE_PERCENT:
                 fee = computeCreditBalance(numberOfMonth) * monthlyFee / MAX_NUMBER_OF_PERCENTS;
-                double wwww = computeCreditBalance(numberOfMonth);
                 break;
             case CREDIT_SUM_PERCENT:
                 fee = creditSum * monthlyFee / MAX_NUMBER_OF_PERCENTS;
@@ -90,7 +90,7 @@ public class Hypothec {
 
         switch (creditType) {
             case DIFFERENTIATED:
-                balance = creditSum * (1.0 - (double)numberOfMonth / countOfMonths);
+                balance = creditSum * (1.0 - (double) numberOfMonth / countOfMonths);
                 break;
             case ANNUITY:
                 balance = annuityCreditBalance(numberOfMonth);
@@ -141,6 +141,14 @@ public class Hypothec {
         return roundMoneySum(overpaymentWithFees);
     }
 
+    public JTable getGraphicOfPayments() {
+        Object[][] paymentsData = new Object[countOfMonths][COLUMN_COUNT];
+        for (int i = 0; i < countOfMonths; i++) {
+            paymentsData[i][0] = i + 1;
+        }
+        return new JTable(paymentsData, COLUMN_NAMES);
+    }
+
     public static class Builder {
 
         private final double houseCost;
@@ -187,12 +195,12 @@ public class Hypothec {
             return this;
         }
 
-        public Builder setPeriodType(PeriodType periodType) {
+        public Builder setPeriodType(final PeriodType periodType) {
             this.periodType = periodType;
             return this;
         }
 
-        public Builder setInterestRate(double interestRate) {
+        public Builder setInterestRate(final double interestRate) {
             if (interestRate < 0) {
                 throw new IllegalArgumentException("Negative interest rate");
             }
@@ -200,17 +208,17 @@ public class Hypothec {
             return this;
         }
 
-        public Builder setInterestRateType(InterestRateType interestRateType) {
+        public Builder setInterestRateType(final InterestRateType interestRateType) {
             this.interestRateType = interestRateType;
             return this;
         }
 
-        public Builder setCreditType(CreditType creditType) {
+        public Builder setCreditType(final CreditType creditType) {
             this.creditType = creditType;
             return this;
         }
 
-        public Builder setMonthlyFee(double monthlyFee) {
+        public Builder setMonthlyFee(final double monthlyFee) {
             if (monthlyFee < 0) {
                 throw new IllegalArgumentException("Negative monthly fee");
             }
@@ -218,12 +226,12 @@ public class Hypothec {
             return this;
         }
 
-        public Builder setMonthlyFeeType(MonthlyFeeType monthlyFeeType) {
+        public Builder setMonthlyFeeType(final MonthlyFeeType monthlyFeeType) {
             this.monthlyFeeType = monthlyFeeType;
             return this;
         }
 
-        public Builder setFlatFee(double flatFee) {
+        public Builder setFlatFee(final double flatFee) {
             if (flatFee < 0) {
                 throw new IllegalArgumentException("Negative flat fee");
             }
@@ -231,17 +239,17 @@ public class Hypothec {
             return this;
         }
 
-        public Builder setFlatFeeType(FlatFeeType flatFeeType) {
+        public Builder setFlatFeeType(final FlatFeeType flatFeeType) {
             this.flatFeeType = flatFeeType;
             return this;
         }
 
-        public Builder setCurrency(CurrencyType currencyType) {
+        public Builder setCurrency(final CurrencyType currencyType) {
             this.currencyType = currencyType;
             return this;
         }
 
-        public Builder setStartDate(GregorianCalendar startDate) {
+        public Builder setStartDate(final GregorianCalendar startDate) {
             if (startDate.get(Calendar.YEAR) < EARLIEST_VALID_YEAR) {
                 throw new IllegalArgumentException("Too early start date");
             }
@@ -252,7 +260,7 @@ public class Hypothec {
             return this;
         }
     }
-    private Hypothec(Builder builder) {
+    private Hypothec(final Builder builder) {
         this.creditSum = builder.houseCost - builder.downPayment;
 
         switch (builder.periodType) {
@@ -329,6 +337,9 @@ public class Hypothec {
         DOLLAR,
         EURO
     }
+
+    private static final String[] COLUMN_NAMES = {"№ платежа"};
+    private static final int COLUMN_COUNT = 1;
 
     private static final double MAX_NUMBER_OF_PERCENTS = 100.0;
     private static final int MONTHS_COUNT_IN_YEAR = 12;
