@@ -20,7 +20,7 @@ public class TriangleCorrectnessTests {
     private double length3 = sqrt(pow(1.9 - 4.0, 2) + pow(-2.3 - 5.0, 2) + pow(4.56 - 10.2, 2));
 
     @Test
-    public void canFindCorrectPerimeter3d() {
+    public void canFindCorrectPerimeter() {
         double truePerimeter = length1 + length2 + length3;
         double resultPerimeter = triangle.getPerimeter();
         assertEquals(truePerimeter, resultPerimeter, DELTA);
@@ -36,7 +36,7 @@ public class TriangleCorrectnessTests {
     }
 
     @Test
-    public void canFindCorrectSquare3d() {
+    public void canFindCorrectSquare() {
         double halfPerimeter = triangle.getPerimeter() / 2;
         double trueSquare = sqrt(halfPerimeter * (halfPerimeter - length1)
                 * (halfPerimeter - length2)
@@ -46,7 +46,7 @@ public class TriangleCorrectnessTests {
     }
 
     @Test
-    public void canFindCorrectMedian3d() {
+    public void canFindCorrectMedian() {
         double trueMedian = THE_HALF * sqrt(2 * pow(length2, 2)
                 + 2 * pow(length3, 2) - pow(length1, 2));
         List<Double> resultMedians = triangle.getMedians();
@@ -55,7 +55,7 @@ public class TriangleCorrectnessTests {
     }
 
     @Test
-    public void canFindCorrectAltitude3d() {
+    public void canFindCorrectAltitude() {
         double perimeter = length1 + length2 + length3;
         double trueAltitude = 2 * perimeter / length1;
         List<Double> resultAltitudes = triangle.getAltitudes();
@@ -64,7 +64,7 @@ public class TriangleCorrectnessTests {
     }
 
     @Test
-    public void canFindCorrectBisectrix3d() {
+    public void canFindCorrectBisectrix() {
         double perimeter = length1 + length2 + length3;
         double trueBisectrix = sqrt(length1 * length2 * perimeter * (length1 + length2 - length3))
                 / (length1 + length2);
@@ -74,7 +74,7 @@ public class TriangleCorrectnessTests {
     }
 
     @Test
-    public void canFindCorrectAngle3d() {
+    public void canFindCorrectAngle() {
         double trueAngle = acos((pow(length1, 2) + pow(length2, 2) - pow(length3, 2))
                 / (2 * length1 * length2));
         List<Double> resultAngles = triangle.getAngles();
