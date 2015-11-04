@@ -14,6 +14,21 @@ public class PercentAccretionTest {
     }
 
     @Test (expected = IllegalArgumentException.class)
+    public void catchExceptionWithNormalPercentRateSumWithNULL() {
+        PercentAccretion.calculateSumWithNominalPercentRate(0, 0, 0, 0);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void catchExceptionWithEffectivePercentRateSumWithNULL() {
+        PercentAccretion.calculateSumWithEffectivePercentRate(0, 0, 0, 0);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void catchExceptionWithEffectivePercentRateWithNULL() {
+        PercentAccretion.calculateEffectivePercentRate(0, 0);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
     public void catchExceptionWhenWrongArgInSimplePercent() {
         PercentAccretion.calculateSumWithSimplePercent(-1, 1, 1);
     }
@@ -69,7 +84,6 @@ public class PercentAccretionTest {
         double delta = 0.1;
         assertEquals(expectedValue, actualValue, delta);
     }
-
 
     @Test
     public void compareNominalAndEffectiveSum() {
