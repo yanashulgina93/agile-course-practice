@@ -88,6 +88,18 @@ public class Hypothec {
         return new BigDecimal(sum).setScale(0, RoundingMode.HALF_UP).doubleValue();
     }
 
+    public double computeOverpayment() {
+        double creditCoefficient = 0.0;
+
+        for (int i = 1; i <= countOfMonths; i++) {
+            creditCoefficient += computePaymentCoefficient(i);
+        }
+
+        double overpayment = (creditCoefficient - 1.0) * creditSum;
+
+        return roundMoneySum(overpayment);
+    }
+
     public static class Builder {
 
         private final double houseCost;
