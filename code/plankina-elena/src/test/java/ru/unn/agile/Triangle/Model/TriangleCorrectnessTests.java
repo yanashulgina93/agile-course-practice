@@ -15,24 +15,12 @@ public class TriangleCorrectnessTests {
     private static final double DELTA = 0.00001;
     private static final double THE_HALF = 0.5;
     private Triangle triangle;
-    private Triangle triangleLarge;
     private double length1;
     private double length2;
     private double length3;
-    private double lengthLarge1;
-    private double lengthLarge2;
-    private double lengthLarge3;
 
     @Before
     public void setUpTriangles() {
-        triangleLarge = new Triangle(Arrays.asList(Double.MAX_VALUE, -2.3, 4.56),
-                Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(Double.MAX_VALUE, 5.0, 10.2), 3);
-        lengthLarge1 = sqrt(pow(Double.MAX_VALUE - 0.0, 2) + pow(-2.3 - 3.5, 2)
-                + pow(4.56 - 5.12, 2));
-        lengthLarge2 = sqrt(pow(Double.MAX_VALUE - 0.0, 2) + pow(5.0 - 3.5, 2)
-                + pow(10.2 - 5.12, 2));
-        lengthLarge3 = sqrt(pow(Double.MAX_VALUE - Double.MAX_VALUE, 2) + pow(-2.3 - 5.0, 2)
-                + pow(4.56 - 10.2, 2));
         triangle = new Triangle(Arrays.asList(1.9, -2.3, 4.56),
                 Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(4.0, 5.0, 10.2), 3);
         length1 = sqrt(pow(1.9 - 0.0, 2) + pow(-2.3 - 3.5, 2) + pow(4.56 - 5.12, 2));
@@ -41,23 +29,23 @@ public class TriangleCorrectnessTests {
     }
 
     @Test
-    public void canFindCorrectPerimeter() {
+    public void canFindCorrectPerimeter() throws Exception {
         double truePerimeter = length1 + length2 + length3;
         double resultPerimeter = triangle.getPerimeter();
         assertEquals(truePerimeter, resultPerimeter, DELTA);
     }
 
     @Test
-    public void canFindCorrectLength() {
-        List<Double> coordinatesOfPoint1 = triangle.getValueOfCoordinatesOfPoint1();
-        List<Double> coordinatesOfPoint2 = triangle.getValueOfCoordinatesOfPoint2();
+    public void canFindCorrectLength() throws Exception {
+        List<Double> coordinatesOfPoint1 = triangle.getCoordinatesOfPoint1();
+        List<Double> coordinatesOfPoint2 = triangle.getCoordinatesOfPoint2();
         double trueLength = sqrt(pow(1.9 - 0.0, 2) + pow(-2.3 - 3.5, 2) + pow(4.56 - 5.12, 2));
         double resultLength = triangle.getLength(coordinatesOfPoint1, coordinatesOfPoint2);
         assertEquals(trueLength, resultLength, DELTA);
     }
 
     @Test
-    public void canFindCorrectSquare() {
+    public void canFindCorrectSquare() throws Exception {
         double halfPerimeter = triangle.getPerimeter() / 2;
         double trueSquare = sqrt(halfPerimeter * (halfPerimeter - length1)
                 * (halfPerimeter - length2)
@@ -67,7 +55,7 @@ public class TriangleCorrectnessTests {
     }
 
     @Test
-    public void canFindCorrectMedian() {
+    public void canFindCorrectMedian() throws Exception {
         double trueMedian = THE_HALF * sqrt(2 * pow(length2, 2)
                 + 2 * pow(length3, 2) - pow(length1, 2));
         List<Double> resultMedians = triangle.getMedians();
@@ -76,7 +64,7 @@ public class TriangleCorrectnessTests {
     }
 
     @Test
-    public void canFindCorrectAltitude() {
+    public void canFindCorrectAltitude() throws Exception {
         double perimeter = length1 + length2 + length3;
         double trueAltitude = 2 * perimeter / length1;
         List<Double> resultAltitudes = triangle.getAltitudes();
@@ -85,7 +73,7 @@ public class TriangleCorrectnessTests {
     }
 
     @Test
-    public void canFindCorrectBisectrix() {
+    public void canFindCorrectBisectrix() throws Exception {
         double perimeter = length1 + length2 + length3;
         double trueBisectrix = sqrt(length1 * length2 * perimeter * (length1 + length2 - length3))
                 / (length1 + length2);
@@ -95,38 +83,11 @@ public class TriangleCorrectnessTests {
     }
 
     @Test
-    public void canFindCorrectAngle() {
+    public void canFindCorrectAngle() throws Exception {
         double trueAngle = acos((pow(length1, 2) + pow(length2, 2) - pow(length3, 2))
                 / (2 * length1 * length2));
         List<Double> resultAngles = triangle.getAngles();
         double resultAngle = resultAngles.get(2);
         assertEquals(trueAngle, resultAngle, DELTA);
-    }
-
-    @Test
-    public void canComputeLargeNumberCorrectly() {
-        double perimeter = lengthLarge1 + lengthLarge2 + length3;
-        double trueBisectrix = sqrt(lengthLarge1 * lengthLarge2 * perimeter
-                * (lengthLarge1 + lengthLarge2 - lengthLarge3))
-                / (lengthLarge1 + lengthLarge2);
-        List<Double> resultBisectrices = triangleLarge.getBisectrices();
-        double resultBisectrix = resultBisectrices.get(2);
-        assertEquals(trueBisectrix, resultBisectrix, DELTA);
-    }
-
-    @Test
-    public void canComputePerimeterWithLargeNumberCorrectly() {
-        double truePerimeter = lengthLarge1 + lengthLarge2 + lengthLarge3;
-        double resultPerimeter = triangleLarge.getPerimeter();
-        assertEquals(truePerimeter, resultPerimeter, DELTA);
-    }
-
-    @Test
-    public void canComputeSquareWithLargeNumberCorrectly() {
-        double halfPerimeter = (lengthLarge1 + lengthLarge2 + lengthLarge3) / 2;
-        double trueSquare = sqrt(halfPerimeter * (halfPerimeter - lengthLarge1)
-                * (halfPerimeter - lengthLarge2) * (halfPerimeter - lengthLarge3));
-        double resultSquare = triangleLarge.getSquare();
-        assertEquals(trueSquare, resultSquare, DELTA);
     }
 }

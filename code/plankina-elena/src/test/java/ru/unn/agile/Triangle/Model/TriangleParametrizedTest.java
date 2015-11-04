@@ -38,13 +38,13 @@ public class TriangleParametrizedTest {
     }
 
     @Test
-    public void canFindPerimeterCorrectly() {
+    public void canFindPerimeterCorrectly() throws Exception {
         double perimeter = triangle.getPerimeter();
         assert perimeter >= 0.0;
     }
 
     @Test
-    public void canFindLengthCorrectly() {
+    public void canFindLengthCorrectly() throws Exception {
         List<Double> lengths = triangle.getLengthsOfEdges();
         double length1 = lengths.get(0);
         assert length1 >= 0.0;
