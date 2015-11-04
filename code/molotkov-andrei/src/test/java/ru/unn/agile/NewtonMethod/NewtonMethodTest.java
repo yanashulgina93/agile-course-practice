@@ -1,5 +1,6 @@
 package ru.unn.agile.NewtonMethod;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
@@ -9,12 +10,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 @RunWith(Enclosed.class)
 public class NewtonMethodTest {
     @RunWith(Parameterized.class)
     public static class WhenCanFindRoot {
+        private NewtonMethod newtonMethod;
         private final String baseFunction;
         private final String derivativeFunction;
         private final double leftPoint;
@@ -44,15 +45,20 @@ public class NewtonMethodTest {
             });
         }
 
+        @Before
+        public void initializeMethod() {
+            newtonMethod = new NewtonMethod(baseFunction, derivativeFunction);
+        }
+
         @Test
         public void whenCanFindRoot() {
-            NewtonMethod newtonMethod = new NewtonMethod(baseFunction, derivativeFunction);
             Double root = newtonMethod.searchRoot(leftPoint, rightPoint);
             assertEquals(expectedRoot, root, delta);
         }
     }
     @RunWith(Parameterized.class)
     public static class WhenCanNotFindRoot {
+        private NewtonMethod newtonMethod;
         private final String baseFunction;
         private final String derivativeFunction;
         private final double leftPoint;
@@ -77,11 +83,14 @@ public class NewtonMethodTest {
             });
         }
 
-        @Test
+        @Before
+        public void initializeMethod() {
+            newtonMethod = new NewtonMethod(baseFunction, derivativeFunction);
+        }
+
+        @Test(expected = IllegalArgumentException.class)
         public void whenCanNotFindRoot() {
-            NewtonMethod newtonMethod = new NewtonMethod(baseFunction, derivativeFunction);
-            Double root = newtonMethod.searchRoot(leftPoint, rightPoint);
-            assertNull(root);
+            newtonMethod.searchRoot(leftPoint, rightPoint);
         }
     }
 }

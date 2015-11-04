@@ -1,5 +1,6 @@
 package ru.unn.agile.NewtonMethod;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -11,17 +12,18 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class CanCalculateValueOfFunction {
+    private Function function;
     private final String testFunc;
     private final double testPoint;
-    private final double expected;
+    private final double expectedValue;
     private double delta = 0.000001;
 
     public CanCalculateValueOfFunction(final String testFunc,
                                        final double testPoint,
-                                       final double expected) {
+                                       final double expectedValue) {
         this.testFunc = testFunc;
         this.testPoint = testPoint;
-        this.expected = expected;
+        this.expectedValue = expectedValue;
     }
 
     @Parameterized.Parameters
@@ -38,10 +40,14 @@ public class CanCalculateValueOfFunction {
         });
     }
 
+    @Before
+    public void initializeFunction() {
+        function = new Function(testFunc);
+    }
+
     @Test
     public void canCalculateFunctionValue() {
-        Function function = new Function(testFunc);
-        double valueFunction = function.calculate(testPoint);
-        assertEquals(expected, valueFunction, delta);
+        double calculatedValue = function.calculate(testPoint);
+        assertEquals(expectedValue, calculatedValue, delta);
     }
 }

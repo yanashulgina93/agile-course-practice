@@ -13,11 +13,12 @@ public class NewtonMethod {
 
     public Double searchRoot(final double leftPointRange, final double rightPointRange) {
         if (!canCalculateRoot(leftPointRange, rightPointRange)) {
-            return null;
+            throw new IllegalArgumentException("Function is not monotonic and "
+                                                + "root is not in range");
         }
         previousPoint = rightPointRange;
         nextPoint = calculateNextPoint(previousPoint);
-        while (!isStopAlgorithm()) {
+        while (!isConverged()) {
             previousPoint = nextPoint;
             nextPoint = calculateNextPoint(previousPoint);
         }
@@ -28,7 +29,7 @@ public class NewtonMethod {
         return point - basicFunc.calculate(point) / derivativeFunc.calculate(point);
     }
 
-    private boolean isStopAlgorithm() {
+    private boolean isConverged() {
         final double eps = 0.000001;
         return Math.abs(nextPoint - previousPoint) < eps;
     }
@@ -47,7 +48,8 @@ public class NewtonMethod {
         return 0;
     }
 
-    private boolean isMonotonicFunc(final double leftPointRange, final double rightPointRange) {
+    private boolean isMonotonicFunction(final double leftPointRange,
+                                        final double rightPointRange) {
         final int countRangesForMonotonic = 10;
         final int countPointsForMonotonic = countRangesForMonotonic + 1;
         double stepLength = (rightPointRange - leftPointRange) / countRangesForMonotonic;
@@ -74,6 +76,6 @@ public class NewtonMethod {
 
     private boolean canCalculateRoot(final double leftPointRange, final double rightPointRange) {
         return rootIsInRange(leftPointRange, rightPointRange)
-                && isMonotonicFunc(leftPointRange, rightPointRange);
+                && isMonotonicFunction(leftPointRange, rightPointRange);
     }
 }

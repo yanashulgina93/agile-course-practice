@@ -1,5 +1,6 @@
 package ru.unn.agile.NewtonMethod;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -11,6 +12,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class CanConvertToPolishNotation {
+    private ConverterToPolishNotation converter;
     private final String infixFormula;
     private final String postfixFormula;
 
@@ -37,9 +39,13 @@ public class CanConvertToPolishNotation {
         });
     }
 
+    @Before
+    public void initializeConverter() {
+        converter = new ConverterToPolishNotation();
+    }
+
     @Test
     public void canConvertPrimitiveOperationsToPolishNotation() {
-        ConverterToPolishNotation converter = new ConverterToPolishNotation();
         String polishNotation = converter.convert(infixFormula);
         assertEquals(postfixFormula, polishNotation);
     }
