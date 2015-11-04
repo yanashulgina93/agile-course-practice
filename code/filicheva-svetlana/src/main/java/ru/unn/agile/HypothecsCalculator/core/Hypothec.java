@@ -155,6 +155,7 @@ public class Hypothec {
             paymentsData[i][1] = dateFormat.format(date.getTime());
             date.add(Calendar.MONTH, 1);
 
+            paymentsData[i][2] = computeMonthlyPayment(i + 1);
 
         }
 
@@ -354,9 +355,10 @@ public class Hypothec {
 
     private static final String[] COLUMN_NAMES = {
             "№ платежа",
-            "Дата платежа"
+            "Дата платежа",
+            "Сумма платежа"
     };
-    private static final int COLUMN_COUNT = 2;
+    private static final int COLUMN_COUNT = 3;
 
     private static final double MAX_NUMBER_OF_PERCENTS = 100.0;
     private static final int MONTHS_COUNT_IN_YEAR = 12;

@@ -12,11 +12,11 @@ import java.util.GregorianCalendar;
 public class HypothecTableTest {
 
     JTable rightGraphicForAnnuity = new JTable(new Object[][]{
-                    {1, "11.2015"},
-                    {2, "12.2015"},
-                    {3, "01.2016"},
-                    {4, "02.2016"}},
-            new String[]{"№ платежа", "Дата платежа"});
+                    {1, "11.2015", 1080.79 },
+                    {2, "12.2015", 1070.89 },
+                    {3, "01.2016", 1060.79 },
+                    {4, "02.2016", 1050.50}},
+            new String[]{"№ платежа", "Дата платежа", "Сумма платежа"});
 
 
     @Test
