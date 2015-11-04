@@ -7,10 +7,25 @@ public class Hypothec {
     private final double creditSum;
     private final int countOfMonths;
     private final double monthlyPercent;
+    private final CreditType creditType;
 
-    public double computeMonthlyPayment() {
-        return roundMoneySum(creditSum * computeAnnuityCoefficient());
+    public final double computeHighestMonthlyPayment() {
+
+        return computeMonthlyPayment(1);
     }
+
+    public final double computeLowestMonthlyPayment() {
+
+        return computeMonthlyPayment(countOfMonths);
+    }
+
+    private double computeMonthlyPayment(final int numberOfMonth) {
+
+        double monthlyPayment = creditSum * computePaymentCoefficient(numberOfMonth);
+
+        return roundMoneySum(monthlyPayment);
+    }
+
 
     private double computeAnnuityCoefficient() {
         if (monthlyPercent == 0.0) {
@@ -18,6 +33,27 @@ public class Hypothec {
         }
 
         return monthlyPercent * (1.0 + 1.0 / (Math.pow(1 + monthlyPercent, countOfMonths) - 1));
+    }
+
+    private double computeDifferentiatedCoefficient(final int numberOfMonth) {
+        return 1.0 / countOfMonths + monthlyPercent * (1.0 - (numberOfMonth - 1.0) / countOfMonths);
+    }
+
+    private double computePaymentCoefficient(final int numberOfMonth) {
+        double paymentCoefficient = 0.0;
+
+        switch (creditType) {
+            case ANNUITY:
+                paymentCoefficient = computeAnnuityCoefficient();
+                break;
+            case DIFFERENTIATED:
+                paymentCoefficient = computeDifferentiatedCoefficient(numberOfMonth);
+                break;
+            default:
+                break;
+        }
+
+        return paymentCoefficient;
     }
 
     private double roundMoneySum(final double sum) {
@@ -33,6 +69,7 @@ public class Hypothec {
         private PeriodType periodType = PeriodType.MONTH;
         private double interestRate = 0.0;
         private InterestRateType interestRateType = InterestRateType.MONTHLY;
+        private CreditType creditType = CreditType.ANNUITY;
 
 
         public Builder(final double houseCost, final int creditPeriod) {
@@ -80,6 +117,11 @@ public class Hypothec {
             this.interestRateType = interestRateType;
             return this;
         }
+
+        public Builder setCreditType(CreditType creditType) {
+            this.creditType = creditType;
+            return this;
+        }
     }
     private Hypothec(Builder builder) {
         this.creditSum = builder.houseCost - builder.downPayment;
@@ -107,6 +149,7 @@ public class Hypothec {
                 this.monthlyPercent = 0.0;
         }
 
+        this.creditType = builder.creditType;
     }
 
     public static enum PeriodType {
@@ -117,6 +160,11 @@ public class Hypothec {
     public static enum InterestRateType {
         MONTHLY,
         YEARLY
+    }
+
+    public static enum CreditType {
+        DIFFERENTIATED,
+        ANNUITY
     }
 
     private static final double MAX_NUMBER_OF_PERCENTS = 100.0;
