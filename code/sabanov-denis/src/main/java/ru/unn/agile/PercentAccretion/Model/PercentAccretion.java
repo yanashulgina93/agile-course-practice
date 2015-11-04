@@ -41,7 +41,7 @@ public final class PercentAccretion {
     }
 
     public static double calculateEffectivePercentRate(final double percentRate,
-                                                       final double percentPayingPerYear) {
+                                                       final int percentPayingPerYear) {
         if (percentRate >= 0 && percentPayingPerYear > 0) {
             return TO_PERCENT * (Math.pow(1 + (percentRate * FROM_PERCENT) / percentPayingPerYear,
                     percentPayingPerYear) - 1);
