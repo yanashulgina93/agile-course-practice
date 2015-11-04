@@ -69,6 +69,7 @@ public class Hypothec {
                 break;
             case CREDIT_BALANCE_PERCENT:
                 fee = computeCreditBalance(numberOfMonth) * monthlyFee / MAX_NUMBER_OF_PERCENTS;
+                double wwww = computeCreditBalance(numberOfMonth);
                 break;
             case CREDIT_SUM_PERCENT:
                 fee = creditSum * monthlyFee / MAX_NUMBER_OF_PERCENTS;
@@ -81,11 +82,35 @@ public class Hypothec {
     }
 
     private double computeCreditBalance(final int numberOfMonth) {
-        return creditSum * (1.0 - (double)numberOfMonth / countOfMonths);
+        double balance = 0.0;
+
+        switch (creditType) {
+            case DIFFERENTIATED:
+                balance = creditSum * (1.0 - (double)numberOfMonth / countOfMonths);
+                break;
+            case ANNUITY:
+                balance = annuityCreditBalance(numberOfMonth);
+                break;
+            default:
+                break;
+        }
+
+        return balance;
+    }
+
+    private double annuityCreditBalance(final int numberOfMonth) {
+        double balance = creditSum;
+        double monthlyPayment = creditSum * computeAnnuityCoefficient();
+
+        for (int i = 1; i<=numberOfMonth; i++) {
+            balance -= monthlyPayment - balance * monthlyPercent;
+        }
+
+        return balance;
     }
 
     private double roundMoneySum(final double sum) {
-        return new BigDecimal(sum).setScale(0, RoundingMode.HALF_UP).doubleValue();
+        return new BigDecimal(sum).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 
     public double computeOverpayment() {
@@ -98,6 +123,18 @@ public class Hypothec {
         double overpayment = (creditCoefficient - 1.0) * creditSum;
 
         return roundMoneySum(overpayment);
+    }
+
+    public double computeOverpaymentWithFees() {
+        double allPayments = 0.0;
+
+        for (int i = 1; i <= countOfMonths; i++) {
+            allPayments += computeMonthlyPayment(i);
+        }
+
+        double overpaymentWithFees = allPayments - creditSum;
+
+        return roundMoneySum(overpaymentWithFees);
     }
 
     public static class Builder {
