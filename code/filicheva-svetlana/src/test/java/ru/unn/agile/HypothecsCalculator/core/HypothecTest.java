@@ -86,6 +86,16 @@ public class HypothecTest {
                                 .setCreditType(Hypothec.CreditType.DIFFERENTIATED).build(),
                         1210.0,         1008.33,       650.0,       1310.0
                 //      HighestPayment, LowestPayment, Overpayment, OverpaymentWithFees
+                },
+                {
+                        new Hypothec.Builder(12000.0, 12).setInterestRate(0.83333)
+                                .setMonthlyFee(1.0)
+                                .setMonthlyFeeType(Hypothec.MonthlyFeeType.CREDIT_BALANCE_PERCENT)
+                                .setCreditType(Hypothec.CreditType.DIFFERENTIATED)
+                                .setFlatFee(10000.0)
+                                .build(),
+                        1210.0,         1008.33,       650.0,       11310.0
+                        //      HighestPayment, LowestPayment, Overpayment, OverpaymentWithFees
                 }
         });
     }

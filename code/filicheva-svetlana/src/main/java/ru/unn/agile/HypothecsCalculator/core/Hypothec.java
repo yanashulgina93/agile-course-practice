@@ -10,6 +10,7 @@ public class Hypothec {
     private final CreditType creditType;
     private final double monthlyFee;
     private final MonthlyFeeType monthlyFeeType;
+    private final double flatFee;
 
     public final double computeHighestMonthlyPayment() {
 
@@ -132,7 +133,7 @@ public class Hypothec {
             allPayments += computeMonthlyPayment(i);
         }
 
-        double overpaymentWithFees = allPayments - creditSum;
+        double overpaymentWithFees = allPayments - creditSum + flatFee;
 
         return roundMoneySum(overpaymentWithFees);
     }
@@ -149,6 +150,7 @@ public class Hypothec {
         private CreditType creditType = CreditType.ANNUITY;
         private double monthlyFee = 0.0;
         private MonthlyFeeType monthlyFeeType = MonthlyFeeType.CONSTANT_SUM;
+        private double flatFee = 0.0;
 
 
         public Builder(final double houseCost, final int creditPeriod) {
@@ -214,6 +216,14 @@ public class Hypothec {
             this.monthlyFeeType = monthlyFeeType;
             return this;
         }
+
+        public Builder setFlatFee(double flatFee) {
+            if (flatFee < 0) {
+                throw new IllegalArgumentException("Negative flat fee");
+            }
+            this.flatFee = flatFee;
+            return this;
+        }
     }
     private Hypothec(Builder builder) {
         this.creditSum = builder.houseCost - builder.downPayment;
@@ -244,6 +254,7 @@ public class Hypothec {
         this.creditType = builder.creditType;
         this.monthlyFee = builder.monthlyFee;
         this.monthlyFeeType = builder.monthlyFeeType;
+        this.flatFee = builder.flatFee;
     }
 
     public static enum PeriodType {
