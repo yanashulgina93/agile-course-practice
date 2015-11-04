@@ -48,7 +48,12 @@ public class HypothecTest {
                         new Hypothec.Builder(12000.0, 12).setInterestRate(0.83333)
                                 .setCreditType(Hypothec.CreditType.DIFFERENTIATED).build(),
                         1100, 1008
-                }
+                },
+                {
+                        new Hypothec.Builder(12000.0, 12).setInterestRate(0.83333).
+                                setMonthlyFee(1000.0).build(),
+                        2055, 2055
+                },
         });
     }
 

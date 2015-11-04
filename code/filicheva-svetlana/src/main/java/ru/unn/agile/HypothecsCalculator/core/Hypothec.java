@@ -8,6 +8,7 @@ public class Hypothec {
     private final int countOfMonths;
     private final double monthlyPercent;
     private final CreditType creditType;
+    private final double monthlyFee;
 
     public final double computeHighestMonthlyPayment() {
 
@@ -21,7 +22,8 @@ public class Hypothec {
 
     private double computeMonthlyPayment(final int numberOfMonth) {
 
-        double monthlyPayment = creditSum * computePaymentCoefficient(numberOfMonth);
+        double monthlyPayment = creditSum * computePaymentCoefficient(numberOfMonth) +
+                monthlyFee;
 
         return roundMoneySum(monthlyPayment);
     }
@@ -70,6 +72,7 @@ public class Hypothec {
         private double interestRate = 0.0;
         private InterestRateType interestRateType = InterestRateType.MONTHLY;
         private CreditType creditType = CreditType.ANNUITY;
+        private double monthlyFee = 0.0;
 
 
         public Builder(final double houseCost, final int creditPeriod) {
@@ -122,6 +125,14 @@ public class Hypothec {
             this.creditType = creditType;
             return this;
         }
+
+        public Builder setMonthlyFee(double monthlyFee) {
+            if (monthlyFee < 0) {
+                throw new IllegalArgumentException("Negative monthly fee");
+            }
+            this.monthlyFee = monthlyFee;
+            return this;
+        }
     }
     private Hypothec(Builder builder) {
         this.creditSum = builder.houseCost - builder.downPayment;
@@ -150,6 +161,7 @@ public class Hypothec {
         }
 
         this.creditType = builder.creditType;
+        this.monthlyFee = builder.monthlyFee;
     }
 
     public static enum PeriodType {
