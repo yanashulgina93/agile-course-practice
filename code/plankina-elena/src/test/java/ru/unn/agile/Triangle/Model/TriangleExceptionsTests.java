@@ -1,5 +1,6 @@
 package ru.unn.agile.Triangle.Model;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -10,8 +11,13 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class TriangleExceptionsTests {
-    private Triangle triangle = new Triangle(Arrays.asList(1.9, -2.3, 4.56),
-            Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(4.0, 5.0, 10.2), 3);
+    Triangle triangle;
+    @Before
+    public void setUp() {
+        triangle = new Triangle(Arrays.asList(1.9, -2.3, 4.56),
+                Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(4.0, 5.0, 10.2), 3);
+    }
+
     @Test
     public void canCreateNewTriangle() {
         assertNotNull(triangle);

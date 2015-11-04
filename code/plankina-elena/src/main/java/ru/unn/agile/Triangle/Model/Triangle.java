@@ -17,13 +17,8 @@ public class Triangle {
                     final List<Double> inputCoordinatesOfPoint2,
                     final List<Double> inputCoordinatesOfPoint3,
                     final int inputDimension) {
-        boolean condition1 = hasEqualDimensions(inputCoordinatesOfPoint1,
-                inputCoordinatesOfPoint2, inputDimension)
-                && hasEqualDimensions(inputCoordinatesOfPoint1, inputCoordinatesOfPoint3,
-                inputDimension)
-                && hasEqualDimensions(inputCoordinatesOfPoint2, inputCoordinatesOfPoint3,
-                inputDimension);
-        if (!condition1) {
+        if (!hasEqualDimensions(inputCoordinatesOfPoint1, inputCoordinatesOfPoint1,
+                inputCoordinatesOfPoint3, inputDimension)) {
             throw new IllegalArgumentException();
         }
         this.coordinatesOfPoint1 = inputCoordinatesOfPoint1;
@@ -43,11 +38,13 @@ public class Triangle {
         return coordinatesOfPoint3;
     }
 
-    public boolean hasEqualDimensions(final List<Double> coordinatesOfPoint1,
-                                               final List<Double> coordinatesOfPoint2,
+    private boolean hasEqualDimensions(final List<Double> coordinatesOfPoint1,
+                                      final List<Double> coordinatesOfPoint2,
+                                      final List<Double> coordinatesOfPoint3,
                                       final int dimension) {
         return coordinatesOfPoint1.size() == dimension
-                && coordinatesOfPoint2.size() == dimension;
+                && coordinatesOfPoint2.size() == dimension
+                && coordinatesOfPoint3.size() == dimension;
     }
 
     public boolean isPossibleToBuildNondegenerateTriangle() {
