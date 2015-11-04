@@ -83,7 +83,7 @@ public class TriangleExceptionsTests {
     @Test(expected = Exception.class)
     public void isOverflowWhenFindSquareWithLargeNumber() throws Exception {
         Triangle triangleException =
-                new Triangle(Arrays.asList(2.4 *Math.sqrt(Double.MAX_VALUE), 0.0, 0.0),
+                new Triangle(Arrays.asList(2.4 * Math.sqrt(Double.MAX_VALUE), 0.0, 0.0),
                 Arrays.asList(1.4 * Math.sqrt(Double.MAX_VALUE), 0.0, 0.0),
                 Arrays.asList(1 * Math.sqrt(Double.MAX_VALUE), 0.0, 0.0), 3);
         triangleException.getSquare();
