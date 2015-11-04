@@ -54,7 +54,7 @@ public class Hypothec {
 
         public Builder setDownPayment(double downPayment) {
             if (downPayment < 0) {
-                throw new IllegalArgumentException("Not positive down payment");
+                throw new IllegalArgumentException("Negative down payment");
             }
             if (downPayment > houseCost) {
                 throw new IllegalArgumentException("Down payment is more then house cost");
@@ -69,6 +69,9 @@ public class Hypothec {
         }
 
         public Builder setInterestRate(double interestRate) {
+            if (interestRate < 0) {
+                throw new IllegalArgumentException("Negative interest rate");
+            }
             this.interestRate = interestRate;
             return this;
         }
