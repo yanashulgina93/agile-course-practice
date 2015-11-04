@@ -10,20 +10,33 @@ public class Hypothec {
 
     public static class Builder {
 
-        private final double creditSum;
+        private final double houseCost;
         private final int creditPeriod;
 
-        public Builder(final double creditSum, final int creditPeriod) {
+        private double downPayment = 0.0;
 
-            if (creditSum < 0) {
-                throw new IllegalArgumentException("Negative credit sum");
+        public Builder(final double houseCost, final int creditPeriod) {
+
+            if (houseCost < 0) {
+                throw new IllegalArgumentException("Negative house cost");
             }
             if (creditPeriod <= 0) {
                 throw new IllegalArgumentException("Not positive credit period");
             }
 
-            this.creditSum = creditSum;
+            this.houseCost = houseCost;
             this.creditPeriod = creditPeriod;
+        }
+
+        public Builder setDownPayment(double downPayment) {
+            if (downPayment < 0) {
+                throw new IllegalArgumentException("Not positive down payment");
+            }
+            if (downPayment > houseCost) {
+                throw new IllegalArgumentException("Down payment is more then house cost");
+            }
+            this.downPayment = downPayment;
+            return this;
         }
 
         public Hypothec build() {
@@ -32,7 +45,7 @@ public class Hypothec {
 
     }
     private Hypothec(Builder builder) {
-        this.creditSum = builder.creditSum;
+        this.creditSum = builder.houseCost - builder.downPayment;
         this.creditPeriod = builder.creditPeriod;
     }
 }

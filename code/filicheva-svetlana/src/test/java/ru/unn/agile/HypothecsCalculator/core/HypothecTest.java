@@ -24,6 +24,10 @@ public class HypothecTest {
                         new Hypothec.Builder(1800000.0, 18).build(),
                         100000.0
                 },
+                {
+                        new Hypothec.Builder(1500000.0, 10).setDownPayment(500000.0).build(),
+                        100000.0
+                }
         });
     }
 
