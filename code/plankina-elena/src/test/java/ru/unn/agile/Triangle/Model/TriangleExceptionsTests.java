@@ -11,9 +11,9 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class TriangleExceptionsTests {
-    Triangle triangle;
+    private Triangle triangle;
     @Before
-    public void setUp() {
+    public void setUpTriangle() {
         triangle = new Triangle(Arrays.asList(1.9, -2.3, 4.56),
                 Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(4.0, 5.0, 10.2), 3);
     }
