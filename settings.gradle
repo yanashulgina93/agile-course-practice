@@ -48,7 +48,11 @@ project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-l
 // Cheboksarinov Andrej
 // Eremeeva Aleksandra
 // Esyagin Ivan
+
 // Filicheva Svetlana
+include "code/filicheva-svetlana"
+project(":code/filicheva-svetlana").name = "filicheva-svetlana-Model"
+
 // Francuzova Natalya
 // Ganin Aleksej
 // Garina Anastasiya
