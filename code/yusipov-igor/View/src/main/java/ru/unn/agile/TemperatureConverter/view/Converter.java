@@ -2,7 +2,7 @@ package ru.unn.agile.TemperatureConverter.view;
 
 import javax.swing.*;
 
-public class Converter {
+public final class Converter {
     private JComboBox comboBoxScales;
     private JTextField textFieldInput;
     private JTextField textFieldResult;
@@ -10,7 +10,9 @@ public class Converter {
     private JTextField textFieldStatus;
     private JPanel mainPanel;
 
-    public static void main(String[] args) {
+    private Converter() { }
+
+    public static void main(final String[] args) {
         JFrame frame = new JFrame("Converter");
         frame.setContentPane(new Converter().mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
