@@ -16,8 +16,8 @@
  2. Формирование матриц
  3. Умножение матриц
 
-Необходимые математические сведения можно найти в статье
-["Длинная арифметика"][arithmetic] на сайте Wikipedia.
+Необходимые математические сведения можно найти в статьях
+["Длинная арифметика"][arithmetic] и ["Умножение матриц"][multiplication] на сайте Wikipedia.
 
 ## Документация разработчика
 
@@ -26,3 +26,4 @@ TBD
 <!-- LINKS -->
 
 [arithmetic]: https://ru.wikipedia.org/wiki/%D0%94%D0%BB%D0%B8%D0%BD%D0%BD%D0%B0%D1%8F_%D0%B0%D1%80%D0%B8%D1%84%D0%BC%D0%B5%D1%82%D0%B8%D0%BA%D0%B0
+[multiplication]: https://ru.wikipedia.org/wiki/%D0%A3%D0%BC%D0%BD%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BC%D0%B0%D1%82%D1%80%D0%B8%D1%86
