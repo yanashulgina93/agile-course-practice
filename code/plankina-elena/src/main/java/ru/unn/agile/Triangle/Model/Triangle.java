@@ -44,7 +44,8 @@ public class Triangle {
     }
 
     public boolean hasEqualDimensions(final List<Double> coordinatesOfPoint1,
-                                               final List<Double> coordinatesOfPoint2, final int dimension) {
+                                               final List<Double> coordinatesOfPoint2,
+                                      final int dimension) {
         return coordinatesOfPoint1.size() == dimension
                 && coordinatesOfPoint2.size() == dimension;
     }
