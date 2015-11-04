@@ -32,6 +32,7 @@ public class Hypothec {
         private double downPayment = 0.0;
         private PeriodType periodType = PeriodType.MONTH;
         private double interestRate = 0.0;
+        private InterestRateType interestRateType = InterestRateType.MONTHLY;
 
 
         public Builder(final double houseCost, final int creditPeriod) {
@@ -71,6 +72,11 @@ public class Hypothec {
             this.interestRate = interestRate;
             return this;
         }
+
+        public Builder setInterestRateType(InterestRateType interestRateType) {
+            this.interestRateType = interestRateType;
+            return this;
+        }
     }
     private Hypothec(Builder builder) {
         this.creditSum = builder.houseCost - builder.downPayment;
@@ -86,7 +92,18 @@ public class Hypothec {
                 this.countOfMonths = 0;
         }
 
-        this.monthlyPercent = builder.interestRate / MAX_NUMBER_OF_PERCENTS;
+        switch (builder.interestRateType) {
+            case MONTHLY:
+                this.monthlyPercent = builder.interestRate / MAX_NUMBER_OF_PERCENTS;
+                break;
+            case YEARLY:
+                this.monthlyPercent = builder.interestRate
+                        / (MONTHS_COUNT_IN_YEAR * MAX_NUMBER_OF_PERCENTS);
+                break;
+            default:
+                this.monthlyPercent = 0.0;
+        }
+
     }
 
     public static enum PeriodType {
