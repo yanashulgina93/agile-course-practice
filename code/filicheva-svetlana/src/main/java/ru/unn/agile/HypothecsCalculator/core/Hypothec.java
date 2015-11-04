@@ -37,7 +37,6 @@ public class Hypothec {
         return roundMoneySum(monthlyPayment);
     }
 
-
     private double computeAnnuityCoefficient() {
         if (monthlyPercent == 0.0) {
             return 1.0 / countOfMonths;
@@ -116,6 +115,24 @@ public class Hypothec {
         return balance;
     }
 
+    private double mainDebtPayment(final int numberOfMonth) {
+        double sum = 0.0;
+
+        switch (creditType) {
+            case DIFFERENTIATED:
+                sum = creditSum / countOfMonths;
+                break;
+            case ANNUITY:
+                sum = creditSum * computeAnnuityCoefficient()
+                        - annuityCreditBalance(numberOfMonth - 1) * monthlyPercent;
+                break;
+            default:
+                break;
+        }
+
+        return roundMoneySum(sum);
+    }
+
     private double roundMoneySum(final double sum) {
         return new BigDecimal(sum).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
@@ -156,6 +173,8 @@ public class Hypothec {
             date.add(Calendar.MONTH, 1);
 
             paymentsData[i][2] = computeMonthlyPayment(i + 1);
+
+            paymentsData[i][3] = mainDebtPayment(i + 1);
 
         }
 
@@ -356,9 +375,10 @@ public class Hypothec {
     private static final String[] COLUMN_NAMES = {
             "№ платежа",
             "Дата платежа",
-            "Сумма платежа"
+            "Сумма платежа",
+            "Платеж по основному долгу"
     };
-    private static final int COLUMN_COUNT = 3;
+    private static final int COLUMN_COUNT = 4;
 
     private static final double MAX_NUMBER_OF_PERCENTS = 100.0;
     private static final int MONTHS_COUNT_IN_YEAR = 12;
