@@ -2,6 +2,8 @@ package ru.unn.agile.HypothecsCalculator.core;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.GregorianCalendar;
+import java.util.Calendar;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -105,6 +107,12 @@ public class HypothecTest {
                         new Hypothec.Builder(18000.0, 18).setCurrency(Hypothec.CurrencyType.DOLLAR).build(),
                         1000.0,         1000.0,        0.0,         0.0
                 //      HighestPayment, LowestPayment, Overpayment, OverpaymentWithFees
+                },
+                {
+                        new Hypothec.Builder(18000.0, 18)
+                                .setStartDate(new GregorianCalendar(1992, Calendar.MARCH, 10)).build(),
+                        1000.0,         1000.0,        0.0,         0.0
+                        //      HighestPayment, LowestPayment, Overpayment, OverpaymentWithFees
                 },
 
 

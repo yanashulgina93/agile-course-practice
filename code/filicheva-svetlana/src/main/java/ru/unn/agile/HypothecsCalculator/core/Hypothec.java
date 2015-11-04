@@ -2,6 +2,8 @@ package ru.unn.agile.HypothecsCalculator.core;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.GregorianCalendar;
+import java.util.Calendar;
 
 public class Hypothec {
     private final double creditSum;
@@ -154,6 +156,7 @@ public class Hypothec {
         private double flatFee = 0.0;
         private FlatFeeType flatFeeType = FlatFeeType.CONSTANT_SUM;
         private CurrencyType currencyType = CurrencyType.RUBLE;
+        private GregorianCalendar startData = new GregorianCalendar(1991, Calendar.JANUARY, 1);
 
 
         public Builder(final double houseCost, final int creditPeriod) {
@@ -235,6 +238,17 @@ public class Hypothec {
 
         public Builder setCurrency(CurrencyType currencyType) {
             this.currencyType = currencyType;
+            return this;
+        }
+
+        public Builder setStartDate(GregorianCalendar startDate) {
+            if (startDate.get(Calendar.YEAR) < EARLIEST_VALID_YEAR) {
+                throw new IllegalArgumentException("Too early start date");
+            }
+            if (startDate.get(Calendar.YEAR) > LATEST_VALID_YEAR) {
+                throw new IllegalArgumentException("Too late start date");
+            }
+            this.startData = startDate;
             return this;
         }
     }
@@ -319,5 +333,6 @@ public class Hypothec {
     private static final double MAX_NUMBER_OF_PERCENTS = 100.0;
     private static final int MONTHS_COUNT_IN_YEAR = 12;
 
-    
+    private static final int EARLIEST_VALID_YEAR = 1991;
+    private static final int LATEST_VALID_YEAR = 2100;
 }

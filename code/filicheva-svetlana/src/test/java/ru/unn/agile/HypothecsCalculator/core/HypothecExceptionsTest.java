@@ -2,6 +2,8 @@ package ru.unn.agile.HypothecsCalculator.core;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.GregorianCalendar;
+import java.util.Calendar;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,43 +21,64 @@ public class HypothecExceptionsTest {
     private final int creditPeriod;
     private final double monthlyFee;
     private final double flatFee;
+    private final GregorianCalendar startDate;
 
 
     @Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {
-                        -18000.0,  18,           0.0,         0.0,          0.0,        0.0
+                        -18000.0,  18,           0.0,         0.0,          0.0,        0.0,
                 //      houseCost, creditPeriod, downPayment, interestRate, monthlyFee, flatFee
+                        new GregorianCalendar(1992, Calendar.MARCH, 10) // start date
                 },
                 {
-                        18000.0,   0,            0.0,         0.0,          0.0,        0.0
+                        18000.0,   0,            0.0,         0.0,          0.0,        0.0,
                 //      houseCost, creditPeriod, downPayment, interestRate, monthlyFee, flatFee
+                        new GregorianCalendar(1992, Calendar.MARCH, 10) // start date
                 },
                 {
-                        18000.0,   -2,           0.0,         0.0,          0.0,        0.0
+                        18000.0,   -2,           0.0,         0.0,          0.0,        0.0,
                 //      houseCost, creditPeriod, downPayment, interestRate, monthlyFee, flatFee
+                        new GregorianCalendar(1992, Calendar.MARCH, 10) // start date
                 },
                 {
-                        18000.0,   2,            -1000.0,     0.0,          0.0,        0.0
+                        18000.0,   2,            -1000.0,     0.0,          0.0,        0.0,
                 //      houseCost, creditPeriod, downPayment, interestRate, monthlyFee, flatFee
+                        new GregorianCalendar(1992, Calendar.MARCH, 10) // start date
                 },
                 {
-                        18000.0,   2,            20000.0,     0.0,          0.0,        0.0
+                        18000.0,   2,            20000.0,     0.0,          0.0,        0.0,
                 //      houseCost, creditPeriod, downPayment, interestRate, monthlyFee, flatFee
+                        new GregorianCalendar(1992, Calendar.MARCH, 10) // start date
                 },
                 {
-                        18000.0,   2,            0.0,         -10.0,        0.0,        0.0
+                        18000.0,   2,            0.0,         -10.0,        0.0,        0.0,
                 //      houseCost, creditPeriod, downPayment, interestRate, monthlyFee, flatFee
+                        new GregorianCalendar(1992, Calendar.MARCH, 10) // start date
                 },
                 {
-                        18000.0,   2,            0.0,         10.0,         -100.0,     0.0
+                        18000.0,   2,            0.0,         10.0,         -100.0,     0.0,
                 //      houseCost, creditPeriod, downPayment, interestRate, monthlyFee, flatFee
+                        new GregorianCalendar(1992, Calendar.MARCH, 10) // start date
                 },
                 {
-                        18000.0,   2,            0.0,         10.0,         100.0,      -110.0
+                        18000.0,   2,            0.0,         10.0,         100.0,      -110.0,
                 //      houseCost, creditPeriod, downPayment, interestRate, monthlyFee, flatFee
-                }
+                        new GregorianCalendar(1992, Calendar.MARCH, 10) // start date
+                },
+                {
+                        18000.0,   2,            0.0,         10.0,         100.0,      110.0,
+                        //      houseCost, creditPeriod, downPayment, interestRate, monthlyFee, flatFee
+                        new GregorianCalendar(1980, Calendar.MARCH, 10) // start date
+                },
+                {
+                        18000.0,   2,            0.0,         10.0,         100.0,      110.0,
+                        //      houseCost, creditPeriod, downPayment, interestRate, monthlyFee, flatFee
+                        new GregorianCalendar(2150, Calendar.MARCH, 10) // start date
+                },
+
+
 
         });
     }
@@ -65,13 +88,15 @@ public class HypothecExceptionsTest {
                                   final double downPayment,
                                   final double interestRate,
                                   final double monthlyFee,
-                                  final double flatFee) {
+                                  final double flatFee,
+                                  final GregorianCalendar startDate) {
         this.houseCost = houseCost;
         this.creditPeriod = creditPeriod;
         this.downPayment = downPayment;
         this.interestRate = interestRate;
         this.monthlyFee = monthlyFee;
         this.flatFee = flatFee;
+        this.startDate = startDate;
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -81,6 +106,7 @@ public class HypothecExceptionsTest {
                 .setInterestRate(interestRate)
                 .setMonthlyFee(monthlyFee)
                 .setFlatFee(flatFee)
+                .setStartDate(startDate)
                 .build();
     }
 }
