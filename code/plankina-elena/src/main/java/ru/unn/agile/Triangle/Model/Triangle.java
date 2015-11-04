@@ -62,7 +62,7 @@ public class Triangle {
         double sum = 0.0;
         for (int i = 0; i < coordinatesOfPoint1.size(); i++) {
             sum += pow(coordinatesOfPoint1.get(i) - coordinatesOfPoint2.get(i), 2);
-            if (sum == Double.MAX_VALUE && (i != coordinatesOfPoint1.size()-1)) {
+            if (sum == Double.MAX_VALUE && (i != coordinatesOfPoint1.size() - 1)) {
                 throw new Exception("Overflow!");
             }
         }
