@@ -1,5 +1,6 @@
 package ru.unn.agile.Triangle.Model;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -13,11 +14,31 @@ import static org.junit.Assert.assertEquals;
 public class TriangleCorrectnessTests {
     private static final double DELTA = 0.00001;
     private static final double THE_HALF = 0.5;
-    private Triangle triangle = new Triangle(Arrays.asList(1.9, -2.3, 4.56),
-            Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(4.0, 5.0, 10.2), 3);
-    private double length1 = sqrt(pow(1.9 - 0.0, 2) + pow(-2.3 - 3.5, 2) + pow(4.56 - 5.12, 2));
-    private double length2 = sqrt(pow(4.0 - 0.0, 2) + pow(5.0 - 3.5, 2) + pow(10.2 - 5.12, 2));
-    private double length3 = sqrt(pow(1.9 - 4.0, 2) + pow(-2.3 - 5.0, 2) + pow(4.56 - 10.2, 2));
+    private Triangle triangle;
+    private Triangle triangleLarge;
+    private double length1;
+    private double length2;
+    private double length3;
+    private double lengthLarge1;
+    private double lengthLarge2;
+    private double lengthLarge3;
+
+    @Before
+    public void setUpTriangles() {
+        triangleLarge = new Triangle(Arrays.asList(Double.MAX_VALUE, -2.3, 4.56),
+                Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(Double.MAX_VALUE, 5.0, 10.2), 3);
+        lengthLarge1 = sqrt(pow(Double.MAX_VALUE - 0.0, 2) + pow(-2.3 - 3.5, 2)
+                + pow(4.56 - 5.12, 2));
+        lengthLarge2 = sqrt(pow(Double.MAX_VALUE - 0.0, 2) + pow(5.0 - 3.5, 2)
+                + pow(10.2 - 5.12, 2));
+        lengthLarge3 = sqrt(pow(Double.MAX_VALUE - Double.MAX_VALUE, 2) + pow(-2.3 - 5.0, 2)
+                + pow(4.56 - 10.2, 2));
+        triangle = new Triangle(Arrays.asList(1.9, -2.3, 4.56),
+                Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(4.0, 5.0, 10.2), 3);
+        length1 = sqrt(pow(1.9 - 0.0, 2) + pow(-2.3 - 3.5, 2) + pow(4.56 - 5.12, 2));
+        length2 = sqrt(pow(4.0 - 0.0, 2) + pow(5.0 - 3.5, 2) + pow(10.2 - 5.12, 2));
+        length3 = sqrt(pow(1.9 - 4.0, 2) + pow(-2.3 - 5.0, 2) + pow(4.56 - 10.2, 2));
+    }
 
     @Test
     public void canFindCorrectPerimeter() {
@@ -84,19 +105,28 @@ public class TriangleCorrectnessTests {
 
     @Test
     public void canComputeLargeNumberCorrectly() {
-        Triangle triangleLarge = new Triangle(Arrays.asList(Double.MAX_VALUE, -2.3, 4.56),
-                Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(Double.MAX_VALUE, 5.0, 10.2), 3);
-        double length1 = sqrt(pow(Double.MAX_VALUE - 0.0, 2) + pow(-2.3 - 3.5, 2)
-                + pow(4.56 - 5.12, 2));
-        double length2 = sqrt(pow(Double.MAX_VALUE - 0.0, 2) + pow(5.0 - 3.5, 2)
-                + pow(10.2 - 5.12, 2));
-        double length3 = sqrt(pow(Double.MAX_VALUE - Double.MAX_VALUE, 2) + pow(-2.3 - 5.0, 2)
-                + pow(4.56 - 10.2, 2));
-        double perimeter = length1 + length2 + length3;
-        double trueBisectrix = sqrt(length1 * length2 * perimeter * (length1 + length2 - length3))
-                / (length1 + length2);
+        double perimeter = lengthLarge1 + lengthLarge2 + length3;
+        double trueBisectrix = sqrt(lengthLarge1 * lengthLarge2 * perimeter
+                * (lengthLarge1 + lengthLarge2 - lengthLarge3))
+                / (lengthLarge1 + lengthLarge2);
         List<Double> resultBisectrices = triangleLarge.getBisectrices();
         double resultBisectrix = resultBisectrices.get(2);
         assertEquals(trueBisectrix, resultBisectrix, DELTA);
+    }
+
+    @Test
+    public void canComputePerimeterWithLargeNumberCorrectly() {
+        double truePerimeter = lengthLarge1 + lengthLarge2 + lengthLarge3;
+        double resultPerimeter = triangleLarge.getPerimeter();
+        assertEquals(truePerimeter, resultPerimeter, DELTA);
+    }
+
+    @Test
+    public void canComputeSquareWithLargeNumberCorrectly() {
+        double halfPerimeter = (lengthLarge1 + lengthLarge2 + lengthLarge3) / 2;
+        double trueSquare = sqrt(halfPerimeter * (halfPerimeter - lengthLarge1)
+                * (halfPerimeter - lengthLarge2) * (halfPerimeter - lengthLarge3));
+        double resultSquare = triangleLarge.getSquare();
+        assertEquals(trueSquare, resultSquare, DELTA);
     }
 }
