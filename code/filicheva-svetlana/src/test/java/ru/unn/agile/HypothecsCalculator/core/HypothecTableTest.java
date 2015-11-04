@@ -2,6 +2,7 @@ package ru.unn.agile.HypothecsCalculator.core;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import javax.swing.*;
 import java.util.Calendar;
@@ -10,12 +11,12 @@ import java.util.GregorianCalendar;
 
 public class HypothecTableTest {
 
-    JTable rightTableForAnnuity = new JTable(new Object[][]{
-                    {1},
-                    {2},
-                    {3},
-                    {4}},
-            new String[]{"№ платежа"});
+    JTable rightGraphicForAnnuity = new JTable(new Object[][]{
+                    {1, "11.2015"},
+                    {2, "12.2015"},
+                    {3, "01.2016"},
+                    {4, "02.2016"}},
+            new String[]{"№ платежа", "Дата платежа"});
 
 
     @Test
@@ -31,11 +32,14 @@ public class HypothecTableTest {
 
         JTable graphic = credit.getGraphicOfPayments();
 
-        for (int i = 0; i < rightTableForAnnuity.getRowCount(); i++) {
-            for (int j = 0; j < rightTableForAnnuity.getColumnCount(); j++) {
-                assertEquals(rightTableForAnnuity.getValueAt(i,j), graphic.getValueAt(i,j));
+        for (int i = 0; i < rightGraphicForAnnuity.getColumnCount(); i++) {
+             for (int j = 0; j < rightGraphicForAnnuity.getRowCount(); j++) {
+                assertEquals(rightGraphicForAnnuity.getValueAt(j,i), graphic.getValueAt(j,i));
             }
+            assertEquals(rightGraphicForAnnuity.getColumnName(i), graphic.getColumnName(i));
         }
+
+
 
 
     }

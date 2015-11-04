@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.GregorianCalendar;
 import java.util.Calendar;
+import java.text.SimpleDateFormat;
 import javax.swing.JTable;
 
 public class Hypothec {
@@ -15,6 +16,8 @@ public class Hypothec {
     private final MonthlyFeeType monthlyFeeType;
     private final double flatFee;
     private final CurrencyType currencyType;
+    private final GregorianCalendar startDate;
+
 
     public final double computeHighestMonthlyPayment() {
 
@@ -142,10 +145,20 @@ public class Hypothec {
     }
 
     public JTable getGraphicOfPayments() {
+        GregorianCalendar date = (GregorianCalendar) startDate.clone();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM.yyyy");
+
         Object[][] paymentsData = new Object[countOfMonths][COLUMN_COUNT];
         for (int i = 0; i < countOfMonths; i++) {
             paymentsData[i][0] = i + 1;
+
+            paymentsData[i][1] = dateFormat.format(date.getTime());
+            date.add(Calendar.MONTH, 1);
+
+
         }
+
+
         return new JTable(paymentsData, COLUMN_NAMES);
     }
 
@@ -164,7 +177,8 @@ public class Hypothec {
         private double flatFee = 0.0;
         private FlatFeeType flatFeeType = FlatFeeType.CONSTANT_SUM;
         private CurrencyType currencyType = CurrencyType.RUBLE;
-        private GregorianCalendar startData = new GregorianCalendar(1991, Calendar.JANUARY, 1);
+        private GregorianCalendar startDate
+                = new GregorianCalendar(EARLIEST_VALID_YEAR, Calendar.JANUARY, 1);
 
 
         public Builder(final double houseCost, final int creditPeriod) {
@@ -256,7 +270,7 @@ public class Hypothec {
             if (startDate.get(Calendar.YEAR) > LATEST_VALID_YEAR) {
                 throw new IllegalArgumentException("Too late start date");
             }
-            this.startData = startDate;
+            this.startDate = startDate;
             return this;
         }
     }
@@ -302,7 +316,7 @@ public class Hypothec {
         }
 
         this.currencyType = builder.currencyType;
-
+        this.startDate = builder.startDate;
 
     }
 
@@ -338,8 +352,11 @@ public class Hypothec {
         EURO
     }
 
-    private static final String[] COLUMN_NAMES = {"№ платежа"};
-    private static final int COLUMN_COUNT = 1;
+    private static final String[] COLUMN_NAMES = {
+            "№ платежа",
+            "Дата платежа"
+    };
+    private static final int COLUMN_COUNT = 2;
 
     private static final double MAX_NUMBER_OF_PERCENTS = 100.0;
     private static final int MONTHS_COUNT_IN_YEAR = 12;
