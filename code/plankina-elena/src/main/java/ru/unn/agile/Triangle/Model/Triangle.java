@@ -19,8 +19,10 @@ public class Triangle {
                     final int inputDimension) {
         boolean condition1 = hasEqualDimensions(inputCoordinatesOfPoint1,
                 inputCoordinatesOfPoint2, inputDimension)
-                && hasEqualDimensions(inputCoordinatesOfPoint1, inputCoordinatesOfPoint3,inputDimension)
-                && hasEqualDimensions(inputCoordinatesOfPoint2, inputCoordinatesOfPoint3,inputDimension);
+                && hasEqualDimensions(inputCoordinatesOfPoint1, inputCoordinatesOfPoint3,
+                inputDimension)
+                && hasEqualDimensions(inputCoordinatesOfPoint2, inputCoordinatesOfPoint3,
+                inputDimension);
         if (!condition1) {
             throw new IllegalArgumentException();
         }
