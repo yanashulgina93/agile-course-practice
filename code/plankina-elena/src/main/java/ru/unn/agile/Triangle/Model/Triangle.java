@@ -62,7 +62,7 @@ public class Triangle {
         double sum = 0.0;
         for (int i = 0; i < coordinatesOfPoint1.size(); i++) {
             sum += pow(coordinatesOfPoint1.get(i) - coordinatesOfPoint2.get(i), 2);
-            if (sum == Double.MAX_VALUE && (i != coordinatesOfPoint1.size() - 1)) {
+            if (sum == Double.MAX_VALUE && i != coordinatesOfPoint1.size() - 1) {
                 throw new Exception("Overflow!");
             }
         }
@@ -121,8 +121,8 @@ public class Triangle {
 
     public List<Double> getBisectrices() throws Exception {
         List<Double> lengths = this.getLengthsOfEdges();
-        if ((lengths.get(1) + lengths.get(2) == 0.0) || (lengths.get(0) + lengths.get(2) == 0.0)
-                || (lengths.get(0) + lengths.get(1)) == 0.0) {
+        if (lengths.get(1) + lengths.get(2) == 0.0 || lengths.get(0) + lengths.get(2) == 0.0
+                || lengths.get(0) + lengths.get(1) == 0.0) {
             throw new ArithmeticException("/0");
         }
         double bisectrix1 = sqrt(lengths.get(1) * lengths.get(2) * this.getPerimeter()
