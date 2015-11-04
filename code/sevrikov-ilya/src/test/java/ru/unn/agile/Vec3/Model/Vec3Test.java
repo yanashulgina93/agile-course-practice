@@ -4,82 +4,90 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class Vec3Test {
-
-    private Vec3TestState myState = new Vec3TestState();
+    private Vec3 myFirstVec;
+    private Vec3 mySecondVec;
 
     @Test
     public void canDefaultInitialize() {
-        myState.setFirstVec(0.0, 0.0, 0.0);
+        myFirstVec = new Vec3();
 
-        assert myState.getFirstVec().isEqual(0.0, 0.0, 0.0);
+        assert myFirstVec.equals(0.0, 0.0, 0.0);
     }
 
     @Test
     public void canInitializeFromValues() {
-        myState.setFirstVec(6.0, 6.0, 6.0);
+        myFirstVec = new Vec3(6.0, 6.0, 6.0);
 
-        assert myState.getFirstVec().isEqual(6.0, 6.0, 6.0);
+        assert myFirstVec.equals(6.0, 6.0, 6.0);
     }
 
     @Test
     public void canInitializeFromArray() {
-        myState.setFirstVec(new double[]{9.0, 9.0, 9.0});
+        myFirstVec = new Vec3(new double[]{9.0, 9.0, 9.0});
 
-        assert myState.getFirstVec().isEqual(9.0, 9.0, 9.0);
+        assert myFirstVec.equals(9.0, 9.0, 9.0);
     }
 
     @Test
     public void isEqualTwoVectors() {
-        myState.setFirstVec(new double[] {9.0, 9.0, 9.0}).setSecondVec(9.0, 9.0, 9.0);
+        myFirstVec  = new Vec3(new double[] {9.0, 9.0, 9.0});
+        mySecondVec = new Vec3(9.0, 9.0, 9.0);
 
-        assert myState.getFirstVec().isEqual(myState.getSecondVec());
+        assert myFirstVec.equals(mySecondVec);
     }
 
     @Test
     public void isCorrectDotProduct() {
-        myState.setFirstVec(8.0, 6.0, 6.0).setSecondVec(5.0, 6.0, 4.0);
+        myFirstVec  = new Vec3(8.0, 6.0, 6.0);
+        mySecondVec = new Vec3(5.0, 6.0, 4.0);
 
         final double anExpectedDotProduct = 100.0;
-        final double anActualDotProduct   = myState.getFirstVec().dot(myState.getSecondVec());
+        final double anActualDotProduct   = myFirstVec.dot(mySecondVec);
 
         assertEquals(anExpectedDotProduct, anActualDotProduct, Precision.confusion());
     }
 
     @Test
     public void isCorrectNorm() {
-        myState.setFirstVec(9.0, 2.0, 6.0);
+        myFirstVec = new Vec3(9.0, 2.0, 6.0);
 
         final double anExpectedNorm = 11.0;
-        final double anActualNorm   = myState.getFirstVec().norm();
+        final double anActualNorm   = myFirstVec.norm();
 
         assertEquals(anExpectedNorm, anActualNorm, Precision.confusion());
     }
 
     @Test
     public void isCorrectNormalize() {
-        final double anInvNorm     = 1.0 / Math.sqrt(14.0);
-        myState.setFirstVec(1.0, 2.0, 3.0)
-               .setSecondVec(1.0 * anInvNorm, 2.0 * anInvNorm, 3.0 * anInvNorm);
+        final double anInvNorm = 1.0 / Math.sqrt(14.0);
+        myFirstVec             = new Vec3(1.0, 2.0, 3.0);
+        mySecondVec            = new Vec3(1.0 * anInvNorm, 2.0 * anInvNorm, 3.0 * anInvNorm);
 
-        myState.getFirstVec().normalize();
+        myFirstVec.normalize();
 
-        assert myState.getFirstVec().isEqual(myState.getSecondVec());
+        assert myFirstVec.equals(mySecondVec);
     }
 
     @Test (expected = ArithmeticException.class)
     public void normIsEqualZero() {
-        myState.setFirstVec(0.0, 0.0, 0.0);
+        myFirstVec = new Vec3(0.0, 0.0, 0.0);
 
-        myState.getFirstVec().normalize();
+        myFirstVec.normalize();
     }
 
     @Test
     public void isCorrectCrossProduct() {
-        myState.setFirstVec(1.0, 0.0, 0.0).setSecondVec(0.0, 1.0, 0.0);
+        myFirstVec  = new Vec3(1.0, 0.0, 0.0);
+        mySecondVec = new Vec3(0.0, 1.0, 0.0);
 
-        final Vec3 anAxisZ = myState.getFirstVec().cross(myState.getSecondVec());
+        final Vec3 anAxisZ = myFirstVec.cross(mySecondVec);
 
-        assert anAxisZ.isEqual(0.0, 0.0, 1.0);
+        assert anAxisZ.equals(0.0, 0.0, 1.0);
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void isCorrectEqualsNotNullObjectWithNullObject() {
+        assert myFirstVec.equals(null);
     }
 }
 
