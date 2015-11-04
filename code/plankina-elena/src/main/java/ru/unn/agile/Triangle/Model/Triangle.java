@@ -55,9 +55,9 @@ public class Triangle {
         double lengthOfEdge1 = lengthsOfEdges.get(0);
         double lengthOfEdge2 = lengthsOfEdges.get(1);
         double lengthOfEdge3 = lengthsOfEdges.get(2);
-        return (lengthOfEdge1 < lengthOfEdge2 + lengthOfEdge3)
-                && (lengthOfEdge2 < lengthOfEdge1 + lengthOfEdge3)
-                && (lengthOfEdge3 < lengthOfEdge1 + lengthOfEdge2);
+        return lengthOfEdge1 < lengthOfEdge2 + lengthOfEdge3
+                && lengthOfEdge2 < lengthOfEdge1 + lengthOfEdge3
+                && lengthOfEdge3 < lengthOfEdge1 + lengthOfEdge2;
     }
 
     public double getLength(final List<Double> coordinatesOfPoint1,
@@ -66,8 +66,7 @@ public class Triangle {
         for (int i = 0; i < coordinatesOfPoint1.size(); i++) {
             sum += pow(coordinatesOfPoint1.get(i) - coordinatesOfPoint2.get(i), 2);
         }
-        double length = sqrt(sum);
-        return length;
+        return sqrt(sum);
     }
 
     public List<Double> getLengthsOfEdges() {
