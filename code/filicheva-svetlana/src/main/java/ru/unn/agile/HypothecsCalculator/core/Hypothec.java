@@ -151,6 +151,7 @@ public class Hypothec {
         private double monthlyFee = 0.0;
         private MonthlyFeeType monthlyFeeType = MonthlyFeeType.CONSTANT_SUM;
         private double flatFee = 0.0;
+        private FlatFeeType flatFeeType = FlatFeeType.CONSTANT_SUM;
 
 
         public Builder(final double houseCost, final int creditPeriod) {
@@ -224,6 +225,11 @@ public class Hypothec {
             this.flatFee = flatFee;
             return this;
         }
+
+        public Builder setFlatFeeType(FlatFeeType flatFeeType) {
+            this.flatFeeType = flatFeeType;
+            return this;
+        }
     }
     private Hypothec(Builder builder) {
         this.creditSum = builder.houseCost - builder.downPayment;
@@ -254,7 +260,19 @@ public class Hypothec {
         this.creditType = builder.creditType;
         this.monthlyFee = builder.monthlyFee;
         this.monthlyFeeType = builder.monthlyFeeType;
-        this.flatFee = builder.flatFee;
+
+        switch (builder.flatFeeType) {
+            case PERCENT:
+                this.flatFee = this.creditSum * builder.flatFee / MAX_NUMBER_OF_PERCENTS;
+                break;
+            case CONSTANT_SUM:
+                this.flatFee = builder.flatFee;
+                break;
+            default:
+                this.flatFee = 0.0;
+        }
+
+
     }
 
     public static enum PeriodType {
@@ -276,6 +294,17 @@ public class Hypothec {
         CREDIT_BALANCE_PERCENT,
         CREDIT_SUM_PERCENT,
         CONSTANT_SUM
+    }
+
+    public static enum FlatFeeType {
+        PERCENT,
+        CONSTANT_SUM
+    }
+
+    public static enum CurrencyType {
+        RUBLE,
+        DOLLAR,
+        EURO
     }
 
     private static final double MAX_NUMBER_OF_PERCENTS = 100.0;

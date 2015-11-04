@@ -88,15 +88,22 @@ public class HypothecTest {
                 //      HighestPayment, LowestPayment, Overpayment, OverpaymentWithFees
                 },
                 {
-                        new Hypothec.Builder(12000.0, 12).setInterestRate(0.83333)
-                                .setMonthlyFee(1.0)
-                                .setMonthlyFeeType(Hypothec.MonthlyFeeType.CREDIT_BALANCE_PERCENT)
-                                .setCreditType(Hypothec.CreditType.DIFFERENTIATED)
-                                .setFlatFee(10000.0)
+                        new Hypothec.Builder(12000.0, 12).setInterestRate(0.83333).
+                                setMonthlyFee(1000.0).setFlatFee(12000.0).build(),
+                        2054.99,        2054.99,       659.89,      24659.88
+                //      HighestPayment, LowestPayment, Overpayment, OverpaymentWithFees
+                },
+                {
+                        new Hypothec.Builder(12000.0, 12).setInterestRate(0.83333).
+                                setMonthlyFee(1000.0).setFlatFee(100.0)
+                                .setFlatFeeType(Hypothec.FlatFeeType.PERCENT)
                                 .build(),
-                        1210.0,         1008.33,       650.0,       11310.0
-                        //      HighestPayment, LowestPayment, Overpayment, OverpaymentWithFees
-                }
+                        2054.99,        2054.99,       659.89,      24659.88
+                //      HighestPayment, LowestPayment, Overpayment, OverpaymentWithFees
+                },
+
+
+
         });
     }
 
