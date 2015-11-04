@@ -91,7 +91,7 @@ public class QueueTest {
         LabQueue<Integer> testQueue = new LabQueue<>();
         final int size = 10;
         Random rand = new Random();
-        final int value1 = rand.nextInt(size);
+        final int value1 = 1 + rand.nextInt(size);
         for (int i = 0; i < size; i++) {
             testQueue.push(size - i);
         }
