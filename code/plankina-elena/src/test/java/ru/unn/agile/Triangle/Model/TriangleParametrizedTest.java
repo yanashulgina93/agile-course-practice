@@ -39,7 +39,7 @@ public class TriangleParametrizedTest {
 
     @Test
     public void canFindPerimeterCorrectly() {
-        double perimeter = triangle.getPerimeter3d();
+        double perimeter = triangle.getPerimeter();
         assert perimeter >= 0.0;
     }
 

@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 
 public class TriangleCorrectnessTests {
     private static final double DELTA = 0.00001;
-    private static final double THEHALF = 0.5;
+    private static final double THE_HALF = 0.5;
     private Triangle triangle = new Triangle(Arrays.asList(1.9, -2.3, 4.56),
             Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(4.0, 5.0, 10.2), 3);
     private double length1 = sqrt(pow(1.9 - 0.0, 2) + pow(-2.3 - 3.5, 2) + pow(4.56 - 5.12, 2));
@@ -22,7 +22,7 @@ public class TriangleCorrectnessTests {
     @Test
     public void canFindCorrectPerimeter3d() {
         double truePerimeter = length1 + length2 + length3;
-        double resultPerimeter = triangle.getPerimeter3d();
+        double resultPerimeter = triangle.getPerimeter();
         assertEquals(truePerimeter, resultPerimeter, DELTA);
     }
 
@@ -37,19 +37,19 @@ public class TriangleCorrectnessTests {
 
     @Test
     public void canFindCorrectSquare3d() {
-        double halfPerimeter = triangle.getPerimeter3d() / 2;
+        double halfPerimeter = triangle.getPerimeter() / 2;
         double trueSquare = sqrt(halfPerimeter * (halfPerimeter - length1)
                 * (halfPerimeter - length2)
                 * (halfPerimeter - length3));
-        double resultSquare = triangle.getSquare3d();
+        double resultSquare = triangle.getSquare();
         assertEquals(trueSquare, resultSquare, DELTA);
     }
 
     @Test
     public void canFindCorrectMedian3d() {
-        double trueMedian = THEHALF * sqrt(2 * pow(length2, 2)
+        double trueMedian = THE_HALF * sqrt(2 * pow(length2, 2)
                 + 2 * pow(length3, 2) - pow(length1, 2));
-        List<Double> resultMedians = triangle.getMedians3d();
+        List<Double> resultMedians = triangle.getMedians();
         double resultMedian = resultMedians.get(0);
         assertEquals(trueMedian, resultMedian, DELTA);
     }
@@ -58,7 +58,7 @@ public class TriangleCorrectnessTests {
     public void canFindCorrectAltitude3d() {
         double perimeter = length1 + length2 + length3;
         double trueAltitude = 2 * perimeter / length1;
-        List<Double> resultAltitudes = triangle.getAltitudes3d();
+        List<Double> resultAltitudes = triangle.getAltitudes();
         double resultAltitude = resultAltitudes.get(0);
         assertEquals(trueAltitude, resultAltitude, DELTA);
     }
@@ -68,7 +68,7 @@ public class TriangleCorrectnessTests {
         double perimeter = length1 + length2 + length3;
         double trueBisectrix = sqrt(length1 * length2 * perimeter * (length1 + length2 - length3))
                 / (length1 + length2);
-        List<Double> resultBisectrices = triangle.getBisectrices3d();
+        List<Double> resultBisectrices = triangle.getBisectrices();
         double resultBisectrix = resultBisectrices.get(2);
         assertEquals(trueBisectrix, resultBisectrix, DELTA);
     }
@@ -77,7 +77,7 @@ public class TriangleCorrectnessTests {
     public void canFindCorrectAngle3d() {
         double trueAngle = acos((pow(length1, 2) + pow(length2, 2) - pow(length3, 2))
                 / (2 * length1 * length2));
-        List<Double> resultAngles = triangle.getAngles3d();
+        List<Double> resultAngles = triangle.getAngles();
         double resultAngle = resultAngles.get(2);
         assertEquals(trueAngle, resultAngle, DELTA);
     }
@@ -95,7 +95,7 @@ public class TriangleCorrectnessTests {
         double perimeter = length1 + length2 + length3;
         double trueBisectrix = sqrt(length1 * length2 * perimeter * (length1 + length2 - length3))
                 / (length1 + length2);
-        List<Double> resultBisectrices = triangleLarge.getBisectrices3d();
+        List<Double> resultBisectrices = triangleLarge.getBisectrices();
         double resultBisectrix = resultBisectrices.get(2);
         assertEquals(trueBisectrix, resultBisectrix, DELTA);
     }

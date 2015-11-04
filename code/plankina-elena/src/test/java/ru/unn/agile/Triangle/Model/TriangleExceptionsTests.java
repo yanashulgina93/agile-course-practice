@@ -18,44 +18,16 @@ public class TriangleExceptionsTests {
     }
 
     @Test
-    public void numberOfCoordinatesOfFirstAndSecondPointsIsEqual() {
-        List<Double> coordinates1 = triangle.getValueOfCoordinatesOfPoint1();
-        List<Double> coordinates2 = triangle.getValueOfCoordinatesOfPoint2();
-        assertEquals(triangle.hasEqualDimensions(coordinates1, coordinates2), true);
-    }
-
-    @Test
-    public void numberOfCoordinatesOfFirstAndThirdPointsIsEqual() {
-        List<Double> coordinates1 = triangle.getValueOfCoordinatesOfPoint1();
-        List<Double> coordinates3 = triangle.getValueOfCoordinatesOfPoint3();
-        assertEquals(triangle.hasEqualDimensions(coordinates1, coordinates3), true);
-    }
-
-    @Test
-    public void areFirstAndSecondPointsNotEqual() {
-        List<Double> coordinates1 = triangle.getValueOfCoordinatesOfPoint1();
-        List<Double> coordinates2 = triangle.getValueOfCoordinatesOfPoint2();
-        assertEquals(triangle.areNotEqual(coordinates1, coordinates2), true);
-    }
-
-    @Test
-    public void areFirstAndThirdPointsNotEqual() {
-        List<Double> coordinates1 = triangle.getValueOfCoordinatesOfPoint1();
-        List<Double> coordinates3 = triangle.getValueOfCoordinatesOfPoint3();
-        assertEquals(triangle.areNotEqual(coordinates1, coordinates3), true);
-    }
-
-    @Test
-    public void isTriangle() {
-        assertEquals(triangle.isPossibleToBuildTriangle(), true);
+    public void canBuildNonDegenerateTriangle() {
+        assertEquals(triangle.isPossibleToBuildNondegenerateTriangle(), true);
     }
 
     @Test
     public void canFindLength() {
         List<Double> coordinates1 = triangle.getValueOfCoordinatesOfPoint1();
-        List<Double> coordinates2 = triangle.getValueOfCoordinatesOfPoint2();
-        double length = triangle.getLength(coordinates1, coordinates2);
-        assertNotEquals(length, 0.0);
+        List<Double> coordinates3 = triangle.getValueOfCoordinatesOfPoint3();
+        double length = triangle.getLength(coordinates1, coordinates3);
+        assertNotNull(length);
     }
 
     @Test
@@ -66,25 +38,25 @@ public class TriangleExceptionsTests {
 
     @Test
     public void canFindPerimeter3d() {
-        double perimeter = triangle.getPerimeter3d();
+        double perimeter = triangle.getPerimeter();
         assertNotNull(perimeter);
     }
 
     @Test
     public void canFindSquare3d() {
-        double square = triangle.getSquare3d();
+        double square = triangle.getSquare();
         assertNotNull(square);
     }
 
     @Test
     public void canFindAltitudes3d() {
-        List<Double> altitudes = triangle.getAltitudes3d();
+        List<Double> altitudes = triangle.getAltitudes();
         assertNotNull(altitudes);
     }
 
     @Test
     public void canFindAngles3d() {
-        List<Double> angles = triangle.getAngles3d();
+        List<Double> angles = triangle.getAngles();
         assertNotNull(angles);
     }
 
