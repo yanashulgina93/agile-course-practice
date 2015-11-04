@@ -21,12 +21,16 @@ public class HypothecTest {
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {
-                        new Hypothec.Builder(1800000.0, 18).build(),
-                        100000.0
+                        new Hypothec.Builder(18000.0, 18).build(),
+                        1000.0
                 },
                 {
-                        new Hypothec.Builder(1500000.0, 10).setDownPayment(500000.0).build(),
-                        100000.0
+                        new Hypothec.Builder(15000.0, 10).setDownPayment(5000.0).build(),
+                        1000.0
+                },
+                {
+                        new Hypothec.Builder(12000.0, 1).setPeriodType(Hypothec.PeriodType.YEAR).build(),
+                        1000.0
                 }
         });
     }

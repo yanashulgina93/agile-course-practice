@@ -2,10 +2,10 @@ package ru.unn.agile.HypothecsCalculator.core;
 
 public class Hypothec {
     private final double creditSum;
-    private final int creditPeriod;
+    private final int countOfMonths;
 
     public double computeMonthlyPayment() {
-        return creditSum/creditPeriod;
+        return creditSum/countOfMonths;
     }
 
     public static class Builder {
@@ -14,6 +14,7 @@ public class Hypothec {
         private final int creditPeriod;
 
         private double downPayment = 0.0;
+        private PeriodType periodType = PeriodType.MONTH;
 
         public Builder(final double houseCost, final int creditPeriod) {
 
@@ -28,6 +29,10 @@ public class Hypothec {
             this.creditPeriod = creditPeriod;
         }
 
+        public Hypothec build() {
+            return new Hypothec(this);
+        }
+
         public Builder setDownPayment(double downPayment) {
             if (downPayment < 0) {
                 throw new IllegalArgumentException("Not positive down payment");
@@ -39,13 +44,32 @@ public class Hypothec {
             return this;
         }
 
-        public Hypothec build() {
-            return new Hypothec(this);
+        public Builder setPeriodType(PeriodType periodType) {
+            this.periodType = periodType;
+            return this;
         }
-
     }
     private Hypothec(Builder builder) {
         this.creditSum = builder.houseCost - builder.downPayment;
-        this.creditPeriod = builder.creditPeriod;
+
+        switch (builder.periodType) {
+            case MONTH:
+                this.countOfMonths = builder.creditPeriod;
+                break;
+            case YEAR:
+                this.countOfMonths = builder.creditPeriod * MONTHS_COUNT_IN_YEAR;
+                break;
+            default:
+                this.countOfMonths = 0;
+        }
+
     }
+
+    public static enum PeriodType {
+        MONTH,
+        YEAR
+    }
+
+    private static final double MAX_NUMBER_OF_PERCENTS = 100.0;
+    private static final int MONTHS_COUNT_IN_YEAR = 12;
 }
