@@ -9,6 +9,7 @@ public class Hypothec {
     private final double monthlyPercent;
     private final CreditType creditType;
     private final double monthlyFee;
+    private final MonthlyFeeType monthlyFeeType;
 
     public final double computeHighestMonthlyPayment() {
 
@@ -23,7 +24,7 @@ public class Hypothec {
     private double computeMonthlyPayment(final int numberOfMonth) {
 
         double monthlyPayment = creditSum * computePaymentCoefficient(numberOfMonth) +
-                monthlyFee;
+                computeMonthlyFee(numberOfMonth);
 
         return roundMoneySum(monthlyPayment);
     }
@@ -58,6 +59,31 @@ public class Hypothec {
         return paymentCoefficient;
     }
 
+    private double computeMonthlyFee(final int numberOfMonth) {
+
+        double fee = 0.0;
+
+        switch (monthlyFeeType) {
+            case CONSTANT_SUM:
+                fee = monthlyFee;
+                break;
+            case CREDIT_BALANCE_PERCENT:
+                fee = computeCreditBalance(numberOfMonth) * monthlyFee / MAX_NUMBER_OF_PERCENTS;
+                break;
+            case CREDIT_SUM_PERCENT:
+                fee = creditSum * monthlyFee / MAX_NUMBER_OF_PERCENTS;
+                break;
+            default:
+                break;
+        }
+
+        return fee;
+    }
+
+    private double computeCreditBalance(final int numberOfMonth) {
+        return creditSum * (1.0 - (double)numberOfMonth / countOfMonths);
+    }
+
     private double roundMoneySum(final double sum) {
         return new BigDecimal(sum).setScale(0, RoundingMode.HALF_UP).doubleValue();
     }
@@ -73,6 +99,7 @@ public class Hypothec {
         private InterestRateType interestRateType = InterestRateType.MONTHLY;
         private CreditType creditType = CreditType.ANNUITY;
         private double monthlyFee = 0.0;
+        private MonthlyFeeType monthlyFeeType = MonthlyFeeType.CONSTANT_SUM;
 
 
         public Builder(final double houseCost, final int creditPeriod) {
@@ -133,6 +160,11 @@ public class Hypothec {
             this.monthlyFee = monthlyFee;
             return this;
         }
+
+        public Builder setMonthlyFeeType(MonthlyFeeType monthlyFeeType) {
+            this.monthlyFeeType = monthlyFeeType;
+            return this;
+        }
     }
     private Hypothec(Builder builder) {
         this.creditSum = builder.houseCost - builder.downPayment;
@@ -162,6 +194,7 @@ public class Hypothec {
 
         this.creditType = builder.creditType;
         this.monthlyFee = builder.monthlyFee;
+        this.monthlyFeeType = builder.monthlyFeeType;
     }
 
     public static enum PeriodType {
@@ -177,6 +210,12 @@ public class Hypothec {
     public static enum CreditType {
         DIFFERENTIATED,
         ANNUITY
+    }
+
+    public static enum MonthlyFeeType {
+        CREDIT_BALANCE_PERCENT,
+        CREDIT_SUM_PERCENT,
+        CONSTANT_SUM
     }
 
     private static final double MAX_NUMBER_OF_PERCENTS = 100.0;

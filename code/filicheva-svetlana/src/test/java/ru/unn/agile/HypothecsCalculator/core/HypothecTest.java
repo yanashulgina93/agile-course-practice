@@ -37,23 +37,37 @@ public class HypothecTest {
                 {
                         new Hypothec.Builder(12000.0, 1).setPeriodType(Hypothec.PeriodType.YEAR)
                                 .setInterestRate(0.83333).build(),
-                        1055, 1055
+                        1055.0, 1055.0
                 },
                 {
                         new Hypothec.Builder(12000.0, 12).setInterestRate(10)
                                 .setInterestRateType(Hypothec.InterestRateType.YEARLY).build(),
-                        1055, 1055
+                        1055.0, 1055.0
                 },
                 {
                         new Hypothec.Builder(12000.0, 12).setInterestRate(0.83333)
                                 .setCreditType(Hypothec.CreditType.DIFFERENTIATED).build(),
-                        1100, 1008
+                        1100.0, 1008.0
                 },
                 {
                         new Hypothec.Builder(12000.0, 12).setInterestRate(0.83333).
                                 setMonthlyFee(1000.0).build(),
-                        2055, 2055
+                        2055.0, 2055.0
                 },
+                {
+                        new Hypothec.Builder(12000.0, 12).setInterestRate(0.83333)
+                                .setMonthlyFee(1.0)
+                                .setMonthlyFeeType(Hypothec.MonthlyFeeType.CREDIT_SUM_PERCENT)
+                                .build(),
+                        1175.0, 1175.0
+                },
+                {
+                        new Hypothec.Builder(12000.0, 12).setInterestRate(0.83333)
+                                .setMonthlyFee(1.0)
+                                .setMonthlyFeeType(Hypothec.MonthlyFeeType.CREDIT_BALANCE_PERCENT)
+                                .build(),
+                        1165.0, 1055.0
+                }
         });
     }
 
