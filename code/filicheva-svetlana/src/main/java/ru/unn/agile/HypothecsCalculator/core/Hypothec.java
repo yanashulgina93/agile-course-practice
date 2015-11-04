@@ -11,6 +11,7 @@ public class Hypothec {
     private final double monthlyFee;
     private final MonthlyFeeType monthlyFeeType;
     private final double flatFee;
+    private final CurrencyType currencyType;
 
     public final double computeHighestMonthlyPayment() {
 
@@ -152,6 +153,7 @@ public class Hypothec {
         private MonthlyFeeType monthlyFeeType = MonthlyFeeType.CONSTANT_SUM;
         private double flatFee = 0.0;
         private FlatFeeType flatFeeType = FlatFeeType.CONSTANT_SUM;
+        private CurrencyType currencyType = CurrencyType.RUBLE;
 
 
         public Builder(final double houseCost, final int creditPeriod) {
@@ -230,6 +232,11 @@ public class Hypothec {
             this.flatFeeType = flatFeeType;
             return this;
         }
+
+        public Builder setCurrency(CurrencyType currencyType) {
+            this.currencyType = currencyType;
+            return this;
+        }
     }
     private Hypothec(Builder builder) {
         this.creditSum = builder.houseCost - builder.downPayment;
@@ -272,6 +279,8 @@ public class Hypothec {
                 this.flatFee = 0.0;
         }
 
+        this.currencyType = builder.currencyType;
+
 
     }
 
@@ -309,4 +318,6 @@ public class Hypothec {
 
     private static final double MAX_NUMBER_OF_PERCENTS = 100.0;
     private static final int MONTHS_COUNT_IN_YEAR = 12;
+
+    
 }

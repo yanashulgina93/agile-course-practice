@@ -101,6 +101,11 @@ public class HypothecTest {
                         2054.99,        2054.99,       659.89,      24659.88
                 //      HighestPayment, LowestPayment, Overpayment, OverpaymentWithFees
                 },
+                {
+                        new Hypothec.Builder(18000.0, 18).setCurrency(Hypothec.CurrencyType.DOLLAR).build(),
+                        1000.0,         1000.0,        0.0,         0.0
+                //      HighestPayment, LowestPayment, Overpayment, OverpaymentWithFees
+                },
 
 
 
