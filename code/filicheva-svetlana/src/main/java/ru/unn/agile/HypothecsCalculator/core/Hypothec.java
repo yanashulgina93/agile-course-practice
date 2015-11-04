@@ -1,11 +1,27 @@
 package ru.unn.agile.HypothecsCalculator.core;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Hypothec {
     private final double creditSum;
     private final int countOfMonths;
+    private final double monthlyPercent;
 
     public double computeMonthlyPayment() {
-        return creditSum/countOfMonths;
+        return roundMoneySum(creditSum * computeAnnuityCoefficient());
+    }
+
+    private double computeAnnuityCoefficient() {
+        if (monthlyPercent == 0.0) {
+            return 1.0 / countOfMonths;
+        }
+
+        return monthlyPercent * (1.0 + 1.0 / (Math.pow(1 + monthlyPercent, countOfMonths) - 1));
+    }
+
+    private double roundMoneySum(final double sum) {
+        return new BigDecimal(sum).setScale(0, RoundingMode.HALF_UP).doubleValue();
     }
 
     public static class Builder {
@@ -15,6 +31,8 @@ public class Hypothec {
 
         private double downPayment = 0.0;
         private PeriodType periodType = PeriodType.MONTH;
+        private double interestRate = 0.0;
+
 
         public Builder(final double houseCost, final int creditPeriod) {
 
@@ -48,6 +66,11 @@ public class Hypothec {
             this.periodType = periodType;
             return this;
         }
+
+        public Builder setInterestRate(double interestRate) {
+            this.interestRate = interestRate;
+            return this;
+        }
     }
     private Hypothec(Builder builder) {
         this.creditSum = builder.houseCost - builder.downPayment;
@@ -63,11 +86,17 @@ public class Hypothec {
                 this.countOfMonths = 0;
         }
 
+        this.monthlyPercent = builder.interestRate / MAX_NUMBER_OF_PERCENTS;
     }
 
     public static enum PeriodType {
         MONTH,
         YEAR
+    }
+
+    public static enum InterestRateType {
+        MONTHLY,
+        YEARLY
     }
 
     private static final double MAX_NUMBER_OF_PERCENTS = 100.0;

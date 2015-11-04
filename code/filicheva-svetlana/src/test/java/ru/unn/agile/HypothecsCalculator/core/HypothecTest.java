@@ -31,6 +31,11 @@ public class HypothecTest {
                 {
                         new Hypothec.Builder(12000.0, 1).setPeriodType(Hypothec.PeriodType.YEAR).build(),
                         1000.0
+                },
+                {
+                        new Hypothec.Builder(12000.0, 1).setPeriodType(Hypothec.PeriodType.YEAR)
+                                .setInterestRate(0.83333).build(),
+                        1055
                 }
         });
     }
