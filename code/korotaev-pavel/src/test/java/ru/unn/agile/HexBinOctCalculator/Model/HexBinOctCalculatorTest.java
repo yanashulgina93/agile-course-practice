@@ -5,19 +5,19 @@ import static org.junit.Assert.*;
 
 public class HexBinOctCalculatorTest {
     @Test
-    public void canAddTwoBinNumbers() {
-        String firstNumber = "101";
-        String secondNumber = "10";
+    public void canAddOneBinOneHexNumbersAndConvertResultToOct() {
+        Number firstNumber = new Number("101", NumeralSystem.BIN);
+        Number secondNumber = new Number("2", NumeralSystem.HEX);
 
-        String result = HexBinOctCalculator.add(firstNumber, secondNumber, NumeralSystem.BIN);
+        String result = HexBinOctCalculator.add(firstNumber, secondNumber, NumeralSystem.OCT);
 
-        assertEquals(result, "111");
+        assertEquals(result, "7");
     }
 
     @Test
     public void canSubtractTwoBinNumbers() {
-        String firstNumber = "111";
-        String secondNumber = "11";
+        Number firstNumber = new Number("111", NumeralSystem.BIN);
+        Number secondNumber = new Number("11", NumeralSystem.BIN);
 
         String result = HexBinOctCalculator.subtract(firstNumber, secondNumber, NumeralSystem.BIN);
 
@@ -26,8 +26,8 @@ public class HexBinOctCalculatorTest {
 
     @Test
     public void canMultiplyTwoBinNumbers() {
-        String firstNumber = "11";
-        String secondNumber = "11";
+        Number firstNumber = new Number("11", NumeralSystem.BIN);
+        Number secondNumber = new Number("11", NumeralSystem.BIN);
 
         String result = HexBinOctCalculator.multiply(firstNumber, secondNumber, NumeralSystem.BIN);
 
@@ -36,8 +36,8 @@ public class HexBinOctCalculatorTest {
 
     @Test
     public void canDivideTwoBinNumbers() {
-        String firstNumber = "1111";
-        String secondNumber = "10";
+        Number firstNumber = new Number("1111", NumeralSystem.BIN);
+        Number secondNumber = new Number("10", NumeralSystem.BIN);
 
         String result = HexBinOctCalculator.divide(firstNumber, secondNumber, NumeralSystem.BIN);
 
@@ -45,19 +45,19 @@ public class HexBinOctCalculatorTest {
     }
 
     @Test
-    public void canAddTwoHexNumbers() {
-        String firstNumber = "ab";
-        String secondNumber = "cd";
+    public void canAddOneHexOneOctNumbersAndConvertResultToBin() {
+        Number firstNumber = new Number("ab", NumeralSystem.HEX);
+        Number secondNumber = new Number("315", NumeralSystem.OCT);
 
-        String result = HexBinOctCalculator.add(firstNumber, secondNumber, NumeralSystem.HEX);
+        String result = HexBinOctCalculator.add(firstNumber, secondNumber, NumeralSystem.BIN);
 
-        assertEquals(result, "178");
+        assertEquals(result, "101111000");
     }
 
     @Test
     public void canSubtractTwoHexNumbers() {
-        String firstNumber = "cde";
-        String secondNumber = "5";
+        Number firstNumber = new Number("cde", NumeralSystem.HEX);
+        Number secondNumber = new Number("5", NumeralSystem.HEX);
 
         String result = HexBinOctCalculator.subtract(firstNumber, secondNumber, NumeralSystem.HEX);
 
@@ -66,8 +66,8 @@ public class HexBinOctCalculatorTest {
 
     @Test
     public void canMultiplyTwoHexNumbers() {
-        String firstNumber = "4";
-        String secondNumber = "be";
+        Number firstNumber = new Number("4", NumeralSystem.HEX);
+        Number secondNumber = new Number("be", NumeralSystem.HEX);
 
         String result = HexBinOctCalculator.multiply(firstNumber, secondNumber, NumeralSystem.HEX);
 
@@ -76,8 +76,8 @@ public class HexBinOctCalculatorTest {
 
     @Test
     public void canDivideTwoHexNumbers() {
-        String firstNumber = "bc";
-        String secondNumber = "a";
+        Number firstNumber = new Number("bc", NumeralSystem.HEX);
+        Number secondNumber = new Number("a", NumeralSystem.HEX);
 
         String result = HexBinOctCalculator.divide(firstNumber, secondNumber, NumeralSystem.HEX);
 
@@ -85,19 +85,19 @@ public class HexBinOctCalculatorTest {
     }
 
     @Test
-    public void canAddTwoOctNumbers() {
-        String firstNumber = "7";
-        String secondNumber = "12";
+    public void canAddOneOctOneBinNumbersAndConvertResultToHex() {
+        Number firstNumber = new Number("7", NumeralSystem.OCT);
+        Number secondNumber = new Number("1010", NumeralSystem.BIN);
 
-        String result = HexBinOctCalculator.add(firstNumber, secondNumber, NumeralSystem.OCT);
+        String result = HexBinOctCalculator.add(firstNumber, secondNumber, NumeralSystem.HEX);
 
-        assertEquals(result, "21");
+        assertEquals(result, "11");
     }
 
     @Test
     public void cabSubtractTwoOctNumbers() {
-        String firstNumber = "35";
-        String secondNumber = "17";
+        Number firstNumber = new Number("35", NumeralSystem.OCT);
+        Number secondNumber = new Number("17", NumeralSystem.OCT);
 
         String result = HexBinOctCalculator.subtract(firstNumber, secondNumber, NumeralSystem.OCT);
 
@@ -106,8 +106,8 @@ public class HexBinOctCalculatorTest {
 
     @Test
     public void canMultiplyTwoOctNumbers() {
-        String firstNumber = "14";
-        String secondNumber = "5";
+        Number firstNumber = new Number("14", NumeralSystem.OCT);
+        Number secondNumber = new Number("5", NumeralSystem.OCT);
 
         String result = HexBinOctCalculator.multiply(firstNumber, secondNumber, NumeralSystem.OCT);
 
@@ -116,8 +116,8 @@ public class HexBinOctCalculatorTest {
 
     @Test
     public void canDivideTwoOctNumbers() {
-        String firstNumber = "71";
-        String secondNumber = "6";
+        Number firstNumber = new Number("71", NumeralSystem.OCT);
+        Number secondNumber = new Number("6", NumeralSystem.OCT);
 
         String result = HexBinOctCalculator.divide(firstNumber, secondNumber, NumeralSystem.OCT);
 
@@ -126,8 +126,8 @@ public class HexBinOctCalculatorTest {
 
     @Test
     public void canMultiplyTwoNegativeBinNumbers() {
-        String firstNumber = "11111111111111111111111111101111";
-        String secondNumber = "11111111111111111111111111111110";
+        Number firstNumber = new Number("11111111111111111111111111101111", NumeralSystem.BIN);
+        Number secondNumber = new Number("11111111111111111111111111111110", NumeralSystem.BIN);
 
         String result = HexBinOctCalculator.multiply(firstNumber, secondNumber, NumeralSystem.BIN);
 
@@ -136,8 +136,8 @@ public class HexBinOctCalculatorTest {
 
     @Test
     public void canDivideFirstNegativeSecondPositiveBinNumbers() {
-        String firstNumber = "11111111111111111111111111100101";
-        String secondNumber = "11";
+        Number firstNumber = new Number("11111111111111111111111111100101", NumeralSystem.BIN);
+        Number secondNumber = new Number("11", NumeralSystem.BIN);
 
         String result = HexBinOctCalculator.divide(firstNumber, secondNumber, NumeralSystem.BIN);
 
@@ -146,8 +146,8 @@ public class HexBinOctCalculatorTest {
 
     @Test
     public void canDivideTwoNegativeHexNumbers() {
-        String firstNumber = "ffffffc1";
-        String secondNumber = "fffffffd";
+        Number firstNumber = new Number("ffffffc1", NumeralSystem.HEX);
+        Number secondNumber = new Number("fffffffd", NumeralSystem.HEX);
 
         String result = HexBinOctCalculator.divide(firstNumber, secondNumber, NumeralSystem.HEX);
 
@@ -156,8 +156,8 @@ public class HexBinOctCalculatorTest {
 
     @Test
     public void canMultiplyFirstNegativeSecondPositiveHexNumbers() {
-        String firstNumber = "fffffffa";
-        String secondNumber = "16";
+        Number firstNumber = new Number("fffffffa", NumeralSystem.HEX);
+        Number secondNumber = new Number("16", NumeralSystem.HEX);
 
         String result = HexBinOctCalculator.multiply(firstNumber, secondNumber, NumeralSystem.HEX);
 
@@ -166,8 +166,8 @@ public class HexBinOctCalculatorTest {
 
     @Test
     public void canMultiplyTwoNegativeOctNumbers() {
-        String firstNumber = "37777777724";
-        String secondNumber = "37777777707";
+        Number firstNumber = new Number("37777777724", NumeralSystem.OCT);
+        Number secondNumber = new Number("37777777707", NumeralSystem.OCT);
 
         String result = HexBinOctCalculator.multiply(firstNumber, secondNumber, NumeralSystem.OCT);
 
@@ -176,8 +176,8 @@ public class HexBinOctCalculatorTest {
 
     @Test
     public void canDivideFirstPositiveSecondNegativeOctNumbers() {
-        String firstNumber = "55";
-        String secondNumber = "37777777761";
+        Number firstNumber = new Number("55", NumeralSystem.OCT);
+        Number secondNumber = new Number("37777777761", NumeralSystem.OCT);
 
         String result = HexBinOctCalculator.divide(firstNumber, secondNumber, NumeralSystem.OCT);
 
@@ -186,8 +186,8 @@ public class HexBinOctCalculatorTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void canNotDivideToZero() {
-        String firstNumber = "23";
-        String secondNumber = "0";
+        Number firstNumber = new Number("23", NumeralSystem.HEX);
+        Number secondNumber = new Number("0", NumeralSystem.HEX);
 
         String result = HexBinOctCalculator.divide(firstNumber, secondNumber, NumeralSystem.HEX);
     }
