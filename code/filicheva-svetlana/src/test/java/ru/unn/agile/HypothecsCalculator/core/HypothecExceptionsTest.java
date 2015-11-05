@@ -54,8 +54,10 @@ public class HypothecExceptionsTest {
     }
 
     private static final GregorianCalendar RIGHT_DATE
+            = new GregorianCalendar(1992, Calendar.MARCH, 10);
+    private static final GregorianCalendar TOO_EARLY_DATE
             = new GregorianCalendar(1980, Calendar.MARCH, 10);
-    private static final GregorianCalendar WRONG_DATE
+    private static final GregorianCalendar TOO_LATE_DATE
             = new GregorianCalendar(2150, Calendar.MARCH, 10);
 
     private static Object[][] parametersOfTests = new Object[][]{
@@ -85,10 +87,10 @@ public class HypothecExceptionsTest {
                     18000.0,      2,        0.0,        10.0,      100.0,   -110.0,   RIGHT_DATE
             },
             {
-                    18000.0,      2,        0.0,        10.0,      100.0,    110.0,   RIGHT_DATE
+                    18000.0,      2,        0.0,        10.0,      100.0,    110.0,   TOO_EARLY_DATE
             },
             {
-                    18000.0,      2,        0.0,        10.0,      100.0,    110.0,   WRONG_DATE
+                    18000.0,      2,        0.0,        10.0,      100.0,    110.0,   TOO_LATE_DATE
             }
     };
 
