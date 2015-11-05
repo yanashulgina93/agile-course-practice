@@ -15,16 +15,16 @@ public class IntersectionFinder {
         return line;
     }
 
-    public void setLine(final Line lineSource) {
-        line = lineSource;
+    public void setLine(final Line line) {
+        this.line = line;
     }
 
     public Plane getPlane() {
         return plane;
     }
 
-    public void setPlane(final Plane planeSource) {
-        plane = planeSource;
+    public void setPlane(final Plane plane) {
+        this.plane = plane;
     }
 
     public TypeOfIntersection getTypeOfIntersection() {

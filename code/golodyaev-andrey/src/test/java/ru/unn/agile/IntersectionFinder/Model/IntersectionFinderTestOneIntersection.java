@@ -16,7 +16,7 @@ public class IntersectionFinderTestOneIntersection {
     private Vector3D intersectionResult;
     private Line line;
     private Plane plane;
-    private IntersectionFinder intersectionFinder;
+    private IntersectionFinder intersectionPlaneAndIntersectingLine;
     private enum TypeOfOneIntersection { PlaneXOYAndLineZ,
                                          PlaneXOZAndLineXY,
                                          PlaneAndLine };
@@ -73,7 +73,7 @@ public class IntersectionFinderTestOneIntersection {
         }
         line = new Line(pointLine, vectorLine);
         plane = new Plane(pointPlane, normalPlane);
-        intersectionFinder = new IntersectionFinder(line, plane);
+        intersectionPlaneAndIntersectingLine = new IntersectionFinder(line, plane);
     }
 
     public IntersectionFinderTestOneIntersection(final TypeOfOneIntersection type) {
@@ -82,13 +82,15 @@ public class IntersectionFinderTestOneIntersection {
 
     @Test
     public void canFindThatOneIntersection() {
-        IntersectionFinder.TypeOfIntersection t = intersectionFinder.getTypeOfIntersection();
+        IntersectionFinder.TypeOfIntersection t =
+                intersectionPlaneAndIntersectingLine.getTypeOfIntersection();
 
         assertEquals(t, IntersectionFinder.TypeOfIntersection.OneIntersection);
     }
 
     @Test
     public void canFindIntersectionIfItExists() {
-        assertEquals(intersectionFinder.getIntersectionPoint(), intersectionResult);
+        assertEquals(intersectionPlaneAndIntersectingLine.getIntersectionPoint(),
+                intersectionResult);
     }
 }

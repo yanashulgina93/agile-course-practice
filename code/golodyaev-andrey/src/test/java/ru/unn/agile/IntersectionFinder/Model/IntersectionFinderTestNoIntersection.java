@@ -15,7 +15,7 @@ public class IntersectionFinderTestNoIntersection {
     private Vector3D normalPlane;
     private Line line;
     private Plane plane;
-    private IntersectionFinder intersectionFinder;
+    private IntersectionFinder intersectionPlaneAndParallelLine;
     private enum TypeOfNoIntersection { PlaneXOYAndLineXYWithOffset,
                                         PlaneXOZAndLineZWithOffset,
                                         PlaneAndParallelLine };
@@ -69,7 +69,7 @@ public class IntersectionFinderTestNoIntersection {
         }
         line = new Line(pointLine, vectorLine);
         plane = new Plane(pointPlane, normalPlane);
-        intersectionFinder = new IntersectionFinder(line, plane);
+        intersectionPlaneAndParallelLine = new IntersectionFinder(line, plane);
     }
 
     public IntersectionFinderTestNoIntersection(final TypeOfNoIntersection type) {
@@ -78,13 +78,14 @@ public class IntersectionFinderTestNoIntersection {
 
     @Test
     public void canFindThatNoIntersection() {
-        IntersectionFinder.TypeOfIntersection t = intersectionFinder.getTypeOfIntersection();
+        IntersectionFinder.TypeOfIntersection t =
+                intersectionPlaneAndParallelLine.getTypeOfIntersection();
 
         assertEquals(t, IntersectionFinder.TypeOfIntersection.NoIntersection);
     }
 
     @Test(expected = Exception.class)
     public void canCatchExceptionIfNoIntersection() {
-        intersectionFinder.getIntersectionPoint();
+        intersectionPlaneAndParallelLine.getIntersectionPoint();
     }
 }

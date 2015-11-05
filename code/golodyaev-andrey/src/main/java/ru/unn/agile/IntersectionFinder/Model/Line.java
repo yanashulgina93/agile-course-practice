@@ -14,14 +14,14 @@ public class Line {
     }
 
     public void setPoint(final Vector3D pointSource) {
-        point = pointSource;
+        this.point = point;
     }
 
     public Vector3D getVector() {
         return vector;
     }
 
-    public void setVector(final Vector3D vectorSource) {
-        vector = vectorSource;
+    public void setVector(final Vector3D vector) {
+        this.vector = vector;
     }
 }

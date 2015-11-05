@@ -15,7 +15,7 @@ public class IntersectionFinderTestLineOnThePlane {
     private Vector3D vectorLine;
     private Line line;
     private Plane plane;
-    private IntersectionFinder intersectionFinder;
+    private IntersectionFinder intersectionPlaneContainsLine;
     private enum TypeOfLineOnThePlane { PlaneXOYAndLineXY,
                                         PlaneXOZAndLineZ,
                                         PlaneAndLineOnThePlane };
@@ -69,7 +69,7 @@ public class IntersectionFinderTestLineOnThePlane {
         }
         line = new Line(pointLine, vectorLine);
         plane = new Plane(pointPlane, normalPlane);
-        intersectionFinder = new IntersectionFinder(line, plane);
+        intersectionPlaneContainsLine = new IntersectionFinder(line, plane);
     }
 
     public IntersectionFinderTestLineOnThePlane(final TypeOfLineOnThePlane type) {
@@ -78,13 +78,14 @@ public class IntersectionFinderTestLineOnThePlane {
 
     @Test
     public void canFindThatLineOnThePlane() {
-        IntersectionFinder.TypeOfIntersection t = intersectionFinder.getTypeOfIntersection();
+        IntersectionFinder.TypeOfIntersection t =
+                intersectionPlaneContainsLine.getTypeOfIntersection();
 
         assertEquals(t, IntersectionFinder.TypeOfIntersection.LineOnThePlane);
     }
 
     @Test(expected = Exception.class)
     public void canCatchExceptionIfLineOnThePlane() {
-        intersectionFinder.getIntersectionPoint();
+        intersectionPlaneContainsLine.getIntersectionPoint();
     }
 }

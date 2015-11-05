@@ -39,24 +39,24 @@ public class Vector3D {
         return x;
     }
 
-    public void setX(final double vectorX) {
-        x = vectorX;
+    public void setX(final double x) {
+        this.x = x;
     }
 
     public double getY() {
         return y;
     }
 
-    public void setY(final double vectorY) {
-        y = vectorY;
+    public void setY(final double y) {
+        this.y = y;
     }
 
     public double getZ() {
         return z;
     }
 
-    public void setZ(final double vectorZ) {
-        z = vectorZ;
+    public void setZ(final double z) {
+        this.z = z;
     }
 
     public Vector3D mul(final double alpha) {

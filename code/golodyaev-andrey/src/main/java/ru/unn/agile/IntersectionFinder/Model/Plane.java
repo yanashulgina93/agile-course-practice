@@ -14,16 +14,16 @@ public class Plane {
         return normal;
     }
 
-    public void setNormal(final Vector3D normalSource) {
-        normal = normalSource;
+    public void setNormal(final Vector3D normal) {
+        this.normal = normal;
     }
 
     public Vector3D getPoint() {
         return point;
     }
 
-    public void setPoint(final Vector3D pointSource) {
-        point = pointSource;
+    public void setPoint(final Vector3D point) {
+        this.point = point;
     }
 
     public boolean isPointOnPlane(final Vector3D p) {
