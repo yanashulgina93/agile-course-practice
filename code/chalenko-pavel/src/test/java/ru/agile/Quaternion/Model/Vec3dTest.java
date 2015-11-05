@@ -1,6 +1,3 @@
-/**
- * 
- */
 package test.java.ru.agile.Quaternion.Model;
 
 import static org.junit.Assert.assertEquals;
@@ -12,18 +9,12 @@ import main.java.ru.agile.Quaternion.Model.Vec3d;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * @author User
- *
- */
 public class Vec3dTest {
 
 	private Vec3d vec1;
 	private Vec3d vec2;
 	private double eps = 0.001;
-	/**
-	 * @throws java.lang.Exception
-	 */
+	
 	@Before
 	public void setUp() throws Exception {
 		vec1 = new Vec3d(1.0, 2.0, 3.0);
@@ -40,7 +31,7 @@ public class Vec3dTest {
 	public void areVec3dEquals(){
 		Vec3d vec3 = new Vec3d(1, 2.0, 3.0);
 		
-		assertTrue("Two vectors are not equals", vec1.equals(vec3));
+		assertTrue("Two vectors are not equal", vec1.equals(vec3));
 	}
 	
 	@Test
@@ -57,28 +48,28 @@ public class Vec3dTest {
 	public void Vec3dAreNotEquals(){
 		Vec3d vec3 = new Vec3d(1, 2.0, 3.0);
 		
-		assertFalse("Two vectors are equals", vec2.equals(vec3));
+		assertFalse("Two vectors are equal", vec2.equals(vec3));
 	}
 	
 	@Test
 	public void Vec3dAreNotEqualsInt(){
 		int number = 7;
 		
-		assertFalse("Two vectors are equals", vec2.equals(number));
+		assertFalse("Two vectors are equal", vec2.equals(number));
 	}
 	
 	@Test
 	public void Vec3dAreNotEqualsParticly1(){
 		Vec3d vec3 = new Vec3d(1, 2.0, 3.5);
 		
-		assertFalse("Two vectors are equals", vec1.equals(vec3));
+		assertFalse("Two vectors are equal", vec1.equals(vec3));
 	}
 	
 	@Test
 	public void Vec3dAreNotEqualsParticly2(){
 		Vec3d vec3 = new Vec3d(1, 2.5, 3.5);
 		
-		assertFalse("Two vectors are equals", vec1.equals(vec3));
+		assertFalse("Two vectors are equal", vec1.equals(vec3));
 	}
 	
 	@Test
@@ -205,7 +196,7 @@ public class Vec3dTest {
 		
 		Vec3d actualVec = vec1.mul(2);
 		
-		assertTrue("Can't multiply vectors to scalar", actualVec.equals(expectedVec));
+		assertTrue("Can't multiply vector to scalar", actualVec.equals(expectedVec));
 	}
 	
 	@Test
@@ -214,7 +205,7 @@ public class Vec3dTest {
 		
 		Vec3d actualVec = vec1.mul(0);
 		
-		assertTrue("Can't multiply vectors to scalar", actualVec.equals(expectedVec));
+		assertTrue("Can't multiply vector to scalar", actualVec.equals(expectedVec));
 	}
 	
 	@Test
@@ -241,8 +232,8 @@ public class Vec3dTest {
 		boolean v1equalsv2 = vec1.equals(vec2, eps);
 		boolean v1equalsv3 = vec1.equals(vec3, eps);
 		
-		assertTrue("Can't equals quaternions with precission", v1equalsv2);
-		assertFalse("Can't equals quaternions with precission", v1equalsv3);
+		assertTrue("Can't compare vectors with precision", v1equalsv2);
+		assertFalse("Can't compare vectors with precision", v1equalsv3);
 	}
 	
 	@Test

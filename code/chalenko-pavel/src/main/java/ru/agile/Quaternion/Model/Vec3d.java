@@ -1,21 +1,11 @@
-/**
- * 
- */
 package main.java.ru.agile.Quaternion.Model;
 
-/**
- * @author Chalenko Pavel
- *
- */
 public class Vec3d {
 
 	private double x = 0;
 	private double y = 0;
 	private double z = 0;
 	
-	/**
-	 * 
-	 */
 	public Vec3d(final double x, final double y, final double z) {
 		this.x = x;
 		this.y = y;
@@ -32,9 +22,6 @@ public class Vec3d {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -49,9 +36,6 @@ public class Vec3d {
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Vec3d){

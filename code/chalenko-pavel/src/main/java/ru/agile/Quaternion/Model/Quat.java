@@ -1,12 +1,5 @@
-/**
- * 
- */
 package main.java.ru.agile.Quaternion.Model;
 
-/**
- * @author Clalenko Pavel
- *
- */
 public class Quat {
 
 	double scalar;
@@ -22,9 +15,6 @@ public class Quat {
 		this.vec = new Vec3d(vector);
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -36,9 +26,6 @@ public class Quat {
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Quat){

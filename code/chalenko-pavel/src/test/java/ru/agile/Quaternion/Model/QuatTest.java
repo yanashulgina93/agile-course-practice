@@ -1,6 +1,3 @@
-/**
- * 
- */
 package test.java.ru.agile.Quaternion.Model;
 
 import static org.junit.Assert.*;
@@ -11,18 +8,12 @@ import org.junit.Test;
 import main.java.ru.agile.Quaternion.Model.Quat;
 import main.java.ru.agile.Quaternion.Model.Vec3d;
 
-/**
- * @author User
- *
- */
 public class QuatTest {
 
 	Quat q1;
 	Quat q2;
 	double eps = 0.001;
-	/**
-	 * @throws java.lang.Exception
-	 */
+	
 	@Before
 	public void setUp() throws Exception {
 		q1 = new Quat(1, 2., 3.0, 4);
@@ -39,7 +30,7 @@ public class QuatTest {
 	public void areQuatEquals(){
 		Quat q3 = new Quat(1.0, 2, 3.0, 4.);
 		
-		assertTrue("Two vectors are not equals", q1.equals(q3));
+		assertTrue("Two quaternions are not equal", q1.equals(q3));
 	}
 	
 	@Test
@@ -56,14 +47,14 @@ public class QuatTest {
 	public void QuatAreNotEquals(){
 		Quat q3 = new Quat(1.0, 2, 3.0, 4.);
 		
-		assertFalse("Two quaternions are equals", q2.equals(q3));
+		assertFalse("Two quaternions are equal", q2.equals(q3));
 	}
 	
 	@Test
 	public void QuatAreNotEqualsInt(){
 		int number = 12;
 		
-		assertFalse("Two quaternions are equals", q2.equals(number));
+		assertFalse("Two quaternions are equal", q2.equals(number));
 	}
 
 	@Test
@@ -95,7 +86,7 @@ public class QuatTest {
 		
 		Quat actualSumQuat = q1.add(q2);
 		
-		assertTrue("Can't added vectors", actualSumQuat.equals(expectedSumQuat));
+		assertTrue("Can't added quaternions", actualSumQuat.equals(expectedSumQuat));
 	}
 	
 	@Test
@@ -140,7 +131,7 @@ public class QuatTest {
 		
 		Quat actualMulQuat = q1.mul(q2);
 		
-		assertTrue("Can't multiplicate quaternion", actualMulQuat.equals(expectedMulQuat));
+		assertTrue("Can't multiply quaternions", actualMulQuat.equals(expectedMulQuat));
 	}
 	
 	@Test
@@ -151,7 +142,7 @@ public class QuatTest {
 		
 		Quat actualMulQuat = q1.mul(q2);
 		
-		assertTrue("Can't multiplicate quaternion", actualMulQuat.equals(expectedMulQuat));
+		assertTrue("Can't multiply quaternions", actualMulQuat.equals(expectedMulQuat));
 	}
 	
 	@Test
@@ -162,7 +153,7 @@ public class QuatTest {
 		
 		Quat actualMulQuat = q1.mul(q2);
 		
-		assertTrue("Can't multiplicate quaternion", actualMulQuat.equals(expectedMulQuat));
+		assertTrue("Can't multiply quaternions", actualMulQuat.equals(expectedMulQuat));
 	}
 	
 	@Test
@@ -171,7 +162,7 @@ public class QuatTest {
 		
 		Quat actualMulQuat = q1.mul(q2);
 		
-		assertTrue("Can't multiplicate quaternion", actualMulQuat.equals(expectedMulQuat));
+		assertTrue("Can't multiply quaternions", actualMulQuat.equals(expectedMulQuat));
 	}
 	
 	@Test
@@ -231,8 +222,8 @@ public class QuatTest {
 		boolean q1equalsq2 = q1.equals(q2, eps);
 		boolean q1equalsq3 = q1.equals(q3, eps);
 		
-		assertTrue("Can't equals quaternions with precission", q1equalsq2);
-		assertFalse("Can't equals quaternions with precission", q1equalsq3);
+		assertTrue("Can't compare quaternions with precision", q1equalsq2);
+		assertFalse("Can't compare quaternions with precision", q1equalsq3);
 	}
 	
 	@Test
