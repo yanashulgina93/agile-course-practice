@@ -1,5 +1,7 @@
 package ru.unn.agile.HypothecsCalculator.core;
 
+import sun.util.resources.cldr.af.CalendarData_af_ZA;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.GregorianCalendar;
@@ -84,7 +86,7 @@ public class Hypothec {
                 break;
         }
 
-        return fee;
+        return roundMoneySum(fee);
     }
 
     private double computeCreditBalance(final int numberOfMonth) {
@@ -115,7 +117,7 @@ public class Hypothec {
         return balance;
     }
 
-    private double mainDebtPayment(final int numberOfMonth) {
+    private double computeMainDebtPayment(final int numberOfMonth) {
         double sum = 0.0;
 
         switch (creditType) {
@@ -162,24 +164,38 @@ public class Hypothec {
     }
 
     public JTable getGraphicOfPayments() {
-        GregorianCalendar date = (GregorianCalendar) startDate.clone();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM.yyyy");
 
         Object[][] paymentsData = new Object[countOfMonths][COLUMN_COUNT];
-        for (int i = 0; i < countOfMonths; i++) {
-            paymentsData[i][0] = i + 1;
-
-            paymentsData[i][1] = dateFormat.format(date.getTime());
-            date.add(Calendar.MONTH, 1);
-
-            paymentsData[i][2] = computeMonthlyPayment(i + 1);
-
-            paymentsData[i][3] = mainDebtPayment(i + 1);
+        for (int i = 1; i <= countOfMonths; i++) {
+            paymentsData[i - 1] = getTableRow(i);
 
         }
 
-
         return new JTable(paymentsData, COLUMN_NAMES);
+    }
+
+    private Object[] getTableRow(final int rowNumber) {
+
+        GregorianCalendar date = (GregorianCalendar) startDate.clone();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM.yyyy");
+        date.add(Calendar.MONTH, rowNumber - 1);
+
+        double payment = computeMonthlyPayment(rowNumber);
+        double mainDebtPayment = computeMainDebtPayment(rowNumber);
+        double thisMonthlyFee = computeMonthlyFee(rowNumber);
+        double percentPayment = roundMoneySum(payment - mainDebtPayment - thisMonthlyFee);
+
+        Object[] row = new Object[COLUMN_COUNT];
+
+        row[0] = rowNumber;
+        row[1] = dateFormat.format(date.getTime());
+        row[2] = payment;
+        row[3] = mainDebtPayment;
+        row[4] = percentPayment;
+        row[5] = thisMonthlyFee;
+        row[6] = roundMoneySum(computeCreditBalance(rowNumber));
+
+        return row;
     }
 
     public static class Builder {
@@ -376,9 +392,12 @@ public class Hypothec {
             "№ платежа",
             "Дата платежа",
             "Сумма платежа",
-            "Платеж по основному долгу"
+            "Платеж по основному долгу",
+            "Платеж по процентам",
+            "Ежемесячная комиссия",
+            "Остаток основной задолженности"
     };
-    private static final int COLUMN_COUNT = 4;
+    private static final int COLUMN_COUNT = 7;
 
     private static final double MAX_NUMBER_OF_PERCENTS = 100.0;
     private static final int MONTHS_COUNT_IN_YEAR = 12;
