@@ -9,61 +9,61 @@ public class HypothecExceptionsTest {
     private final int creditPeriod  = 18;
 
     @Test (expected = IllegalArgumentException.class)
-    public void trowOnNegativeCreditSum() {
+    public void throwOnNegativeCreditSum() {
         final double negativeCreditSum = -18000.0;
         new Hypothec.Builder(negativeCreditSum, creditPeriod).build();
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void trowOnNegativeCreditPeriod() {
+    public void throwOnNegativeCreditPeriod() {
         final int negativeCreditPeriod  = -18;
         new Hypothec.Builder(creditSum, negativeCreditPeriod).build();
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void trowOnZeroCreditPeriod() {
+    public void throwOnZeroCreditPeriod() {
         final int zeroCreditPeriod  = 0;
         new Hypothec.Builder(creditSum, zeroCreditPeriod).build();
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void trowOnNegativeDownPayment() {
+    public void throwOnNegativeDownPayment() {
         final double negativeDownPayment = -1000.0;
         new Hypothec.Builder(creditSum, creditPeriod).setDownPayment(negativeDownPayment).build();
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void trowOnTooLargeDownPayment() {
+    public void throwOnTooLargeDownPayment() {
         final double tooLargeDownPayment = 20000.0;
         new Hypothec.Builder(creditSum, creditPeriod).setDownPayment(tooLargeDownPayment).build();
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void trowOnNegativeInterestRate() {
+    public void throwOnNegativeInterestRate() {
         final double negativeInterestRate = -100.0;
         new Hypothec.Builder(creditSum, creditPeriod).setInterestRate(negativeInterestRate).build();
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void trowOnNegativeMonthlyFee() {
+    public void throwOnNegativeMonthlyFee() {
         final double negativeMonthlyFee = -100.0;
         new Hypothec.Builder(creditSum, creditPeriod).setMonthlyFee(negativeMonthlyFee).build();
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void trowOnNegativeFlatFee() {
+    public void throwOnNegativeFlatFee() {
         final double negativeFlatFee = -100.0;
         new Hypothec.Builder(creditSum, creditPeriod).setMonthlyFee(negativeFlatFee).build();
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void trowOnTooEarlyStartDate() {
+    public void throwOnTooEarlyStartDate() {
         final GregorianCalendar tooEarlyDate = new GregorianCalendar(1980, Calendar.MARCH, 10);
         new Hypothec.Builder(creditSum, creditPeriod).setStartDate(tooEarlyDate).build();
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void trowOnTooLargeStartDate() {
+    public void throwOnTooLargeStartDate() {
         final GregorianCalendar tooLargeDate = new GregorianCalendar(2150, Calendar.MARCH, 10);
         new Hypothec.Builder(creditSum, creditPeriod).setStartDate(tooLargeDate).build();
     }
