@@ -8,6 +8,20 @@ public class Student {
     private final String name;
     private final ArrayList<Mark> marks;
 
+    private int findMark(final String requiredAcademicSubject,
+                         final GregorianCalendar requiredDate) {
+        int i = 0;
+        while (i < getMarks().size()
+                && !(getMarks().get(i).getDate().after(requiredDate))) {
+            if (getMarks().get(i).getDate().equals(requiredDate)
+                    && getMarks().get(i).getAcademicSubject().equals(requiredAcademicSubject)) {
+                return i;
+            }
+            i++;
+        }
+        throw new MarkDoesNotExistException("Required mark doesn't exist");
+    }
+
     public Student(final String currentName) {
         this.name = currentName;
         this.marks = new ArrayList<Mark>();
@@ -50,33 +64,12 @@ public class Student {
     }
 
     public int getMark(final String requiredAcademicSubject, final GregorianCalendar requiredDate) {
-        int i = 0;
-        while (i < getMarks().size()) {
-            if (getMarks().get(i).getDate().equals(requiredDate)
-                    && getMarks().get(i).getAcademicSubject().equals(requiredAcademicSubject)) {
-                return getMarks().get(i).getValue();
-            }
-            i++;
-        }
-        throw new MarkDoesNotExistException("Required mark doesn't exist");
+        return getMarks().get(findMark(requiredAcademicSubject, requiredDate)).getValue();
     }
 
     public void deleteMark(final String requiredAcademicSubject,
                            final GregorianCalendar requiredDate) {
-        int i = 0;
-        while (i < getMarks().size()
-                && !(getMarks().get(i).getDate().after(requiredDate))) {
-            if (getMarks().get(i).getDate().equals(requiredDate)
-                    && getMarks().get(i).getAcademicSubject().equals(requiredAcademicSubject)) {
-                this.marks.remove(i);
-                i = -1;
-                break;
-            }
-            i++;
-        }
-        if (i != -1) {
-            throw new MarkDoesNotExistException("Required mark doesn't exist");
-        }
+        this.marks.remove(findMark(requiredAcademicSubject, requiredDate));
     }
 
     public void deleteMarks(final String requieredAcademicSubject) {
