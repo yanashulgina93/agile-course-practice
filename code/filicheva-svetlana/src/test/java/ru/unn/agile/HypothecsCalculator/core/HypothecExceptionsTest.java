@@ -1,98 +1,70 @@
 package ru.unn.agile.HypothecsCalculator.core;
 
-import java.util.Arrays;
-import java.util.Collection;
+import org.junit.Test;
 import java.util.GregorianCalendar;
 import java.util.Calendar;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
-
-@RunWith(Parameterized.class)
 public class HypothecExceptionsTest {
-
-    @Parameters
-    public static Collection<Object[]> data() {
-        return Arrays.asList(parametersOfTests);
-    }
-
-    private final double houseCost;
-    private final double downPayment;
-    private final double interestRate;
-    private final int creditPeriod;
-    private final double monthlyFee;
-    private final double flatFee;
-    private final GregorianCalendar startDate;
+    final double creditSum = 18000.0;
+    final int creditPeriod  = 18;
 
     @Test (expected = IllegalArgumentException.class)
-    public void throwOnCreditWithIllegalParameters() {
-        new Hypothec.Builder(houseCost, creditPeriod)
-                .setDownPayment(downPayment)
-                .setInterestRate(interestRate)
-                .setMonthlyFee(monthlyFee)
-                .setFlatFee(flatFee)
-                .setStartDate(startDate)
-                .build();
+    public void trowOnNegativeCreditSum(){
+        final double negativeCreditSum = -18000.0;
+        new Hypothec.Builder(negativeCreditSum, creditPeriod).build();
     }
 
-    public HypothecExceptionsTest(final double houseCost,
-                                  final int creditPeriod,
-                                  final double downPayment,
-                                  final double interestRate,
-                                  final double monthlyFee,
-                                  final double flatFee,
-                                  final GregorianCalendar startDate) {
-        this.houseCost = houseCost;
-        this.creditPeriod = creditPeriod;
-        this.downPayment = downPayment;
-        this.interestRate = interestRate;
-        this.monthlyFee = monthlyFee;
-        this.flatFee = flatFee;
-        this.startDate = startDate;
+    @Test (expected = IllegalArgumentException.class)
+    public void trowOnNegativeCreditPeriod(){
+        final int negativeCreditPeriod  = -18;
+        new Hypothec.Builder(creditSum, negativeCreditPeriod).build();
     }
 
-    private static final GregorianCalendar RIGHT_DATE
-            = new GregorianCalendar(1992, Calendar.MARCH, 10);
-    private static final GregorianCalendar TOO_EARLY_DATE
-            = new GregorianCalendar(1980, Calendar.MARCH, 10);
-    private static final GregorianCalendar TOO_LATE_DATE
-            = new GregorianCalendar(2150, Calendar.MARCH, 10);
+    @Test (expected = IllegalArgumentException.class)
+    public void trowOnZeroCreditPeriod(){
+        final int zeroCreditPeriod  = 0;
+        new Hypothec.Builder(creditSum, zeroCreditPeriod).build();
+    }
 
-    private static Object[][] parametersOfTests = new Object[][]{
-    //            houseCost,creditPeriod,downPayment,interestRate,monthlyFee,flatFee,startDate
-            {
-                    -18000.0,    18,        0.0,         0.0,        0.0,      0.0,   RIGHT_DATE
-            },
-            {
-                    18000.0,      0,        0.0,         0.0,        0.0,      0.0,   RIGHT_DATE
-            },
-            {
-                    18000.0,     -2,        0.0,         0.0,        0.0,      0.0,   RIGHT_DATE
-            },
-            {
-                    18000.0,      2,    -1000.0,         0.0,        0.0,      0.0,   RIGHT_DATE
-            },
-            {
-                    18000.0,      2,    20000.0,         0.0,        0.0,      0.0,   RIGHT_DATE
-            },
-            {
-                    18000.0,      2,        0.0,       -10.0,        0.0,      0.0,   RIGHT_DATE
-            },
-            {
-                    18000.0,      2,        0.0,        10.0,     -100.0,      0.0,   RIGHT_DATE
-            },
-            {
-                    18000.0,      2,        0.0,        10.0,      100.0,   -110.0,   RIGHT_DATE
-            },
-            {
-                    18000.0,      2,        0.0,        10.0,      100.0,    110.0,   TOO_EARLY_DATE
-            },
-            {
-                    18000.0,      2,        0.0,        10.0,      100.0,    110.0,   TOO_LATE_DATE
-            }
-    };
+    @Test (expected = IllegalArgumentException.class)
+    public void trowOnNegativeDownPayment(){
+        final double negativeDownPayment = -1000.0;
+        new Hypothec.Builder(creditSum, creditPeriod).setDownPayment(negativeDownPayment).build();
+    }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void trowOnTooLargeDownPayment(){
+        final double tooLargeDownPayment = 20000.0;
+        new Hypothec.Builder(creditSum, creditPeriod).setDownPayment(tooLargeDownPayment).build();
+    }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void trowOnNegativeInterestRate(){
+        final double negativeInterestRate = -100.0;
+        new Hypothec.Builder(creditSum, creditPeriod).setInterestRate(negativeInterestRate).build();
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void trowOnNegativeMonthlyFee(){
+        final double negativeMonthlyFee = -100.0;
+        new Hypothec.Builder(creditSum, creditPeriod).setMonthlyFee(negativeMonthlyFee).build();
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void trowOnNegativeFlatFee(){
+        final double negativeFlatFee = -100.0;
+        new Hypothec.Builder(creditSum, creditPeriod).setMonthlyFee(negativeFlatFee).build();
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void trowOnTooEarlyStartDate(){
+        final GregorianCalendar tooEarlyDate = new GregorianCalendar(1980, Calendar.MARCH, 10);
+        new Hypothec.Builder(creditSum, creditPeriod).setStartDate(tooEarlyDate).build();
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void trowOnTooLargeStartDate(){
+        final GregorianCalendar tooLargeDate = new GregorianCalendar(2150, Calendar.MARCH, 10);
+        new Hypothec.Builder(creditSum, creditPeriod).setStartDate(tooLargeDate).build();
+    }
 }
