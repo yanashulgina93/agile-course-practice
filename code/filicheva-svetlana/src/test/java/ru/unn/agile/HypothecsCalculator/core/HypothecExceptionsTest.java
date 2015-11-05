@@ -9,11 +9,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
 public class HypothecExceptionsTest {
-    private final double delta = 0.001;
+
+    @Parameters
+    public static Collection<Object[]> data() {
+        return Arrays.asList(parametersOfTests);
+    }
 
     private final double houseCost;
     private final double downPayment;
@@ -23,64 +26,15 @@ public class HypothecExceptionsTest {
     private final double flatFee;
     private final GregorianCalendar startDate;
 
-
-    @Parameters
-    public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][]{
-                {
-                        -18000.0,  18,           0.0,         0.0,          0.0,        0.0,
-                //      houseCost, creditPeriod, downPayment, interestRate, monthlyFee, flatFee
-                        new GregorianCalendar(1992, Calendar.MARCH, 10) // start date
-                },
-                {
-                        18000.0,   0,            0.0,         0.0,          0.0,        0.0,
-                //      houseCost, creditPeriod, downPayment, interestRate, monthlyFee, flatFee
-                        new GregorianCalendar(1992, Calendar.MARCH, 10) // start date
-                },
-                {
-                        18000.0,   -2,           0.0,         0.0,          0.0,        0.0,
-                //      houseCost, creditPeriod, downPayment, interestRate, monthlyFee, flatFee
-                        new GregorianCalendar(1992, Calendar.MARCH, 10) // start date
-                },
-                {
-                        18000.0,   2,            -1000.0,     0.0,          0.0,        0.0,
-                //      houseCost, creditPeriod, downPayment, interestRate, monthlyFee, flatFee
-                        new GregorianCalendar(1992, Calendar.MARCH, 10) // start date
-                },
-                {
-                        18000.0,   2,            20000.0,     0.0,          0.0,        0.0,
-                //      houseCost, creditPeriod, downPayment, interestRate, monthlyFee, flatFee
-                        new GregorianCalendar(1992, Calendar.MARCH, 10) // start date
-                },
-                {
-                        18000.0,   2,            0.0,         -10.0,        0.0,        0.0,
-                //      houseCost, creditPeriod, downPayment, interestRate, monthlyFee, flatFee
-                        new GregorianCalendar(1992, Calendar.MARCH, 10) // start date
-                },
-                {
-                        18000.0,   2,            0.0,         10.0,         -100.0,     0.0,
-                //      houseCost, creditPeriod, downPayment, interestRate, monthlyFee, flatFee
-                        new GregorianCalendar(1992, Calendar.MARCH, 10) // start date
-                },
-                {
-                        18000.0,   2,            0.0,         10.0,         100.0,      -110.0,
-                //      houseCost, creditPeriod, downPayment, interestRate, monthlyFee, flatFee
-                        new GregorianCalendar(1992, Calendar.MARCH, 10) // start date
-                },
-                {
-                        18000.0,   2,            0.0,         10.0,         100.0,      110.0,
-                        //      houseCost, creditPeriod, downPayment, interestRate, monthlyFee, flatFee
-                        new GregorianCalendar(1980, Calendar.MARCH, 10) // start date
-                },
-                {
-                        18000.0,   2,            0.0,         10.0,         100.0,      110.0,
-                        //      houseCost, creditPeriod, downPayment, interestRate, monthlyFee, flatFee
-                        new GregorianCalendar(2150, Calendar.MARCH, 10) // start date
-                },
-
-
-
-        });
+    @Test (expected = IllegalArgumentException.class)
+    public void throwOnCreditWithIllegalParameters() {
+        new Hypothec.Builder(houseCost, creditPeriod)
+                .setDownPayment(downPayment)
+                .setInterestRate(interestRate)
+                .setMonthlyFee(monthlyFee)
+                .setFlatFee(flatFee)
+                .setStartDate(startDate)
+                .build();
     }
 
     public HypothecExceptionsTest(final double houseCost,
@@ -99,14 +53,44 @@ public class HypothecExceptionsTest {
         this.startDate = startDate;
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void throwOnCreditWithIllegalParameters() {
-        new Hypothec.Builder(houseCost, creditPeriod)
-                .setDownPayment(downPayment)
-                .setInterestRate(interestRate)
-                .setMonthlyFee(monthlyFee)
-                .setFlatFee(flatFee)
-                .setStartDate(startDate)
-                .build();
-    }
+    private static final GregorianCalendar RIGHT_DATE
+            = new GregorianCalendar(1980, Calendar.MARCH, 10);
+    private static final GregorianCalendar WRONG_DATE
+            = new GregorianCalendar(2150, Calendar.MARCH, 10);
+
+    private static Object[][] parametersOfTests = new Object[][]{
+    //            houseCost,creditPeriod,downPayment,interestRate,monthlyFee,flatFee,startDate
+            {
+                    -18000.0,    18,        0.0,         0.0,        0.0,      0.0,   RIGHT_DATE
+            },
+            {
+                    18000.0,      0,        0.0,         0.0,        0.0,      0.0,   RIGHT_DATE
+            },
+            {
+                    18000.0,     -2,        0.0,         0.0,        0.0,      0.0,   RIGHT_DATE
+            },
+            {
+                    18000.0,      2,    -1000.0,         0.0,        0.0,      0.0,   RIGHT_DATE
+            },
+            {
+                    18000.0,      2,    20000.0,         0.0,        0.0,      0.0,   RIGHT_DATE
+            },
+            {
+                    18000.0,      2,        0.0,       -10.0,        0.0,      0.0,   RIGHT_DATE
+            },
+            {
+                    18000.0,      2,        0.0,        10.0,     -100.0,      0.0,   RIGHT_DATE
+            },
+            {
+                    18000.0,      2,        0.0,        10.0,      100.0,   -110.0,   RIGHT_DATE
+            },
+            {
+                    18000.0,      2,        0.0,        10.0,      100.0,    110.0,   RIGHT_DATE
+            },
+            {
+                    18000.0,      2,        0.0,        10.0,      100.0,    110.0,   WRONG_DATE
+            }
+    };
+
+
 }
