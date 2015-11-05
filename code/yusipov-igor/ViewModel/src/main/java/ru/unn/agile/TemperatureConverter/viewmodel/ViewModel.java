@@ -1,6 +1,9 @@
 package ru.unn.agile.TemperatureConverter.viewmodel;
 
+import ru.unn.agile.TemperatureConverter.Model.TemperatureConverter;
 import ru.unn.agile.TemperatureConverter.Model.TemperatureScaleName;
+
+import java.util.DoubleSummaryStatistics;
 
 public class ViewModel {
     private String inputTemperature;
@@ -45,20 +48,33 @@ public class ViewModel {
         this.scale = scale;
     }
 
-    void parse() {
+    public boolean parse() {
         if (inputTemperature.isEmpty()) {
             status = Status.WAITING;
             isConvertButtonEnable = false;
-            return;
+            return isConvertButtonEnable;
         }
         try {
             Double.parseDouble(inputTemperature);
             status = Status.READY;
             isConvertButtonEnable = true;
+            return isConvertButtonEnable;
         }
         catch (Exception exception) {
             status = Status.BAD_FORMAT;
             isConvertButtonEnable = false;
+            return isConvertButtonEnable;
         }
     }
+
+    public void convert() {
+        if (parse()) {
+            TemperatureConverter converter = new TemperatureConverter(scale);
+            double temperatureInOtherScale = converter.convert(Double.parseDouble(inputTemperature));
+            resultTemperature = Double.toString(temperatureInOtherScale);
+            status = Status.SUCCESS;
+        }
+    }
+
+
 }

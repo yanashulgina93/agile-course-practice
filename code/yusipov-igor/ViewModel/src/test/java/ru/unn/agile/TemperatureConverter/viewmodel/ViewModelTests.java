@@ -92,4 +92,52 @@ public class ViewModelTests {
         viewModel.parse();
         assertEquals(false, viewModel.isConvertButtonEnabled());
     }
+
+    @Test
+    public void canConvertToFahrenheit() {
+        viewModel.setInputTemperature("1.0");
+        viewModel.setScale(TemperatureScaleName.FAHRENHEIT);
+        viewModel.convert();
+        assertEquals("33.8", viewModel.getResultTemperature());
+    }
+
+    @Test
+       public void canConvertToKelvin() {
+        viewModel.setInputTemperature("1.0");
+        viewModel.setScale(TemperatureScaleName.KELVIN);
+        viewModel.convert();
+        assertEquals("274.0", viewModel.getResultTemperature());
+    }
+
+    @Test
+    public void canConvertToNewton() {
+        viewModel.setInputTemperature("1.0");
+        viewModel.setScale(TemperatureScaleName.KELVIN);
+        viewModel.convert();
+        assertEquals("274.0", viewModel.getResultTemperature());
+    }
+
+    @Test
+    public void canSetStatusSuccesWhenConvertingIsSucces() {
+        viewModel.setInputTemperature("1.0");
+        viewModel.setScale(TemperatureScaleName.KELVIN);
+        viewModel.convert();
+        assertEquals(Status.SUCCESS, viewModel.getStatus());
+    }
+
+    @Test
+    public void isStatusBadFormatWhenConvertIncorrectInput() {
+        viewModel.setInputTemperature("SomethingWicked");
+        viewModel.setScale(TemperatureScaleName.KELVIN);
+        viewModel.convert();
+        assertEquals(Status.BAD_FORMAT, viewModel.getStatus());
+    }
+
+    @Test
+    public void isStatusWaitingWhenConvertEmptyInput() {
+        viewModel.setInputTemperature("");
+        viewModel.setScale(TemperatureScaleName.KELVIN);
+        viewModel.convert();
+        assertEquals(Status.WAITING, viewModel.getStatus());
+    }
 }
