@@ -12,9 +12,9 @@ import org.junit.runners.Parameterized.Parameters;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class HypothecTest {
+public class CreditCalculatorTest {
 
-    private final Hypothec hypothec;
+    private final CreditCalculator creditCalculator;
     private final RightValues rightValues;
     private final double delta = 0.01;
 
@@ -25,111 +25,121 @@ public class HypothecTest {
 
     @Test
     public void canGetLowestPayment() {
-        final double monthlyPayment = hypothec.computeLowestMonthlyPayment();
+        final double monthlyPayment = creditCalculator.computeLowestMonthlyPayment();
 
         assertEquals(rightValues.getLowestPayment(), monthlyPayment, delta);
     }
 
     @Test
     public void canGetHighestPayment() {
-        final double monthlyPayment = hypothec.computeHighestMonthlyPayment();
+        final double monthlyPayment = creditCalculator.computeHighestMonthlyPayment();
 
         assertEquals(rightValues.getHighestPayment(), monthlyPayment, delta);
     }
 
     @Test
     public void canGetOverpayment() {
-        final double overpayment = hypothec.computeOverpayment();
+        final double overpayment = creditCalculator.computeOverpayment();
 
         assertEquals(rightValues.getOverpayment(), overpayment, delta);
     }
 
     @Test
     public void canGetOverpaymentWithFees() {
-        final double overpaymentWithFees = hypothec.computeOverpaymentWithFees();
+        final double overpaymentWithFees = creditCalculator.computeOverpaymentWithFees();
 
         assertEquals(rightValues.getOverpaymentWithFees(), overpaymentWithFees, delta);
     }
 
-    public HypothecTest(final Hypothec hypothec,
-                        final RightValues rightValues) {
+    public CreditCalculatorTest(final CreditCalculator creditCalculator,
+                                final RightValues rightValues) {
 
-        this.hypothec = hypothec;
+        this.creditCalculator = creditCalculator;
         this.rightValues = rightValues;
     }
 
     private static Object[][] parametersOfTests = new Object[][]{
             {
-                    new Hypothec.Builder(18000.0, 18).build(),
+                    new CreditCalculator(new Hypothec.Builder(18000.0, 18).build()),
                     new RightValues(1000.0, 1000.0, 0.0, 0.0)
             },
             {
-                    new Hypothec.Builder(15000.0, 10).setDownPayment(5000.0).build(),
+                    new CreditCalculator(new Hypothec.Builder(15000.0, 10)
+                            .setDownPayment(5000.0).build()),
                     new RightValues(1000.0, 1000.0, 0.0, 0.0)
             },
             {
-                    new Hypothec.Builder(12000.0, 1)
-                            .setPeriodType(Hypothec.PeriodType.YEAR).build(),
+                    new CreditCalculator(new Hypothec.Builder(12000.0, 1)
+                            .setPeriodType(Hypothec.PeriodType.YEAR).build()),
                     new RightValues(1000.0, 1000.0, 0.0, 0.0)
             },
             {
-                    new Hypothec.Builder(12000.0, 12).setInterestRate(0.83333).build(),
+                    new CreditCalculator(new Hypothec.Builder(12000.0, 12)
+                            .setInterestRate(0.83333).build()),
                     new RightValues(1054.99, 1054.99, 659.89, 659.89)
             },
             {
-                    new Hypothec.Builder(12000.0, 12).setInterestRate(10)
-                            .setInterestRateType(Hypothec.InterestRateType.YEARLY).build(),
+                    new CreditCalculator(new Hypothec.Builder(12000.0, 12)
+                            .setInterestRate(10)
+                            .setInterestRateType(Hypothec.InterestRateType.YEARLY).build()),
                     new RightValues(1054.99, 1054.99, 659.89, 659.89)
             },
             {
-                    new Hypothec.Builder(12000.0, 12).setInterestRate(0.83333)
-                            .setCreditType(Hypothec.CreditType.DIFFERENTIATED).build(),
+                    new CreditCalculator(new Hypothec.Builder(12000.0, 12)
+                            .setInterestRate(0.83333)
+                            .setCreditType(Hypothec.CreditType.DIFFERENTIATED).build()),
                     new RightValues(1100.0, 1008.33, 650.0, 650.0)
             },
             {
-                    new Hypothec.Builder(12000.0, 12).setInterestRate(0.83333).
-                            setMonthlyFee(1000.0).build(),
+                    new CreditCalculator(new Hypothec.Builder(12000.0, 12)
+                            .setInterestRate(0.83333).
+                            setMonthlyFee(1000.0).build()),
                     new RightValues(2054.99, 2054.99, 659.89, 12659.88)
             },
             {
-                    new Hypothec.Builder(12000.0, 12).setInterestRate(0.83333).setMonthlyFee(1.0)
+                    new CreditCalculator(new Hypothec.Builder(12000.0, 12)
+                            .setInterestRate(0.83333).setMonthlyFee(1.0)
                             .setMonthlyFeeType(Hypothec.MonthlyFeeType.CREDIT_SUM_PERCENT)
-                            .build(),
+                            .build()),
                     new RightValues(1175.0, 1175.0, 659.89, 2099.88)
             },
             {
-                    new Hypothec.Builder(12000.0, 12).setInterestRate(0.83333).setMonthlyFee(1.0)
+                    new CreditCalculator(new Hypothec.Builder(12000.0, 12)
+                            .setInterestRate(0.83333).setMonthlyFee(1.0)
                             .setMonthlyFeeType(Hypothec.MonthlyFeeType.CREDIT_BALANCE_PERCENT)
-                            .build(),
+                            .build()),
                     new RightValues(1165.44, 1055.0, 659.89, 1331.75)
             },
             {
-                    new Hypothec.Builder(12000.0, 12).setInterestRate(0.83333).setMonthlyFee(1.0)
+                    new CreditCalculator(new Hypothec.Builder(12000.0, 12)
+                            .setInterestRate(0.83333).setMonthlyFee(1.0)
                             .setMonthlyFeeType(Hypothec.MonthlyFeeType.CREDIT_BALANCE_PERCENT)
-                            .setCreditType(Hypothec.CreditType.DIFFERENTIATED).build(),
+                            .setCreditType(Hypothec.CreditType.DIFFERENTIATED).build()),
                     new RightValues(1210.0, 1008.33, 650.0, 1310.0)
             },
             {
-                    new Hypothec.Builder(12000.0, 12).setInterestRate(0.83333).
-                            setMonthlyFee(1000.0).setFlatFee(12000.0).build(),
+                    new CreditCalculator(new Hypothec.Builder(12000.0, 12)
+                            .setInterestRate(0.83333).
+                            setMonthlyFee(1000.0).setFlatFee(12000.0).build()),
                     new RightValues(2054.99, 2054.99, 659.89, 24659.88)
             },
             {
-                    new Hypothec.Builder(12000.0, 12).setInterestRate(0.83333).
+                    new CreditCalculator(new Hypothec.Builder(12000.0, 12)
+                            .setInterestRate(0.83333).
                             setMonthlyFee(1000.0).setFlatFee(100.0)
                             .setFlatFeeType(Hypothec.FlatFeeType.PERCENT)
-                            .build(),
+                            .build()),
                     new RightValues(2054.99, 2054.99, 659.89, 24659.88)
             },
             {
-                    new Hypothec.Builder(18000.0, 18)
-                            .setCurrency(Hypothec.CurrencyType.DOLLAR).build(),
+                    new CreditCalculator(new Hypothec.Builder(18000.0, 18)
+                            .setCurrency(Hypothec.CurrencyType.DOLLAR).build()),
                     new RightValues(1000.0, 1000.0, 0.0, 0.0)
             },
             {
-                    new Hypothec.Builder(18000.0, 18)
+                    new CreditCalculator(new Hypothec.Builder(18000.0, 18)
                             .setStartDate(new GregorianCalendar(1992, Calendar.MARCH, 10))
-                            .build(),
+                            .build()),
                     new RightValues(1000.0, 1000.0, 0.0, 0.0)
             }
     };

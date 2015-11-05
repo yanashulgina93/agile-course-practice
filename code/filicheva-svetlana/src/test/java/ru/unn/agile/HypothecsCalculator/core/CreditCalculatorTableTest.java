@@ -13,7 +13,7 @@ import org.junit.runners.Parameterized.Parameters;
 import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
-public class HypothecTableTest {
+public class CreditCalculatorTableTest {
 
     private final JTable rightGraphic;
     private final Hypothec.CreditType creditType;
@@ -23,14 +23,14 @@ public class HypothecTableTest {
         return Arrays.asList(parametersOfTests);
     }
 
-    public HypothecTableTest(final JTable table, final Hypothec.CreditType creditType) {
+    public CreditCalculatorTableTest(final JTable table, final Hypothec.CreditType creditType) {
         this.rightGraphic = table;
         this.creditType = creditType;
     }
 
     @Test
     public void canCreateTable() {
-        Hypothec credit = getCredit();
+        CreditCalculator credit = getCredit();
 
         JTable graphic = credit.getGraphicOfPayments();
 
@@ -42,8 +42,8 @@ public class HypothecTableTest {
         }
     }
 
-    private Hypothec getCredit() {
-        return new Hypothec.Builder(4000.0, 4)
+    private CreditCalculator getCredit() {
+        return new CreditCalculator(new Hypothec.Builder(4000.0, 4)
                 .setInterestRate(2.0)
                 .setInterestRateType(Hypothec.InterestRateType.MONTHLY)
                 .setMonthlyFee(1.0)
@@ -51,7 +51,7 @@ public class HypothecTableTest {
                 .setStartDate(new GregorianCalendar(2015, Calendar.NOVEMBER, 4))
                 .setCurrency(Hypothec.CurrencyType.RUBLE)
                 .setCreditType(creditType)
-                .build();
+                .build());
     }
 
     private static Object[][] parametersOfTests = new Object[][]{
