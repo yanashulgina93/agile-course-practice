@@ -22,21 +22,11 @@ public final class Hypothec {
     private final CurrencyType currencyType;
     private final GregorianCalendar startDate;
 
-    private static final int COLUMN_COUNT = 7;
-
     private static final double MAX_NUMBER_OF_PERCENTS = 100.0;
     private static final int MONTHS_COUNT_IN_YEAR = 12;
 
     private static final int EARLIEST_VALID_YEAR = 1991;
     private static final int LATEST_VALID_YEAR = 2100;
-
-    private static final int CELL_1 = 0;
-    private static final int CELL_2 = 1;
-    private static final int CELL_3 = 2;
-    private static final int CELL_4 = 3;
-    private static final int CELL_5 = 4;
-    private static final int CELL_6 = 5;
-    private static final int CELL_7 = 6;
 
     private static final String[] COLUMN_NAMES = {
             "№ платежа",
@@ -47,6 +37,7 @@ public final class Hypothec {
             "Ежемесячная комиссия",
             "Остаток основной задолженности"
     };
+    private static final int COLUMN_COUNT = 7;
 
     public double computeHighestMonthlyPayment() {
 
@@ -191,18 +182,19 @@ public final class Hypothec {
 
         double payment = computeMonthlyPayment(rowNumber);
         double mainDebtPayment = computeMainDebtPayment(rowNumber);
-        double thisMonthlyFee = computeMonthlyFee(rowNumber);
-        double percentPayment = roundMoneySum(payment - mainDebtPayment - thisMonthlyFee);
+        double thisMonthFee = computeMonthlyFee(rowNumber);
+        double percentPayment = roundMoneySum(payment - mainDebtPayment - thisMonthFee);
+        double creditBalance = roundMoneySum(computeCreditBalance(rowNumber));
 
-        Object[] row = new Object[COLUMN_COUNT];
-
-        row[CELL_1] = rowNumber;
-        row[CELL_2] = dateFormat.format(date.getTime());
-        row[CELL_3] = payment;
-        row[CELL_4] = mainDebtPayment;
-        row[CELL_5] = percentPayment;
-        row[CELL_6] = thisMonthlyFee;
-        row[CELL_7] = roundMoneySum(computeCreditBalance(rowNumber));
+        Object[] row = new Object[] {
+                rowNumber,
+                dateFormat.format(date.getTime()),
+                payment,
+                mainDebtPayment,
+                percentPayment,
+                thisMonthFee,
+                creditBalance
+        };
 
         return row;
     }
