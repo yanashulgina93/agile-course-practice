@@ -92,8 +92,8 @@ public class Group {
 
     public int hashCode() {
         final int temp = 10;
-        return (temp * this.students.hashCode() + temp * temp * this.academicSubjects.hashCode()
-                + this.number.hashCode());
+        return temp * this.students.hashCode() + temp * temp * this.academicSubjects.hashCode()
+                + this.number.hashCode();
     }
 
     @Override
