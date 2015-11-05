@@ -3,11 +3,11 @@ package ru.unn.agile.TemperatureConverter.viewmodel;
 import ru.unn.agile.TemperatureConverter.Model.TemperatureScaleName;
 
 public class ViewModel {
-    private final String inputTemperature;
-    private final String resultTemperature;
-    private final String status;
-    private final TemperatureScaleName scale;
-    private final boolean isConvertButtonEnable;
+    private String inputTemperature;
+    private String resultTemperature;
+    private Status status;
+    private TemperatureScaleName scale;
+    private boolean isConvertButtonEnable;
 
     public ViewModel() {
         inputTemperature = "";
@@ -25,7 +25,7 @@ public class ViewModel {
         return resultTemperature;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
@@ -37,5 +37,20 @@ public class ViewModel {
         return isConvertButtonEnable;
     }
 
+    public void setInputTemperature(String inputTemperature) {
+        this.inputTemperature = inputTemperature;
+    }
 
+    public void setScale(TemperatureScaleName scale) {
+        this.scale = scale;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    void parse() {
+        Double.parseDouble(inputTemperature);
+        setStatus(Status.READY);
+    }
 }
