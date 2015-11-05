@@ -11,13 +11,16 @@ public final class QuadraticEquationSolver {
     private QuadraticEquationSolver() {
     }
 
-    public static float[] solve(final float a, final float b, final float c) {
+    public static float[] solve(final float a, final float b, final float c)  throws Exception {
         if (isQuadraticEquation(a)) {
             roots = new ArrayList<Float>();
             getSolution(a, b, c);
+            if (roots.isEmpty()) {
+                throw new Exception("discriminant less than 0");
+            }
             return QuadraticEquationSolutionFormer.form(roots);
         }
-        return QuadraticEquationSolutionFormer.form(null);
+        throw new Exception("non quadratic equation, a is equal 0");
     }
 
     private static void getSolution(final float a, final float b, final float c) {
