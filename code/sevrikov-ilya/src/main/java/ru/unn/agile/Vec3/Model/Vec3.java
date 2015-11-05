@@ -9,10 +9,6 @@ public class Vec3 {
 
     private static final int HASH_FACTOR = 31;
 
-    public Vec3() {
-        //
-    }
-
     public Vec3(final double x,
                 final double y,
                 final double z) {
@@ -74,12 +70,12 @@ public class Vec3 {
         return equals(vec.x(), vec.y(), vec.z());
     }
 
-    public double norm() {
+    public double getNorm() {
         return Math.sqrt(dot(this));
     }
 
     public void normalize() {
-        final double norm = norm();
+        final double norm = getNorm();
 
         if (norm < Precision.confusion()) {
             throw new ArithmeticException("Norm of vector is small: " + norm);

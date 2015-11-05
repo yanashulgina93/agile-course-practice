@@ -8,13 +8,6 @@ public class Vec3Test {
     private Vec3 secondVec;
 
     @Test
-    public void canDefaultInitialize() {
-        firstVec = new Vec3();
-
-        assert firstVec.equals(0.0, 0.0, 0.0);
-    }
-
-    @Test
     public void canInitializeFromValues() {
         firstVec = new Vec3(6.0, 6.0, 6.0);
 
@@ -52,7 +45,7 @@ public class Vec3Test {
         firstVec = new Vec3(9.0, 2.0, 6.0);
 
         final double expectedNorm = 11.0;
-        final double actualNorm   = firstVec.norm();
+        final double actualNorm   = firstVec.getNorm();
 
         assertEquals(expectedNorm, actualNorm, Precision.confusion());
     }
