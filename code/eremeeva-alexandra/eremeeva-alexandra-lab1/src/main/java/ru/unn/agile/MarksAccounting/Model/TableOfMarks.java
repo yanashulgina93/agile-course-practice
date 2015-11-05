@@ -7,6 +7,20 @@ public class TableOfMarks {
 
     private final ArrayList<Group> groups;
 
+    private int findGroup(final String requiredGroup) {
+        int i = 0;
+        while (i < getGroups().size()) {
+            if (getGroups().get(i).getNumber().compareTo(requiredGroup) > 0) {
+                break;
+            }
+            if (getGroups().get(i).getNumber().equals(requiredGroup)) {
+                return i;
+            }
+            i++;
+        }
+        throw new GroupDoesNotExistException("Required group doesn't exist");
+    }
+
     public TableOfMarks() {
         groups = new ArrayList<Group>();
     }
@@ -34,59 +48,17 @@ public class TableOfMarks {
 
     public void addStudent(final String requiredGroup, final String newStudent)
     {
-        int i = 0;
-        while (i < getGroups().size()) {
-            if (getGroups().get(i).getNumber().compareTo(requiredGroup) > 0) {
-                break;
-            }
-            if (getGroups().get(i).getNumber().equals(requiredGroup)) {
-                this.groups.get(i).addStudent(newStudent);
-                i = -1;
-                break;
-            }
-            i++;
-        }
-        if (i != -1) {
-            throw new GroupDoesNotExistException("Required group doesn't exist");
-        }
+        this.groups.get(findGroup(requiredGroup)).addStudent(newStudent);
     }
 
     public void addAcademicSubject(final String requiredGroup, final String newAcademicSubject)
     {
-        int i = 0;
-        while (i < getGroups().size()) {
-            if (getGroups().get(i).getNumber().compareTo(requiredGroup) > 0) {
-                break;
-            }
-            if (getGroups().get(i).getNumber().equals(requiredGroup)) {
-                this.groups.get(i).addAcademicSubject(newAcademicSubject);
-                i = -1;
-                break;
-            }
-            i++;
-        }
-        if (i != -1) {
-            throw new GroupDoesNotExistException("Required group doesn't exist");
-        }
+        this.groups.get(findGroup(requiredGroup)).addAcademicSubject(newAcademicSubject);
     }
 
     public void addNewMark(final Mark newMark, final String requiredStudent,
                            final String requiredGroup) {
-        int i = 0;
-        while (i < getGroups().size()) {
-            if (getGroups().get(i).getNumber().compareTo(requiredGroup) > 0) {
-                break;
-            }
-            if (getGroups().get(i).getNumber().equals(requiredGroup)) {
-                this.groups.get(i).addNewMark(newMark, requiredStudent);
-                i = -1;
-                break;
-            }
-            i++;
-        }
-        if (i != -1) {
-            throw new GroupDoesNotExistException("Required group doesn't exist");
-        }
+        this.groups.get(findGroup(requiredGroup)).addNewMark(newMark, requiredStudent);
     }
 
     @Override
@@ -101,95 +73,28 @@ public class TableOfMarks {
     }
 
     public void deleteGroup(final String requiredGroup) {
-        int i = 0;
-        while (i < getGroups().size()) {
-            if (getGroups().get(i).getNumber().compareTo(requiredGroup) > 0) {
-                break;
-            }
-            if (getGroups().get(i).getNumber().equals(requiredGroup)) {
-                this.groups.remove(i);
-                i = -1;
-                break;
-            }
-            i++;
-        }
-        if (i != -1) {
-            throw new GroupDoesNotExistException("Required group doesn't exist");
-        }
+        this.groups.remove(findGroup(requiredGroup));
     }
 
     public int getMark(final String requiredGroup, final String requiredStudent,
                        final String requiredAcademicSubject, final GregorianCalendar requiredDate) {
-        int i = 0;
-        while (i < getGroups().size()) {
-            if (getGroups().get(i).getNumber().compareTo(requiredGroup) > 0) {
-                break;
-            }
-            if (getGroups().get(i).getNumber().equals(requiredGroup)) {
-                return getGroups().get(i).getMark(requiredStudent, requiredAcademicSubject,
-                        requiredDate);
-            }
-            i++;
-        }
-        throw new GroupDoesNotExistException("Required group doesn't exist");
+        return getGroups().get(findGroup(requiredGroup)).getMark(requiredStudent,
+                requiredAcademicSubject, requiredDate);
     }
 
     public void deleteMark(final String requiredGroup, final String requiredStudent,
                             final String requiredAcademicSubject,
                             final GregorianCalendar requiredDate) {
-        int i = 0;
-        while (i < getGroups().size()) {
-            if (getGroups().get(i).getNumber().compareTo(requiredGroup) > 0) {
-                break;
-            }
-            if (getGroups().get(i).getNumber().equals(requiredGroup)) {
-                this.groups.get(i).deleteMark(requiredStudent, requiredAcademicSubject,
-                        requiredDate);
-                i = -1;
-                break;
-            }
-            i++;
-        }
-        if (i != -1) {
-            throw new GroupDoesNotExistException("Required group doesn't exist");
-        }
+        this.groups.get(findGroup(requiredGroup)).deleteMark(requiredStudent,
+                requiredAcademicSubject, requiredDate);
     }
 
     public void deleteAcademicSubject(final String requiredGroup,
                                       final String requiredAcademicSubject) {
-        int i = 0;
-        while (i < getGroups().size()) {
-            if (getGroups().get(i).getNumber().compareTo(requiredGroup) > 0) {
-                break;
-            }
-            if (getGroups().get(i).getNumber().equals(requiredGroup)) {
-                this.groups.get(i).deleteAcademicSubject(requiredAcademicSubject);
-                i = -1;
-                break;
-            }
-            i++;
-        }
-        if (i != -1) {
-            throw new GroupDoesNotExistException("Required group doesn't exist");
-        }
+        this.groups.get(findGroup(requiredGroup)).deleteAcademicSubject(requiredAcademicSubject);
     }
 
     public void deleteStudent(final String requiredGroup, final String requiredStudent) {
-        int i = 0;
-        while (i < getGroups().size()) {
-            if (getGroups().get(i).getNumber().compareTo(requiredGroup) > 0) {
-                break;
-            }
-            if (getGroups().get(i).getNumber().equals(requiredGroup)) {
-                this.groups.get(i).deleteStudent(requiredStudent);
-                i = -1;
-                break;
-            }
-            i++;
-        }
-        if (i != -1) {
-            throw new GroupDoesNotExistException("Required group doesn't exist");
-        }
+        this.groups.get(findGroup(requiredGroup)).deleteStudent(requiredStudent);
     }
-
 }
