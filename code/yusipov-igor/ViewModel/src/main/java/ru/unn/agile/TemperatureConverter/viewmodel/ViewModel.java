@@ -45,12 +45,20 @@ public class ViewModel {
         this.scale = scale;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
     void parse() {
-        Double.parseDouble(inputTemperature);
-        setStatus(Status.READY);
+        if (inputTemperature.isEmpty()) {
+            status = Status.WAITING;
+            isConvertButtonEnable = false;
+            return;
+        }
+        try {
+            Double.parseDouble(inputTemperature);
+            status = Status.READY;
+            isConvertButtonEnable = true;
+        }
+        catch (Exception exception) {
+            status = Status.BAD_FORMAT;
+            isConvertButtonEnable = false;
+        }
     }
 }

@@ -53,4 +53,43 @@ public class ViewModelTests {
         viewModel.parse();
         assertEquals(viewModel.getStatus(), Status.READY);
     }
+
+    @Test
+    public void canSetStatusBadFormatWhenInputIsIncorrect() {
+        viewModel.setInputTemperature("SomethingWicked");
+        viewModel.parse();
+        assertEquals(viewModel.getStatus(), Status.BAD_FORMAT);
+    }
+
+    @Test
+    public void canSetStatusWaitingWhenInputIsEmpty() {
+        viewModel.setInputTemperature("");
+        viewModel.parse();
+        assertEquals(viewModel.getStatus(), Status.WAITING);
+    }
+
+    @Test
+    public void isConvertButtonEnabledWhenInputIsCorrect() {
+        viewModel.setInputTemperature("1.0");
+        viewModel.parse();
+        assertEquals(true, viewModel.isConvertButtonEnabled());
+    }
+
+    @Test
+    public void isConvertButtonDisabledWhenInputIsIncorrect() {
+        viewModel.setInputTemperature("1.0");
+        viewModel.parse();
+        viewModel.setInputTemperature("SomethingWicked");
+        viewModel.parse();
+        assertEquals(false, viewModel.isConvertButtonEnabled());
+    }
+
+    @Test
+    public void isConvertButtonDisabledWhenInputIsEmpty() {
+        viewModel.setInputTemperature("1.0");
+        viewModel.parse();
+        viewModel.setInputTemperature("");
+        viewModel.parse();
+        assertEquals(false, viewModel.isConvertButtonEnabled());
+    }
 }
