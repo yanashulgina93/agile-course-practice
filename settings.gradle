@@ -51,7 +51,9 @@ project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-l
 // Filicheva Svetlana
 // Francuzova Natalya
 // Ganin Aleksej
-// Garina Anastasiya
+// Garina Anastasia
+include "code/garina-anastasia"
+project(":code/garina-anastasia").name = "garina-anastasia-lab1"
 // Gatchenko Viktor
 // Golodyaev Andrej
 
@@ -60,26 +62,41 @@ include "code/gorokhov-dmitriy"
 project(":code/gorokhov-dmitriy").name = "gorokhov-dmitriy-Model"
 
 // Kajnov Oleg
+
 // Kalyakulina Alyona
+include "code/kalyakulina-alena"
+project(":code/kalyakulina-alena").name = "kalyakulina-alena-Model"
+
 // Karpunin Yaroslav
 // Kazanbaev Dmitrij
+include "code/kazanbaev-dmitry"
+project(":code/kazanbaev-dmitry").name = "kazanbaev-dmitry-model"
+
 // Khanova Tatyana
 // Kochanova Kseniya
 include "code/kochanova-ksenya"
 project(":code/kochanova-ksenya").name = "kochanova-ksenya-Model"
 // Korotaev Aleksej
 // Korotaev Pavel
+include "code/korotaev-pavel"
+project(":code/korotaev-pavel").name = "korotaev-pavel-Model"
 // Kumaev Vasilij
 // Kuznecov Aleksandr
 // Larin Sergej
 // Mixejceva Lyudmila
+
 // Molotkov Andrej
+include "code/molotkov-andrei"
+project(":code/molotkov-andrei").name = "molotkov-andrei-Model"
+
 // Moshkov Yurij
 // Mozerov Ilya
 // Nesmelov Aleksej
 include "code/nesmelov-aleksey"
 project(":code/nesmelov-aleksey").name = "nesmelov-aleksey-Model"
 // Nikolaev Kirill
+include "code/nikolaev-kirill"
+project(":code/nikolaev-kirill").name = "nikolaev-kirill-Model"
 // Nistratov Andrej
 // Nistratov Artyom
 // Nistratova Elena
@@ -89,7 +106,11 @@ project(":code/paramuzov-vladimir").name = "paramuzov-vladimir-Model"
 // Plankina Elena
 // Pronina Anastasiya
 // Sevrikov Ilya
+include "code/sevrikov-ilya"
+project(":code/sevrikov-ilya").name = "sevrikov-ilya-Model"
 // Shulgina Yana
+include "code/shulgina-yana"
+project(":code/shulgina-yana").name = "shulgina-yana-Model"
 // Smirnov Aleksandr
 // Smirnov Mixail
 // Smirnov Vyacheslav
@@ -110,6 +131,8 @@ project(":code/yusipov-igor").name = "yusipov-igor-Model"
 
 // Zajdullova Alina
 // Zhbanova Anna
+include "code/zhbanova-anna"
+project(":code/zhbanova-anna").name = "zhbanova-anna-Model"
 
 // Zykov Ilya
 include "code/zykov-ilya"
