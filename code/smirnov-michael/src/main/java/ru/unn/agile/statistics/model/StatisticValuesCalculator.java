@@ -18,11 +18,11 @@ public class StatisticValuesCalculator {
     private static final double CENTRAL_MOMENT_OF_EMPTY_DATA = 0.0;
     private static final double CENTRAL_MOMENT_WITH_NOT_POSITIVE_ORDER = 0.0;
 
-    public StatisticValuesCalculator(final Collection<IStatisticDataInstance> dataForStatistics) {
+    public StatisticValuesCalculator(final Collection<IStatisticalResult> dataForStatistics) {
         setStatisticData(dataForStatistics);
     }
 
-    public void setStatisticData(final Collection<IStatisticDataInstance> dataForStatistics) {
+    public void setStatisticData(final Collection<IStatisticalResult> dataForStatistics) {
         if (dataForStatistics == null) {
             processedStatistics = null;
             return;
@@ -32,7 +32,7 @@ public class StatisticValuesCalculator {
         processedStatistics = new double[dataSize];
 
         int currentInstanceIndex = 0;
-        for (IStatisticDataInstance instance : dataForStatistics) {
+        for (IStatisticalResult instance : dataForStatistics) {
             processedStatistics[currentInstanceIndex] = instance.get();
             currentInstanceIndex++;
         }
@@ -52,7 +52,7 @@ public class StatisticValuesCalculator {
         return enumeration;
     }
 
-    public double calculateProbabilityOfEvent(final IStatisticDataInstance event) {
+    public double calculateProbabilityOfEvent(final IStatisticalResult event) {
         if (isProcessedStatisticsEmpty()) {
             return PROBABILITY_OF_EVENT_WITH_EMPTY_DATA;
         }

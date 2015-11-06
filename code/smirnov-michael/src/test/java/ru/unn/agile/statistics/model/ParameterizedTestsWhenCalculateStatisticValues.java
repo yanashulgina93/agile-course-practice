@@ -15,21 +15,17 @@ import static org.junit.Assert.assertEquals;
 public class ParameterizedTestsWhenCalculateStatisticValues {
 
     private StatisticValuesCalculator statisticsCalculator;
-    private Collection<IStatisticDataInstance> dataInstances;
+    private Collection<IStatisticalResult> dataInstances;
     private double deltaForDoubleAssertEquals = 1e-3;
-    private StatisticsConverter statisticsConverter;
+    private NumericalStatisticConverter numericalStatisticConverter;
 
     private Number[] currentTestingData;
 
     private double exactEnumeration;
     private double exactVariance;
-    private IStatisticDataInstance testingEvent;
+    private IStatisticalResult testingEvent;
     private double exactProbabilityOfTestingEvent;
 
-    @Before
-    public void preparing() {
-        statisticsConverter = new StatisticsConverter();
-    }
 
     @Parameters
     public static Collection<Object[]> getDataForTesting() {
@@ -49,7 +45,7 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
     public ParameterizedTestsWhenCalculateStatisticValues(final Number[] currentTestingData,
                                                           final double exactEnumeration,
                                                           final double exactVariance,
-                                                          final IStatisticDataInstance event,
+                                                          final IStatisticalResult event,
                                                           final double exactProbabilityOfEvent) {
         this.currentTestingData = currentTestingData;
         this.exactEnumeration = exactEnumeration;
@@ -91,15 +87,15 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
 
 
     private void setUpTest() {
-        statisticsConverter.setData(currentTestingData);
-        dataInstances = statisticsConverter.convertNumericalDataToStatistics();
+        numericalStatisticConverter = new NumericalStatisticConverter(currentTestingData);
+        dataInstances = numericalStatisticConverter.convert();
         statisticsCalculator = new StatisticValuesCalculator(dataInstances);
     }
 
     private static Object[] formTestDataInstance(final Number[] numericData,
                                                  final double exactEnumeration,
                                                  final double exactVariance,
-                                                 final IStatisticDataInstance event,
+                                                 final IStatisticalResult event,
                                                  final double exactProbabilityOfEvent) {
 
         Object[] testDataInstance = new Object[5];
@@ -116,7 +112,7 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
         Integer[] emptyIntegerArray = {};
         double exactEnumerationOfEmptyIntegerArray = 0.0;
         double exactVarianceOfEmptyIntegerArray = 0.0;
-        IStatisticDataInstance testingEvent = new NumericStatisticDataInstance(1);
+        IStatisticalResult testingEvent = new NumericStatisticalResult(1);
         double probabilityOfTestingEvent = 0.0;
 
         return formTestDataInstance(emptyIntegerArray,
@@ -130,7 +126,7 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
         Integer[] constantIntegerArray = {5, 5, 5, 5};
         double exactEnumerationOfConstantIntegerArray = 5.0;
         double exactVarianceOfConstantIntegerArray = 0.0;
-        IStatisticDataInstance testingEvent = new NumericStatisticDataInstance(5);
+        IStatisticalResult testingEvent = new NumericStatisticalResult(5);
         double probabilityOfTestingEvent = 1.0;
 
         return formTestDataInstance(constantIntegerArray,
@@ -144,7 +140,7 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
         Integer[] shortIntegerArray = {-1, -1, 5, 8, 10, 4, 4, 8};
         double exactEnumerationOfShortIntegerArray = 4.625;
         double exactVarianceOfShortIntegerArray = 16.553;
-        IStatisticDataInstance testingEvent = new NumericStatisticDataInstance(2);
+        IStatisticalResult testingEvent = new NumericStatisticalResult(2);
         double probabilityOfTestingEvent = 0.0;
 
         return formTestDataInstance(shortIntegerArray,
@@ -161,7 +157,7 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
         }
         double exactEnumerationOfMonotoneIntegerArray = 49.5;
         double exactVarianceOfMonotoneIntegerArray = 841.667;
-        IStatisticDataInstance testingEvent = new NumericStatisticDataInstance(15);
+        IStatisticalResult testingEvent = new NumericStatisticalResult(15);
         double probabilityOfTestingEvent = 0.01;
 
         return formTestDataInstance(monotoneIntegerArray,
@@ -175,7 +171,7 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
         Float[] floatArrayContainedOneNumber = {3.14f};
         double exactEnumerationOfFloatArrayContainedOneNumber = 3.14;
         double exactVarianceOfFloatArrayContainedOneNumber = 0.0;
-        IStatisticDataInstance testingEvent = new NumericStatisticDataInstance(3.13);
+        IStatisticalResult testingEvent = new NumericStatisticalResult(3.13);
         double probabilityOfTestingEvent = 0.0;
 
         return formTestDataInstance(floatArrayContainedOneNumber,
@@ -189,7 +185,7 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
         Float[] shortFloatArray = {1.f, 2.25f, 1.f, 2.25f, 2.25f, 2.25f};
         double exactEnumerationOfShortFloatArray = 11.0 / 6.0;
         double exactVarianceOfShortFloatArray = 0.417;
-        IStatisticDataInstance testingEvent = new NumericStatisticDataInstance(2.25f);
+        IStatisticalResult testingEvent = new NumericStatisticalResult(2.25f);
         double probabilityOfTestingEvent = 4.0 / 6.0;
 
         return formTestDataInstance(shortFloatArray,
@@ -207,7 +203,7 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
         }
         double exactEnumerationOfDoubleArrayOfOneCosPeriod = 0.0;
         double exactVarianceOfDoubleArrayOfOneCosPeriod = 0.5;
-        IStatisticDataInstance testingEvent = new NumericStatisticDataInstance(-2.0);
+        IStatisticalResult testingEvent = new NumericStatisticalResult(-2.0);
         double probabilityOfTestingEvent = 0.0;
 
         return formTestDataInstance(doubleArrayOfOneCosPeriod,

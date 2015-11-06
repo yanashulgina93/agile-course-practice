@@ -1,15 +1,15 @@
 package ru.unn.agile.statistics.model;
 
-public class NumericStatisticDataInstance implements IStatisticDataInstance {
+public class NumericStatisticalResult implements IStatisticalResult {
     private final Double instance;
 
-    public NumericStatisticDataInstance(final Integer number) {
+    public NumericStatisticalResult(final Integer number) {
         instance = number.doubleValue();
     }
-    public NumericStatisticDataInstance(final Float number) {
+    public NumericStatisticalResult(final Float number) {
         instance = number.doubleValue();
     }
-    public NumericStatisticDataInstance(final Double number) {
+    public NumericStatisticalResult(final Double number) {
         instance = number;
     }
 

@@ -11,12 +11,8 @@ public class WhenCalculateStatisticValues {
 
     private StatisticValuesCalculator statisticsCalculator;
     private double deltaForDoubleAssertEquals = 1e-3;
-    private StatisticsConverter statisticsConverter;
+    private NumericalStatisticConverter numericalStatisticConverter;
 
-    @Before
-    public void preparing() {
-        statisticsConverter = new StatisticsConverter();
-    }
 
     @Test
     public void enumerationIsZeroWhenStatisticDataIsEmpty() {
@@ -29,9 +25,8 @@ public class WhenCalculateStatisticValues {
 
     @Test
     public void statisticDataIsEmptyWhenConvertingIntArrayIsEmpty() {
-        statisticsConverter.setData(null);
-        Collection<IStatisticDataInstance> dataInstances =
-                statisticsConverter.convertNumericalDataToStatistics();
+        numericalStatisticConverter= new NumericalStatisticConverter(null);
+        Collection<IStatisticalResult> dataInstances = numericalStatisticConverter.convert();
 
         assertEquals(dataInstances, null);
     }
@@ -39,7 +34,7 @@ public class WhenCalculateStatisticValues {
     @Test
     public void probabilityOfZeroIntegerEventWithoutDataIsZero() {
         Double[] data = null;
-        IStatisticDataInstance event = new NumericStatisticDataInstance(0);
+        IStatisticalResult event = new NumericStatisticalResult(0);
         formDataInstances(data);
 
         double probabilityOfEvent = statisticsCalculator.calculateProbabilityOfEvent(event);
@@ -205,10 +200,9 @@ public class WhenCalculateStatisticValues {
     }
 
     private void formDataInstances(final Number[] data) {
-        statisticsConverter.setData(data);
+        numericalStatisticConverter = new NumericalStatisticConverter(data);
 
-        Collection<IStatisticDataInstance> dataInstances =
-                statisticsConverter.convertNumericalDataToStatistics();
+        Collection<IStatisticalResult> dataInstances = numericalStatisticConverter.convert();
 
         statisticsCalculator = new StatisticValuesCalculator(dataInstances);
     }
