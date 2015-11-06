@@ -20,7 +20,7 @@
     7. тонна.
 
 Все необходимые математические сведения можно найти в статье
-["Вес"][weight] на сайте Wikipedia.
+["Единицы измерения массы"][units_of_mass] на сайте Wikipedia.
 
 ## Документация разработчика
 
@@ -28,4 +28,4 @@ TBD
 
 <!-- LINKS -->
 
-[weight]: https://ru.wikipedia.org/wiki/Вес
+[units_of_mass]: https://ru.wikipedia.org/wiki/Единицы_измерения_массы
