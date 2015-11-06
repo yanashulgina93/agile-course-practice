@@ -12,21 +12,25 @@ public class LongNumber {
 		this.value = number;
 	}
 	
-	public LongNumber Add(LongNumber lnNum) {
+	public LongNumber(LongNumber copiedNum) {
+		this.value = copiedNum.value;
+	}
+	
+	public LongNumber add(LongNumber lnNum) {
 		LongNumber result = new LongNumber();
 		result.value = this.value + lnNum.value;
 		
 		return result;
 	}
 	
-	public LongNumber Multiply(LongNumber lnNum) {
+	public LongNumber multiply(LongNumber lnNum) {
 		LongNumber result = new LongNumber();
 		result.value = this.value * lnNum.value;
 		
 		return result;
 	}
 	
-	public boolean IsEqual(LongNumber lnNum) {
+	public boolean isEqual(LongNumber lnNum) {
 		boolean result = true;
 		
 		if(this.value != lnNum.value) {
