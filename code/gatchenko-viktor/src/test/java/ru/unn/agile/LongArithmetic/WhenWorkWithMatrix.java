@@ -21,7 +21,8 @@ public class WhenWorkWithMatrix {
         assertEquals(true, resultCompare);
     }
 
-    private void initializeNecessaryMatrix2x2(Matrix firstMatrix, Matrix secondMatrix, Matrix gageMatrix) {
+    private void initializeNecessaryMatrix2x2(final Matrix firstMatrix, final Matrix secondMatrix,
+            final Matrix gageMatrix) {
         firstMatrix.setElement(0, 0, 1);
         firstMatrix.setElement(0, 1, 1);
         firstMatrix.setElement(1, 0, 2);
