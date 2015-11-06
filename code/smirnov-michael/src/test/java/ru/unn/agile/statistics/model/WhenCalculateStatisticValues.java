@@ -1,10 +1,7 @@
 package ru.unn.agile.statistics.model;
 
-import org.junit.Before;
 import org.junit.Test;
-
 import java.util.Collection;
-
 import static org.junit.Assert.*;
 
 public class WhenCalculateStatisticValues {
@@ -25,7 +22,7 @@ public class WhenCalculateStatisticValues {
 
     @Test
     public void statisticDataIsEmptyWhenConvertingIntArrayIsEmpty() {
-        numericalStatisticConverter= new NumericalStatisticConverter(null);
+        numericalStatisticConverter = new NumericalStatisticConverter(null);
         Collection<IStatisticalResult> dataInstances = numericalStatisticConverter.convert();
 
         assertEquals(dataInstances, null);
