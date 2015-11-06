@@ -28,7 +28,6 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
 
     @Before
     public void preparing() {
-        statisticsCalculator = new StatisticValuesCalculator();
         statisticsConverter = new StatisticsConverter();
     }
 
@@ -65,7 +64,7 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
 
         double calculatedEnumeration = statisticsCalculator.calculateEnumeration();
 
-        assertEqualsForDoublesWithStandardDelta(exactEnumeration, calculatedEnumeration);
+        assertEquals(exactEnumeration, calculatedEnumeration, deltaForDoubleAssertEquals);
     }
 
     @Test
@@ -74,7 +73,7 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
 
         double calculatedVariance = statisticsCalculator.calculateVariance();
 
-        assertEqualsForDoublesWithStandardDelta(exactVariance, calculatedVariance);
+        assertEquals(exactVariance, calculatedVariance, deltaForDoubleAssertEquals);
     }
 
     @Test
@@ -84,8 +83,9 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
         double calculatedProbability =
                 statisticsCalculator.calculateProbabilityOfEvent(testingEvent);
 
-        assertEqualsForDoublesWithStandardDelta(calculatedProbability,
-                exactProbabilityOfTestingEvent);
+        assertEquals(calculatedProbability,
+                exactProbabilityOfTestingEvent,
+                deltaForDoubleAssertEquals);
     }
 
 
@@ -93,7 +93,7 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
     private void setUpTest() {
         statisticsConverter.setData(currentTestingData);
         dataInstances = statisticsConverter.convertNumericalDataToStatistics();
-        statisticsCalculator.setStatisticData(dataInstances);
+        statisticsCalculator = new StatisticValuesCalculator(dataInstances);
     }
 
     private static Object[] formTestDataInstance(final Number[] numericData,
@@ -215,10 +215,5 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
                 exactVarianceOfDoubleArrayOfOneCosPeriod,
                 testingEvent,
                 probabilityOfTestingEvent);
-    }
-
-    private void assertEqualsForDoublesWithStandardDelta(final double firstValue,
-                                                         final double secondValue) {
-        assertEquals(firstValue, secondValue, deltaForDoubleAssertEquals);
     }
 }

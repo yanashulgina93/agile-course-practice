@@ -1,5 +1,5 @@
 package ru.unn.agile.statistics.model;
 
 public interface IStatisticDataInstance {
-    Double getInstance();
+    Double get();
 }

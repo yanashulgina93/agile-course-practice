@@ -15,17 +15,16 @@ public class WhenCalculateStatisticValues {
 
     @Before
     public void preparing() {
-        statisticsCalculator = new StatisticValuesCalculator();
         statisticsConverter = new StatisticsConverter();
     }
 
     @Test
     public void enumerationIsZeroWhenStatisticDataIsEmpty() {
-        statisticsCalculator.setStatisticData(null);
+        statisticsCalculator = new StatisticValuesCalculator(null);
 
         double enumeration = statisticsCalculator.calculateEnumeration();
 
-        assertEqualsForDoublesWithStandardDelta(0.0, enumeration);
+        assertEquals(0.0, enumeration, deltaForDoubleAssertEquals);
     }
 
     @Test
@@ -45,7 +44,7 @@ public class WhenCalculateStatisticValues {
 
         double probabilityOfEvent = statisticsCalculator.calculateProbabilityOfEvent(event);
 
-        assertEqualsForDoublesWithStandardDelta(0.0, probabilityOfEvent);
+        assertEquals(0.0, probabilityOfEvent, deltaForDoubleAssertEquals);
     }
 
     @Test
@@ -54,7 +53,7 @@ public class WhenCalculateStatisticValues {
 
         double probabilityOfEvent = statisticsCalculator.calculateProbabilityOfEvent(null);
 
-        assertEqualsForDoublesWithStandardDelta(0.0, probabilityOfEvent);
+        assertEquals(0.0, probabilityOfEvent, deltaForDoubleAssertEquals);
     }
 
     @Test
@@ -64,7 +63,7 @@ public class WhenCalculateStatisticValues {
 
         double variance = statisticsCalculator.calculateVariance();
 
-        assertEqualsForDoublesWithStandardDelta(0.0, variance);
+        assertEquals(0.0, variance, deltaForDoubleAssertEquals);
     }
 
     @Test
@@ -74,7 +73,7 @@ public class WhenCalculateStatisticValues {
 
         double rawMomentOfThirdOrder = statisticsCalculator.calculateRawMoment(3);
 
-        assertEqualsForDoublesWithStandardDelta(0.0, rawMomentOfThirdOrder);
+        assertEquals(0.0, rawMomentOfThirdOrder, deltaForDoubleAssertEquals);
     }
 
     @Test
@@ -84,7 +83,7 @@ public class WhenCalculateStatisticValues {
         double rawMomentOfFirstOrder = statisticsCalculator.calculateRawMoment(1);
         double enumeration = statisticsCalculator.calculateEnumeration();
 
-        assertEqualsForDoublesWithStandardDelta(rawMomentOfFirstOrder, enumeration);
+        assertEquals(rawMomentOfFirstOrder, enumeration, deltaForDoubleAssertEquals);
     }
 
     @Test
@@ -112,7 +111,8 @@ public class WhenCalculateStatisticValues {
         formDataInstances(formDoubleArrayWithSmallVariance());
 
         double rawMomentOfZeroOrder = statisticsCalculator.calculateRawMoment(0);
-        assertEqualsForDoublesWithStandardDelta(0.0, rawMomentOfZeroOrder);
+
+        assertEquals(0.0, rawMomentOfZeroOrder, deltaForDoubleAssertEquals);
     }
 
     @Test
@@ -121,7 +121,7 @@ public class WhenCalculateStatisticValues {
 
         double rawMomentOfMinusFithOrder = statisticsCalculator.calculateRawMoment(-5);
 
-        assertEqualsForDoublesWithStandardDelta(0.0, rawMomentOfMinusFithOrder);
+        assertEquals(0.0, rawMomentOfMinusFithOrder, deltaForDoubleAssertEquals);
     }
 
     @Test
@@ -131,7 +131,7 @@ public class WhenCalculateStatisticValues {
 
         double centralMomentOfSecondOrder = statisticsCalculator.calculateCentralMoment(2);
 
-        assertEqualsForDoublesWithStandardDelta(0.0, centralMomentOfSecondOrder);
+        assertEquals(0.0, centralMomentOfSecondOrder, deltaForDoubleAssertEquals);
     }
 
     @Test
@@ -141,7 +141,7 @@ public class WhenCalculateStatisticValues {
 
         double centralMomentOfFirstOrder = statisticsCalculator.calculateCentralMoment(1);
 
-        assertEqualsForDoublesWithStandardDelta(0.0, centralMomentOfFirstOrder);
+        assertEquals(0.0, centralMomentOfFirstOrder, deltaForDoubleAssertEquals);
     }
 
     @Test
@@ -153,7 +153,7 @@ public class WhenCalculateStatisticValues {
                 * statisticsCalculator.calculateVariance();
         double centralMomentOfSecondOrder = statisticsCalculator.calculateCentralMoment(2);
 
-        assertEqualsForDoublesWithStandardDelta(unbiasedVariance, centralMomentOfSecondOrder);
+        assertEquals(unbiasedVariance, centralMomentOfSecondOrder, deltaForDoubleAssertEquals);
     }
 
     @Test
@@ -182,7 +182,7 @@ public class WhenCalculateStatisticValues {
 
         double centralMomentOfMinusThirdOrder = statisticsCalculator.calculateCentralMoment(-3);
 
-        assertEqualsForDoublesWithStandardDelta(0.0, centralMomentOfMinusThirdOrder);
+        assertEquals(0.0, centralMomentOfMinusThirdOrder, deltaForDoubleAssertEquals);
     }
 
     @Test
@@ -191,7 +191,7 @@ public class WhenCalculateStatisticValues {
 
         double centralMomentOfZeroOrder = statisticsCalculator.calculateCentralMoment(0);
 
-        assertEqualsForDoublesWithStandardDelta(0.0, centralMomentOfZeroOrder);
+        assertEquals(0.0, centralMomentOfZeroOrder, deltaForDoubleAssertEquals);
     }
 
     private Integer[] formIntegerArrayWithBigVariance() {
@@ -210,11 +210,6 @@ public class WhenCalculateStatisticValues {
         Collection<IStatisticDataInstance> dataInstances =
                 statisticsConverter.convertNumericalDataToStatistics();
 
-        statisticsCalculator.setStatisticData(dataInstances);
-    }
-
-    private void assertEqualsForDoublesWithStandardDelta(final double firstValue,
-                                                         final double secondValue) {
-        assertEquals(firstValue, secondValue, deltaForDoubleAssertEquals);
+        statisticsCalculator = new StatisticValuesCalculator(dataInstances);
     }
 }

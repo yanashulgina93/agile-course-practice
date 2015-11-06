@@ -14,7 +14,7 @@ public class NumericStatisticDataInstance implements IStatisticDataInstance {
     }
 
     @Override
-    public Double getInstance() {
+    public Double get() {
         return new Double(instance);
     }
 }

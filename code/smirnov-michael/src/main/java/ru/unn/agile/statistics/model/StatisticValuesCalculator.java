@@ -1,7 +1,6 @@
 package ru.unn.agile.statistics.model;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 public class StatisticValuesCalculator {
 
@@ -23,10 +22,6 @@ public class StatisticValuesCalculator {
         setStatisticData(dataForStatistics);
     }
 
-    public StatisticValuesCalculator() {
-        processedStatistics = null;
-    }
-
     public void setStatisticData(final Collection<IStatisticDataInstance> dataForStatistics) {
         if (dataForStatistics == null) {
             processedStatistics = null;
@@ -35,9 +30,11 @@ public class StatisticValuesCalculator {
 
         int dataSize = dataForStatistics.size();
         processedStatistics = new double[dataSize];
-        Iterator<IStatisticDataInstance> dataIterator = dataForStatistics.iterator();
-        for (int i = 0; i < dataSize; i++) {
-            processedStatistics[i] = dataIterator.next().getInstance();
+
+        int currentInstanceIndex = 0;
+        for (IStatisticDataInstance instance : dataForStatistics) {
+            processedStatistics[currentInstanceIndex] = instance.get();
+            currentInstanceIndex++;
         }
     }
 
@@ -64,7 +61,7 @@ public class StatisticValuesCalculator {
             return PROBABILITY_OF_NULL_EVENT;
         }
 
-        double instanceOfEvent = event.getInstance();
+        double instanceOfEvent = event.get();
         double probability = 0.0;
 
         for (double instanceOfData : processedStatistics) {
