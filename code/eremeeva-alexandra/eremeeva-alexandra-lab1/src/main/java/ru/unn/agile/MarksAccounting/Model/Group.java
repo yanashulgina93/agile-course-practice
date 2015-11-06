@@ -11,12 +11,10 @@ public class Group {
 
     private int findAcademicSubject(final String requiredAcademicSubject) {
         int i = 0;
-        while (i < getAcademicSubjects().size()) {
+        while (i < getAcademicSubjects().size()
+                && getAcademicSubjects().get(i).compareTo(requiredAcademicSubject) <= 0) {
             if (getAcademicSubjects().get(i).equals(requiredAcademicSubject)) {
                 return i;
-            }
-            if (getAcademicSubjects().get(i).compareTo(requiredAcademicSubject) > 0) {
-                break;
             }
             i++;
         }
@@ -26,12 +24,10 @@ public class Group {
 
     private int findStudent(final String requiredStudent) {
         int i = 0;
-        while (i < getStudents().size()) {
+        while (i < getStudents().size()
+                && getStudents().get(i).getName().compareTo(requiredStudent) <= 0) {
             if (getStudents().get(i).getName().equals(requiredStudent)) {
                 return i;
-            }
-            if (getStudents().get(i).getName().compareTo(requiredStudent) > 0) {
-                break;
             }
             i++;
         }
@@ -58,10 +54,8 @@ public class Group {
 
     public void addStudent(final String newStudent) {
         int i = 0;
-        while (i < getStudents().size()) {
-            if (getStudents().get(i).getName().compareTo(newStudent) > 0) {
-                break;
-            }
+        while (i < getStudents().size()
+                && getStudents().get(i).getName().compareTo(newStudent) <= 0) {
             if (getStudents().get(i).getName().equals(newStudent)) {
                 i = -1;
                 break;
@@ -75,10 +69,8 @@ public class Group {
 
     public void addAcademicSubject(final String newAcademicSubject) {
         int i = 0;
-        while (i < getAcademicSubjects().size()) {
-            if (getAcademicSubjects().get(i).compareTo(newAcademicSubject) > 0) {
-                break;
-            }
+        while (i < getAcademicSubjects().size()
+                && getAcademicSubjects().get(i).compareTo(newAcademicSubject) <= 0) {
             if (getAcademicSubjects().get(i).equals(newAcademicSubject)) {
                 i = -1;
                 break;

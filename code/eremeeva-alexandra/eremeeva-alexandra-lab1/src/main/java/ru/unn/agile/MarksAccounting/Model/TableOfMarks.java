@@ -9,10 +9,8 @@ public class TableOfMarks {
 
     private int findGroup(final String requiredGroup) {
         int i = 0;
-        while (i < getGroups().size()) {
-            if (getGroups().get(i).getNumber().compareTo(requiredGroup) > 0) {
-                break;
-            }
+        while (i < getGroups().size()
+                && getGroups().get(i).getNumber().compareTo(requiredGroup) <= 0) {
             if (getGroups().get(i).getNumber().equals(requiredGroup)) {
                 return i;
             }
@@ -31,10 +29,8 @@ public class TableOfMarks {
 
     public void addGroup(final String newGroup) {
         int i = 0;
-        while (i < getGroups().size()) {
-            if (getGroups().get(i).getNumber().compareTo(newGroup) > 0) {
-                break;
-            }
+        while (i < getGroups().size()
+                && getGroups().get(i).getNumber().compareTo(newGroup) <= 0) {
             if (getGroups().get(i).getNumber().equals(newGroup)) {
                 i = -1;
                 break;
