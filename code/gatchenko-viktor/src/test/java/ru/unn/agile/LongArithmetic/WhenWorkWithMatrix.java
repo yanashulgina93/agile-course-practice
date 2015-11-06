@@ -94,7 +94,7 @@ public class WhenWorkWithMatrix {
         assertEquals(false, isEqual);
     }
 
-    private Matrix generateMatrix(int height, int width) {
+    private Matrix generateMatrix(final int height, final int width) {
         Matrix resultMatrix = new Matrix(height, width);
 
         for (int i = 0; i < height; ++i) {

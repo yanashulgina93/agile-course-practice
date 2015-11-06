@@ -72,7 +72,7 @@ public class WhenWorkWithLongNumber {
         assertEquals(true, isEqual);
     }
 
-    private void InitializePairLongNumber(int number1, int number2) {
+    private void InitializePairLongNumber(final int number1, final int number2) {
         lnNum1 = new LongNumber(number1);
         lnNum2 = new LongNumber(number2);
     }

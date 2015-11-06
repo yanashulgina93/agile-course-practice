@@ -8,29 +8,29 @@ public class LongNumber {
         this.value = 0;
     }
 
-    public LongNumber(int number) {
+    public LongNumber(final int number) {
         this.value = number;
     }
 
-    public LongNumber(LongNumber copiedNum) {
+    public LongNumber(final LongNumber copiedNum) {
         this.value = copiedNum.value;
     }
 
-    public LongNumber add(LongNumber lnNum) {
+    public LongNumber add(final LongNumber lnNum) {
         LongNumber result = new LongNumber();
         result.value = this.value + lnNum.value;
 
         return result;
     }
 
-    public LongNumber multiply(LongNumber lnNum) {
+    public LongNumber multiply(final LongNumber lnNum) {
         LongNumber result = new LongNumber();
         result.value = this.value * lnNum.value;
 
         return result;
     }
 
-    public boolean isEqual(LongNumber lnNum) {
+    public boolean isEqual(final LongNumber lnNum) {
         boolean result = true;
 
         if (this.value != lnNum.value) {

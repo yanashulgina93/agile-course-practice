@@ -15,7 +15,7 @@ public class Matrix {
         this.element = null;
     }
 
-    public Matrix(int height, int width) {
+    public Matrix(final int height, final int width) {
         this.width = width;
         this.height = height;
 
@@ -27,7 +27,7 @@ public class Matrix {
         }
     }
 
-    public Matrix(Matrix copiedMatrix) {
+    public Matrix(final Matrix copiedMatrix) {
         this.width = copiedMatrix.width;
         this.height = copiedMatrix.height;
 
@@ -39,7 +39,7 @@ public class Matrix {
         }
     }
 
-    public Matrix multiply(Matrix secondMultiplier) {
+    public Matrix multiply(final Matrix secondMultiplier) {
         Matrix resultMatrix;
 
         if(this.width != secondMultiplier.height) {
@@ -57,7 +57,7 @@ public class Matrix {
         return resultMatrix;
     }
 
-    public boolean isEqual(Matrix secondMatrix) {
+    public boolean isEqual(final Matrix secondMatrix) {
         boolean result = true;
 
         if(this.height != secondMatrix.height || this.width != secondMatrix.width) {
@@ -75,7 +75,7 @@ public class Matrix {
         return result;
     }
 
-    private LongNumber countUpElement(int i, int j, Matrix firstMultiplier, Matrix secondMultiplier) {
+    private LongNumber countUpElement(final int i, final int j, final Matrix firstMultiplier, final Matrix secondMultiplier) {
         LongNumber result = new LongNumber();
         LongNumber partSum;
 
@@ -91,7 +91,7 @@ public class Matrix {
         return this.width;
     }
 
-    public void setWidth(int newWidth) {
+    public void setWidth(final int newWidth) {
         this.width = newWidth;
     }
 
@@ -99,7 +99,7 @@ public class Matrix {
         return this.height;
     }
 
-    public void getHeight(int newHeight) {
+    public void getHeight(final int newHeight) {
         this.height = newHeight;
     }
 }
