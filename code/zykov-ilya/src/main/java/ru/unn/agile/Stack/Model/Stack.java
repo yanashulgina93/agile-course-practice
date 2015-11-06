@@ -44,12 +44,11 @@ public class Stack {
     }
 
     public Object pop() {
-        if (size > 0) {
+        Object topElement = peak();
+        if (topElement != null) {
             size--;
-            return values[size];
-        } else {
-            return null;
         }
+        return topElement;
     }
 
     public Object peak() {
