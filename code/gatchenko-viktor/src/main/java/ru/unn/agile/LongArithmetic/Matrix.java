@@ -1,4 +1,4 @@
-package main.java.ru.unn.agile.LongNumber;
+package main.java.ru.unn.agile.LongArithmetic;
 
 public class Matrix {
 	
@@ -102,7 +102,4 @@ public class Matrix {
 	public void getHeight(int newHeight) {
 		this.height = newHeight;
 	}
-	
-	
-
 }

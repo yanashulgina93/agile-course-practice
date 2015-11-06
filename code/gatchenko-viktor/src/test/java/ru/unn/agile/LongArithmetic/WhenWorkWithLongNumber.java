@@ -1,8 +1,9 @@
-package test.java.ru.unn.agile.LongMumber;
+package test.java.ru.unn.agile.LongArithmetic;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-import main.java.ru.unn.agile.LongNumber.LongNumber;
+
+import main.java.ru.unn.agile.LongArithmetic.LongNumber;
 
 public class WhenWorkWithLongNumber {
 
@@ -74,5 +75,4 @@ public class WhenWorkWithLongNumber {
 		lnNum1 = new LongNumber(number1);
 		lnNum2 = new LongNumber(number2);
 	}
-
 }

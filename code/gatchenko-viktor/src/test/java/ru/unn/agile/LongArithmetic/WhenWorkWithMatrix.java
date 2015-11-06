@@ -1,10 +1,10 @@
-package test.java.ru.unn.agile.LongMumber;
+package test.java.ru.unn.agile.LongArithmetic;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import main.java.ru.unn.agile.LongNumber.LongNumber;
-import main.java.ru.unn.agile.LongNumber.Matrix;
+import main.java.ru.unn.agile.LongArithmetic.LongNumber;
+import main.java.ru.unn.agile.LongArithmetic.Matrix;
 
 public class WhenWorkWithMatrix {
 	

@@ -1,4 +1,4 @@
-package main.java.ru.unn.agile.LongNumber;
+package main.java.ru.unn.agile.LongArithmetic;
 
 public class LongNumber {
 	
@@ -39,6 +39,4 @@ public class LongNumber {
 		
 		return result;
 	}
-	
-
 }
