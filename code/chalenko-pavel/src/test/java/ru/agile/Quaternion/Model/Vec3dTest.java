@@ -271,7 +271,5 @@ public class Vec3dTest {
 		Vec3d actualVec = new Vec3d(0., .0, .0);
 		
 		actualVec.normalize();
-		
-		assertTrue(false);
 	}
 }
