@@ -11,25 +11,31 @@ public class WhenWorkWithMatrix {
     @Test
     public void multiplyMatrix2x2AndMatrix2x2() {
         Matrix firstMatrix = new Matrix(2, 2);
-        firstMatrix.setElement(0, 0, 1);
-        firstMatrix.setElement(0, 1, 1);
-        firstMatrix.setElement(1, 0, 2);
-        firstMatrix.setElement(1, 1, 1);
         Matrix secondMatrix = new Matrix(2, 2);
-        secondMatrix.setElement(0, 0, 2);
-        secondMatrix.setElement(0, 1, 2);
-        secondMatrix.setElement(1, 0, 1);
-        secondMatrix.setElement(1, 1, 2);
         Matrix gageMatrix = new Matrix(2, 2);
-        gageMatrix.setElement(0, 0, 3);
-        gageMatrix.setElement(0, 1, 4);
-        gageMatrix.setElement(1, 0, 5);
-        gageMatrix.setElement(1, 1, 6);
+        initializeNecessaryMatrix2x2(firstMatrix, secondMatrix, gageMatrix);
 
         Matrix resultMatrix = firstMatrix.multiply(secondMatrix);
 
         boolean resultCompare = gageMatrix.isEqual(resultMatrix);
         assertEquals(true, resultCompare);
+    }
+
+    private void initializeNecessaryMatrix2x2(Matrix firstMatrix, Matrix secondMatrix, Matrix gageMatrix) {
+        firstMatrix.setElement(0, 0, 1);
+        firstMatrix.setElement(0, 1, 1);
+        firstMatrix.setElement(1, 0, 2);
+        firstMatrix.setElement(1, 1, 1);
+
+        secondMatrix.setElement(0, 0, 2);
+        secondMatrix.setElement(0, 1, 2);
+        secondMatrix.setElement(1, 0, 1);
+        secondMatrix.setElement(1, 1, 2);
+
+        gageMatrix.setElement(0, 0, 3);
+        gageMatrix.setElement(0, 1, 4);
+        gageMatrix.setElement(1, 0, 5);
+        gageMatrix.setElement(1, 1, 6);
     }
 
     @Test
