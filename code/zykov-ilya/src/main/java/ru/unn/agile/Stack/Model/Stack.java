@@ -10,7 +10,7 @@ public class Stack {
     private static final double GOLDEN_RATIO = 1.61803398;
 
     private void increaseArraySize() {
-        int increasedSize = ((int)(size * GOLDEN_RATIO)) + 1;
+        int increasedSize = ((int) (size * GOLDEN_RATIO)) + 1;
         Object[] newValues = new Object[increasedSize];
         System.arraycopy(values, FIRST_ARRAY_ELEMENT,
                          newValues, FIRST_ARRAY_ELEMENT, values.length);
@@ -25,10 +25,6 @@ public class Stack {
     public Stack(final Object[] inputArray) {
         values = inputArray.clone();
         size = inputArray.length;
-    }
-
-    public boolean equals(Stack stack) {
-        return true;
     }
 
     public ArrayList<Object> toArrayList() {
