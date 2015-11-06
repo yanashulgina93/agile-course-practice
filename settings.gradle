@@ -80,7 +80,11 @@ project(":code/kochanova-ksenya").name = "kochanova-ksenya-Model"
 // Korotaev Pavel
 include "code/korotaev-pavel"
 project(":code/korotaev-pavel").name = "korotaev-pavel-Model"
+
 // Kumaev Vasilij
+include "code/kumaev-vasily"
+project(":code/kumaev-vasily").name = "kumaev-vasily-Model"
+
 // Kuznecov Aleksandr
 // Larin Sergej
 // Mixejceva Lyudmila
