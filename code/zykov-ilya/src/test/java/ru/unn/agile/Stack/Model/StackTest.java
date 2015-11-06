@@ -2,6 +2,8 @@ package ru.unn.agile.Stack.Model;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.assertEquals;
 
 public class StackTest {
@@ -9,20 +11,20 @@ public class StackTest {
     public void initiatingStackFromIntArray() {
         Integer[] inputArray = {1, 2, 3};
         Stack myStack = new Stack(inputArray);
-        assertEquals("1 2 3", myStack.toString());
+        assertEquals(Arrays.asList(1, 2, 3), myStack.toArrayList());
     }
 
     @Test
      public void initiatingStackFromStringArray() {
         String[] inputArray = {"one", "two", "three"};
         Stack myStack = new Stack(inputArray);
-        assertEquals("one two three", myStack.toString());
+        assertEquals(Arrays.asList("one", "two", "three"), myStack.toArrayList());
     }
 
     @Test
     public void initiatingEmptyStack() {
         Stack myStack = new Stack();
-        assertEquals("", myStack.toString());
+        assertEquals(Arrays.asList(), myStack.toArrayList());
     }
 
     @Test
@@ -30,7 +32,7 @@ public class StackTest {
         Stack myStack = new Stack();
         Integer element = 1;
         myStack.push(element);
-        assertEquals("1", myStack.toString());
+        assertEquals(Arrays.asList(1), myStack.toArrayList());
     }
 
     @Test
@@ -42,7 +44,7 @@ public class StackTest {
             myStack.push(elements[i]);
         }
 
-        assertEquals("1 2 3 4 5 6 7 8 9 10", myStack.toString());
+        assertEquals(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), myStack.toArrayList());
     }
 
     @Test
@@ -54,7 +56,8 @@ public class StackTest {
             myStack.push(elements[i]);
         }
 
-        assertEquals("1 2 3 4 5 6 7 8 9 10", myStack.toString());
+        assertEquals(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"),
+                myStack.toArrayList());
     }
 
     @Test
@@ -71,7 +74,7 @@ public class StackTest {
         Stack myStack = new Stack(inputArray);
         myStack.pop();
 
-        assertEquals("1 2", myStack.toString());
+        assertEquals(Arrays.asList(1, 2), myStack.toArrayList());
     }
 
     @Test
@@ -87,7 +90,7 @@ public class StackTest {
         Stack myStack = new Stack();
         myStack.pop();
 
-        assertEquals("", myStack.toString());
+        assertEquals(Arrays.asList(), myStack.toArrayList());
     }
 
     @Test
@@ -111,7 +114,7 @@ public class StackTest {
         myStack.pop();
         myStack.push(11);
 
-        assertEquals("11", myStack.toString());
+        assertEquals(Arrays.asList(11), myStack.toArrayList());
     }
 
     @Test
@@ -132,6 +135,6 @@ public class StackTest {
     public void checkIsPeakNotChangeSteck() {
         Stack myStack = new Stack(new Integer[]{1, 2, 3});
 
-        assertEquals("1 2 3", myStack.toString());
+        assertEquals(Arrays.asList(1, 2, 3), myStack.toArrayList());
     }
 }

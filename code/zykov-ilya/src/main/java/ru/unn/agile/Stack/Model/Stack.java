@@ -1,5 +1,7 @@
 package ru.unn.agile.Stack.Model;
 
+import java.util.ArrayList;
+
 public class Stack {
     private Object[] values;
     private int size;
@@ -23,14 +25,10 @@ public class Stack {
         size = inputArray.length;
     }
 
-    public String toString() {
-        String res = "";
-        for (int i = 0; i < size - 1; ++i) {
-            res += values[i];
-            res += " ";
-        }
-        if (size > 0) {
-            res += values[size - 1];
+    public ArrayList<Object> toArrayList() {
+        ArrayList<Object> res = new ArrayList<>();
+        for (int i = 0; i < size; ++i) {
+            res.add(values[i]);
         }
         return res;
     }
