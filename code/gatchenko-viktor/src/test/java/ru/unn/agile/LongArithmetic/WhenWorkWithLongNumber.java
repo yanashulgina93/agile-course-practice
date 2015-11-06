@@ -13,16 +13,16 @@ public class WhenWorkWithLongNumber {
     private LongNumber result;
 
     @Test
-    public void Add_1_To_0() {
-        InitializePairLongNumber(1, 0);
+    public void add1To0() {
+        initializePairLongNumber(1, 0);
         result = lnNum1.add(lnNum2);
 
         assertEquals(1, result.getValue());
     }
 
     @Test
-    public void Add_122_To_78() {
-        InitializePairLongNumber(122, 78);
+    public void add122To78() {
+        initializePairLongNumber(122, 78);
         result = lnNum1.add(lnNum2);
 
         assertEquals(200, result.getValue());
@@ -31,16 +31,16 @@ public class WhenWorkWithLongNumber {
     // TODO Long Add @Test
 
     @Test
-    public void Multiply_0_And_5() {
-        InitializePairLongNumber(0, 5);
+    public void multiply0And5() {
+        initializePairLongNumber(0, 5);
         result = lnNum1.multiply(lnNum2);
 
         assertEquals(0, result.getValue());
     }
 
     @Test
-    public void Multiply_23_And_135() {
-        InitializePairLongNumber(23, 135);
+    public void multiply23And135() {
+        initializePairLongNumber(23, 135);
         result = lnNum1.multiply(lnNum2);
 
         assertEquals(3105, result.getValue());
@@ -49,30 +49,30 @@ public class WhenWorkWithLongNumber {
     // TODO Long Multiply @Test
 
     @Test
-    public void Compare_0_And_1() {
-        InitializePairLongNumber(0, 1);
+    public void compare0And1() {
+        initializePairLongNumber(0, 1);
         boolean isEqual = lnNum1.isEqual(lnNum2);
 
         assertEquals(false, isEqual);
     }
 
     @Test
-    public void Compare_11_And_111() {
-        InitializePairLongNumber(11, 111);
+    public void compare11And111() {
+        initializePairLongNumber(11, 111);
         boolean isEqual = lnNum1.isEqual(lnNum2);
 
         assertEquals(false, isEqual);
     }
 
     @Test
-    public void Compare_2222_And_2222() {
-        InitializePairLongNumber(2222, 2222);
+    public void compare2222222And2222222() {
+        initializePairLongNumber(2222222, 2222222);
         boolean isEqual = lnNum1.isEqual(lnNum2);
 
         assertEquals(true, isEqual);
     }
 
-    private void InitializePairLongNumber(final int number1, final int number2) {
+    private void initializePairLongNumber(final int number1, final int number2) {
         lnNum1 = new LongNumber(number1);
         lnNum2 = new LongNumber(number2);
     }
