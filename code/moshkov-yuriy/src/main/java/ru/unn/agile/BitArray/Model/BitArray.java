@@ -28,15 +28,42 @@ public class BitArray {
     }
 
     public BitArray and(final BitArray bitArr) {
-        return this.doOperationWithArr(bitArr, new BitArrayAndOperation());
+        BitArray res;
+        if (bitArr.getSize() == this.size) {
+            res = new BitArray(this.size);
+            for (int i = 0; i < this.size; i++) {
+                res.setBit(i, this.getBit(i) & bitArr.getBit(i));
+            }
+        } else {
+            throw new BitArrayDifferentSizeException("Different size of arrays");
+        }
+        return res;
     }
 
     public BitArray or(final BitArray bitArr) {
-        return this.doOperationWithArr(bitArr, new BitArrayOrOperation());
+        BitArray res;
+        if (bitArr.getSize() == this.size) {
+            res = new BitArray(this.size);
+            for (int i = 0; i < this.size; i++) {
+                res.setBit(i, this.getBit(i) | bitArr.getBit(i));
+            }
+        } else {
+            throw new BitArrayDifferentSizeException("Different size of arrays");
+        }
+        return res;
     }
 
     public BitArray xor(final BitArray bitArr) {
-        return this.doOperationWithArr(bitArr, new BitArrayXorOperation());
+        BitArray res;
+        if (bitArr.getSize() == this.size) {
+            res = new BitArray(this.size);
+            for (int i = 0; i < this.size; i++) {
+                res.setBit(i, this.getBit(i) ^ bitArr.getBit(i));
+            }
+        } else {
+            throw new BitArrayDifferentSizeException("Different size of arrays");
+        }
+        return res;
     }
 
     public BitArray not() {
@@ -53,15 +80,5 @@ public class BitArray {
 
     public int getSize() {
         return this.size;
-    }
-
-    private BitArray doOperationWithArr(final BitArray bitArr, final IBitArrayOperation operation) {
-        BitArray res;
-        if (bitArr.getSize() == this.size) {
-            res = operation.doOperation(this, bitArr);
-        } else {
-            throw new BitArrayDifferentSizeException("Different size of arrays");
-        }
-        return res;
     }
 }
