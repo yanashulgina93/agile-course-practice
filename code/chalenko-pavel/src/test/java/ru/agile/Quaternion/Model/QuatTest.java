@@ -10,9 +10,9 @@ import main.java.ru.agile.Quaternion.Model.Vec3d;
 
 public class QuatTest {
 
-	Quat q1;
-	Quat q2;
-	double eps = 0.001;
+	private Quat q1;
+	private Quat q2;
+	final private double eps = 0.001;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -266,7 +266,7 @@ public class QuatTest {
 	public void canCreateQuaternionFromAxisAngleXYZ180(){
 		Quat expectedQuat = new Quat(0., 0.577, 0.577, 0.577);
 		Vec3d axis = new Vec3d(1, 1, 1);
-		axis.norm();
+		axis.normalize();
 		
 		Quat actualQuat = Quat.createFromAxisAngle(axis, Math.PI);
 		

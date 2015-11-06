@@ -13,7 +13,7 @@ public class Vec3dTest {
 
 	private Vec3d vec1;
 	private Vec3d vec2;
-	private double eps = 0.001;
+	final private double eps = 0.001;
 	
 	@Before
 	public void setUp() throws Exception {
