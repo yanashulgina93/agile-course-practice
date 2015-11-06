@@ -42,9 +42,7 @@ public class Matrix {
     public Matrix multiply(final Matrix secondMultiplier) {
         Matrix resultMatrix;
 
-        if (this.width != secondMultiplier.height) {
-            resultMatrix = Matrix.UNDEFINED;
-        } else {
+        if (this.width == secondMultiplier.height) {
             resultMatrix = new Matrix(this.height, secondMultiplier.width);
 
             for (int i = 0; i < resultMatrix.height; ++i) {
@@ -52,6 +50,8 @@ public class Matrix {
                     resultMatrix.element[i][j] = countUpElement(i, j, this, secondMultiplier);
                 }
             }
+        } else {
+            resultMatrix = Matrix.UNDEFINED;
         }
 
         return resultMatrix;
@@ -60,7 +60,7 @@ public class Matrix {
     public boolean isEqual(final Matrix secondMatrix) {
         boolean result = true;
 
-        if (this.height != secondMatrix.height || this.width != secondMatrix.width) {
+        if (!(this.height == secondMatrix.height && this.width == secondMatrix.width)) {
             result = false;
         } else {
             for (int i = 0; i < this.height; ++i) {
