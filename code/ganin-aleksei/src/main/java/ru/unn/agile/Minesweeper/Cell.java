@@ -7,7 +7,6 @@ public class Cell {
     private boolean openV = false;
     private int value = 0;
 
-    private final Board board;
     private final int positionY;
     private final int positionX;
 
@@ -21,9 +20,7 @@ public class Cell {
     private static final int CELL_VALUE_7 = 7;
     private static final int CELL_VALUE_8 = 8;
 
-    public Cell(final Board boardA, final int positionYA, final int positionXA) {
-
-        board = boardA;
+    public Cell(final int positionYA, final int positionXA) {
         positionY = positionYA;
         positionX = positionXA;
     }

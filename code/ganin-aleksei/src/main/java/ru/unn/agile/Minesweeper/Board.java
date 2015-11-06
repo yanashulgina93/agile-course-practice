@@ -32,7 +32,7 @@ public class Board {
         for (int positionY = 0; positionY < boardHeight; positionY++) {
             cells[positionY] = new Cell[boardWidth];
             for (int positionX = 0; positionX < boardWidth; positionX++) {
-                Cell cell = new Cell(this, positionY, positionX);
+                Cell cell = new Cell(positionY, positionX);
                 cells[positionY][positionX] = cell;
             }
         }

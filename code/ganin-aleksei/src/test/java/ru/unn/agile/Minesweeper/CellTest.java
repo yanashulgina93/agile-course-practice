@@ -14,7 +14,7 @@ public class CellTest {
 
     @Before
     public void runBeforeEveryTest() {
-        cell = new Cell(new Board(new Minesweeper(), 32, 32), cellPositionY, cellPositionX);
+        cell = new Cell(cellPositionY, cellPositionX);
     }
 
     @Test
