@@ -27,16 +27,16 @@ public class BitArray {
         Arrays.fill(this.arrBit, value);
     }
 
-    public BitArray and(final BitArray arr) {
-        return this.doOperationWithArr(arr, new BitArrayAndOperation());
+    public BitArray and(final BitArray bitArr) {
+        return this.doOperationWithArr(bitArr, new BitArrayAndOperation());
     }
 
-    public BitArray or(final BitArray arr) {
-        return this.doOperationWithArr(arr, new BitArrayOrOperation());
+    public BitArray or(final BitArray bitArr) {
+        return this.doOperationWithArr(bitArr, new BitArrayOrOperation());
     }
 
-    public BitArray xor(final BitArray arr) {
-        return this.doOperationWithArr(arr, new BitArrayXorOperation());
+    public BitArray xor(final BitArray bitArr) {
+        return this.doOperationWithArr(bitArr, new BitArrayXorOperation());
     }
 
     public BitArray not() {
@@ -55,10 +55,10 @@ public class BitArray {
         return this.size;
     }
 
-    private BitArray doOperationWithArr(final BitArray arr, final IBitArrayOperation operation) {
+    private BitArray doOperationWithArr(final BitArray bitArr, final IBitArrayOperation operation) {
         BitArray res;
-        if (arr.getSize() == this.size) {
-            res = operation.doOperation(this, arr);
+        if (bitArr.getSize() == this.size) {
+            res = operation.doOperation(this, bitArr);
         } else {
             throw new BitArrayDifferentSizeException("Different size of arrays");
         }
