@@ -26,9 +26,9 @@ public class WhenWorkWithMatrix {
 			gageMatrix.element[1][0] = new LongNumber(5);
 			gageMatrix.element[1][1] = new LongNumber(6);
 			
-		Matrix resultMatrix = firstMatrix.Multiply(secondMatrix);
+		Matrix resultMatrix = firstMatrix.multiply(secondMatrix);
 		
-		boolean resultCompare = gageMatrix.IsEqual(resultMatrix);
+		boolean resultCompare = gageMatrix.isEqual(resultMatrix);
 		assertEquals(true, resultCompare);
 	}
 	
@@ -40,13 +40,58 @@ public class WhenWorkWithMatrix {
 		eMatrix.element[1][1] = new LongNumber(1);
 		eMatrix.element[2][2] = new LongNumber(1);
 		
-		Matrix resultMatrix = someMatrix.Multiply(eMatrix);
+		Matrix resultMatrix = someMatrix.multiply(eMatrix);
 		
-		boolean resultCompare = someMatrix.IsEqual(resultMatrix);
+		boolean resultCompare = someMatrix.isEqual(resultMatrix);
 		assertEquals(true, resultCompare);
 	}
 	
-	//TODO Multiply @Test
+	@Test
+	public void Multiply_Some_Matrix_5x3_And_Some_Matrix_3x5() {
+		Matrix firstMatrix = generateMatrix(5, 3);
+		Matrix secondMatrix = generateMatrix(3, 5);
+		
+		Matrix resultMatrix = firstMatrix.multiply(secondMatrix);
+		
+		boolean success = true;
+		if(resultMatrix.getHeight() != 5 || resultMatrix.getWidth() != 5) {
+			success = false;
+		}
+		assertEquals(true, success);
+	}
+	
+	@Test
+	public void Compare_Equal_Matrixs_4x3() {
+		Matrix firstMatrix = generateMatrix(4, 3);
+		Matrix secondMatrix = new Matrix(firstMatrix);
+		
+		boolean isEqual = firstMatrix.isEqual(secondMatrix);
+		assertEquals(true, isEqual);
+	}
+	
+	@Test
+	public void Compare_Some_Matrix_4x3_And_Some_Matrix_3x3() {
+		Matrix firstMatrix = generateMatrix(4, 3);
+		Matrix secondMatrix = generateMatrix(3, 3);
+		
+		boolean isEqual = firstMatrix.isEqual(secondMatrix);
+		assertEquals(false, isEqual);
+	}
+	
+	@Test
+	public void Compare_Matrix_2x2_And_E_Matrix_2x2() {
+		Matrix matrix = new Matrix(2, 2);
+			matrix.element[0][0] = new LongNumber(1);
+			matrix.element[0][1] = new LongNumber(1);
+			matrix.element[1][0] = new LongNumber(2);
+			matrix.element[1][1] = new LongNumber(1);
+		Matrix eMatrix = new Matrix(2, 2);
+			eMatrix.element[0][0] = new LongNumber(1);
+			eMatrix.element[1][1] = new LongNumber(1);
+		
+		boolean isEqual = matrix.isEqual(eMatrix);
+		assertEquals(false, isEqual);
+	}
 	
 	private Matrix generateMatrix(int height, int width) {
 		Matrix resultMatrix = new Matrix(height, width);
@@ -60,9 +105,4 @@ public class WhenWorkWithMatrix {
 		
 		return resultMatrix;
 	}
-	
-	//@Test
-	/*public void Get_Width_Some_Matrix () {
-		assertEquals(expected, actual);
-	}*/
 }

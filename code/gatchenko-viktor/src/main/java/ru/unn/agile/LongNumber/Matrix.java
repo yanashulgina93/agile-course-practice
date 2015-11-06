@@ -27,7 +27,19 @@ public class Matrix {
 		}
 	}
 	
-	public Matrix Multiply(Matrix secondMultiplier) {
+	public Matrix(Matrix copiedMatrix) {
+		this.width = copiedMatrix.width;
+		this.height = copiedMatrix.height;
+		
+		this.element = new LongNumber[this.height][this.width];
+		for(int i = 0; i < this.height; ++i) {
+			for(int j = 0; j < this.width; ++j) {
+				this.element[i][j] = copiedMatrix.element[i][j];
+			}
+		}
+	}
+	
+	public Matrix multiply(Matrix secondMultiplier) {
 		Matrix resultMatrix;
 		
 		if(this.width != secondMultiplier.height) {
@@ -37,7 +49,7 @@ public class Matrix {
 			
 			for(int i = 0; i < resultMatrix.height; ++i) {
 				for(int j = 0; j < resultMatrix.width; ++j) {
-					resultMatrix.element[i][j] = CountUpElement(i, j, this, secondMultiplier);
+					resultMatrix.element[i][j] = countUpElement(i, j, this, secondMultiplier);
 				}
 			}
 		}
@@ -45,7 +57,7 @@ public class Matrix {
 		return resultMatrix;
 	}
 	
-	public boolean IsEqual(Matrix secondMatrix) {
+	public boolean isEqual(Matrix secondMatrix) {
 		boolean result = true;
 		
 		if(this.height != secondMatrix.height || this.width != secondMatrix.width) {
@@ -53,7 +65,7 @@ public class Matrix {
 		} else {
 			for(int i = 0; i < this.height; ++i) {
 				for(int j = 0; j < this.width; ++j) {
-					if(!this.element[i][j].IsEqual(secondMatrix.element[i][j])) {
+					if(!this.element[i][j].isEqual(secondMatrix.element[i][j])) {
 						result = false;
 					}
 				}
@@ -63,31 +75,31 @@ public class Matrix {
 		return result;
 	}
 	
-	private LongNumber CountUpElement(int i, int j, Matrix firstMultiplier, Matrix secondMultiplier) {
+	private LongNumber countUpElement(int i, int j, Matrix firstMultiplier, Matrix secondMultiplier) {
 		LongNumber result = new LongNumber();
 		LongNumber partSum;
 		
 		for(int w = 0; w < firstMultiplier.width; ++w) {
-			partSum = firstMultiplier.element[i][w].Multiply(secondMultiplier.element[w][j]);
-			result = result.Add(partSum);
+			partSum = firstMultiplier.element[i][w].multiply(secondMultiplier.element[w][j]);
+			result = result.add(partSum);
 		}
 		
 		return result;
 	}
 	
-	public int GetWidth() {
+	public int getWidth() {
 		return this.width;
 	}
 	
-	public void SetWidth(int newWidth) {
+	public void setWidth(int newWidth) {
 		this.width = newWidth;
 	}
 	
-	public int GetHeight() {
+	public int getHeight() {
 		return this.height;
 	}
 	
-	public void SetHeight(int newHeight) {
+	public void getHeight(int newHeight) {
 		this.height = newHeight;
 	}
 	
