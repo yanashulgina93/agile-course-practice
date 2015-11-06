@@ -1,11 +1,9 @@
 package ru.unn.agile.Minesweeper;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Board extends JPanel {
+public class Board {
     private final int boardWidth;
     private final int boardHeight;
 
@@ -29,15 +27,12 @@ public class Board extends JPanel {
         this.minesweeper = minesweeper;
         this.boardHeight = boardHeight;
         this.boardWidth = boardWidth;
-        setLayout(null);
 
         cells = new Cell[boardHeight][boardWidth];
         for (int positionY = 0; positionY < boardHeight; positionY++) {
             cells[positionY] = new Cell[boardWidth];
             for (int positionX = 0; positionX < boardWidth; positionX++) {
                 Cell cell = new Cell(this, positionY, positionX);
-                cell.setBounds(positionY * CELL_SIZE, positionX * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-                add(cell);
                 cells[positionY][positionX] = cell;
             }
         }
@@ -45,12 +40,10 @@ public class Board extends JPanel {
 
     private void setMinesCount(final int minesCount) {
         this.minesCount = minesCount;
-        minesweeper.setMineCounter(minesCount - flagCellsCount);
     }
 
     private void setFlagCellsCount(final int flagCellsCount) {
         this.flagCellsCount = flagCellsCount;
-        minesweeper.setMineCounter(minesCount - flagCellsCount);
     }
 
     private int allCellsCount() {
