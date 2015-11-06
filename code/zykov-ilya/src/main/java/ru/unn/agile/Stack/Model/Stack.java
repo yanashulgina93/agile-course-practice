@@ -4,6 +4,15 @@ public class Stack {
     private Object[] values;
     private int size;
 
+    private static final int FIRST_ARRAY_ELEMENT = 0;
+
+    private void doubleArraySize() {
+        Object[] newValues = new Object[size * 2];
+        System.arraycopy(values, FIRST_ARRAY_ELEMENT,
+                         newValues, FIRST_ARRAY_ELEMENT, values.length);
+        values = newValues;
+    }
+
     public Stack() {
         values = new Object[0];
         size = 0;
@@ -16,11 +25,12 @@ public class Stack {
 
     public String toString() {
         String res = "";
-        for (int i = 0; i < size; ++i) {
+        for (int i = 0; i < size - 1; ++i) {
             res += values[i];
-            if (i != size - 1) {
-                res += " ";
-            }
+            res += " ";
+        }
+        if (size > 0) {
+            res += values[size - 1];
         }
         return res;
     }
@@ -28,9 +38,7 @@ public class Stack {
     public void push(final Object element) {
         size++;
         if (values.length < size) {
-            Object[] newValues = new Object[size * 2];
-            System.arraycopy(values, 0, newValues, 0, values.length);
-            values = newValues;
+            doubleArraySize();
         }
         values[size - 1] = element;
     }
