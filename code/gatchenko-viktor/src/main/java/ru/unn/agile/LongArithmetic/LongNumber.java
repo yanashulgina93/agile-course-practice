@@ -2,7 +2,7 @@ package main.java.ru.unn.agile.LongArithmetic;
 
 public class LongNumber {
 
-    public int value;
+    private int value;
 
     public LongNumber() {
         this.value = 0;
@@ -38,5 +38,13 @@ public class LongNumber {
         }
 
         return result;
+    }
+
+    public int getValue() {
+        return this.value;
+    }
+
+    public void setValue(final int newValue) {
+        this.value = newValue;
     }
 }

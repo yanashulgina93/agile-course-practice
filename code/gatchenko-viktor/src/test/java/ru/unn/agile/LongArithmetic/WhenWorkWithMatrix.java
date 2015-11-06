@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import main.java.ru.unn.agile.LongArithmetic.LongNumber;
 import main.java.ru.unn.agile.LongArithmetic.Matrix;
 
 public class WhenWorkWithMatrix {
@@ -12,20 +11,20 @@ public class WhenWorkWithMatrix {
     @Test
     public void Multiply_Matrix_2x2_And_Matrix_2x2() {
         Matrix firstMatrix = new Matrix(2, 2);
-        firstMatrix.element[0][0] = new LongNumber(1);
-        firstMatrix.element[0][1] = new LongNumber(1);
-        firstMatrix.element[1][0] = new LongNumber(2);
-        firstMatrix.element[1][1] = new LongNumber(1);
+        firstMatrix.setElement(0, 0, 1);
+        firstMatrix.setElement(0, 1, 1);
+        firstMatrix.setElement(1, 0, 2);
+        firstMatrix.setElement(1, 1, 1);
         Matrix secondMatrix = new Matrix(2, 2);
-        secondMatrix.element[0][0] = new LongNumber(2);
-        secondMatrix.element[0][1] = new LongNumber(2);
-        secondMatrix.element[1][0] = new LongNumber(1);
-        secondMatrix.element[1][1] = new LongNumber(2);
+        secondMatrix.setElement(0, 0, 2);
+        secondMatrix.setElement(0, 1, 2);
+        secondMatrix.setElement(1, 0, 1);
+        secondMatrix.setElement(1, 1, 2);
         Matrix gageMatrix = new Matrix(2, 2);
-        gageMatrix.element[0][0] = new LongNumber(3);
-        gageMatrix.element[0][1] = new LongNumber(4);
-        gageMatrix.element[1][0] = new LongNumber(5);
-        gageMatrix.element[1][1] = new LongNumber(6);
+        gageMatrix.setElement(0, 0, 3);
+        gageMatrix.setElement(0, 1, 4);
+        gageMatrix.setElement(1, 0, 5);
+        gageMatrix.setElement(1, 1, 6);
 
         Matrix resultMatrix = firstMatrix.multiply(secondMatrix);
 
@@ -37,9 +36,9 @@ public class WhenWorkWithMatrix {
     public void Multiply_Some_Matrix_5x3_And_E_Matrix_3x3() {
         Matrix someMatrix = generateMatrix(5, 3);
         Matrix eMatrix = new Matrix(3, 3);
-        eMatrix.element[0][0] = new LongNumber(1);
-        eMatrix.element[1][1] = new LongNumber(1);
-        eMatrix.element[2][2] = new LongNumber(1);
+        eMatrix.setElement(0, 0, 1);
+        eMatrix.setElement(1, 1, 1);
+        eMatrix.setElement(2, 2, 1);
 
         Matrix resultMatrix = someMatrix.multiply(eMatrix);
 
@@ -82,13 +81,13 @@ public class WhenWorkWithMatrix {
     @Test
     public void Compare_Matrix_2x2_And_E_Matrix_2x2() {
         Matrix matrix = new Matrix(2, 2);
-        matrix.element[0][0] = new LongNumber(1);
-        matrix.element[0][1] = new LongNumber(1);
-        matrix.element[1][0] = new LongNumber(2);
-        matrix.element[1][1] = new LongNumber(1);
+        matrix.setElement(0, 0, 1);
+        matrix.setElement(0, 1, 1);
+        matrix.setElement(1, 0, 2);
+        matrix.setElement(1, 1, 1);
         Matrix eMatrix = new Matrix(2, 2);
-        eMatrix.element[0][0] = new LongNumber(1);
-        eMatrix.element[1][1] = new LongNumber(1);
+        eMatrix.setElement(0, 0, 1);
+        eMatrix.setElement(1, 1, 1);
 
         boolean isEqual = matrix.isEqual(eMatrix);
         assertEquals(false, isEqual);
@@ -100,7 +99,7 @@ public class WhenWorkWithMatrix {
         for (int i = 0; i < height; ++i) {
             for (int j = 0; j < width; ++j) {
                 int value = (int) (Math.random() * 10000);
-                resultMatrix.element[i][j] = new LongNumber(value);
+                resultMatrix.setElement(i, j, value);
             }
         }
 

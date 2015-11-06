@@ -17,7 +17,7 @@ public class WhenWorkWithLongNumber {
         InitializePairLongNumber(1, 0);
         result = lnNum1.add(lnNum2);
 
-        assertEquals(1, result.value);
+        assertEquals(1, result.getValue());
     }
 
     @Test
@@ -25,7 +25,7 @@ public class WhenWorkWithLongNumber {
         InitializePairLongNumber(122, 78);
         result = lnNum1.add(lnNum2);
 
-        assertEquals(200, result.value);
+        assertEquals(200, result.getValue());
     }
 
     // TODO Long Add @Test
@@ -35,7 +35,7 @@ public class WhenWorkWithLongNumber {
         InitializePairLongNumber(0, 5);
         result = lnNum1.multiply(lnNum2);
 
-        assertEquals(0, result.value);
+        assertEquals(0, result.getValue());
     }
 
     @Test
@@ -43,7 +43,7 @@ public class WhenWorkWithLongNumber {
         InitializePairLongNumber(23, 135);
         result = lnNum1.multiply(lnNum2);
 
-        assertEquals(3105, result.value);
+        assertEquals(3105, result.getValue());
     }
 
     // TODO Long Multiply @Test

@@ -4,7 +4,7 @@ public class Matrix {
 
     static final Matrix UNDEFINED = null;
 
-    public LongNumber element[][];
+    private LongNumber element[][];
 
     private int width;
     private int height;
@@ -20,8 +20,8 @@ public class Matrix {
         this.height = height;
 
         this.element = new LongNumber[height][width];
-        for(int i = 0; i < height; ++i) {
-            for(int j = 0; j < width; ++j) {
+        for (int i = 0; i < height; ++i) {
+            for (int j = 0; j < width; ++j) {
                 this.element[i][j] = new LongNumber(0);
             }
         }
@@ -32,8 +32,8 @@ public class Matrix {
         this.height = copiedMatrix.height;
 
         this.element = new LongNumber[this.height][this.width];
-        for(int i = 0; i < this.height; ++i) {
-            for(int j = 0; j < this.width; ++j) {
+        for (int i = 0; i < this.height; ++i) {
+            for (int j = 0; j < this.width; ++j) {
                 this.element[i][j] = copiedMatrix.element[i][j];
             }
         }
@@ -42,13 +42,13 @@ public class Matrix {
     public Matrix multiply(final Matrix secondMultiplier) {
         Matrix resultMatrix;
 
-        if(this.width != secondMultiplier.height) {
+        if (this.width != secondMultiplier.height) {
             resultMatrix = Matrix.UNDEFINED;
         } else {
             resultMatrix = new Matrix(this.height, secondMultiplier.width);
 
-            for(int i = 0; i < resultMatrix.height; ++i) {
-                for(int j = 0; j < resultMatrix.width; ++j) {
+            for (int i = 0; i < resultMatrix.height; ++i) {
+                for (int j = 0; j < resultMatrix.width; ++j) {
                     resultMatrix.element[i][j] = countUpElement(i, j, this, secondMultiplier);
                 }
             }
@@ -60,12 +60,12 @@ public class Matrix {
     public boolean isEqual(final Matrix secondMatrix) {
         boolean result = true;
 
-        if(this.height != secondMatrix.height || this.width != secondMatrix.width) {
+        if (this.height != secondMatrix.height || this.width != secondMatrix.width) {
             result = false;
         } else {
-            for(int i = 0; i < this.height; ++i) {
-                for(int j = 0; j < this.width; ++j) {
-                    if(!this.element[i][j].isEqual(secondMatrix.element[i][j])) {
+            for (int i = 0; i < this.height; ++i) {
+                for (int j = 0; j < this.width; ++j) {
+                    if (!this.element[i][j].isEqual(secondMatrix.element[i][j])) {
                         result = false;
                     }
                 }
@@ -75,11 +75,12 @@ public class Matrix {
         return result;
     }
 
-    private LongNumber countUpElement(final int i, final int j, final Matrix firstMultiplier, final Matrix secondMultiplier) {
+    private LongNumber countUpElement(final int i, final int j, final Matrix firstMultiplier,
+            final Matrix secondMultiplier) {
         LongNumber result = new LongNumber();
         LongNumber partSum;
 
-        for(int w = 0; w < firstMultiplier.width; ++w) {
+        for (int w = 0; w < firstMultiplier.width; ++w) {
             partSum = firstMultiplier.element[i][w].multiply(secondMultiplier.element[w][j]);
             result = result.add(partSum);
         }
@@ -101,5 +102,17 @@ public class Matrix {
 
     public void getHeight(final int newHeight) {
         this.height = newHeight;
+    }
+
+    public LongNumber getElement(final int i, final int j) {
+        return this.element[i][j];
+    }
+
+    public void setElement(final int i, final int j, final LongNumber newValue) {
+        this.element[i][j] = newValue;
+    }
+
+    public void setElement(final int i, final int j, final int newValue) {
+        this.element[i][j] = new LongNumber(newValue);
     }
 }
