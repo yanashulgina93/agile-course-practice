@@ -61,7 +61,7 @@ public class StackTest {
     }
 
     @Test
-    public void popElementFrom123Stack() {
+    public void popReturnPeakFrom123Stack() {
         Integer[] inputArray = {1, 2, 3};
         Stack myStack = new Stack(inputArray);
 
@@ -69,7 +69,7 @@ public class StackTest {
     }
 
     @Test
-    public void popElementFrom123StackAndWatchWhichWillStay() {
+    public void popRemovesPeakFrom123Stack() {
         Integer[] inputArray = {1, 2, 3};
         Stack myStack = new Stack(inputArray);
         myStack.pop();
@@ -78,7 +78,7 @@ public class StackTest {
     }
 
     @Test
-    public void popElementFromStringStack() {
+    public void popReturnPeakFromStringStack() {
         String[] inputArray = {"one", "two", "three"};
         Stack myStack = new Stack(inputArray);
 
@@ -86,7 +86,7 @@ public class StackTest {
     }
 
     @Test
-    public void popElementFromEmptyStackAndWatchWhichWillStay() {
+    public void popRemovesPeakFromEmptyStack() {
         Stack myStack = new Stack();
         myStack.pop();
 
@@ -94,14 +94,14 @@ public class StackTest {
     }
 
     @Test
-    public void popElementFromEmptyStack() {
+    public void popReturnPeakFromEmptyStack() {
         Stack myStack = new Stack();
 
         assertEquals(null, myStack.pop());
     }
 
     @Test
-    public void pushAndPopToEmptyStack() {
+    public void pushAndPopReturnPeakToEmptyStack() {
         Stack myStack = new Stack();
         myStack.push(10);
 

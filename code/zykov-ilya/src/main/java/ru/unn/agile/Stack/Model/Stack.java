@@ -7,9 +7,11 @@ public class Stack {
     private int size;
 
     private static final int FIRST_ARRAY_ELEMENT = 0;
+    private static final double GOLDEN_RATIO = 1.61803398;
 
-    private void doubleArraySize() {
-        Object[] newValues = new Object[size * 2];
+    private void increaseArraySize() {
+        int increasedSize = ((int)(size * GOLDEN_RATIO)) + 1;
+        Object[] newValues = new Object[increasedSize];
         System.arraycopy(values, FIRST_ARRAY_ELEMENT,
                          newValues, FIRST_ARRAY_ELEMENT, values.length);
         values = newValues;
@@ -25,6 +27,10 @@ public class Stack {
         size = inputArray.length;
     }
 
+    public boolean equals(Stack stack) {
+        return true;
+    }
+
     public ArrayList<Object> toArrayList() {
         ArrayList<Object> res = new ArrayList<>();
         for (int i = 0; i < size; ++i) {
@@ -36,7 +42,7 @@ public class Stack {
     public void push(final Object element) {
         size++;
         if (values.length < size) {
-            doubleArraySize();
+            increaseArraySize();
         }
         values[size - 1] = element;
     }
