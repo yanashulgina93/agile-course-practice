@@ -4,17 +4,36 @@ public class LongNumber {
 	
 	public int value;
 	
+	public LongNumber() {
+		this.value = 0;
+	}
 	
 	public LongNumber(int number) {
-		value = number;
+		this.value = number;
 	}
 	
-	public void Add(LongNumber lnNum) {
-		this.value += lnNum.value;
+	public LongNumber Add(LongNumber lnNum) {
+		LongNumber result = new LongNumber();
+		result.value = this.value + lnNum.value;
+		
+		return result;
 	}
 	
-	public void Multiply(LongNumber lnNum) {
-		this.value *= lnNum.value;
+	public LongNumber Multiply(LongNumber lnNum) {
+		LongNumber result = new LongNumber();
+		result.value = this.value * lnNum.value;
+		
+		return result;
+	}
+	
+	public boolean IsEqual(LongNumber lnNum) {
+		boolean result = true;
+		
+		if(this.value != lnNum.value) {
+			result = false;
+		}
+		
+		return result;
 	}
 	
 

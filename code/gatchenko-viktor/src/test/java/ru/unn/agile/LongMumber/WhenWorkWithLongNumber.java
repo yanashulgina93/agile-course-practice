@@ -8,21 +8,22 @@ public class WhenWorkWithLongNumber {
 
 	private LongNumber lnNum1;
 	private LongNumber lnNum2;
+	private LongNumber result;
 	
 	@Test
 	public void Add_1_To_0() {
 		InitializePairLongNumber(1, 0);
-		lnNum1.Add(lnNum2);
+		result = lnNum1.Add(lnNum2);
 		
-		assertEquals(1, lnNum1.value);
+		assertEquals(1, result.value);
 	}
 	
 	@Test
 	public void Add_122_To_78() {
 		InitializePairLongNumber(122, 78);
-		lnNum1.Add(lnNum2);
+		result = lnNum1.Add(lnNum2);
 		
-		assertEquals(200, lnNum1.value);
+		assertEquals(200, result.value);
 	}
 	
 	//TODO Add @Test
@@ -30,17 +31,17 @@ public class WhenWorkWithLongNumber {
 	@Test
 	public void Multiply_0_And_5() {
 		InitializePairLongNumber(0, 5);
-		lnNum1.Multiply(lnNum2);
+		result = lnNum1.Multiply(lnNum2);
 		
-		assertEquals(0, lnNum1.value);
+		assertEquals(0, result.value);
 	}
 	
 	@Test
 	public void Multiply_23_And_135() {
 		InitializePairLongNumber(23, 135);
-		lnNum1.Multiply(lnNum2);
+		result = lnNum1.Multiply(lnNum2);
 		
-		assertEquals(3105, lnNum1.value);
+		assertEquals(3105, result.value);
 	}
 	
 	//TODO Multiply @Test
