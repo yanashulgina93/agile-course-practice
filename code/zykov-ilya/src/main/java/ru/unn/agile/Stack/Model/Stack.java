@@ -29,9 +29,7 @@ public class Stack {
         size++;
         if (values.length < size) {
             Object[] newValues = new Object[size * 2];
-            for (int i = 0; i < values.length; ++i) {
-                newValues[i] = values[i];
-            }
+            System.arraycopy(values, 0, newValues, 0, values.length);
             values = newValues;
         }
         values[size - 1] = element;
