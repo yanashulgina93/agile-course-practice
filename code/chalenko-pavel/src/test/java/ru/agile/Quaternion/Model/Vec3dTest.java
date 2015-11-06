@@ -73,6 +73,18 @@ public class Vec3dTest {
 	}
 	
 	@Test
+	public void canEqualsEps(){
+		vec2 = new Vec3d(1, 2.+ eps/2, 3 - eps/2);
+		Vec3d vec3 = new Vec3d(1, 2 + 2*eps, 3);
+		
+		boolean v1equalsv2 = vec1.equals(vec2, eps);
+		boolean v1equalsv3 = vec1.equals(vec3, eps);
+		
+		assertTrue("Can't compare vectors with precision", v1equalsv2);
+		assertFalse("Can't compare vectors with precision", v1equalsv3);
+	}
+	
+	@Test
 	public void canSetInitialValueX(){
 		double x = vec1.getX();
 		
@@ -112,7 +124,7 @@ public class Vec3dTest {
 	}
 	
 	@Test
-	public void canDot(){
+	public void canCalculateDotProduct(){
 		double expectedDot = 2;
 		
 		double actualDot = vec1.dot(vec2);
@@ -121,7 +133,7 @@ public class Vec3dTest {
 	}
 	
 	@Test
-	public void canDotZeroVector(){
+	public void canCalculateDotProductWithZeroVector(){
 		double expectedDot = 0;
 		vec2 = new Vec3d(0, 0, 0);
 		
@@ -131,7 +143,7 @@ public class Vec3dTest {
 	}
 	
 	@Test
-	public void isDotComutative(){
+	public void isDotProductComutative(){
 		double actualDot12 = vec1.dot(vec2);
 		double actualDot21 = vec2.dot(vec1);
 		
@@ -139,7 +151,7 @@ public class Vec3dTest {
 	}
 	
 	@Test
-	public void canLength(){
+	public void canCalculateLength(){
 		double expectedLen = 3.74166;
 		
 		double actualLen = vec1.length();
@@ -148,7 +160,7 @@ public class Vec3dTest {
 	}
 	
 	@Test
-	public void canLengthZeroVector(){
+	public void canCalculateZeroVectorLength(){
 		double expectedLen = 0;
 		vec1 = new Vec3d(0, 0, 0);
 		
@@ -181,17 +193,17 @@ public class Vec3dTest {
 	}
 	
 	@Test
-	public void isVecMulNonComutative(){
+	public void isVectorProductNonComutative(){
 		Vec3d mul12 = vec1.mul(vec2);
 		Vec3d mul21 = vec2.mul(vec1);
 		
 		boolean actual = mul12.equals(mul21);
 		
-		assertFalse("Vector multiply isn't comutative", actual);
+		assertFalse("Vector multiply is comutative", actual);
 	}
 	
 	@Test
-	public void canMul(){
+	public void canMulScalarToVector(){
 		Vec3d expectedVec = new Vec3d(2.0, 4, 6);
 		
 		Vec3d actualVec = vec1.mul(2);
@@ -200,7 +212,7 @@ public class Vec3dTest {
 	}
 	
 	@Test
-	public void canMulZero(){
+	public void canMulToZero(){
 		Vec3d expectedVec = new Vec3d(0, 0, 0);
 		
 		Vec3d actualVec = vec1.mul(0);
@@ -225,52 +237,40 @@ public class Vec3dTest {
 	}
 	
 	@Test
-	public void canEqualsEps(){
-		vec2 = new Vec3d(1, 2.001, 2.999);
-		Vec3d vec3 = new Vec3d(1, 2.002, 3);
-		
-		boolean v1equalsv2 = vec1.equals(vec2, eps);
-		boolean v1equalsv3 = vec1.equals(vec3, eps);
-		
-		assertTrue("Can't compare vectors with precision", v1equalsv2);
-		assertFalse("Can't compare vectors with precision", v1equalsv3);
-	}
-	
-	@Test
-	public void canNorm(){
+	public void canNormalize(){
 		Vec3d expectedVec = new Vec3d(0.577, .577, .577);
 		Vec3d actualVec = new Vec3d(1, 1, 1);
 		
-		actualVec.norm();
+		actualVec.normalize();
 		
 		assertTrue("Can't normalize vector", actualVec.equals(expectedVec, eps));
 	}
 	
 	@Test
-	public void canNormOrt(){
+	public void canNormalizeOrt(){
 		Vec3d expectedVec = new Vec3d(1, 0, 0);
 		Vec3d actualVec = new Vec3d(1, 0, 0);
 		
-		actualVec.norm();
+		actualVec.normalize();
 		
 		assertTrue("Can't normalize ort", actualVec.equals(expectedVec, eps));
 	}
 	
 	@Test
-	public void canNormVectorWithLength2(){
+	public void canNormalizeVectorWithLength2(){
 		Vec3d expectedVec = new Vec3d(0, 1, 0);
 		Vec3d actualVec = new Vec3d(0, 2, 0);
 		
-		actualVec.norm();
+		actualVec.normalize();
 		
 		assertTrue("Can't normalize vector", actualVec.equals(expectedVec, eps));
 	}
 	
 	@Test (expected = ArithmeticException.class)
-	public void canNotNorm(){
+	public void canNotNormalizeZeroVector(){
 		Vec3d actualVec = new Vec3d(0., .0, .0);
 		
-		actualVec.norm();
+		actualVec.normalize();
 		
 		assertTrue(false);
 	}

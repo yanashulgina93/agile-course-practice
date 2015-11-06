@@ -56,6 +56,18 @@ public class QuatTest {
 		
 		assertFalse("Two quaternions are equal", q2.equals(number));
 	}
+	
+	@Test
+	public void canEqualsEps(){
+		q2 = new Quat(1, 2. + eps/2, 3 - eps/2, 4.);
+		Quat q3 = new Quat(1, 2 + 2 * eps, 3, 4);
+		
+		boolean q1equalsq2 = q1.equals(q2, eps);
+		boolean q1equalsq3 = q1.equals(q3, eps);
+		
+		assertTrue("Can't compare quaternions with precision", q1equalsq2);
+		assertFalse("Can't compare quaternions with precision", q1equalsq3);
+	}
 
 	@Test
 	public void canSetInitialValueScalar(){
@@ -99,7 +111,7 @@ public class QuatTest {
 	}
 	
 	@Test
-	public void canLength(){
+	public void canCalculateLength(){
 		double expectedLen = 5.477;
 		
 		double actualLen = q1.length();
@@ -108,7 +120,7 @@ public class QuatTest {
 	}
 	
 	@Test
-	public void canConj(){
+	public void canCalculateConjugateVector(){
 		Quat expectedConjQuat = new Quat(1, -2, -3, -4);
 		
 		Quat actualConjQuat = q1.conj();
@@ -117,14 +129,14 @@ public class QuatTest {
 	}
 	
 	@Test
-	public void isConjConjEqualsIdentical(){
+	public void isConjugateOfConjugateEqualsOriginal(){
 		Quat actualConjConjQuat = q1.conj().conj();
 		
 		assertTrue("Can't calculate conjugate quaternion", actualConjConjQuat.equals(q1));
 	}
 	
 	@Test
-	public void canMulScalarQuat(){
+	public void canMulScalarPartQuat(){
 		Quat expectedMulQuat = new Quat(8, 0, 0, 0);
 		q1 = new Quat(2, 0, 0, 0);
 		q2 = new Quat(4, 0, 0, 0);
@@ -135,7 +147,7 @@ public class QuatTest {
 	}
 	
 	@Test
-	public void canMulVecQuat(){
+	public void canMulVecPartQuat(){
 		Quat expectedMulQuat = new Quat(-10, -4, 8, -4);
 		q1 = new Quat(0, 1, 2, 3);
 		q2 = new Quat(0, 3, 2, 1);
@@ -146,7 +158,7 @@ public class QuatTest {
 	}
 	
 	@Test
-	public void canMulScalalToVecQuat(){
+	public void canMulScalalPartQuatToVecPartQuat(){
 		Quat expectedMulQuat = new Quat(0, 6, 4, 2);
 		q1 = new Quat(2, 0, 0, 0);
 		q2 = new Quat(0, 3, 2, 1);
@@ -212,18 +224,6 @@ public class QuatTest {
 		double actualAngle = q1.getArg();
 		
 		assertEquals("Can't get argument of quaternion", expectedAngle, actualAngle, eps);
-	}
-	
-	@Test
-	public void canEqualsEps(){
-		q2 = new Quat(1, 2.001, 2.999, 4.);
-		Quat q3 = new Quat(1, 2.002, 3, 4);
-		
-		boolean q1equalsq2 = q1.equals(q2, eps);
-		boolean q1equalsq3 = q1.equals(q3, eps);
-		
-		assertTrue("Can't compare quaternions with precision", q1equalsq2);
-		assertFalse("Can't compare quaternions with precision", q1equalsq3);
 	}
 	
 	@Test

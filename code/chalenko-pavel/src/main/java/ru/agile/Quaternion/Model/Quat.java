@@ -34,6 +34,14 @@ public class Quat {
 		}
 		return false;
 	}
+	
+	public boolean equals(Quat other, double eps) {
+		boolean isEqualsScalar = Math.abs(this.scalar - other.scalar) < eps;
+		boolean isEqualsI = Math.abs(this.getI() - other.getI()) < eps;
+		boolean isEqualsJ = Math.abs(this.getJ() - other.getJ()) < eps;
+		boolean isEqualsK = Math.abs(this.getK() - other.getK()) < eps;
+		return isEqualsScalar && isEqualsI && isEqualsJ && isEqualsK;
+	}
 
 	public double getScalar() {
 		return scalar;
@@ -85,14 +93,6 @@ public class Quat {
 
 	public double getArg() {
 		return Math.acos(this.getScalar() / this.length());
-	}
-	
-	public boolean equals(Quat other, double eps) {
-		boolean isEqualsScalar = Math.abs(this.scalar - other.scalar) < eps;
-		boolean isEqualsI = Math.abs(this.getI() - other.getI()) < eps;
-		boolean isEqualsJ = Math.abs(this.getJ() - other.getJ()) < eps;
-		boolean isEqualsK = Math.abs(this.getK() - other.getK()) < eps;
-		return isEqualsScalar && isEqualsI && isEqualsJ && isEqualsK;
 	}
 
 	public static Quat createFromAxisAngle(Vec3d vec, double angle) {
