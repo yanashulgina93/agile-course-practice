@@ -13,7 +13,10 @@ import static org.junit.Assert.assertEquals;
 @RunWith(Parameterized.class)
 public class ParameterizedTestsWhenCalculateStatisticValues {
 
-    private StatisticValuesCalculator statisticsCalculator;
+    private EnumerationCalculator enumerationCalculator;
+    private ProbabilityOfEventCalculator probabilityCalculator;
+    private VarianceCalculator varianceCalculator;
+
     private Collection<IStatisticalResult> dataInstances;
     private double deltaForDoubleAssertEquals = 1e-3;
     private NumericalStatisticConverter numericalStatisticConverter;
@@ -57,7 +60,7 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
     public void calculatedEnumerationOfNumericDataIsEqualToExactEnumeration() {
         setUpTest();
 
-        double calculatedEnumeration = statisticsCalculator.calculateEnumeration();
+        double calculatedEnumeration = enumerationCalculator.calculate();
 
         assertEquals(exactEnumeration, calculatedEnumeration, deltaForDoubleAssertEquals);
     }
@@ -66,7 +69,7 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
     public void calculatedVarianceOfNumericDataIsEqualToExactVariance() {
         setUpTest();
 
-        double calculatedVariance = statisticsCalculator.calculateVariance();
+        double calculatedVariance = varianceCalculator.calculate();
 
         assertEquals(exactVariance, calculatedVariance, deltaForDoubleAssertEquals);
     }
@@ -75,8 +78,7 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
     public void calculatedProbabilityOfTestingEventOnNumericDataIsEqualToExactProbability() {
         setUpTest();
 
-        double calculatedProbability =
-                statisticsCalculator.calculateProbabilityOfEvent(testingEvent);
+        double calculatedProbability = probabilityCalculator.calculate();
 
         assertEquals(calculatedProbability,
                 exactProbabilityOfTestingEvent,
@@ -88,7 +90,10 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
     private void setUpTest() {
         numericalStatisticConverter = new NumericalStatisticConverter(currentTestingData);
         dataInstances = numericalStatisticConverter.convert();
-        statisticsCalculator = new StatisticValuesCalculator(dataInstances);
+
+        enumerationCalculator = new EnumerationCalculator(dataInstances);
+        varianceCalculator = new VarianceCalculator(dataInstances);
+        probabilityCalculator = new ProbabilityOfEventCalculator(dataInstances, testingEvent);
     }
 
     private static Object[] formTestDataInstance(final Number[] numericData,
