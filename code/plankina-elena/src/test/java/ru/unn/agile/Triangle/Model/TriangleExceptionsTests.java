@@ -11,10 +11,13 @@ import static org.junit.Assert.assertNotNull;
 
 public class TriangleExceptionsTests {
     private Triangle triangle;
+    private Triangle triangleDivByZeroException;
     @Before
-    public void setUpTriangle() {
+    public void setUpTriangles() {
         triangle = new Triangle(Arrays.asList(1.9, -2.3, 4.56),
                 Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(4.0, 5.0, 10.2), 3);
+        triangleDivByZeroException = new Triangle(Arrays.asList(0.0, 3.5, 5.12),
+                Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(0.0, 3.5, 5.12), 3);
     }
 
     @Test
@@ -67,10 +70,26 @@ public class TriangleExceptionsTests {
 
     @Test(expected = Exception.class)
     public void isDivisionByZeroWhenFindAltitudes() throws Exception {
-        Triangle triangle = new Triangle(Arrays.asList(0.0, 3.5, 5.12),
-                Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(4.0, 5.0, 10.2), 3);
-        List<Double> altitudes = triangle.getAltitudes();
-        assertNotNull(altitudes);
+        List<Double> altitudes = triangleDivByZeroException.getAltitudes();
+    }
+
+    @Test(expected = Exception.class)
+    public void isDivisionByZeroWhenFindAngles() throws Exception {
+        List<Double> angles = triangleDivByZeroException.getAngles();
+    }
+
+    @Test(expected = Exception.class)
+    public void isDivisionByZeroWhenFindBisectrices() throws Exception {
+        List<Double> bisectrices = triangleDivByZeroException.getBisectrices();
+    }
+
+    @Test(expected = Exception.class)
+    public void isOverflowWhenGetLengthWithLargeNumber() throws Exception {
+        Triangle triangleException = new Triangle(Arrays.asList(0.0, 0.0, 0.0),
+                Arrays.asList(Double.MAX_VALUE, 0.0, Double.MAX_VALUE),
+                Arrays.asList(0.0, 0.0, 0.0), 3);
+        List<Double> lengths = triangleException.getLengthsOfEdges();
+        double length1 = lengths.get(0);
     }
 
     @Test(expected = Exception.class)

@@ -61,10 +61,10 @@ public class Triangle {
                             final List<Double> coordinatesOfPoint2) throws Exception {
         double sum = 0.0;
         for (int i = 0; i < coordinatesOfPoint1.size(); i++) {
-            sum += pow(coordinatesOfPoint1.get(i) - coordinatesOfPoint2.get(i), 2);
-            if (sum == Double.MAX_VALUE && i != coordinatesOfPoint1.size() - 1) {
-                throw new Exception("Overflow!");
+            if (sum > Double.MAX_VALUE) {
+                throw new Exception("Overflow when counting length!");
             }
+            sum += pow(coordinatesOfPoint1.get(i) - coordinatesOfPoint2.get(i), 2);
         }
         return sqrt(sum);
     }
@@ -78,11 +78,10 @@ public class Triangle {
 
     public double getPerimeter() throws Exception {
         List<Double> lengths = this.getLengthsOfEdges();
-        double perimeter = lengths.get(0) + lengths.get(1) + lengths.get(2);
-        if (perimeter > Double.MAX_VALUE) {
+        if (lengths.get(0) + lengths.get(1) > Double.MAX_VALUE - lengths.get(2)) {
             throw new Exception("Overflow when counting perimeter!");
         }
-            return perimeter;
+            return lengths.get(0) + lengths.get(1) + lengths.get(2);
     }
 
     public double getSquare() throws Exception {
@@ -111,7 +110,7 @@ public class Triangle {
     public List<Double> getAltitudes() throws Exception {
         List<Double> lengths = this.getLengthsOfEdges();
         if (lengths.get(0) == 0.0 || lengths.get(1) == 0.0 || lengths.get(2) == 0.0) {
-            throw new ArithmeticException("/0");
+            throw new ArithmeticException("/0 when counting altitudes!");
         }
         double altitude1 = 2 * this.getPerimeter() / lengths.get(0);
         double altitude2 = 2 * this.getPerimeter() / lengths.get(1);
@@ -123,7 +122,7 @@ public class Triangle {
         List<Double> lengths = this.getLengthsOfEdges();
         if (lengths.get(1) + lengths.get(2) == 0.0 || lengths.get(0) + lengths.get(2) == 0.0
                 || lengths.get(0) + lengths.get(1) == 0.0) {
-            throw new ArithmeticException("/0");
+            throw new ArithmeticException("/0 when counting bisectrices!");
         }
         double bisectrix1 = sqrt(lengths.get(1) * lengths.get(2) * this.getPerimeter()
                 * (lengths.get(1) + lengths.get(2) - lengths.get(0)))
@@ -141,7 +140,7 @@ public class Triangle {
         List<Double> lengths = this.getLengthsOfEdges();
         if ((lengths.get(1) * lengths.get(2) == 0.0) || (lengths.get(0) * lengths.get(2) == 0.0)
                 || (lengths.get(0) * lengths.get(1) == 0.0)) {
-            throw new ArithmeticException("/0");
+            throw new ArithmeticException("/0 when counting angles!");
         }
         double angle1 = acos((pow(lengths.get(1), 2) + pow(lengths.get(2), 2)
                 - pow(lengths.get(0), 2))
