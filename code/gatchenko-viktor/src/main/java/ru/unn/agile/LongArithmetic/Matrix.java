@@ -60,7 +60,7 @@ public class Matrix {
     public boolean isEqual(final Matrix secondMatrix) {
         boolean result = true;
 
-        if (!(this.height == secondMatrix.height && this.width == secondMatrix.width)) {
+        if (!((this.height == secondMatrix.height) && (this.width == secondMatrix.width))) {
             result = false;
         } else {
             for (int i = 0; i < this.height; ++i) {
