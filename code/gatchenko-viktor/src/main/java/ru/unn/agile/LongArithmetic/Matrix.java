@@ -31,7 +31,7 @@ public class Matrix {
         this.width = copiedMatrix.width;
         this.height = copiedMatrix.height;
 
-        this.element = new LongNumber[this.height][this.width];
+        this.element = new LongNumber[height][width];
         for (int i = 0; i < this.height; ++i) {
             for (int j = 0; j < this.width; ++j) {
                 this.element[i][j] = copiedMatrix.element[i][j];
