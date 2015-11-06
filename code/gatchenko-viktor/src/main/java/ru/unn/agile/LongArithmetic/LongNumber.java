@@ -13,18 +13,29 @@ public class LongNumber {
     }
 
     public LongNumber(final int number) {
-        // TODO подправить формулу для разных scale
-        if(number == 0) {
-            this.rank = 1;
-        } else {
-            this.rank = (int) (Math.log10(number) + 1);
-        }
+        this.rank = this.getIntRank(number);
         this.value = new int[this.rank];
+        this.convetIntToLong(number);
+    }
 
+    private int getIntRank(final int number) {
+        int rank = 0;
+        if (number == 0) {
+            rank = 1;
+        } else {
+            // TODO подправить формулу для разных scale
+            rank = (int) (Math.log10(number) + 1);
+        }
+
+        return rank;
+    }
+
+    private void convetIntToLong(final int number) {
         int intermediateNum = number;
         int newElement = -1;
         int divider = 1;
         int remain = -1;
+
         for (int j = this.rank - 1; j > -1; --j) {
             divider = (int) (Math.pow(SCALE, j));
             newElement = intermediateNum / divider;
@@ -44,43 +55,60 @@ public class LongNumber {
 
     public LongNumber add(final LongNumber lnNum) {
         LongNumber result = new LongNumber();
-        int maxRank = 0;
-        int newRank = 0;
-        if (this.rank > lnNum.rank) {
-            maxRank = this.rank;
-        } else {
-            maxRank = lnNum.rank;
-        }
-        newRank = maxRank;
-        if (this.rank == lnNum.rank && this.value[this.rank - 1] + lnNum.value[this.rank - 1] >= SCALE) {
-            newRank++;
-        }
-        result.rank = newRank;
+        int maxRank = this.getMaxRank(this, lnNum);
+        result.rank = this.getSumRank(lnNum, maxRank);
         result.value = new int[result.rank];
-        for(int i = 0; i < result.rank; ++i) {
+
+        for (int i = 0; i < result.rank; ++i) {
             result.value[i] = 0;
         }
+        result.summarize(this, lnNum);
+
+        return result;
+    }
+
+    private int getMaxRank(final LongNumber lnNum1, final LongNumber lnNum2) {
+        int maxRank = 0;
+        if (lnNum1.rank > lnNum2.rank) {
+            maxRank = lnNum1.rank;
+        } else {
+            maxRank = lnNum2.rank;
+        }
+
+        return maxRank;
+    }
+
+    private int getSumRank(final LongNumber lnNum, final int maxRank) {
+        int sumRank = maxRank;
+        if (this.rank == lnNum.rank && this.value[this.rank - 1] + lnNum.value[this.rank - 1] >= SCALE) {
+            sumRank++;
+        }
+
+        return sumRank;
+    }
+
+    private void summarize(final LongNumber addendum1, final LongNumber addendum2) {
+        int maxRank = this.getMaxRank(addendum1, addendum2);
 
         int smallSum = 0;
         for (int i = 0; i < maxRank; ++i) {
-            if(this.rank > i && lnNum.rank > i) {
-                smallSum = this.value[i] + lnNum.value[i] + result.value[i];
-            } else if(this.rank > i) {
-                smallSum = this.value[i] + result.value[i];
-            } else if(lnNum.rank > i) {
-                smallSum = lnNum.value[i] + result.value[i];
+            if (addendum1.rank > i && addendum2.rank > i) {
+                smallSum = addendum1.value[i] + addendum2.value[i] + this.value[i];
+            } else if (addendum1.rank > i) {
+                smallSum = addendum1.value[i] + this.value[i];
+            } else if (addendum2.rank > i) {
+                smallSum = addendum2.value[i] + this.value[i];
             } else {
-                smallSum = result.value[i];
+                smallSum = this.value[i];
             }
+
             if (smallSum >= SCALE) {
-                result.value[i + 1] = 1;
-                result.value[i] = smallSum % SCALE;
+                this.value[i + 1] = 1;
+                this.value[i] = smallSum % SCALE;
             } else {
-                result.value[i] = smallSum;
+                this.value[i] = smallSum;
             }
         }
-
-        return result;
     }
 
     public LongNumber multiply(final LongNumber lnNum) {
@@ -93,8 +121,8 @@ public class LongNumber {
     public boolean isEqual(final LongNumber lnNum) {
         boolean result = true;
 
-        if(this.rank == lnNum.rank) {
-            for(int i = 0; i < this.rank; ++i) {
+        if (this.rank == lnNum.rank) {
+            for (int i = 0; i < this.rank; ++i) {
                 if (this.value[i] != lnNum.value[i]) {
                     result = false;
                 }

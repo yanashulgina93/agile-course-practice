@@ -32,7 +32,7 @@ public class WhenWorkWithLongNumber {
 
     // TODO Long Add @Test
 
-    //@Test
+    // @Test
     public void multiply0And5() {
         initializePairLongNumber(0, 5);
         result = lnNum1.multiply(lnNum2);
@@ -40,7 +40,7 @@ public class WhenWorkWithLongNumber {
         assertEquals(0, result.getValue());
     }
 
-    //@Test
+    // @Test
     public void multiply23And135() {
         initializePairLongNumber(23, 135);
         result = lnNum1.multiply(lnNum2);
@@ -50,7 +50,7 @@ public class WhenWorkWithLongNumber {
 
     // TODO Long Multiply @Test
 
-    //@Test
+    @Test
     public void compare0And1() {
         initializePairLongNumber(0, 1);
         boolean isEqual = lnNum1.isEqual(lnNum2);
@@ -58,7 +58,7 @@ public class WhenWorkWithLongNumber {
         assertEquals(false, isEqual);
     }
 
-    //@Test
+    @Test
     public void compare11And111() {
         initializePairLongNumber(11, 111);
         boolean isEqual = lnNum1.isEqual(lnNum2);
@@ -66,7 +66,7 @@ public class WhenWorkWithLongNumber {
         assertEquals(false, isEqual);
     }
 
-    //@Test
+    @Test
     public void compare2222222And2222222() {
         initializePairLongNumber(2222222, 2222222);
         boolean isEqual = lnNum1.isEqual(lnNum2);
