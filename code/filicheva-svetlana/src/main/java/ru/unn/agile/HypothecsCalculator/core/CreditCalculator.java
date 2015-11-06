@@ -6,7 +6,7 @@ import java.util.GregorianCalendar;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public final class CreditCalculator {
 
@@ -61,14 +61,14 @@ public final class CreditCalculator {
         return roundMoneySum(overpaymentWithFees);
     }
 
-    public JTable getGraphicOfPayments() {
+    public DefaultTableModel getGraphicOfPayments() {
 
         Object[][] paymentsData = new Object[hypothec.getCountOfMonths()][COLUMN_COUNT];
         for (int i = 1; i <= hypothec.getCountOfMonths(); i++) {
             paymentsData[i - 1] = getTableRow(i);
         }
 
-        return new JTable(paymentsData, COLUMN_NAMES);
+        return new DefaultTableModel(paymentsData, COLUMN_NAMES);
     }
 
     private double computeMonthlyPayment(final int numberOfMonth) {

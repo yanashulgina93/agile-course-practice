@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.Calendar;
-import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 @RunWith(Parameterized.class)
 public class CreditCalculatorTableTest {
 
-    private final JTable rightGraphic;
+    private final DefaultTableModel rightGraphic;
     private final Hypothec.CreditType creditType;
 
     @Parameters
@@ -23,7 +23,8 @@ public class CreditCalculatorTableTest {
         return Arrays.asList(parametersOfTests);
     }
 
-    public CreditCalculatorTableTest(final JTable table, final Hypothec.CreditType creditType) {
+    public CreditCalculatorTableTest(final DefaultTableModel table,
+                                     final Hypothec.CreditType creditType) {
         this.rightGraphic = table;
         this.creditType = creditType;
     }
@@ -32,7 +33,7 @@ public class CreditCalculatorTableTest {
     public void canCreateTable() {
         CreditCalculator credit = getCredit();
 
-        JTable graphic = credit.getGraphicOfPayments();
+        DefaultTableModel graphic = credit.getGraphicOfPayments();
 
         for (int i = 0; i < rightGraphic.getColumnCount(); i++) {
              for (int j = 0; j < rightGraphic.getRowCount(); j++) {
@@ -56,7 +57,7 @@ public class CreditCalculatorTableTest {
 
     private static Object[][] parametersOfTests = new Object[][]{
             {
-                    new JTable(new Object[][]{
+                    new DefaultTableModel(new Object[][]{
                             {1, "11.2015", 1110.0, 1000.0, 80.0, 30.0, 3000.0},
                             {2, "12.2015", 1080.0, 1000.0, 60.0, 20.0, 2000.0},
                             {3, "01.2016", 1050.0, 1000.0, 40.0, 10.0, 1000.0},
@@ -68,7 +69,7 @@ public class CreditCalculatorTableTest {
                     Hypothec.CreditType.DIFFERENTIATED
             },
             {
-                    new JTable(new Object[][]{
+                    new DefaultTableModel(new Object[][]{
                             {1, "11.2015", 1080.8, 970.5, 80.0, 30.3, 3029.5},
                             {2, "12.2015", 1070.9, 989.9, 60.6, 20.4, 2039.6},
                             {3, "01.2016", 1060.8, 1009.7, 40.8, 10.3, 1029.9},
