@@ -11,7 +11,7 @@ public class BoardTest {
 
     @Before
     public void runBeforeEveryTest() {
-        board = new Board(new Minesweeper(), 32, 32);
+        board = new Board(32, 32);
     }
 
     @Test

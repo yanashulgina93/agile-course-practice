@@ -9,8 +9,9 @@ public class Board {
 
     public static final int CELL_SIZE = 20;
 
-    private boolean lost = false;
-    private final Minesweeper minesweeper;
+    private boolean lost;
+    private boolean end;
+
 
     private int minesCount;
     private int openCellsCount;
@@ -19,12 +20,7 @@ public class Board {
 
     private final Cell[][] cells;
 
-    Board(final Minesweeper minesweeper, final int boardHeight, final int boardWidth) {
-        minesCount = 0;
-        openCellsCount = 0;
-        flagCellsCount = 0;
-
-        this.minesweeper = minesweeper;
+    Board(final int boardHeight, final int boardWidth) {
         this.boardHeight = boardHeight;
         this.boardWidth = boardWidth;
 
@@ -47,7 +43,7 @@ public class Board {
     }
 
     private int allCellsCount() {
-        return  boardWidth * boardHeight;
+        return boardWidth * boardHeight;
     }
 
     private ArrayList<Cell> getNeighboringCells(final int positionY, final int positionX) {
@@ -64,7 +60,7 @@ public class Board {
             }
 
         }
-        return  neighboringCells;
+        return neighboringCells;
     }
 
     private void incValues(final int positionY, final int positionX) {
@@ -111,10 +107,11 @@ public class Board {
             openCellsCount++;
             if (cell.isMine()) {
                 lost = true;
-                minesweeper.end(false);
+                end = true;
                 openAllMines();
             } else if (allCellsCount() - openCellsCount == minesCount) {
-                minesweeper.end(true);
+                lost = false;
+                end = true;
             } else if (cell.getValue() == 0) {
                 openNeighboringCells(positionY, positionX);
             }
@@ -122,7 +119,11 @@ public class Board {
     }
 
     public boolean isLost() {
-        return  lost;
+        return lost;
+    }
+
+    public boolean isEnd() {
+        return end;
     }
 
     public void  setFlag(final int positionY, final int positionX) {
@@ -185,7 +186,7 @@ public class Board {
                 }
             }
         }
-        return  minesCount;
+        return minesCount;
     }
 
     public Cell getCell(final  int positionY, final int positionX) {

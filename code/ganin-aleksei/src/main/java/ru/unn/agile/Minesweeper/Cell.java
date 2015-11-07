@@ -1,11 +1,11 @@
 package ru.unn.agile.Minesweeper;
 
 public class Cell {
-    private boolean mine = false;
-    private boolean issue = false;
-    private boolean flag = false;
-    private boolean openV = false;
-    private int value = 0;
+    private boolean mine;
+    private boolean issue;
+    private boolean flag;
+    private boolean openV;
+    private int value;
 
     private final int positionY;
     private final int positionX;
@@ -20,16 +20,16 @@ public class Cell {
     private static final int CELL_VALUE_7 = 7;
     private static final int CELL_VALUE_8 = 8;
 
-    public Cell(final int positionYA, final int positionXA) {
-        positionY = positionYA;
-        positionX = positionXA;
+    public Cell(final int positionY, final int positionX) {
+        this.positionY = positionY;
+        this.positionX = positionX;
     }
 
     public void setMine() {
         mine = true;
     }
     public boolean isMine() {
-        return  mine;
+        return mine;
     }
 
     public void setValue(final int val) {
@@ -57,7 +57,7 @@ public class Cell {
     }
 
     public boolean isFlag() {
-        return  flag;
+        return flag;
     }
 
     public void unsetFlag() {
@@ -69,7 +69,7 @@ public class Cell {
     }
 
     public boolean isOpen() {
-        return  openV;
+        return openV;
     }
 
     public void clear() {

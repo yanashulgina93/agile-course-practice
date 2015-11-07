@@ -24,12 +24,9 @@ public class Minesweeper {
 
     private static final int DEFAULT_MINES = 100;
 
-
-    private boolean isEndV = false;
-
     public Minesweeper() {
 
-        board = new Board(this, BOARD_HEIGHT, BOARD_WIDTH);
+        board = new Board(BOARD_HEIGHT, BOARD_WIDTH);
         newGame();
     }
 
@@ -38,16 +35,11 @@ public class Minesweeper {
     }
 
     public final void newGame() {
-        isEndV = false;
         board.clear();
         board.setMinesRandom(DEFAULT_MINES);
     }
 
     public boolean isEnd() {
-        return isEndV;
-    }
-
-    public void end(final boolean isWinner) {
-        isEndV = true;
+        return board.isEnd();
     }
 }
