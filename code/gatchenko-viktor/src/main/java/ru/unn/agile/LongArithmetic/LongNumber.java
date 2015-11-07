@@ -113,9 +113,22 @@ public class LongNumber {
 
     public LongNumber multiply(final LongNumber lnNum) {
         LongNumber result = new LongNumber();
-        // result.value = this.value * lnNum.value;
+        int count = lnNum.convertLongToInt();
+        for(int i = 0; i < count; ++i) {
+            result = result.add(this);
+        }
 
         return result;
+    }
+
+    private int convertLongToInt() {
+        int intNum = 0;
+
+        for(int i = 0; i < this.rank; ++i) {
+            intNum += this.value[i] * Math.pow(SCALE, i);
+        }
+
+        return intNum;
     }
 
     public boolean isEqual(final LongNumber lnNum) {
