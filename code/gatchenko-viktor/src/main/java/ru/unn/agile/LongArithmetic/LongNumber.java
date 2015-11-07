@@ -35,6 +35,35 @@ public class LongNumber {
         }
     }
 
+    public LongNumber(final String string) {
+        this.rank = string.length();
+        this.value = new int[rank];
+        for(int i = 0, j = this.rank - 1; i < this.rank; ++i, --j) {
+            char charElement = string.charAt(i);
+            int newElement = Character.getNumericValue(charElement);
+            if(newElement < 10) {
+                this.value[j] = Character.getNumericValue(charElement);
+            } else {
+                this.value = null;
+                this.rank = 0;
+                break;
+            }
+        }
+
+    }
+
+    public LongNumber(final LongNumber copiedNum) {
+        this.rank = copiedNum.rank;
+        this.value = new int[this.rank];
+        if(copiedNum.value == LongNumber.UNDEFINED){
+            this.value = LongNumber.UNDEFINED;
+        } else {
+            for (int i = 0; i < this.rank; ++i) {
+                this.value[i] = copiedNum.value[i];
+            }
+        }
+    }
+
     private int getIntRank(final int number) {
         int rank = 0;
         if (number == 0) {
@@ -59,14 +88,6 @@ public class LongNumber {
             this.value[j] = newElement;
             remain = intermediateNum % divider;
             intermediateNum = remain;
-        }
-    }
-
-    public LongNumber(final LongNumber copiedNum) {
-        this.rank = copiedNum.rank;
-        this.value = new int[this.rank];
-        for (int i = 0; i < this.rank; ++i) {
-            this.value[i] = copiedNum.value[i];
         }
     }
 

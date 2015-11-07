@@ -44,7 +44,7 @@ public class TestConstructorsLongNumber {
 
     @Test
     public void chars11ToLongNumber() {
-        char[] chars = {'1','1'};
+        char[] chars = { '1', '1' };
         lnNum = new LongNumber(chars);
 
         boolean isEqual = lnNum.isEqual(11);
@@ -53,7 +53,7 @@ public class TestConstructorsLongNumber {
 
     @Test
     public void chars1aToLongNumber() {
-        char[] chars = {'1','a'};
+        char[] chars = { '1', 'a' };
         lnNum = new LongNumber(chars);
 
         boolean isUndefined = lnNum.isUndefined();
@@ -62,7 +62,7 @@ public class TestConstructorsLongNumber {
 
     @Test
     public void chars123456789ToLongNumber() {
-        char[] chars = {'1','2','3','4','5','6','7','8','9'};
+        char[] chars = { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         lnNum = new LongNumber(chars);
 
         boolean isEqual = lnNum.isEqual(123456789);
@@ -89,11 +89,41 @@ public class TestConstructorsLongNumber {
 
     @Test
     public void copyUndefinedLongNumberToLongNumber() {
-        char[] chars = {'1','a'};
+        char[] chars = { '1', 'a' };
         LongNumber copied = new LongNumber(chars);
         lnNum = new LongNumber(copied);
 
         boolean isEqual = lnNum.isEqual(copied);
+        assertEquals(true, isEqual);
+    }
+
+    @Test
+    public void string101ToLongNumber() {
+        String string = "101";
+        lnNum = new LongNumber(string);
+
+        boolean isEqual = lnNum.isEqual(101);
+        assertEquals(true, isEqual);
+    }
+
+    @Test
+    public void longStringToLongNumber() {
+        String string = "111222333444555666777888999";
+        char[] chars = { '1', '1', '1', '2', '2', '2', '3', '3', '3', '4', '4', '4', '5', '5', '5', '6', '6', '6', '7',
+                '7', '7', '8', '8', '8', '9', '9', '9' };
+        lnNum = new LongNumber(string);
+        LongNumber charNumber = new LongNumber(chars);
+
+        boolean isEqual = lnNum.isEqual(charNumber);
+        assertEquals(true, isEqual);
+    }
+
+    @Test
+    public void string0ToLongNumber() {
+        String string = "0";
+        lnNum = new LongNumber(string);
+
+        boolean isEqual = lnNum.isEqual(0);
         assertEquals(true, isEqual);
     }
 }
