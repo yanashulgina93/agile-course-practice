@@ -2,7 +2,7 @@ package ru.unn.agile.VolumesComputer.Model;
 
 public final class VolumesComputer {
     private static final String NEGATIVE_PARAMS_ERROR =
-            "Parameters may not be negative.";
+            "Parameters must not be negative.";
 
     public static double cuboid(final double width,
                                 final double height,
@@ -13,28 +13,31 @@ public final class VolumesComputer {
             throw new IllegalArgumentException(NEGATIVE_PARAMS_ERROR);
         }
     }
-    public static double spheroid(final double a, final double b) {
-        if (a >= 0.0 && b >= 0.0) {
+    public static double spheroid(final double semimajorAxis,
+                                  final double semiminorAxis) {
+        if (semimajorAxis >= 0.0 && semiminorAxis >= 0.0) {
             final double four = 4.0;
             final double three = 3.0;
-            return four / three * Math.PI * a * b * b;
+            return four / three * Math.PI * semimajorAxis
+                    * semiminorAxis * semiminorAxis;
         } else {
             throw new IllegalArgumentException(NEGATIVE_PARAMS_ERROR);
         }
     }
-    public static double rightCylinder(final double a,
-                                       final double b,
-                                       final double h) {
-        if (a >= 0.0 && b >= 0.0 && h >= 0.0) {
-            return Math.PI * a * b * h;
+    public static double rightCylinder(final double semimajorAxis,
+                                       final double semiminorAxis,
+                                       final double height) {
+        if (semimajorAxis >= 0.0 && semiminorAxis >= 0.0 && height >= 0.0) {
+            return Math.PI * semimajorAxis * semiminorAxis * height;
         } else {
             throw new IllegalArgumentException(NEGATIVE_PARAMS_ERROR);
         }
     }
-    public static double rightCircularCone(final double r, final double h) {
-        if (r >= 0.0 && h >= 0.0) {
+    public static double rightCircularCone(final double radius,
+                                           final double height) {
+        if (radius >= 0.0 && height >= 0.0) {
             final double three = 3.0;
-            return Math.PI / three * r * r * h;
+            return Math.PI / three * radius * radius * height;
         } else {
             throw new IllegalArgumentException(NEGATIVE_PARAMS_ERROR);
         }
