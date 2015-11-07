@@ -48,14 +48,21 @@ project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-l
 // Cheboksarinov Andrej
 // Eremeeva Aleksandra
 // Esyagin Ivan
+
 // Filicheva Svetlana
+include "code/filicheva-svetlana"
+project(":code/filicheva-svetlana").name = "filicheva-svetlana-Model"
+
 // Francuzova Natalya
 // Ganin Aleksej
 // Garina Anastasia
 include "code/garina-anastasia"
 project(":code/garina-anastasia").name = "garina-anastasia-lab1"
 // Gatchenko Viktor
+
 // Golodyaev Andrej
+include "code/golodyaev-andrey"
+project(":code/golodyaev-andrey").name = "golodyaev-andrey-Model"
 
 // Goroxov Dmitrij
 include "code/gorokhov-dmitriy"
@@ -84,7 +91,11 @@ project(":code/korotaev-pavel").name = "korotaev-pavel-Model"
 // Kostrov Aleksey
 include "code/kostrov-aleksey"
 project(":code/kostrov-aleksey").name = "kostrov-aleksey-Model"
+
 // Kumaev Vasilij
+include "code/kumaev-vasily"
+project(":code/kumaev-vasily").name = "kumaev-vasily-Model"
+
 // Kuznecov Aleksandr
 // Larin Sergej
 // Mixejceva Lyudmila
@@ -116,6 +127,8 @@ project(":code/sevrikov-ilya").name = "sevrikov-ilya-Model"
 include "code/shulgina-yana"
 project(":code/shulgina-yana").name = "shulgina-yana-Model"
 // Smirnov Aleksandr
+include "code/smirnov-alexandr"
+project(":code/smirnov-alexandr").name = "smirnov-alexandr-lab1-Model"
 // Smirnov Mixail
 // Smirnov Vyacheslav
 // Sulin Dmitrij
@@ -137,4 +150,7 @@ project(":code/yusipov-igor").name = "yusipov-igor-Model"
 // Zhbanova Anna
 include "code/zhbanova-anna"
 project(":code/zhbanova-anna").name = "zhbanova-anna-Model"
+
 // Zykov Ilya
+include "code/zykov-ilya"
+project(":code/zykov-ilya").name = "zykov-ilya-Model"
