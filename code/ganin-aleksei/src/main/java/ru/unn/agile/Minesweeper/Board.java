@@ -12,11 +12,9 @@ public class Board {
     private boolean lost;
     private boolean end;
 
-
     private int minesCount;
     private int openCellsCount;
     private int flagCellsCount;
-
 
     private final Cell[][] cells;
 
@@ -25,11 +23,11 @@ public class Board {
         this.boardWidth = boardWidth;
 
         cells = new Cell[boardHeight][boardWidth];
-        for (int positionY = 0; positionY < boardHeight; positionY++) {
-            cells[positionY] = new Cell[boardWidth];
-            for (int positionX = 0; positionX < boardWidth; positionX++) {
-                Cell cell = new Cell(positionY, positionX);
-                cells[positionY][positionX] = cell;
+        for (int y = 0; y < boardHeight; y++) {
+            cells[y] = new Cell[boardWidth];
+            for (int x = 0; x < boardWidth; x++) {
+                Cell cell = new Cell(y, x);
+                cells[y][x] = cell;
             }
         }
     }
@@ -46,16 +44,16 @@ public class Board {
         return boardWidth * boardHeight;
     }
 
-    private ArrayList<Cell> getNeighboringCells(final int positionY, final int positionX) {
+    private ArrayList<Cell> getNeighboringCells(final int y, final int x) {
         ArrayList<Cell> neighboringCells = new ArrayList<Cell>();
-        for (int y = positionY > 0 ? positionY - 1 : positionY,
-            yStop = positionY < boardHeight - 1 ? positionY + 1 : positionY;
-            y <= yStop; y++) {
-            for (int x = positionX > 0 ? positionX - 1 : positionX,
-                xStop = positionX < boardWidth - 1 ? positionX + 1 : positionX;
-                x <= xStop; x++) {
-                if (!(y == positionY && x == positionX)) {
-                    neighboringCells.add(cells[y][x]);
+        for (int currentY = y > 0 ? y - 1 : y,
+            yStop = y < boardHeight - 1 ? y + 1 : y;
+            currentY <= yStop; currentY++) {
+            for (int currentX = x > 0 ? x - 1 : x,
+                xStop = x < boardWidth - 1 ? x + 1 : x;
+                 currentX <= xStop; currentX++) {
+                if (!(currentY == y && currentX == x)) {
+                    neighboringCells.add(cells[currentY][currentX]);
                 }
             }
 
@@ -63,36 +61,36 @@ public class Board {
         return neighboringCells;
     }
 
-    private void incValues(final int positionY, final int positionX) {
-        ArrayList<Cell> neighboringCells = getNeighboringCells(positionY, positionX);
+    private void incValues(final int y, final int x) {
+        ArrayList<Cell> neighboringCells = getNeighboringCells(y, x);
         for (int i = 0; i < neighboringCells.size(); i++) {
             Cell cell = neighboringCells.get(i);
             cell.setValue(cell.getValue() + 1);
         }
     }
 
-    public void setMine(final int positionY, final int positionX) {
-        Cell cell = cells[positionY][positionX];
+    public void setMine(final int y, final int x) {
+        Cell cell = cells[y][x];
         if (!cell.isMine()) {
             cell.setMine();
-            incValues(positionY, positionX);
+            incValues(y, x);
         }
     }
 
-    private void openNeighboringCells(final int positionY, final int positionX) {
-        ArrayList<Cell> neighboringCells = getNeighboringCells(positionY, positionX);
+    private void openNeighboringCells(final int y, final int x) {
+        ArrayList<Cell> neighboringCells = getNeighboringCells(y, x);
         for (int i = 0; i < neighboringCells.size(); i++) {
             Cell cell = neighboringCells.get(i);
             if (!cell.isMine()) {
-                openCell(cell.getPositionY(), cell.getPositionX());
+                openCell(cell.getY(), cell.getX());
             }
         }
     }
 
     private void openAllMines() {
-        for (int positionY = 0; positionY < boardHeight; positionY++) {
-            for (int positionX = 0; positionX < boardWidth; positionX++) {
-                Cell cell = cells[positionY][positionX];
+        for (int y = 0; y < boardHeight; y++) {
+            for (int x = 0; x < boardWidth; x++) {
+                Cell cell = cells[y][x];
                 if (cell.isMine()) {
                     cell.open();
                 }
@@ -100,8 +98,8 @@ public class Board {
         }
     }
 
-    public void openCell(final int positionY, final int positionX) {
-        Cell cell = cells[positionY][positionX];
+    public void openCell(final int y, final int x) {
+        Cell cell = cells[y][x];
         if (!lost && !cell.isIssue() && !cell.isFlag() && !cell.isOpen()) {
             cell.open();
             openCellsCount++;
@@ -113,7 +111,7 @@ public class Board {
                 lost = false;
                 end = true;
             } else if (cell.getValue() == 0) {
-                openNeighboringCells(positionY, positionX);
+                openNeighboringCells(y, x);
             }
         }
     }
@@ -126,30 +124,30 @@ public class Board {
         return end;
     }
 
-    public void  setFlag(final int positionY, final int positionX) {
-        Cell cell = cells[positionY][positionX];
+    public void  setFlag(final int y, final int x) {
+        Cell cell = cells[y][x];
         if (!cell.isFlag()) {
             setFlagCellsCount(flagCellsCount + 1);
             cell.setFlag();
         }
     }
 
-    public void  unsetFlag(final int positionY, final int positionX) {
-        Cell cell = cells[positionY][positionX];
+    public void  unsetFlag(final int y, final int x) {
+        Cell cell = cells[y][x];
         if (cell.isFlag()) {
             setFlagCellsCount(flagCellsCount - 1);
             cell.unsetFlag();
         }
     }
 
-    public int getValue(final int positionY, final int positionX) {
-        return cells[positionY][positionX].getValue();
+    public int getValue(final int y, final int x) {
+        return cells[y][x].getValue();
     }
 
     public void clear() {
-        for (int positionY = 0; positionY < boardHeight; positionY++) {
-            for (int positionX = 0; positionX < boardWidth; positionX++) {
-                cells[positionY][positionX].clear();
+        for (int y = 0; y < boardHeight; y++) {
+            for (int x = 0; x < boardWidth; x++) {
+                cells[y][x].clear();
             }
         }
         lost = false;
@@ -158,20 +156,20 @@ public class Board {
         openCellsCount = 0;
     }
 
-    public boolean isMine(final int positionY, final int positionX) {
-        return cells[positionY][positionX].isMine();
+    public boolean isMine(final int y, final int x) {
+        return cells[y][x].isMine();
     }
 
     public void setMinesRandom(final int numMines) {
         Random random = new Random();
         for (int i = 0; i < numMines; i++) {
-            int positionY = 0;
-            int positionX = 0;
-            while (isMine(positionY, positionX)) {
-                positionY = random.nextInt(boardHeight);
-                positionX = random.nextInt(boardWidth);
+            int y = 0;
+            int x = 0;
+            while (isMine(y, x)) {
+                y = random.nextInt(boardHeight);
+                x = random.nextInt(boardWidth);
             }
-            setMine(positionY, positionX);
+            setMine(y, x);
         }
 
         setMinesCount(minesCount + numMines);
@@ -179,9 +177,9 @@ public class Board {
 
     public int findMinesCount() {
         int minesCount = 0;
-        for (int positionY = 0; positionY < boardHeight; positionY++) {
-            for (int positionX = 0; positionX < boardWidth; positionX++) {
-                if (cells[positionY][positionX].isMine()) {
+        for (int y = 0; y < boardHeight; y++) {
+            for (int x = 0; x < boardWidth; x++) {
+                if (cells[y][x].isMine()) {
                     minesCount++;
                 }
             }
@@ -189,7 +187,7 @@ public class Board {
         return minesCount;
     }
 
-    public Cell getCell(final  int positionY, final int positionX) {
-        return cells[positionY][positionX];
+    public Cell getCell(final int y, final int x) {
+        return cells[y][x];
     }
 }

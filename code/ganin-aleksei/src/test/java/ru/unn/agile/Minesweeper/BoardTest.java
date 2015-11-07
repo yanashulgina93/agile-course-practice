@@ -10,19 +10,19 @@ public class BoardTest {
     private Board board;
 
     @Before
-    public void runBeforeEveryTest() {
+    public void before() {
         board = new Board(32, 32);
     }
 
     @Test
-    public void openMine() {
+    public void gameIsLostWhenMineIsOpened() {
         board.setMine(0, 0);
         board.openCell(0, 0);
         assertEquals(true, board.isLost());
     }
 
     @Test
-    public void  whenSetFlagOpenMine() {
+    public void notOpenCellWhenItIsMarkedByFlag() {
         board.setMine(0, 0);
         board.setFlag(0, 0);
         board.openCell(0, 0);
@@ -71,7 +71,7 @@ public class BoardTest {
     }
 
     @Test
-    public void setRandom100Mines() {
+    public void afterInstallingAHundredMinutesOnTheBoardMustBeAHundredMinutes() {
         board.setMinesRandom(100);
         assertEquals(100, board.findMinesCount());
     }

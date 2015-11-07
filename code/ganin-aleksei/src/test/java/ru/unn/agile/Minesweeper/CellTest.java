@@ -8,23 +8,23 @@ import static org.junit.Assert.assertTrue;
 public class CellTest {
 
     private Cell cell;
-    private int cellPositionX = 12;
-    private int cellPositionY = 23;
+    private int cellX = 12;
+    private int cellY = 23;
 
 
     @Before
-    public void runBeforeEveryTest() {
-        cell = new Cell(cellPositionY, cellPositionX);
+    public void before() {
+        cell = new Cell(cellY, cellX);
     }
 
     @Test
-    public  void  setMine() {
+    public void setMine() {
         cell.setMine();
         assertEquals(true, cell.isMine());
     }
 
     @Test
-    public  void  setValue() {
+    public void setValue() {
         int value = 8;
         cell.setValue(value);
         assertEquals(value, cell.getValue());
@@ -69,12 +69,12 @@ public class CellTest {
 
     @Test
     public void getCellPositionX() {
-        assertEquals(cellPositionX, cell.getPositionX());
+        assertEquals(cellX, cell.getX());
     }
 
     @Test
     public void getCellPositionY() {
-        assertEquals(cellPositionY, cell.getPositionY());
+        assertEquals(cellY, cell.getY());
     }
 
     @Test

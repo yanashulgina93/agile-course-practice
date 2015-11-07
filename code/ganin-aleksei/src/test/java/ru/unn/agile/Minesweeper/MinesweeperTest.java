@@ -8,7 +8,7 @@ public class MinesweeperTest {
 
     private Minesweeper minesweeper;
     @Before
-    public void runBeforeEveryTest() {
+    public void before() {
         minesweeper = new Minesweeper();
     }
 

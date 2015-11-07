@@ -7,22 +7,12 @@ public class Cell {
     private boolean openV;
     private int value;
 
-    private final int positionY;
-    private final int positionX;
+    private final int y;
+    private final int x;
 
-    private static final int CELL_VALUE_0 = 0;
-    private static final int CELL_VALUE_1 = 1;
-    private static final int CELL_VALUE_2 = 2;
-    private static final int CELL_VALUE_3 = 3;
-    private static final int CELL_VALUE_4 = 4;
-    private static final int CELL_VALUE_5 = 5;
-    private static final int CELL_VALUE_6 = 6;
-    private static final int CELL_VALUE_7 = 7;
-    private static final int CELL_VALUE_8 = 8;
-
-    public Cell(final int positionY, final int positionX) {
-        this.positionY = positionY;
-        this.positionX = positionX;
+    public Cell(final int y, final int x) {
+        this.y = y;
+        this.x = x;
     }
 
     public void setMine() {
@@ -80,11 +70,11 @@ public class Cell {
         openV = false;
     }
 
-    public int getPositionX() {
-        return positionX;
+    public int getX() {
+        return x;
     }
 
-    public int getPositionY() {
-        return positionY;
+    public int getY() {
+        return y;
     }
 }
