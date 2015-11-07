@@ -26,24 +26,26 @@ public class LongNumber {
     public LongNumber(final char[] chars) {
         this.rank = chars.length;
         this.value = new int[rank];
-        for (int i = 0, j = this.rank - 1; i < this.rank; ++i, --j) {
-            int newElement = Character.getNumericValue(chars[i]);
-            if (newElement < 10) {
-                this.value[j] = Character.getNumericValue(chars[i]);
-            } else {
-                this.value = null;
-                this.rank = 0;
-                break;
-            }
-        }
+        this.fillValue(chars, false);
     }
 
     public LongNumber(final String string) {
         this.rank = string.length();
         this.value = new int[rank];
+        this.fillValue(string, true);
+    }
+
+    private void fillValue(final Object str, final boolean isString) {
+        char charElement;
+        int newElement;
+
         for (int i = 0, j = this.rank - 1; i < this.rank; ++i, --j) {
-            char charElement = string.charAt(i);
-            int newElement = Character.getNumericValue(charElement);
+            if (isString) {
+                charElement = ((String) str).charAt(i);
+            } else {
+                charElement = ((char[]) str)[i];
+            }
+            newElement = Character.getNumericValue(charElement);
             if (newElement < 10) {
                 this.value[j] = Character.getNumericValue(charElement);
             } else {
@@ -52,7 +54,6 @@ public class LongNumber {
                 break;
             }
         }
-
     }
 
     public LongNumber(final LongNumber copiedNum) {
