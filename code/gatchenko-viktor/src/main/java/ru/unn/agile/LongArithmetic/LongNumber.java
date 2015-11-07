@@ -96,13 +96,14 @@ public class LongNumber {
     public LongNumber add(final LongNumber lnNum) {
         LongNumber result = new LongNumber();
         int maxRank = this.getMaxRank(this, lnNum);
-        result.rank = this.getSumRank(lnNum, maxRank);
+        result.rank = maxRank + 1;
         result.value = new int[result.rank];
 
         for (int i = 0; i < result.rank; ++i) {
             result.value[i] = 0;
         }
         result.summarize(this, lnNum);
+        result.deleteZero();
 
         return result;
     }
@@ -116,15 +117,6 @@ public class LongNumber {
         }
 
         return maxRank;
-    }
-
-    private int getSumRank(final LongNumber lnNum, final int maxRank) {
-        int sumRank = maxRank;
-        if (this.rank == lnNum.rank && this.value[this.rank - 1] + lnNum.value[this.rank - 1] >= SCALE) {
-            sumRank++;
-        }
-
-        return sumRank;
     }
 
     private void summarize(final LongNumber addendum1, final LongNumber addendum2) {
@@ -148,6 +140,18 @@ public class LongNumber {
             } else {
                 this.value[i] = smallSum;
             }
+        }
+    }
+
+    private void deleteZero() {
+        int lastElement = this.rank - 1;
+        if(this.value[lastElement] == 0) {
+            int[] newValue = new int[lastElement];
+            for(int i = 0; i < lastElement; ++i) {
+                newValue[i] = this.value[i];
+            }
+            this.value = newValue;
+            this.rank -= 1;
         }
     }
 
