@@ -14,13 +14,13 @@ import static org.junit.Assert.assertEquals;
 public class TriangleParametrizedTest {
 
     private Triangle triangle;
+    private CorrectAnswers correctAnswers;
     public TriangleParametrizedTest(final Triangle triangle,
                                     final CorrectAnswers correctAnswers) {
         this.triangle = triangle;
         this.correctAnswers = correctAnswers;
     }
-    CorrectAnswers correctAnswers;
-    private final double DELTA = 0.001;
+    private static final double DELTA = 0.001;
 
     @Parameters
     public static Collection<Object[]> setOfTriangles() {
