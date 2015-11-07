@@ -11,6 +11,38 @@ public class TestConstructorsLongNumber {
     private LongNumber lnNum;
 
     @Test
+    public void defaultLongNumber() {
+        lnNum = new LongNumber();
+
+        boolean isEqual = lnNum.isEqual(0);
+        assertEquals(true, isEqual);
+    }
+
+    @Test
+    public void int0ToLongNumber() {
+        lnNum = new LongNumber(0);
+
+        boolean isEqual = lnNum.isEqual(0);
+        assertEquals(true, isEqual);
+    }
+
+    @Test
+    public void int987654321ToLongNumber() {
+        lnNum = new LongNumber(987654321);
+
+        boolean isEqual = lnNum.isEqual(987654321);
+        assertEquals(true, isEqual);
+    }
+
+    @Test
+    public void int1000000000ToLongNumber() {
+        lnNum = new LongNumber(1000000000);
+
+        boolean isEqual = lnNum.isEqual(1000000000);
+        assertEquals(true, isEqual);
+    }
+
+    @Test
     public void chars11ToLongNumber() {
         char[] chars = {'1','1'};
         lnNum = new LongNumber(chars);
@@ -37,4 +69,31 @@ public class TestConstructorsLongNumber {
         assertEquals(true, isEqual);
     }
 
+    @Test
+    public void copyDefaultToLongNumber() {
+        LongNumber copied = new LongNumber();
+        lnNum = new LongNumber(copied);
+
+        boolean isEqual = lnNum.isEqual(copied);
+        assertEquals(true, isEqual);
+    }
+
+    @Test
+    public void copyToLongNumberToLongNumber() {
+        LongNumber copied = new LongNumber(12345);
+        lnNum = new LongNumber(copied);
+
+        boolean isEqual = lnNum.isEqual(copied);
+        assertEquals(true, isEqual);
+    }
+
+    @Test
+    public void copyUndefinedLongNumberToLongNumber() {
+        char[] chars = {'1','a'};
+        LongNumber copied = new LongNumber(chars);
+        lnNum = new LongNumber(copied);
+
+        boolean isEqual = lnNum.isEqual(copied);
+        assertEquals(true, isEqual);
+    }
 }
