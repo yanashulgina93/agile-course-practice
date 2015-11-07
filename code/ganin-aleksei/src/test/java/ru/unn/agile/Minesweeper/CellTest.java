@@ -18,132 +18,62 @@ public class CellTest {
     }
 
     @Test
-    public void setMine() {
+    public void isMineShouldReturnTrueWhenSetMine() {
         cell.setMine();
         assertEquals(true, cell.isMine());
     }
 
     @Test
-    public void setValue() {
+    public void getValueShouldReturn8WhenSetValue8() {
         int value = 8;
         cell.setValue(value);
         assertEquals(value, cell.getValue());
     }
 
     @Test
-    public void setIssue() {
+    public void isIssueShouldReturnTrueWhenSetIssue() {
         cell.setIssue();
         assertEquals(true, cell.isIssue());
     }
 
     @Test
-    public void unsetIssue() {
+    public void isIssueShouldReturnFalseWhenUnsetIssue() {
         cell.unsetIssue();
         assertEquals(false, cell.isIssue());
     }
 
     @Test
-    public void setFlag() {
+    public void isFlagShouldReturnTrueWhenSetFlag() {
         cell.setFlag();
         assertEquals(true, cell.isFlag());
     }
 
     @Test
-    public void unsetFlag() {
+    public void isFlagShouldReturnFalseWhenUnsetFlag() {
         cell.unsetFlag();
         assertEquals(false, cell.isFlag());
     }
 
     @Test
-    public void openCell() {
+    public void isOpenShouldReturnTrueWhenOpenCell() {
         cell.open();
         assertEquals(true, cell.isOpen());
     }
 
     @Test
-    public void whenClearMineUnset() {
+    public void isMineShouldReturnFalseWhenClearCell() {
         cell.setMine();
         cell.clear();
         assertEquals(false, cell.isMine());
     }
 
     @Test
-    public void getCellPositionX() {
+    public void returnGetXShouldBeEqualsCellX() {
         assertEquals(cellX, cell.getX());
     }
 
     @Test
-    public void getCellPositionY() {
+    public void returnGetYShouldBeEqualsCellY() {
         assertEquals(cellY, cell.getY());
-    }
-
-    @Test
-    public void openCellWithValue0() {
-        cell.setValue(0);
-        cell.open();
-        assertTrue(cell.isOpen());
-    }
-
-    @Test
-    public void openCellWithValue1() {
-        cell.setValue(1);
-        cell.open();
-        assertTrue(cell.isOpen());
-    }
-
-    @Test
-    public void openCellWithValue2() {
-        cell.setValue(2);
-        cell.open();
-        assertTrue(cell.isOpen());
-    }
-
-    @Test
-    public void openCellWithValue3() {
-        cell.setValue(3);
-        cell.open();
-        assertTrue(cell.isOpen());
-    }
-
-    @Test
-    public void openCellWithValue4() {
-        cell.setValue(4);
-        cell.open();
-        assertTrue(cell.isOpen());
-    }
-
-    @Test
-    public void openCellWithValue5() {
-        cell.setValue(5);
-        cell.open();
-        assertTrue(cell.isOpen());
-    }
-
-    @Test
-    public void openCellWithValue6() {
-        cell.setValue(6);
-        cell.open();
-        assertTrue(cell.isOpen());
-    }
-
-    @Test
-    public void openCellWithValue7() {
-        cell.setValue(7);
-        cell.open();
-        assertTrue(cell.isOpen());
-    }
-
-    @Test
-    public void openCellWithValue8() {
-        cell.setValue(8);
-        cell.open();
-        assertTrue(cell.isOpen());
-    }
-
-    @Test
-    public void openCellWithMine() {
-        cell.setMine();
-        cell.open();
-        assertTrue(cell.isOpen());
     }
 }

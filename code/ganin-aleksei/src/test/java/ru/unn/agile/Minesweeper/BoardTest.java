@@ -56,14 +56,14 @@ public class BoardTest {
     }
 
     @Test
-    public void whenClearMineUnset() {
+    public void mineUnsetAfterCallClear() {
         board.setMine(0, 0);
         board.clear();
         assertEquals(false, board.isMine(0, 0));
     }
 
     @Test
-    public void whenClearLostUnset() {
+    public void lostUnsetAfterCallClear() {
         board.setMine(0, 0);
         board.openCell(0, 0);
         board.clear();
@@ -77,7 +77,7 @@ public class BoardTest {
     }
 
     @Test
-    public void unsetFlag() {
+    public void isFlagShouldReturnFalseAfterCallUnsetFlag() {
         board.setFlag(0, 0);
         board.unsetFlag(0, 0);
         assertFalse(board.getCell(0, 0).isFlag());
