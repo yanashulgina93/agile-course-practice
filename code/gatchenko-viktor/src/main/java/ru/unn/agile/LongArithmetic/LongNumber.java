@@ -2,6 +2,8 @@ package main.java.ru.unn.agile.LongArithmetic;
 
 public class LongNumber {
 
+    static final int[] UNDEFINED = null;
+
     private static final int SCALE = 10;
     private int rank;
     private int[] value;
@@ -16,6 +18,21 @@ public class LongNumber {
         this.rank = this.getIntRank(number);
         this.value = new int[this.rank];
         this.convetIntToLong(number);
+    }
+
+    public LongNumber(final char[] chars) {
+        this.rank = chars.length;
+        this.value = new int[rank];
+        for(int i = 0, j = this.rank - 1; i < this.rank; ++i, --j) {
+            int newElement = Character.getNumericValue(chars[i]);
+            if(newElement < 10) {
+                this.value[j] = Character.getNumericValue(chars[i]);
+            } else {
+                this.value = null;
+                this.rank = 0;
+                break;
+            }
+        }
     }
 
     private int getIntRank(final int number) {
@@ -152,6 +169,15 @@ public class LongNumber {
         LongNumber newNum = new LongNumber(lnNum);
 
         result = this.isEqual(newNum);
+
+        return result;
+    }
+
+    public boolean isUndefined() {
+        boolean result = false;
+        if(this.value == LongNumber.UNDEFINED) {
+            result = true;
+        }
 
         return result;
     }
