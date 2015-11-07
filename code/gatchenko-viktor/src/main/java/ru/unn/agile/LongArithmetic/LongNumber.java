@@ -1,5 +1,7 @@
 package main.java.ru.unn.agile.LongArithmetic;
 
+import java.math.BigDecimal;
+
 public class LongNumber {
 
     static final int[] UNDEFINED = null;
@@ -150,13 +152,28 @@ public class LongNumber {
     }
 
     public LongNumber multiply(final LongNumber lnNum) {
-        LongNumber result = new LongNumber();
-        int count = lnNum.convertLongToInt();
-        for(int i = 0; i < count; ++i) {
-            result = result.add(this);
-        }
+        LongNumber result;
+
+        String strNum = this.convertToString();
+        BigDecimal firstMultiplier = new BigDecimal(strNum);
+        strNum = lnNum.convertToString();
+        BigDecimal secondMultiplier = new BigDecimal(strNum);
+
+        BigDecimal bigResult = firstMultiplier.multiply(secondMultiplier);
+        strNum = bigResult.toString();
+        result = new LongNumber(strNum);
 
         return result;
+    }
+
+    private String convertToString() {
+        String strNum = "";
+        for(int i = 0, j = this.rank - 1; i < this.rank; ++i, --j) {
+            int element = this.value[j];
+            strNum += Integer.toString(element);
+        }
+
+        return strNum;
     }
 
     private int convertLongToInt() {
