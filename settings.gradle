@@ -115,6 +115,11 @@ project(":code/nikolaev-kirill").name = "nikolaev-kirill-Model"
 include "code/paramuzov-vladimir"
 project(":code/paramuzov-vladimir").name = "paramuzov-vladimir-Model"
 // Plankina Elena
+
+// Plankina Elena
+include "code/plankina-elena"
+project(":code/plankina-elena").name = "plankina-elena-Model"
+
 // Pronina Anastasiya
 // Sevrikov Ilya
 include "code/sevrikov-ilya"
