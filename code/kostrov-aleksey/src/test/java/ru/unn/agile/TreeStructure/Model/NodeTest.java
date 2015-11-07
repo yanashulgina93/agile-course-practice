@@ -6,12 +6,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class NodeTest {
-    private NodeStructure<Integer, java.lang.String> nodeWithDataString, nodeChild;
-    private NodeStructure<Integer, Integer> nodeWithDataNumber;
+    private Node<Integer, String> nodeWithDataString, nodeChild;
+    private Node<Integer, Integer> nodeWithDataNumber;
 
     @Before
     public void initializeNode() {
-        nodeWithDataString = new NodeStructure<>(1, "initialString");
+        nodeWithDataString = new Node<>(1, "initialString");
     }
 
     @Test
@@ -21,8 +21,8 @@ public class NodeTest {
 
     @Test
     public void canGetKey() {
-        Integer resultGetKey = nodeWithDataString.getKey();
-        assertEquals((Integer) 1, resultGetKey);
+        Integer oneKey = nodeWithDataString.getKey();
+        assertEquals(Integer.valueOf(1), oneKey);
     }
 
     @Test
@@ -33,15 +33,15 @@ public class NodeTest {
 
     @Test
     public void canSetNumber() {
-        nodeWithDataNumber = new NodeStructure<>(1, 10);
+        nodeWithDataNumber = new Node<>(1, 10);
         nodeWithDataNumber.setData(20);
-        assertEquals((Integer) 20, nodeWithDataNumber.getData());
+        assertEquals(Integer.valueOf(20), nodeWithDataNumber.getData());
     }
 
     @Test
     public void canGetNumber() {
-        nodeWithDataNumber = new NodeStructure<>(10, 10);
-        assertEquals((Integer) 10, nodeWithDataNumber.getData());
+        nodeWithDataNumber = new Node<>(10, 10);
+        assertEquals(Integer.valueOf(10), nodeWithDataNumber.getData());
     }
 
     @Test
@@ -51,42 +51,42 @@ public class NodeTest {
 
     @Test
     public void canSetLeftChild() {
-        nodeChild = new NodeStructure<>(80, "child");
+        nodeChild = new Node<>(80, "child");
         nodeWithDataString.setLeftChild(nodeChild);
         assertNotNull(nodeWithDataString.getLeftChild());
     }
 
     @Test
     public void canGetLeftChild() {
-        nodeChild = new NodeStructure<>(80, "child");
+        nodeChild = new Node<>(80, "child");
         nodeWithDataString.setLeftChild(nodeChild);
         assertEquals(nodeChild, nodeWithDataString.getLeftChild());
     }
 
     @Test
     public void canSetRightChild() {
-        nodeChild = new NodeStructure<>(80, "child");
+        nodeChild = new Node<>(80, "child");
         nodeWithDataString.setRightChild(nodeChild);
         assertNotNull(nodeWithDataString.getRightChild());
     }
 
     @Test
     public void canGetRightChild() {
-        nodeChild = new NodeStructure<>(80, "child");
+        nodeChild = new Node<>(80, "child");
         nodeWithDataString.setRightChild(nodeChild);
         assertEquals(nodeChild, nodeWithDataString.getRightChild());
     }
 
     @Test
     public void canSetParent() {
-        nodeChild = new NodeStructure<>(80, "child");
+        nodeChild = new Node<>(80, "child");
         nodeChild.setParent(nodeWithDataString);
         assertNotNull(nodeChild.getParent());
     }
 
     @Test
     public void canGetParent() {
-        nodeChild = new NodeStructure<>(80, "child");
+        nodeChild = new Node<>(80, "child");
         nodeChild.setParent(nodeWithDataString);
         assertEquals(nodeWithDataString, nodeChild.getParent());
     }

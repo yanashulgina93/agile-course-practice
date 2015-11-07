@@ -6,11 +6,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class TreeTest {
-    private TreeStructure<Integer, java.lang.String> tree;
+    private Tree<Integer, String> tree;
 
     @Before
     public void initializeTree() {
-        tree = new TreeStructure<>(200, "root");
+        tree = new Tree<>(200, "root");
         tree.addNode(100, "Child#1");
         tree.addNode(150, "Child#2");
         tree.addNode(210, "Child#3");
@@ -20,19 +20,19 @@ public class TreeTest {
 
     @Test
     public void createTreeWithoutParameterIsNotNull() {
-        tree = new TreeStructure<>();
+        tree = new Tree<>();
         assertNotNull(tree);
     }
 
     @Test
     public void createTreeWithParameterIsNotNull() {
-        tree = new TreeStructure<>(50, "root");
+        tree = new Tree<>(50, "root");
         assertNotNull(tree);
     }
 
     @Test
     public void canAddNewNodeRoot() {
-        tree = new TreeStructure<>();
+        tree = new Tree<>();
         assertTrue(tree.addNode(80, "root"));
     }
 
@@ -50,25 +50,30 @@ public class TreeTest {
 
     @Test
     public void canSearchByKeyword() {
-        NodeStructure searchedNode = tree.searchByKey(150);
+        Node searchedNode = tree.searchByKey(150);
         assertEquals("Child#2", searchedNode.getData());
     }
 
     @Test
     public void canSearchNotAddedElement() {
-        NodeStructure searchedNode = tree.searchByKey(20);
+        Node searchedNode = tree.searchByKey(20);
         assertNull(searchedNode);
     }
 
     @Test
     public void canDeleteSubTree() {
-        boolean resultDelete = tree.truncateByKey(100);
-        assertTrue(resultDelete);
+        tree.truncateByKey(100);
+        assertNull(tree.searchByKey(100));
     }
 
     @Test
     public void canDeleteAllTree() {
-        boolean resultDeleteTree = tree.truncateByKey(200);
-        assertTrue(resultDeleteTree);
+        tree.truncateByKey(200);
+        assertNull(tree.searchByKey(200));
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void catchExceptionNullPointerTruncateByKey() {
+        tree.truncateByKey(20);
     }
 }

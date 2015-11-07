@@ -1,30 +1,30 @@
 package ru.unn.agile.TreeStructure.Model;
 
-public class TreeStructure<TypeKey extends Comparable<TypeKey>, TypeData> {
-    private NodeStructure<TypeKey, TypeData> root;
+public class Tree<TypeKey extends Comparable<TypeKey>, TypeData> {
+    private Node<TypeKey, TypeData> root;
     static final int FIRST_VALUE_MORE = 1;
     static final int FIRST_VALUE_LESS = -1;
     static final int VALUES_ARE_EQUAL = 0;
 
-    public TreeStructure() {
+    public Tree() {
         root = null;
     }
 
-    public TreeStructure(final TypeKey key, final TypeData data) {
-        root = new NodeStructure<>(key, data);
+    public Tree(final TypeKey key, final TypeData data) {
+        root = new Node<>(key, data);
     }
 
     public boolean addNode(final TypeKey key, final TypeData data) {
         if (root == null) {
-            root = new NodeStructure<>(key, data);
+            root = new Node<>(key, data);
             return true;
         }
-        NodeStructure<TypeKey, TypeData> newNode = new NodeStructure<>(key, data);
+        Node<TypeKey, TypeData> newNode = new Node<>(key, data);
         return add(root, newNode);
     }
 
-    private boolean add(final NodeStructure<TypeKey, TypeData> currentNode,
-                        final NodeStructure<TypeKey, TypeData> newNode) {
+    private boolean add(final Node<TypeKey, TypeData> currentNode,
+                        final Node<TypeKey, TypeData> newNode) {
 
         if (currentNode.getKey().compareTo(newNode.getKey()) == FIRST_VALUE_MORE) {
             if (currentNode.getLeftChild() == null) {
@@ -45,11 +45,11 @@ public class TreeStructure<TypeKey extends Comparable<TypeKey>, TypeData> {
         return false;
     }
 
-    public NodeStructure<TypeKey, TypeData> searchByKey(final TypeKey key) {
+    public Node<TypeKey, TypeData> searchByKey(final TypeKey key) {
         return search(root, key);
     }
 
-    private NodeStructure<TypeKey, TypeData> search(final NodeStructure<TypeKey, TypeData> node,
+    private Node<TypeKey, TypeData> search(final Node<TypeKey, TypeData> node,
                                                     final TypeKey key) {
         if (node == null) {
             return null;
@@ -65,11 +65,10 @@ public class TreeStructure<TypeKey extends Comparable<TypeKey>, TypeData> {
     }
 
     public boolean truncateByKey(final TypeKey key) {
-        NodeStructure<TypeKey, TypeData> foundNode;
-        foundNode = searchByKey(key);
+        Node<TypeKey, TypeData> foundNode = searchByKey(key);
 
         if (foundNode == null) {
-            return false;
+            throw new NullPointerException();
         }
         if (!root.equals(foundNode)) {
             if (foundNode.getParent().getRightChild().getKey().compareTo(key) == VALUES_ARE_EQUAL) {
@@ -85,13 +84,13 @@ public class TreeStructure<TypeKey extends Comparable<TypeKey>, TypeData> {
         return true;
     }
 
-    private void deleteNode(final NodeStructure<TypeKey, TypeData> foundNode) {
-        if (foundNode != null) {
-            deleteNode(foundNode.getLeftChild());
-            deleteNode(foundNode.getRightChild());
-            foundNode.setLeftChild(null);
-            foundNode.setRightChild(null);
-            foundNode.setParent(null);
+    private void deleteNode(final Node<TypeKey, TypeData> node) {
+        if (node != null) {
+            deleteNode(node.getLeftChild());
+            deleteNode(node.getRightChild());
+            node.setLeftChild(null);
+            node.setRightChild(null);
+            node.setParent(null);
         }
     }
 }
