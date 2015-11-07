@@ -126,6 +126,8 @@ project(":code/shulgina-yana").name = "shulgina-yana-Model"
 include "code/smirnov-alexandr"
 project(":code/smirnov-alexandr").name = "smirnov-alexandr-lab1-Model"
 // Smirnov Mixail
+include "code/smirnov-michael"
+project(":code/smirnov-michael").name = "smirnov-michael-Model"
 // Smirnov Vyacheslav
 // Sulin Dmitrij
 // Timonova Anastasiya
