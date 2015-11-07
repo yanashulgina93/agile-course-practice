@@ -27,16 +27,16 @@ public class BitArray {
         Arrays.fill(this.arrBit, value);
     }
 
-    public BitArray and(final BitArray bitArr) {
-        return this.doOperationWithArr(bitArr, new AndOperation());
+    public BitArray and(final BitArray bitArray) {
+        return this.doOperationWithArr(bitArray, new AndOperation());
     }
 
-    public BitArray or(final BitArray bitArr) {
-        return this.doOperationWithArr(bitArr, new OrOperation());
+    public BitArray or(final BitArray bitArray) {
+        return this.doOperationWithArr(bitArray, new OrOperation());
     }
 
-    public BitArray xor(final BitArray bitArr) {
-        return this.doOperationWithArr(bitArr, new XorOperation());
+    public BitArray xor(final BitArray bitArray) {
+        return this.doOperationWithArr(bitArray, new XorOperation());
 
     }
 
@@ -56,16 +56,38 @@ public class BitArray {
         return this.size;
     }
 
-    private BitArray doOperationWithArr(final BitArray bitArr, final IOperation operation) {
+    private BitArray doOperationWithArr(final BitArray bitArray, final IOperation operation) {
         BitArray res;
-        if (bitArr.getSize() == this.size) {
+        if (bitArray.getSize() == this.size) {
             res = new BitArray(this.size);
             for (int i = 0; i < this.size; i++) {
-                res.setBit(i, operation.doOperation(this.getBit(i), bitArr.getBit(i)));
+                res.setBit(i, operation.doOperation(this.getBit(i), bitArray.getBit(i)));
             }
         } else {
             throw new BitArrayDifferentSizeException("Different size of arrays");
         }
         return res;
     }
+
+    private class XorOperation implements IOperation {
+        @Override
+        public Boolean doOperation(final Boolean first, final Boolean second) {
+            return first ^ second;
+        }
+    }
+
+    private class OrOperation implements IOperation {
+        @Override
+        public Boolean doOperation(final Boolean first, final Boolean second) {
+            return first | second;
+        }
+    }
+
+    private class AndOperation implements IOperation {
+        @Override
+        public Boolean doOperation(final Boolean first, final Boolean second) {
+            return first & second;
+        }
+    }
 }
+
