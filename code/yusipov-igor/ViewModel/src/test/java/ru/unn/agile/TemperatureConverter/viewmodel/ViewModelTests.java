@@ -140,4 +140,11 @@ public class ViewModelTests {
         viewModel.convert();
         assertEquals(Status.WAITING, viewModel.getStatus());
     }
+
+    @Test
+    public void isCorrectStatusName() {
+        viewModel.setInputTemperature("1.0");
+        viewModel.convert();
+        assertEquals(viewModel.getStatusName(), "Success");
+    }
 }
