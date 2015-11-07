@@ -99,7 +99,6 @@ project(":code/plankina-elena").name = "plankina-elena-Model"
 include "code/yusipov-igor"
 project(":code/yusipov-igor").name = "yusipov-igor-Model"
 
-
 // Zajdullova Alina
 // Zhbanova Anna
 // Zykov Ilya

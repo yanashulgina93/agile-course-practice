@@ -30,34 +30,30 @@ public class TriangleCorrectnessTests {
 
     @Test
     public void canFindCorrectPerimeter() throws Exception {
-        double truePerimeter = length1 + length2 + length3;
+        double truePerimeter = 22.227365;
         double resultPerimeter = triangle.getPerimeter();
         assertEquals(truePerimeter, resultPerimeter, DELTA);
     }
 
     @Test
     public void canFindCorrectLength() throws Exception {
+        double trueLength = 6.128915;
         List<Double> coordinatesOfPoint1 = triangle.getCoordinatesOfPoint1();
         List<Double> coordinatesOfPoint2 = triangle.getCoordinatesOfPoint2();
-        double trueLength = sqrt(pow(1.9 - 0.0, 2) + pow(-2.3 - 3.5, 2) + pow(4.56 - 5.12, 2));
         double resultLength = triangle.getLength(coordinatesOfPoint1, coordinatesOfPoint2);
         assertEquals(trueLength, resultLength, DELTA);
     }
 
     @Test
     public void canFindCorrectSquare() throws Exception {
-        double halfPerimeter = triangle.getPerimeter() / 2;
-        double trueSquare = sqrt(halfPerimeter * (halfPerimeter - length1)
-                * (halfPerimeter - length2)
-                * (halfPerimeter - length3));
+        double trueSquare = 20.244477;
         double resultSquare = triangle.getSquare();
         assertEquals(trueSquare, resultSquare, DELTA);
     }
 
     @Test
     public void canFindCorrectMedian() throws Exception {
-        double trueMedian = THE_HALF * sqrt(2 * pow(length2, 2)
-                + 2 * pow(length3, 2) - pow(length1, 2));
+        double trueMedian = 7.575757;
         List<Double> resultMedians = triangle.getMedians();
         double resultMedian = resultMedians.get(0);
         assertEquals(trueMedian, resultMedian, DELTA);
@@ -65,8 +61,7 @@ public class TriangleCorrectnessTests {
 
     @Test
     public void canFindCorrectAltitude() throws Exception {
-        double perimeter = length1 + length2 + length3;
-        double trueAltitude = 2 * perimeter / length1;
+        double trueAltitude = 7.253279;
         List<Double> resultAltitudes = triangle.getAltitudes();
         double resultAltitude = resultAltitudes.get(0);
         assertEquals(trueAltitude, resultAltitude, DELTA);
@@ -74,9 +69,7 @@ public class TriangleCorrectnessTests {
 
     @Test
     public void canFindCorrectBisectrix() throws Exception {
-        double perimeter = length1 + length2 + length3;
-        double trueBisectrix = sqrt(length1 * length2 * perimeter * (length1 + length2 - length3))
-                / (length1 + length2);
+        double trueBisectrix = 4.282380;
         List<Double> resultBisectrices = triangle.getBisectrices();
         double resultBisectrix = resultBisectrices.get(2);
         assertEquals(trueBisectrix, resultBisectrix, DELTA);
@@ -84,8 +77,7 @@ public class TriangleCorrectnessTests {
 
     @Test
     public void canFindCorrectAngle() throws Exception {
-        double trueAngle = acos((pow(length1, 2) + pow(length2, 2) - pow(length3, 2))
-                / (2 * length1 * length2));
+        double trueAngle = 1.667918;
         List<Double> resultAngles = triangle.getAngles();
         double resultAngle = resultAngles.get(2);
         assertEquals(trueAngle, resultAngle, DELTA);

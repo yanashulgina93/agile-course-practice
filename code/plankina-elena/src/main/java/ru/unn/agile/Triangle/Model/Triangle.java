@@ -13,17 +13,17 @@ public class Triangle {
     private final List<Double> coordinatesOfPoint3;
     private static final double THE_HALF = 0.5;
 
-    public Triangle(final List<Double> inputCoordinatesOfPoint1,
-                    final List<Double> inputCoordinatesOfPoint2,
-                    final List<Double> inputCoordinatesOfPoint3,
+    public Triangle(final List<Double> coordinatesOfPoint1,
+                    final List<Double> coordinatesOfPoint2,
+                    final List<Double> coordinatesOfPoint3,
                     final int inputDimension) {
-        if (!hasEqualDimensions(inputCoordinatesOfPoint1, inputCoordinatesOfPoint1,
-                inputCoordinatesOfPoint3, inputDimension)) {
+        if (!hasEqualDimensions(coordinatesOfPoint1, coordinatesOfPoint1,
+                coordinatesOfPoint3, inputDimension)) {
             throw new IllegalArgumentException();
         }
-        this.coordinatesOfPoint1 = inputCoordinatesOfPoint1;
-        this.coordinatesOfPoint2 = inputCoordinatesOfPoint2;
-        this.coordinatesOfPoint3 = inputCoordinatesOfPoint3;
+        this.coordinatesOfPoint1 = coordinatesOfPoint1;
+        this.coordinatesOfPoint2 = coordinatesOfPoint2;
+        this.coordinatesOfPoint3 = coordinatesOfPoint3;
     }
 
     public List<Double> getCoordinatesOfPoint1() {
@@ -34,7 +34,7 @@ public class Triangle {
         return coordinatesOfPoint2;
     }
 
-    public List<Double> getValueOfCoordinatesOfPoint3() {
+    public List<Double> getCoordinatesOfPoint3() {
         return coordinatesOfPoint3;
     }
 

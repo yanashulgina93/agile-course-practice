@@ -13,7 +13,7 @@ public class TriangleExceptionsTests {
     private Triangle triangle;
     private Triangle triangleDivByZeroException;
     @Before
-    public void setUpTriangles() {
+    public void setUpTriangles() throws Exception {
         triangle = new Triangle(Arrays.asList(1.9, -2.3, 4.56),
                 Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(4.0, 5.0, 10.2), 3);
         triangleDivByZeroException = new Triangle(Arrays.asList(0.0, 3.5, 5.12),
@@ -33,7 +33,7 @@ public class TriangleExceptionsTests {
     @Test
     public void canFindLength() throws Exception {
         List<Double> coordinates1 = triangle.getCoordinatesOfPoint1();
-        List<Double> coordinates3 = triangle.getValueOfCoordinatesOfPoint3();
+        List<Double> coordinates3 = triangle.getCoordinatesOfPoint3();
         double length = triangle.getLength(coordinates1, coordinates3);
         assertNotNull(length);
     }
