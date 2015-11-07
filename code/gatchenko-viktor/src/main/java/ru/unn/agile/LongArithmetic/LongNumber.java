@@ -143,11 +143,9 @@ public class LongNumber {
         return result;
     }
 
-    public int getValue() {
-        return 0;// this.value;
-    }
-
     public void setValue(final int newValue) {
-        // this.value = newValue;
+        LongNumber newNum = new LongNumber(newValue);
+        this.rank = newNum.rank;
+        this.value = newNum.value;
     }
 }

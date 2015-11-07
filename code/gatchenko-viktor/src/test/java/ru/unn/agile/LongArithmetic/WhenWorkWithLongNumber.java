@@ -37,7 +37,8 @@ public class WhenWorkWithLongNumber {
         initializePairLongNumber(0, 5);
         result = lnNum1.multiply(lnNum2);
 
-        assertEquals(0, result.getValue());
+        boolean isEqual = result.isEqual(0);
+        assertEquals(true, isEqual);
     }
 
     // @Test
@@ -45,7 +46,8 @@ public class WhenWorkWithLongNumber {
         initializePairLongNumber(23, 135);
         result = lnNum1.multiply(lnNum2);
 
-        assertEquals(3105, result.getValue());
+        boolean isEqual = result.isEqual(3105);
+        assertEquals(true, isEqual);
     }
 
     // TODO Long Multiply @Test
