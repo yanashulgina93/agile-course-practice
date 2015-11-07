@@ -6,6 +6,7 @@ import java.util.Random;
 
 import org.junit.Test;
 
+import main.java.ru.unn.agile.LongArithmetic.LongNumber;
 import main.java.ru.unn.agile.LongArithmetic.Matrix;
 
 public class WhenWorkWithMatrix {
@@ -102,6 +103,23 @@ public class WhenWorkWithMatrix {
 
         boolean isEqual = matrix.isEqual(eMatrix);
         assertEquals(false, isEqual);
+    }
+
+    @Test
+    public void gettersAndSetters() {
+        Matrix matrix = new Matrix(6, 7);
+        int height = matrix.getHeight();
+        int width = matrix.getWidth();
+
+        matrix.setElement(4, 5, 33);
+        LongNumber element = matrix.getElement(4, 5);
+
+        boolean success = false;
+        if(height == 6 && width == 7 && element.isEqual(33)) {
+            success = true;
+        }
+
+        assertEquals(true, success);
     }
 
     private Matrix generateMatrix(final int height, final int width) {

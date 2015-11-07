@@ -92,16 +92,8 @@ public class Matrix {
         return this.width;
     }
 
-    public void setWidth(final int newWidth) {
-        this.width = newWidth;
-    }
-
     public int getHeight() {
         return this.height;
-    }
-
-    public void getHeight(final int newHeight) {
-        this.height = newHeight;
     }
 
     public LongNumber getElement(final int i, final int j) {
