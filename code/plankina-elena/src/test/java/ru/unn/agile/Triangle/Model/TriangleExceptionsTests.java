@@ -11,13 +11,10 @@ import static org.junit.Assert.assertNotNull;
 
 public class TriangleExceptionsTests {
     private Triangle triangle;
-    private Triangle triangleDivByZeroException;
     @Before
     public void setUpTriangles() throws Exception {
         triangle = new Triangle(Arrays.asList(1.9, -2.3, 4.56),
                 Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(4.0, 5.0, 10.2), 3);
-        triangleDivByZeroException = new Triangle(Arrays.asList(0.0, 3.5, 5.12),
-                Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(0.0, 3.5, 5.12), 3);
     }
 
     @Test
@@ -27,7 +24,11 @@ public class TriangleExceptionsTests {
 
     @Test
     public void canBuildNonDegenerateTriangle() throws Exception {
-        assertEquals(triangle.isPossibleToBuildNondegenerateTriangle(), true);
+        List<Double> coordinates1 = triangle.getCoordinatesOfPoint1();
+        List<Double> coordinates2 = triangle.getCoordinatesOfPoint2();
+        List<Double> coordinates3 = triangle.getCoordinatesOfPoint3();
+        assertEquals(triangle.isPossibleToBuildNondegenerateTriangle(coordinates1,
+                coordinates2, coordinates3), true);
     }
 
     @Test
@@ -66,21 +67,6 @@ public class TriangleExceptionsTests {
     public void canFindAngles() throws Exception {
         List<Double> angles = triangle.getAngles();
         assertNotNull(angles);
-    }
-
-    @Test(expected = Exception.class)
-    public void isDivisionByZeroWhenFindAltitudes() throws Exception {
-        List<Double> altitudes = triangleDivByZeroException.getAltitudes();
-    }
-
-    @Test(expected = Exception.class)
-    public void isDivisionByZeroWhenFindAngles() throws Exception {
-        List<Double> angles = triangleDivByZeroException.getAngles();
-    }
-
-    @Test(expected = Exception.class)
-    public void isDivisionByZeroWhenFindBisectrices() throws Exception {
-        List<Double> bisectrices = triangleDivByZeroException.getBisectrices();
     }
 
     @Test(expected = Exception.class)

@@ -12,14 +12,13 @@ import static org.junit.Assert.assertEquals;
 
 public class TriangleCorrectnessTests {
     private static final double DELTA = 0.00001;
-    private static final double THE_HALF = 0.5;
     private Triangle triangle;
     private double length1;
     private double length2;
     private double length3;
 
     @Before
-    public void setUpTriangles() {
+    public void setUpTriangle() throws Exception {
         triangle = new Triangle(Arrays.asList(1.9, -2.3, 4.56),
                 Arrays.asList(0.0, 3.5, 5.12), Arrays.asList(4.0, 5.0, 10.2), 3);
         length1 = sqrt(pow(1.9 - 0.0, 2) + pow(-2.3 - 3.5, 2) + pow(4.56 - 5.12, 2));
