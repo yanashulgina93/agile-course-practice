@@ -11,14 +11,15 @@ public class WhenWorkWithLongNumber {
     private LongNumber lnNum1;
     private LongNumber lnNum2;
     private LongNumber result;
+    private String strNum;
 
     @Test
     public void add1To0() {
         initializePairLongNumber(1, 0);
         result = lnNum1.add(lnNum2);
 
-        boolean isEqual = result.isEqual(1);
-        assertEquals(true, isEqual);
+        strNum = result.convertToString();
+        assertEquals("1", strNum);
     }
 
     @Test
@@ -26,8 +27,8 @@ public class WhenWorkWithLongNumber {
         initializePairLongNumber(122, 78);
         result = lnNum1.add(lnNum2);
 
-        boolean isEqual = result.isEqual(200);
-        assertEquals(true, isEqual);
+        strNum = result.convertToString();
+        assertEquals("200", strNum);
     }
 
     @Test
@@ -36,7 +37,7 @@ public class WhenWorkWithLongNumber {
         lnNum2 = new LongNumber("12345678998799999999999");
         result = lnNum1.add(lnNum2);
 
-        String strNum = result.convertToString();
+       strNum = result.convertToString();
         assertEquals("22345678998811111111110", strNum);
     }
 
@@ -45,8 +46,8 @@ public class WhenWorkWithLongNumber {
         initializePairLongNumber(0, 5);
         result = lnNum1.multiply(lnNum2);
 
-        boolean isEqual = result.isEqual(0);
-        assertEquals(true, isEqual);
+        strNum = result.convertToString();
+        assertEquals("0", strNum);
     }
 
     @Test
@@ -54,8 +55,8 @@ public class WhenWorkWithLongNumber {
         initializePairLongNumber(23099, 43);
         result = lnNum1.multiply(lnNum2);
 
-        boolean isEqual = result.isEqual(993257);
-        assertEquals(true, isEqual);
+        strNum = result.convertToString();
+        assertEquals("993257", strNum);
     }
 
     @Test
@@ -63,8 +64,8 @@ public class WhenWorkWithLongNumber {
         initializePairLongNumber(23, 135);
         result = lnNum1.multiply(lnNum2);
 
-        boolean isEqual = result.isEqual(3105);
-        assertEquals(true, isEqual);
+        strNum = result.convertToString();
+        assertEquals("3105", strNum);
     }
 
     @Test
@@ -73,8 +74,8 @@ public class WhenWorkWithLongNumber {
         lnNum2 = new LongNumber("123456789987");
         result = lnNum1.multiply(lnNum2);
 
-        boolean isEqual = result.isEqual(new LongNumber("123456789987123456789987"));
-        assertEquals(true, isEqual);
+        strNum = result.convertToString();
+        assertEquals("123456789987123456789987", strNum);
     }
 
     @Test
@@ -99,6 +100,30 @@ public class WhenWorkWithLongNumber {
         boolean isEqual = lnNum1.isEqual(lnNum2);
 
         assertEquals(true, isEqual);
+    }
+
+    @Test
+    public void convert0ToString() {
+        lnNum1 = new LongNumber();
+        strNum = lnNum1.convertToString();
+
+        assertEquals("0", strNum);
+    }
+
+    @Test
+    public void convert98123476ToString() {
+        lnNum1 = new LongNumber(98123476);
+        strNum = lnNum1.convertToString();
+
+        assertEquals("98123476", strNum);
+    }
+
+    @Test
+    public void convertLongToString() {
+        lnNum1 = new LongNumber("19283746519283746519283746519283745619");
+        strNum = lnNum1.convertToString();
+
+        assertEquals("19283746519283746519283746519283745619", strNum);
     }
 
     private void initializePairLongNumber(final int number1, final int number2) {

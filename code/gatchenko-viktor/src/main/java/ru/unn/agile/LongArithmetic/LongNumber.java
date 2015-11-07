@@ -4,7 +4,8 @@ import java.math.BigDecimal;
 
 public class LongNumber {
 
-    static final int[] UNDEFINED = null;
+    public static final int[] UNDEFINED_VALUE = null;
+    public static final LongNumber UNDEFINED = null;
 
     private static final int SCALE = 10;
     private int rank;
@@ -57,8 +58,8 @@ public class LongNumber {
     public LongNumber(final LongNumber copiedNum) {
         this.rank = copiedNum.rank;
         this.value = new int[this.rank];
-        if(copiedNum.value == LongNumber.UNDEFINED){
-            this.value = LongNumber.UNDEFINED;
+        if(copiedNum.value == LongNumber.UNDEFINED_VALUE){
+            this.value = LongNumber.UNDEFINED_VALUE;
         } else {
             for (int i = 0; i < this.rank; ++i) {
                 this.value[i] = copiedNum.value[i];
@@ -217,7 +218,7 @@ public class LongNumber {
 
     public boolean isUndefined() {
         boolean result = false;
-        if(this.value == LongNumber.UNDEFINED) {
+        if(this.value == LongNumber.UNDEFINED_VALUE) {
             result = true;
         }
 
