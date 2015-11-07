@@ -48,7 +48,7 @@ public class BitArray {
         return res;
     }
 
-    public Boolean[] getArrBit() {
+    public Boolean[] getArrayBit() {
         return this.arrayBit;
     }
 
