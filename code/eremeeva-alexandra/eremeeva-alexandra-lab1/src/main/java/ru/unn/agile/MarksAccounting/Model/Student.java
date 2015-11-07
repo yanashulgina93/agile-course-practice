@@ -10,14 +10,11 @@ public class Student {
 
     private int findMark(final String requiredAcademicSubject,
                          final GregorianCalendar requiredDate) {
-        int i = 0;
-        while (i < getMarks().size()
-                && !(getMarks().get(i).getDate().after(requiredDate))) {
+        for (int i = 0; i < getMarks().size(); i++) {
             if (getMarks().get(i).getDate().equals(requiredDate)
                     && getMarks().get(i).getAcademicSubject().equals(requiredAcademicSubject)) {
                 return i;
             }
-            i++;
         }
         throw new MarkDoesNotExistException("Required mark doesn't exist");
     }

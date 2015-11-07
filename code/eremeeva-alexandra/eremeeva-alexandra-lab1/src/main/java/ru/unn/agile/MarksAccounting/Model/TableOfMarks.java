@@ -8,13 +8,10 @@ public class TableOfMarks {
     private final ArrayList<Group> groups;
 
     private int findGroup(final String requiredGroup) {
-        int i = 0;
-        while (i < getGroups().size()
-                && getGroups().get(i).getNumber().compareTo(requiredGroup) <= 0) {
+        for (int i = 0; i < getGroups().size(); i++) {
             if (getGroups().get(i).getNumber().equals(requiredGroup)) {
                 return i;
             }
-            i++;
         }
         throw new GroupDoesNotExistException("Required group doesn't exist");
     }

@@ -10,26 +10,20 @@ public class Group {
     private final ArrayList<String> academicSubjects;
 
     private int findAcademicSubject(final String requiredAcademicSubject) {
-        int i = 0;
-        while (i < getAcademicSubjects().size()
-                && getAcademicSubjects().get(i).compareTo(requiredAcademicSubject) <= 0) {
+        for (int i = 0; i < getAcademicSubjects().size(); i++) {
             if (getAcademicSubjects().get(i).equals(requiredAcademicSubject)) {
                 return i;
             }
-            i++;
         }
         throw new AcademicSubjectDoesNotExistException(
                 "Required academic subject doesn't exist");
     }
 
     private int findStudent(final String requiredStudent) {
-        int i = 0;
-        while (i < getStudents().size()
-                && getStudents().get(i).getName().compareTo(requiredStudent) <= 0) {
+        for (int i = 0; i < getStudents().size(); i++) {
             if (getStudents().get(i).getName().equals(requiredStudent)) {
                 return i;
             }
-            i++;
         }
             throw new StudentDoesNotExistException("Required student doesn't exist");
     }
