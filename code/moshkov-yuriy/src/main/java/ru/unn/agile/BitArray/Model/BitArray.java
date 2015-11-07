@@ -3,28 +3,28 @@ package ru.unn.agile.BitArray.core;
 import java.util.Arrays;
 
 public class BitArray {
-    private final Boolean[] arrBit;
+    private final Boolean[] arrayBit;
     private final int size;
 
     public BitArray(final int size) {
-        this.arrBit = new Boolean[size];
-        Arrays.fill(this.arrBit, false);
+        this.arrayBit = new Boolean[size];
+        Arrays.fill(this.arrayBit, false);
         this.size = size;
     }
 
     public Boolean getBit(final int index) {
-        return arrBit[index];
+        return arrayBit[index];
     }
 
     public void setBit(final int index, final Boolean value) {
         if (value == null) {
             return;
         }
-        arrBit[index] = value;
+        arrayBit[index] = value;
     }
 
     public void setAll(final Boolean value) {
-        Arrays.fill(this.arrBit, value);
+        Arrays.fill(this.arrayBit, value);
     }
 
     public BitArray and(final BitArray bitArray) {
@@ -49,7 +49,7 @@ public class BitArray {
     }
 
     public Boolean[] getArrBit() {
-        return this.arrBit;
+        return this.arrayBit;
     }
 
     public int getSize() {
