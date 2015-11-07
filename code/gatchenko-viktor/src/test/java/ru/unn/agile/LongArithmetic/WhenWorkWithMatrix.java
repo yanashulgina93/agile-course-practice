@@ -2,11 +2,15 @@ package test.java.ru.unn.agile.LongArithmetic;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Random;
+
 import org.junit.Test;
 
 import main.java.ru.unn.agile.LongArithmetic.Matrix;
 
 public class WhenWorkWithMatrix {
+
+    final Random random = new Random();
 
     @Test
     public void multiplyMatrix2x2AndMatrix2x2() {
@@ -105,7 +109,7 @@ public class WhenWorkWithMatrix {
 
         for (int i = 0; i < height; ++i) {
             for (int j = 0; j < width; ++j) {
-                int value = (int) (Math.random() * 10000);
+                int value = Math.abs(random.nextInt());
                 resultMatrix.setElement(i, j, value);
             }
         }
