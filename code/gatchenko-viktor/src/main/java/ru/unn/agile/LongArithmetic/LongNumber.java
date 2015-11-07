@@ -26,9 +26,9 @@ public class LongNumber {
     public LongNumber(final char[] chars) {
         this.rank = chars.length;
         this.value = new int[rank];
-        for(int i = 0, j = this.rank - 1; i < this.rank; ++i, --j) {
+        for (int i = 0, j = this.rank - 1; i < this.rank; ++i, --j) {
             int newElement = Character.getNumericValue(chars[i]);
-            if(newElement < 10) {
+            if (newElement < 10) {
                 this.value[j] = Character.getNumericValue(chars[i]);
             } else {
                 this.value = null;
@@ -41,10 +41,10 @@ public class LongNumber {
     public LongNumber(final String string) {
         this.rank = string.length();
         this.value = new int[rank];
-        for(int i = 0, j = this.rank - 1; i < this.rank; ++i, --j) {
+        for (int i = 0, j = this.rank - 1; i < this.rank; ++i, --j) {
             char charElement = string.charAt(i);
             int newElement = Character.getNumericValue(charElement);
-            if(newElement < 10) {
+            if (newElement < 10) {
                 this.value[j] = Character.getNumericValue(charElement);
             } else {
                 this.value = null;
@@ -58,7 +58,7 @@ public class LongNumber {
     public LongNumber(final LongNumber copiedNum) {
         this.rank = copiedNum.rank;
         this.value = new int[this.rank];
-        if(copiedNum.value == LongNumber.UNDEFINED_VALUE){
+        if (copiedNum.value == LongNumber.UNDEFINED_VALUE) {
             this.value = LongNumber.UNDEFINED_VALUE;
         } else {
             for (int i = 0; i < this.rank; ++i) {
@@ -72,8 +72,7 @@ public class LongNumber {
         if (number == 0) {
             rank = 1;
         } else {
-            // TODO подправить формулу для разных scale
-            rank = (int) (Math.log10(number) + 1);
+            rank = (int) (Math.log(number) / Math.log(SCALE) + 1);
         }
 
         return rank;
@@ -146,9 +145,9 @@ public class LongNumber {
 
     private void deleteZero() {
         int lastElement = this.rank - 1;
-        if(this.value[lastElement] == 0) {
+        if (this.value[lastElement] == 0) {
             int[] newValue = new int[lastElement];
-            for(int i = 0; i < lastElement; ++i) {
+            for (int i = 0; i < lastElement; ++i) {
                 newValue[i] = this.value[i];
             }
             this.value = newValue;
@@ -173,7 +172,7 @@ public class LongNumber {
 
     public String convertToString() {
         String strNum = "";
-        for(int i = 0, j = this.rank - 1; i < this.rank; ++i, --j) {
+        for (int i = 0, j = this.rank - 1; i < this.rank; ++i, --j) {
             int element = this.value[j];
             strNum += Integer.toString(element);
         }
@@ -184,7 +183,7 @@ public class LongNumber {
     private int convertLongToInt() {
         int intNum = 0;
 
-        for(int i = 0; i < this.rank; ++i) {
+        for (int i = 0; i < this.rank; ++i) {
             intNum += this.value[i] * Math.pow(SCALE, i);
         }
 
@@ -218,7 +217,7 @@ public class LongNumber {
 
     public boolean isUndefined() {
         boolean result = false;
-        if(this.value == LongNumber.UNDEFINED_VALUE) {
+        if (this.value == LongNumber.UNDEFINED_VALUE) {
             result = true;
         }
 

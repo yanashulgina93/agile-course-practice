@@ -37,7 +37,7 @@ public class WhenWorkWithLongNumber {
         lnNum2 = new LongNumber("12345678998799999999999");
         result = lnNum1.add(lnNum2);
 
-       strNum = result.convertToString();
+        strNum = result.convertToString();
         assertEquals("22345678998811111111110", strNum);
     }
 
