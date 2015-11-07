@@ -32,6 +32,15 @@ public class WhenWorkWithLongNumber {
     }
 
     @Test
+    public void addMinus1To2() {
+        initializePairLongNumber(-1, 2);
+        result = lnNum1.add(lnNum2);
+
+        strNum = result.convertToString();
+        assertEquals("1", strNum);
+    }
+
+    @Test
     public void longAdd() {
         lnNum1 = new LongNumber("10000000000011111111111");
         lnNum2 = new LongNumber("12345678998799999999999");
@@ -124,6 +133,22 @@ public class WhenWorkWithLongNumber {
         strNum = lnNum1.convertToString();
 
         assertEquals("19283746519283746519283746519283745619", strNum);
+    }
+
+    @Test
+    public void defaultNumberIsNotUndefined() {
+        lnNum1 = new LongNumber();
+
+        boolean isUndefined = lnNum1.isUndefined();
+        assertEquals(false, isUndefined);
+    }
+
+    @Test
+    public void longNumberIsNotUndefined() {
+        lnNum1 = new LongNumber("123456789987654321");
+
+        boolean isUndefined = lnNum1.isUndefined();
+        assertEquals(false, isUndefined);
     }
 
     private void initializePairLongNumber(final int number1, final int number2) {

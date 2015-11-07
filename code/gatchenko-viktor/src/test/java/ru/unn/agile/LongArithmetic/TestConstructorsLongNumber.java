@@ -43,6 +43,14 @@ public class TestConstructorsLongNumber {
     }
 
     @Test
+    public void intMinus1ToLongNumber() {
+        lnNum = new LongNumber(-1);
+
+        boolean isEqual = lnNum.isEqual(-1);
+        assertEquals(true, isEqual);
+    }
+
+    @Test
     public void chars11ToLongNumber() {
         char[] chars = { '1', '1' };
         lnNum = new LongNumber(chars);
