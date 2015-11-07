@@ -7,81 +7,81 @@ import static org.junit.Assert.*;
 
 public class BitArrayTest {
 
-    private BitArray bitArr;
+    private BitArray bitArray;
 
     @Before
     public void initializeBitArray() {
-        bitArr = new BitArray(5);
+        bitArray = new BitArray(5);
     }
 
     @Test
     public void canCreateBitArrayWithSize() {
-        assertNotNull(bitArr);
+        assertNotNull(bitArray);
     }
 
     @Test
     public void canGetValueBit() {
-        assertNotNull(bitArr.getBit(0));
+        assertNotNull(bitArray.getBit(0));
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void failWhenGetValueBitWithIndexOutOfRangeSize() {
-        bitArr.getBit(6);
+        bitArray.getBit(6);
     }
 
     @Test()
     public void canSetValueBit() {
-        bitArr.setBit(1, true);
-        assertTrue(bitArr.getBit(1));
+        bitArray.setBit(1, true);
+        assertTrue(bitArray.getBit(1));
     }
 
     @Test()
     public void canNotSetNullValueBit() {
-        bitArr.setBit(1, null);
-        assertNotNull(bitArr.getBit(1));
+        bitArray.setBit(1, null);
+        assertNotNull(bitArray.getBit(1));
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void failWhenSetValueBitWithIndexOutOfRangeSize() {
-        bitArr.setBit(-1, true);
+        bitArray.setBit(-1, true);
     }
 
     @Test
     public void canSetAllValuesInArr() {
-        Boolean[] allFalseArr = new Boolean[bitArr.getSize()];
-        Arrays.fill(allFalseArr, false);
-        bitArr.setAll(false);
-        assertTrue(Arrays.equals(bitArr.getArrBit(), allFalseArr));
+        Boolean[] allFalseArray = new Boolean[bitArray.getSize()];
+        Arrays.fill(allFalseArray, false);
+        bitArray.setAll(false);
+        assertTrue(Arrays.equals(bitArray.getArrBit(), allFalseArray));
     }
 
     @Test
     public void canAndArrsWithSameSize() {
         BitArray arr2 = new BitArray(5);
         BitArray resArr;
-        Boolean[] allFalseArr = new Boolean[bitArr.getSize()];
-        Arrays.fill(allFalseArr, false);
-        bitArr.setAll(false);
+        Boolean[] allFalseArray = new Boolean[bitArray.getSize()];
+        Arrays.fill(allFalseArray, false);
+        bitArray.setAll(false);
         arr2.setAll(true);
-        resArr = bitArr.and(arr2);
-        assertTrue(Arrays.equals(resArr.getArrBit(), allFalseArr));
+        resArr = bitArray.and(arr2);
+        assertTrue(Arrays.equals(resArr.getArrBit(), allFalseArray));
     }
 
     @Test(expected = BitArrayDifferentSizeException.class)
     public void failWhenAndArrsWithDifferentSize() {
         BitArray arr2 = new BitArray(6);
         BitArray resArr;
-        resArr = bitArr.and(arr2);
+        resArr = bitArray.and(arr2);
     }
 
     @Test
     public void canOrArrsWithSameSize() {
         BitArray arr2 = new BitArray(5);
         BitArray resArr;
-        Boolean[] allTrueArr = new Boolean[bitArr.getSize()];
+        Boolean[] allTrueArr = new Boolean[bitArray.getSize()];
         Arrays.fill(allTrueArr, true);
-        bitArr.setAll(false);
+        bitArray.setAll(false);
         arr2.setAll(true);
-        resArr = bitArr.or(arr2);
+        resArr = bitArray.or(arr2);
         assertTrue(Arrays.equals(resArr.getArrBit(), allTrueArr));
     }
 
@@ -89,35 +89,35 @@ public class BitArrayTest {
     public void failWhenOrArrsWithDifferentSize() {
         BitArray arr2 = new BitArray(6);
         BitArray resArr;
-        resArr = bitArr.or(arr2);
+        resArr = bitArray.or(arr2);
     }
 
     @Test
     public void canXorArrsWithSameSize() {
         BitArray arr2 = new BitArray(5);
         BitArray resArr;
-        Boolean[] allFalseArr = new Boolean[bitArr.getSize()];
-        Arrays.fill(allFalseArr, false);
-        bitArr.setAll(true);
+        Boolean[] allFalseArray = new Boolean[bitArray.getSize()];
+        Arrays.fill(allFalseArray, false);
+        bitArray.setAll(true);
         arr2.setAll(true);
-        resArr = bitArr.xor(arr2);
-        assertTrue(Arrays.equals(resArr.getArrBit(), allFalseArr));
+        resArr = bitArray.xor(arr2);
+        assertTrue(Arrays.equals(resArr.getArrBit(), allFalseArray));
     }
 
     @Test(expected = BitArrayDifferentSizeException.class)
     public void failWhenXorArrsWithDifferentSize() {
         BitArray arr2 = new BitArray(6);
         BitArray resArr;
-        resArr = bitArr.xor(arr2);
+        resArr = bitArray.xor(arr2);
     }
 
     @Test
     public void canNotArr() {
         BitArray resArr;
-        Boolean[] allTrueArr = new Boolean[bitArr.getSize()];
+        Boolean[] allTrueArr = new Boolean[bitArray.getSize()];
         Arrays.fill(allTrueArr, true);
-        bitArr.setAll(false);
-        resArr = bitArr.not();
+        bitArray.setAll(false);
+        resArr = bitArray.not();
         assertTrue(Arrays.equals(resArr.getArrBit(), allTrueArr));
     }
 }
