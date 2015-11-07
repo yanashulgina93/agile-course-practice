@@ -1,6 +1,6 @@
 package ru.unn.agile.TemperatureConverter.view;
 
-import ru.unn.agile.TemperatureConverter.Model.TemperatureScaleName;
+import ru.unn.agile.TemperatureConverter.model.TemperatureScaleName;
 import ru.unn.agile.TemperatureConverter.viewmodel.ViewModel;
 
 import javax.swing.*;

@@ -1,4 +1,4 @@
-package ru.unn.agile.TemperatureConverter.Model;
+package ru.unn.agile.TemperatureConverter.model;
 
 import org.junit.Test;
 

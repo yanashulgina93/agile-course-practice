@@ -1,7 +1,7 @@
 package ru.unn.agile.TemperatureConverter.viewmodel;
 
-import ru.unn.agile.TemperatureConverter.Model.TemperatureConverter;
-import ru.unn.agile.TemperatureConverter.Model.TemperatureScaleName;
+import ru.unn.agile.TemperatureConverter.model.TemperatureConverter;
+import ru.unn.agile.TemperatureConverter.model.TemperatureScaleName;
 
 public class ViewModel {
     private String inputTemperature;

@@ -3,7 +3,7 @@ package ru.unn.agile.TemperatureConverter.viewmodel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import ru.unn.agile.TemperatureConverter.Model.TemperatureScaleName;
+import ru.unn.agile.TemperatureConverter.model.TemperatureScaleName;
 
 import static org.junit.Assert.assertEquals;
 

@@ -1,4 +1,4 @@
-package ru.unn.agile.TemperatureConverter.Model;
+package ru.unn.agile.TemperatureConverter.model;
 
 public enum TemperatureScaleName {
     FAHRENHEIT("Fahrenheit", 32.0, 1.8),
