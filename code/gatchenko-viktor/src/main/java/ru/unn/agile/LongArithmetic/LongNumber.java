@@ -170,7 +170,7 @@ public class LongNumber {
         return result;
     }
 
-    private String convertToString() {
+    public String convertToString() {
         String strNum = "";
         for(int i = 0, j = this.rank - 1; i < this.rank; ++i, --j) {
             int element = this.value[j];

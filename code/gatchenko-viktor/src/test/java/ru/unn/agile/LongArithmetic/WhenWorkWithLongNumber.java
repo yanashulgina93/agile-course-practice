@@ -30,7 +30,15 @@ public class WhenWorkWithLongNumber {
         assertEquals(true, isEqual);
     }
 
-    // TODO Long Add @Test
+    @Test
+    public void longAdd() {
+        lnNum1 = new LongNumber("10000000000011111111111");
+        lnNum2 = new LongNumber("12345678998799999999999");
+        result = lnNum1.add(lnNum2);
+
+        String strNum = result.convertToString();
+        assertEquals("22345678998811111111110", strNum);
+    }
 
     @Test
     public void multiply0And5() {
@@ -59,7 +67,15 @@ public class WhenWorkWithLongNumber {
         assertEquals(true, isEqual);
     }
 
-    // TODO Long Multiply @Test
+    @Test
+    public void longMultiply() {
+        lnNum1 = new LongNumber("1000000000001");
+        lnNum2 = new LongNumber("123456789987");
+        result = lnNum1.multiply(lnNum2);
+
+        boolean isEqual = result.isEqual(new LongNumber("123456789987123456789987"));
+        assertEquals(true, isEqual);
+    }
 
     @Test
     public void compare0And1() {
