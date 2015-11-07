@@ -1,3 +1,7 @@
+dependencies {
+    compile project(':yusipov-igor-ViewModel')
+}
+
 sourceSets {
-    main.java.srcDir 'src/main/java'
+    main.java.srcDir 'src/main'
 }
