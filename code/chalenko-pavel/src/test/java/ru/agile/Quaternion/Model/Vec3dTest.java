@@ -11,74 +11,74 @@ import org.junit.Test;
 
 public class Vec3dTest {
 
-	private Vec3d vec1;
-	private Vec3d vec2;
+	private Vec3d vector1;
+	private Vec3d vector2;
 	final private double eps = 0.001;
 	
 	@Before
 	public void setUp() throws Exception {
-		vec1 = new Vec3d(1.0, 2.0, 3.0);
-		vec2 = new Vec3d(0.5, 0.25, 0.33333);
+		vector1 = new Vec3d(1.0, 2.0, 3.0);
+		vector2 = new Vec3d(0.5, 0.25, 0.33333);
 	}
 
 	@Test
 	public void canCreateVec3dWithInitialValues() {
-		assertNotNull("Can't create Vec3d with initial value", vec1);
-		assertNotNull("Can't create Vec3d with initial value", vec2);
+		assertNotNull("Can't create Vec3d with initial value", vector1);
+		assertNotNull("Can't create Vec3d with initial value", vector2);
 	}
 	
 	@Test
 	public void areVec3dEquals(){
-		Vec3d vec3 = new Vec3d(1, 2.0, 3.0);
+		Vec3d vector3 = new Vec3d(1, 2.0, 3.0);
 		
-		assertTrue("Two vectors are not equal", vec1.equals(vec3));
+		assertTrue("Two vectors are not equal", vector1.equals(vector3));
 	}
 	
 	@Test
 	public void isVec3dEqualsComutative(){
-		Vec3d vec = new Vec3d(1, 2.0, 3.0);
+		Vec3d vector = new Vec3d(1, 2.0, 3.0);
 		
-		boolean e1 = vec1.equals(vec);
-		boolean e2 = vec.equals(vec1);
+		boolean e1 = vector1.equals(vector);
+		boolean e2 = vector.equals(vector1);
 		
 		assertEquals("Equals isn't comutative", e1, e2);
 	}
 	
 	@Test
 	public void Vec3dAreNotEquals(){
-		Vec3d vec3 = new Vec3d(1, 2.0, 3.0);
+		Vec3d vector3 = new Vec3d(1, 2.0, 3.0);
 		
-		assertFalse("Two vectors are equal", vec2.equals(vec3));
+		assertFalse("Two vectors are equal", vector2.equals(vector3));
 	}
 	
 	@Test
 	public void Vec3dAreNotEqualsInt(){
 		int number = 7;
 		
-		assertFalse("Two vectors are equal", vec2.equals(number));
+		assertFalse("Two vectors are equal", vector2.equals(number));
 	}
 	
 	@Test
 	public void Vec3dAreNotEqualsParticly1(){
-		Vec3d vec3 = new Vec3d(1, 2.0, 3.5);
+		Vec3d vector3 = new Vec3d(1, 2.0, 3.5);
 		
-		assertFalse("Two vectors are equal", vec1.equals(vec3));
+		assertFalse("Two vectors are equal", vector1.equals(vector3));
 	}
 	
 	@Test
 	public void Vec3dAreNotEqualsParticly2(){
-		Vec3d vec3 = new Vec3d(1, 2.5, 3.5);
+		Vec3d vector3 = new Vec3d(1, 2.5, 3.5);
 		
-		assertFalse("Two vectors are equal", vec1.equals(vec3));
+		assertFalse("Two vectors are equal", vector1.equals(vector3));
 	}
 	
 	@Test
 	public void canEqualsEps(){
-		vec2 = new Vec3d(1, 2.+ eps/2, 3 - eps/2);
-		Vec3d vec3 = new Vec3d(1, 2 + 2*eps, 3);
+		vector2 = new Vec3d(1, 2.+ eps/2, 3 - eps/2);
+		Vec3d vector3 = new Vec3d(1, 2 + 2*eps, 3);
 		
-		boolean v1equalsv2 = vec1.equals(vec2, eps);
-		boolean v1equalsv3 = vec1.equals(vec3, eps);
+		boolean v1equalsv2 = vector1.equals(vector2, eps);
+		boolean v1equalsv3 = vector1.equals(vector3, eps);
 		
 		assertTrue("Can't compare vectors with precision", v1equalsv2);
 		assertFalse("Can't compare vectors with precision", v1equalsv3);
@@ -86,38 +86,38 @@ public class Vec3dTest {
 	
 	@Test
 	public void canSetInitialValueX(){
-		double x = vec1.getX();
+		double x = vector1.getX();
 		
 		assertEquals("Can't set initial x value", 1, x, eps);
 	}
 	
 	@Test
 	public void canSetInitialValueY(){
-		double y = vec1.getY();
+		double y = vector1.getY();
 		
 		assertEquals("Can't set initial y value", 2.0, y, eps);
 	}
 	
 	@Test
 	public void canSetInitialValueZ(){
-		double z = vec1.getZ();
+		double z = vector1.getZ();
 		
 		assertEquals("Can't set initial z value", 3.0, z, eps);
 	}
 	
 	@Test
 	public void canAdd(){
-		Vec3d expectedSumVec = new Vec3d(1.5, 2.25, 3.33333);
+		Vec3d expectedSumVector = new Vec3d(1.5, 2.25, 3.33333);
 		
-		Vec3d actualSumVec = vec1.add(vec2);
+		Vec3d actualSumVector = vector1.add(vector2);
 		
-		assertTrue("Can't added vectors", actualSumVec.equals(expectedSumVec));
+		assertTrue("Can't added vectors", actualSumVector.equals(expectedSumVector));
 	}
 	
 	@Test
 	public void isAddComutative(){
-		Vec3d add12 = vec1.add(vec2);
-		Vec3d add21 = vec2.add(vec1);
+		Vec3d add12 = vector1.add(vector2);
+		Vec3d add21 = vector2.add(vector1);
 		boolean actual = add12.equals(add21);
 		
 		assertTrue("Vector add isn't comutative", actual);
@@ -127,7 +127,7 @@ public class Vec3dTest {
 	public void canCalculateDotProduct(){
 		double expectedDot = 2;
 		
-		double actualDot = vec1.dot(vec2);
+		double actualDot = vector1.dot(vector2);
 		
 		assertEquals("Can't scalar multiply", expectedDot, actualDot, eps);
 	}
@@ -135,17 +135,17 @@ public class Vec3dTest {
 	@Test
 	public void canCalculateDotProductWithZeroVector(){
 		double expectedDot = 0;
-		vec2 = new Vec3d(0, 0, 0);
+		vector2 = new Vec3d(0, 0, 0);
 		
-		double actualDot = vec1.dot(vec2);
+		double actualDot = vector1.dot(vector2);
 		
 		assertEquals("Can't scalar multiply", expectedDot, actualDot, eps);
 	}
 	
 	@Test
 	public void isDotProductComutative(){
-		double actualDot12 = vec1.dot(vec2);
-		double actualDot21 = vec2.dot(vec1);
+		double actualDot12 = vector1.dot(vector2);
+		double actualDot21 = vector2.dot(vector1);
 		
 		assertEquals("Can't scalar multiply", actualDot12, actualDot21, eps);
 	}
@@ -154,7 +154,7 @@ public class Vec3dTest {
 	public void canCalculateLength(){
 		double expectedLen = 3.74166;
 		
-		double actualLen = vec1.length();
+		double actualLen = vector1.length();
 		
 		assertEquals("Can't calculate length", expectedLen, actualLen, eps);
 	}
@@ -162,9 +162,9 @@ public class Vec3dTest {
 	@Test
 	public void canCalculateZeroVectorLength(){
 		double expectedLen = 0;
-		vec1 = new Vec3d(0, 0, 0);
+		vector1 = new Vec3d(0, 0, 0);
 		
-		double actualLen = vec1.length();
+		double actualLen = vector1.length();
 		
 		assertEquals("Can't calculate length", expectedLen, actualLen, eps);
 	}
@@ -175,27 +175,27 @@ public class Vec3dTest {
 		Vec3d ortY = new Vec3d(0, 1, 0);
 		Vec3d ortZ = new Vec3d(0, 0, 1);
 		
-		Vec3d actualVec = ortX.mul(ortY);
+		Vec3d actualVector = ortX.mul(ortY);
 		
-		assertTrue("Can't vector multiply", actualVec.equals(ortZ));
+		assertTrue("Can't vector multiply", actualVector.equals(ortZ));
 	}
 	
 	@Test
 	public void canVecMul(){
-		Vec3d expectedVec = new Vec3d(-0.08334, 1.16667, -0.75);
+		Vec3d expectedVector = new Vec3d(-0.08334, 1.16667, -0.75);
 		
-		Vec3d actualVec = vec1.mul(vec2);
+		Vec3d actualVector = vector1.mul(vector2);
 		
-		//assertTrue("Can't calculate length", actualVec.equals(expectedVec));
-		assertEquals("Can't vector multiply: wrong i component", expectedVec.getX(), actualVec.getX(), eps);
-		assertEquals("Can't vector multiply: wrong j component", expectedVec.getY(), actualVec.getY(), eps);
-		assertEquals("Can't vector multiply: wrong k component", expectedVec.getZ(), actualVec.getZ(), eps);
+		//assertTrue("Can't calculate length", actualVector.equals(expectedVector));
+		assertEquals("Can't vector multiply: wrong i component", expectedVector.getX(), actualVector.getX(), eps);
+		assertEquals("Can't vector multiply: wrong j component", expectedVector.getY(), actualVector.getY(), eps);
+		assertEquals("Can't vector multiply: wrong k component", expectedVector.getZ(), actualVector.getZ(), eps);
 	}
 	
 	@Test
 	public void isVectorProductNonComutative(){
-		Vec3d mul12 = vec1.mul(vec2);
-		Vec3d mul21 = vec2.mul(vec1);
+		Vec3d mul12 = vector1.mul(vector2);
+		Vec3d mul21 = vector2.mul(vector1);
 		
 		boolean actual = mul12.equals(mul21);
 		
@@ -204,72 +204,72 @@ public class Vec3dTest {
 	
 	@Test
 	public void canMulScalarToVector(){
-		Vec3d expectedVec = new Vec3d(2.0, 4, 6);
+		Vec3d expectedVector = new Vec3d(2.0, 4, 6);
 		
-		Vec3d actualVec = vec1.mul(2);
+		Vec3d actualVector = vector1.mul(2);
 		
-		assertTrue("Can't multiply vector to scalar", actualVec.equals(expectedVec));
+		assertTrue("Can't multiply vector to scalar", actualVector.equals(expectedVector));
 	}
 	
 	@Test
 	public void canMulToZero(){
-		Vec3d expectedVec = new Vec3d(0, 0, 0);
+		Vec3d expectedVector = new Vec3d(0, 0, 0);
 		
-		Vec3d actualVec = vec1.mul(0);
+		Vec3d actualVector = vector1.mul(0);
 		
-		assertTrue("Can't multiply vector to scalar", actualVec.equals(expectedVec));
+		assertTrue("Can't multiply vector to scalar", actualVector.equals(expectedVector));
 	}
 	
 	@Test
 	public void canCopy(){
-		Vec3d actualVec = new Vec3d(vec1);
+		Vec3d actualVector = new Vec3d(vector1);
 		
-		assertTrue("Can't copy vector", actualVec.equals(vec1));
-		assertFalse("Can't copy vector", actualVec.equals(vec2));
+		assertTrue("Can't copy vector", actualVector.equals(vector1));
+		assertFalse("Can't copy vector", actualVector.equals(vector2));
 	}
 	
 	@Test (expected = NullPointerException.class)
 	public void canThrowExceptionWhenCopyNull(){
-		Vec3d actualVec = new Vec3d(null);
+		Vec3d actualVector = new Vec3d(null);
 		
-		assertTrue("Can't copy vector", actualVec.equals(vec1));
-		assertFalse("Can't copy vector", actualVec.equals(vec2));
+		assertTrue("Can't copy vector", actualVector.equals(vector1));
+		assertFalse("Can't copy vector", actualVector.equals(vector2));
 	}
 	
 	@Test
 	public void canNormalize(){
-		Vec3d expectedVec = new Vec3d(0.577, .577, .577);
-		Vec3d actualVec = new Vec3d(1, 1, 1);
+		Vec3d expectedVector = new Vec3d(0.577, .577, .577);
+		Vec3d actualVector = new Vec3d(1, 1, 1);
 		
-		actualVec.normalize();
+		actualVector.normalize();
 		
-		assertTrue("Can't normalize vector", actualVec.equals(expectedVec, eps));
+		assertTrue("Can't normalize vector", actualVector.equals(expectedVector, eps));
 	}
 	
 	@Test
 	public void canNormalizeOrt(){
-		Vec3d expectedVec = new Vec3d(1, 0, 0);
-		Vec3d actualVec = new Vec3d(1, 0, 0);
+		Vec3d expectedVector = new Vec3d(1, 0, 0);
+		Vec3d actualVector = new Vec3d(1, 0, 0);
 		
-		actualVec.normalize();
+		actualVector.normalize();
 		
-		assertTrue("Can't normalize ort", actualVec.equals(expectedVec, eps));
+		assertTrue("Can't normalize ort", actualVector.equals(expectedVector, eps));
 	}
 	
 	@Test
 	public void canNormalizeVectorWithLength2(){
-		Vec3d expectedVec = new Vec3d(0, 1, 0);
-		Vec3d actualVec = new Vec3d(0, 2, 0);
+		Vec3d expectedVector = new Vec3d(0, 1, 0);
+		Vec3d actualVector = new Vec3d(0, 2, 0);
 		
-		actualVec.normalize();
+		actualVector.normalize();
 		
-		assertTrue("Can't normalize vector", actualVec.equals(expectedVec, eps));
+		assertTrue("Can't normalize vector", actualVector.equals(expectedVector, eps));
 	}
 	
 	@Test (expected = ArithmeticException.class)
 	public void canNotNormalizeZeroVector(){
-		Vec3d actualVec = new Vec3d(0., .0, .0);
+		Vec3d actualVector = new Vec3d(0., .0, .0);
 		
-		actualVec.normalize();
+		actualVector.normalize();
 	}
 }

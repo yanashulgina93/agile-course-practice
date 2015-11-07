@@ -147,7 +147,7 @@ public class QuatTest {
 	}
 	
 	@Test
-	public void canMulVecPartQuat(){
+	public void canMulVectorPartQuat(){
 		Quat expectedMulQuat = new Quat(-10, -4, 8, -4);
 		q1 = new Quat(0, 1, 2, 3);
 		q2 = new Quat(0, 3, 2, 1);
@@ -158,7 +158,7 @@ public class QuatTest {
 	}
 	
 	@Test
-	public void canMulScalalPartQuatToVecPartQuat(){
+	public void canMulScalalPartQuatToVectorPartQuat(){
 		Quat expectedMulQuat = new Quat(0, 6, 4, 2);
 		q1 = new Quat(2, 0, 0, 0);
 		q2 = new Quat(0, 3, 2, 1);

@@ -12,11 +12,11 @@ public class Vec3d {
 		this.z = z;
 	}
 
-	public Vec3d(Vec3d vec) {
-		if (vec != null){
-			this.x = vec.x;
-			this.y = vec.y;
-			this.z = vec.z;
+	public Vec3d(Vec3d vector) {
+		if (vector != null){
+			this.x = vector.x;
+			this.y = vector.y;
+			this.z = vector.z;
 		} else {
 			throw new NullPointerException();
 		}
@@ -39,8 +39,8 @@ public class Vec3d {
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Vec3d){
-			Vec3d vec = (Vec3d)obj;
-			return ((this.x == vec.x) && (this.y == vec.y) && (this.z == vec.z));
+			Vec3d vector = (Vec3d)obj;
+			return ((this.x == vector.x) && (this.y == vector.y) && (this.z == vector.z));
 		}
 		return false;
 	}
