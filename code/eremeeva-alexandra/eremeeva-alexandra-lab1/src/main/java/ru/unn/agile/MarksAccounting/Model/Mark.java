@@ -10,9 +10,13 @@ public class Mark {
 
     public Mark(final int currentValue, final String currentAcademicSubject,
                 final GregorianCalendar currentDate) {
-        this.value = currentValue;
-        this.academicSubject = currentAcademicSubject;
-        this.date = currentDate;
+        if (currentValue > 0) {
+            this.value = currentValue;
+            this.academicSubject = currentAcademicSubject;
+            this.date = currentDate;
+        } else {
+            throw new MarkIsNotPositiveException("Mark must be positive");
+        }
     }
 
     public int getValue() {
@@ -48,6 +52,10 @@ public class Mark {
     }
 
     public void correctMark(final int newValue) {
-        this.value = newValue;
+        if (newValue > 0) {
+            this.value = newValue;
+        } else {
+            throw new MarkIsNotPositiveException("Mark must be positive");
+        }
     }
 }

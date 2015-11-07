@@ -15,6 +15,11 @@ public class TestMark {
         five = new Mark(5, "Maths", new GregorianCalendar(2015, Calendar.OCTOBER, 31));
     }
 
+    @Test(expected = MarkIsNotPositiveException.class)
+    public void cannotInitNonPositiveMark() {
+        five = new Mark(-2, "Maths", new GregorianCalendar(2015, Calendar.OCTOBER, 31));
+    }
+
     @Test
     public void canGetAcademicSubject() {
         assertEquals("Maths", five.getAcademicSubject());
@@ -71,5 +76,10 @@ public class TestMark {
     public void canCorrectValue() {
         five.correctMark(4);
         assertEquals(4, five.getValue());
+    }
+
+    @Test (expected = MarkIsNotPositiveException.class)
+    public void cannotCorrectValueWhenItIsNotPositive() {
+        five.correctMark(0);
     }
 }
