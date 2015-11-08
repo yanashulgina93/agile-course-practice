@@ -17,15 +17,13 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
     private ProbabilityOfEventCalculator probabilityCalculator;
     private VarianceCalculator varianceCalculator;
 
-    private Collection<IStatisticalResult> dataInstances;
     private double deltaForDoubleAssertEquals = 1e-3;
-    private NumericalStatisticConverter numericalStatisticConverter;
 
-    private Number[] currentTestingData;
+    private Collection<Double> currentTestingData;
 
     private double exactEnumeration;
     private double exactVariance;
-    private IStatisticalResult testingEvent;
+    private double testingEvent;
     private double exactProbabilityOfTestingEvent;
 
 
@@ -33,23 +31,27 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
     public static Collection<Object[]> getDataForTesting() {
 
         ArrayList<Object[]> allTestingData = new ArrayList<>();
-        allTestingData.add(formTestDataInstanceFromEmptyIntegerArray());
-        allTestingData.add(formTestDataInstanceFromConstantIntegerArray());
-        allTestingData.add(formTestDataInstanceFromShortIntegerArray());
-        allTestingData.add(formTestDataInstanceFromMonotoneIntegerArray());
-        allTestingData.add(formTestDataInstanceFromFloatArrayContainedOneNumber());
-        allTestingData.add(formTestDataInstanceFromShortFloatArray());
-        allTestingData.add(formTestDataInstanceFromDoubleArrayOfOneCosPeriod());
+        allTestingData.add(formTestDataFromEmptyIntegerArray());
+        allTestingData.add(formTestDataFromConstantIntegerArray());
+        allTestingData.add(formTestDataFromShortIntegerArray());
+        allTestingData.add(formTestDataFromMonotoneIntegerArray());
+        allTestingData.add(formTestDataFromFloatArrayContainedOneNumber());
+        allTestingData.add(formTestDataFromShortFloatArray());
+        allTestingData.add(formTestDataFromDoubleArrayOfOneCosPeriod());
 
         return allTestingData;
     }
 
-    public ParameterizedTestsWhenCalculateStatisticValues(final Number[] currentTestingData,
+    public ParameterizedTestsWhenCalculateStatisticValues(final Number[] testingArray,
                                                           final double exactEnumeration,
                                                           final double exactVariance,
-                                                          final IStatisticalResult event,
+                                                          final double event,
                                                           final double exactProbabilityOfEvent) {
-        this.currentTestingData = currentTestingData;
+        currentTestingData = new ArrayList<>();
+        for(Number item : testingArray) {
+            currentTestingData.add(item.doubleValue());
+        }
+
         this.exactEnumeration = exactEnumeration;
         this.exactVariance = exactVariance;
         this.testingEvent = event;
@@ -60,7 +62,7 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
     public void calculatedEnumerationOfNumericDataIsEqualToExactEnumeration() {
         setUpTest();
 
-        double calculatedEnumeration = enumerationCalculator.calculate();
+        double calculatedEnumeration = enumerationCalculator.calculate(currentTestingData);
 
         assertEquals(exactEnumeration, calculatedEnumeration, deltaForDoubleAssertEquals);
     }
@@ -69,7 +71,7 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
     public void calculatedVarianceOfNumericDataIsEqualToExactVariance() {
         setUpTest();
 
-        double calculatedVariance = varianceCalculator.calculate();
+        double calculatedVariance = varianceCalculator.calculate(currentTestingData);
 
         assertEquals(exactVariance, calculatedVariance, deltaForDoubleAssertEquals);
     }
@@ -78,7 +80,7 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
     public void calculatedProbabilityOfTestingEventOnNumericDataIsEqualToExactProbability() {
         setUpTest();
 
-        double calculatedProbability = probabilityCalculator.calculate();
+        double calculatedProbability = probabilityCalculator.calculate(currentTestingData);
 
         assertEquals(calculatedProbability,
                 exactProbabilityOfTestingEvent,
@@ -88,118 +90,115 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
 
 
     private void setUpTest() {
-        numericalStatisticConverter = new NumericalStatisticConverter(currentTestingData);
-        dataInstances = numericalStatisticConverter.convert();
-
-        enumerationCalculator = new EnumerationCalculator(dataInstances);
-        varianceCalculator = new VarianceCalculator(dataInstances);
-        probabilityCalculator = new ProbabilityOfEventCalculator(dataInstances, testingEvent);
+        enumerationCalculator = new EnumerationCalculator();
+        varianceCalculator = new VarianceCalculator();
+        probabilityCalculator = new ProbabilityOfEventCalculator(testingEvent);
     }
 
-    private static Object[] formTestDataInstance(final Number[] numericData,
-                                                 final double exactEnumeration,
-                                                 final double exactVariance,
-                                                 final IStatisticalResult event,
-                                                 final double exactProbabilityOfEvent) {
+    private static Object[] formTestData(final Number[] numericData,
+                                         final double exactEnumeration,
+                                         final double exactVariance,
+                                         final double event,
+                                         final double exactProbabilityOfEvent) {
 
-        Object[] testDataInstance = new Object[5];
-        testDataInstance[0] = numericData;
-        testDataInstance[1] = exactEnumeration;
-        testDataInstance[2] = exactVariance;
-        testDataInstance[3] = event;
-        testDataInstance[4] = exactProbabilityOfEvent;
+        Object[] testData = new Object[5];
+        testData[0] = numericData;
+        testData[1] = exactEnumeration;
+        testData[2] = exactVariance;
+        testData[3] = event;
+        testData[4] = exactProbabilityOfEvent;
 
-        return testDataInstance;
+        return testData;
     }
 
-    private static Object[] formTestDataInstanceFromEmptyIntegerArray() {
+    private static Object[] formTestDataFromEmptyIntegerArray() {
         Integer[] emptyIntegerArray = {};
         double exactEnumerationOfEmptyIntegerArray = 0.0;
         double exactVarianceOfEmptyIntegerArray = 0.0;
-        IStatisticalResult testingEvent = new NumericStatisticalResult(1);
+        double testingEvent = 1;
         double probabilityOfTestingEvent = 0.0;
 
-        return formTestDataInstance(emptyIntegerArray,
+        return formTestData(emptyIntegerArray,
                 exactEnumerationOfEmptyIntegerArray,
                 exactVarianceOfEmptyIntegerArray,
                 testingEvent,
                 probabilityOfTestingEvent);
     }
 
-    private static Object[] formTestDataInstanceFromConstantIntegerArray() {
+    private static Object[] formTestDataFromConstantIntegerArray() {
         Integer[] constantIntegerArray = {5, 5, 5, 5};
         double exactEnumerationOfConstantIntegerArray = 5.0;
         double exactVarianceOfConstantIntegerArray = 0.0;
-        IStatisticalResult testingEvent = new NumericStatisticalResult(5);
+        double testingEvent = 5;
         double probabilityOfTestingEvent = 1.0;
 
-        return formTestDataInstance(constantIntegerArray,
+        return formTestData(constantIntegerArray,
                 exactEnumerationOfConstantIntegerArray,
                 exactVarianceOfConstantIntegerArray,
                 testingEvent,
                 probabilityOfTestingEvent);
     }
 
-    private static Object[] formTestDataInstanceFromShortIntegerArray() {
+    private static Object[] formTestDataFromShortIntegerArray() {
         Integer[] shortIntegerArray = {-1, -1, 5, 8, 10, 4, 4, 8};
         double exactEnumerationOfShortIntegerArray = 4.625;
         double exactVarianceOfShortIntegerArray = 16.553;
-        IStatisticalResult testingEvent = new NumericStatisticalResult(2);
+        double testingEvent = 2;
         double probabilityOfTestingEvent = 0.0;
 
-        return formTestDataInstance(shortIntegerArray,
+        return formTestData(shortIntegerArray,
                 exactEnumerationOfShortIntegerArray,
                 exactVarianceOfShortIntegerArray,
                 testingEvent,
                 probabilityOfTestingEvent);
     }
 
-    private static Object[] formTestDataInstanceFromMonotoneIntegerArray() {
+    private static Object[] formTestDataFromMonotoneIntegerArray() {
         Integer[] monotoneIntegerArray = new Integer[100];
         for (int i = 0; i < monotoneIntegerArray.length; i++) {
             monotoneIntegerArray[i] = i;
         }
         double exactEnumerationOfMonotoneIntegerArray = 49.5;
         double exactVarianceOfMonotoneIntegerArray = 841.667;
-        IStatisticalResult testingEvent = new NumericStatisticalResult(15);
+        double testingEvent = 15;
         double probabilityOfTestingEvent = 0.01;
 
-        return formTestDataInstance(monotoneIntegerArray,
+        return formTestData(monotoneIntegerArray,
                 exactEnumerationOfMonotoneIntegerArray,
                 exactVarianceOfMonotoneIntegerArray,
                 testingEvent,
                 probabilityOfTestingEvent);
     }
 
-    private static Object[] formTestDataInstanceFromFloatArrayContainedOneNumber() {
+    private static Object[] formTestDataFromFloatArrayContainedOneNumber() {
         Float[] floatArrayContainedOneNumber = {3.14f};
         double exactEnumerationOfFloatArrayContainedOneNumber = 3.14;
         double exactVarianceOfFloatArrayContainedOneNumber = 0.0;
-        IStatisticalResult testingEvent = new NumericStatisticalResult(3.13);
+        double testingEvent = 3.13;
         double probabilityOfTestingEvent = 0.0;
 
-        return formTestDataInstance(floatArrayContainedOneNumber,
+        return formTestData(floatArrayContainedOneNumber,
                 exactEnumerationOfFloatArrayContainedOneNumber,
                 exactVarianceOfFloatArrayContainedOneNumber,
                 testingEvent,
                 probabilityOfTestingEvent);
     }
 
-    private static Object[] formTestDataInstanceFromShortFloatArray() {
+    private static Object[] formTestDataFromShortFloatArray() {
         Float[] shortFloatArray = {1.f, 2.25f, 1.f, 2.25f, 2.25f, 2.25f};
         double exactEnumerationOfShortFloatArray = 11.0 / 6.0;
         double exactVarianceOfShortFloatArray = 0.417;
-        IStatisticalResult testingEvent = new NumericStatisticalResult(2.25f);
+        double testingEvent = 2.25f;
         double probabilityOfTestingEvent = 4.0 / 6.0;
 
-        return formTestDataInstance(shortFloatArray,
+        return formTestData(shortFloatArray,
                 exactEnumerationOfShortFloatArray,
                 exactVarianceOfShortFloatArray,
                 testingEvent,
                 probabilityOfTestingEvent);
     }
 
-    private static Object[] formTestDataInstanceFromDoubleArrayOfOneCosPeriod() {
+    private static Object[] formTestDataFromDoubleArrayOfOneCosPeriod() {
         Double[] doubleArrayOfOneCosPeriod = new Double[1000];
         for (int i = 0; i < doubleArrayOfOneCosPeriod.length; i++) {
             doubleArrayOfOneCosPeriod[i] = Math.cos(i * 2 * Math.PI
@@ -207,10 +206,10 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
         }
         double exactEnumerationOfDoubleArrayOfOneCosPeriod = 0.0;
         double exactVarianceOfDoubleArrayOfOneCosPeriod = 0.5;
-        IStatisticalResult testingEvent = new NumericStatisticalResult(-2.0);
+        double testingEvent = -2.0;
         double probabilityOfTestingEvent = 0.0;
 
-        return formTestDataInstance(doubleArrayOfOneCosPeriod,
+        return formTestData(doubleArrayOfOneCosPeriod,
                 exactEnumerationOfDoubleArrayOfOneCosPeriod,
                 exactVarianceOfDoubleArrayOfOneCosPeriod,
                 testingEvent,

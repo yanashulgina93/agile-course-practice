@@ -2,26 +2,26 @@ package ru.unn.agile.statistics.model;
 
 import java.util.Collection;
 
-public class EnumerationCalculator extends StatisticValueCalculator {
+public class EnumerationCalculator implements IStatisticValueCalculator {
     private static final double ENUMERATION_OF_EMPTY_DATA = 0.0;
 
-    public EnumerationCalculator(final Collection<IStatisticalResult> dataForStatistics) {
-        setStatisticData(dataForStatistics);
-    }
-
     @Override
-    public double calculate() {
-        if (isProcessedStatisticsEmpty()) {
+    public double calculate(final Collection<Double> dataForStatistics) throws NullPointerException {
+        if (dataForStatistics == null) {
+            throw new NullPointerException("Parameter dataForStatistics must not be null");
+        }
+
+        if (dataForStatistics == null || dataForStatistics.isEmpty()) {
             return ENUMERATION_OF_EMPTY_DATA;
         }
 
-        double[] processedStatistics = getProcessedStatistics();
+        int sizeOfData = dataForStatistics.size();
 
         double enumeration = 0.0;
-        for (double instance : processedStatistics) {
-            enumeration += instance;
+        for (Double instanceOfData : dataForStatistics) {
+            enumeration += instanceOfData;
         }
-        enumeration /= processedStatistics.length;
+        enumeration /= sizeOfData;
 
         return enumeration;
     }

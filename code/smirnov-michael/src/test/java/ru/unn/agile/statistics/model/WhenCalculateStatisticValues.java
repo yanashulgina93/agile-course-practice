@@ -1,6 +1,9 @@
 package ru.unn.agile.statistics.model;
 
 import org.junit.Test;
+
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
 import java.util.Collection;
 import static org.junit.Assert.*;
 
@@ -11,229 +14,191 @@ public class WhenCalculateStatisticValues {
     private ProbabilityOfEventCalculator probabilityCalculator;
     private RawMomentCalculator rawMomentCalculator;
     private CentralMomentCalculator centralMomentCalculator;
+    private Collection<Double> testingData;
 
     private double deltaForDoubleAssertEquals = 1e-3;
-    private NumericalStatisticConverter numericalStatisticConverter;
-
 
     @Test
     public void enumerationIsZeroWhenStatisticDataIsEmpty() {
-        enumerationCalculator = new EnumerationCalculator(null);
+        enumerationCalculator = new EnumerationCalculator();
+        ArrayList<Double> emptyData = new ArrayList<>();
 
-        double enumeration = enumerationCalculator.calculate();
+        double enumeration = enumerationCalculator.calculate(emptyData);
 
         assertEquals(0.0, enumeration, deltaForDoubleAssertEquals);
     }
 
-    @Test
-    public void statisticDataIsEmptyWhenConvertingIntArrayIsEmpty() {
-        numericalStatisticConverter = new NumericalStatisticConverter(null);
-        Collection<IStatisticalResult> dataInstances = numericalStatisticConverter.convert();
-
-        assertEquals(dataInstances, null);
-    }
-
-    @Test
-    public void probabilityOfZeroIntegerEventWithoutDataIsZero() {
+    @Test (expected = NullPointerException.class)
+    public void throwsWhenCalculatingProbabilityOfEventOnNullData() {
         Double[] data = null;
-        IStatisticalResult event = new NumericStatisticalResult(0);
-        formDataInstances(data);
+        Double event = (double)0;
+        formTestingData(data);
 
-        probabilityCalculator.setEvent(event);
-        double probabilityOfEvent = probabilityCalculator.calculate();
+        probabilityCalculator = new ProbabilityOfEventCalculator(event);
 
-        assertEquals(0.0, probabilityOfEvent, deltaForDoubleAssertEquals);
-    }
-
-    @Test
-    public void probabilityOfNullEventOnIntegerDataArrayIsZero() {
-        formDataInstances(formIntegerArrayWithBigVariance());
-
-        probabilityCalculator.setEvent(null);
-        double probabilityOfEvent = probabilityCalculator.calculate();
+        double probabilityOfEvent = probabilityCalculator.calculate(testingData);
 
         assertEquals(0.0, probabilityOfEvent, deltaForDoubleAssertEquals);
     }
 
-    @Test
-    public void varianceWithoutDataIsZero() {
-        Integer[] data = null;
-        formDataInstances(data);
-
-        double variance = varianceCalculator.calculate();
-
-        assertEquals(0.0, variance, deltaForDoubleAssertEquals);
+    @Test (expected = NullPointerException.class)
+    public void throwsWhenCalculatingVarianceOfNullData() {
+        varianceCalculator = new VarianceCalculator();
+        varianceCalculator.calculate(null);
     }
 
-    @Test
-    public void rawMomentOfThirdOrderWithoutDataIsZero() {
+    @Test (expected = NullPointerException.class)
+    public void throwsWhenCalculatingRawMomentOfNullData() {
         Integer[] data = null;
-        formDataInstances(data);
+        formTestingData(data);
 
-        rawMomentCalculator.setOrder(3);
-        double rawMomentOfThirdOrder = rawMomentCalculator.calculate();
-
-        assertEquals(0.0, rawMomentOfThirdOrder, deltaForDoubleAssertEquals);
+        rawMomentCalculator = new RawMomentCalculator(3);
+        rawMomentCalculator.calculate(testingData);
     }
 
     @Test
     public void rawMomentOfFirstOrderOnIntegerArrayIsEqualToEnumeration() {
-        formDataInstances(formIntegerArrayWithBigVariance());
+        formTestingData(formIntegerArrayWithBigVariance());
 
-        rawMomentCalculator.setOrder(1);
-        double rawMomentOfFirstOrder = rawMomentCalculator.calculate();
-        double enumeration = enumerationCalculator.calculate();
+        rawMomentCalculator = new RawMomentCalculator(1);
+        enumerationCalculator = new EnumerationCalculator();
+
+        double rawMomentOfFirstOrder = rawMomentCalculator.calculate(testingData);
+        double enumeration = enumerationCalculator.calculate(testingData);
 
         assertEquals(rawMomentOfFirstOrder, enumeration, deltaForDoubleAssertEquals);
     }
 
     @Test
     public void rawMomentOfSecondOrderSmallerThanFourthOrderWhenDataHasBigVariance() {
-        formDataInstances(formIntegerArrayWithBigVariance());
+        formTestingData(formIntegerArrayWithBigVariance());
 
-        rawMomentCalculator.setOrder(2);
-        double rawMomentOfSecondOrder = rawMomentCalculator.calculate();
+        rawMomentCalculator = new RawMomentCalculator(2);
+        double rawMomentOfSecondOrder = rawMomentCalculator.calculate(testingData);
 
-        rawMomentCalculator.setOrder(4);
-        double rawMomentOfFourthOrder = rawMomentCalculator.calculate();
+        rawMomentCalculator = new RawMomentCalculator(4);
+        double rawMomentOfFourthOrder = rawMomentCalculator.calculate(testingData);
 
         assertTrue(rawMomentOfSecondOrder < rawMomentOfFourthOrder);
     }
 
     @Test
     public void rawMomentOfSixOrderBiggerThanEighthOrderWhenDataHasSmallVariance() {
-        formDataInstances(formDoubleArrayWithSmallVariance());
+        formTestingData(formDoubleArrayWithSmallVariance());
 
-        rawMomentCalculator.setOrder(6);
-        double rawMomentOfSixOrder = rawMomentCalculator.calculate();
+        rawMomentCalculator = new RawMomentCalculator(6);
+        double rawMomentOfSixOrder = rawMomentCalculator.calculate(testingData);
 
-        rawMomentCalculator.setOrder(8);
-        double rawMomentOfEightOrder = rawMomentCalculator.calculate();
+        rawMomentCalculator = new RawMomentCalculator(8);
+        double rawMomentOfEightOrder = rawMomentCalculator.calculate(testingData);
 
         assertTrue(rawMomentOfSixOrder > rawMomentOfEightOrder);
     }
 
-    @Test
-    public void rawMomentOfZeroOrderOnDoubleArrayIsEqualsToZero() {
-        formDataInstances(formDoubleArrayWithSmallVariance());
-
-        rawMomentCalculator.setOrder(0);
-        double rawMomentOfZeroOrder = rawMomentCalculator.calculate();
-
-        assertEquals(0.0, rawMomentOfZeroOrder, deltaForDoubleAssertEquals);
+    @Test (expected = InvalidParameterException.class)
+    public void throwsWhenInstantiateRawMomentOfZeroOrder() {
+        rawMomentCalculator = new RawMomentCalculator(0);
     }
 
-    @Test
-    public void rawMomentOfNegativeOrderOnIntegerArrayIsEqualsToZero() {
-        formDataInstances(formIntegerArrayWithBigVariance());
-
-        rawMomentCalculator.setOrder(-5);
-        double rawMomentOfMinusFithOrder = rawMomentCalculator.calculate();
-
-        assertEquals(0.0, rawMomentOfMinusFithOrder, deltaForDoubleAssertEquals);
+    @Test (expected = InvalidParameterException.class)
+    public void throwsWhenInstantiateRawMomentWithNegativeOrder() {
+        rawMomentCalculator = new RawMomentCalculator(-5);
     }
 
-    @Test
-    public void centralMomentOfEmptyDataEqualsToZero() {
-        Integer[] data = null;
-        formDataInstances(data);
-
-        centralMomentCalculator.setOrder(2);
-        double centralMomentOfSecondOrder = centralMomentCalculator.calculate();
-
-        assertEquals(0.0, centralMomentOfSecondOrder, deltaForDoubleAssertEquals);
+    @Test (expected = NullPointerException.class)
+    public void throwsWhenCalculatingCentralMomentOfSecondOrderOnNullData() {
+        centralMomentCalculator = new CentralMomentCalculator(2);
+        centralMomentCalculator.calculate(null);
     }
 
     @Test
     public void centralMomentOfConstantIntegerDataEqualsToZero() {
         Integer[] constantData = {1, 1, 1};
-        formDataInstances(constantData);
+        formTestingData(constantData);
 
-        centralMomentCalculator.setOrder(1);
-        double centralMomentOfFirstOrder = centralMomentCalculator.calculate();
+        centralMomentCalculator = new CentralMomentCalculator(1);
+        double centralMomentOfFirstOrder = centralMomentCalculator.calculate(testingData);
 
         assertEquals(0.0, centralMomentOfFirstOrder, deltaForDoubleAssertEquals);
     }
 
     @Test
-    public void centralMomentOfSecondOrderEqualsToOfsetVariance() {
+    public void centralMomentOfSecondOrderEqualsToOffsetVariance() {
         Double[] data = formDoubleArrayWithSmallVariance();
-        formDataInstances(data);
+        formTestingData(data);
 
-        double unbiasedVariance = ((double) (data.length - 1)) / data.length
-                * varianceCalculator.calculate();
+        varianceCalculator = new VarianceCalculator();
+        double unbiasedVariance = ((double) (testingData.size() - 1)) / testingData.size()
+                * varianceCalculator.calculate(testingData);
 
-        centralMomentCalculator.setOrder(2);
-        double centralMomentOfSecondOrder = centralMomentCalculator.calculate();
+        centralMomentCalculator = new CentralMomentCalculator(2);
+        double centralMomentOfSecondOrder = centralMomentCalculator.calculate(testingData);
 
         assertEquals(unbiasedVariance, centralMomentOfSecondOrder, deltaForDoubleAssertEquals);
     }
 
     @Test
     public void centralMomentOfSecondOrderSmallerThanFourthOrderWhenDataHasBigVariance() {
-        formDataInstances(formIntegerArrayWithBigVariance());
+        formTestingData(formIntegerArrayWithBigVariance());
 
-        centralMomentCalculator.setOrder(2);
-        double centralMomentOfSecondOrder = centralMomentCalculator.calculate();
+        centralMomentCalculator = new CentralMomentCalculator(2);
+        double centralMomentOfSecondOrder = centralMomentCalculator.calculate(testingData);
 
-        centralMomentCalculator.setOrder(4);
-        double centralMomentOfFourthOrder = centralMomentCalculator.calculate();
+        centralMomentCalculator = new CentralMomentCalculator(4);
+        double centralMomentOfFourthOrder = centralMomentCalculator.calculate(testingData);
 
         assertTrue(centralMomentOfSecondOrder < centralMomentOfFourthOrder);
     }
 
     @Test
     public void centralMomentOfSixOrderBiggerThanEighthOrderWhenDoubleDataArrayHasSmallVariance() {
-        formDataInstances(formDoubleArrayWithSmallVariance());
+        formTestingData(formDoubleArrayWithSmallVariance());
 
-        centralMomentCalculator.setOrder(6);
-        double centralMomentOfSixOrder = centralMomentCalculator.calculate();
+        centralMomentCalculator = new CentralMomentCalculator(6);
+        double centralMomentOfSixOrder = centralMomentCalculator.calculate(testingData);
 
-        centralMomentCalculator.setOrder(8);
-        double centralMomentOfEightOrder = centralMomentCalculator.calculate();
+        centralMomentCalculator = new CentralMomentCalculator(8);
+        double centralMomentOfEightOrder = centralMomentCalculator.calculate(testingData);
 
         assertTrue(centralMomentOfSixOrder > centralMomentOfEightOrder);
     }
 
-    @Test
-    public void centralMomentOfNegativeOrderWithBigVariancedIntegerDataArrayIsEqualsToZero() {
-        formDataInstances(formIntegerArrayWithBigVariance());
+    @Test (expected = InvalidParameterException.class)
+    public void throwsWhenInstantiateCentralMomentWithNegativeOrder() {
+        centralMomentCalculator = new CentralMomentCalculator(-3);
+    }
 
-        centralMomentCalculator.setOrder(-3);
-        double centralMomentOfMinusThirdOrder = centralMomentCalculator.calculate();
-
-        assertEquals(0.0, centralMomentOfMinusThirdOrder, deltaForDoubleAssertEquals);
+    @Test (expected = InvalidParameterException.class)
+    public void throwsWhenInstantiateCentralMomentOfZeroOrder() {
+        centralMomentCalculator = new CentralMomentCalculator(0);
     }
 
     @Test
-    public void centralMomentOfZeroOrderWithSmallVariancedDoubleDataArrayIsEqualsToZero() {
-        formDataInstances(formDoubleArrayWithSmallVariance());
+    public  void centralMomentOfThirdOrderOnEmptyDataEqualsToZero() {
+        centralMomentCalculator = new CentralMomentCalculator(3);
+        ArrayList<Double> emptyData = new ArrayList<>();
 
-        centralMomentCalculator.setOrder(0);
-        double centralMomentOfZeroOrder = centralMomentCalculator.calculate();
-
-        assertEquals(0.0, centralMomentOfZeroOrder, deltaForDoubleAssertEquals);
+        double centralMomentOfThirdOrder = centralMomentCalculator.calculate(emptyData);
+        assertEquals(centralMomentOfThirdOrder, 0.0, deltaForDoubleAssertEquals);
     }
 
     private Integer[] formIntegerArrayWithBigVariance() {
-        Integer[] result = {-10, -15, 51, 82, 10, 4, 4, 8, 2, 0, 0, 14};
-        return result;
+        return new Integer[]{-10, -15, 51, 82, 10, 4, 4, 8, 2, 0, 0, 14};
     }
 
     private Double[] formDoubleArrayWithSmallVariance() {
-        Double[] result = {-0.1, -0.1, 0.5, 0.8, 1.0, 0.4, 0.4, 0.8};
-        return result;
+        return new Double[]{-0.1, -0.1, 0.5, 0.8, 1.0, 0.4, 0.4, 0.8};
     }
 
-    private void formDataInstances(final Number[] data) {
-        numericalStatisticConverter = new NumericalStatisticConverter(data);
+    private void formTestingData(final Number[] data) {
+        if (data== null) {
+            testingData = null;
+            return;
+        }
 
-        Collection<IStatisticalResult> dataInstances = numericalStatisticConverter.convert();
-
-        enumerationCalculator = new EnumerationCalculator(dataInstances);
-        varianceCalculator = new VarianceCalculator(dataInstances);
-        probabilityCalculator = new ProbabilityOfEventCalculator(dataInstances, null);
-        rawMomentCalculator = new RawMomentCalculator(dataInstances, 0);
-        centralMomentCalculator = new CentralMomentCalculator(dataInstances, 0);
+        testingData = new ArrayList<>();
+        for(Number item : data) {
+            testingData.add(item.doubleValue());
+        }
     }
 }

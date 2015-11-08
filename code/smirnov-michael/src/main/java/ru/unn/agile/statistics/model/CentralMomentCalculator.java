@@ -1,49 +1,35 @@
 package ru.unn.agile.statistics.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
-public class CentralMomentCalculator extends StatisticValueCalculator {
+public class CentralMomentCalculator extends RawMomentCalculator {
 
     private static final double CENTRAL_MOMENT_OF_EMPTY_DATA = 0.0;
-    private static final double CENTRAL_MOMENT_WITH_NOT_POSITIVE_ORDER = 0.0;
 
-    private int order;
-    private EnumerationCalculator enumerationCalculator;
+    private final EnumerationCalculator enumerationCalculator;
 
-    public CentralMomentCalculator(final Collection<IStatisticalResult> dataForStatistics,
-                                   final int order) {
-        setStatisticData(dataForStatistics);
-        setOrder(order);
-    }
-
-    public void setOrder(final int order) {
-        this.order = order;
+    public CentralMomentCalculator(final int order) {
+        super(order);
+        enumerationCalculator = new EnumerationCalculator();
     }
 
     @Override
-    public void setStatisticData(final Collection<IStatisticalResult> dataForStatistics) {
-        super.setStatisticData(dataForStatistics);
-        enumerationCalculator = new EnumerationCalculator(dataForStatistics);
-    }
+    public double calculate(final Collection<Double> dataForStatistics) throws NullPointerException {
+        if (dataForStatistics == null) {
+            throw new NullPointerException("Parameter dataForStatistics must not be null");
+        }
 
-    @Override
-    public double calculate() {
-        if (isProcessedStatisticsEmpty()) {
+        if (dataForStatistics.isEmpty()) {
             return CENTRAL_MOMENT_OF_EMPTY_DATA;
         }
-        if (order <= 0) {
-            return CENTRAL_MOMENT_WITH_NOT_POSITIVE_ORDER;
+
+        double enumeration = enumerationCalculator.calculate(dataForStatistics);
+        ArrayList<Double> centeredData = new ArrayList<>();
+        for (Double instanceOfData : dataForStatistics) {
+            centeredData.add(instanceOfData - enumeration);
         }
 
-        double[] processedStatistics = getProcessedStatistics();
-
-        double centralMoment = 0.0;
-
-        double enumeration = enumerationCalculator.calculate();
-        for (double instance : processedStatistics) {
-            centralMoment += Math.pow(instance - enumeration, order);
-        }
-        centralMoment /= processedStatistics.length;
-        return centralMoment;
+        return super.calculate(centeredData);
     }
 }

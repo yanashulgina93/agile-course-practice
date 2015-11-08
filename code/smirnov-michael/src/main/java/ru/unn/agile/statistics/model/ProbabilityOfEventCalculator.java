@@ -2,46 +2,45 @@ package ru.unn.agile.statistics.model;
 
 import java.util.Collection;
 
-public class ProbabilityOfEventCalculator extends StatisticValueCalculator {
+public class ProbabilityOfEventCalculator implements IStatisticValueCalculator {
 
-    private IStatisticalResult event;
+    private Double event;
 
     private static final double EPS_FOR_DOUBLE_COMPARISON = 1e-3;
-
     private static final double PROBABILITY_OF_EVENT_WITH_EMPTY_DATA = 0.0;
-    private static final double PROBABILITY_OF_NULL_EVENT = 0.0;
 
-    public ProbabilityOfEventCalculator(final Collection<IStatisticalResult> dataForStatistics,
-                                        final IStatisticalResult event) {
-        setStatisticData(dataForStatistics);
+    public ProbabilityOfEventCalculator(final double event) {
         setEvent(event);
     }
 
-    public void setEvent(final IStatisticalResult event) {
+    public void setEvent(final double event) {
         this.event = event;
     }
 
     @Override
-    public double calculate() {
-        if (isProcessedStatisticsEmpty()) {
-            return PROBABILITY_OF_EVENT_WITH_EMPTY_DATA;
+    public double calculate(final Collection<Double> dataForStatistics) throws NullPointerException {
+        if (dataForStatistics == null) {
+            throw new NullPointerException("Parameter dataForStatistics must not be null");
         }
 
         if (event == null) {
-            return PROBABILITY_OF_NULL_EVENT;
+            throw new NullPointerException("Event must not be null");
         }
 
-        double instanceOfEvent = event.get();
+        if (dataForStatistics.isEmpty()) {
+            return PROBABILITY_OF_EVENT_WITH_EMPTY_DATA;
+        }
+
+        int sizeOfData = dataForStatistics.size();
+
         double probability = 0.0;
 
-        double[] processedStatistics = getProcessedStatistics();
-
-        for (double instanceOfData : processedStatistics) {
-            if (areTwoDoublesEqual(instanceOfData, instanceOfEvent)) {
+        for (Double instanceOfData : dataForStatistics) {
+            if (areTwoDoublesEqual(instanceOfData, event)) {
                 probability++;
             }
         }
-        probability /= processedStatistics.length;
+        probability /= sizeOfData;
         return probability;
     }
 

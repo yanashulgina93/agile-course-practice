@@ -1,41 +1,42 @@
 package ru.unn.agile.statistics.model;
 
+import java.security.InvalidParameterException;
 import java.util.Collection;
 
-public class RawMomentCalculator extends StatisticValueCalculator {
+public class RawMomentCalculator implements IStatisticValueCalculator {
 
     private static final double RAW_MOMENT_OF_EMPTY_DATA = 0.0;
     private static final double RAW_MOMENT_WITH_NOT_POSITIVE_ORDER = 0.0;
 
-    private int order;
+    private final int order;
 
-    public RawMomentCalculator(final Collection<IStatisticalResult> dataForStatistics,
-                               final int order) {
-        setStatisticData(dataForStatistics);
-        setOrder(order);
-    }
-
-    public void setOrder(final int order) {
+    public RawMomentCalculator(final int order) throws InvalidParameterException {
+        if (order <= 0) {
+            throw new InvalidParameterException("Order must be >= 0");
+        }
         this.order = order;
     }
 
     @Override
-    public double calculate() {
-        if (isProcessedStatisticsEmpty()) {
+    public double calculate(final Collection<Double> dataForStatistics) throws NullPointerException {
+        if (dataForStatistics == null) {
+            throw new NullPointerException("Parameter dataForStatistics must not be null");
+        }
+
+        if ( dataForStatistics.isEmpty()) {
             return RAW_MOMENT_OF_EMPTY_DATA;
         }
 
+        int sizeOfData = dataForStatistics.size();
         if (order <= 0) {
             return RAW_MOMENT_WITH_NOT_POSITIVE_ORDER;
         }
 
-        double[] processedStatistics = getProcessedStatistics();
-
         double rawMoment = 0.0;
-        for (double instance : processedStatistics) {
-            rawMoment += Math.pow(instance, order);
+        for (Double instanceOfData : dataForStatistics) {
+            rawMoment += Math.pow(instanceOfData, order);
         }
-        rawMoment /= processedStatistics.length;
+        rawMoment /= sizeOfData;
 
         return rawMoment;
     }
