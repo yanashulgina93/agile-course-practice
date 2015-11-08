@@ -261,10 +261,13 @@ public class LongNumber {
     public int convertToInt() {
         int intNum = 0;
 
-        for (int i = 0; i < this.rank; ++i) {
-            intNum += this.value[i] * Math.pow(SCALE, i);
+        int maxRank = this.getIntRank(Integer.MAX_VALUE);
+        if (this.rank <= maxRank) {
+            for (int i = 0; i < this.rank; ++i) {
+                intNum += this.value[i] * Math.pow(SCALE, i);
+            }
+            intNum *= this.sign;
         }
-        intNum *= this.sign;
 
         return intNum;
     }

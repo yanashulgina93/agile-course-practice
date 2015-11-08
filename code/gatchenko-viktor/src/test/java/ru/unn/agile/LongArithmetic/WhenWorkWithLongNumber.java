@@ -196,7 +196,6 @@ public class WhenWorkWithLongNumber {
         assertEquals("19283746519283746519283746519283745619", strNum);
     }
 
-
     @Test
     public void convertLongNumber1Toint() {
         lnNum1 = new LongNumber(1);
@@ -216,6 +215,14 @@ public class WhenWorkWithLongNumber {
     @Test
     public void convertLongNumberMinus0Toint() {
         lnNum1 = new LongNumber(0);
+        int number = lnNum1.convertToInt();
+
+        assertEquals(0, number);
+    }
+
+    @Test
+    public void convertVeryLongNumberToint() {
+        lnNum1 = new LongNumber("19283746519283746519283746519283745619");
         int number = lnNum1.convertToInt();
 
         assertEquals(0, number);

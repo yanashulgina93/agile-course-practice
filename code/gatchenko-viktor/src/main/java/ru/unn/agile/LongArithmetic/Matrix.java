@@ -81,7 +81,7 @@ public class Matrix {
         if (this.height == matrix.height && this.width == matrix.width) {
             for (int i = 0; i < this.height; ++i) {
                 boolean arrayEqual = Arrays.equals(this.element[i], matrix.element[i]);
-                if(arrayEqual == false) {
+                if (arrayEqual == false) {
                     matrixEqual = false;
                     break;
                 }
