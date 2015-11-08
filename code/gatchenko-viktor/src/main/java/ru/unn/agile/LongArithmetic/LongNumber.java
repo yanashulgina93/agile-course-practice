@@ -274,7 +274,9 @@ public class LongNumber {
         return 0;
     }
 
-    public boolean equals(final LongNumber lnNum) {
+    @Override
+    public boolean equals(final Object object) {
+        LongNumber lnNum = (LongNumber) object;
         boolean result = true;
 
         if (this.rank == lnNum.rank && this.sign == lnNum.sign) {
@@ -304,7 +306,6 @@ public class LongNumber {
         if (this.value == LongNumber.UNDEFINED_VALUE) {
             result = true;
         }
-
         return result;
     }
 

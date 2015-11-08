@@ -8,8 +8,8 @@ public class Matrix {
 
     private LongNumber[][] element;
 
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
 
     public Matrix() {
         this.width = 0;
@@ -73,7 +73,9 @@ public class Matrix {
         return 0;
     }
 
-    public boolean equals(final Matrix matrix) {
+    @Override
+    public boolean equals(final Object object) {
+        Matrix matrix = (Matrix) object;
         boolean result = true;
 
         if (this.height == matrix.height && this.width == matrix.width) {
