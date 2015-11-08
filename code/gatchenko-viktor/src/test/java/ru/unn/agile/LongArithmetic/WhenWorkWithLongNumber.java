@@ -121,6 +121,34 @@ public class WhenWorkWithLongNumber {
     }
 
     @Test
+    public void multiply23AndMinus135() {
+        initializePairLongNumber(23, -135);
+        result = lnNum1.multiply(lnNum2);
+
+        strNum = result.convertToString();
+        assertEquals("-3105", strNum);
+    }
+
+    @Test
+    public void minusLongMultiply() {
+        lnNum1 = new LongNumber("-1000000000001");
+        lnNum2 = new LongNumber("-123456789987");
+        result = lnNum1.multiply(lnNum2);
+
+        strNum = result.convertToString();
+        assertEquals("123456789987123456789987", strNum);
+    }
+
+    @Test
+    public void multiply0AndMinus135() {
+        initializePairLongNumber(0, -135);
+        result = lnNum1.multiply(lnNum2);
+
+        strNum = result.convertToString();
+        assertEquals("0", strNum);
+    }
+
+    @Test
     public void compare0And1() {
         initializePairLongNumber(0, 1);
         boolean isEqual = lnNum1.equals(lnNum2);
