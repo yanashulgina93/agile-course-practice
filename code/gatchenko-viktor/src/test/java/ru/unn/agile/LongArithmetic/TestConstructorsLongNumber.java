@@ -76,13 +76,12 @@ public class TestConstructorsLongNumber {
 
     @Test
     public void charsMinus123ToLongNumber() {
-        char[] chars = { '-', '1', '2', '3'};
+        char[] chars = { '-', '1', '2', '3' };
         lnNum = new LongNumber(chars);
 
         boolean isEqual = lnNum.equals(-123);
         assertTrue(isEqual);
     }
-
 
     @Test
     public void copyDefaultToLongNumber() {

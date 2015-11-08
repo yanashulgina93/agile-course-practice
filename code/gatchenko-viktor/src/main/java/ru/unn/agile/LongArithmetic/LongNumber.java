@@ -31,18 +31,45 @@ public class LongNumber {
         this.convetIntToLong(Math.abs(number));
     }
 
+    private int getIntRank(final int number) {
+        int rank = 0;
+        if (number == 0) {
+            rank = 1;
+        } else {
+            rank = (int) (Math.log(Math.abs(number)) / Math.log(SCALE) + 1);
+        }
+
+        return rank;
+    }
+
+    private void convetIntToLong(final int number) {
+        int intermediateNum = number;
+        int newElement;
+        int divider;
+        int remainer;
+
+        for (int j = this.rank - 1; j > -1; --j) {
+            divider = (int) (Math.pow(SCALE, j));
+            newElement = intermediateNum / divider;
+            this.value[j] = newElement;
+            remainer = intermediateNum % divider;
+            intermediateNum = remainer;
+        }
+    }
+
     public LongNumber(final char[] chars) {
-        this.rank = this.getLenghtString(chars);
-        this.getSign(chars);
-        this.value = new int[rank];
-        this.fillValue(chars);
+        this.convertStringToLong(chars);
     }
 
     public LongNumber(final String string) {
-        this.rank = this.getLenghtString(string);
-        this.getSign(string);
+        this.convertStringToLong(string);
+    }
+
+    private void convertStringToLong(final Object str) {
+        this.rank = this.getLenghtString(str);
+        this.getSign(str);
         this.value = new int[rank];
-        this.fillValue(string);
+        this.fillValueFromString(str);
     }
 
     private int getLenghtString(final Object str) {
@@ -67,7 +94,7 @@ public class LongNumber {
         }
     }
 
-    private void fillValue(final Object str) {
+    private void fillValueFromString(final Object str) {
         char charElement;
         int newElement;
         int lenght = this.getLenghtString(str);
@@ -109,32 +136,6 @@ public class LongNumber {
             this.value = LongNumber.UNDEFINED_VALUE;
         } else {
             System.arraycopy(copiedNum.value, 0, this.value, 0, this.rank);
-        }
-    }
-
-    private int getIntRank(final int number) {
-        int rank = 0;
-        if (number == 0) {
-            rank = 1;
-        } else {
-            rank = (int) (Math.log(Math.abs(number)) / Math.log(SCALE) + 1);
-        }
-
-        return rank;
-    }
-
-    private void convetIntToLong(final int number) {
-        int intermediateNum = number;
-        int newElement;
-        int divider;
-        int remainer;
-
-        for (int j = this.rank - 1; j > -1; --j) {
-            divider = (int) (Math.pow(SCALE, j));
-            newElement = intermediateNum / divider;
-            this.value[j] = newElement;
-            remainer = intermediateNum % divider;
-            intermediateNum = remainer;
         }
     }
 
@@ -190,6 +191,17 @@ public class LongNumber {
         }
     }
 
+    private void deleteZeroes() {
+        int lastElement = this.rank - 1;
+        while (this.value[lastElement] == 0 && lastElement != 0) {
+            int[] newValue = new int[lastElement];
+            System.arraycopy(this.value, 0, newValue, 0, lastElement);
+            this.value = newValue;
+            this.rank--;
+            lastElement = this.rank - 1;
+        }
+    }
+
     private void definitionOfSign() {
         boolean isNegative = true;
         this.sign = 1;
@@ -217,17 +229,6 @@ public class LongNumber {
         this.deleteZeroes();
     }
 
-    private void deleteZeroes() {
-        int lastElement = this.rank - 1;
-        while (this.value[lastElement] == 0 && lastElement != 0) {
-            int[] newValue = new int[lastElement];
-            System.arraycopy(this.value, 0, newValue, 0, lastElement);
-            this.value = newValue;
-            this.rank--;
-            lastElement = this.rank - 1;
-        }
-    }
-
     public LongNumber multiply(final LongNumber lnNum) {
         LongNumber result;
 
@@ -245,7 +246,7 @@ public class LongNumber {
 
     public String convertToString() {
         String strNum = "";
-        if(this.sign == -1) {
+        if (this.sign == -1) {
             strNum += "-";
         }
         for (int i = 0, j = this.rank - 1; i < this.rank; ++i, --j) {
@@ -262,6 +263,7 @@ public class LongNumber {
         for (int i = 0; i < this.rank; ++i) {
             intNum += this.value[i] * Math.pow(SCALE, i);
         }
+        intNum *= this.sign;
 
         return intNum;
     }
@@ -269,7 +271,7 @@ public class LongNumber {
     public boolean equals(final LongNumber lnNum) {
         boolean result = true;
 
-        if (this.rank == lnNum.rank && this.sign == this.sign) {
+        if (this.rank == lnNum.rank && this.sign == lnNum.sign) {
             for (int i = 0; i < this.rank; ++i) {
                 if (this.value[i] != lnNum.value[i]) {
                     result = false;
