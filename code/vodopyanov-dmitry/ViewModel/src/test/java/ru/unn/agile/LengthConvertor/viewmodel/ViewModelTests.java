@@ -51,8 +51,6 @@ public class ViewModelTests {
 
     @Test
     public void statusIsWaitingIfNotEnoughCorrectData() {
-        viewModel.inputValueProperty().set("1");
-
         assertEquals(Status.WAITING.toString(), viewModel.errorMessageProperty().get());
     }
 
@@ -133,6 +131,28 @@ public class ViewModelTests {
     }
 
     @Test
+         public void convertion50YardToKMeterHasCorrectResult() {
+        viewModel.inputValueProperty().set("50");
+        viewModel.inputUnitProperty().set(LengthUnit.YARD);
+        viewModel.outputUnitProperty().set(LengthUnit.KMETER);
+
+        viewModel.calculate();
+
+        assertEquals("0.04571999995", viewModel.outputValueProperty().get());
+    }
+
+    @Test
+    public void convertion70MileToFootHasCorrectResult() {
+        viewModel.inputValueProperty().set("70");
+        viewModel.inputUnitProperty().set(LengthUnit.MILE);
+        viewModel.outputUnitProperty().set(LengthUnit.FOOT);
+
+        viewModel.calculate();
+
+        assertEquals("369600.0022965879", viewModel.outputValueProperty().get());
+    }
+
+    @Test
     public void canSetBadFormatMessage() {
         viewModel.inputValueProperty().set("rubbish");
 
@@ -144,6 +164,13 @@ public class ViewModelTests {
         viewModel.inputValueProperty().set("-1");
 
         assertEquals(Status.BAD_FORMAT.toString(), viewModel.errorMessageProperty().get());
+    }
+
+    @Test
+    public void statusIsReadyWhenSetProperData() {
+        setInputData();
+
+        assertEquals(Status.READY.toString(), viewModel.errorMessageProperty().get());
     }
 
     private void setInputData() {
