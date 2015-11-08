@@ -131,7 +131,7 @@ public class ViewModelTests {
     }
 
     @Test
-         public void convertion50YardToKMeterHasCorrectResult() {
+    public void convertion50YardToKMeterHasCorrectResult() {
         viewModel.inputValueProperty().set("50");
         viewModel.inputUnitProperty().set(LengthUnit.YARD);
         viewModel.outputUnitProperty().set(LengthUnit.KMETER);
@@ -171,6 +171,15 @@ public class ViewModelTests {
         setInputData();
 
         assertEquals(Status.READY.toString(), viewModel.errorMessageProperty().get());
+    }
+
+    @Test
+    public void canSetSuccessMessage() {
+        setInputData();
+
+        viewModel.calculate();
+
+        assertEquals(Status.SUCCESS.toString(), viewModel.errorMessageProperty().get());
     }
 
     private void setInputData() {

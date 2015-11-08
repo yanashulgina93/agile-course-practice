@@ -60,6 +60,7 @@ public class ViewModel {
         }
 
         outputValue.set(outputUnit.get().convert(inputValue.get(), inputUnit.get()));
+        errorMessage.set(Status.SUCCESS.toString());
     }
 
     public StringProperty inputValueProperty() {
@@ -126,9 +127,10 @@ public class ViewModel {
 }
 
 enum Status {
-    WAITING(" "),
-    READY(" "),
-    BAD_FORMAT("Error: Bad format");
+    WAITING("Enter value and choose units"),
+    READY("Press \"Calculate\""),
+    BAD_FORMAT("Error: Bad format"),
+    SUCCESS("Converted successfully");
 
     private final String name;
     private Status(final String name) {
