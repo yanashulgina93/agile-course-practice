@@ -1,6 +1,6 @@
 package ru.unn.agile.LongArithmetic;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 
 public class LongNumber {
 
@@ -161,11 +161,11 @@ public class LongNumber {
         LongNumber result;
 
         String strNum = this.convertToString();
-        BigDecimal firstMultiplier = new BigDecimal(strNum);
+        BigInteger firstMultiplier = new BigInteger(strNum);
         strNum = lnNum.convertToString();
-        BigDecimal secondMultiplier = new BigDecimal(strNum);
+        BigInteger secondMultiplier = new BigInteger(strNum);
 
-        BigDecimal bigResult = firstMultiplier.multiply(secondMultiplier);
+        BigInteger bigResult = firstMultiplier.multiply(secondMultiplier);
         strNum = bigResult.toString();
         result = new LongNumber(strNum);
 
