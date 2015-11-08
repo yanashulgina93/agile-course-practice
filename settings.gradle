@@ -73,6 +73,9 @@ project(":code/gorokhov-dmitriy").name = "gorokhov-dmitriy-Model"
 // Kalyakulina Alyona
 include "code/kalyakulina-alena/Model"
 project(":code/kalyakulina-alena/Model").name = "kalyakulina-alena-Model"
+include "code/kalyakulina-alena/View"
+project(":code/kalyakulina-alena/View").name = "kalyakulina-alena-View"
+
 
 // Karpunin Yaroslav
 // Kazanbaev Dmitrij
