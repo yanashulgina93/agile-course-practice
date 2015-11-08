@@ -1,6 +1,7 @@
 package ru.unn.agile.LongArithmetic;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 
 public class LongNumber {
 
@@ -63,9 +64,7 @@ public class LongNumber {
         if (copiedNum.value == LongNumber.UNDEFINED_VALUE) {
             this.value = LongNumber.UNDEFINED_VALUE;
         } else {
-            for (int i = 0; i < this.rank; ++i) {
-                this.value[i] = copiedNum.value[i];
-            }
+            System.arraycopy(copiedNum.value, 0, this.value, 0, this.rank);
         }
     }
 
@@ -101,9 +100,7 @@ public class LongNumber {
         result.rank = maxRank + 1;
         result.value = new int[result.rank];
 
-        for (int i = 0; i < result.rank; ++i) {
-            result.value[i] = 0;
-        }
+        Arrays.fill(result.value, 0);
         result.summarize(this, lnNum);
         result.deleteZero();
 
@@ -149,9 +146,7 @@ public class LongNumber {
         int lastElement = this.rank - 1;
         if (this.value[lastElement] == 0) {
             int[] newValue = new int[lastElement];
-            for (int i = 0; i < lastElement; ++i) {
-                newValue[i] = this.value[i];
-            }
+            System.arraycopy(this.value, 0, newValue, 0, lastElement);
             this.value = newValue;
             this.rank -= 1;
         }
