@@ -1,4 +1,4 @@
-package ru.unn.agile.statistics.model;
+package ru.unn.agile.StatisticValueCalculator.model;
 
 import java.security.InvalidParameterException;
 import java.util.Collection;

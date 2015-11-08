@@ -1,4 +1,4 @@
-package ru.unn.agile.statistics.model;
+package ru.unn.agile.StatisticValueCalculator.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
