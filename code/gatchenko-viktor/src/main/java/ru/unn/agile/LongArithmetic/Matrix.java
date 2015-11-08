@@ -80,12 +80,12 @@ public class Matrix {
 
         if (this.height == matrix.height && this.width == matrix.width) {
             for (int i = 0; i < this.height; ++i) {
-                boolean arrayEqual = Arrays.equals(this.element[i], matrix.element[i]);
-                if (arrayEqual) {
-                    matrixEqual = false;
-                    break;
+                for (int j = 0; j < this.width; ++j) {
+                    if (!this.element[i][j].equals(matrix.element[i][j])) {
+                        matrixEqual = false;
+                        break;
+                    }
                 }
-
             }
         } else {
             matrixEqual = false;
