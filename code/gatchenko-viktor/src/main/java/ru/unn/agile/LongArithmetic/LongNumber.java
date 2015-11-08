@@ -189,7 +189,7 @@ public class LongNumber {
 
     @Override
     public boolean equals(final Object object) {
-        LongNumber lnNum = (LongNumber)object;
+        LongNumber lnNum = (LongNumber) object;
         boolean result = true;
 
         if (this.rank == lnNum.rank) {

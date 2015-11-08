@@ -1,5 +1,7 @@
 package ru.unn.agile.LongArithmetic;
 
+import java.util.Arrays;
+
 public class Matrix {
 
     static final Matrix UNDEFINED = null;
@@ -21,9 +23,7 @@ public class Matrix {
 
         this.element = new LongNumber[height][width];
         for (int i = 0; i < height; ++i) {
-            for (int j = 0; j < width; ++j) {
-                this.element[i][j] = new LongNumber(0);
-            }
+            Arrays.fill(this.element[i], new LongNumber(0));
         }
     }
 
@@ -57,7 +57,7 @@ public class Matrix {
 
     @Override
     public boolean equals(final Object object) {
-        Matrix matrix = (Matrix)object;
+        Matrix matrix = (Matrix) object;
         boolean result = true;
 
         if (this.height == matrix.height && this.width == matrix.width) {

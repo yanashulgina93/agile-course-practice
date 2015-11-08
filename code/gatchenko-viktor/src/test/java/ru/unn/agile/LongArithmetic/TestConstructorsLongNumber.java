@@ -1,6 +1,6 @@
 package ru.unn.agile.LongArithmetic;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ public class TestConstructorsLongNumber {
         lnNum = new LongNumber();
 
         boolean isEqual = lnNum.equals(0);
-        assertEquals(true, isEqual);
+        assertTrue(isEqual);
     }
 
     @Test
@@ -21,7 +21,7 @@ public class TestConstructorsLongNumber {
         lnNum = new LongNumber(0);
 
         boolean isEqual = lnNum.equals(0);
-        assertEquals(true, isEqual);
+        assertTrue(isEqual);
     }
 
     @Test
@@ -29,7 +29,7 @@ public class TestConstructorsLongNumber {
         lnNum = new LongNumber(987654321);
 
         boolean isEqual = lnNum.equals(987654321);
-        assertEquals(true, isEqual);
+        assertTrue(isEqual);
     }
 
     @Test
@@ -37,7 +37,7 @@ public class TestConstructorsLongNumber {
         lnNum = new LongNumber(1000000000);
 
         boolean isEqual = lnNum.equals(1000000000);
-        assertEquals(true, isEqual);
+        assertTrue(isEqual);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class TestConstructorsLongNumber {
         lnNum = new LongNumber(-1);
 
         boolean isEqual = lnNum.equals(-1);
-        assertEquals(true, isEqual);
+        assertTrue(isEqual);
     }
 
     @Test
@@ -54,7 +54,7 @@ public class TestConstructorsLongNumber {
         lnNum = new LongNumber(chars);
 
         boolean isEqual = lnNum.equals(11);
-        assertEquals(true, isEqual);
+        assertTrue(isEqual);
     }
 
     @Test
@@ -63,7 +63,7 @@ public class TestConstructorsLongNumber {
         lnNum = new LongNumber(chars);
 
         boolean isUndefined = lnNum.isUndefined();
-        assertEquals(true, isUndefined);
+        assertTrue(isUndefined);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class TestConstructorsLongNumber {
         lnNum = new LongNumber(chars);
 
         boolean isEqual = lnNum.equals(123456789);
-        assertEquals(true, isEqual);
+        assertTrue(isEqual);
     }
 
     @Test
@@ -81,7 +81,7 @@ public class TestConstructorsLongNumber {
         lnNum = new LongNumber(copied);
 
         boolean isEqual = lnNum.equals(copied);
-        assertEquals(true, isEqual);
+        assertTrue(isEqual);
     }
 
     @Test
@@ -90,7 +90,7 @@ public class TestConstructorsLongNumber {
         lnNum = new LongNumber(copied);
 
         boolean isEqual = lnNum.equals(copied);
-        assertEquals(true, isEqual);
+        assertTrue(isEqual);
     }
 
     @Test
@@ -100,7 +100,7 @@ public class TestConstructorsLongNumber {
         lnNum = new LongNumber(copied);
 
         boolean isEqual = lnNum.equals(copied);
-        assertEquals(true, isEqual);
+        assertTrue(isEqual);
     }
 
     @Test
@@ -109,7 +109,7 @@ public class TestConstructorsLongNumber {
         lnNum = new LongNumber(string);
 
         boolean isEqual = lnNum.equals(101);
-        assertEquals(true, isEqual);
+        assertTrue(isEqual);
     }
 
     @Test
@@ -121,7 +121,7 @@ public class TestConstructorsLongNumber {
         LongNumber charNumber = new LongNumber(chars);
 
         boolean isEqual = lnNum.equals(charNumber);
-        assertEquals(true, isEqual);
+        assertTrue(isEqual);
     }
 
     @Test
@@ -130,6 +130,6 @@ public class TestConstructorsLongNumber {
         lnNum = new LongNumber(string);
 
         boolean isEqual = lnNum.equals(0);
-        assertEquals(true, isEqual);
+        assertTrue(isEqual);
     }
 }

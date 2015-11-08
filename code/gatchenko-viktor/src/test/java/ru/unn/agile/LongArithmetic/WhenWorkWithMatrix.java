@@ -1,6 +1,6 @@
 package ru.unn.agile.LongArithmetic;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Random;
 
@@ -19,8 +19,8 @@ public class WhenWorkWithMatrix {
 
         Matrix resultMatrix = firstMatrix.multiply(secondMatrix);
 
-        boolean resultCompare = gageMatrix.equals(resultMatrix);
-        assertEquals(true, resultCompare);
+        boolean isEqual = gageMatrix.equals(resultMatrix);
+        assertTrue(isEqual);
     }
 
     private void initializeNecessaryMatrix2x2(final Matrix firstMatrix, final Matrix secondMatrix,
@@ -51,8 +51,8 @@ public class WhenWorkWithMatrix {
 
         Matrix resultMatrix = someMatrix.multiply(eMatrix);
 
-        boolean resultCompare = someMatrix.equals(resultMatrix);
-        assertEquals(true, resultCompare);
+        boolean isEqual = someMatrix.equals(resultMatrix);
+        assertTrue(isEqual);
     }
 
     @Test
@@ -66,7 +66,7 @@ public class WhenWorkWithMatrix {
         if (resultMatrix.getHeight() != 5 || resultMatrix.getWidth() != 5) {
             success = false;
         }
-        assertEquals(true, success);
+        assertTrue(success);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class WhenWorkWithMatrix {
         Matrix secondMatrix = new Matrix(firstMatrix);
 
         boolean isEqual = firstMatrix.equals(secondMatrix);
-        assertEquals(true, isEqual);
+        assertTrue(isEqual);
     }
 
     @Test
@@ -84,7 +84,7 @@ public class WhenWorkWithMatrix {
         Matrix secondMatrix = generateMatrix(3, 3);
 
         boolean isEqual = firstMatrix.equals(secondMatrix);
-        assertEquals(false, isEqual);
+        assertTrue(!isEqual);
     }
 
     @Test
@@ -99,7 +99,7 @@ public class WhenWorkWithMatrix {
         eMatrix.setElement(1, 1, 1);
 
         boolean isEqual = matrix.equals(eMatrix);
-        assertEquals(false, isEqual);
+        assertTrue(!isEqual);
     }
 
     @Test
@@ -112,11 +112,11 @@ public class WhenWorkWithMatrix {
         LongNumber element = matrix.getElement(4, 5);
 
         boolean success = false;
-        if(height == 6 && width == 7 && element.equals(33)) {
+        if (height == 6 && width == 7 && element.equals(33)) {
             success = true;
         }
 
-        assertEquals(true, success);
+        assertTrue(success);
     }
 
     private Matrix generateMatrix(final int height, final int width) {
