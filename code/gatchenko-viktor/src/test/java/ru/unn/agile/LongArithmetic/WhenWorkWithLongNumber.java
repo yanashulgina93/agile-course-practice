@@ -1,6 +1,7 @@
 package ru.unn.agile.LongArithmetic;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -153,7 +154,7 @@ public class WhenWorkWithLongNumber {
         initializePairLongNumber(0, 1);
         boolean isEqual = lnNum1.equals(lnNum2);
 
-        assertTrue(!isEqual);
+        assertFalse(isEqual);
     }
 
     @Test
@@ -161,7 +162,7 @@ public class WhenWorkWithLongNumber {
         initializePairLongNumber(11, 111);
         boolean isEqual = lnNum1.equals(lnNum2);
 
-        assertTrue(!isEqual);
+        assertFalse(isEqual);
     }
 
     @Test
@@ -233,7 +234,7 @@ public class WhenWorkWithLongNumber {
         lnNum1 = new LongNumber();
 
         boolean isUndefined = lnNum1.isUndefined();
-        assertTrue(!isUndefined);
+        assertFalse(isUndefined);
     }
 
     @Test
@@ -241,6 +242,6 @@ public class WhenWorkWithLongNumber {
         lnNum1 = new LongNumber("123456789987654321");
 
         boolean isUndefined = lnNum1.isUndefined();
-        assertTrue(!isUndefined);
+        assertFalse(isUndefined);
     }
 }

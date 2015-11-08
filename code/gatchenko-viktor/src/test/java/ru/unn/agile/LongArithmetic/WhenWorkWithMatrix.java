@@ -1,5 +1,6 @@
 package ru.unn.agile.LongArithmetic;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Random;
@@ -96,7 +97,7 @@ public class WhenWorkWithMatrix {
         Matrix secondMatrix = generateMatrix(3, 3);
 
         boolean isEqual = firstMatrix.equals(secondMatrix);
-        assertTrue(!isEqual);
+        assertFalse(isEqual);
     }
 
     @Test
@@ -111,7 +112,7 @@ public class WhenWorkWithMatrix {
         eMatrix.setElement(1, 1, 1);
 
         boolean isEqual = matrix.equals(eMatrix);
-        assertTrue(!isEqual);
+        assertFalse(isEqual);
     }
 
     @Test
