@@ -104,11 +104,15 @@ public class ViewModel {
         }
         try {
             if (!inputValue.get().isEmpty()) {
-                Double.parseDouble(inputValue.get());
+                double value = Double.parseDouble(inputValue.get());
+                if (value < 0) {
+                    errorStatus = Status.BAD_FORMAT;
+                }
             }
         } catch (NumberFormatException nfe) {
             errorStatus = Status.BAD_FORMAT;
         }
+
         return errorStatus;
     }
 
@@ -124,7 +128,7 @@ public class ViewModel {
 enum Status {
     WAITING(" "),
     READY(" "),
-    BAD_FORMAT("Error: Enter the digits please");
+    BAD_FORMAT("Error: Bad format");
 
     private final String name;
     private Status(final String name) {
