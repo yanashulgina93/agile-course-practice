@@ -267,6 +267,8 @@ public class LongNumber {
                 intNum += this.value[i] * Math.pow(SCALE, i);
             }
             intNum *= this.sign;
+        } else {
+            throw new LongNumberCanNotConvertExeption("This long number can't convert to int");
         }
 
         return intNum;

@@ -221,12 +221,10 @@ public class WhenWorkWithLongNumber {
         assertEquals(0, number);
     }
 
-    @Test
+    @Test(expected = LongNumberCanNotConvertExeption.class)
     public void convertVeryLongNumberToint() {
         lnNum1 = new LongNumber("19283746519283746519283746519283745619");
         int number = lnNum1.convertToInt();
-
-        assertEquals(0, number);
     }
 
     @Test
