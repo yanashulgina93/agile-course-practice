@@ -46,7 +46,8 @@ public class LongNumber {
                 charElement = ((char[]) str)[i];
             }
             newElement = Character.getNumericValue(charElement);
-            if (newElement < 10) {
+            int maxCharNumberIndex = 9;
+            if (newElement <= maxCharNumberIndex) {
                 this.value[j] = Character.getNumericValue(charElement);
             } else {
                 this.value = null;
