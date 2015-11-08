@@ -99,15 +99,16 @@ public class LongNumber {
         int newElement;
         int lenght = this.getLenghtString(str);
 
-        for (int i = 0, j = this.rank - 1; i < lenght; ++i, --j) {
+        int index = this.rank - 1;
+        for (int i = 0; i < lenght; ++i, --index) {
             charElement = this.getCharByIndex(str, i);
             if (i == 0 && charElement == '-') {
-                j++;
+                index++;
             } else {
                 newElement = Character.getNumericValue(charElement);
                 final int maxCharNumberIndex = 9;
                 if (newElement <= maxCharNumberIndex) {
-                    this.value[j] = newElement;
+                    this.value[index] = newElement;
                 } else {
                     this.value = null;
                     this.rank = 0;
@@ -117,7 +118,7 @@ public class LongNumber {
         }
     }
 
-    private char getCharByIndex(final Object str, int i) {
+    private char getCharByIndex(final Object str, final int i) {
         char charElement;
         if (str.getClass() == String.class) {
             charElement = ((String) str).charAt(i);
@@ -222,7 +223,7 @@ public class LongNumber {
             for (int i = 0; i < this.rank; ++i) {
                 if (this.value[i] < 0) {
                     this.value[i + 1]--;
-                    this.value[i] = 10 + this.value[i];
+                    this.value[i] = SCALE + this.value[i];
                 }
             }
         }
@@ -266,6 +267,11 @@ public class LongNumber {
         intNum *= this.sign;
 
         return intNum;
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
     }
 
     public boolean equals(final LongNumber lnNum) {

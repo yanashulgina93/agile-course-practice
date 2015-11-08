@@ -55,6 +55,11 @@ public class Matrix {
         return resultMatrix;
     }
 
+    @Override
+    public int hashCode() {
+        return 0;
+    }
+
     public boolean equals(final Matrix matrix) {
         boolean result = true;
 
