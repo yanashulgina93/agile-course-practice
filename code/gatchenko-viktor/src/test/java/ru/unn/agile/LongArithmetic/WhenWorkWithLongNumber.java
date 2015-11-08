@@ -40,6 +40,35 @@ public class WhenWorkWithLongNumber {
     }
 
     @Test
+    public void addMinus199To199() {
+        initializePairLongNumber(-199, 199);
+        result = lnNum1.add(lnNum2);
+
+        strNum = result.convertToString();
+        assertEquals("0", strNum);
+    }
+
+    @Test
+    public void addMinusLongToLong() {
+        lnNum1 = new LongNumber("-10000000000011111111111");
+        lnNum2 = new LongNumber("12345678998799999999999");
+        result = lnNum1.add(lnNum2);
+
+        strNum = result.convertToString();
+        assertEquals("2345678998788888888888", strNum);
+    }
+
+    @Test
+    public void addMinusLongToMinusLong() {
+        lnNum1 = new LongNumber("-10000000000011111111111");
+        lnNum2 = new LongNumber("-10000000000011111111111");
+        result = lnNum1.add(lnNum2);
+
+        strNum = result.convertToString();
+        assertEquals("-20000000000022222222222", strNum);
+    }
+
+    @Test
     public void longAdd() {
         lnNum1 = new LongNumber("10000000000011111111111");
         lnNum2 = new LongNumber("12345678998799999999999");

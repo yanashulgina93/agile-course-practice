@@ -49,11 +49,10 @@ public class TestConstructorsLongNumber {
     }
 
     @Test
-    public void chars11ToLongNumber() {
-        char[] chars = { '1', '1' };
-        lnNum = new LongNumber(chars);
+    public void intMinus112345ToLongNumber() {
+        lnNum = new LongNumber(-112345);
 
-        boolean isEqual = lnNum.equals(11);
+        boolean isEqual = lnNum.equals(-112345);
         assertTrue(isEqual);
     }
 
@@ -74,6 +73,16 @@ public class TestConstructorsLongNumber {
         boolean isEqual = lnNum.equals(123456789);
         assertTrue(isEqual);
     }
+
+    @Test
+    public void charsMinus123ToLongNumber() {
+        char[] chars = { '-', '1', '2', '3'};
+        lnNum = new LongNumber(chars);
+
+        boolean isEqual = lnNum.equals(-123);
+        assertTrue(isEqual);
+    }
+
 
     @Test
     public void copyDefaultToLongNumber() {
@@ -109,6 +118,15 @@ public class TestConstructorsLongNumber {
         lnNum = new LongNumber(string);
 
         boolean isEqual = lnNum.equals(101);
+        assertTrue(isEqual);
+    }
+
+    @Test
+    public void stringMinus101ToLongNumber() {
+        String string = "-101";
+        lnNum = new LongNumber(string);
+
+        boolean isEqual = lnNum.equals(-101);
         assertTrue(isEqual);
     }
 

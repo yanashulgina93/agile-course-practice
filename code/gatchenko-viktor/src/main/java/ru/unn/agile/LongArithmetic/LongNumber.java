@@ -10,57 +10,101 @@ public class LongNumber {
 
     private static final int SCALE = 10;
     private int rank;
+    private int sign;
     private int[] value;
 
     public LongNumber() {
         this.rank = 1;
         this.value = new int[this.rank];
+        this.sign = 1;
         this.value[0] = 0;
     }
 
     public LongNumber(final int number) {
         this.rank = this.getIntRank(number);
         this.value = new int[this.rank];
-        this.convetIntToLong(number);
+        if (number < 0) {
+            this.sign = -1;
+        } else {
+            this.sign = 1;
+        }
+        this.convetIntToLong(Math.abs(number));
     }
 
     public LongNumber(final char[] chars) {
-        this.rank = chars.length;
+        this.rank = this.getLenghtString(chars);
+        this.getSign(chars);
         this.value = new int[rank];
-        this.fillValue(chars, false);
+        this.fillValue(chars);
     }
 
     public LongNumber(final String string) {
-        this.rank = string.length();
+        this.rank = this.getLenghtString(string);
+        this.getSign(string);
         this.value = new int[rank];
-        this.fillValue(string, true);
+        this.fillValue(string);
     }
 
-    private void fillValue(final Object str, final boolean isString) {
+    private int getLenghtString(final Object str) {
+        int lenght;
+        if (str.getClass() == String.class) {
+            lenght = ((String) str).length();
+        } else {
+            lenght = ((char[]) str).length;
+        }
+
+        return lenght;
+    }
+
+    private void getSign(final Object str) {
+        char charElement = this.getCharByIndex(str, 0);
+
+        if (charElement == '-') {
+            this.sign = -1;
+            this.rank--;
+        } else {
+            this.sign = 1;
+        }
+    }
+
+    private void fillValue(final Object str) {
         char charElement;
         int newElement;
+        int lenght = this.getLenghtString(str);
 
-        for (int i = 0, j = this.rank - 1; i < this.rank; ++i, --j) {
-            if (isString) {
-                charElement = ((String) str).charAt(i);
+        for (int i = 0, j = this.rank - 1; i < lenght; ++i, --j) {
+            charElement = this.getCharByIndex(str, i);
+            if (i == 0 && charElement == '-') {
+                j++;
             } else {
-                charElement = ((char[]) str)[i];
-            }
-            newElement = Character.getNumericValue(charElement);
-            final int MAX_CHAR_NUMBER_INDEX = 9;
-            if (newElement <= MAX_CHAR_NUMBER_INDEX) {
-                this.value[j] = newElement;
-            } else {
-                this.value = null;
-                this.rank = 0;
-                break;
+                newElement = Character.getNumericValue(charElement);
+                final int maxCharNumberIndex = 9;
+                if (newElement <= maxCharNumberIndex) {
+                    this.value[j] = newElement;
+                } else {
+                    this.value = null;
+                    this.rank = 0;
+                    break;
+                }
             }
         }
+    }
+
+    private char getCharByIndex(final Object str, int i) {
+        char charElement;
+        if (str.getClass() == String.class) {
+            charElement = ((String) str).charAt(i);
+        } else {
+            charElement = ((char[]) str)[i];
+        }
+
+        return charElement;
     }
 
     public LongNumber(final LongNumber copiedNum) {
         this.rank = copiedNum.rank;
         this.value = new int[this.rank];
+        this.sign = copiedNum.sign;
         if (copiedNum.value == LongNumber.UNDEFINED_VALUE) {
             this.value = LongNumber.UNDEFINED_VALUE;
         } else {
@@ -73,7 +117,7 @@ public class LongNumber {
         if (number == 0) {
             rank = 1;
         } else {
-            rank = (int) (Math.log(number) / Math.log(SCALE) + 1);
+            rank = (int) (Math.log(Math.abs(number)) / Math.log(SCALE) + 1);
         }
 
         return rank;
@@ -96,19 +140,23 @@ public class LongNumber {
 
     public LongNumber add(final LongNumber lnNum) {
         LongNumber result = new LongNumber();
-        int maxRank = Math.max(this.rank, lnNum.rank);
+        LongNumber addendum1 = new LongNumber(this);
+        LongNumber addendum2 = new LongNumber(lnNum);
+
+        int maxRank = Math.max(addendum1.rank, addendum2.rank);
         result.rank = maxRank + 1;
         result.value = new int[result.rank];
 
         Arrays.fill(result.value, 0);
-        result.summarize(this, lnNum);
-        result.deleteZero();
+        result.summarize(addendum1, addendum2);
 
         return result;
     }
 
     private void summarize(final LongNumber addendum1, final LongNumber addendum2) {
         int maxRank = Math.max(addendum1.rank, addendum2.rank);
+        addendum1.beforePreparation();
+        addendum2.beforePreparation();
 
         int smallSum = 0;
         for (int i = 0; i < maxRank; ++i) {
@@ -129,15 +177,54 @@ public class LongNumber {
                 this.value[i] = smallSum;
             }
         }
+
+        this.deleteZeroes();
+        this.definitionOfSign();
     }
 
-    private void deleteZero() {
+    private void beforePreparation() {
+        if (this.sign == -1) {
+            for (int i = 0; i < this.rank; ++i) {
+                this.value[i] *= this.sign;
+            }
+        }
+    }
+
+    private void definitionOfSign() {
+        boolean isNegative = true;
+        this.sign = 1;
+
+        for (int i = 0; i < this.rank; ++i) {
+            if (this.value[i] > 0) {
+                isNegative = false;
+                break;
+            }
+        }
+        if (isNegative && !this.equals(0)) {
+            this.sign = -1;
+            for (int i = 0; i < this.rank; ++i) {
+                this.value[i] *= this.sign;
+            }
+        } else {
+            this.sign = 1;
+            for (int i = 0; i < this.rank; ++i) {
+                if (this.value[i] < 0) {
+                    this.value[i + 1]--;
+                    this.value[i] = 10 + this.value[i];
+                }
+            }
+        }
+        this.deleteZeroes();
+    }
+
+    private void deleteZeroes() {
         int lastElement = this.rank - 1;
-        if (this.value[lastElement] == 0) {
+        while (this.value[lastElement] == 0 && lastElement != 0) {
             int[] newValue = new int[lastElement];
             System.arraycopy(this.value, 0, newValue, 0, lastElement);
             this.value = newValue;
-            this.rank -= 1;
+            this.rank--;
+            lastElement = this.rank - 1;
         }
     }
 
@@ -158,6 +245,9 @@ public class LongNumber {
 
     public String convertToString() {
         String strNum = "";
+        if(this.sign == -1) {
+            strNum += "-";
+        }
         for (int i = 0, j = this.rank - 1; i < this.rank; ++i, --j) {
             int element = this.value[j];
             strNum += Integer.toString(element);
@@ -176,12 +266,10 @@ public class LongNumber {
         return intNum;
     }
 
-    @Override
-    public boolean equals(final Object object) {
-        LongNumber lnNum = (LongNumber) object;
+    public boolean equals(final LongNumber lnNum) {
         boolean result = true;
 
-        if (this.rank == lnNum.rank) {
+        if (this.rank == lnNum.rank && this.sign == this.sign) {
             for (int i = 0; i < this.rank; ++i) {
                 if (this.value[i] != lnNum.value[i]) {
                     result = false;

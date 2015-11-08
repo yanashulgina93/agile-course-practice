@@ -55,9 +55,7 @@ public class Matrix {
         return resultMatrix;
     }
 
-    @Override
-    public boolean equals(final Object object) {
-        Matrix matrix = (Matrix) object;
+    public boolean equals(final Matrix matrix) {
         boolean result = true;
 
         if (this.height == matrix.height && this.width == matrix.width) {
