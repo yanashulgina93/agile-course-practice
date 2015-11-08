@@ -196,6 +196,31 @@ public class WhenWorkWithLongNumber {
         assertEquals("19283746519283746519283746519283745619", strNum);
     }
 
+
+    @Test
+    public void convertLongNumber1Toint() {
+        lnNum1 = new LongNumber(1);
+        int number = lnNum1.convertToInt();
+
+        assertEquals(1, number);
+    }
+
+    @Test
+    public void convertMinusLongNumberToint() {
+        lnNum1 = new LongNumber(-234123498);
+        int number = lnNum1.convertToInt();
+
+        assertEquals(-234123498, number);
+    }
+
+    @Test
+    public void convertLongNumberMinus0Toint() {
+        lnNum1 = new LongNumber(0);
+        int number = lnNum1.convertToInt();
+
+        assertEquals(0, number);
+    }
+
     @Test
     public void defaultNumberIsNotUndefined() {
         lnNum1 = new LongNumber();

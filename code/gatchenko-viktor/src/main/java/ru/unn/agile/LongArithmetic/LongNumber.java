@@ -258,7 +258,7 @@ public class LongNumber {
         return strNum;
     }
 
-    private int convertToInt() {
+    public int convertToInt() {
         int intNum = 0;
 
         for (int i = 0; i < this.rank; ++i) {
