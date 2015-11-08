@@ -57,6 +57,13 @@ public class ViewModelTests {
     }
 
     @Test
+    public void canReportBadFormatWhenOneDigitAndOneLetter() {
+        viewModel.inputValueProperty().set("1a");
+
+        assertEquals(Status.BAD_FORMAT.toString(), viewModel.errorMessageProperty().get());
+    }
+
+    @Test
     public void calculateButtonIsDisabledInitially() {
         assertTrue(viewModel.calculationDisabledProperty().get());
     }
@@ -107,6 +114,17 @@ public class ViewModelTests {
         viewModel.calculate();
 
         assertEquals("1000.0", viewModel.outputValueProperty().get());
+    }
+
+    @Test
+    public void convertion100InchToFootHasCorrectResult() {
+        viewModel.inputValueProperty().set("100");
+        viewModel.inputUnitProperty().set(LengthUnit.INCH);
+        viewModel.outputUnitProperty().set(LengthUnit.FOOT);
+
+        viewModel.calculate();
+
+        assertEquals("8.333333267716535", viewModel.outputValueProperty().get());
     }
 
     @Test
