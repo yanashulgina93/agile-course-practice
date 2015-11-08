@@ -21,6 +21,11 @@ public class WhenWorkWithLongNumber {
         assertEquals("1", strNum);
     }
 
+    private void initializePairLongNumber(final int number1, final int number2) {
+        lnNum1 = new LongNumber(number1);
+        lnNum2 = new LongNumber(number2);
+    }
+
     @Test
     public void add122To78() {
         initializePairLongNumber(122, 78);
@@ -177,10 +182,5 @@ public class WhenWorkWithLongNumber {
 
         boolean isUndefined = lnNum1.isUndefined();
         assertTrue(!isUndefined);
-    }
-
-    private void initializePairLongNumber(final int number1, final int number2) {
-        lnNum1 = new LongNumber(number1);
-        lnNum2 = new LongNumber(number2);
     }
 }

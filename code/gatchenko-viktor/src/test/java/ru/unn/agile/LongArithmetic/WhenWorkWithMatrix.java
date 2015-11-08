@@ -55,6 +55,18 @@ public class WhenWorkWithMatrix {
         assertTrue(isEqual);
     }
 
+    private Matrix generateMatrix(final int height, final int width) {
+        Matrix resultMatrix = new Matrix(height, width);
+
+        for (int i = 0; i < height; ++i) {
+            for (int j = 0; j < width; ++j) {
+                int value = Math.abs(random.nextInt());
+                resultMatrix.setElement(i, j, value);
+            }
+        }
+        return resultMatrix;
+    }
+
     @Test
     public void multiplySomeMatrix5x3AndSomeMatrix3x5() {
         Matrix firstMatrix = generateMatrix(5, 3);
@@ -117,18 +129,5 @@ public class WhenWorkWithMatrix {
         }
 
         assertTrue(success);
-    }
-
-    private Matrix generateMatrix(final int height, final int width) {
-        Matrix resultMatrix = new Matrix(height, width);
-
-        for (int i = 0; i < height; ++i) {
-            for (int j = 0; j < width; ++j) {
-                int value = Math.abs(random.nextInt());
-                resultMatrix.setElement(i, j, value);
-            }
-        }
-
-        return resultMatrix;
     }
 }

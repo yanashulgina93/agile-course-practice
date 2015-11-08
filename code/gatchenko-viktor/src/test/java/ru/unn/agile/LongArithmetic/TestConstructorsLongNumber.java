@@ -58,7 +58,7 @@ public class TestConstructorsLongNumber {
 
     @Test
     public void chars1aToLongNumber() {
-        char[] chars = { '1', 'a' };
+        char[] chars = {'1', 'a'};
         lnNum = new LongNumber(chars);
 
         boolean isUndefined = lnNum.isUndefined();
@@ -132,8 +132,8 @@ public class TestConstructorsLongNumber {
     @Test
     public void longStringToLongNumber() {
         String string = "111222333444555666777888999";
-        char[] chars = { '1', '1', '1', '2', '2', '2', '3', '3', '3', '4', '4', '4', '5', '5',
-                         '5', '6', '6', '6', '7', '7', '7', '8', '8', '8', '9', '9', '9' };
+        char[] chars = {'1', '1', '1', '2', '2', '2', '3', '3', '3', '4', '4', '4', '5', '5',
+                        '5', '6', '6', '6', '7', '7', '7', '8', '8', '8', '9', '9', '9'};
         lnNum = new LongNumber(string);
         LongNumber charNumber = new LongNumber(chars);
 

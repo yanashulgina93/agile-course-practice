@@ -55,6 +55,19 @@ public class Matrix {
         return resultMatrix;
     }
 
+    private LongNumber countUpElement(final int i, final int j, final Matrix firstMultiplier,
+            final Matrix secondMultiplier) {
+        LongNumber result = new LongNumber();
+        LongNumber partSum;
+
+        for (int w = 0; w < firstMultiplier.width; ++w) {
+            partSum = firstMultiplier.element[i][w].multiply(secondMultiplier.element[w][j]);
+            result = result.add(partSum);
+        }
+
+        return result;
+    }
+
     @Override
     public int hashCode() {
         return 0;
@@ -73,19 +86,6 @@ public class Matrix {
             }
         } else {
             result = false;
-        }
-
-        return result;
-    }
-
-    private LongNumber countUpElement(final int i, final int j, final Matrix firstMultiplier,
-            final Matrix secondMultiplier) {
-        LongNumber result = new LongNumber();
-        LongNumber partSum;
-
-        for (int w = 0; w < firstMultiplier.width; ++w) {
-            partSum = firstMultiplier.element[i][w].multiply(secondMultiplier.element[w][j]);
-            result = result.add(partSum);
         }
 
         return result;
