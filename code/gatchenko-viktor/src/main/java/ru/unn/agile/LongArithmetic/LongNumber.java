@@ -182,7 +182,7 @@ public class LongNumber {
         return strNum;
     }
 
-    private int convertLongToInt() {
+    private int convertToInt() {
         int intNum = 0;
 
         for (int i = 0; i < this.rank; ++i) {
@@ -192,7 +192,9 @@ public class LongNumber {
         return intNum;
     }
 
-    public boolean isEqual(final LongNumber lnNum) {
+    @Override
+    public boolean equals(final Object object) {
+        LongNumber lnNum = (LongNumber)object;
         boolean result = true;
 
         if (this.rank == lnNum.rank) {
@@ -208,11 +210,11 @@ public class LongNumber {
         return result;
     }
 
-    public boolean isEqual(final int lnNum) {
+    public boolean equals(final int number) {
         boolean result = true;
-        LongNumber newNum = new LongNumber(lnNum);
+        LongNumber newNum = new LongNumber(number);
 
-        result = this.isEqual(newNum);
+        result = this.equals(newNum);
 
         return result;
     }

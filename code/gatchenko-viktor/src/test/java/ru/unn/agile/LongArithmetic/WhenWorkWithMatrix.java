@@ -19,7 +19,7 @@ public class WhenWorkWithMatrix {
 
         Matrix resultMatrix = firstMatrix.multiply(secondMatrix);
 
-        boolean resultCompare = gageMatrix.isEqual(resultMatrix);
+        boolean resultCompare = gageMatrix.equals(resultMatrix);
         assertEquals(true, resultCompare);
     }
 
@@ -51,7 +51,7 @@ public class WhenWorkWithMatrix {
 
         Matrix resultMatrix = someMatrix.multiply(eMatrix);
 
-        boolean resultCompare = someMatrix.isEqual(resultMatrix);
+        boolean resultCompare = someMatrix.equals(resultMatrix);
         assertEquals(true, resultCompare);
     }
 
@@ -74,7 +74,7 @@ public class WhenWorkWithMatrix {
         Matrix firstMatrix = generateMatrix(4, 3);
         Matrix secondMatrix = new Matrix(firstMatrix);
 
-        boolean isEqual = firstMatrix.isEqual(secondMatrix);
+        boolean isEqual = firstMatrix.equals(secondMatrix);
         assertEquals(true, isEqual);
     }
 
@@ -83,7 +83,7 @@ public class WhenWorkWithMatrix {
         Matrix firstMatrix = generateMatrix(4, 3);
         Matrix secondMatrix = generateMatrix(3, 3);
 
-        boolean isEqual = firstMatrix.isEqual(secondMatrix);
+        boolean isEqual = firstMatrix.equals(secondMatrix);
         assertEquals(false, isEqual);
     }
 
@@ -98,7 +98,7 @@ public class WhenWorkWithMatrix {
         eMatrix.setElement(0, 0, 1);
         eMatrix.setElement(1, 1, 1);
 
-        boolean isEqual = matrix.isEqual(eMatrix);
+        boolean isEqual = matrix.equals(eMatrix);
         assertEquals(false, isEqual);
     }
 
@@ -112,7 +112,7 @@ public class WhenWorkWithMatrix {
         LongNumber element = matrix.getElement(4, 5);
 
         boolean success = false;
-        if(height == 6 && width == 7 && element.isEqual(33)) {
+        if(height == 6 && width == 7 && element.equals(33)) {
             success = true;
         }
 

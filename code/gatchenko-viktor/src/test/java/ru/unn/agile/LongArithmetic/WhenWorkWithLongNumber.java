@@ -88,7 +88,7 @@ public class WhenWorkWithLongNumber {
     @Test
     public void compare0And1() {
         initializePairLongNumber(0, 1);
-        boolean isEqual = lnNum1.isEqual(lnNum2);
+        boolean isEqual = lnNum1.equals(lnNum2);
 
         assertEquals(false, isEqual);
     }
@@ -96,7 +96,7 @@ public class WhenWorkWithLongNumber {
     @Test
     public void compare11And111() {
         initializePairLongNumber(11, 111);
-        boolean isEqual = lnNum1.isEqual(lnNum2);
+        boolean isEqual = lnNum1.equals(lnNum2);
 
         assertEquals(false, isEqual);
     }
@@ -104,7 +104,7 @@ public class WhenWorkWithLongNumber {
     @Test
     public void compare2222222And2222222() {
         initializePairLongNumber(2222222, 2222222);
-        boolean isEqual = lnNum1.isEqual(lnNum2);
+        boolean isEqual = lnNum1.equals(lnNum2);
 
         assertEquals(true, isEqual);
     }

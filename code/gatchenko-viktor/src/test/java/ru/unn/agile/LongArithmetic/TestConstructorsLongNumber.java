@@ -12,7 +12,7 @@ public class TestConstructorsLongNumber {
     public void defaultLongNumber() {
         lnNum = new LongNumber();
 
-        boolean isEqual = lnNum.isEqual(0);
+        boolean isEqual = lnNum.equals(0);
         assertEquals(true, isEqual);
     }
 
@@ -20,7 +20,7 @@ public class TestConstructorsLongNumber {
     public void int0ToLongNumber() {
         lnNum = new LongNumber(0);
 
-        boolean isEqual = lnNum.isEqual(0);
+        boolean isEqual = lnNum.equals(0);
         assertEquals(true, isEqual);
     }
 
@@ -28,7 +28,7 @@ public class TestConstructorsLongNumber {
     public void int987654321ToLongNumber() {
         lnNum = new LongNumber(987654321);
 
-        boolean isEqual = lnNum.isEqual(987654321);
+        boolean isEqual = lnNum.equals(987654321);
         assertEquals(true, isEqual);
     }
 
@@ -36,7 +36,7 @@ public class TestConstructorsLongNumber {
     public void int1000000000ToLongNumber() {
         lnNum = new LongNumber(1000000000);
 
-        boolean isEqual = lnNum.isEqual(1000000000);
+        boolean isEqual = lnNum.equals(1000000000);
         assertEquals(true, isEqual);
     }
 
@@ -44,7 +44,7 @@ public class TestConstructorsLongNumber {
     public void intMinus1ToLongNumber() {
         lnNum = new LongNumber(-1);
 
-        boolean isEqual = lnNum.isEqual(-1);
+        boolean isEqual = lnNum.equals(-1);
         assertEquals(true, isEqual);
     }
 
@@ -53,7 +53,7 @@ public class TestConstructorsLongNumber {
         char[] chars = { '1', '1' };
         lnNum = new LongNumber(chars);
 
-        boolean isEqual = lnNum.isEqual(11);
+        boolean isEqual = lnNum.equals(11);
         assertEquals(true, isEqual);
     }
 
@@ -71,7 +71,7 @@ public class TestConstructorsLongNumber {
         char[] chars = { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         lnNum = new LongNumber(chars);
 
-        boolean isEqual = lnNum.isEqual(123456789);
+        boolean isEqual = lnNum.equals(123456789);
         assertEquals(true, isEqual);
     }
 
@@ -80,7 +80,7 @@ public class TestConstructorsLongNumber {
         LongNumber copied = new LongNumber();
         lnNum = new LongNumber(copied);
 
-        boolean isEqual = lnNum.isEqual(copied);
+        boolean isEqual = lnNum.equals(copied);
         assertEquals(true, isEqual);
     }
 
@@ -89,7 +89,7 @@ public class TestConstructorsLongNumber {
         LongNumber copied = new LongNumber(12345);
         lnNum = new LongNumber(copied);
 
-        boolean isEqual = lnNum.isEqual(copied);
+        boolean isEqual = lnNum.equals(copied);
         assertEquals(true, isEqual);
     }
 
@@ -99,7 +99,7 @@ public class TestConstructorsLongNumber {
         LongNumber copied = new LongNumber(chars);
         lnNum = new LongNumber(copied);
 
-        boolean isEqual = lnNum.isEqual(copied);
+        boolean isEqual = lnNum.equals(copied);
         assertEquals(true, isEqual);
     }
 
@@ -108,7 +108,7 @@ public class TestConstructorsLongNumber {
         String string = "101";
         lnNum = new LongNumber(string);
 
-        boolean isEqual = lnNum.isEqual(101);
+        boolean isEqual = lnNum.equals(101);
         assertEquals(true, isEqual);
     }
 
@@ -120,7 +120,7 @@ public class TestConstructorsLongNumber {
         lnNum = new LongNumber(string);
         LongNumber charNumber = new LongNumber(chars);
 
-        boolean isEqual = lnNum.isEqual(charNumber);
+        boolean isEqual = lnNum.equals(charNumber);
         assertEquals(true, isEqual);
     }
 
@@ -129,7 +129,7 @@ public class TestConstructorsLongNumber {
         String string = "0";
         lnNum = new LongNumber(string);
 
-        boolean isEqual = lnNum.isEqual(0);
+        boolean isEqual = lnNum.equals(0);
         assertEquals(true, isEqual);
     }
 }

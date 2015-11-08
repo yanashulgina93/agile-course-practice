@@ -57,13 +57,15 @@ public class Matrix {
         return resultMatrix;
     }
 
-    public boolean isEqual(final Matrix secondMatrix) {
+    @Override
+    public boolean equals(final Object object) {
+        Matrix matrix = (Matrix)object;
         boolean result = true;
 
-        if (this.height == secondMatrix.height && this.width == secondMatrix.width) {
+        if (this.height == matrix.height && this.width == matrix.width) {
             for (int i = 0; i < this.height; ++i) {
                 for (int j = 0; j < this.width; ++j) {
-                    if (!this.element[i][j].isEqual(secondMatrix.element[i][j])) {
+                    if (!this.element[i][j].equals(matrix.element[i][j])) {
                         result = false;
                     }
                 }
