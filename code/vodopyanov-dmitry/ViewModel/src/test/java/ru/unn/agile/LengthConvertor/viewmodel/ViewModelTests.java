@@ -99,7 +99,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void operationAddHasCorrectResult() {
+    public void convertion1KmeterToMeterHasCorrectResult() {
         viewModel.inputValueProperty().set("1");
         viewModel.inputUnitProperty().set(LengthUnit.KMETER);
         viewModel.outputUnitProperty().set(LengthUnit.METER);
