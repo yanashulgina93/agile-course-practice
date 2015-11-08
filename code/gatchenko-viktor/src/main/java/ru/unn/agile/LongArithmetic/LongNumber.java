@@ -47,9 +47,9 @@ public class LongNumber {
                 charElement = ((char[]) str)[i];
             }
             newElement = Character.getNumericValue(charElement);
-            int maxCharNumberIndex = 9;
-            if (newElement <= maxCharNumberIndex) {
-                this.value[j] = Character.getNumericValue(charElement);
+            final int MAX_CHAR_NUMBER_INDEX = 9;
+            if (newElement <= MAX_CHAR_NUMBER_INDEX) {
+                this.value[j] = newElement;
             } else {
                 this.value = null;
                 this.rank = 0;
@@ -81,22 +81,22 @@ public class LongNumber {
 
     private void convetIntToLong(final int number) {
         int intermediateNum = number;
-        int newElement = -1;
-        int divider = 1;
-        int remain = -1;
+        int newElement;
+        int divider;
+        int remainer;
 
         for (int j = this.rank - 1; j > -1; --j) {
             divider = (int) (Math.pow(SCALE, j));
             newElement = intermediateNum / divider;
             this.value[j] = newElement;
-            remain = intermediateNum % divider;
-            intermediateNum = remain;
+            remainer = intermediateNum % divider;
+            intermediateNum = remainer;
         }
     }
 
     public LongNumber add(final LongNumber lnNum) {
         LongNumber result = new LongNumber();
-        int maxRank = this.getMaxRank(this, lnNum);
+        int maxRank = Math.max(this.rank, lnNum.rank);
         result.rank = maxRank + 1;
         result.value = new int[result.rank];
 
@@ -107,19 +107,8 @@ public class LongNumber {
         return result;
     }
 
-    private int getMaxRank(final LongNumber lnNum1, final LongNumber lnNum2) {
-        int maxRank = 0;
-        if (lnNum1.rank > lnNum2.rank) {
-            maxRank = lnNum1.rank;
-        } else {
-            maxRank = lnNum2.rank;
-        }
-
-        return maxRank;
-    }
-
     private void summarize(final LongNumber addendum1, final LongNumber addendum2) {
-        int maxRank = this.getMaxRank(addendum1, addendum2);
+        int maxRank = Math.max(addendum1.rank, addendum2.rank);
 
         int smallSum = 0;
         for (int i = 0; i < maxRank; ++i) {
