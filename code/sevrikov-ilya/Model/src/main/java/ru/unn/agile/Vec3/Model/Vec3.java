@@ -51,6 +51,10 @@ public class Vec3 {
 
     @Override
     public boolean equals(final Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
         if (obj instanceof Vec3) {
             return equals((Vec3) obj);
         }
