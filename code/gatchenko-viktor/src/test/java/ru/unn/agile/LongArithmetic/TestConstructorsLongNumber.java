@@ -67,7 +67,7 @@ public class TestConstructorsLongNumber {
 
     @Test
     public void chars123456789ToLongNumber() {
-        char[] chars = { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+        char[] chars = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
         lnNum = new LongNumber(chars);
 
         boolean isEqual = lnNum.equals(123456789);
@@ -76,7 +76,7 @@ public class TestConstructorsLongNumber {
 
     @Test
     public void charsMinus123ToLongNumber() {
-        char[] chars = { '-', '1', '2', '3' };
+        char[] chars = {'-', '1', '2', '3'};
         lnNum = new LongNumber(chars);
 
         boolean isEqual = lnNum.equals(-123);
@@ -103,7 +103,7 @@ public class TestConstructorsLongNumber {
 
     @Test
     public void copyUndefinedLongNumberToLongNumber() {
-        char[] chars = { '1', 'a' };
+        char[] chars = {'1', 'a'};
         LongNumber copied = new LongNumber(chars);
         lnNum = new LongNumber(copied);
 
@@ -132,8 +132,8 @@ public class TestConstructorsLongNumber {
     @Test
     public void longStringToLongNumber() {
         String string = "111222333444555666777888999";
-        char[] chars = { '1', '1', '1', '2', '2', '2', '3', '3', '3', '4', '4', '4', '5', '5', '5', '6', '6', '6', '7',
-                '7', '7', '8', '8', '8', '9', '9', '9' };
+        char[] chars = { '1', '1', '1', '2', '2', '2', '3', '3', '3', '4', '4', '4', '5', '5',
+                         '5', '6', '6', '6', '7', '7', '7', '8', '8', '8', '9', '9', '9' };
         lnNum = new LongNumber(string);
         LongNumber charNumber = new LongNumber(chars);
 
