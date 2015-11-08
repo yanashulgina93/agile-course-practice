@@ -277,19 +277,15 @@ public class LongNumber {
     @Override
     public boolean equals(final Object object) {
         LongNumber lnNum = (LongNumber) object;
-        boolean result = true;
+        boolean isEqual = true;
 
         if (this.rank == lnNum.rank && this.sign == lnNum.sign) {
-            for (int i = 0; i < this.rank; ++i) {
-                if (this.value[i] != lnNum.value[i]) {
-                    result = false;
-                }
-            }
+            isEqual = Arrays.equals(this.value, lnNum.value);
         } else {
-            result = false;
+            isEqual = false;
         }
 
-        return result;
+        return isEqual;
     }
 
     public boolean equals(final int number) {

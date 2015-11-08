@@ -76,21 +76,22 @@ public class Matrix {
     @Override
     public boolean equals(final Object object) {
         Matrix matrix = (Matrix) object;
-        boolean result = true;
+        boolean matrixEqual = true;
 
         if (this.height == matrix.height && this.width == matrix.width) {
             for (int i = 0; i < this.height; ++i) {
-                for (int j = 0; j < this.width; ++j) {
-                    if (!this.element[i][j].equals(matrix.element[i][j])) {
-                        result = false;
-                    }
+                boolean arrayEqual = Arrays.equals(this.element[i], matrix.element[i]);
+                if(arrayEqual == false) {
+                    matrixEqual = false;
+                    break;
                 }
+
             }
         } else {
-            result = false;
+            matrixEqual = false;
         }
 
-        return result;
+        return matrixEqual;
     }
 
     public int getWidth() {
