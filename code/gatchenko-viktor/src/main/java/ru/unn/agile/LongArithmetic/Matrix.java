@@ -1,4 +1,4 @@
-package main.java.ru.unn.agile.LongArithmetic;
+package ru.unn.agile.LongArithmetic;
 
 public class Matrix {
 

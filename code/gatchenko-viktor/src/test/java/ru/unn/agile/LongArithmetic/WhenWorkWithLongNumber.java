@@ -1,10 +1,8 @@
-package test.java.ru.unn.agile.LongArithmetic;
+package ru.unn.agile.LongArithmetic;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-
-import main.java.ru.unn.agile.LongArithmetic.LongNumber;
 
 public class WhenWorkWithLongNumber {
 
