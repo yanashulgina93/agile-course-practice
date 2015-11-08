@@ -1,4 +1,4 @@
-package ru.unn.agile.AreaConverter.core;
+package ru.unn.agile.AreaConverter.model;
 
 import java.util.Arrays;
 import java.util.Collection;
