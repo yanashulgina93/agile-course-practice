@@ -70,7 +70,8 @@ public class Matrix {
 
     @Override
     public int hashCode() {
-        return 0;
+        int code = (this.element.hashCode() * this.width * this.height) % Integer.MAX_VALUE;
+        return code;
     }
 
     @Override

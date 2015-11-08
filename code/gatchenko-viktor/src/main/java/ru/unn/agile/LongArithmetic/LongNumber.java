@@ -274,7 +274,7 @@ public class LongNumber {
 
     @Override
     public int hashCode() {
-        return 0;
+        return this.value.hashCode() * this.sign;
     }
 
     @Override
