@@ -47,32 +47,34 @@ public class Group {
     }
 
     public void addStudent(final String newStudent) {
-        int i = 0;
-        while (i < getStudents().size()
-                && getStudents().get(i).getName().compareTo(newStudent) <= 0) {
-            if (getStudents().get(i).getName().equals(newStudent)) {
-                i = -1;
-                break;
+        int i;
+        if (getStudents().isEmpty()) {
+            this.students.add(new Student(newStudent));
+        } else {
+            for (i = 0; i < getStudents().size(); i++) {
+                if (getStudents().get(i).getName().compareTo(newStudent) > 0) {
+                    break;
+                }
             }
-            i++;
-        }
-        if (i != -1) {
-            students.add(i, new Student(newStudent));
+            if (!getStudents().get(i - 1).getName().equals(newStudent)) {
+                this.students.add(i, new Student(newStudent));
+            }
         }
     }
 
     public void addAcademicSubject(final String newAcademicSubject) {
-        int i = 0;
-        while (i < getAcademicSubjects().size()
-                && getAcademicSubjects().get(i).compareTo(newAcademicSubject) <= 0) {
-            if (getAcademicSubjects().get(i).equals(newAcademicSubject)) {
-                i = -1;
-                break;
+        int i;
+        if (getAcademicSubjects().isEmpty()) {
+            this.academicSubjects.add(newAcademicSubject);
+        } else {
+            for (i = 0; i < getAcademicSubjects().size(); i++) {
+                if (getAcademicSubjects().get(i).compareTo(newAcademicSubject) > 0) {
+                    break;
+                }
             }
-            i++;
-        }
-        if (i != -1) {
-            academicSubjects.add(i, newAcademicSubject);
+            if (!getAcademicSubjects().get(i - 1).equals(newAcademicSubject)) {
+                this.academicSubjects.add(i, newAcademicSubject);
+            }
         }
     }
 
