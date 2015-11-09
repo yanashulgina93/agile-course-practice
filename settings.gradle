@@ -157,6 +157,8 @@ project(":code/yusipov-igor").name = "yusipov-igor-Model"
 // Zhbanova Anna
 include "code/zhbanova-anna/Model"
 project(":code/zhbanova-anna/Model").name = "zhbanova-anna-Model"
+include "code/zhbanova-anna/ViewModel"
+project(":code/zhbanova-anna/ViewModel").name = "zhbanova-anna-ViewModel"
 include "code/zhbanova-anna/View"
 project(":code/zhbanova-anna/View").name = "zhbanova-anna-View"
 
