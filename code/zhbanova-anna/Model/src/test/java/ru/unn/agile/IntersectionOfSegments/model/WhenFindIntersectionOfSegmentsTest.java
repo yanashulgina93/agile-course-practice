@@ -1,4 +1,4 @@
-package ru.unn.agile.IntersectionOfSegments;
+package ru.unn.agile.IntersectionOfSegments.model;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,14 +1,10 @@
-package ru.unn.agile.IntersectionOfSegments;
-
-enum TypeOfIntersection {
-    NotIntersection, IntersectionInOnePoint, OnePartOfOther, SegmentsHaveCommonPart
-}
+package ru.unn.agile.IntersectionOfSegments.model;
 
 public class Segment {
     private Point start;
     private Point finish;
 
-    Segment(final Point start, final Point finish) {
+    public Segment(final Point start, final Point finish) {
         this.start = start;
         this.finish = finish;
     }
@@ -51,7 +47,7 @@ public class Segment {
 
     @Override
     public int hashCode() {
-        final int prime = 21;
+        final int prime = 17;
         int result = 1;
         result = prime * result + start.hashCode();
         result = prime * result + finish.hashCode();
@@ -88,19 +84,23 @@ public class Segment {
                 }
                 makeFirstPointWithLessX(segment1);
                 makeFirstPointWithLessX(segment2);
-                if (isFirstSegmentPartOfSecondWhenSlopeSame(segment2, segment1)) {
+                if (segment2.isPartOfSecondWhenSlopeSame(segment1)) {
                     typeOfIntersection = TypeOfIntersection.OnePartOfOther;
                     startPointOfIntersection = segment2.getStart();
                     finishPointOfIntersection = segment2.getFinish();
-                } else if (isFirstSegmentPartOfSecondWhenSlopeSame(segment1, segment2)) {
+                } else if (segment1.isPartOfSecondWhenSlopeSame(segment2)) {
                     typeOfIntersection = TypeOfIntersection.OnePartOfOther;
                     startPointOfIntersection = segment1.getStart();
                     finishPointOfIntersection = segment1.getFinish();
-                } else if (isEndOfFirstSegmentIsBeginningOfSecondWhenSlopeSame(
-                        segment1, segment2)) {
+                } else if (isEndOfThisSegmentIsBeginningOfSecondWhenSlopeSame(segment2)) {
                     typeOfIntersection = TypeOfIntersection.SegmentsHaveCommonPart;
                     startPointOfIntersection = segment2.getStart();
                     finishPointOfIntersection = segment1.getFinish();
+                } else if (segment1.getFinishX() < segment2.getStartX()
+                        || segment2.getFinishX() < segment1.getStartX()) {
+                    typeOfIntersection = TypeOfIntersection.NotIntersection;
+                    startPointOfIntersection = null;
+                    finishPointOfIntersection = null;
                 } else {
                     typeOfIntersection = TypeOfIntersection.SegmentsHaveCommonPart;
                     startPointOfIntersection = segment1.getStart();
@@ -138,15 +138,13 @@ public class Segment {
                 new Segment(startPointOfIntersection, finishPointOfIntersection));
     }
 
-    private boolean isFirstSegmentPartOfSecondWhenSlopeSame(final Segment segment1,
-                                                            final Segment segment2) {
-        return segment1.getStartX() > segment2.getStartX()
-                && segment1.getFinishX() < segment2.getFinishX();
+    private boolean isPartOfSecondWhenSlopeSame(final Segment segment) {
+        return this.getStartX() > segment.getStartX()
+                && this.getFinishX() < segment.getFinishX();
     }
 
-    private  boolean isEndOfFirstSegmentIsBeginningOfSecondWhenSlopeSame(final Segment segment1,
-                                                                         final Segment segment2) {
-        return segment1.getFinishX() > segment2.getStartX();
+    private  boolean isEndOfThisSegmentIsBeginningOfSecondWhenSlopeSame(final Segment segment) {
+        return this.getFinishX() > segment.getStartX();
     }
 
     private boolean isIntersection(final Segment segment) {

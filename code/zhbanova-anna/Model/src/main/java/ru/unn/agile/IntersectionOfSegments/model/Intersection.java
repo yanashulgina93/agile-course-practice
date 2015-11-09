@@ -1,4 +1,4 @@
-package ru.unn.agile.IntersectionOfSegments;
+package ru.unn.agile.IntersectionOfSegments.model;
 
 public class Intersection {
     private final TypeOfIntersection typeOfIntersection;
@@ -9,11 +9,11 @@ public class Intersection {
         this.segment = segment;
     }
 
-    TypeOfIntersection getTypeOfIntersection() {
+    public TypeOfIntersection getTypeOfIntersection() {
         return typeOfIntersection;
     }
 
-    Segment getSegment() {
+    public Segment getSegment() {
         return segment;
     }
 }
