@@ -61,7 +61,7 @@ public class ViewModel {
             status = Status.READY;
             isConvertButtonEnable = true;
             return isConvertButtonEnable;
-        } catch (Exception exception) {
+        } catch (NumberFormatException exception) {
             status = Status.BAD_FORMAT;
             isConvertButtonEnable = false;
             return isConvertButtonEnable;
@@ -70,10 +70,15 @@ public class ViewModel {
 
     public void convert() {
         if (parse()) {
-            TemperatureConverter converter = new TemperatureConverter(scale);
-            double temperature = converter.convert(Double.parseDouble(inputTemperature));
-            resultTemperature = Double.toString(temperature);
-            status = Status.SUCCESS;
+            try {
+                TemperatureConverter converter = new TemperatureConverter(scale);
+                double temperature = converter.convert(Double.parseDouble(inputTemperature));
+                resultTemperature = Double.toString(temperature);
+                status = Status.SUCCESS;
+            } catch (IllegalArgumentException exception) {
+                resultTemperature = "";
+                status = Status.NON_PHYSICAL_VALUE;
+            }
         }
     }
 }

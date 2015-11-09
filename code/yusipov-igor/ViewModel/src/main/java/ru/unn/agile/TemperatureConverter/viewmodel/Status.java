@@ -4,7 +4,8 @@ public enum Status {
     WAITING("Enter temperature to convert"),
     READY("Press 'Convert'"),
     BAD_FORMAT("Bad input format"),
-    SUCCESS("Success");
+    SUCCESS("Success"),
+    NON_PHYSICAL_VALUE("Non physical input temperature");
 
     private final String name;
 

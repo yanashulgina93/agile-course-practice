@@ -24,7 +24,10 @@ public class TemperatureConverterExceptionThrowTest {
     public static Collection temperatureScales() {
         return Arrays.asList(new Object[][]{
                 {TemperatureScaleName.FAHRENHEIT, Double.MAX_VALUE},
-                {TemperatureScaleName.KELVIN, Double.MAX_VALUE}
+                {TemperatureScaleName.KELVIN, Double.MAX_VALUE},
+                {TemperatureScaleName.FAHRENHEIT, -274.0},
+                {TemperatureScaleName.KELVIN, -274.0},
+                {TemperatureScaleName.NEWTON, -274.0}
         });
     }
 

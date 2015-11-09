@@ -5,6 +5,8 @@ public class TemperatureConverter {
     private final double base;
     private final double scaling;
 
+    private static final double PHYSICAL_LIMIT = -273.0;
+
     public TemperatureConverter(final TemperatureScaleName scaleName) {
         base = scaleName.getBase();
         scaling = scaleName.getScaling();
@@ -13,7 +15,7 @@ public class TemperatureConverter {
     public double convert(final double temperatureInCelsius) {
         double temperatureInOtherScale = scaling * temperatureInCelsius + base;
 
-        if (temperatureInOtherScale >= Double.MAX_VALUE) {
+        if (temperatureInOtherScale >= Double.MAX_VALUE || temperatureInCelsius < PHYSICAL_LIMIT) {
             throw new IllegalArgumentException();
         }
 

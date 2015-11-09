@@ -123,4 +123,11 @@ public class ViewModelTests {
         viewModel.convert();
         assertEquals(viewModel.getStatusName(), "Success");
     }
+
+    @Test
+    public void isStatusNonPhysicalValueWhenTemperatureIsNonPhysical() {
+        viewModel.setInputTemperature("-274.0");
+        viewModel.convert();
+        assertEquals(Status.NON_PHYSICAL_VALUE, viewModel.getStatus());
+    }
 }
