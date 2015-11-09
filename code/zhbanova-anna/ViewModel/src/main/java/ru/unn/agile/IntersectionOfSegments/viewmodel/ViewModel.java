@@ -80,23 +80,19 @@ public class ViewModel {
             return;
         }
 
-        Point point1 = new Point(Double.parseDouble(seg1Point1X.get()),
-                Double.parseDouble(seg1Point1Y.get()));
-        Point point2 = new Point(Double.parseDouble(seg1Point2X.get()),
-                Double.parseDouble(seg1Point2Y.get()));
+        Segment segment1 = new Segment(getPoint(seg1Point1X, seg1Point1Y),
+                getPoint(seg1Point2X, seg1Point2Y));
 
-        Segment segment1 = new Segment(point1, point2);
-
-        point1 = new Point(Double.parseDouble(seg2Point1X.get()),
-                Double.parseDouble(seg2Point1Y.get()));
-        point2 = new Point(Double.parseDouble(seg2Point2X.get()),
-                Double.parseDouble(seg2Point2Y.get()));
-
-        Segment segment2 = new Segment(point1, point2);
+        Segment segment2 = new Segment(getPoint(seg2Point1X, seg2Point1Y),
+                getPoint(seg2Point2X, seg2Point2Y));
 
         setStringResult(segment1.isIntersectedWith(segment2));
 
         status.set(Status.SUCCESS.toString());
+    }
+
+    private Point getPoint(final StringProperty x, final StringProperty y) {
+        return new Point(Double.parseDouble(x.get()), Double.parseDouble(y.get()));
     }
 
     private void setStringResult(final Intersection intersection) {
