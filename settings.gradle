@@ -105,6 +105,8 @@ include "code/molotkov-andrei"
 project(":code/molotkov-andrei").name = "molotkov-andrei-Model"
 
 // Moshkov Yurij
+include "code/moshkov-yuriy"
+project(":code/moshkov-yuriy").name = "moshkov-yuriy-lab1-Model"
 // Mozerov Ilya
 // Nesmelov Aleksej
 include "code/nesmelov-aleksey"
