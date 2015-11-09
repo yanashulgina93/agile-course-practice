@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="329.0" minWidth="880.0" prefHeight="329.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.StatisticValueCalculator.view.CalculatorWindowController">
+   <children>
+      <Group layoutX="-574.0" layoutY="-153.0">
+         <children>
+            <Button fx:id="buttonLoadData" layoutX="597.0" layoutY="181.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="173.0" text="Load data" AnchorPane.bottomAnchor="235.0" AnchorPane.rightAnchor="25.0" />
+            <Button fx:id="buttonClearTable" layoutX="597.0" layoutY="229.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="173.0" text="Clear Table" />
+         </children>
+      </Group>
+      <TableView fx:id="tableData" editable="true" layoutX="213.0" layoutY="27.0" prefHeight="178.0" prefWidth="454.0" AnchorPane.bottomAnchor="124.0" AnchorPane.leftAnchor="213.0" AnchorPane.rightAnchor="213.0" AnchorPane.topAnchor="27.0">
+        <columns>
+            <TableColumn fx:id="columnNumber" prefWidth="75.0" text="#" />
+            <TableColumn fx:id="columnValue" prefWidth="75.0" text="DATA" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <ChoiceBox fx:id="choiseBoxStatisticValue" layoutX="687.0" layoutY="351.0" prefHeight="30.0" prefWidth="173.0" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="20.0" />
+      <Button fx:id="buttonCalculate" layoutX="687.0" layoutY="391.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="173.0" text="Calculate statistic value" textAlignment="CENTER" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="20.0" />
+      <Label fx:id="labelStatisticsName" layoutX="18.0" layoutY="353.0" text="Statistic Value Name" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="18.0">
+         <font>
+            <Font name="Calibri Bold Italic" size="21.0" />
+         </font>
+      </Label>
+      <Separator layoutX="18.0" layoutY="332.0" prefHeight="19.0" prefWidth="844.0" AnchorPane.bottomAnchor="95.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0" />
+      <Label fx:id="labelStatisticsValue" layoutX="213.0" layoutY="234.0" text="Value" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="213.0">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label layoutX="479.0" layoutY="242.0" text="Event" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="372.0" />
+      <TextField fx:id="textEventValue" layoutX="518.0" layoutY="238.0" AnchorPane.bottomAnchor="66.0" AnchorPane.rightAnchor="213.0" />
+      <Label fx:id="labelEventInputError" layoutX="518.0" layoutY="266.0" text="EventInputError" textFill="RED" AnchorPane.bottomAnchor="46.0" AnchorPane.rightAnchor="279.0" />
+      <Label layoutX="687.0" layoutY="27.0" text="Row Value" AnchorPane.rightAnchor="137.0" AnchorPane.topAnchor="27.0" />
+      <Button fx:id="buttonDeleteRow" layoutX="687.0" layoutY="165.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="173.0" text="Delete row" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="165.0" />
+      <Button fx:id="buttonAddRow" layoutX="687.0" layoutY="116.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="173.0" text="Add row" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="116.0" />
+      <Label fx:id="labelRowValueError" layoutX="687.0" layoutY="88.0" text="RowValueError" textFill="RED" AnchorPane.rightAnchor="114.0" AnchorPane.topAnchor="88.0" />
+      <TextField fx:id="textRowValue" layoutX="687.0" layoutY="51.0" prefHeight="30.0" prefWidth="173.0" text="3.14" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="51.0" />
+   </children>
+</AnchorPane>

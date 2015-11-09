@@ -1,4 +1,4 @@
 package ru.unn.agile.StatisticValueCalculator.view;
 
-public class Controller {
+public class CalculatorWindowController {
 }
