@@ -1,20 +1,12 @@
 package ru.unn.agile.IntersectionOfSegments.model;
 
 public class Segment {
-    private Point start;
-    private Point finish;
+    private final Point start;
+    private final Point finish;
 
     public Segment(final Point start, final Point finish) {
         this.start = start;
         this.finish = finish;
-    }
-
-    public void setFinish(final Point finish) {
-        this.finish = finish;
-    }
-
-    public void setStart(final Point start) {
-        this.start = start;
     }
 
     public Point getStart() {
@@ -43,21 +35,6 @@ public class Segment {
 
     public double getLengthSegment() {
         return calculationLengthOfSegment();
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 17;
-        int result = 1;
-        result = prime * result + start.hashCode();
-        result = prime * result + finish.hashCode();
-        return result;
-    }
-
-    @Override
-    public boolean equals(final Object object) {
-        Segment segment = (Segment) object;
-        return this.getStart() == segment.getStart() && this.getFinish() == segment.getFinish();
     }
 
     public Intersection isIntersectedWith(final Segment segment) {
@@ -92,12 +69,11 @@ public class Segment {
                     typeOfIntersection = TypeOfIntersection.OnePartOfOther;
                     startPointOfIntersection = segment1.getStart();
                     finishPointOfIntersection = segment1.getFinish();
-                } else if (isEndOfThisSegmentIsBeginningOfSecondWhenSlopeSame(segment2)) {
+                } else if (segment1.isEndOfThisSegmentIsBeginningOfSecondWhenSlopeSame(segment2)) {
                     typeOfIntersection = TypeOfIntersection.SegmentsHaveCommonPart;
                     startPointOfIntersection = segment2.getStart();
                     finishPointOfIntersection = segment1.getFinish();
-                } else if (segment1.getFinishX() < segment2.getStartX()
-                        || segment2.getFinishX() < segment1.getStartX()) {
+                } else if (segment1.isBoxOfSegmentsNotIntersect(segment2)) {
                     typeOfIntersection = TypeOfIntersection.NotIntersection;
                     startPointOfIntersection = null;
                     finishPointOfIntersection = null;
@@ -138,13 +114,18 @@ public class Segment {
                 new Segment(startPointOfIntersection, finishPointOfIntersection));
     }
 
+    private boolean isBoxOfSegmentsNotIntersect(final Segment segment) {
+        return this.getFinishX() < segment.getStartX()
+                || segment.getFinishX() < this.getStartX();
+    }
+
     private boolean isPartOfSecondWhenSlopeSame(final Segment segment) {
-        return this.getStartX() > segment.getStartX()
-                && this.getFinishX() < segment.getFinishX();
+        return this.getStartX() >= segment.getStartX()
+                && this.getFinishX() <= segment.getFinishX();
     }
 
     private  boolean isEndOfThisSegmentIsBeginningOfSecondWhenSlopeSame(final Segment segment) {
-        return this.getFinishX() > segment.getStartX();
+        return this.getFinishX() > segment.getStartX() && this.getFinishX() < segment.getFinishX();
     }
 
     private boolean isIntersection(final Segment segment) {
@@ -153,11 +134,11 @@ public class Segment {
     }
 
     private boolean isEndsOfSecondSegmentOnDifferentSidesOfFirstSegment(final Segment segment1,
-                                                                         final Segment segnent2) {
+                                                                         final Segment segment2) {
         return multiplicateVectorsWithSameStart(segment1.getStart(),
-                segment1.getFinish(), segnent2.getStart())
+                segment1.getFinish(), segment2.getStart())
                 * multiplicateVectorsWithSameStart(segment1.getStart(),
-                segment1.getFinish(), segnent2.getFinish()) <= 0;
+                segment1.getFinish(), segment2.getFinish()) <= 0;
     }
 
     private double multiplicateVectorsWithSameStart(final Point p1,

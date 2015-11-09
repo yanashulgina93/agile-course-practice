@@ -12,12 +12,15 @@ import static org.junit.Assert.*;
 @RunWith(Parameterized.class)
 public class WhenFindIntersectionOfSegmentsTest {
     private enum TypeOfTestSegments {
-        not_intersect, parallel,
+        not_intersect, parallel, not_intersect_and_lie_on_same_line,
         have_common_end, intersect_at_one_point,
-        same, one_segment_contained_in_another,
-        have_common_part,
+        same,
+        second_segment_contained_in_first, first_segment_contained_in_second,
+        have_common_part_end_first_segment, have_common_part_end_second_segment,
         not_intersect_when_one_segment_x_const, parallel_when_segments_x_const,
-        have_common_end_when_one_segment_x_const, intersect_at_one_point_when_one_segment_x_const,
+        have_common_end_when_one_segment_x_const,
+        intersect_at_one_point_when_second_segment_x_const,
+        intersect_at_one_point_when_first_segment_x_const,
         same_when_segments_x_const, one_segment_contained_in_another_when_segments_x_const,
         have_common_part_when_segments_x_const
     }
@@ -29,17 +32,19 @@ public class WhenFindIntersectionOfSegmentsTest {
     @Parameterized.Parameters
     public static Collection<Object[]> testTypeOfSegments() {
         return Arrays.asList(new Object[][]{
-                {TypeOfTestSegments.not_intersect},
-                {TypeOfTestSegments.parallel},
-                {TypeOfTestSegments.have_common_end},
+                {TypeOfTestSegments.not_intersect}, {TypeOfTestSegments.parallel},
+                {TypeOfTestSegments.not_intersect_and_lie_on_same_line},
+                {TypeOfTestSegments.have_common_end}, {TypeOfTestSegments.same},
                 {TypeOfTestSegments.intersect_at_one_point},
-                {TypeOfTestSegments.same},
-                {TypeOfTestSegments.one_segment_contained_in_another},
-                {TypeOfTestSegments.have_common_part},
+                {TypeOfTestSegments.second_segment_contained_in_first},
+                {TypeOfTestSegments.first_segment_contained_in_second},
+                {TypeOfTestSegments.have_common_part_end_first_segment},
+                {TypeOfTestSegments.have_common_part_end_second_segment},
                 {TypeOfTestSegments.not_intersect_when_one_segment_x_const},
                 {TypeOfTestSegments.parallel_when_segments_x_const},
                 {TypeOfTestSegments.have_common_end_when_one_segment_x_const},
-                {TypeOfTestSegments.intersect_at_one_point_when_one_segment_x_const},
+                {TypeOfTestSegments.intersect_at_one_point_when_second_segment_x_const},
+                {TypeOfTestSegments.intersect_at_one_point_when_first_segment_x_const},
                 {TypeOfTestSegments.same_when_segments_x_const},
                 {TypeOfTestSegments.one_segment_contained_in_another_when_segments_x_const},
                 {TypeOfTestSegments.have_common_part_when_segments_x_const}
@@ -80,16 +85,16 @@ public class WhenFindIntersectionOfSegmentsTest {
 
     private void initializeTestData(final TypeOfTestSegments typeOfSegments) {
         switch (typeOfSegments) {
-            case not_intersect:
-            case parallel:
+            case not_intersect: case parallel:
+            case not_intersect_and_lie_on_same_line:
             case not_intersect_when_one_segment_x_const:
             case parallel_when_segments_x_const:
                 setUpTestDataWhenSegmentsNotIntersect(typeOfSegments);
                 break;
-            case have_common_end:
-            case intersect_at_one_point:
+            case have_common_end: case intersect_at_one_point:
             case have_common_end_when_one_segment_x_const:
-            case intersect_at_one_point_when_one_segment_x_const:
+            case intersect_at_one_point_when_second_segment_x_const:
+            case intersect_at_one_point_when_first_segment_x_const:
                 setUpTestDataWhenSegmentsIntersectInOnePoint(typeOfSegments);
                 break;
             default:
@@ -99,11 +104,14 @@ public class WhenFindIntersectionOfSegmentsTest {
         resultIsIntersectedWith = testSegment1.isIntersectedWith(testSegment2);
     }
 
-    private  void  setUpTestDataWhenSegmentsNotIntersect(
+    private void setUpTestDataWhenSegmentsNotIntersect(
             final TypeOfTestSegments typeOfSegments) {
         switch (typeOfSegments) {
             case not_intersect:
                 setUpSegmentsWhichNotIntersect();
+                break;
+            case not_intersect_and_lie_on_same_line:
+                setUpSegmentsWhichNotIntersectAndLieOnSameLine();
                 break;
             case parallel:
                 setUpParallelSegments();
@@ -111,15 +119,13 @@ public class WhenFindIntersectionOfSegmentsTest {
             case not_intersect_when_one_segment_x_const:
                 setUpSegmentsWhichNotIntersectWhenOneSegmentXconst();
                 break;
-            case parallel_when_segments_x_const:
+            default: //parallel_when_segments_x_const
                 setUpParallelSegmentsWhenSegmentXconst();
-                break;
-            default:
                 break;
         }
     }
 
-    private  void  setUpTestDataWhenSegmentsIntersectInOnePoint(
+    private void setUpTestDataWhenSegmentsIntersectInOnePoint(
             final TypeOfTestSegments typeOfSegments) {
         switch (typeOfSegments) {
             case have_common_end:
@@ -131,15 +137,16 @@ public class WhenFindIntersectionOfSegmentsTest {
             case have_common_end_when_one_segment_x_const:
                 setUpSegmentsWhichHaveCommonEndWhenOneSegmentXconst();
                 break;
-            case intersect_at_one_point_when_one_segment_x_const:
-                setUpSegmentsWhichIntersectAtOnePointWhenOneSegmentXconst();
+            case intersect_at_one_point_when_second_segment_x_const:
+                setUpSegmentsWhichIntersectAtOnePointWhenSecondSegmentXconst();
                 break;
-            default:
+            default: //intersect_at_one_point_when_first_segment_x_const
+                setUpSegmentsWhichIntersectAtOnePointWhenFirstSegmentXconst();
                 break;
         }
     }
 
-    private  void  setUpTestDataWhenSegmentsHaveCommonPartAndXconst(
+    private void setUpTestDataWhenSegmentsHaveCommonPartAndXconst(
             final TypeOfTestSegments typeOfSegments) {
         switch (typeOfSegments) {
             case same_when_segments_x_const:
@@ -156,18 +163,19 @@ public class WhenFindIntersectionOfSegmentsTest {
         }
     }
 
-    private  void  setUpTestDataWhenSegmentsHaveCommonPart(
+    private void setUpTestDataWhenSegmentsHaveCommonPart(
             final TypeOfTestSegments typeOfSegments) {
         switch (typeOfSegments) {
             case same:
-                setUpTheSameSegments();
-                break;
-            case one_segment_contained_in_another:
-                setUpSegmentsWhichOneContainedInAnother();
-                break;
-            case have_common_part:
-                setUpSegmentsWithCommonPart();
-                break;
+                setUpTheSameSegments(); break;
+            case second_segment_contained_in_first:
+                setUpSegmentsWhichSecondSegmentContainedInFirst(); break;
+            case first_segment_contained_in_second:
+                setUpSegmentsWhichFirstSegmentContainedInSecond(); break;
+            case have_common_part_end_first_segment:
+                setUpSegmentsWithCommonPartEndFirstSegment(); break;
+            case have_common_part_end_second_segment:
+                setUpSegmentsWithCommonPartEndSecondSegment(); break;
             default:
                 setUpTestDataWhenSegmentsHaveCommonPartAndXconst(typeOfSegments);
                 break;
@@ -182,6 +190,13 @@ public class WhenFindIntersectionOfSegmentsTest {
         correctLengthOfCommonPart = -1;
     }
 
+    private void setUpSegmentsWhichNotIntersectAndLieOnSameLine() {
+        testSegment1 = new Segment(new Point(1.0, 1.0), new Point(5.0, 5.0));
+        testSegment2 = new Segment(new Point(6.0, 6.0), new Point(7.0, 7.0));
+        correctResult = new Intersection(TypeOfIntersection.NotIntersection,
+                new Segment(null, null));
+        correctLengthOfCommonPart = -1;
+    }
     private void setUpParallelSegments() {
         testSegment1 = new Segment(new Point(0.0, 0.0), new Point(5.0, 5.0));
         testSegment2 = new Segment(new Point(0.0, 1.0), new Point(5.0, 6.0));
@@ -209,19 +224,26 @@ public class WhenFindIntersectionOfSegmentsTest {
     private void setUpTheSameSegments() {
         testSegment1 = new Segment(new Point(10.0, 5.0), new Point(5.0, 5.0));
         testSegment2 = new Segment(new Point(10.0, 5.0), new Point(5.0, 5.0));
-        correctResult = new Intersection(TypeOfIntersection.SegmentsHaveCommonPart,
+        correctResult = new Intersection(TypeOfIntersection.OnePartOfOther,
                 testSegment1);
         correctLengthOfCommonPart = 5;
     }
 
-    private void setUpSegmentsWhichOneContainedInAnother() {
+    private void setUpSegmentsWhichSecondSegmentContainedInFirst() {
         testSegment1 = new Segment(new Point(0.0, 0.0), new Point(10.0, 10.0));
         testSegment2 = new Segment(new Point(2.0, 2.0), new Point(5.0, 5.0));
         correctResult = new Intersection(TypeOfIntersection.OnePartOfOther, testSegment2);
         correctLengthOfCommonPart = Math.sqrt(18);
     }
 
-    private void setUpSegmentsWithCommonPart() {
+    private void setUpSegmentsWhichFirstSegmentContainedInSecond() {
+        testSegment1 = new Segment(new Point(1.0, 1.0), new Point(10.0, 10.0));
+        testSegment2 = new Segment(new Point(0.0, 0.0), new Point(20.0, 20.0));
+        correctResult = new Intersection(TypeOfIntersection.OnePartOfOther, testSegment1);
+        correctLengthOfCommonPart = Math.sqrt(162);
+    }
+
+    private void setUpSegmentsWithCommonPartEndFirstSegment() {
         testSegment1 = new Segment(new Point(0.0, 0.0), new Point(5.0, 5.0));
         testSegment2 = new Segment(new Point(2.0, 2.0), new Point(8.0, 8.0));
         correctResult = new Intersection(TypeOfIntersection.SegmentsHaveCommonPart,
@@ -229,6 +251,13 @@ public class WhenFindIntersectionOfSegmentsTest {
         correctLengthOfCommonPart = Math.sqrt(18);
     }
 
+    private void setUpSegmentsWithCommonPartEndSecondSegment() {
+        testSegment1 = new Segment(new Point(2.0, 2.0), new Point(8.0, 8.0));
+        testSegment2 = new Segment(new Point(0.0, 0.0), new Point(5.0, 5.0));
+        correctResult = new Intersection(TypeOfIntersection.SegmentsHaveCommonPart,
+                new Segment(testSegment1.getStart(), testSegment2.getFinish()));
+        correctLengthOfCommonPart = Math.sqrt(18);
+    }
     private void setUpSegmentsWhichNotIntersectWhenOneSegmentXconst() {
         testSegment1 = new Segment(new Point(0.0, 0.0), new Point(5.0, 5.0));
         testSegment2 = new Segment(new Point(6.0, 2.0), new Point(6.0, 8.0));
@@ -253,7 +282,7 @@ public class WhenFindIntersectionOfSegmentsTest {
         correctLengthOfCommonPart = 0;
     }
 
-    private void setUpSegmentsWhichIntersectAtOnePointWhenOneSegmentXconst() {
+    private void setUpSegmentsWhichIntersectAtOnePointWhenSecondSegmentXconst() {
         testSegment1 = new Segment(new Point(0.0, 0.0), new Point(4.0, 2.0));
         testSegment2 = new Segment(new Point(2.0, 5.0), new Point(2.0, 0.0));
         correctResult = new Intersection(TypeOfIntersection.IntersectionInOnePoint,
@@ -261,10 +290,17 @@ public class WhenFindIntersectionOfSegmentsTest {
         correctLengthOfCommonPart = 0;
     }
 
+    private void setUpSegmentsWhichIntersectAtOnePointWhenFirstSegmentXconst() {
+        testSegment1 = new Segment(new Point(2.0, 5.0), new Point(2.0, 0.0));
+        testSegment2 = new Segment(new Point(0.0, 0.0), new Point(4.0, 2.0));
+        correctResult = new Intersection(TypeOfIntersection.IntersectionInOnePoint,
+                new Segment(new Point(2.0, 1.0), new Point(2.0, 1.0)));
+        correctLengthOfCommonPart = 0;
+    }
     private void setUpTheSameSegmentsWhenSegmentsXconst() {
         testSegment1 = new Segment(new Point(10.0, 5.0), new Point(10.0, 2.0));
         testSegment2 = new Segment(new Point(10.0, 5.0), new Point(10.0, 2.0));
-        correctResult = new Intersection(TypeOfIntersection.SegmentsHaveCommonPart,
+        correctResult = new Intersection(TypeOfIntersection.OnePartOfOther,
                 new Segment(new Point(10.0, 2.0), new Point(10.0, 5.0)));
         correctLengthOfCommonPart = 3;
     }

@@ -22,14 +22,6 @@ public class Point {
         return y;
     }
 
-    public void setX(final double x) {
-        this.x = x;
-    }
-
-    public void setY(final double y) {
-        this.y = y;
-    }
-
     public void set(final Point p) {
         this.x = p.getX();
         this.y = p.getY();
