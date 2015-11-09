@@ -132,7 +132,10 @@ MVVM.
   1. Создать директорию `View` в своей подпапке.
   1. Создать набор вложенных директорий для исходников, подобно тому, как это
      сделано в вашей `Model` и проекте-примере:
-     `code/kornyakov-kirill-lab2/View/src/main/java/ru/unn/agile/ComplexNumber/view/`.
+	 
+        code/kornyakov-kirill-lab2/View/src/main/java/ru/unn/agile/ComplexNumber/view/
+        code/kornyakov-kirill-lab2/View/src/test/java/ru/unn/agile/ComplexNumber/view/
+		
   1. Положить в вашу папку `View` файл `build.gradle` следующего содержания:
 
         apply from:   rootDir.getAbsolutePath() + '/code/config/scripts/javafx.plugin'
