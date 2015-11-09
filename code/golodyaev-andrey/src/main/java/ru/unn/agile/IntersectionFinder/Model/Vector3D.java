@@ -31,8 +31,8 @@ public class Vector3D {
         return x == vector.x && y == vector.y && z == vector.z;
     }
 
-    public double dot(final Vector3D a) {
-        return x * a.x + y * a.y + z * a.z;
+    public double dot(final Vector3D vector) {
+        return x * vector.x + y * vector.y + z * vector.z;
     }
 
     public double getX() {

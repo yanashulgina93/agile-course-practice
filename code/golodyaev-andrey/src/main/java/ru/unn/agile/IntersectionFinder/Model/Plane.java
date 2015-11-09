@@ -26,8 +26,8 @@ public class Plane {
         this.point = point;
     }
 
-    public boolean isPointOnPlane(final Vector3D p) {
-        if (normal.dot(p) - normal.dot(point) < EPS) {
+    public boolean isPointOnPlane(final Vector3D pointToCheck) {
+        if (Math.abs(normal.dot(pointToCheck) - normal.dot(point)) < EPS) {
             return true;
         }
         return false;
