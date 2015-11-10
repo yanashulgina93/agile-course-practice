@@ -182,6 +182,29 @@ public class ViewModelTests {
         assertEquals(Status.SUCCESS.toString(), viewModel.errorMessageProperty().get());
     }
 
+    @Test
+    public void isButtonUnabledWhenInputValueIsEmpty() {
+        assertTrue(viewModel.getCalculationDisabled());
+    }
+
+    @Test
+    public void isErrorMessegeEqualsErrorBadFormatWhenInputDataIncorrect() {
+        viewModel.inputValueProperty().set("a");
+
+        assertEquals("Error: Bad format", viewModel.getErrorMessage());
+    }
+
+    @Test
+    public void isGetOutputValueReturnsCorrectAnswer() {
+        setInputData();
+        viewModel.inputUnitProperty().set(LengthUnit.INCH);
+        viewModel.outputUnitProperty().set(LengthUnit.FOOT);
+
+        viewModel.calculate();
+
+        assertEquals("0.08333333267716535", viewModel.getOutputValue());
+    }
+
     private void setInputData() {
         viewModel.inputValueProperty().set("1");
     }
