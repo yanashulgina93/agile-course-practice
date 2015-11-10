@@ -56,4 +56,25 @@ public class ViewModelTest {
         viewModel.parseInput();
         assertEquals(Status.WAITING, viewModel.getStatus());
     }
+
+    @Test
+    public void isConvertButtonDisableWhenInputAreaIsNotFilled() {
+        viewModel.setInputArea("");
+        viewModel.parseInput();
+        assertEquals(false, viewModel.isConvertButtonEnabled());
+    }
+
+    @Test
+    public void canSetStatusWrongFormatWhenInputAreaIsIncorrect() {
+        viewModel.setInputArea("z");
+        viewModel.parseInput();
+        assertEquals(Status.WRONG_FORMAT, viewModel.getStatus());
+    }
+
+    @Test
+    public void isConvertButtonDisableWhenInputAreaIsIncorrect() {
+        viewModel.setInputArea("m");
+        viewModel.parseInput();
+        assertEquals(false, viewModel.isConvertButtonEnabled());
+    }
 }

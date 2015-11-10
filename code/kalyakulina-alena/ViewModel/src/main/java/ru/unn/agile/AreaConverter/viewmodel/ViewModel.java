@@ -52,6 +52,13 @@ public class ViewModel {
             status = Status.WAITING;
             isConvertButtonEnable = false;
         } else {
+            try {
+                Double.parseDouble(inputArea);
+            } catch (Exception exception) {
+                status = Status.WRONG_FORMAT;
+                isConvertButtonEnable = false;
+                return;
+            }
             status = Status.READY;
             isConvertButtonEnable = true;
         }
