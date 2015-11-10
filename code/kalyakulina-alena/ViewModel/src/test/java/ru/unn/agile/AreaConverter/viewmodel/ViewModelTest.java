@@ -8,6 +8,7 @@ import ru.unn.agile.AreaConverter.model.AreaMeasure;
 import static org.junit.Assert.assertEquals;
 
 public class ViewModelTest {
+
     private ViewModel viewModel;
 
     @Before
