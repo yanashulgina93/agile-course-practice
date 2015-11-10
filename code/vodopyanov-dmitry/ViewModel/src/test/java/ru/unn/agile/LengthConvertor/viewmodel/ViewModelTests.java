@@ -1,5 +1,6 @@
 package ru.unn.agile.LengthConvertor.viewmodel;
 
+import javafx.collections.ObservableList;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -203,6 +204,13 @@ public class ViewModelTests {
         viewModel.calculate();
 
         assertEquals("0.08333333267716535", viewModel.getOutputValue());
+    }
+
+    @Test
+    public void isGetUnitsReturnsLengthUnitsSequenceOfUnits() {
+        ObservableList<LengthUnit> get = viewModel.unitsProperty().get();
+
+        assertEquals(get, viewModel.getUnits());
     }
 
     private void setInputData() {
