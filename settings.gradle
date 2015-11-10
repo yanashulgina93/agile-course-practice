@@ -54,10 +54,15 @@ include "code/filicheva-svetlana"
 project(":code/filicheva-svetlana").name = "filicheva-svetlana-Model"
 
 // Francuzova Natalya
+
 // Ganin Aleksej
+include "code/ganin-aleksei"
+project(":code/ganin-aleksei").name = "ganin-aleksei-Model"
+
 // Garina Anastasia
 include "code/garina-anastasia"
 project(":code/garina-anastasia").name = "garina-anastasia-lab1"
+
 // Gatchenko Viktor
 
 // Golodyaev Andrej
