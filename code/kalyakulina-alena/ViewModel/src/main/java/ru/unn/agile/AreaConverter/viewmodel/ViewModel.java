@@ -1,5 +1,6 @@
 package ru.unn.agile.AreaConverter.viewmodel;
 
+import ru.unn.agile.AreaConverter.model.AreaConverter;
 import ru.unn.agile.AreaConverter.model.AreaMeasure;
 
 public class ViewModel {
@@ -47,6 +48,14 @@ public class ViewModel {
         this.inputArea = inputArea;
     }
 
+    public void setFrom(final AreaMeasure from) {
+        this.from = from;
+    }
+
+    public void setTo(final AreaMeasure to) {
+        this.to = to;
+    }
+
     public void parseInput() {
         if (inputArea.isEmpty()) {
             status = Status.WAITING;
@@ -69,6 +78,15 @@ public class ViewModel {
                 status = Status.READY;
                 isConvertButtonEnable = true;
             }
+        }
+    }
+
+    public void convert() {
+        if (isConvertButtonEnable) {
+            AreaConverter converter = new AreaConverter(from, to);
+            double convertedArea = converter.convert(Double.parseDouble(inputArea));
+            resultArea = Double.toString(convertedArea);
+            status = Status.SUCCESS;
         }
     }
 }

@@ -91,4 +91,26 @@ public class ViewModelTest {
         viewModel.parseInput();
         assertEquals(false, viewModel.isConvertButtonEnabled());
     }
+
+    @Test
+    public void canSetAreaMeasureFrom() {
+        viewModel.setFrom(AreaMeasure.ARE);
+        assertEquals(AreaMeasure.ARE, viewModel.getFrom());
+    }
+
+    @Test
+    public void canSetAreaMeasureTo() {
+        viewModel.setTo(AreaMeasure.HECTARE);
+        assertEquals(AreaMeasure.HECTARE, viewModel.getTo());
+    }
+
+    @Test
+    public void canSetStatusSuccessWhenConvertingIsDone() {
+        viewModel.setInputArea("7.0");
+        viewModel.setFrom(AreaMeasure.SQUARE_METER);
+        viewModel.setTo(AreaMeasure.SQUARE_KILOMETER);
+        viewModel.parseInput();
+        viewModel.convert();
+        assertEquals(Status.SUCCESS, viewModel.getStatus());
+    }
 }
