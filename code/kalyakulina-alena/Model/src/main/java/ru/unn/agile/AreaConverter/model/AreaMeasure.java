@@ -14,11 +14,11 @@ public enum AreaMeasure {
         this.measureCoeff = measureCoeff;
     }
 
-    public double getMeasureCoeff() {
-        return measureCoeff;
+    public String toString() {
+        return measureName;
     }
 
-    public String getMeasureName() {
-        return measureName;
+    public double getMeasureCoeff() {
+        return measureCoeff;
     }
 }
