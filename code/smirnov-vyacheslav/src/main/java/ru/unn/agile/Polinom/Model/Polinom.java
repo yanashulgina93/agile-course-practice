@@ -21,7 +21,7 @@ public class Polinom {
 
 	public double[] value() {
 		if (getHighDegree == 0)
-			return {0.0, 0.0}
+			return {0.0, 0.0};
 		double[] value = new double[getMonomNumber * 2];
 		int counter = 0;
 		for (int i = MAX_SIZE; i >= 0; i--)
