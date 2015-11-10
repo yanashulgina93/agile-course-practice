@@ -77,4 +77,18 @@ public class ViewModelTest {
         viewModel.parseInput();
         assertEquals(false, viewModel.isConvertButtonEnabled());
     }
+
+    @Test
+    public void canSetStatusNegativeAreaWhenInputAreaIsNegative() {
+        viewModel.setInputArea("-1.0");
+        viewModel.parseInput();
+        assertEquals(Status.NEGATIVE_AREA, viewModel.getStatus());
+    }
+
+    @Test
+    public void isConvertButtonDisableWhenInputAreaIsNegative() {
+        viewModel.setInputArea("-100.0");
+        viewModel.parseInput();
+        assertEquals(false, viewModel.isConvertButtonEnabled());
+    }
 }
