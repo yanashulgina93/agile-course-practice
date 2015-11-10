@@ -15,9 +15,9 @@ public final class AreaConverter {
 
     private JPanel mainPanel;
     private JTextField inputArea;
-    private JComboBox from;
+    private JComboBox<AreaMeasure> from;
     private JButton convertButton;
-    private JComboBox to;
+    private JComboBox<AreaMeasure> to;
     private JTextField resultArea;
     private JTextField status;
 
