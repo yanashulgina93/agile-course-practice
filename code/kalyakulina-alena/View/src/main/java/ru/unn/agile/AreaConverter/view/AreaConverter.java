@@ -2,7 +2,7 @@ package ru.unn.agile.AreaConverter.view;
 
 import javax.swing.*;
 
-public class AreaConverter {
+public final class AreaConverter {
 
     private JPanel mainPanel;
     private JTextField inputArea;
@@ -12,7 +12,9 @@ public class AreaConverter {
     private JTextField resultArea;
     private JTextField status;
 
-    public static void main(String[] args) {
+    private AreaConverter() { }
+
+    public static void main(final String[] args) {
         JFrame frame = new JFrame("AreaConverter");
         frame.setContentPane(new AreaConverter().mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

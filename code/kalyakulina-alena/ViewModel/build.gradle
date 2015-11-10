@@ -1,5 +1,5 @@
 dependencies {
-    compile project(':kalyakulina-alena-ViewModel')
+    compile project(':kalyakulina-alena-Model')
 }
 
 sourceSets {

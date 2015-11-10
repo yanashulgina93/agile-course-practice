@@ -1,18 +1,24 @@
 package ru.unn.agile.AreaConverter.model;
 
 public enum AreaMeasure {
-    SQUARE_METER(1.0),
-    SQUARE_KILOMETER(1000000.0),
-    ARE(100.0),
-    HECTARE(10000.0);
+    SQUARE_METER("Square Meter", 1.0),
+    SQUARE_KILOMETER("Square Kilometer", 1000000.0),
+    ARE("Are", 100.0),
+    HECTARE("Hectare", 10000.0);
 
+    private final String measureName;
     private final double measureCoeff;
 
-    AreaMeasure(final double measureCoeff) {
+    AreaMeasure(final String measureName, final double measureCoeff) {
+        this.measureName = measureName;
         this.measureCoeff = measureCoeff;
     }
 
     public double getMeasureCoeff() {
         return measureCoeff;
+    }
+
+    public String getMeasureName() {
+        return measureName;
     }
 }
