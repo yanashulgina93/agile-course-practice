@@ -56,10 +56,11 @@ public class ViewModel {
         this.to = to;
     }
 
-    public void parseInput() {
+    public boolean parseInput() {
         if (inputArea.isEmpty()) {
             status = Status.WAITING;
             isConvertButtonEnable = false;
+            return isConvertButtonEnable;
         } else {
             double parsedInputArea;
 
@@ -68,21 +69,23 @@ public class ViewModel {
             } catch (Exception exception) {
                 status = Status.WRONG_FORMAT;
                 isConvertButtonEnable = false;
-                return;
+                return isConvertButtonEnable;
             }
 
             if (parsedInputArea < 0.0) {
                 status = Status.NEGATIVE_AREA;
                 isConvertButtonEnable = false;
+                return isConvertButtonEnable;
             } else {
                 status = Status.READY;
                 isConvertButtonEnable = true;
+                return isConvertButtonEnable;
             }
         }
     }
 
     public void convert() {
-        if (isConvertButtonEnable) {
+        if (parseInput()) {
             AreaConverter converter = new AreaConverter(from, to);
             double convertedArea = converter.convert(Double.parseDouble(inputArea));
             resultArea = Double.toString(convertedArea);

@@ -109,7 +109,6 @@ public class ViewModelTest {
         viewModel.setInputArea("7.0");
         viewModel.setFrom(AreaMeasure.SQUARE_METER);
         viewModel.setTo(AreaMeasure.SQUARE_KILOMETER);
-        viewModel.parseInput();
         viewModel.convert();
         assertEquals(Status.SUCCESS, viewModel.getStatus());
     }
