@@ -42,4 +42,18 @@ public class ViewModelTest {
         viewModel.parseInput();
         assertEquals(Status.READY, viewModel.getStatus());
     }
+
+    @Test
+    public void isConvertButtonEnableWhenInputAreaIsFilled() {
+        viewModel.setInputArea("5.0");
+        viewModel.parseInput();
+        assertEquals(true, viewModel.isConvertButtonEnabled());
+    }
+
+    @Test
+    public void canSetStatusWaitingWhenInputAreaIsNotFilled() {
+        viewModel.setInputArea("");
+        viewModel.parseInput();
+        assertEquals(Status.WAITING, viewModel.getStatus());
+    }
 }

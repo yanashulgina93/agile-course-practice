@@ -48,7 +48,12 @@ public class ViewModel {
     }
 
     public void parseInput() {
-        status = Status.READY;
-        isConvertButtonEnable = true;
+        if (inputArea.isEmpty()) {
+            status = Status.WAITING;
+            isConvertButtonEnable = false;
+        } else {
+            status = Status.READY;
+            isConvertButtonEnable = true;
+        }
     }
 }
