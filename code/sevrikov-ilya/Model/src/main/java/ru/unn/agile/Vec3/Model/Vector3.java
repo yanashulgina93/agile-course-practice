@@ -2,25 +2,41 @@ package ru.unn.agile.Vec3.Model;
 
 import java.util.Random;
 
-public class Vec3 {
+public class Vector3 {
     private double x;
     private double y;
     private double z;
 
     private static final int HASH_FACTOR = 31;
 
-    public Vec3(final double x,
-                final double y,
-                final double z) {
+    public Vector3() {
+        //
+    }
+
+    public Vector3(final double x,
+                   final double y,
+                   final double z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
-    public Vec3(final double[] array) {
+    public Vector3(final double[] array) {
         x = array[0];
         y = array[1];
         z = array[2];
+    }
+
+    public void setX(final double x) {
+        this.x = x;
+    }
+
+    public void setY(final double y) {
+        this.y = y;
+    }
+
+    public void setZ(final double z) {
+        this.z = z;
     }
 
     public double x() {
@@ -55,11 +71,19 @@ public class Vec3 {
             return false;
         }
 
-        if (obj instanceof Vec3) {
-            return equals((Vec3) obj);
+        if (obj instanceof Vector3) {
+            return equals((Vector3) obj);
         }
 
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "("
+                + Double.toString(x()) + ", "
+                + Double.toString(y()) + ", "
+                + Double.toString(z()) + ")";
     }
 
     public boolean equals(final double x,
@@ -70,7 +94,7 @@ public class Vec3 {
             && Math.abs(this.z - z) < Precision.confusion();
     }
 
-    public boolean equals(final Vec3 vec) {
+    public boolean equals(final Vector3 vec) {
         return equals(vec.x(), vec.y(), vec.z());
     }
 
@@ -90,13 +114,17 @@ public class Vec3 {
         z /= norm;
     }
 
-    public double dot(final Vec3 vec) {
+    public double dot(final Vector3 vec) {
         return x * vec.x() + y * vec.y() + z * vec.z();
     }
 
-    public Vec3 cross(final Vec3 vec) {
-        return new Vec3(y * vec.z() - z * vec.y(),
-                        z * vec.x() - x * vec.z(),
-                        x * vec.y() - y * vec.x());
+    public Vector3 cross(final Vector3 vec) {
+        Vector3 vector = new Vector3(y * vec.z() - z * vec.y(),
+                                     z * vec.x() - x * vec.z(),
+                                     x * vec.y() - y * vec.x());
+
+        vector.normalize();
+
+        return vector;
     }
 }
