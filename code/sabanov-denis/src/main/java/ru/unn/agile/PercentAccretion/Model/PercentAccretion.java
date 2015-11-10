@@ -49,12 +49,12 @@ public final class PercentAccretion {
         }
     }
 
-    public static double calculateSumWithEffectivePercentRate(final PercentData data) {
-        if (data.getInitialSum() >= 0 && data.getPercentRate() >= 0
-                && data.getCountOfYears() >= 0 && data.getPercentPayingPerYear() > 0) {
-            return data.getInitialSum() * Math.pow(1 + FROM_PERCENT
-                   * calculateEffectivePercentRate(data),
-                   data.getCountOfYears());
+    public static double calculateSumWithEffectivePercentRate(final PercentData percentData) {
+        if (percentData.getInitialSum() >= 0 && percentData.getPercentRate() >= 0
+                && percentData.getCountOfYears() >= 0 && percentData.getPercentPayingPerYear() > 0) {
+            return percentData.getInitialSum() * Math.pow(1 + FROM_PERCENT
+                   * calculateEffectivePercentRate(percentData),
+                    percentData.getCountOfYears());
         } else {
             throw new IllegalArgumentException();
         }
