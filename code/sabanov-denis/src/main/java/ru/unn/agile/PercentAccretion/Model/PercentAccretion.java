@@ -50,11 +50,11 @@ public final class PercentAccretion {
     }
 
     public static double calculateSumWithEffectivePercentRate(final PercentData data) {
-        if (data.getInitialSum() >= 0 && data.getPercentRate() >= 0 && data.getCountOfYears() >= 0
-                && data.getPercentPayingPerYear() > 0) {
+        if (data.getInitialSum() >= 0 && data.getPercentRate() >= 0
+                && data.getCountOfYears() >= 0 && data.getPercentPayingPerYear() > 0) {
             return data.getInitialSum() * Math.pow(1 + FROM_PERCENT
-                            * calculateEffectivePercentRate(data),
-                    data.getCountOfYears());
+                   * calculateEffectivePercentRate(data),
+                   data.getCountOfYears());
         } else {
             throw new IllegalArgumentException();
         }
