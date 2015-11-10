@@ -12,6 +12,8 @@ public final class Integrator {
     private JComboBox cmbMethod;
     private JButton btnIntegrate;
     private JTextField txtResult;
+    private JPanel mainPanel;
+    private JLabel lbStatus;
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Integrator");
@@ -20,8 +22,6 @@ public final class Integrator {
         frame.pack();
         frame.setVisible(true);
     }
-
-    private JPanel mainPanel;
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
