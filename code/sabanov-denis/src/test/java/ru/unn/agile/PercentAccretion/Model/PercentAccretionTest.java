@@ -1,86 +1,106 @@
 package ru.unn.agile.PercentAccretion.Model;
 
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class PercentAccretionTest {
 
+    private PercentData data;
+
+    @Before
+    public void initializePercentData() {
+        data = new PercentData();
+        data.setInitialSum(100);
+        data.setPercentRate(50);
+        data.setCountOfYears(1);
+        data.setPercentPayingPerYear(0);
+    }
+
     @Test
     public void canCalculateSumWithSimplePercent() {
         double expectedSum = 150.0;
-        double actualSum = PercentAccretion.calculateSumWithSimplePercent(100, 50, 1);
+        double actualSum = PercentAccretion.calculateSumWithSimplePercent(data);
         double delta = 0.00001;
         assertEquals(expectedSum, actualSum, delta);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void catchExceptionWithNormalPercentRateSumWithNULL() {
-        PercentAccretion.calculateSumWithNominalPercentRate(0, 0, 0, 0);
+        PercentAccretion.calculateSumWithNominalPercentRate(data);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void catchExceptionWithEffectivePercentRateSumWithNULL() {
-        PercentAccretion.calculateSumWithEffectivePercentRate(0, 0, 0, 0);
+        PercentAccretion.calculateSumWithEffectivePercentRate(data);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void catchExceptionWithEffectivePercentRateWithNULL() {
-        PercentAccretion.calculateEffectivePercentRate(0, 0);
+        PercentAccretion.calculateEffectivePercentRate(data);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void catchExceptionWhenWrongArgInSimplePercent() {
-        PercentAccretion.calculateSumWithSimplePercent(-1, 1, 1);
+        data.setPercentRate(-1);
+        PercentAccretion.calculateSumWithSimplePercent(data);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void catchExceptionWhenWrongArgInComplexPercent() {
-        PercentAccretion.calculateSumWithComplexPercent(1, -1, 1);
+        data.setPercentRate(-1);
+        PercentAccretion.calculateSumWithComplexPercent(data);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void catchExceptionWhenWrongArgsInNominalPercent() {
-        PercentAccretion.calculateSumWithNominalPercentRate(100, 100, -1, 1);
+        data.setPercentRate(-1);
+        PercentAccretion.calculateSumWithNominalPercentRate(data);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void catchExceptionWhenWrongArgsInEffectivePercentRate() {
-        PercentAccretion.calculateEffectivePercentRate(-1, 90);
+        data.setPercentRate(-1);
+        PercentAccretion.calculateEffectivePercentRate(data);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void catchExceptionWhenWrongArgsEffectivePercentSum() {
-        PercentAccretion.calculateSumWithEffectivePercentRate(1, 1, 1, -1);
+        data.setPercentRate(-1);
+        PercentAccretion.calculateSumWithEffectivePercentRate(data);
     }
 
     @Test
     public void canCalculateSumWithComplexPercent() {
-        double expectedValue = 337.5;
-        double actualValue = PercentAccretion.calculateSumWithComplexPercent(100, 50, 3);
+        double expectedValue = 150.0;
+        double actualValue = PercentAccretion.calculateSumWithComplexPercent(data);
         double delta = 0.00001;
         assertEquals(expectedValue, actualValue, delta);
     }
 
     @Test
     public void canCalculateSumWithNominalRate() {
-        double expectedValue = 234331.8;
-        double actualValue = PercentAccretion.calculateSumWithNominalPercentRate(200000, 8, 4, 2);
+        double expectedValue = 150.0;
+        data.setPercentPayingPerYear(1);
+        double actualValue = PercentAccretion.calculateSumWithNominalPercentRate(data);
         double delta = 0.1;
         assertEquals(expectedValue, actualValue, delta);
     }
 
     @Test
     public void canCalculateEffectiveRate() {
-        double expectedValue = 19.56;
-        double actualValue = PercentAccretion.calculateEffectivePercentRate(18, 12);
+        double expectedValue = 50.0;
+        data.setPercentPayingPerYear(1);
+        double actualValue = PercentAccretion.calculateEffectivePercentRate(data);
         double delta = 0.01;
         assertEquals(expectedValue, actualValue, delta);
     }
 
     @Test
     public void canCalculateSumWithEffectiveRate() {
-        double expectedValue = 234331.8;
-        double actualValue = PercentAccretion.calculateSumWithEffectivePercentRate(200000, 8, 4, 2);
+        double expectedValue = 150.0;
+        data.setPercentPayingPerYear(1);
+        double actualValue = PercentAccretion.calculateSumWithEffectivePercentRate(data);
         double delta = 0.1;
         assertEquals(expectedValue, actualValue, delta);
     }
@@ -88,7 +108,8 @@ public class PercentAccretionTest {
     @Test
     public void compareNominalAndEffectiveSum() {
         double delta = 0.0001;
-        assertEquals(PercentAccretion.calculateSumWithNominalPercentRate(1000, 10, 12, 3),
-                PercentAccretion.calculateSumWithEffectivePercentRate(1000, 10, 12, 3), delta);
+        data.setPercentPayingPerYear(1);
+        assertEquals(PercentAccretion.calculateSumWithNominalPercentRate(data),
+                PercentAccretion.calculateSumWithEffectivePercentRate(data), delta);
     }
 }

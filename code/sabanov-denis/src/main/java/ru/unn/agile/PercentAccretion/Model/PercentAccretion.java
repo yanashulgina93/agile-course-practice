@@ -2,63 +2,59 @@ package ru.unn.agile.PercentAccretion.Model;
 
 public final class PercentAccretion {
 
-    static final double FROM_PERCENT = 0.01;
-    static final double TO_PERCENT = 100;
+    private static final double FROM_PERCENT = 0.01;
+    private static final double TO_PERCENT = 100;
 
-    private PercentAccretion() { }
+    private PercentAccretion() {
+    }
 
-    public static double calculateSumWithSimplePercent(final double initialSum,
-                                                       final double percentRate,
-                                                       final int countOfYears) {
-        if (initialSum >= 0 && percentRate >= 0 && countOfYears >= 0) {
-            return initialSum * (1 + percentRate * FROM_PERCENT * countOfYears);
+    public static double calculateSumWithSimplePercent(final PercentData data) {
+        if (data.getInitialSum() >= 0 && data.getPercentRate() >= 0
+                && data.getCountOfYears() >= 0) {
+            return data.getInitialSum() * (1 + data.getPercentRate()
+                * FROM_PERCENT * data.getCountOfYears());
         } else {
             throw new IllegalArgumentException();
         }
     }
 
-    public static double calculateSumWithComplexPercent(final double initialSum,
-                                                        final double percentRate,
-                                                        final int countOfYears) {
-        if (initialSum >= 0 && percentRate >= 0 && countOfYears >= 0) {
-            return initialSum * Math.pow(1 + percentRate * FROM_PERCENT, countOfYears);
+    public static double calculateSumWithComplexPercent(final PercentData data) {
+        if (data.getInitialSum() >= 0 && data.getPercentRate() >= 0
+                && data.getCountOfYears() >= 0) {
+            return data.getInitialSum() * Math.pow(1 + data.getPercentRate()
+                * FROM_PERCENT, data.getCountOfYears());
         } else {
             throw new IllegalArgumentException();
         }
     }
 
-    public static double calculateSumWithNominalPercentRate(final double initialSum,
-                                                            final double percentRate,
-                                                            final int percentPayingPerYear,
-                                                            final int countOfYears) {
-        if (initialSum >= 0 && percentRate >= 0 && countOfYears >= 0
-                && percentPayingPerYear > 0) {
-            return initialSum * Math.pow(1 + percentRate * FROM_PERCENT / percentPayingPerYear,
-                    countOfYears * percentPayingPerYear);
+    public static double calculateSumWithNominalPercentRate(final PercentData data) {
+        if (data.getInitialSum() >= 0 && data.getPercentRate() >= 0 && data.getCountOfYears() >= 0
+                && data.getPercentPayingPerYear() > 0) {
+            return data.getInitialSum() * Math.pow(1 + data.getPercentRate()
+                    * FROM_PERCENT / data.getPercentPayingPerYear(),
+                    data.getCountOfYears() * data.getPercentPayingPerYear());
         } else {
             throw new IllegalArgumentException();
         }
     }
 
-    public static double calculateEffectivePercentRate(final double percentRate,
-                                                       final int percentPayingPerYear) {
-        if (percentRate >= 0 && percentPayingPerYear > 0) {
-            return TO_PERCENT * (Math.pow(1 + (percentRate * FROM_PERCENT) / percentPayingPerYear,
-                    percentPayingPerYear) - 1);
+    public static double calculateEffectivePercentRate(final PercentData data) {
+        if (data.getPercentRate() >= 0 && data.getPercentPayingPerYear() > 0) {
+            return TO_PERCENT * (Math.pow(1 + (data.getPercentRate()
+                    * FROM_PERCENT) / data.getPercentPayingPerYear(),
+                    data.getPercentPayingPerYear()) - 1);
         } else {
             throw new IllegalArgumentException();
         }
     }
 
-    public static double calculateSumWithEffectivePercentRate(final double initialSum,
-                                                            final double percentRate,
-                                                            final int percentPayingPerYear,
-                                                            final int countOfYears) {
-        if (initialSum >= 0 && percentRate >= 0 && countOfYears >= 0
-                && percentPayingPerYear > 0) {
-            return initialSum * Math.pow(1 + FROM_PERCENT
-                            * calculateEffectivePercentRate(percentRate, percentPayingPerYear),
-                    countOfYears);
+    public static double calculateSumWithEffectivePercentRate(final PercentData data) {
+        if (data.getInitialSum() >= 0 && data.getPercentRate() >= 0 && data.getCountOfYears() >= 0
+                && data.getPercentPayingPerYear() > 0) {
+            return data.getInitialSum() * Math.pow(1 + FROM_PERCENT
+                            * calculateEffectivePercentRate(data),
+                    data.getCountOfYears());
         } else {
             throw new IllegalArgumentException();
         }
