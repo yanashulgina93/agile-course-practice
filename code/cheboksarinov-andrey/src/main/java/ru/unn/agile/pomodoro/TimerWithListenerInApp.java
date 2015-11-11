@@ -2,14 +2,14 @@ package ru.unn.agile.pomodoro;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.util.concurrent.TimeUnit;
 
 public class TimerWithListenerInApp implements ITimerWithListener {
     private javax.swing.Timer swingTimer;
     private ActionListener tickListener;
     @Override
     public void start() {
-        final int oneSecond = 1000;
-        swingTimer = new Timer(oneSecond, tickListener);
+        swingTimer = new Timer((int) TimeUnit.SECONDS.toSeconds(1), tickListener);
         swingTimer.start();
     }
 

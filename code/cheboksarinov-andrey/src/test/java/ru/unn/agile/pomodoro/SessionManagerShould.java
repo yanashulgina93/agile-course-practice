@@ -8,11 +8,13 @@ import static org.junit.Assert.assertEquals;
 public class SessionManagerShould {
     private SessionManager sessionManager;
     private MockTimerWithListener mockTimer;
+    private SessionTimeManager sessionTimeManager;
 
     @Before
     public void setUp() {
         mockTimer = new MockTimerWithListener();
-        sessionManager = new SessionManager(mockTimer);
+        sessionTimeManager = new SessionTimeManager();
+        sessionManager = new SessionManager(sessionTimeManager, mockTimer);
     }
 
     @Test
@@ -22,7 +24,7 @@ public class SessionManagerShould {
 
         mockTimer.throwTicks(1);
 
-        assertEquals(secondCountAfterOneTick, sessionManager.getSecond());
+        assertEquals(secondCountAfterOneTick, sessionManager.getTime().getSecondCount());
     }
 
     @Test
@@ -31,7 +33,7 @@ public class SessionManagerShould {
         final int minuteCountAfterOneLeft = 24;
         tickOneMinute();
 
-        assertEquals(minuteCountAfterOneLeft, sessionManager.getMinute());
+        assertEquals(minuteCountAfterOneLeft, sessionManager.getTime().getMinuteCount());
     }
 
     @Test
@@ -49,7 +51,7 @@ public class SessionManagerShould {
 
         completePomodoro();
 
-        assertEquals(0, sessionManager.getSecond());
+        assertEquals(0, sessionManager.getTime().getSecondCount());
     }
 
     @Test
@@ -59,7 +61,7 @@ public class SessionManagerShould {
 
         completePomodoro();
 
-        assertEquals(minuteCountForBreak, sessionManager.getMinute());
+        assertEquals(minuteCountForBreak, sessionManager.getTime().getMinuteCount());
     }
 
     @Test
@@ -87,7 +89,7 @@ public class SessionManagerShould {
 
         completeFourPomodoros();
 
-        assertEquals(0, sessionManager.getSecond());
+        assertEquals(0, sessionManager.getTime().getSecondCount());
     }
 
     @Test
@@ -97,7 +99,7 @@ public class SessionManagerShould {
 
         completeFourPomodoros();
 
-        assertEquals(minuteCountForBigBreak, sessionManager.getMinute());
+        assertEquals(minuteCountForBigBreak, sessionManager.getTime().getMinuteCount());
     }
 
     @Test
