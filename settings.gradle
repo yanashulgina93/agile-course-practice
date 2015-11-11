@@ -70,8 +70,12 @@ include "code/golodyaev-andrey"
 project(":code/golodyaev-andrey").name = "golodyaev-andrey-Model"
 
 // Goroxov Dmitrij
-include "code/gorokhov-dmitriy"
-project(":code/gorokhov-dmitriy").name = "gorokhov-dmitriy-Model"
+include "code/gorokhov-dmitriy/Model"
+project(":code/gorokhov-dmitriy/Model").name = "gorokhov-dmitriy-Model"
+include "code/gorokhov-dmitriy/ViewModel"
+project(":code/gorokhov-dmitriy/ViewModel").name = "gorokhov-dmitriy-ViewModel"
+include "code/gorokhov-dmitriy/View"
+project(":code/gorokhov-dmitriy/View").name = "gorokhov-dmitriy-View"
 
 // Kajnov Oleg
 
