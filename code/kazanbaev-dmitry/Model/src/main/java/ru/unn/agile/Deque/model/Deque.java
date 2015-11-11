@@ -1,4 +1,4 @@
-package ru.unn.agile.deque.Model;
+package ru.unn.agile.Deque.model;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,14 +25,14 @@ public class Deque<T> {
 
     public void pushFront(final T item) {
         if (item == null) {
-            return; //null-safe behavior
+            return;
         }
         list.add(0, item);
     }
 
     public void pushBack(final T item) {
         if (item == null) {
-            return; //null-safe behavior
+            return;
         }
         list.add(item);
     }

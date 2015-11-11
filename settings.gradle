@@ -80,9 +80,9 @@ include "code/kalyakulina-alena"
 project(":code/kalyakulina-alena").name = "kalyakulina-alena-Model"
 
 // Karpunin Yaroslav
-// Kazanbaev Dmitrij
-include "code/kazanbaev-dmitry"
-project(":code/kazanbaev-dmitry").name = "kazanbaev-dmitry-model"
+// Kazanbaev Dmitry
+include "code/kazanbaev-dmitry/Model"
+project(":code/kazanbaev-dmitry/Model").name = "kazanbaev-dmitry-Model"
 
 // Khanova Tatyana
 // Kochanova Kseniya
