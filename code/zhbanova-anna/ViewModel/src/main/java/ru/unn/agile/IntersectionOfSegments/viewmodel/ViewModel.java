@@ -179,7 +179,6 @@ public class ViewModel {
             inputStatus = checkCorrectPoint(seg1Point2X, seg1Point2Y, inputStatus);
             inputStatus = checkCorrectPoint(seg2Point1X, seg2Point1Y, inputStatus);
             inputStatus = checkCorrectPoint(seg2Point2X, seg2Point2Y, inputStatus);
-            inputStatus = checkCorrectPoint(seg2Point2X, seg2Point2Y, inputStatus);
         } catch (ParseException pe) {
             inputStatus = Status.BAD_FORMAT;
         }
