@@ -116,6 +116,8 @@ project(":code/moshkov-yuriy").name = "moshkov-yuriy-lab1-Model"
 // Nesmelov Aleksej
 include "code/nesmelov-aleksey"
 project(":code/nesmelov-aleksey").name = "nesmelov-aleksey-Model"
+include "code/nesmelov-aleksey/View"
+project(":code/nesmelov-aleksey/View").name = "nesmelov-aleksey-View"
 // Nikolaev Kirill
 include "code/nikolaev-kirill"
 project(":code/nikolaev-kirill").name = "nikolaev-kirill-Model"
