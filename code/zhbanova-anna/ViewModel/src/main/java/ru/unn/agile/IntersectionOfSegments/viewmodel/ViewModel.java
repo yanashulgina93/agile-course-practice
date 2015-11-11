@@ -180,43 +180,50 @@ public class ViewModel {
 
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
-        if (seg1Point1X.get().isEmpty() || seg1Point1Y.get().isEmpty()
-         || seg1Point2X.get().isEmpty() || seg1Point2Y.get().isEmpty()
-                || seg2Point1X.get().isEmpty() || seg2Point1Y.get().isEmpty()
-                || seg2Point2X.get().isEmpty() || seg2Point2Y.get().isEmpty()) {
+        if (isNotEnoughData()) {
             inputStatus = Status.WAITING;
         }
         try {
-            if (!seg1Point1X.get().isEmpty()) {
-                Double.parseDouble(seg1Point1X.get());
-            }
-            if (!seg1Point1Y.get().isEmpty()) {
-                Double.parseDouble(seg1Point1Y.get());
-            }
-            if (!seg1Point2X.get().isEmpty()) {
-                Double.parseDouble(seg1Point2X.get());
-            }
-            if (!seg1Point2Y.get().isEmpty()) {
-                Double.parseDouble(seg1Point2Y.get());
-            }
-            if (!seg2Point1X.get().isEmpty()) {
-                Double.parseDouble(seg2Point1X.get());
-            }
-            if (!seg2Point1Y.get().isEmpty()) {
-                Double.parseDouble(seg2Point1Y.get());
-            }
-            if (!seg2Point2X.get().isEmpty()) {
-                Double.parseDouble(seg2Point2X.get());
-            }
-            if (!seg2Point2Y.get().isEmpty()) {
-                Double.parseDouble(seg2Point2Y.get());
-            }
+            checkCorrectData();
          } catch (NumberFormatException nfe) {
             inputStatus = Status.BAD_FORMAT;
         }
         return inputStatus;
     }
 
+    private boolean isNotEnoughData() {
+        return seg1Point1X.get().isEmpty() || seg1Point1Y.get().isEmpty()
+                || seg1Point2X.get().isEmpty() || seg1Point2Y.get().isEmpty()
+                || seg2Point1X.get().isEmpty() || seg2Point1Y.get().isEmpty()
+                || seg2Point2X.get().isEmpty() || seg2Point2Y.get().isEmpty();
+    }
+
+    private void checkCorrectData() {
+        if (!seg1Point1X.get().isEmpty()) {
+            Double.parseDouble(seg1Point1X.get());
+        }
+        if (!seg1Point1Y.get().isEmpty()) {
+            Double.parseDouble(seg1Point1Y.get());
+        }
+        if (!seg1Point2X.get().isEmpty()) {
+            Double.parseDouble(seg1Point2X.get());
+        }
+        if (!seg1Point2Y.get().isEmpty()) {
+            Double.parseDouble(seg1Point2Y.get());
+        }
+        if (!seg2Point1X.get().isEmpty()) {
+            Double.parseDouble(seg2Point1X.get());
+        }
+        if (!seg2Point1Y.get().isEmpty()) {
+            Double.parseDouble(seg2Point1Y.get());
+        }
+        if (!seg2Point2X.get().isEmpty()) {
+            Double.parseDouble(seg2Point2X.get());
+        }
+        if (!seg2Point2Y.get().isEmpty()) {
+            Double.parseDouble(seg2Point2Y.get());
+        }
+    }
     private class ValueChangeListener implements ChangeListener<String> {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
