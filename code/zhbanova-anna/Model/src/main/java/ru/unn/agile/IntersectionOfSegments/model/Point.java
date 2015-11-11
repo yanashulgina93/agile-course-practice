@@ -9,6 +9,27 @@ public class Point {
         this.y = y;
     }
 
+    public Point(final String x, final String y) {
+        String message = "";
+        if (x.isEmpty() || y.isEmpty()) {
+            message = "Is empty argument";
+        }
+        try {
+            if (!x.isEmpty()) {
+                this.x = Double.parseDouble(x);
+            }
+            if (!y.isEmpty()) {
+                this.y = Double.parseDouble(y);
+            }
+        } catch (NumberFormatException nfe) {
+            message = "Bad format";
+        }
+
+        if (!message.isEmpty()) {
+            throw new ParseException(message);
+        }
+    }
+
     Point(final Point p) {
         this.x = p.getX();
         this.y = p.getY();

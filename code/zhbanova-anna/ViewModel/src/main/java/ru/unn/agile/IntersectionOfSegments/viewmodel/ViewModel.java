@@ -5,6 +5,7 @@ import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import ru.unn.agile.IntersectionOfSegments.model.Intersection;
+import ru.unn.agile.IntersectionOfSegments.model.ParseException;
 import ru.unn.agile.IntersectionOfSegments.model.Point;
 import ru.unn.agile.IntersectionOfSegments.model.Segment;
 import java.util.ArrayList;
@@ -166,64 +167,39 @@ public class ViewModel {
         return result;
     }
 
-    public final String getResult() {
-        return result.get();
-    }
-
     public StringProperty statusProperty() {
         return status;
     }
 
-    public final String getStatus() {
-        return status.get();
-    }
-
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
-        if (isNotEnoughData()) {
-            inputStatus = Status.WAITING;
-        }
+
         try {
-            checkCorrectData();
-         } catch (NumberFormatException nfe) {
+            inputStatus = checkCorrectPoint(seg1Point1X, seg1Point1Y, inputStatus);
+            inputStatus = checkCorrectPoint(seg1Point2X, seg1Point2Y, inputStatus);
+            inputStatus = checkCorrectPoint(seg2Point1X, seg2Point1Y, inputStatus);
+            inputStatus = checkCorrectPoint(seg2Point2X, seg2Point2Y, inputStatus);
+            inputStatus = checkCorrectPoint(seg2Point2X, seg2Point2Y, inputStatus);
+        } catch (ParseException pe) {
             inputStatus = Status.BAD_FORMAT;
         }
         return inputStatus;
     }
 
-    private boolean isNotEnoughData() {
-        return seg1Point1X.get().isEmpty() || seg1Point1Y.get().isEmpty()
-                || seg1Point2X.get().isEmpty() || seg1Point2Y.get().isEmpty()
-                || seg2Point1X.get().isEmpty() || seg2Point1Y.get().isEmpty()
-                || seg2Point2X.get().isEmpty() || seg2Point2Y.get().isEmpty();
+    private Status checkCorrectPoint(final StringProperty x, final StringProperty y,
+                                     final Status inputStatus) {
+        try {
+            new Point(x.get(), y.get());
+        } catch (ParseException pe) {
+            if (pe.getMessage().equals("Is empty argument")) {
+                return Status.WAITING;
+            } else {
+                throw pe;
+            }
+        }
+        return  inputStatus;
     }
 
-    private void checkCorrectData() {
-        if (!seg1Point1X.get().isEmpty()) {
-            Double.parseDouble(seg1Point1X.get());
-        }
-        if (!seg1Point1Y.get().isEmpty()) {
-            Double.parseDouble(seg1Point1Y.get());
-        }
-        if (!seg1Point2X.get().isEmpty()) {
-            Double.parseDouble(seg1Point2X.get());
-        }
-        if (!seg1Point2Y.get().isEmpty()) {
-            Double.parseDouble(seg1Point2Y.get());
-        }
-        if (!seg2Point1X.get().isEmpty()) {
-            Double.parseDouble(seg2Point1X.get());
-        }
-        if (!seg2Point1Y.get().isEmpty()) {
-            Double.parseDouble(seg2Point1Y.get());
-        }
-        if (!seg2Point2X.get().isEmpty()) {
-            Double.parseDouble(seg2Point2X.get());
-        }
-        if (!seg2Point2Y.get().isEmpty()) {
-            Double.parseDouble(seg2Point2Y.get());
-        }
-    }
     private class ValueChangeListener implements ChangeListener<String> {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
