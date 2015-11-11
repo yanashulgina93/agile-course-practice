@@ -64,6 +64,7 @@ public class ViewModel {
         } catch (NumberFormatException exception) {
             status = Status.BAD_FORMAT;
             isConvertButtonEnable = false;
+            resultTemperature = "";
             return isConvertButtonEnable;
         }
     }

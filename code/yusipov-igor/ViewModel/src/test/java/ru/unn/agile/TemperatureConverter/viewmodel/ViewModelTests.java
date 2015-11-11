@@ -102,22 +102,6 @@ public class ViewModelTests {
     }
 
     @Test
-    public void isStatusBadFormatWhenConvertIncorrectInput() {
-        viewModel.setInputTemperature("SomethingWicked");
-        viewModel.setScale(TemperatureScaleName.KELVIN);
-        viewModel.convert();
-        assertEquals(Status.BAD_FORMAT, viewModel.getStatus());
-    }
-
-    @Test
-    public void isStatusWaitingWhenConvertEmptyInput() {
-        viewModel.setInputTemperature("");
-        viewModel.setScale(TemperatureScaleName.KELVIN);
-        viewModel.convert();
-        assertEquals(Status.WAITING, viewModel.getStatus());
-    }
-
-    @Test
     public void isCorrectStatusName() {
         viewModel.setInputTemperature("1.0");
         viewModel.convert();
