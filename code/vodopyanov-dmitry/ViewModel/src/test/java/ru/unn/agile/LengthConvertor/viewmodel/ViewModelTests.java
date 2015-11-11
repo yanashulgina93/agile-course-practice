@@ -88,16 +88,6 @@ public class ViewModelTests {
     }
 
     @Test
-    public void inchIsDefaultInputUnit() {
-        assertEquals(LengthUnit.INCH, viewModel.inputUnitProperty().get());
-    }
-
-    @Test
-    public void footIsDefaultOutputUnit() {
-        assertEquals(LengthUnit.FOOT, viewModel.outputUnitProperty().get());
-    }
-
-    @Test
     public void canSetBadFormatMessageWhenNumberIsNegative() {
         viewModel.inputValueProperty().set("-1");
 
