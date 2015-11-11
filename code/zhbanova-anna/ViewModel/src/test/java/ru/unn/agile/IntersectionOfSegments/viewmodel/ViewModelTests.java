@@ -82,21 +82,25 @@ public class ViewModelTests {
     @Test
     public void calculateButtonIsDisabledWhenFormatIsBad() {
         setInputData();
+
         viewModel.seg1Point1XProperty().set("a");
+
         assertTrue(viewModel.calculationDisabledProperty().get());
     }
 
     @Test
     public void calculateButtonIsDisabledIfNotEnoughCorrectData() {
         viewModel.seg1Point1XProperty().set("0");
+
         assertTrue(viewModel.calculationDisabledProperty().get());
     }
+
     @Test
     public void calculateButtonIsEnabledWhenFieldsAreCorrectFill() {
         setInputData();
+
         assertFalse(viewModel.calculationDisabledProperty().get());
     }
-
 
     @Test
     public void findOfIntersectionReturnCorrectResultWhenOneCommonPoint() {

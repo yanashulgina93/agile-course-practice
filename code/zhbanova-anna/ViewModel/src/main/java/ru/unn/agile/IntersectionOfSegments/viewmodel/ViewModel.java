@@ -121,6 +121,7 @@ public class ViewModel {
     private String convertPointToString(final Point p) {
         return "(" + Double.toString(p.getX()) + "; " + Double.toString(p.getY()) + ")";
     }
+
     public StringProperty seg1Point1XProperty() {
         return seg1Point1X;
     }
@@ -213,7 +214,6 @@ public class ViewModel {
          } catch (NumberFormatException nfe) {
             inputStatus = Status.BAD_FORMAT;
         }
-
         return inputStatus;
     }
 

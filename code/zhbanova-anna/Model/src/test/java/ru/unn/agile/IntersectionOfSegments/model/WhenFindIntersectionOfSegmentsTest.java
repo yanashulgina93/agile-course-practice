@@ -258,6 +258,7 @@ public class WhenFindIntersectionOfSegmentsTest {
                 new Segment(testSegment1.getStart(), testSegment2.getFinish()));
         correctLengthOfCommonPart = Math.sqrt(18);
     }
+
     private void setUpSegmentsWhichNotIntersectWhenOneSegmentXconst() {
         testSegment1 = new Segment(new Point(0.0, 0.0), new Point(5.0, 5.0));
         testSegment2 = new Segment(new Point(6.0, 2.0), new Point(6.0, 8.0));
@@ -297,6 +298,7 @@ public class WhenFindIntersectionOfSegmentsTest {
                 new Segment(new Point(2.0, 1.0), new Point(2.0, 1.0)));
         correctLengthOfCommonPart = 0;
     }
+
     private void setUpTheSameSegmentsWhenSegmentsXconst() {
         testSegment1 = new Segment(new Point(10.0, 5.0), new Point(10.0, 2.0));
         testSegment2 = new Segment(new Point(10.0, 5.0), new Point(10.0, 2.0));
