@@ -21,7 +21,7 @@ public class ViewModel {
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
 
     private final StringProperty outputValue = new SimpleStringProperty();
-    private final StringProperty errorMessage = new SimpleStringProperty();
+    private final StringProperty hintMessage = new SimpleStringProperty();
 
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
 
@@ -30,7 +30,7 @@ public class ViewModel {
         inputUnit.set(LengthUnit.INCH);
         outputValue.set("");
         outputUnit.set(LengthUnit.FOOT);
-        errorMessage.set(Status.WAITING.toString());
+        hintMessage.set(Status.WAITING.toString());
 
         BooleanBinding couldCalculate = new BooleanBinding() {
             {
@@ -38,7 +38,7 @@ public class ViewModel {
             }
             @Override
             protected boolean computeValue() {
-                return getErrorStatus() == Status.READY;
+                return getHintStatus() == Status.READY;
             }
         };
         calculationDisabled.bind(couldCalculate.not());
@@ -60,7 +60,7 @@ public class ViewModel {
         }
 
         outputValue.set(outputUnit.get().convert(inputValue.get(), inputUnit.get()));
-        errorMessage.set(Status.SUCCESS.toString());
+        hintMessage.set(Status.SUCCESS.toString());
     }
 
     public StringProperty inputValueProperty() {
@@ -99,38 +99,38 @@ public class ViewModel {
         return outputValue.get();
     }
 
-    public StringProperty errorMessageProperty() {
-        return errorMessage;
+    public StringProperty hintMessageProperty() {
+        return hintMessage;
     }
 
-    public final String getErrorMessage() {
-        return errorMessage.get();
+    public final String getHintMessage() {
+        return hintMessage.get();
     }
 
-    private Status getErrorStatus() {
-        Status errorStatus = Status.READY;
+    private Status getHintStatus() {
+        Status hintStatus = Status.READY;
         if (inputValue.get().isEmpty()) {
-            errorStatus = Status.WAITING;
+            hintStatus = Status.WAITING;
         }
         try {
             if (!inputValue.get().isEmpty()) {
                 double value = Double.parseDouble(inputValue.get());
                 if (value < 0) {
-                    errorStatus = Status.BAD_FORMAT;
+                    hintStatus = Status.BAD_FORMAT;
                 }
             }
         } catch (NumberFormatException nfe) {
-            errorStatus = Status.BAD_FORMAT;
+            hintStatus = Status.BAD_FORMAT;
         }
 
-        return errorStatus;
+        return hintStatus;
     }
 
     private class ValueChangeListener implements ChangeListener<String> {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
-            errorMessage.set(getErrorStatus().toString());
+            hintMessage.set(getHintStatus().toString());
         }
     }
 }

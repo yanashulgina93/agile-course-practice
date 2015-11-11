@@ -27,32 +27,32 @@ public class ViewModelTests {
         assertEquals(LengthUnit.INCH, viewModel.inputUnitProperty().get());
         assertEquals("", viewModel.outputValueProperty().get());
         assertEquals(LengthUnit.FOOT, viewModel.outputUnitProperty().get());
-        assertEquals(Status.WAITING.toString(), viewModel.errorMessageProperty().get());
+        assertEquals(Status.WAITING.toString(), viewModel.hintMessageProperty().get());
     }
 
     @Test
     public void statusIsWaitingWhenCalculateWithEmptyField() {
         viewModel.calculate();
-        assertEquals(Status.WAITING.toString(), viewModel.errorMessageProperty().get());
+        assertEquals(Status.WAITING.toString(), viewModel.hintMessageProperty().get());
     }
 
     @Test
     public void statusIsReadyWhenFieldIsFill() {
         setInputData();
 
-        assertEquals(Status.READY.toString(), viewModel.errorMessageProperty().get());
+        assertEquals(Status.READY.toString(), viewModel.hintMessageProperty().get());
     }
 
     @Test
     public void canReportBadFormat() {
         viewModel.inputValueProperty().set("a");
 
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.errorMessageProperty().get());
+        assertEquals(Status.BAD_FORMAT.toString(), viewModel.hintMessageProperty().get());
     }
 
     @Test
     public void statusIsWaitingIfNotEnoughCorrectData() {
-        assertEquals(Status.WAITING.toString(), viewModel.errorMessageProperty().get());
+        assertEquals(Status.WAITING.toString(), viewModel.hintMessageProperty().get());
     }
 
     @Test
@@ -91,14 +91,14 @@ public class ViewModelTests {
     public void canSetBadFormatMessageWhenNumberIsNegative() {
         viewModel.inputValueProperty().set("-1");
 
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.errorMessageProperty().get());
+        assertEquals(Status.BAD_FORMAT.toString(), viewModel.hintMessageProperty().get());
     }
 
     @Test
     public void statusIsReadyWhenSetProperData() {
         setInputData();
 
-        assertEquals(Status.READY.toString(), viewModel.errorMessageProperty().get());
+        assertEquals(Status.READY.toString(), viewModel.hintMessageProperty().get());
     }
 
     @Test
@@ -107,7 +107,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(Status.SUCCESS.toString(), viewModel.errorMessageProperty().get());
+        assertEquals(Status.SUCCESS.toString(), viewModel.hintMessageProperty().get());
     }
 
     @Test
@@ -119,7 +119,7 @@ public class ViewModelTests {
     public void isErrorMessegeEqualsErrorBadFormatWhenInputDataIncorrect() {
         viewModel.inputValueProperty().set("a");
 
-        assertEquals("Error: Bad format", viewModel.getErrorMessage());
+        assertEquals("Error: Bad format", viewModel.getHintMessage());
     }
 
     @Test
