@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class ViewModelTests {
     private ViewModel viewModel;
@@ -16,7 +17,7 @@ public class ViewModelTests {
 
     @Test
     public void descriptionOfCalculatedStatisticIsEmptyWhenJustStarted() {
-        assertEquals(viewModel.getDescriptionOfCalculatedStatistic(), "");
+        assertEquals(viewModel.getNameOfCalculatedStatistic(), "");
     }
 
     @Test
@@ -30,8 +31,8 @@ public class ViewModelTests {
     }
 
     @Test
-    public void descriptionOfAddEventErrorIsEmptyWhenJustStarted() {
-        assertEquals(viewModel.getErrorOfAddEvent(), "");
+    public void descriptionOfAddStatisticParameterErrorIsEmptyWhenJustStarted() {
+        assertEquals(viewModel.getErrorOfAddStatisticParameter(), "");
     }
 
     @Test
@@ -44,11 +45,16 @@ public class ViewModelTests {
     }
     
     @Test
-    public void eventAddFieldIsHidedWhenSelectedStatisticIsNotProbability() {
+    public void statisticParameterFieldIsHidedWhenSelectedStatisticIsNotProbability() {
         viewModel.setSelectedStatistic(StatisticNames.ENUMERATION);
-        assertFalse(viewModel.isEventAddFieldVisible());
+        assertFalse(viewModel.getStatisticParameterAddFieldVisible());
     }
 
+    @Test
+    public void statisticParameterFieldIsShowedWhenProbabilitySelected() {
+        viewModel.setSelectedStatistic(StatisticNames.PROBABILITY);
+        assertTrue(viewModel.getStatisticParameterAddFieldVisible());
+    }
     @Test
     public void selectedStatisticIsEnumerationWhenJustStarted() {
         assertEquals(viewModel.getSelectedStatistic(), StatisticNames.ENUMERATION);
