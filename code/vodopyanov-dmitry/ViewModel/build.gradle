@@ -5,7 +5,7 @@ javafx {
 }
 
 dependencies {
-    compile project(':vodopyanov-dmitry-lab1-Model')
+    compile project(':vodopyanov-dmitry-Model')
 }
 
 sourceSets {

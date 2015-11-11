@@ -78,12 +78,14 @@ public class ViewModelTests {
     @Test
     public void canSetKMeterInputUnit() {
         viewModel.inputUnitProperty().set(LengthUnit.KMETER);
+
         assertEquals(LengthUnit.KMETER, viewModel.inputUnitProperty().get());
     }
 
     @Test
     public void canSetInchOutputUnit() {
         viewModel.outputUnitProperty().set(LengthUnit.INCH);
+
         assertEquals(LengthUnit.INCH, viewModel.outputUnitProperty().get());
     }
 
