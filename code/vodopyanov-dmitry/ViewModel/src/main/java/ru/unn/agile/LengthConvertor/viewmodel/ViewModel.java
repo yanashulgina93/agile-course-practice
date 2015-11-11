@@ -66,21 +66,27 @@ public class ViewModel {
     public StringProperty inputValueProperty() {
         return inputValue;
     }
+
     public ObjectProperty<ObservableList<LengthUnit>> unitsProperty() {
         return units;
     }
+
     public final ObservableList<LengthUnit> getUnits() {
         return units.get();
     }
+
     public ObjectProperty<LengthUnit> inputUnitProperty() {
         return inputUnit;
     }
+
     public ObjectProperty<LengthUnit> outputUnitProperty() {
         return outputUnit;
     }
+
     public BooleanProperty calculationDisabledProperty() {
         return calculationDisabled;
     }
+
     public final boolean getCalculationDisabled() {
         return calculationDisabled.get();
     }
@@ -88,12 +94,15 @@ public class ViewModel {
     public StringProperty outputValueProperty() {
         return outputValue;
     }
+
     public final String getOutputValue() {
         return outputValue.get();
     }
+
     public StringProperty errorMessageProperty() {
         return errorMessage;
     }
+
     public final String getErrorMessage() {
         return errorMessage.get();
     }

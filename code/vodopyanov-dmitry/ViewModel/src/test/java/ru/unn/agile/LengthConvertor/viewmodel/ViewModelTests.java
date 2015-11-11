@@ -95,11 +95,6 @@ public class ViewModelTests {
     }
 
     @Test
-    public void emptyStringIsDefaultInputValue() {
-        assertEquals("", viewModel.inputValueProperty().get());
-    }
-
-    @Test
     public void inchIsDefaultInputUnit() {
         assertEquals(LengthUnit.INCH, viewModel.inputUnitProperty().get());
     }
@@ -151,13 +146,6 @@ public class ViewModelTests {
         viewModel.calculate();
 
         assertEquals("369600.0022965879", viewModel.outputValueProperty().get());
-    }
-
-    @Test
-    public void canSetBadFormatMessage() {
-        viewModel.inputValueProperty().set("rubbish");
-
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.errorMessageProperty().get());
     }
 
     @Test
