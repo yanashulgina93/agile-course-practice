@@ -31,13 +31,13 @@ public class ViewModelTests {
     }
 
     @Test
-    public void statusIsWaitingWhenCalculateWithEmptyFields() {
+    public void statusIsWaitingWhenCalculateWithEmptyField() {
         viewModel.calculate();
         assertEquals(Status.WAITING.toString(), viewModel.errorMessageProperty().get());
     }
 
     @Test
-    public void statusIsReadyWhenFieldsAreFill() {
+    public void statusIsReadyWhenFieldIsFill() {
         setInputData();
 
         assertEquals(Status.READY.toString(), viewModel.errorMessageProperty().get());
