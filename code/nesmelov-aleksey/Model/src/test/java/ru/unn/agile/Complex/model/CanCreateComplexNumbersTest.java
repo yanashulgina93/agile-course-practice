@@ -1,8 +1,9 @@
-package test.java.ru.unn.agile.Complex.Model;
+package test.java.ru.unn.agile.Complex.model;
 
+import main.java.ru.unn.agile.Complex.model.Complex;
 import org.junit.Assert;
 import org.junit.Test;
-import main.java.ru.unn.agile.Complex.Model.*;
+
 import static org.junit.Assert.*;
 
 public class CanCreateComplexNumbersTest {

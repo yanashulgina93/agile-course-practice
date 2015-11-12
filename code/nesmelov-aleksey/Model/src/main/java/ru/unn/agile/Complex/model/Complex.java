@@ -1,4 +1,4 @@
-package main.java.ru.unn.agile.Complex.Model;
+package main.java.ru.unn.agile.Complex.model;
 
 public class Complex {
     private double real = 0.0;

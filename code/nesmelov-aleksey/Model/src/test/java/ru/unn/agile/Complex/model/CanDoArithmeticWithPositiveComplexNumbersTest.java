@@ -1,9 +1,9 @@
-package test.java.ru.unn.agile.Complex.Model;
+package test.java.ru.unn.agile.Complex.model;
 
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import main.java.ru.unn.agile.Complex.Model.*;
+import main.java.ru.unn.agile.Complex.model.*;
 
 public class CanDoArithmeticWithPositiveComplexNumbersTest {
     private Complex first;
