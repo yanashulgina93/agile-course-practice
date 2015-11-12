@@ -68,6 +68,8 @@ project(":code/garina-anastasia").name = "garina-anastasia-lab1"
 // Golodyaev Andrej
 include "code/golodyaev-andrey/Model"
 project(":code/golodyaev-andrey/Model").name = "golodyaev-andrey-Model"
+include "code/golodyaev-andrey/View"
+project(":code/golodyaev-andrey/View").name = "golodyaev-andrey-View"
 
 // Goroxov Dmitrij
 include "code/gorokhov-dmitriy"
