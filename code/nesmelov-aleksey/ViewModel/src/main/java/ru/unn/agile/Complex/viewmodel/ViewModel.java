@@ -1,12 +1,12 @@
 package main.java.ru.unn.agile.Complex.viewmodel;
 
-//import com.sun.corba.se.spi.orb.Operation;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
+import ru.unn.agile.Complex.model.Complex;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;

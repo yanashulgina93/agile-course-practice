@@ -1,4 +1,4 @@
-package main.java.ru.unn.agile.Complex.viewmodel;
+package ru.unn.agile.Complex.viewmodel;
 
 public enum Operation {
     ADD("+"),

@@ -1,4 +1,4 @@
-package test.java.ru.unn.agile.Complex.view;
+package ru.unn.agile.Complex.view;
 
 import org.junit.Ignore;
 import org.junit.Test;

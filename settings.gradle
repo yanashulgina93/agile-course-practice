@@ -118,6 +118,8 @@ include "code/nesmelov-aleksey"
 project(":code/nesmelov-aleksey").name = "nesmelov-aleksey-Model"
 include "code/nesmelov-aleksey/View"
 project(":code/nesmelov-aleksey/View").name = "nesmelov-aleksey-View"
+include "code/nesmelov-aleksey/ViewModel"
+project(":code/nesmelov-aleksey/ViewModel").name = "nesmelov-aleksey-ViewModel"
 // Nikolaev Kirill
 include "code/nikolaev-kirill"
 project(":code/nikolaev-kirill").name = "nikolaev-kirill-Model"
