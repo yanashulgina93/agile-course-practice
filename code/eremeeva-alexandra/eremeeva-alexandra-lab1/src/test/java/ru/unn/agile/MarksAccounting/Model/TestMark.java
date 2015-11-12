@@ -71,15 +71,4 @@ public class TestMark {
         assertFalse(five.isMarkCorrection(new Mark(4, "History",
                 new GregorianCalendar(2015, Calendar.DECEMBER, 31))));
     }
-
-    @Test
-    public void canCorrectValue() {
-        five.correctMark(4);
-        assertEquals(4, five.getValue());
-    }
-
-    @Test (expected = MarkIsNotPositiveException.class)
-    public void cannotCorrectValueWhenItIsNotPositive() {
-        five.correctMark(0);
-    }
 }

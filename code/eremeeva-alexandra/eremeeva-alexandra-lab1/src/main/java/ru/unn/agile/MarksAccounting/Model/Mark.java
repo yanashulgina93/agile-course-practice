@@ -34,28 +34,20 @@ public class Mark {
     @Override
     public int hashCode() {
         final int temp = 100;
-        return temp * temp * this.value
-                + temp * this.academicSubject.hashCode() + this.date.hashCode();
+        return temp * temp * value
+                + temp * academicSubject.hashCode() + date.hashCode();
     }
 
     @Override
     public boolean equals(final Object comparedMark) {
         Mark temp = (Mark) comparedMark;
-        return this.date.equals(temp.getDate())
-                && this.academicSubject.equals(temp.getAcademicSubject())
-                && this.value == temp.getValue();
+        return date.equals(temp.getDate())
+                && academicSubject.equals(temp.getAcademicSubject())
+                && value == temp.getValue();
     }
 
     public boolean isMarkCorrection(final Mark comparedMark) {
         return getDate().equals(comparedMark.getDate())
                 && getAcademicSubject().equals(comparedMark.getAcademicSubject());
-    }
-
-    public void correctMark(final int newValue) {
-        if (newValue > 0) {
-            this.value = newValue;
-        } else {
-            throw new MarkIsNotPositiveException("Mark must be positive");
-        }
     }
 }
