@@ -127,7 +127,9 @@ public class TestTableOfMarks {
 
     @Test
     public void canGetMark() {
-        assertEquals(4, comparedTableOfMarks.getMark("2", "Petrov", "Science",
+        Mark four = new Mark(4, "Science",
+                new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 1));
+        assertEquals(four, comparedTableOfMarks.getMark("2", "Petrov", "Science",
                 new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 1)));
     }
 

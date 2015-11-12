@@ -61,13 +61,10 @@ public class TestStudent {
         assertEquals(temp, ivanov.getMarks());
     }
 
-    @Test
-    public void canChangeMark() {
-        temp.set(3, new Mark(5, "Maths",
-                new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 31)));
+    @Test(expected = NoMarkCorrectionException.class)
+    public void canNotChangeMark() {
         comparedIvanov.addMark(new Mark(5, "Maths",
                 new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 31)));
-        assertEquals(temp, comparedIvanov.getMarks());
     }
 
     @Test
@@ -91,8 +88,10 @@ public class TestStudent {
 
     @Test
     public void canGetMark() {
-        assertEquals(ivanov.getMark("Maths",
-                new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 31)), 4);
+        Mark four = new Mark(4, "Maths",
+                new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 31));
+        assertEquals(four, ivanov.getMark("Maths",
+                new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 31)));
     }
 
     @Test(expected = MarkDoesNotExistException.class)

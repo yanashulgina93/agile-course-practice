@@ -25,7 +25,7 @@ public class Group {
                 return i;
             }
         }
-            throw new StudentDoesNotExistException("Required student doesn't exist");
+        throw new StudentDoesNotExistException("Required student doesn't exist");
     }
 
     public Group(final String currentNumber) {
@@ -80,45 +80,45 @@ public class Group {
 
     public int hashCode() {
         final int temp = 10;
-        return temp * this.students.hashCode() + temp * temp * this.academicSubjects.hashCode()
-                + this.number.hashCode();
+        return temp * students.hashCode() + temp * temp * academicSubjects.hashCode()
+                + number.hashCode();
     }
 
     @Override
     public boolean equals(final Object comparedGroup) {
         Group temp = (Group) comparedGroup;
-        return temp.getNumber().equals(this.number)
-                && temp.getStudents().equals(this.students)
-                && temp.getAcademicSubjects().equals(this.academicSubjects);
+        return temp.getNumber().equals(number)
+                && temp.getStudents().equals(students)
+                && temp.getAcademicSubjects().equals(academicSubjects);
     }
 
     public void addNewMark(final Mark newMark, final String requiredStudent) {
         findAcademicSubject(newMark.getAcademicSubject());
-        this.students.get(findStudent(requiredStudent)).addMark(newMark);
+        students.get(findStudent(requiredStudent)).addMark(newMark);
     }
 
-    public int getMark(final String requiredStudent, final String requiredAcademicSubject,
+    public Mark getMark(final String requiredStudent, final String requiredAcademicSubject,
                        final GregorianCalendar requiredDate) {
         findAcademicSubject(requiredAcademicSubject);
-        return this.students.get(findStudent(requiredStudent)).getMark(requiredAcademicSubject,
+        return students.get(findStudent(requiredStudent)).getMark(requiredAcademicSubject,
                 requiredDate);
     }
 
     public void deleteMark(final String requiredStudent, final String requiredAcademicSubject,
                            final GregorianCalendar requiredDate) {
         findAcademicSubject(requiredAcademicSubject);
-        this.students.get(findStudent(requiredStudent)).deleteMark(
+        students.get(findStudent(requiredStudent)).deleteMark(
                 requiredAcademicSubject, requiredDate);
     }
 
     public void deleteStudent(final String requiredStudent) {
-        this.students.remove(findStudent(requiredStudent));
+        students.remove(findStudent(requiredStudent));
     }
 
     public void deleteAcademicSubject(final String requiredAcademicSubject) {
         getAcademicSubjects().remove(findAcademicSubject(requiredAcademicSubject));
         for (int i = 0; i < getStudents().size(); i++) {
-            this.students.get(i).deleteMarks(requiredAcademicSubject);
+            students.get(i).deleteMarks(requiredAcademicSubject);
         }
     }
 }

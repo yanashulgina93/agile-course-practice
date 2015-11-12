@@ -131,8 +131,9 @@ public class TestGroup {
 
     @Test
     public void canGetMark() {
-        assertEquals(4,
-                comparedGroup1.getMark("Sidorov", "History",
+        Mark four = new Mark(4, "History",
+                new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 1));
+        assertEquals(four, comparedGroup1.getMark("Sidorov", "History",
                         new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 1)));
     }
 
