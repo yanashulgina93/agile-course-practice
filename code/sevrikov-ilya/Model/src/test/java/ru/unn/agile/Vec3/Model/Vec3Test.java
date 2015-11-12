@@ -96,11 +96,19 @@ public class Vec3Test {
     }
 
     @Test
-    public void isCorrectEqualsVectorWithVector() {
+    public void isCorrectEqualsVectorWithObject() {
+        firstVec  = new Vector3(6.0, 6.0, 6.0);
+        Object vector = new Vector3(6.0, 6.0, 6.0);
+
+        assertTrue(firstVec.equals(vector));
+    }
+
+    @Test
+    public void checkCorrectHashOfTwoSameVectors() {
         firstVec  = new Vector3(6.0, 6.0, 6.0);
         secondVec = new Vector3(6.0, 6.0, 6.0);
 
-        assertTrue(firstVec.equals(secondVec));
+        assertTrue(firstVec.hashCode() == secondVec.hashCode());
     }
 
     @Test
