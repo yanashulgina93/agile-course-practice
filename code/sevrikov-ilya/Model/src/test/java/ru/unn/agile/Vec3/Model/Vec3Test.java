@@ -39,7 +39,7 @@ public class Vec3Test {
         final double expectedDotProduct = 100.0;
         final double actualDotProduct   = firstVec.dot(secondVec);
 
-        assertEquals(expectedDotProduct, actualDotProduct, Precision.confusion());
+        assertEquals(expectedDotProduct, actualDotProduct, Double.MIN_VALUE);
     }
 
     @Test
@@ -49,7 +49,7 @@ public class Vec3Test {
         final double expectedNorm = 11.0;
         final double actualNorm   = firstVec.getNorm();
 
-        assertEquals(expectedNorm, actualNorm, Precision.confusion());
+        assertEquals(expectedNorm, actualNorm, Double.MIN_VALUE);
     }
 
     @Test
@@ -118,7 +118,7 @@ public class Vec3Test {
         firstVec = new Vector3();
         firstVec.setX(value);
 
-        assertTrue(Math.abs(firstVec.x() - value) < Precision.confusion());
+        assertTrue(Math.abs(firstVec.x() - value) < Double.MIN_VALUE);
     }
 
     @Test
@@ -128,7 +128,7 @@ public class Vec3Test {
         firstVec = new Vector3();
         firstVec.setY(value);
 
-        assertTrue(Math.abs(firstVec.y() - value) < Precision.confusion());
+        assertTrue(Math.abs(firstVec.y() - value) < Double.MIN_VALUE);
     }
 
     @Test
@@ -138,7 +138,7 @@ public class Vec3Test {
         firstVec = new Vector3();
         firstVec.setZ(value);
 
-        assertTrue(Math.abs(firstVec.z() - value) < Precision.confusion());
+        assertTrue(Math.abs(firstVec.z() - value) < Double.MIN_VALUE);
     }
 }
 

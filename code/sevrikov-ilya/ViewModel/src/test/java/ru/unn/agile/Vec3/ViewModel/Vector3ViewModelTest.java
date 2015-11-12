@@ -1,6 +1,5 @@
 package ru.unn.agile.Vec3.ViewModel;
 
-import ru.unn.agile.Vec3.Model.Precision;
 import ru.unn.agile.Vec3.Model.Vector3;
 import org.junit.Test;
 
@@ -186,7 +185,7 @@ public class Vector3ViewModelTest {
 
         viewModel.setCoordX0(value);
 
-        assertTrue(Math.abs(viewModel.getCoordX0AsDouble() - value) < Precision.confusion());
+        assertTrue(Math.abs(viewModel.getCoordX0AsDouble() - value) < Double.MIN_VALUE);
     }
 
     @Test
@@ -195,7 +194,7 @@ public class Vector3ViewModelTest {
 
         viewModel.setCoordY0(value);
 
-        assertTrue(Math.abs(viewModel.getCoordY0AsDouble() - value) < Precision.confusion());
+        assertTrue(Math.abs(viewModel.getCoordY0AsDouble() - value) < Double.MIN_VALUE);
     }
 
     @Test
@@ -204,7 +203,7 @@ public class Vector3ViewModelTest {
 
         viewModel.setCoordZ0(value);
 
-        assertTrue(Math.abs(viewModel.getCoordZ0AsDouble() - value) < Precision.confusion());
+        assertTrue(Math.abs(viewModel.getCoordZ0AsDouble() - value) < Double.MIN_VALUE);
     }
 
     @Test
@@ -213,7 +212,7 @@ public class Vector3ViewModelTest {
 
         viewModel.setCoordX1(value);
 
-        assertTrue(Math.abs(viewModel.getCoordX1AsDouble() - value) < Precision.confusion());
+        assertTrue(Math.abs(viewModel.getCoordX1AsDouble() - value) < Double.MIN_VALUE);
     }
 
     @Test
@@ -222,7 +221,7 @@ public class Vector3ViewModelTest {
 
         viewModel.setCoordY1(value);
 
-        assertTrue(Math.abs(viewModel.getCoordY1AsDouble() - value) < Precision.confusion());
+        assertTrue(Math.abs(viewModel.getCoordY1AsDouble() - value) < Double.MIN_VALUE);
     }
 
     @Test
@@ -231,7 +230,7 @@ public class Vector3ViewModelTest {
 
         viewModel.setCoordZ1(value);
 
-        assertTrue(Math.abs(viewModel.getCoordZ1AsDouble() - value) < Precision.confusion());
+        assertTrue(Math.abs(viewModel.getCoordZ1AsDouble() - value) < Double.MIN_VALUE);
     }
 
     private String getErrorOfNormalize() {

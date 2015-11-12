@@ -80,9 +80,9 @@ public class Vector3 {
     public boolean equals(final double x,
                           final double y,
                           final double z) {
-        return Math.abs(this.x - x) < Precision.confusion()
-            && Math.abs(this.y - y) < Precision.confusion()
-            && Math.abs(this.z - z) < Precision.confusion();
+        return Math.abs(this.x - x) < Double.MIN_VALUE
+            && Math.abs(this.y - y) < Double.MIN_VALUE
+            && Math.abs(this.z - z) < Double.MIN_VALUE;
     }
 
     public boolean equals(final Vector3 vec) {
@@ -96,7 +96,7 @@ public class Vector3 {
     public void normalize() {
         final double norm = getNorm();
 
-        if (norm < Precision.confusion()) {
+        if (norm < Double.MIN_VALUE) {
             throw new ArithmeticException("Norm of vector is small: " + norm);
         }
 
