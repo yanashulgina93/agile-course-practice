@@ -83,6 +83,8 @@ project(":code/kalyakulina-alena").name = "kalyakulina-alena-Model"
 // Kazanbaev Dmitry
 include "code/kazanbaev-dmitry/Model"
 project(":code/kazanbaev-dmitry/Model").name = "kazanbaev-dmitry-Model"
+include "code/kazanbaev-dmitry/View"
+project(":code/kazanbaev-dmitry/View").name = "kazanbaev-dmitry-View"
 
 // Khanova Tatyana
 // Kochanova Kseniya
