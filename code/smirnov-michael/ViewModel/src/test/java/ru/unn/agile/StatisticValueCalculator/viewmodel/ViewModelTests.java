@@ -37,7 +37,7 @@ public class ViewModelTests {
 
     @Test
     public void selectedStatisticIsEqualToUsersChoice() {
-        StatisticNames selectedStatistic = StatisticNames.CENTRAL_MOMENT;
+        StatisticInfo selectedStatistic = StatisticInfo.CENTRAL_MOMENT;
 
         viewModel.setSelectedStatistic(selectedStatistic);
 
@@ -46,22 +46,69 @@ public class ViewModelTests {
     
     @Test
     public void statisticParameterFieldIsHidedWhenSelectedStatisticIsNotProbability() {
-        viewModel.setSelectedStatistic(StatisticNames.ENUMERATION);
+        viewModel.setSelectedStatistic(StatisticInfo.ENUMERATION);
         assertFalse(viewModel.getStatisticParameterAddFieldVisible());
     }
 
     @Test
     public void statisticParameterFieldIsShowedWhenProbabilitySelected() {
-        viewModel.setSelectedStatistic(StatisticNames.PROBABILITY);
+        viewModel.setSelectedStatistic(StatisticInfo.PROBABILITY);
         assertTrue(viewModel.getStatisticParameterAddFieldVisible());
     }
     @Test
     public void selectedStatisticIsEnumerationWhenJustStarted() {
-        assertEquals(viewModel.getSelectedStatistic(), StatisticNames.ENUMERATION);
+        assertEquals(viewModel.getSelectedStatistic(), StatisticInfo.ENUMERATION);
     }
 
     @Test
     public void rowAddValueIsEqualToOneWhenJustStarted() {
         assertEquals(viewModel.getRowAddValue(), "1.0");
+    }
+
+    @Test
+    public void statisticParameterAddValueIsEqualToZeroWhenJustStarted() {
+        assertEquals(viewModel.getStatisticParameterAddValue(), "0.0");
+    }
+
+    @Test
+    public void addRowErrorIsHidedWhenAddRowFieldContainsNumber() {
+        viewModel.setRowAddValue("225");
+
+        assertEquals(viewModel.getErrorOfAddRow(), "");
+    }
+    @Test
+    public void addRowErrorIsShownWhenAddRowFieldContainsNotNumber() {
+        viewModel.setRowAddValue("abc123");
+
+        assertEquals(viewModel.getErrorOfAddRow(), "The adding value must be a number");
+    }
+    @Test
+    public void addRowErrorDisappearWhenResetNumberToAddRowField() {
+        viewModel.setRowAddValue("abc123");
+        viewModel.setRowAddValue("123");
+
+        assertEquals(viewModel.getErrorOfAddRow(), "");
+    }
+
+    @Test
+    public void addStatisticParameterErrorIsHidedWhenAddRowFieldContainsNumber() {
+        viewModel.setStatisticParameterAddValue("111");
+
+        assertEquals(viewModel.getErrorOfAddStatisticParameter(), "");
+    }
+
+    @Test
+    public void addStatisticParameterErrorIsShownWhenAddRowFieldContainsNotNumber() {
+        viewModel.setStatisticParameterAddValue("abc123");
+
+        assertEquals(viewModel.getErrorOfAddStatisticParameter(),
+                "The adding value must be a number");
+    }
+    @Test
+    public void addStatisticParameterErrorDisappearWhenResetNumberToAddRowField() {
+        viewModel.setStatisticParameterAddValue("abc123");
+        viewModel.setStatisticParameterAddValue("123");
+
+        assertEquals(viewModel.getErrorOfAddStatisticParameter(), "");
     }
 }

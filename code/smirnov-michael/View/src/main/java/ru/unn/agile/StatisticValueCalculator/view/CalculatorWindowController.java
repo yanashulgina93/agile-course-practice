@@ -4,7 +4,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import ru.unn.agile.StatisticValueCalculator.viewmodel.StatisticNames;
+import ru.unn.agile.StatisticValueCalculator.viewmodel.StatisticInfo;
 import ru.unn.agile.StatisticValueCalculator.viewmodel.ViewModel;
 
 public class CalculatorWindowController {
@@ -21,7 +21,7 @@ public class CalculatorWindowController {
     @FXML
     private TableColumn columnValue;
     @FXML
-    private ChoiceBox<StatisticNames> choiceBoxStatisticValue;
+    private ChoiceBox<StatisticInfo> choiceBoxStatisticValue;
     @FXML
     private Button buttonCalculate;
     @FXML
@@ -45,12 +45,17 @@ public class CalculatorWindowController {
 
     @FXML
     private void initialize() {
+        textRowValue.textProperty()
+                .bindBidirectional(viewModel.rowAddValueProperty());
+        textStatisticParameterValue.textProperty()
+                .bindBidirectional(viewModel.statisticParameterAddValueProperty());
+
         choiceBoxStatisticValue.getSelectionModel()
                 .selectedItemProperty()
-                .addListener(new ChangeListener<StatisticNames>() {
+                .addListener(new ChangeListener<StatisticInfo>() {
             @Override
-            public void changed(ObservableValue<? extends StatisticNames> observable,
-                                StatisticNames oldValue, StatisticNames newValue) {
+            public void changed(ObservableValue<? extends StatisticInfo> observable,
+                                StatisticInfo oldValue, StatisticInfo newValue) {
                 viewModel.setSelectedStatistic(newValue);
             }
         });

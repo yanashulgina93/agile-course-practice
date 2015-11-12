@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import ru.unn.agile.StatisticValueCalculator.viewmodel.* ?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="329.0" minWidth="880.0" prefHeight="329.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.StatisticValueCalculator.view.CalculatorWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="329.0" minWidth="880.0" prefHeight="377.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.StatisticValueCalculator.view.CalculatorWindowController">
     <fx:define>
         <ViewModel fx:id="viewModel" />
     </fx:define>
     <children>
-      <Group layoutX="-574.0" layoutY="-153.0">
-         <children>
-            <Button fx:id="buttonLoadData" layoutX="597.0" layoutY="181.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="173.0" text="Load data" AnchorPane.bottomAnchor="235.0" AnchorPane.rightAnchor="25.0" />
-            <Button fx:id="buttonClearTable" layoutX="597.0" layoutY="229.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="173.0" text="Clear Table" />
-         </children>
-      </Group>
-      <TableView fx:id="tableData" editable="true" layoutX="213.0" layoutY="27.0" prefHeight="178.0" prefWidth="454.0" AnchorPane.bottomAnchor="124.0" AnchorPane.leftAnchor="213.0" AnchorPane.rightAnchor="213.0" AnchorPane.topAnchor="27.0">
+      <Group layoutX="-574.0" layoutY="-153.0" />
+      <TableView fx:id="tableData" editable="true" layoutX="18.0" layoutY="27.0" prefHeight="226.0" prefWidth="575.0" AnchorPane.bottomAnchor="124.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="287.0" AnchorPane.topAnchor="27.0">
         <columns>
             <TableColumn fx:id="columnNumber" prefWidth="75.0" text="#" />
             <TableColumn fx:id="columnValue" prefWidth="75.0" text="DATA" />
@@ -26,7 +22,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <ChoiceBox fx:id="choiceBoxStatisticValue" items="${viewModel.listOfStatistics}" layoutX="687.0" layoutY="351.0" prefHeight="30.0" prefWidth="173.0" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="20.0" />
+      <ChoiceBox fx:id="choiceBoxStatisticValue" items="${viewModel.listOfStatistics}" layoutX="687.0" layoutY="351.0" prefHeight="30.0" prefWidth="173.0" value="${viewModel.selectedStatistic}" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="20.0" />
       <Button fx:id="buttonCalculate" layoutX="687.0" layoutY="391.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="173.0" text="Calculate statistic value" textAlignment="CENTER" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="20.0" />
       <Label fx:id="labelStatisticsName" layoutX="18.0" layoutY="353.0" text="${viewModel.nameOfCalculatedStatistic}" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="18.0">
          <font>
@@ -39,13 +35,14 @@
             <Font size="21.0" />
          </font>
       </Label>
-      <Label fx:id="labelStatisticParameterName" visible="${viewModel.statisticParameterAddFieldVisible}" layoutX="479.0" layoutY="242.0" text="Event" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="372.0" />
-      <TextField fx:id="textStatisticParameterValue"  visible="${viewModel.statisticParameterAddFieldVisible}" layoutX="518.0" layoutY="238.0" AnchorPane.bottomAnchor="66.0" AnchorPane.rightAnchor="213.0" />
-      <Label fx:id="labelStatisticParameterInputError" layoutX="518.0" layoutY="266.0" text="${viewModel.errorOfAddStatisticParameter}" textFill="RED" AnchorPane.bottomAnchor="46.0" AnchorPane.rightAnchor="279.0" />
-      <Label layoutX="687.0" layoutY="27.0" text="Row Value" AnchorPane.rightAnchor="137.0" AnchorPane.topAnchor="27.0" />
-      <Button fx:id="buttonDeleteRow" layoutX="687.0" layoutY="165.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="173.0" text="Delete row" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="165.0" />
-      <Button fx:id="buttonAddRow" layoutX="687.0" layoutY="116.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="173.0" text="Add row" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="116.0" />
-      <Label fx:id="labelRowValueError" layoutX="687.0" layoutY="88.0" text="${viewModel.errorOfAddRow}" textFill="RED" AnchorPane.rightAnchor="114.0" AnchorPane.topAnchor="88.0" />
-      <TextField fx:id="textRowValue" layoutX="687.0" layoutY="51.0" prefHeight="30.0" prefWidth="173.0" text="3.14" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="51.0" />
+      <Label fx:id="labelStatisticParameterName" layoutX="479.0" layoutY="242.0" text="${viewModel.parameterNameOfSelectedStatistic}" visible="${viewModel.statisticParameterAddFieldVisible}" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="477.0" />
+      <TextField fx:id="textStatisticParameterValue" layoutX="518.0" layoutY="238.0" prefHeight="31.0" prefWidth="250.0" visible="${viewModel.statisticParameterAddFieldVisible}" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="213.0" />
+      <Label fx:id="labelStatisticParameterInputError" layoutX="417.0" layoutY="322.0" prefHeight="17.0" prefWidth="250.0" visible="${viewModel.statisticParameterAddFieldVisible}" text="${viewModel.errorOfAddStatisticParameter}" textFill="RED" AnchorPane.bottomAnchor="38.0" AnchorPane.rightAnchor="213.0" />
+      <Label layoutX="610.0" layoutY="27.0" text="Row Value" AnchorPane.rightAnchor="214.0" AnchorPane.topAnchor="27.0" />
+      <Button fx:id="buttonDeleteRow" layoutX="649.0" layoutY="161.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="173.0" text="Delete row" AnchorPane.rightAnchor="58.0" AnchorPane.topAnchor="161.0" />
+      <Button fx:id="buttonAddRow" layoutX="649.0" layoutY="113.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="173.0" text="Add row" AnchorPane.rightAnchor="58.0" AnchorPane.topAnchor="113.0" />
+      <Label fx:id="labelRowValueError" layoutX="687.0" layoutY="88.0" text="${viewModel.errorOfAddRow}" textFill="RED" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="88.0" />
+      <TextField fx:id="textRowValue" layoutX="687.0" layoutY="51.0" prefHeight="30.0" prefWidth="250.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="51.0" />
+      <Button fx:id="buttonClearTable" layoutX="649.0" layoutY="212.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="173.0" text="Clear Table" />
    </children>
 </AnchorPane>
