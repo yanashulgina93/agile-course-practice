@@ -86,8 +86,8 @@ project(":code/kazanbaev-dmitry").name = "kazanbaev-dmitry-model"
 
 // Khanova Tatyana
 // Kochanova Kseniya
-include "code/kochanova-ksenya"
-project(":code/kochanova-ksenya").name = "kochanova-ksenya-Model"
+include "code/kochanova-ksenya/Model"
+project(":code/kochanova-ksenya/Model").name = "kochanova-ksenya-Model"
 // Korotaev Aleksej
 // Korotaev Pavel
 include "code/korotaev-pavel"
