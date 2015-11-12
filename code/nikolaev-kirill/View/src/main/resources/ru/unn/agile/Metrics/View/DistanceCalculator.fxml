@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="279.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.Metrics.View.DistanceCalculator">
+   <children>
+      <Label layoutX="28.0" layoutY="54.0" text="1st vector:" />
+      <Label layoutX="28.0" layoutY="85.0" prefHeight="17.0" prefWidth="62.0" text="2nd vector:" />
+      <TextField fx:id="txt1stVector" layoutX="95.0" layoutY="50.0" prefHeight="25.0" prefWidth="190.0" />
+      <TextField fx:id="txt2ndVector" layoutX="95.0" layoutY="81.0" prefHeight="25.0" prefWidth="190.0" />
+      <RadioButton layoutX="310.0" layoutY="42.0" mnemonicParsing="false" selected="true" text="Chebyshev distance">
+         <toggleGroup>
+            <ToggleGroup fx:id="tgMetrics" />
+         </toggleGroup></RadioButton>
+      <RadioButton layoutX="310.0" layoutY="67.0" mnemonicParsing="false" text="Manhattan distance" toggleGroup="$tgMetrics" />
+      <RadioButton layoutX="310.0" layoutY="92.0" mnemonicParsing="false" text="Euclidean distance" toggleGroup="$tgMetrics" />
+      <RadioButton layoutX="310.0" layoutY="117.0" mnemonicParsing="false" text="Minkowski distance (p = 3)" toggleGroup="$tgMetrics" />
+      <RadioButton layoutX="310.0" layoutY="142.0" mnemonicParsing="false" text="Minkowski distance (p = 4)" toggleGroup="$tgMetrics" />
+      <TextField editable="false" layoutX="95.0" layoutY="213.0" prefHeight="25.0" prefWidth="190.0" />
+      <Label layoutX="28.0" layoutY="217.0" text="Distance:" />
+      <Button fx:id="btnCalc" layoutX="369.0" layoutY="213.0" mnemonicParsing="false" text="Calculate" />
+      <Label alignment="CENTER" layoutX="28.0" layoutY="181.0" prefHeight="17.0" prefWidth="255.0" text="Error" textFill="RED" visible="false" />
+   </children>
+</AnchorPane>

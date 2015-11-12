@@ -109,9 +109,13 @@ project(":code/molotkov-andrei").name = "molotkov-andrei-Model"
 // Nesmelov Aleksej
 include "code/nesmelov-aleksey"
 project(":code/nesmelov-aleksey").name = "nesmelov-aleksey-Model"
+
 // Nikolaev Kirill
-include "code/nikolaev-kirill"
-project(":code/nikolaev-kirill").name = "nikolaev-kirill-Model"
+include "code/nikolaev-kirill/Model"
+project(":code/nikolaev-kirill/Model").name = "nikolaev-kirill-Model"
+include "code/nikolaev-kirill/View"
+project(":code/nikolaev-kirill/View").name = "nikolaev-kirill-View"
+
 // Nistratov Andrej
 // Nistratov Artyom
 // Nistratova Elena
