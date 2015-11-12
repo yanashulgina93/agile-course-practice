@@ -1,4 +1,4 @@
-package main.java.ru.unn.agile.Complex.model;
+package main.java.ru.unn.agile.Complex.viewmodel;
 
 public class Complex {
     private double real = 0.0;
@@ -37,6 +37,23 @@ public class Complex {
         return result;
     }
 
+    @Override
+    public String toString() {
+        String resultStr = "";
+        if (isZero()) return "0.0";
+        if ( Math.abs(real) > Double.MIN_VALUE) {
+            resultStr += Double.toString(real);
+        }
+        if ( Math.abs(imaginary) > Double.MIN_VALUE) {
+            if (Math.abs(real) > Double.MIN_VALUE
+                && imaginary > Double.MIN_VALUE) {
+                resultStr += "+";
+            }
+            resultStr += Double.toString(imaginary) + "i";
+        }
+        return resultStr;
+    }
+
     public void setReal(final double real) {
         this.real = real;
     }
@@ -54,8 +71,8 @@ public class Complex {
     }
 
     public boolean isZero() {
-        return Math.abs(this.real) < Double.MIN_VALUE
-               && Math.abs(this.imaginary) < Double.MIN_VALUE;
+        return Math.abs(real) < Double.MIN_VALUE
+               && Math.abs(imaginary) < Double.MIN_VALUE;
     }
 
     public Complex add(final Complex other) {
