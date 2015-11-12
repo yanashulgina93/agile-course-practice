@@ -1,5 +1,6 @@
 package ru.unn.agile.Vec3.ViewModel;
 
+import ru.unn.agile.Vec3.Model.Precision;
 import ru.unn.agile.Vec3.Model.Vector3;
 import org.junit.Test;
 
@@ -102,16 +103,13 @@ public class Vector3ViewModelTest {
         assertTrue(viewModel.getResultOfLastAction().equals(Double.toString(dot)));
     }
 
-    @Test (expected = ArithmeticException.class)
+    @Test
     public void cannotCrossProductWithDefaultVectors() {
-        Vector3 firstVector  = new Vector3(viewModel.getCoordX0AsDouble(),
-                                           viewModel.getCoordY0AsDouble(),
-                                           viewModel.getCoordZ0AsDouble());
-        Vector3 secondVector = new Vector3(viewModel.getCoordX1AsDouble(),
-                                           viewModel.getCoordY1AsDouble(),
-                                           viewModel.getCoordZ1AsDouble());
+        String error = getErrorOfNormalize();
 
-        firstVector.cross(secondVector);
+        viewModel.getCrossProduct();
+
+        assertTrue(viewModel.getResultOfLastAction().equals(error));
     }
 
     @Test
@@ -129,7 +127,7 @@ public class Vector3ViewModelTest {
     }
 
     @Test
-    public void isCorrectFirstComponentOfFistVector() {
+    public void isCorrectFirstComponentOfFistVectorFromStringValue() {
         String value = "666.0";
 
         viewModel.setCoordX0(value);
@@ -138,7 +136,7 @@ public class Vector3ViewModelTest {
     }
 
     @Test
-    public void isCorrectSecondComponentOfFirstVector() {
+    public void isCorrectSecondComponentOfFirstVectorFromStringValue() {
         String value = "666.0";
 
         viewModel.setCoordY0(value);
@@ -147,7 +145,7 @@ public class Vector3ViewModelTest {
     }
 
     @Test
-    public void isCorrectThirdComponentOfFirstVector() {
+    public void isCorrectThirdComponentOfFirstVectorFromStringValue() {
         String value = "666.0";
 
         viewModel.setCoordZ0(value);
@@ -156,7 +154,7 @@ public class Vector3ViewModelTest {
     }
 
     @Test
-    public void isCorrectFirstComponentOfSecondVector() {
+    public void isCorrectFirstComponentOfSecondVectorFromStringValue() {
         String value = "666.0";
 
         viewModel.setCoordX1(value);
@@ -165,7 +163,7 @@ public class Vector3ViewModelTest {
     }
 
     @Test
-    public void isCorrectSecondComponentOfSecondVector() {
+    public void isCorrectSecondComponentOfSecondVectorFromStringValue() {
         String value = "666.0";
 
         viewModel.setCoordY1(value);
@@ -174,12 +172,66 @@ public class Vector3ViewModelTest {
     }
 
     @Test
-    public void isCorrectThirdComponentOfSecondVector() {
+    public void isCorrectThirdComponentOfSecondVectorFromStringValue() {
         String value = "666.0";
 
         viewModel.setCoordZ1(value);
 
         assertTrue(viewModel.getCoordZ1().equals(value));
+    }
+
+    @Test
+     public void isCorrectFirstComponentOfFirstVectorFromDoubleValue() {
+        double value = 666.0;
+
+        viewModel.setCoordX0(value);
+
+        assertTrue(Math.abs(viewModel.getCoordX0AsDouble() - value) < Precision.confusion());
+    }
+
+    @Test
+    public void isCorrectSecondComponentOfFirstVectorFromDoubleValue() {
+        double value = 666.0;
+
+        viewModel.setCoordY0(value);
+
+        assertTrue(Math.abs(viewModel.getCoordY0AsDouble() - value) < Precision.confusion());
+    }
+
+    @Test
+    public void isCorrectThirdComponentOfFirstVectorFromDoubleValue() {
+        double value = 666.0;
+
+        viewModel.setCoordZ0(value);
+
+        assertTrue(Math.abs(viewModel.getCoordZ0AsDouble() - value) < Precision.confusion());
+    }
+
+    @Test
+    public void isCorrectFirstComponentOfSecondVectorFromDoubleValue() {
+        double value = 666.0;
+
+        viewModel.setCoordX1(value);
+
+        assertTrue(Math.abs(viewModel.getCoordX1AsDouble() - value) < Precision.confusion());
+    }
+
+    @Test
+    public void isCorrectSecondComponentOfSecondVectorFromDoubleValue() {
+        double value = 666.0;
+
+        viewModel.setCoordY1(value);
+
+        assertTrue(Math.abs(viewModel.getCoordY1AsDouble() - value) < Precision.confusion());
+    }
+
+    @Test
+    public void isCorrectThirdComponentOfSecondVectorFromDoubleValue() {
+        double value = 666.0;
+
+        viewModel.setCoordZ1(value);
+
+        assertTrue(Math.abs(viewModel.getCoordZ1AsDouble() - value) < Precision.confusion());
     }
 
     private String getErrorOfNormalize() {

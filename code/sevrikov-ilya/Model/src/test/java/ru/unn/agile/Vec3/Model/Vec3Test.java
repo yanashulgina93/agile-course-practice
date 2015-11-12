@@ -3,6 +3,7 @@ package ru.unn.agile.Vec3.Model;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class Vec3Test {
     private Vector3 firstVec;
@@ -81,7 +82,25 @@ public class Vec3Test {
 
     @Test (expected = NullPointerException.class)
     public void isCorrectEqualsNotNullObjectWithNullObject() {
+        firstVec = new Vector3();
+
         assert firstVec.equals(null);
+    }
+
+    @Test
+    public void isCorrectEqualsVectorWithNotVector() {
+        final double value = 666.0;
+        firstVec = new Vector3();
+
+        assertFalse(firstVec.equals(value));
+    }
+
+    @Test
+    public void isCorrectEqualsVectorWithVector() {
+        firstVec  = new Vector3(6.0, 6.0, 6.0);
+        secondVec = new Vector3(6.0, 6.0, 6.0);
+
+        assertTrue(firstVec.equals(secondVec));
     }
 
     @Test

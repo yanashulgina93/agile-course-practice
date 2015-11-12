@@ -1,7 +1,5 @@
 package ru.unn.agile.Vec3.Model;
 
-import java.util.Random;
-
 public class Vector3 {
     private double x;
     private double y;
@@ -57,20 +55,13 @@ public class Vector3 {
         final long hashY = Double.doubleToLongBits(y);
         final long hashZ = Double.doubleToLongBits(z);
 
-        final Random rng = new Random();
-
-        return rng.nextInt()
-                + HASH_FACTOR * Long.hashCode(hashX)
-                + HASH_FACTOR * Long.hashCode(hashY)
-                + HASH_FACTOR * Long.hashCode(hashZ);
+        return HASH_FACTOR * Long.hashCode(hashX)
+             + HASH_FACTOR * Long.hashCode(hashY)
+             + HASH_FACTOR * Long.hashCode(hashZ);
     }
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        }
-
         if (obj instanceof Vector3) {
             return equals((Vector3) obj);
         }
