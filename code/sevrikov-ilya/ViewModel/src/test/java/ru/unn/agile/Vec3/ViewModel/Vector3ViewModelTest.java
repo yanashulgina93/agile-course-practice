@@ -128,6 +128,60 @@ public class Vector3ViewModelTest {
         assertTrue(viewModel.getResultOfLastAction().equals(crossProduct.toString()));
     }
 
+    @Test
+    public void isCorrectFirstComponentOfFistVector() {
+        String value = "666.0";
+
+        viewModel.setCoordX0(value);
+
+        assertTrue(viewModel.getCoordX0().equals(value));
+    }
+
+    @Test
+    public void isCorrectSecondComponentOfFirstVector() {
+        String value = "666.0";
+
+        viewModel.setCoordY0(value);
+
+        assertTrue(viewModel.getCoordY0().equals(value));
+    }
+
+    @Test
+    public void isCorrectThirdComponentOfFirstVector() {
+        String value = "666.0";
+
+        viewModel.setCoordZ0(value);
+
+        assertTrue(viewModel.getCoordZ0().equals(value));
+    }
+
+    @Test
+    public void isCorrectFirstComponentOfSecondVector() {
+        String value = "666.0";
+
+        viewModel.setCoordX1(value);
+
+        assertTrue(viewModel.getCoordX1().equals(value));
+    }
+
+    @Test
+    public void isCorrectSecondComponentOfSecondVector() {
+        String value = "666.0";
+
+        viewModel.setCoordY1(value);
+
+        assertTrue(viewModel.getCoordY1().equals(value));
+    }
+
+    @Test
+    public void isCorrectThirdComponentOfSecondVector() {
+        String value = "666.0";
+
+        viewModel.setCoordZ1(value);
+
+        assertTrue(viewModel.getCoordZ1().equals(value));
+    }
+
     private String getErrorOfNormalize() {
         String error = "";
 
