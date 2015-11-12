@@ -35,45 +35,47 @@ public class Student {
     @Override
     public int hashCode() {
         final int temp = 100;
-        return temp * this.name.hashCode() + marks.hashCode();
+        return temp * name.hashCode() + marks.hashCode();
     }
 
     @Override
     public boolean equals(final Object comparedStudent) {
         Student temp = (Student) comparedStudent;
-        return this.name.equals(temp.getName()) && this.marks.equals(temp.getMarks());
+        return name.equals(temp.getName()) && marks.equals(temp.getMarks());
     }
 
     public void addMark(final Mark newMark) {
-        int i = 0;
-        while (i < getMarks().size()
-                && !(getMarks().get(i).getDate().after(newMark.getDate()))) {
-            if (newMark.isMarkCorrection(getMarks().get(i))) {
-                getMarks().get(i).correctMark(newMark.getValue());
-                i = -1;
-                break;
+        if (getMarks().isEmpty()) {
+            marks.add(newMark);
+        } else {
+            int i;
+            for (i = 0; i < getMarks().size(); i++) {
+                if (newMark.isMarkCorrection(getMarks().get(i))) {
+                    throw new NoMarkCorrectionException("This mark already exists, can't correct");
+                }
+                if (getMarks().get(i).getDate().after(newMark.getDate())) {
+                    break;
+                }
             }
-            i++;
-        }
-        if (i != -1) {
-            this.marks.add(i, newMark);
+            marks.add(i, newMark);
         }
     }
 
-    public int getMark(final String requiredAcademicSubject, final GregorianCalendar requiredDate) {
-        return getMarks().get(findMark(requiredAcademicSubject, requiredDate)).getValue();
+    public Mark getMark(final String requiredAcademicSubject,
+                        final GregorianCalendar requiredDate) {
+        return getMarks().get(findMark(requiredAcademicSubject, requiredDate));
     }
 
     public void deleteMark(final String requiredAcademicSubject,
                            final GregorianCalendar requiredDate) {
-        this.marks.remove(findMark(requiredAcademicSubject, requiredDate));
+        marks.remove(findMark(requiredAcademicSubject, requiredDate));
     }
 
     public void deleteMarks(final String requieredAcademicSubject) {
         int i = 0;
         while (i < getMarks().size()) {
             if (getMarks().get(i).getAcademicSubject().equals(requieredAcademicSubject)) {
-                this.marks.remove(i);
+                marks.remove(i);
             } else {
                 i++;
             }
