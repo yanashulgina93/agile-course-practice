@@ -6,6 +6,8 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public final class HeapForm {
     private final LeftistHeapViewModel viewModel;
@@ -20,17 +22,25 @@ public final class HeapForm {
     private HeapForm() {
         viewModel = new LeftistHeapViewModel();
 
-        buttonInsert.addActionListener(e -> {
-            backBind();
-            viewModel.insertElement();
-            bind();
-        });
+        ActionListener insertButtonListener = new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                backBind();
+                viewModel.insertElement();
+                bind();
+            }
+        };
+        buttonInsert.addActionListener(insertButtonListener);
 
-        buttonDelete.addActionListener(e -> {
-            backBind();
-            viewModel.deleteElement();
-            bind();
-        });
+        ActionListener deleteButtonListener = new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                backBind();
+                viewModel.deleteElement();
+                bind();
+            }
+        };
+        buttonDelete.addActionListener(deleteButtonListener);
 
         DocumentListener fieldsListener = new DocumentListener() {
             @Override
