@@ -20,7 +20,7 @@ public class PolinomMultiplyTest {
     private final double[] expectedCoefficients;
 
     public PolinomMultiplyTest(final double[] firstCoefficients,
-        final double[] secondCoefficients final double[] expectedCoefficients) {
+        final double[] secondCoefficients, final double[] expectedCoefficients) {
         this.firstCoefficients = firstCoefficients;
         this.secondCoefficients = secondCoefficients;
         this.expectedCoefficients = expectedCoefficients;
