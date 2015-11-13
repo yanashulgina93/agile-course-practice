@@ -32,7 +32,7 @@ public class ComplexCalculator {
 
         viewModelProperty = viewModel.getFirstImaginaryProperty();
         firstImaginaryTextField.textProperty().bindBidirectional(viewModelProperty);
-        
+
         viewModelProperty = viewModel.getSecondRealProperty();
         secondRealTextField.textProperty().bindBidirectional(viewModelProperty);
 
