@@ -14,21 +14,20 @@ public class LongNumber {
     private int[] value;
 
     public LongNumber() {
-        this.rank = 1;
-        this.value = new int[this.rank];
-        this.sign = 1;
-        this.value[0] = 0;
+        rank = 1;
+        value = new int[this.rank];
+        sign = 1;
+        value[0] = 0;
     }
 
     public LongNumber(final int number) {
-        this.rank = this.getIntRank(number);
-        this.value = new int[this.rank];
+        rank = getIntRank(number);
+        value = new int[rank];
+        sign = 1;
         if (number < 0) {
-            this.sign = -1;
-        } else {
-            this.sign = 1;
+            sign = -1;
         }
-        this.convetIntToLong(Math.abs(number));
+        convetIntToLong(Math.abs(number));
     }
 
     private int getIntRank(final int number) {
@@ -48,7 +47,7 @@ public class LongNumber {
         int divider;
         int remainer;
 
-        for (int j = this.rank - 1; j > -1; --j) {
+        for (int j = this.rank - 1; j > -1; j--) {
             divider = (int) (Math.pow(SCALE, j));
             newElement = intermediateNum / divider;
             this.value[j] = newElement;
@@ -58,11 +57,11 @@ public class LongNumber {
     }
 
     public LongNumber(final char[] chars) {
-        this.convertStringToLong(chars);
+        convertStringToLong(chars);
     }
 
     public LongNumber(final String string) {
-        this.convertStringToLong(string);
+        convertStringToLong(string);
     }
 
     private void convertStringToLong(final Object str) {
@@ -100,7 +99,7 @@ public class LongNumber {
         int lenght = this.getLenghtString(str);
 
         int index = this.rank - 1;
-        for (int i = 0; i < lenght; ++i, --index) {
+        for (int i = 0; i < lenght; i++, index--) {
             charElement = this.getCharByIndex(str, i);
             if (i == 0 && charElement == '-') {
                 index++;
@@ -140,10 +139,10 @@ public class LongNumber {
         }
     }
 
-    public LongNumber add(final LongNumber lnNum) {
+    public LongNumber add(final LongNumber longNumber) {
         LongNumber result = new LongNumber();
         LongNumber addendum1 = new LongNumber(this);
-        LongNumber addendum2 = new LongNumber(lnNum);
+        LongNumber addendum2 = new LongNumber(longNumber);
 
         int maxRank = Math.max(addendum1.rank, addendum2.rank);
         result.rank = maxRank + 1;
@@ -161,7 +160,7 @@ public class LongNumber {
         addendum2.beforePreparation();
 
         int smallSum = 0;
-        for (int i = 0; i < maxRank; ++i) {
+        for (int i = 0; i < maxRank; i++) {
             if (addendum1.rank > i && addendum2.rank > i) {
                 smallSum = addendum1.value[i] + addendum2.value[i] + this.value[i];
             } else if (addendum1.rank > i) {
@@ -186,7 +185,7 @@ public class LongNumber {
 
     private void beforePreparation() {
         if (this.sign == -1) {
-            for (int i = 0; i < this.rank; ++i) {
+            for (int i = 0; i < this.rank; i++) {
                 this.value[i] *= this.sign;
             }
         }
@@ -207,7 +206,7 @@ public class LongNumber {
         boolean isNegative = true;
         this.sign = 1;
 
-        for (int i = 0; i < this.rank; ++i) {
+        for (int i = 0; i < this.rank; i++) {
             if (this.value[i] > 0) {
                 isNegative = false;
                 break;
@@ -215,12 +214,12 @@ public class LongNumber {
         }
         if (isNegative && !this.equals(0)) {
             this.sign = -1;
-            for (int i = 0; i < this.rank; ++i) {
+            for (int i = 0; i < this.rank; i++) {
                 this.value[i] *= this.sign;
             }
         } else {
             this.sign = 1;
-            for (int i = 0; i < this.rank; ++i) {
+            for (int i = 0; i < this.rank; i++) {
                 if (this.value[i] < 0) {
                     this.value[i + 1]--;
                     this.value[i] = SCALE + this.value[i];
@@ -230,12 +229,12 @@ public class LongNumber {
         this.deleteZeroes();
     }
 
-    public LongNumber multiply(final LongNumber lnNum) {
+    public LongNumber multiply(final LongNumber longNumber) {
         LongNumber result;
 
         String strNum = this.convertToString();
         BigInteger firstMultiplier = new BigInteger(strNum);
-        strNum = lnNum.convertToString();
+        strNum = longNumber.convertToString();
         BigInteger secondMultiplier = new BigInteger(strNum);
 
         BigInteger bigResult = firstMultiplier.multiply(secondMultiplier);
@@ -250,7 +249,7 @@ public class LongNumber {
         if (this.sign == -1) {
             strNum += "-";
         }
-        for (int i = 0, j = this.rank - 1; i < this.rank; ++i, --j) {
+        for (int i = 0, j = this.rank - 1; i < this.rank; i++, j--) {
             int element = this.value[j];
             strNum += Integer.toString(element);
         }
@@ -263,7 +262,7 @@ public class LongNumber {
 
         int maxRank = this.getIntRank(Integer.MAX_VALUE);
         if (this.rank <= maxRank) {
-            for (int i = 0; i < this.rank; ++i) {
+            for (int i = 0; i < this.rank; i++) {
                 intNum += this.value[i] * Math.pow(SCALE, i);
             }
             intNum *= this.sign;
@@ -281,11 +280,11 @@ public class LongNumber {
 
     @Override
     public boolean equals(final Object object) {
-        LongNumber lnNum = (LongNumber) object;
+        LongNumber longNumber = (LongNumber) object;
         boolean isEqual = true;
 
-        if (this.rank == lnNum.rank && this.sign == lnNum.sign) {
-            isEqual = Arrays.equals(this.value, lnNum.value);
+        if (this.rank == longNumber.rank && this.sign == longNumber.sign) {
+            isEqual = Arrays.equals(this.value, longNumber.value);
         } else {
             isEqual = false;
         }

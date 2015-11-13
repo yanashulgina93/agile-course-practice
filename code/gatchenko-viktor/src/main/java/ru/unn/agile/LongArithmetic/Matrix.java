@@ -12,9 +12,9 @@ public class Matrix {
     private final int height;
 
     public Matrix() {
-        this.width = 0;
-        this.height = 0;
-        this.element = null;
+        width = 0;
+        height = 0;
+        element = null;
     }
 
     public Matrix(final int height, final int width) {
@@ -22,7 +22,7 @@ public class Matrix {
         this.height = height;
 
         this.element = new LongNumber[height][width];
-        for (int i = 0; i < height; ++i) {
+        for (int i = 0; i < height; i++) {
             Arrays.fill(this.element[i], new LongNumber(0));
         }
     }
@@ -32,7 +32,7 @@ public class Matrix {
         this.height = copiedMatrix.height;
 
         this.element = new LongNumber[this.height][this.width];
-        for (int i = 0; i < this.height; ++i) {
+        for (int i = 0; i < this.height; i++) {
             System.arraycopy(copiedMatrix.element[i], 0, this.element[i], 0, this.width);
         }
     }
@@ -43,8 +43,8 @@ public class Matrix {
         if (this.width == secondMultiplier.height) {
             resultMatrix = new Matrix(this.height, secondMultiplier.width);
 
-            for (int i = 0; i < resultMatrix.height; ++i) {
-                for (int j = 0; j < resultMatrix.width; ++j) {
+            for (int i = 0; i < resultMatrix.height; i++) {
+                for (int j = 0; j < resultMatrix.width; j++) {
                     resultMatrix.element[i][j] = countUpElement(i, j, this, secondMultiplier);
                 }
             }
@@ -60,7 +60,7 @@ public class Matrix {
         LongNumber result = new LongNumber();
         LongNumber partSum;
 
-        for (int w = 0; w < firstMultiplier.width; ++w) {
+        for (int w = 0; w < firstMultiplier.width; w++) {
             partSum = firstMultiplier.element[i][w].multiply(secondMultiplier.element[w][j]);
             result = result.add(partSum);
         }
@@ -79,8 +79,8 @@ public class Matrix {
         boolean matrixEqual = true;
 
         if (this.height == matrix.height && this.width == matrix.width) {
-            for (int i = 0; i < this.height; ++i) {
-                for (int j = 0; j < this.width; ++j) {
+            for (int i = 0; i < this.height; i++) {
+                for (int j = 0; j < this.width; j++) {
                     if (!this.element[i][j].equals(matrix.element[i][j])) {
                         matrixEqual = false;
                         break;
