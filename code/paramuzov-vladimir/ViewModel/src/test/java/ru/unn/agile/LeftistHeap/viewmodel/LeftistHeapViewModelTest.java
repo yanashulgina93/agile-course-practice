@@ -130,4 +130,14 @@ public class LeftistHeapViewModelTest {
                    + LeftistHeapViewModel.ERROR_DELETE_WRONG_VALUE,
                      viewModel.getErrorText());
     }
+
+    @Test
+    public void canDeleteOneErrorMessageWhenOneOfTwoIncorrectValuesSetsRight() {
+        viewModel.setNumberToInsert("afc");
+        viewModel.setNumberToDelete("afc");
+        viewModel.setNumberToInsert("0");
+
+        assertEquals(LeftistHeapViewModel.ERROR_DELETE_WRONG_VALUE,
+                     viewModel.getErrorText());
+    }
 }

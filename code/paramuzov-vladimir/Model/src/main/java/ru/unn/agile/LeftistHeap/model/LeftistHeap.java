@@ -47,7 +47,7 @@ public class LeftistHeap<Type extends Comparable<Type>> {
 
     public void delete(final LeftistHeapNode<Type> heapNode) {
         if (heapNode == null) {
-            return;
+            throw new NullPointerException();
         }
 
         if (heapNode.equals(root)) {
@@ -62,7 +62,7 @@ public class LeftistHeap<Type extends Comparable<Type>> {
 
     public void decreaseKey(final LeftistHeapNode<Type> heapNode, final Type key) {
         if (key.compareTo(heapNode.getElement()) > 0) {
-            return;
+            throw new IllegalArgumentException();
         }
 
         if (heapNode.equals(root)) {

@@ -132,28 +132,13 @@ public class LeftistHeapTest {
         @Test
         public void canDecreaseKeyOfNotRootElement() {
             setUpHeap(heap, heapSize);
-            LeftistHeapNode<Integer> child = getHeapElementFromMiddle();
+            LeftistHeapNode<Integer> child = heap.findNodeByKey(heapSize / 2);
 
             heap.decreaseKey(child, targetKey);
 
             assertEquals(targetKey, heap.getRoot().getElement());
         }
 
-        private LeftistHeapNode<Integer> getHeapElementFromMiddle() {
-            LeftistHeapNode<Integer> child = heap.getRoot();
-            for (int i = 0; i < heapSize / 2; i++) {
-                if (child.hasLeftChild()) {
-                    child = child.getLeftChild();
-                } else {
-                    if (child.hasRightChild()) {
-                        child = child.getRightChild();
-                    } else {
-                        break;
-                    }
-                }
-            }
-            return child;
-        }
         private int heapSize;
         private Integer targetKey;
         private LeftistHeap<Integer> heap;
@@ -193,6 +178,47 @@ public class LeftistHeapTest {
 
         private int elementsInHeap;
         private Integer returnValue;
+        private LeftistHeap<Integer> heap;
+    }
+
+    @RunWith(Parameterized.class)
+    public static class WhenFindAndDeleteElementFromHeap {
+        public WhenFindAndDeleteElementFromHeap(final int elementsInHeap,
+                                                final Integer keyToDelete,
+                                                final Integer[] correctValues) {
+            this.elementsInHeap = elementsInHeap;
+            this.keyToDelete = keyToDelete;
+            this.correctValues = correctValues;
+        }
+
+        @Before
+        public void initializeHeap() {
+            heap = new LeftistHeap<>();
+        }
+
+        @Parameterized.Parameters
+        public static Collection<Object[]> getHeapSizesAndKeys() {
+            return Arrays.asList(new Object[][]{
+                    {2, 1, new Integer[] {0}},
+                    {5, 4, new Integer[] {0, 1, 2, 3}},
+                    {5, 1, new Integer[] {0, 2, 3, 4}},
+                    {5, 2, new Integer[] {0, 1, 3, 4}}
+            });
+        }
+
+        @Test
+        public void canFindAndDeleteElementFromHeap() {
+            setUpHeap(heap, elementsInHeap);
+
+            LeftistHeapNode<Integer> foundNode = heap.findNodeByKey(keyToDelete);
+            heap.delete(foundNode);
+
+            assertArrayEquals(correctValues, heap.toSortedArray());
+        }
+
+        private int elementsInHeap;
+        private Integer keyToDelete;
+        private Integer[] correctValues;
         private LeftistHeap<Integer> heap;
     }
 
@@ -247,13 +273,16 @@ public class LeftistHeapTest {
         }
 
         @Test
-        public void canFindExistingElementInHeapByKey() {
-            setUpHeap(heap, 20);
-            Integer keyToFind = 15;
+        public void canClearHeapByDeletingSingleElements() {
+            setUpHeap(heap, 50);
 
-            LeftistHeapNode<Integer> foundNode = heap.findNodeByKey(keyToFind);
+            for (int i = heap.getSize() - 1; i >= 0; i--) {
+                Integer keyToFind = i;
+                LeftistHeapNode<Integer> foundNode = heap.findNodeByKey(keyToFind);
+                heap.delete(foundNode);
+            }
 
-            assertEquals(keyToFind, foundNode.getElement());
+            assertEquals(0, heap.getSize());
         }
 
         @Test(expected = NullPointerException.class)
@@ -309,6 +338,30 @@ public class LeftistHeapTest {
             Integer[] correctValues = {0, 1, 2, 3, 4};
 
             assertArrayEquals(correctValues, heap.toSortedArrayWithoutDelete());
+        }
+
+        @Test(expected = NullPointerException.class)
+        public void canNotDeleteNullElement() {
+            setUpHeap(heap, 5);
+
+            heap.delete(null);
+        }
+
+        @Test(expected = IllegalArgumentException.class)
+        public void canNotChangeKeyToLargerOne() {
+            setUpHeap(heap, 5);
+
+            heap.decreaseKey(heap.getRoot(), 10);
+        }
+
+        @Test
+        public void mergeHeapWithItselfDoNothing() {
+            setUpHeap(heap, 5);
+            Integer[] correctValues = {0, 1, 2, 3, 4};
+
+            heap.merge(heap);
+
+            assertArrayEquals(correctValues, heap.toSortedArray());
         }
 
         private void multiplyAllKeysInHeapByTen(final LeftistHeapNode<Integer> leftNode,
