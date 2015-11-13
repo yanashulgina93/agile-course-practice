@@ -6,7 +6,7 @@ import org.junit.Before;
 
 import java.util.Arrays;
 
-import main.java.ru.unn.agile.Complex.Model.*;
+import main.java.ru.unn.agile.Polinom.Model.*;
 
 public class PolinomDivideTest {
     private Polinom first;
@@ -14,17 +14,13 @@ public class PolinomDivideTest {
 
     @Before
     public viod initPolinoms() {
-        double[] firstCoefficients = {8.0, 2.0, 0.0, 1.0};
-        double[] secondCoefficients = {10.0, 0.0, -6.0, 5.0, -2.0};
-        first = new Polinom(firstCoefficients);
-        second = new Polinom(secondCoefficients);
+        first = new Polinom(new double[]{8.0, 2.0, 0.0, 1.0});
+        second = new Polinom(new double[]{10.0, 0.0, -6.0, 5.0, -2.0});
     }
 
     @Test(expected = Exception.class)
     public void canNotDivideByZero() {
-        Polinom zero = new Polinom();
-
-        first.divide(zero);
+        first.divide(new Polinom());
     }
 
     @Test(expected = Exception.class)
@@ -34,31 +30,26 @@ public class PolinomDivideTest {
 
     @Test
     public void canDivideByOne() {
-        double[] oneCoefficients = {1.0};
-        double[] resultCoefficients = {8.0, 2.0, 0.0, 1.0};
-        Polinom one = new Polinom(oneCoefficients);
+        Polinom one = new Polinom(new double[]{1.0});
 
         first.divide(one);
 
-        Assert.assertTrue(Arrays.equals(first.getCoefficients(), resultCoefficients));
+        Assert.assertTrue(Arrays.equals(first.getCoefficients(), new double[]{8.0, 2.0, 0.0, 1.0}));
     }
 
     @Test
     public void canDivideBySimplePolinom() {
-        double[] simplePolinomCoefficients = {0.0, 5.0};
-        double[] resultCoefficients = {0.4, 0.0, 0.2};
-        Polinom simplePolinom = new Polinom(simplePolinomCoefficients);
+        Polinom simplePolinom = new Polinom(new double[]{0.0, 5.0});
 
         first.divide(simplePolinom);
 
-        Assert.assertTrue(Arrays.equals(first.getCoefficients(), resultCoefficients));
+        Assert.assertTrue(Arrays.equals(first.getCoefficients(), new double[]{0.4, 0.0, 0.2}));
     }
 
     @Test
     public void canDividePolinoms() {
-        double[] resultCoefficients = {5.0, -2.0};
         second.divide(first);
 
-        Assert.assertTrue(Arrays.equals(first.getCoefficients(), resultCoefficients));
+        Assert.assertTrue(Arrays.equals(first.getCoefficients(), new double[]{5.0, -2.0}));
     }
 }

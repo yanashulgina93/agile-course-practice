@@ -9,7 +9,7 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.List;
 
-import main.java.ru.unn.agile.Complex.Model.*;
+import main.java.ru.unn.agile.Polinom.Model.*;
 
 @RunWith(Parameterized.class)
 public class PolinomMultiplyTest {
@@ -29,13 +29,13 @@ public class PolinomMultiplyTest {
     @Parameterized.Parameters
     public static List<Object[]> MultiplyInputAndExpected() {
         return Arrays.asList(new Object[][] {
-            {{0.0}, {0.0}, {0.0}},
-            {{7.0, 15.0}, {0.0}, {0.0}},
-            {{7.0, 15.0}, {4.0}, {28.0, 60.0}},
-            {{7.0, 15.0}, {0.0, 4.0}, {0.0, 28.0, 60.0}},
-            {{7.0, 15.0}, {4.0, 7.0}, {28.0, 154.0, 105.0}},
-            {{5.0, 6.0, -7.0}, {-5.0, 7.0}, {25.0, -65.0, 77.0, -49.0}},
-            {{2.0, 0.0, -6.0}, {1.25, 0.5}, {2.5, 1.0, -7.5, -3.0}}
+            {new double[]{0.0}, new double[]{0.0}, new double[]{0.0}},
+            {new double[]{7.0, 15.0}, new double[]{0.0}, new double[]{0.0}},
+            {new double[]{7.0, 15.0}, new double[]{4.0}, new double[]{28.0, 60.0}},
+            {new double[]{7.0, 15.0}, new double[]{0.0, 4.0}, new double[]{0.0, 28.0, 60.0}},
+            {new double[]{7.0, 15.0}, new double[]{4.0, 7.0}, new double[]{28.0, 154.0, 105.0}},
+            {new double[]{5.0, 6.0, -7.0}, new double[]{-5.0, 7.0}, new double[]{25.0, -65.0, 77.0, -49.0}},
+            {new double[]{2.0, 0.0, -6.0}, new double[]{1.25, 0.5}, new double[]{2.5, 1.0, -7.5, -3.0}}
         });
     }
 
@@ -48,7 +48,7 @@ public class PolinomMultiplyTest {
     @Test
     public void canMultiplyPolinoms() {
         first.multiply(second);
-        double[] resultCoefficients = first.getCoefficients();
-        Assert.assertTrue(Arrays.equals(resultCoefficients, expectedCoefficients));
+
+        Assert.assertTrue(Arrays.equals(first.getCoefficients(), expectedCoefficients));
     }
 }

@@ -9,7 +9,7 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.List;
 
-import main.java.ru.unn.agile.Complex.Model.*;
+import main.java.ru.unn.agile.Polinom.Model.*;
 
 @RunWith(Parameterized.class)
 public class PolinomSubtractTest {
@@ -29,13 +29,14 @@ public class PolinomSubtractTest {
     @Parameterized.Parameters
     public static List<Object[]> subtractInputAndExpected() {
         return Arrays.asList(new Object[][] {
-            {{0.0}, {0.0}, {0.0}},
-            {{7.0, 15.0}, {5.0, 1.0}, {2.0, 14.0}},
-            {{15.0, -8.0}, {-2.0, 7.0}, {17.0, -15.0}},
-            {{2.0, 9.0, 0.0}, {0.0, 1.0, 4.0}, {2.0, 8.0, -4.0}},
-            {{12.64, 0.15, 1007.0009}, {12.64, 60.85, 1002.0001}, {0.0, -60.70, 5.0008}},
-            {{5.0, 6.0, -7.0}, {5.0, 7.0, 7.0}, {0.0, -1.0}},
-            {{-5.0, 6.0, -7.0}, {-5.0, 6.0, -7.0}, {0.0}}
+            {new double[]{0.0}, new double[]{0.0}, new double[]{0.0}},
+            {new double[]{7.0, 15.0}, new double[]{5.0, 1.0}, new double[]{2.0, 14.0}},
+            {new double[]{15.0, -8.0}, new double[]{-2.0, 7.0}, new double[]{17.0, -15.0}},
+            {new double[]{2.0, 9.0, 0.0}, new double[]{0.0, 1.0, 4.0}, new double[]{2.0, 8.0, -4.0}},
+            {new double[]{12.64, 0.15, 1007.0009}, new double[]{12.64, 60.85, 1002.0001},
+            new double[]{0.0, -60.70, 5.0008}},
+            {new double[]{5.0, 6.0, -7.0}, new double[]{5.0, 7.0, 7.0}, new double[]{0.0, -1.0}},
+            {new double[]{-5.0, 6.0, -7.0}, new double[]{-5.0, 6.0, -7.0}, new double[]{0.0}}
         });
     }
 
@@ -48,7 +49,7 @@ public class PolinomSubtractTest {
     @Test
     public void canSubtractPolinoms() {
         first.subtract(second);
-        double[] resultCoefficients = first.getCoefficients();
-        Assert.assertTrue(Arrays.equals(resultCoefficients, expectedCoefficients));
+
+        Assert.assertTrue(Arrays.equals(first.getCoefficients(), expectedCoefficients));
     }
 }

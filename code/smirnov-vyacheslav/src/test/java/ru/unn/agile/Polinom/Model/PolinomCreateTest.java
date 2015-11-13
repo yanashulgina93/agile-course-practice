@@ -9,7 +9,7 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.List;
 
-import main.java.ru.unn.agile.Complex.Model.*;
+import main.java.ru.unn.agile.Polinom.Model.*;
 
 @RunWith(Parameterized.class)
 public class PolinomCreateTest {
@@ -26,14 +26,14 @@ public class PolinomCreateTest {
     @Parameterized.Parameters
     public static List<Object[]> inputAndExpectedOutput() {
         return Arrays.asList(new Object[][] {
-            {{0.0}, {0.0}},
-            {{0.0, 15.0}, {0.0, 15.0}},
-            {{15.0, 0.0}, {15.0}},
-            {{0.0, 15.0, 0.0, 25.0, 0.0, 0.0}, {0.0, 15.0, 0.0, 25.0}},
-            {{11253.0, 5564.0, 0.0025, 0.000065, 1155526445.0},
-            {11253.0, 5564.0, 0.0025, 0.000065, 1155526445.0}},
-            {{-51.52}, {-51.52}},
-            {{-15.1566, 63.0, -0.0005, 0.0, 0.0}, {-15.1566, 63.0, -0.0005}}
+            {new double[]{0.0}, new double[]{0.0}},
+            {new double[]{0.0, 15.0}, new double[]{0.0, 15.0}},
+            {new double[]{15.0, 0.0}, new double[]{15.0}},
+            {new double[]{0.0, 15.0, 0.0, 25.0, 0.0, 0.0}, new double[]{0.0, 15.0, 0.0, 25.0}},
+            {new double[]{11253.0, 5564.0, 0.0025, 0.000065, 1155526445.0},
+            new double[]{11253.0, 5564.0, 0.0025, 0.000065, 1155526445.0}},
+            {new double[]{-51.52}, new double[]{-51.52}},
+            {new double[]{-15.1566, 63.0, -0.0005, 0.0, 0.0}, new double[]{-15.1566, 63.0, -0.0005}}
         });
     }
 
@@ -44,7 +44,6 @@ public class PolinomCreateTest {
 
     @Test
     public void canCreatePolinom() {
-        double[] polinomCoefficients = polinom.getCoefficients();
-        Assert.assertTrue(Arrays.equals(polinomCoefficients, expectedCoefficients));
+        Assert.assertTrue(Arrays.equals(polinom.getCoefficients(), expectedCoefficients));
     }
 }
