@@ -12,30 +12,12 @@ public class Polinom {
 	public Polinom(final double[] inputCoefficients) {
 		coefficients = new double[inputCoefficients.length];
 
-		for(int i = 0; i < inputCoefficients.length; i++) {
+		for (int i = 0; i < inputCoefficients.length; i++) {
 			coefficients[i] = inputCoefficients[i];
 		}
 		reduceIfHighDegreeIsNull();
 
 		residue = new Polinom();
-	}
-
-	@Override 
-	public boolean equals(final Object object) { 
-		Polinom operand = (Polinom) object;
-		double[] operandCoefficients = operand.getCoefficients();
-
-		if (coefficients.length != operandCoefficients.length) {
-			return false;
-		}
-
-		for (int i = 0; i < coefficients.length; i++) {
-			if (coefficients[i] != operandCoefficients[i]) {
-				return false;
-			}
-		}
-
-		return true;
 	}
 
 	public double[] getCoefficients() {
@@ -45,9 +27,9 @@ public class Polinom {
 	public void add(final Polinom operand) {
 		double[] operandCoefficients = operand.getCoefficients();
 		extendPolinom(max(coefficients.length, operandCoefficients.length));
-		
-		for(int i = 0; i < operandCoefficients.length; i++) {
-			coefficients[i]+= operandCoefficients[i];
+
+		for (int i = 0; i < operandCoefficients.length; i++) {
+			coefficients[i] += operandCoefficients[i];
 		}
 		reduceIfHighDegreeIsNull();
 	}
@@ -55,9 +37,9 @@ public class Polinom {
 	public void subtract(final Polinom operand) {
 		double[] operandCoefficients = operand.getCoefficients();
 		extendPolinom(max(coefficients.length, operandCoefficients.length));
-		
-		for(int i = 0; i < operandCoefficients.length; i++) {
-			coefficients[i]-= operandCoefficients[i];
+
+		for (int i = 0; i < operandCoefficients.length; i++) {
+			coefficients[i] -= operandCoefficients[i];
 		}
 		reduceIfHighDegreeIsNull();
 	}
@@ -68,15 +50,15 @@ public class Polinom {
 		coefficients = new double[1];
 		extendPolinom(firstCoefficients.length + secondCoefficients.length);
 
-		for(int i = 0; i < firstCoefficients.length; i++) {
+		for (int i = 0; i < firstCoefficients.length; i++) {
 			for(int j = 0; j < secondCoefficients.length; j++) {
-				coefficients[i + j]+= firstCoefficients[i] * secondCoefficients[j];
+				coefficients[i + j] += firstCoefficients[i] * secondCoefficients[j];
 			}
 		}
 		reduceIfHighDegreeIsNull();	
 	}
 
-	public void divide(Polinom operand) {
+	public void divide(final Polinom operand) {
 		double[] dividerCoefficients = operand.getCoefficients();
 		Polinom quotient = new Polinom();
 
@@ -88,13 +70,15 @@ public class Polinom {
 		}
 
 		if (dividerHighDegree > dividendHighDegree) {
-			throw new IllegalArgumentException("Divider's degree can't be large than dividend's!");
+			throw new IllegalArgumentException(
+				"Divider's degree can't be large than dividend's!");
 		}
-		
+
 		while (dividendHighDegree >= dividerHighDegree) {
 			int stepCoefficient = dividendHighDegree - dividerHighDegree + 1;
 			double[] stepQuotientCoefficients = new double[stepCoefficient];
-			stepQuotientCoefficients[stepCoefficient] = coefficients[dividendHighDegree] / dividerCoefficients[dividerHighDegree];
+			stepQuotientCoefficients[stepCoefficient] = coefficients[dividendHighDegree] 
+			/ dividerCoefficients[dividerHighDegree];
 			Polinom stepQuotient = new Polinom(stepQuotientCoefficients);
 
 			quotient.add(stepQuotient);
@@ -109,7 +93,7 @@ public class Polinom {
 		coefficients = quotient.getCoefficients();
 	}
 
-	private int max(int first, int second) {
+	private int max(final int first, final int second) {
 		return first > second ? first : second;
 	}
 
@@ -117,7 +101,7 @@ public class Polinom {
 		return coefficients.length - 1;
 	}
 
-	private void extendPolinom(int newSize) {
+	private void extendPolinom(final int newSize) {
 		if (newSize == coefficients.length) {
 			return;
 		}
@@ -134,7 +118,8 @@ public class Polinom {
 	private void reduceIfHighDegreeIsNull() {
 		int highNotNullCoefficient = getHighDegree();
 
-		while ((coefficients[highNotNullCoefficient] == 0) && (highNotNullCoefficient > 0)) {
+		while ((coefficients[highNotNullCoefficient] == 0) 
+			&& (highNotNullCoefficient > 0)) {
 			highNotNullCoefficient--;
 		}
 
