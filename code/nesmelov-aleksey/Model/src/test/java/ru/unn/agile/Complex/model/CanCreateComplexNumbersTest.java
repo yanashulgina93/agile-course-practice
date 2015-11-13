@@ -78,4 +78,39 @@ public class CanCreateComplexNumbersTest {
 
         assertFalse(complexNumber.isZero());
     }
+
+    @Test
+    public void canCheckThatStringIsCorrectWhenPositiveNumber() {
+        complexNumber = new Complex(1, 4);
+
+        assertEquals("1.0+4.0i", complexNumber.toString());
+    }
+
+    @Test
+    public void canCheckThatStringIsCorrectWhenNegativeNumber() {
+        complexNumber = new Complex(-1, -4);
+
+        assertEquals("-1.0-4.0i", complexNumber.toString());
+    }
+
+    @Test
+    public void canCheckThatStringIsCorrectWhenRealIsZero() {
+        complexNumber = new Complex(0, 4);
+
+        assertEquals("4.0i", complexNumber.toString());
+    }
+
+    @Test
+    public void canCheckThatStringIsCorrectWhenImaginaryIsZero() {
+        complexNumber = new Complex(1, 0);
+
+        assertEquals("1.0", complexNumber.toString());
+    }
+
+    @Test
+    public void canCheckThatStringIsCorrectWhenNumberIsZero() {
+        complexNumber = new Complex(0, 0);
+
+        assertEquals("0.0", complexNumber.toString());
+    }
 }
