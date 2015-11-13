@@ -17,7 +17,8 @@ public class PolinomCreateTest {
     private final double[] inputCoefficients;
     private final double[] expectedCoefficients;
 
-    public PolinomCreateTest(final double[] inputCoefficients, final double[] expectedCoefficients) {
+    public PolinomCreateTest(final double[] inputCoefficients,
+        final double[] expectedCoefficients) {
         this.inputCoefficients = inputCoefficients;
         this.expectedCoefficients = expectedCoefficients;
     }
@@ -29,7 +30,8 @@ public class PolinomCreateTest {
             {{0.0, 15.0}, {0.0, 15.0}},
             {{15.0, 0.0}, {15.0}},
             {{0.0, 15.0, 0.0, 25.0, 0.0, 0.0}, {0.0, 15.0, 0.0, 25.0}},
-            {{11253.0, 5564.0, 0.0025, 0.000065, 1155526445.0}, {11253.0, 5564.0, 0.0025, 0.000065, 1155526445.0}},
+            {{11253.0, 5564.0, 0.0025, 0.000065, 1155526445.0},
+            {11253.0, 5564.0, 0.0025, 0.000065, 1155526445.0}},
             {{-51.52}, {-51.52}},
             {{-15.1566, 63.0, -0.0005, 0.0, 0.0}, {-15.1566, 63.0, -0.0005}}
         });

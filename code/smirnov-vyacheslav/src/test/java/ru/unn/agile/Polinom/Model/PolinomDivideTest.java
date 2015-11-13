@@ -11,16 +11,22 @@ import main.java.ru.unn.agile.Complex.Model.*;
 public class PolinomDivideTest {
     private Polinom first;
     private Polinom second;
+    private double[] firstCoefficients;
+    private double[] secondCoefficients;
 
     @Before
     public viod initPolinoms() {
-        first = new Polinom(new double {8.0, 2.0, 0.0, 1.0});
-        second = new Polinom(new double {10.0, 0.0, -6.0, 5.0, -2.0});
+        firstCoefficients = {8.0, 2.0, 0.0, 1.0};
+        secondCoefficients = {10.0, 0.0, -6.0, 5.0, -2.0};
+        first = new Polinom(firstCoefficients);
+        second = new Polinom(secondCoefficients);
     }
 
     @Test(expected = Exception.class)
     public void canNotDivideByZero() {
-        first.divide(new Polinom());
+        Polinom zero = new Polinom();
+
+        first.divide(zero);
     }
 
     @Test(expected = Exception.class)
@@ -30,24 +36,31 @@ public class PolinomDivideTest {
 
     @Test
     public canDivideByOne() {
-        Polinom one = new Polinom(new double {1.0});
+        double[] oneCoefficients = {1.0};
+        double[] resultCoefficients = {8.0, 2.0, 0.0, 1.0};
+        Polinom one = new Polinom(oneCoefficients);
+
         first.divide(one);
 
-        Assert.assertTrue(Arrays.equals(first.getCoefficients(), {8.0, 2.0, 0.0, 1.0}));
+        Assert.assertTrue(Arrays.equals(first.getCoefficients(), resultCoefficients));
     }
 
     @Test
     public canDivideBySimplePolinom() {
-        Polinom simplePolinom = new Polinom(new double {0.0, 5.0});
+        double[] simplePolinomCoefficients = {0.0, 5.0};
+        double[] resultCoefficients = {0.4, 0.0, 0.2};
+        Polinom simplePolinom = new Polinom(simplePolinomCoefficients);
+
         first.divide(simplePolinom);
 
-        Assert.assertTrue(Arrays.equals(first.getCoefficients(), {0.4, 0.0, 0.2}));
+        Assert.assertTrue(Arrays.equals(first.getCoefficients(), resultCoefficients));
     }
 
     @Test
     public canDividePolinoms() {
+        double[] resultCoefficients = {5.0, -2.0};
         second.divide(first);
 
-        Assert.assertTrue(Arrays.equals(first.getCoefficients(), {5.0, -2.0}));
+        Assert.assertTrue(Arrays.equals(first.getCoefficients(), resultCoefficients));
     }
 }

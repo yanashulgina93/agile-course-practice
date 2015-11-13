@@ -19,7 +19,8 @@ public class PolinomSubtractTest {
     private final double[] secondCoefficients;
     private final double[] expectedCoefficients;
 
-    public PolinomSubtractTest(final double[] firstCoefficients, final double[] secondCoefficients, final double[] expectedCoefficients) {
+    public PolinomSubtractTest(final double[] firstCoefficients,
+        final double[] secondCoefficients, final double[] expectedCoefficients) {
         this.firstCoefficients = firstCoefficients;
         this.secondCoefficients = secondCoefficients;
         this.expectedCoefficients = expectedCoefficients;

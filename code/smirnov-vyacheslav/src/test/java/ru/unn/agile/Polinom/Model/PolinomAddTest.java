@@ -19,7 +19,8 @@ public class PolinomAddTest {
     private final double[] secondCoefficients;
     private final double[] expectedCoefficients;
 
-    public PolinomAddTest(final double[] firstCoefficients, final double[] secondCoefficients, final double[] expectedCoefficients) {
+    public PolinomAddTest(final double[] firstCoefficients,
+        final double[] secondCoefficients, final double[] expectedCoefficients) {
         this.firstCoefficients = firstCoefficients;
         this.secondCoefficients = secondCoefficients;
         this.expectedCoefficients = expectedCoefficients;
