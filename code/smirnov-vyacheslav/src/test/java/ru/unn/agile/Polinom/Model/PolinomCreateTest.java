@@ -1,45 +1,48 @@
 package test.java.ru.unn.agile.Polinom.Model;
 
 import org.junit.Assert; 
-import org.junit.Test; 
-import static org.junit.Assert.*; 
+import org.junit.Test;
+import org.junit.Before; 
+import org.junit.runner.RunWith; 
+import org.junit.runners.Parameterized; 
+
+import java.util.Arrays;
+import java.util.List;
+
 import main.java.ru.unn.agile.Complex.Model.*;
 
-public class TestPolinom {
+@RunWith(Parameterized.class)
+public class PolinomCreateTest {
 	private Polinom polinom;
+	private final double[] inputCoefficients;
+	private final double[] expectedCoefficients;
 
-	@Test
-	public void canCreatePolinomDefault() {
-		polinom = new Polinom();
-
-		assertEquals(polinom.value(), {0.0, 0.0});
+	public PolinomCreateTest(final double[] inputCoefficients, final double[] expectedCoefficients) {
+		this.inputCoefficients = inputCoefficients;
+		this.expectedCoefficients = expectedCoefficients;
 	}
 
-	@Test
-	public void canCreateMonom() {
-		polinom = new Polinom({1.0, 2.0});
+	@Parameterized.Parameters
+	public static List<Object[]> inputAndExpectedOutput() {
+		return Arrays.asList(new Object[][] {
+			{{0.0}, {0.0}},
+			{{0.0, 15.0}, {0.0, 15.0}},
+			{{15.0, 0.0}, {15.0}},
+			{{0.0, 15.0, 0.0, 25.0, 0.0, 0.0}, {0.0, 15.0, 0.0, 25.0}},
+			{{11253.0, 5564.0, 0.0025, 0.000065, 1155526445.0}, {11253.0, 5564.0, 0.0025, 0.000065, 1155526445.0}},
+			{{-51.52}, {-51.52}},
+			{{-15.1566, 63.0, -0.0005, 0.0, 0.0}, {-15.1566, 63.0, -0.0005}}
+		});
+	}
 
-		assertEquals(polinom.value(), {1.0, 2.0});
+	@Before
+	public void initPolinom() {
+		polinom = new Polinom(inputCoefficients);
 	}
 
 	@Test
 	public void canCreatePolinom() {
-		polinom = new Polinom({3.0, 2.0, 0.0, 6.0});
-
-		assertEquals(polinom.value(), {3.0, 2.0, 0.0, 6.0})
-	}
-
-	@Test
-	public void canCreatePolinomWithNegativeRatio () {
-		polinom = new Polinom({4.0, -1.0, 2.0, 6.0});
-
-		assertEquals(polinom.value(), {4.0, -1.0, 2.0, 6.0});
-	}
-
-	@Test
-	public void canCreatePolinomWithMixedInput () {
-		polinom = new Polinom({2.0, 6.0, 4.0, 1.0});
-
-		assertEquals(polinom.value(), {4.0, 1.0, 2.0, 6.0});
+		double[] polinomCoefficients = polinom.getCoefficients();
+		Assert.assertTrue(Arrays.equals(polinomCoefficients, expectedCoefficients));
 	}
 }
