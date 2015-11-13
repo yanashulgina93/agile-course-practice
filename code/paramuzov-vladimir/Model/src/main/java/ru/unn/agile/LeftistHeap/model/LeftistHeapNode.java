@@ -7,7 +7,7 @@ public class LeftistHeapNode<Type extends Comparable<Type>> {
     private LeftistHeapNode<Type> parent;
     private int rank;
 
-    LeftistHeapNode(final Type element) {
+    public LeftistHeapNode(final Type element) {
         this(element, null, null, null, 0);
     }
 
