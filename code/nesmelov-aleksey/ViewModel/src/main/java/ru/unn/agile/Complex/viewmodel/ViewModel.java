@@ -109,15 +109,15 @@ public class ViewModel {
             if (firstImaginary.get().isEmpty()) {
                 canCalculate.set(false);
             } else {
-                Double.parseDouble(firstImaginary.get());    
+                Double.parseDouble(firstImaginary.get());
             }
             if (secondReal.get().isEmpty()) {
-                canCalculate.set(false);    
+                canCalculate.set(false);
             } else {
-                Double.parseDouble(secondReal.get());               
+                Double.parseDouble(secondReal.get());
             }
             if (secondImaginary.get().isEmpty()) {
-                canCalculate.set(false);    
+                canCalculate.set(false);
             } else {
                 Double.parseDouble(secondImaginary.get());
             }
