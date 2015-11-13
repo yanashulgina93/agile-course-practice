@@ -1,6 +1,5 @@
-package test.java.ru.unn.agile.Complex.model;
+package ru.unn.agile.Complex.model;
 
-import main.java.ru.unn.agile.Complex.model.Complex;
 import org.junit.Assert;
 import org.junit.Test;
 

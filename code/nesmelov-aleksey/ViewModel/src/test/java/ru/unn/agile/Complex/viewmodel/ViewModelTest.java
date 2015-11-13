@@ -1,7 +1,7 @@
 package test.java.ru.unn.agile.Complex.viewmodel;
 
-import main.java.ru.unn.agile.Complex.viewmodel.Operation;
-import main.java.ru.unn.agile.Complex.viewmodel.ViewModel;
+import ru.unn.agile.Complex.viewmodel.Operation;
+import ru.unn.agile.Complex.viewmodel.ViewModel;
 import ru.unn.agile.Complex.model.Complex;
 import org.junit.After;
 import org.junit.Before;

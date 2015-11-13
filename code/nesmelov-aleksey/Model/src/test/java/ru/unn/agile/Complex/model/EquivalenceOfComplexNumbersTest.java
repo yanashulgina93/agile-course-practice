@@ -1,7 +1,6 @@
-package test.java.ru.unn.agile.Complex.model;
+package ru.unn.agile.Complex.model;
 
 import org.junit.Test;
-import main.java.ru.unn.agile.Complex.model.*;
 import static org.junit.Assert.*;
 
 public class EquivalenceOfComplexNumbersTest {

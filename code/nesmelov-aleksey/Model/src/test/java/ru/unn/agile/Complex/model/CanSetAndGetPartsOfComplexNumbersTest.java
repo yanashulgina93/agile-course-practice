@@ -1,9 +1,8 @@
-package test.java.ru.unn.agile.Complex.model;
+package ru.unn.agile.Complex.model;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import main.java.ru.unn.agile.Complex.model.*;
 
 public class CanSetAndGetPartsOfComplexNumbersTest {
     private final double epsil = 0.00000000000000001;
