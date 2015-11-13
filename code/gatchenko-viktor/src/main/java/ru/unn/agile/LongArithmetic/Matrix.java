@@ -49,7 +49,8 @@ public class Matrix {
                 }
             }
         } else {
-            resultMatrix = Matrix.UNDEFINED;
+            throw new MatrixesCanNotMultiplyExeption("This pair matrixes can't multiply");
+            // resultMatrix = Matrix.UNDEFINED;
         }
 
         return resultMatrix;

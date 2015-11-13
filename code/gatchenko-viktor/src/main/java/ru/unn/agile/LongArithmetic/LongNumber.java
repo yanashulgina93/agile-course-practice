@@ -68,7 +68,7 @@ public class LongNumber {
     private void initialize(final String string) {
         this.rank = string.length();
         this.sign = 1;
-        if(string.charAt(0) == '-') {
+        if (string.charAt(0) == '-') {
             this.sign = -1;
             this.rank--;
         }
