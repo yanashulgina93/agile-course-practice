@@ -20,13 +20,13 @@ public class PolinomMultiplyTest {
 	private final double[] expectedCoefficients;
 
 	public PolinomMultiplyTest(final double[] firstCoefficients, final double[] secondCoefficients final double[] expectedCoefficients) {
-		this.inputCoefficients = inputCoefficients;
+		this.firstCoefficients = firstCoefficients;
 		this.secondCoefficients = secondCoefficients;
 		this.expectedCoefficients = expectedCoefficients;
 	}
 
 	@Parameterized.Parameters
-	public static List<Object[]> inputAndExpectedOutput() {
+	public static List<Object[]> MultiplyInputAndExpected() {
 		return Arrays.asList(new Object[][] {
 			{{0.0}, {0.0}, {0.0}},
 			{{7.0, 15.0}, {0.0}, {0.0}},

@@ -20,13 +20,13 @@ public class PolinomAddTest {
 	private final double[] expectedCoefficients;
 
 	public PolinomAddTest(final double[] firstCoefficients, final double[] secondCoefficients, final double[] expectedCoefficients) {
-		this.inputCoefficients = inputCoefficients;
+		this.firstCoefficients = firstCoefficients;
 		this.secondCoefficients = secondCoefficients;
 		this.expectedCoefficients = expectedCoefficients;
 	}
 
 	@Parameterized.Parameters
-	public static List<Object[]> inputAndExpectedOutput() {
+	public static List<Object[]> addInputAndExpected() {
 		return Arrays.asList(new Object[][] {
 			{{0.0}, {0.0}, {0.0}},
 			{{5.0, 15.0}, {7.0, 1.0}, {12.0, 16.0}},
