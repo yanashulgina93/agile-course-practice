@@ -5,6 +5,7 @@ import ru.unn.agile.LeftistHeap.viewmodel.LeftistHeapViewModel;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import java.awt.*;
 
 public final class HeapForm {
     private final LeftistHeapViewModel viewModel;
@@ -18,6 +19,7 @@ public final class HeapForm {
 
     private HeapForm() {
         viewModel = new LeftistHeapViewModel();
+
         buttonInsert.addActionListener(e -> {
             backBind();
             viewModel.insertElement();
@@ -52,6 +54,7 @@ public final class HeapForm {
 
         textNumberToInsert.getDocument().addDocumentListener(fieldsListener);
         textNumberToDelete.getDocument().addDocumentListener(fieldsListener);
+        textError.setForeground(Color.RED);
 
         bind();
     }

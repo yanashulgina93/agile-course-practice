@@ -121,5 +121,13 @@ public class LeftistHeapViewModelTest {
                         viewModel.getErrorText());
     }
 
+    @Test
+    public void whenInsertAndDeleteFieldsContainWrongValuesTwoErrorsDisplayed() {
+        viewModel.setNumberToInsert("afc");
+        viewModel.setNumberToDelete("afc");
 
+        assertEquals(LeftistHeapViewModel.ERROR_INSERT_WRONG_VALUE
+                   + LeftistHeapViewModel.ERROR_DELETE_WRONG_VALUE,
+                     viewModel.getErrorText());
+    }
 }

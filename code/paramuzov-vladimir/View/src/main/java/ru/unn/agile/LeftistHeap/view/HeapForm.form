@@ -10,11 +10,13 @@
     <children>
       <component id="f93ef" class="javax.swing.JTextField" binding="textNumberToInsert">
         <constraints>
-          <grid row="1" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="7" anchor="8" fill="1" indent="0" use-parent-layout="false">
+          <grid row="1" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="7" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <horizontalAlignment value="4"/>
+        </properties>
       </component>
       <component id="1fcac" class="javax.swing.JTextField" binding="textNumberToDelete">
         <constraints>
@@ -22,7 +24,9 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <horizontalAlignment value="4"/>
+        </properties>
       </component>
       <vspacer id="c84d4">
         <constraints>
@@ -109,7 +113,8 @@
       <component id="f734a" class="javax.swing.JTextArea" binding="textHeapContent">
         <constraints>
           <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="50"/>
+            <minimum-size width="250" height="-1"/>
+            <preferred-size width="250" height="50"/>
           </grid>
         </constraints>
         <properties>

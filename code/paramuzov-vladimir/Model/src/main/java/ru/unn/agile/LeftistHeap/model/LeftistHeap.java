@@ -142,7 +142,7 @@ public class LeftistHeap<Type extends Comparable<Type>> {
     }
 
     private LeftistHeapNode<Type> findNodeWithKey(final LeftistHeapNode<Type> node,
-                                                 final Type keyToFind) {
+                                                  final Type keyToFind) {
         LeftistHeapNode<Type> foundNode = null;
         if (node != null) {
             if (node.getElement().equals(keyToFind)) {
