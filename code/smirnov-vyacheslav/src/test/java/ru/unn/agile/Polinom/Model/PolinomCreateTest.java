@@ -13,36 +13,36 @@ import main.java.ru.unn.agile.Complex.Model.*;
 
 @RunWith(Parameterized.class)
 public class PolinomCreateTest {
-	private Polinom polinom;
-	private final double[] inputCoefficients;
-	private final double[] expectedCoefficients;
+    private Polinom polinom;
+    private final double[] inputCoefficients;
+    private final double[] expectedCoefficients;
 
-	public PolinomCreateTest(final double[] inputCoefficients, final double[] expectedCoefficients) {
-		this.inputCoefficients = inputCoefficients;
-		this.expectedCoefficients = expectedCoefficients;
-	}
+    public PolinomCreateTest(final double[] inputCoefficients, final double[] expectedCoefficients) {
+        this.inputCoefficients = inputCoefficients;
+        this.expectedCoefficients = expectedCoefficients;
+    }
 
-	@Parameterized.Parameters
-	public static List<Object[]> inputAndExpectedOutput() {
-		return Arrays.asList(new Object[][] {
-			{{0.0}, {0.0}},
-			{{0.0, 15.0}, {0.0, 15.0}},
-			{{15.0, 0.0}, {15.0}},
-			{{0.0, 15.0, 0.0, 25.0, 0.0, 0.0}, {0.0, 15.0, 0.0, 25.0}},
-			{{11253.0, 5564.0, 0.0025, 0.000065, 1155526445.0}, {11253.0, 5564.0, 0.0025, 0.000065, 1155526445.0}},
-			{{-51.52}, {-51.52}},
-			{{-15.1566, 63.0, -0.0005, 0.0, 0.0}, {-15.1566, 63.0, -0.0005}}
-		});
-	}
+    @Parameterized.Parameters
+    public static List<Object[]> inputAndExpectedOutput() {
+        return Arrays.asList(new Object[][] {
+            {{0.0}, {0.0}},
+            {{0.0, 15.0}, {0.0, 15.0}},
+            {{15.0, 0.0}, {15.0}},
+            {{0.0, 15.0, 0.0, 25.0, 0.0, 0.0}, {0.0, 15.0, 0.0, 25.0}},
+            {{11253.0, 5564.0, 0.0025, 0.000065, 1155526445.0}, {11253.0, 5564.0, 0.0025, 0.000065, 1155526445.0}},
+            {{-51.52}, {-51.52}},
+            {{-15.1566, 63.0, -0.0005, 0.0, 0.0}, {-15.1566, 63.0, -0.0005}}
+        });
+    }
 
-	@Before
-	public void initPolinom() {
-		polinom = new Polinom(inputCoefficients);
-	}
+    @Before
+    public void initPolinom() {
+        polinom = new Polinom(inputCoefficients);
+    }
 
-	@Test
-	public void canCreatePolinom() {
-		double[] polinomCoefficients = polinom.getCoefficients();
-		Assert.assertTrue(Arrays.equals(polinomCoefficients, expectedCoefficients));
-	}
+    @Test
+    public void canCreatePolinom() {
+        double[] polinomCoefficients = polinom.getCoefficients();
+        Assert.assertTrue(Arrays.equals(polinomCoefficients, expectedCoefficients));
+    }
 }
