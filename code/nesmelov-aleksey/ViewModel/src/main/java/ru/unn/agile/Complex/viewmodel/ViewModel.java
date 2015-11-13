@@ -101,25 +101,25 @@ public class ViewModel {
         errors.set("");
         canCalculate.set(true);
         try {
-            if (!firstReal.get().isEmpty()) {
+            if (firstReal.get().isEmpty()) {
+                canCalculate.set(false);
+            } else {
                 Double.parseDouble(firstReal.get());
-            } else {
-                canCalculate.set(false);
             }
-            if (!firstImaginary.get().isEmpty()) {
-                Double.parseDouble(firstImaginary.get());
-            } else {
+            if (firstImaginary.get().isEmpty()) {
                 canCalculate.set(false);
-            }
-            if (!secondReal.get().isEmpty()) {
-                Double.parseDouble(secondReal.get());
             } else {
-                canCalculate.set(false);
+                Double.parseDouble(firstImaginary.get());    
             }
-            if (!secondImaginary.get().isEmpty()) {
+            if (secondReal.get().isEmpty()) {
+                canCalculate.set(false);    
+            } else {
+                Double.parseDouble(secondReal.get());               
+            }
+            if (secondImaginary.get().isEmpty()) {
+                canCalculate.set(false);    
+            } else {
                 Double.parseDouble(secondImaginary.get());
-            } else {
-                canCalculate.set(false);
             }
         } catch (NumberFormatException e) {
             canCalculate.set(false);
