@@ -2,7 +2,6 @@ package test.java.ru.unn.agile.Complex.viewmodel;
 
 import ru.unn.agile.Complex.viewmodel.Operation;
 import ru.unn.agile.Complex.viewmodel.ViewModel;
-import ru.unn.agile.Complex.model.Complex;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -85,7 +84,8 @@ public class ViewModelTest {
     @Test
     public void canChangeOperation() {
         viewModel.getOperationProperty().set(Operation.MULTIPLY);
-        assertEquals(Operation.MULTIPLY.toString(), viewModel.getOperationProperty().get().toString());
+        assertEquals(Operation.MULTIPLY.toString(),
+                     viewModel.getOperationProperty().get().toString());
     }
 
     @Test
