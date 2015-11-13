@@ -6,7 +6,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import ru.unn.agile.Complex.model.*;
+import ru.unn.agile.Complex.model.Complex;
 import ru.unn.agile.Complex.viewmodel.Operation;
 import java.util.ArrayList;
 import java.util.List;
