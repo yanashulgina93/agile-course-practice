@@ -82,6 +82,13 @@ public class WhenWorkWithMatrix {
         assertTrue(success);
     }
 
+    @Test(expected = MatrixesCanNotMultiplyExeption.class)
+    public void multiplySomeMatrix5x5AndSomeMatrix3x5() {
+        Matrix firstMatrix = generateMatrix(5, 5);
+        Matrix secondMatrix = generateMatrix(3, 5);
+        Matrix resultMatrix = firstMatrix.multiply(secondMatrix);
+    }
+
     @Test
     public void compareEqualMatrixs4x3() {
         Matrix firstMatrix = generateMatrix(4, 3);

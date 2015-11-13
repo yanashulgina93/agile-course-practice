@@ -31,10 +31,8 @@ public class LongNumber {
     }
 
     private int getIntRank(final int number) {
-        int rank = 0;
-        if (number == 0) {
-            rank = 1;
-        } else {
+        int rank = 1;
+        if (number != 0) {
             rank = (int) (Math.log(Math.abs(number)) / Math.log(SCALE) + 1);
         }
 
