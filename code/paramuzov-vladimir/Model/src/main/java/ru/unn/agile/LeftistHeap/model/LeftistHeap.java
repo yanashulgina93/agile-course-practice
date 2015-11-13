@@ -1,4 +1,4 @@
-package ru.unn.agile.LeftistHeap;
+package ru.unn.agile.LeftistHeap.model;
 
 import java.util.ArrayList;
 
@@ -6,9 +6,14 @@ public class LeftistHeap<Type extends Comparable<Type>> {
     private LeftistHeapNode<Type> root;
     private int size;
 
-    LeftistHeap() {
+    public LeftistHeap() {
         root = null;
         size = 0;
+    }
+
+    public LeftistHeap(final LeftistHeap<Type> heap) {
+        this();
+        traversingTree(heap.getRoot(), null);
     }
 
     public Object[] toSortedArray() {
@@ -20,9 +25,24 @@ public class LeftistHeap<Type extends Comparable<Type>> {
         return sortedList.toArray(new Object[sortedList.size()]);
     }
 
+    public Object[] toSortedArrayWithoutDelete() {
+        LeftistHeap cloneHeap = new LeftistHeap<>(this);
+
+        return cloneHeap.toSortedArray();
+    }
     public void clear() {
         root = null;
         size = 0;
+    }
+
+    public LeftistHeapNode<Type> findNodeByKey(Type keyToFind) {
+        LeftistHeapNode<Type> foundNode = findNodeWithKey(root, keyToFind);
+
+        if(foundNode == null) {
+            throw new NullPointerException();
+        }
+
+        return foundNode;
     }
 
     public void delete(final LeftistHeapNode<Type> heapNode) {
@@ -121,6 +141,38 @@ public class LeftistHeap<Type extends Comparable<Type>> {
         heapNode.clear();
     }
 
+    private LeftistHeapNode<Type> findNodeWithKey(final LeftistHeapNode<Type> node,
+                                                 final Type keyToFind) {
+        LeftistHeapNode<Type> foundNode = null;
+        if(node != null) {
+            if(node.getElement().equals(keyToFind)) {
+                return node;
+            }
+            foundNode = findNodeWithKey(node.getLeftChild(), keyToFind);
+            if(foundNode != null) {
+                return foundNode;
+            }
+            foundNode = findNodeWithKey(node.getRightChild(), keyToFind);
+            if(foundNode != null) {
+                return foundNode;
+            }
+        }
+        return foundNode;
+    }
+
+    private void traversingTree(final LeftistHeapNode<Type> leftNode,
+                                final LeftistHeapNode<Type> rightNode) {
+        if(leftNode != null) {
+            insert(leftNode.getElement());
+            traversingTree(leftNode.getLeftChild(),leftNode.getRightChild());
+        }
+
+        if(rightNode != null) {
+            insert(rightNode.getElement());
+            traversingTree(rightNode.getLeftChild(),rightNode.getRightChild());
+        }
+    }
+
     private LeftistHeapNode<Type> merge(final LeftistHeapNode<Type> firstRoot,
                                         final LeftistHeapNode<Type> secondRoot) {
         if (firstRoot == null) {
@@ -133,7 +185,7 @@ public class LeftistHeap<Type extends Comparable<Type>> {
 
         LeftistHeapNode<Type> first = firstRoot;
         LeftistHeapNode<Type> second = secondRoot;
-        if (first.compareTo(second) > 0) {
+        if (first.compareTo(second) >= 0) {
             LeftistHeapNode<Type> temp = first;
             first = second;
             second = temp;
@@ -142,12 +194,12 @@ public class LeftistHeap<Type extends Comparable<Type>> {
         first.setRightChild(merge(first.getRightChild(), second));
         first.getRightChild().setParent(first);
 
-        if (!first.hasLeftChild() || first.isRightChildHasLargerRank()) {
-            first.swapChildren();
-        }
-
         if (first.hasRightChild()) {
             first.setRank(first.getRightChild().getRank() + 1);
+        }
+
+        if (!first.hasLeftChild() || first.isRightChildHasLargerRank()) {
+            first.swapChildren();
         }
 
         return first;

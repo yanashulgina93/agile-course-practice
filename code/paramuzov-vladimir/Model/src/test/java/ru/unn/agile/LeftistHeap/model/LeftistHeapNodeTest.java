@@ -1,4 +1,4 @@
-package ru.unn.agile.LeftistHeap;
+package ru.unn.agile.LeftistHeap.model;
 
 import org.junit.Test;
 

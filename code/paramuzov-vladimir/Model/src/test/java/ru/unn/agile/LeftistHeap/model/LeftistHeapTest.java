@@ -1,4 +1,4 @@
-package ru.unn.agile.LeftistHeap;
+package ru.unn.agile.LeftistHeap.model;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -247,6 +247,24 @@ public class LeftistHeapTest {
         }
 
         @Test
+        public void canFindExistingElementInHeapByKey() {
+            setUpHeap(heap, 20);
+            Integer keyToFind = 15;
+
+            LeftistHeapNode<Integer> foundNode = heap.findNodeByKey(keyToFind);
+
+            assertEquals(keyToFind, foundNode.getElement());
+        }
+
+        @Test(expected = NullPointerException.class)
+        public void tryingToFindNotExistingElementThrowsException() {
+            setUpHeap(heap, 20);
+            Integer keyToFind = 21;
+
+            heap.findNodeByKey(keyToFind);
+        }
+
+        @Test
         public void canDeleteNotRootElementFromNotEmptyHeap() {
             int elementsInHeap = 5;
             setUpHeap(heap, elementsInHeap);
@@ -256,6 +274,55 @@ public class LeftistHeapTest {
             assertEquals(elementsInHeap - 1, heap.getSize());
         }
 
+        @Test
+        public void deepCopyOfHeapHaveDifferentAddress() {
+            setUpHeap(heap, 5);
+
+            LeftistHeap<Integer> deepCopy = new LeftistHeap<>(heap);
+
+            assertTrue(heap != deepCopy);
+        }
+
+        @Test
+        public void canChangeDeepCopyWithoutChangingSourceHeap() {
+            setUpHeap(heap, 5);
+            Integer[] correctValues = {0, 1, 2, 3, 4};
+
+            LeftistHeap<Integer> deepCopy = new LeftistHeap<>(heap);
+            multiplyAllKeysInHeapByTen(deepCopy.getRoot(), null);
+
+            assertArrayEquals(correctValues, heap.toSortedArray());
+        }
+
+        @Test
+        public void canGetSortedArrayWithoutHeapClearing() {
+            setUpHeap(heap, 5);
+
+            heap.toSortedArrayWithoutDelete();
+
+            assertEquals(5, heap.getSize());
+        }
+
+        @Test
+        public void canGetProperSortedArrayWithoutHeapClearing() {
+            setUpHeap(heap, 5);
+            Integer[] correctValues = {0, 1, 2, 3, 4};
+
+            assertArrayEquals(correctValues, heap.toSortedArrayWithoutDelete());
+        }
+
+        private void multiplyAllKeysInHeapByTen(final LeftistHeapNode<Integer> leftNode,
+                                                final LeftistHeapNode<Integer> rightNode) {
+            if(leftNode != null) {
+                leftNode.setElement(10*leftNode.getElement());
+                multiplyAllKeysInHeapByTen(leftNode.getLeftChild(), leftNode.getRightChild());
+            }
+
+            if(rightNode != null) {
+                rightNode.setElement(10 * rightNode.getElement());
+                multiplyAllKeysInHeapByTen(rightNode.getLeftChild(), rightNode.getRightChild());
+            }
+        }
         private LeftistHeap<Integer> heap;
     }
 

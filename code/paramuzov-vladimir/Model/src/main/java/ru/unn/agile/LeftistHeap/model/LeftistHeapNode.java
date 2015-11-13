@@ -1,4 +1,4 @@
-package ru.unn.agile.LeftistHeap;
+package ru.unn.agile.LeftistHeap.model;
 
 public class LeftistHeapNode<Type extends Comparable<Type>> {
     private Type element;
@@ -8,7 +8,7 @@ public class LeftistHeapNode<Type extends Comparable<Type>> {
     private int rank;
 
     LeftistHeapNode(final Type element) {
-        this(element, null, null, null);
+        this(element, null, null, null, 0);
     }
 
     public void swapChildren() {
@@ -91,11 +91,12 @@ public class LeftistHeapNode<Type extends Comparable<Type>> {
     private LeftistHeapNode(final Type element,
                             final LeftistHeapNode<Type> leftChild,
                             final LeftistHeapNode<Type> rightChild,
-                            final LeftistHeapNode<Type> parent) {
+                            final LeftistHeapNode<Type> parent,
+                            final int rank) {
         this.element = element;
         this.leftChild = leftChild;
         this.rightChild = rightChild;
         this.parent = parent;
-        this.rank = 0;
+        this.rank = rank;
     }
 }
