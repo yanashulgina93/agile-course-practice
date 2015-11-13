@@ -9,14 +9,14 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(final Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("ComplexCalculator.fxml"));
         primaryStage.setTitle("Complex Calculator");
-        primaryStage.setScene(new Scene(root, 531, 295));
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         launch(args);
     }
 }

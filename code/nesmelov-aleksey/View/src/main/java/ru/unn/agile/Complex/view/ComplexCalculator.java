@@ -1,12 +1,12 @@
 package ru.unn.agile.Complex.view;
 
+import javafx.beans.property.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 import ru.unn.agile.Complex.viewmodel.*;
 
 public class ComplexCalculator {
@@ -27,10 +27,17 @@ public class ComplexCalculator {
 
     @FXML
     void initialize() {
-        firstRealTextField.textProperty().bindBidirectional(viewModel.getFirstRealProperty());
-        firstImaginaryTextField.textProperty().bindBidirectional(viewModel.getFirstImaginaryProperty());
-        secondRealTextField.textProperty().bindBidirectional(viewModel.getSecondRealProperty());
-        secondImaginaryTextField.textProperty().bindBidirectional(viewModel.getSecondImaginaryProperty());
+        StringProperty viewModelProperty = viewModel.getFirstRealProperty();
+        firstRealTextField.textProperty().bindBidirectional(viewModelProperty);
+
+        viewModelProperty = viewModel.getFirstImaginaryProperty();
+        firstImaginaryTextField.textProperty().bindBidirectional(viewModelProperty);
+        
+        viewModelProperty = viewModel.getSecondRealProperty();
+        secondRealTextField.textProperty().bindBidirectional(viewModelProperty);
+
+        viewModelProperty = viewModel.getSecondImaginaryProperty();
+        secondImaginaryTextField.textProperty().bindBidirectional(viewModelProperty);
 
         operationsComboBox.valueProperty().bindBidirectional(viewModel.getOperationProperty());
         calculateButton.setOnAction(new EventHandler<ActionEvent>() {
