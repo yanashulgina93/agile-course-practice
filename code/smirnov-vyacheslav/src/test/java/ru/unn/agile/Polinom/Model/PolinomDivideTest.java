@@ -33,7 +33,7 @@ public class PolinomDivideTest {
     }
 
     @Test
-    public canDivideByOne() {
+    public void canDivideByOne() {
         double[] oneCoefficients = {1.0};
         double[] resultCoefficients = {8.0, 2.0, 0.0, 1.0};
         Polinom one = new Polinom(oneCoefficients);
@@ -44,7 +44,7 @@ public class PolinomDivideTest {
     }
 
     @Test
-    public canDivideBySimplePolinom() {
+    public void canDivideBySimplePolinom() {
         double[] simplePolinomCoefficients = {0.0, 5.0};
         double[] resultCoefficients = {0.4, 0.0, 0.2};
         Polinom simplePolinom = new Polinom(simplePolinomCoefficients);
@@ -55,7 +55,7 @@ public class PolinomDivideTest {
     }
 
     @Test
-    public canDividePolinoms() {
+    public void canDividePolinoms() {
         double[] resultCoefficients = {5.0, -2.0};
         second.divide(first);
 
