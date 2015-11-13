@@ -27,7 +27,7 @@ public class LongNumber {
         if (number < 0) {
             sign = -1;
         }
-        convetIntToLong(Math.abs(number));
+        initialize(Math.abs(number));
     }
 
     private int getIntRank(final int number) {
@@ -41,7 +41,7 @@ public class LongNumber {
         return rank;
     }
 
-    private void convetIntToLong(final int number) {
+    private void initialize(final int number) {
         int intermediateNum = number;
         int newElement;
         int divider;
@@ -57,50 +57,33 @@ public class LongNumber {
     }
 
     public LongNumber(final char[] chars) {
-        convertStringToLong(chars);
+        String string = new String(chars);
+        initialize(string);
     }
 
     public LongNumber(final String string) {
-        convertStringToLong(string);
+        initialize(string);
     }
 
-    private void convertStringToLong(final Object str) {
-        this.rank = this.getLenghtString(str);
-        this.getSign(str);
-        this.value = new int[rank];
-        this.fillValueFromString(str);
-    }
-
-    private int getLenghtString(final Object str) {
-        int lenght;
-        if (str.getClass() == String.class) {
-            lenght = ((String) str).length();
-        } else {
-            lenght = ((char[]) str).length;
-        }
-
-        return lenght;
-    }
-
-    private void getSign(final Object str) {
-        char charElement = this.getCharByIndex(str, 0);
-
-        if (charElement == '-') {
+    private void initialize(final String string) {
+        this.rank = string.length();
+        this.sign = 1;
+        if(string.charAt(0) == '-') {
             this.sign = -1;
             this.rank--;
-        } else {
-            this.sign = 1;
         }
+        this.value = new int[rank];
+        this.fillValue(string);
     }
 
-    private void fillValueFromString(final Object str) {
+    private void fillValue(final String string) {
         char charElement;
         int newElement;
-        int lenght = this.getLenghtString(str);
+        int lenght = string.length();
 
         int index = this.rank - 1;
         for (int i = 0; i < lenght; i++, index--) {
-            charElement = this.getCharByIndex(str, i);
+            charElement = string.charAt(i);
             if (i == 0 && charElement == '-') {
                 index++;
             } else {
@@ -115,17 +98,6 @@ public class LongNumber {
                 }
             }
         }
-    }
-
-    private char getCharByIndex(final Object str, final int i) {
-        char charElement;
-        if (str.getClass() == String.class) {
-            charElement = ((String) str).charAt(i);
-        } else {
-            charElement = ((char[]) str)[i];
-        }
-
-        return charElement;
     }
 
     public LongNumber(final LongNumber copiedNum) {
@@ -232,29 +204,29 @@ public class LongNumber {
     public LongNumber multiply(final LongNumber longNumber) {
         LongNumber result;
 
-        String strNum = this.convertToString();
-        BigInteger firstMultiplier = new BigInteger(strNum);
-        strNum = longNumber.convertToString();
-        BigInteger secondMultiplier = new BigInteger(strNum);
+        String stringNumber = this.convertToString();
+        BigInteger firstMultiplier = new BigInteger(stringNumber);
+        stringNumber = longNumber.convertToString();
+        BigInteger secondMultiplier = new BigInteger(stringNumber);
 
         BigInteger bigResult = firstMultiplier.multiply(secondMultiplier);
-        strNum = bigResult.toString();
-        result = new LongNumber(strNum);
+        stringNumber = bigResult.toString();
+        result = new LongNumber(stringNumber);
 
         return result;
     }
 
     public String convertToString() {
-        String strNum = "";
+        String stringNumber = "";
         if (this.sign == -1) {
-            strNum += "-";
+            stringNumber += "-";
         }
         for (int i = 0, j = this.rank - 1; i < this.rank; i++, j--) {
             int element = this.value[j];
-            strNum += Integer.toString(element);
+            stringNumber += Integer.toString(element);
         }
 
-        return strNum;
+        return stringNumber;
     }
 
     public int convertToInt() {
