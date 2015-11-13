@@ -14,17 +14,44 @@ public class HeapForm {
     private JButton buttonInsert;
     private JButton buttonDelete;
     private JTextArea textError;
-    private JCheckBox checkSortedView;
     private JTextArea textHeapContent;
 
     public HeapForm() {
         viewModel = new LeftistHeapViewModel();
         buttonInsert.addActionListener(e -> {
             backBind();
-            viewModel.insert();
+            viewModel.insertElement();
             bind();
         });
+
+        buttonDelete.addActionListener(e -> {
+            backBind();
+            viewModel.deleteElement();
+            bind();
+        });
+
+
         textNumberToInsert.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                backBind();
+                bind();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                backBind();
+                bind();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                backBind();
+                bind();
+            }
+        });
+
+        textNumberToDelete.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 backBind();
@@ -57,10 +84,13 @@ public class HeapForm {
 
     private void backBind() {
         viewModel.setNumberToInsert(textNumberToInsert.getText());
+        viewModel.setNumberToDelete(textNumberToDelete.getText());
     }
 
     private void bind() {
         buttonInsert.setEnabled(viewModel.isInsertButtonEnabled());
+        buttonDelete.setEnabled(viewModel.isDeleteButtonEnabled());
         textHeapContent.setText(viewModel.getHeapContent());
+        textError.setText(viewModel.getErrorText());
     }
 }

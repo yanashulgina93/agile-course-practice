@@ -21,14 +21,14 @@ public class LeftistHeapViewModelTest {
     }
 
     @Test
-    public void whenInputIntegerToInsertField_InsertButtonIsEnabled() {
+    public void whenInputIntegerToInsertFieldInsertButtonIsEnabled() {
         viewModel.setNumberToInsert("1");
 
         assertTrue(viewModel.isInsertButtonEnabled());
     }
 
     @Test
-    public void whenClearInsertField_InsertButtonIsDisabled() {
+    public void whenClearInsertFieldInsertButtonIsDisabled() {
         viewModel.setNumberToInsert("1");
         viewModel.setNumberToInsert("");
 
@@ -36,18 +36,90 @@ public class LeftistHeapViewModelTest {
     }
 
     @Test
-    public void whenInputIntegerToHeap_DisplayHeapContent() {
+    public void whenInsertOneIntegerToHeapContentDisplayed() {
         viewModel.setNumberToInsert("1");
-        viewModel.insert();
-        viewModel.setNumberToInsert("5");
-        viewModel.insert();
-        viewModel.setNumberToInsert("11");
-        viewModel.insert();
-        viewModel.setNumberToInsert("5");
-        viewModel.insert();
-        viewModel.setNumberToInsert("11");
-        viewModel.insert();
+        viewModel.insertElement();
 
-        assertEquals("[1, 5, 5, 11, 11]", viewModel.getHeapContent());
+        assertEquals("[1]", viewModel.getHeapContent());
     }
+
+    @Test
+    public void whenInsertTwoIntegersToHeapContentDisplayed() {
+        viewModel.setNumberToInsert("1");
+        viewModel.insertElement();
+        viewModel.setNumberToInsert("2");
+        viewModel.insertElement();
+
+        assertEquals("[1, 2]", viewModel.getHeapContent());
+    }
+
+    @Test
+    public void whenInputWrongValueToInsertFieldErrorDisplayed() {
+        viewModel.setNumberToInsert("afc");
+
+        assertEquals(LeftistHeapViewModel.ERROR_INSERT_WRONG_VALUE, viewModel.getErrorText());
+    }
+
+    @Test
+    public void whenInputWrongValueToInsertFieldInsertButtonIsDisabled() {
+        viewModel.setNumberToInsert("afc");
+
+        assertFalse(viewModel.isInsertButtonEnabled());
+    }
+
+    @Test
+    public void byDefaultDeleteButtonIsDisabled() {
+        assertFalse(viewModel.isDeleteButtonEnabled());
+    }
+
+    @Test
+    public void whenInputIntegerToDeleteFieldDeleteButtonIsEnabled() {
+        viewModel.setNumberToDelete("1");
+
+        assertTrue(viewModel.isDeleteButtonEnabled());
+    }
+
+    @Test
+    public void whenClearDeleteFieldDeleteButtonIsDisabled() {
+        viewModel.setNumberToDelete("1");
+        viewModel.setNumberToDelete("");
+
+        assertFalse(viewModel.isDeleteButtonEnabled());
+    }
+
+    @Test
+    public void whenTryingToDeleteNotExistingElementErrorDisplayed() {
+        viewModel.setNumberToDelete("1");
+        viewModel.deleteElement();
+
+        assertEquals(LeftistHeapViewModel.ERROR_VALUE_NOT_FIND, viewModel.getErrorText());
+    }
+
+    @Test
+    public void canDeleteExistingElementFromHeap() {
+        viewModel.setNumberToInsert("1");
+        viewModel.setNumberToDelete("1");
+
+        viewModel.insertElement();
+        viewModel.deleteElement();
+
+        assertEquals("[]", viewModel.getHeapContent());
+    }
+
+    @Test
+    public void whenInputWrongValueToDeleteFieldDeleteButtonIsDisabled() {
+        viewModel.setNumberToDelete("afc");
+
+        assertFalse(viewModel.isDeleteButtonEnabled());
+    }
+
+    @Test
+    public void whenInputWrongValueToDeleteFieldErrorDisplayed() {
+        viewModel.setNumberToDelete("afc");
+
+        assertEquals(LeftistHeapViewModel.ERROR_DELETE_WRONG_VALUE,
+                        viewModel.getErrorText());
+    }
+
+
 }
