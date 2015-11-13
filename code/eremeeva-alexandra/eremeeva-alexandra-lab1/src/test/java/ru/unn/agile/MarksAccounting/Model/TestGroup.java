@@ -29,18 +29,18 @@ public class TestGroup {
     private void initGroups() {
         group1 = new Group("1");
         comparedGroup1 = new Group("1");
-        group1.addStudent(tempStudents.get(0).getName());
-        group1.addStudent(tempStudents.get(1).getName());
-        comparedGroup1.addStudent(tempStudents.get(0).getName());
-        comparedGroup1.addStudent(tempStudents.get(1).getName());
-        comparedGroup1.addStudent(tempStudents.get(2).getName());
+        group1.addStudent(tempStudents.get(0));
+        group1.addStudent(tempStudents.get(1));
+        comparedGroup1.addStudent(tempStudents.get(0));
+        comparedGroup1.addStudent(tempStudents.get(1));
+        comparedGroup1.addStudent(tempStudents.get(2));
         group1.addAcademicSubject(tempAcademicSubjects.get(0));
         group1.addAcademicSubject(tempAcademicSubjects.get(2));
         comparedGroup1.addAcademicSubject(tempAcademicSubjects.get(0));
         comparedGroup1.addAcademicSubject(tempAcademicSubjects.get(1));
         comparedGroup1.addAcademicSubject(tempAcademicSubjects.get(2));
         comparedGroup1.addNewMark(new Mark(4, "History",
-                new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 1)), "Sidorov");
+                new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 1)), new Student("Sidorov"));
     }
 
     @Before
@@ -67,13 +67,13 @@ public class TestGroup {
     @Test
     public void canAddNewStudent() {
         tempStudents.get(2).deleteMarks("History");
-        group1.addStudent("Sidorov");
+        group1.addStudent(new Student("Sidorov"));
         assertEquals(tempStudents, group1.getStudents());
     }
 
     @Test
     public void whenStudentAlreadyExists() {
-        comparedGroup1.addStudent("Petrov");
+        comparedGroup1.addStudent(new Student("Petrov"));
         assertEquals(tempStudents, comparedGroup1.getStudents());
     }
 
@@ -91,29 +91,32 @@ public class TestGroup {
 
     @Test
     public void canAddNewMark() {
-        group1.addStudent("Sidorov");
+        group1.addStudent(new Student("Sidorov"));
         group1.addNewMark(new Mark(4, "History",
-                new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 1)), "Sidorov");
+                new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 1)),
+                new Student("Sidorov"));
         assertEquals(tempStudents, group1.getStudents());
     }
 
     @Test(expected = StudentDoesNotExistException.class)
     public void whenRequiredStudentDoesNotExistWhileAddingMark() {
         group1.addNewMark(new Mark(4, "History",
-                new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 1)), "Sidorov");
+                new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 1)),
+                new Student("Sidorov"));
     }
 
     @Test(expected = AcademicSubjectDoesNotExistException.class)
     public void whenRequiredAcademicSubjectDoesNotExistWhileAddingMark() {
         group1.addNewMark(new Mark(4, "Maths",
-                new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 1)), "Petrov");
+                new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 1)),
+                new Student("Petrov"));
     }
 
     @Test
     public void whenEquals() {
         Group equivalentomparedGroup1 = new Group("1");
-        equivalentomparedGroup1.addStudent("Ivanov");
-        equivalentomparedGroup1.addStudent("Petrov");
+        equivalentomparedGroup1.addStudent(new Student("Ivanov"));
+        equivalentomparedGroup1.addStudent(new Student("Petrov"));
         equivalentomparedGroup1.addAcademicSubject("History");
         equivalentomparedGroup1.addAcademicSubject("Science");
         assertTrue(equivalentomparedGroup1.equals(group1));
@@ -122,8 +125,8 @@ public class TestGroup {
     @Test
     public void whenDoesNotEqual() {
         Group equivalentomparedGroup1 = new Group("1");
-        equivalentomparedGroup1.addStudent("Ivanov");
-        equivalentomparedGroup1.addStudent("Petrov");
+        equivalentomparedGroup1.addStudent(new Student("Ivanov"));
+        equivalentomparedGroup1.addStudent(new Student("Petrov"));
         equivalentomparedGroup1.addAcademicSubject("History");
         equivalentomparedGroup1.addAcademicSubject("Science");
         assertFalse(equivalentomparedGroup1.equals(comparedGroup1));
@@ -133,58 +136,58 @@ public class TestGroup {
     public void canGetMark() {
         Mark four = new Mark(4, "History",
                 new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 1));
-        assertEquals(four, comparedGroup1.getMark("Sidorov", "History",
+        assertEquals(four, comparedGroup1.getMark(new Student("Sidorov"), "History",
                         new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 1)));
     }
 
     @Test(expected = StudentDoesNotExistException.class)
     public void whenRequiredStudentDoesNotExistWhileGettingMark() {
-        group1.getMark("Sidorov", "History",
+        group1.getMark(new Student("Sidorov"), "History",
                 new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 1));
     }
 
     @Test(expected = AcademicSubjectDoesNotExistException.class)
     public void whenRequiredAcademicSubjectDoesNotExistWhileGettingMark() {
-        group1.getMark("Petrov", "Maths",
+        group1.getMark(new Student("Petrov"), "Maths",
                 new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 1));
     }
 
     @Test
     public void canDeleteMark() {
-        group1.addStudent("Sidorov");
+        group1.addStudent(new Student("Sidorov"));
         group1.addAcademicSubject("Maths");
-        comparedGroup1.deleteMark("Sidorov", "History",
+        comparedGroup1.deleteMark(new Student("Sidorov"), "History",
                 new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 1));
         assertEquals(group1, comparedGroup1);
     }
 
     @Test(expected = StudentDoesNotExistException.class)
     public void whenRequiredStudentDoesNotExistWhileDeletingMark() {
-        group1.deleteMark("Sidorov", "History",
+        group1.deleteMark(new Student("Sidorov"), "History",
                 new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 1));
     }
 
     @Test(expected = AcademicSubjectDoesNotExistException.class)
     public void whenRequiredAcademicSubjectDoesNotExistWhileDeletingMark() {
-        group1.deleteMark("Petrov", "Maths",
+        group1.deleteMark(new Student("Petrov"), "Maths",
                 new GregorianCalendar(2015, GregorianCalendar.OCTOBER, 1));
     }
 
     @Test
     public void canDeleteStudent() {
         group1.addAcademicSubject("Maths");
-        comparedGroup1.deleteStudent("Sidorov");
+        comparedGroup1.deleteStudent(new Student("Sidorov"));
         assertEquals(group1, comparedGroup1);
     }
 
     @Test(expected = StudentDoesNotExistException.class)
     public void whenRequiredStudentDoesNotExistWhileDeletingStudent() {
-        group1.deleteStudent("Sidorov");
+        group1.deleteStudent(new Student("Sidorov"));
     }
 
     @Test
     public void canDeleteAcademicSubject() {
-        group1.addStudent("Sidorov");
+        group1.addStudent(new Student("Sidorov"));
         tempAcademicSubjects.remove(0);
         comparedGroup1.deleteAcademicSubject("History");
         assertTrue(group1.getStudents().equals(comparedGroup1.getStudents())

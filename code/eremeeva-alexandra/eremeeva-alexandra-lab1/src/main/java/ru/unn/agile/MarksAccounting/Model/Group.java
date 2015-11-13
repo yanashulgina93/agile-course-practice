@@ -19,9 +19,9 @@ public class Group {
                 "Required academic subject doesn't exist");
     }
 
-    private int findStudent(final String requiredStudent) {
+    private int findStudent(final Student requiredStudent) {
         for (int i = 0; i < getStudents().size(); i++) {
-            if (getStudents().get(i).getName().equals(requiredStudent)) {
+            if (getStudents().get(i).getName().equals(requiredStudent.getName())) {
                 return i;
             }
         }
@@ -46,18 +46,18 @@ public class Group {
         return academicSubjects;
     }
 
-    public void addStudent(final String newStudent) {
+    public void addStudent(final Student newStudent) {
         int i;
         if (getStudents().isEmpty()) {
-            this.students.add(new Student(newStudent));
+            this.students.add(new Student(newStudent.getName()));
         } else {
             for (i = 0; i < getStudents().size(); i++) {
-                if (getStudents().get(i).getName().compareTo(newStudent) > 0) {
+                if (getStudents().get(i).getName().compareTo(newStudent.getName()) > 0) {
                     break;
                 }
             }
-            if (!getStudents().get(i - 1).getName().equals(newStudent)) {
-                this.students.add(i, new Student(newStudent));
+            if (!getStudents().get(i - 1).getName().equals(newStudent.getName())) {
+                this.students.add(i, new Student(newStudent.getName()));
             }
         }
     }
@@ -92,26 +92,26 @@ public class Group {
                 && temp.getAcademicSubjects().equals(academicSubjects);
     }
 
-    public void addNewMark(final Mark newMark, final String requiredStudent) {
+    public void addNewMark(final Mark newMark, final Student requiredStudent) {
         findAcademicSubject(newMark.getAcademicSubject());
         students.get(findStudent(requiredStudent)).addMark(newMark);
     }
 
-    public Mark getMark(final String requiredStudent, final String requiredAcademicSubject,
+    public Mark getMark(final Student requiredStudent, final String requiredAcademicSubject,
                        final GregorianCalendar requiredDate) {
         findAcademicSubject(requiredAcademicSubject);
         return students.get(findStudent(requiredStudent)).getMark(requiredAcademicSubject,
                 requiredDate);
     }
 
-    public void deleteMark(final String requiredStudent, final String requiredAcademicSubject,
+    public void deleteMark(final Student requiredStudent, final String requiredAcademicSubject,
                            final GregorianCalendar requiredDate) {
         findAcademicSubject(requiredAcademicSubject);
         students.get(findStudent(requiredStudent)).deleteMark(
                 requiredAcademicSubject, requiredDate);
     }
 
-    public void deleteStudent(final String requiredStudent) {
+    public void deleteStudent(final Student requiredStudent) {
         students.remove(findStudent(requiredStudent));
     }
 
