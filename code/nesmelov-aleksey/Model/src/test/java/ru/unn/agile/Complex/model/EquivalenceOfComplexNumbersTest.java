@@ -31,4 +31,12 @@ public class EquivalenceOfComplexNumbersTest {
 
         assertFalse(first.equals(second));
     }
+
+    @Test
+    public void canCheckThatEqualsNumbersHaveEqualsHashCode() {
+        first = new Complex(5, 8);
+        second = new Complex(5, 8);
+
+        assertEquals(first.hashCode(), second.hashCode());
+    }
 }
