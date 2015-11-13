@@ -11,13 +11,11 @@ import main.java.ru.unn.agile.Complex.Model.*;
 public class PolinomDivideTest {
     private Polinom first;
     private Polinom second;
-    private double[] firstCoefficients;
-    private double[] secondCoefficients;
 
     @Before
     public viod initPolinoms() {
-        firstCoefficients = {8.0, 2.0, 0.0, 1.0};
-        secondCoefficients = {10.0, 0.0, -6.0, 5.0, -2.0};
+        double[] firstCoefficients = {8.0, 2.0, 0.0, 1.0};
+        double[] secondCoefficients = {10.0, 0.0, -6.0, 5.0, -2.0};
         first = new Polinom(firstCoefficients);
         second = new Polinom(secondCoefficients);
     }
