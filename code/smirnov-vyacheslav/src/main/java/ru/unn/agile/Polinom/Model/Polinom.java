@@ -51,11 +51,11 @@ public class Polinom {
 		extendPolinom(firstCoefficients.length + secondCoefficients.length);
 
 		for (int i = 0; i < firstCoefficients.length; i++) {
-			for(int j = 0; j < secondCoefficients.length; j++) {
+			for (int j = 0; j < secondCoefficients.length; j++) {
 				coefficients[i + j] += firstCoefficients[i] * secondCoefficients[j];
 			}
 		}
-		reduceIfHighDegreeIsNull();	
+		reduceIfHighDegreeIsNull();
 	}
 
 	public void divide(final Polinom operand) {
@@ -77,7 +77,7 @@ public class Polinom {
 		while (dividendHighDegree >= dividerHighDegree) {
 			int stepCoefficient = dividendHighDegree - dividerHighDegree + 1;
 			double[] stepQuotientCoefficients = new double[stepCoefficient];
-			stepQuotientCoefficients[stepCoefficient] = coefficients[dividendHighDegree] 
+			stepQuotientCoefficients[stepCoefficient] = coefficients[dividendHighDegree]
 			/ dividerCoefficients[dividerHighDegree];
 			Polinom stepQuotient = new Polinom(stepQuotientCoefficients);
 
@@ -118,7 +118,7 @@ public class Polinom {
 	private void reduceIfHighDegreeIsNull() {
 		int highNotNullCoefficient = getHighDegree();
 
-		while ((coefficients[highNotNullCoefficient] == 0) 
+		while ((coefficients[highNotNullCoefficient] == 0)
 			&& (highNotNullCoefficient > 0)) {
 			highNotNullCoefficient--;
 		}
