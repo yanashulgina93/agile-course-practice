@@ -6,7 +6,7 @@ import ru.unn.agile.LeftistHeap.model.LeftistHeapNode;
 import java.util.Arrays;
 
 public class LeftistHeapViewModel {
-    private LeftistHeap<Integer> heap;
+    private final LeftistHeap<Integer> heap;
     private boolean insertButtonEnabled = false;
     private String numberToInsert;
     private String heapContent = "[]";
@@ -25,7 +25,7 @@ public class LeftistHeapViewModel {
         return insertButtonEnabled;
     }
 
-    public void setNumberToInsert(String numberToInsert) {
+    public void setNumberToInsert(final String numberToInsert) {
         isNumberInFieldCorrect(numberToInsert, Fields.INSERT);
     }
 
@@ -43,7 +43,7 @@ public class LeftistHeapViewModel {
         return errorText;
     }
 
-    public void setNumberToDelete(String numberToDelete) {
+    public void setNumberToDelete(final String numberToDelete) {
         isNumberInFieldCorrect(numberToDelete, Fields.DELETE);
     }
 
@@ -55,8 +55,7 @@ public class LeftistHeapViewModel {
         LeftistHeapNode<Integer> nodeToDelete;
         try {
             nodeToDelete = heap.findNodeByKey(Integer.parseInt(numberToDelete));
-        }
-        catch(NullPointerException e) {
+        } catch (NullPointerException e) {
             addErrorMessage(ERROR_VALUE_NOT_FIND);
             return;
         }
@@ -66,19 +65,19 @@ public class LeftistHeapViewModel {
         heapContent = Arrays.toString(content);
     }
 
-    private enum Fields {INSERT, DELETE}
+    private enum Fields { INSERT, DELETE }
 
     private void isNumberInFieldCorrect(final String numberInField,
                                         final Fields field) {
-        String error = (field.equals(Fields.DELETE)) ? ERROR_DELETE_WRONG_VALUE:
-                                                        ERROR_INSERT_WRONG_VALUE;
-        if(numberInField.equals("")) {
+        String error = field.equals(Fields.DELETE) ? ERROR_DELETE_WRONG_VALUE
+                                                     : ERROR_INSERT_WRONG_VALUE;
+        if ("".equals(numberInField)) {
             deleteErrorMessage(error);
             setFieldState(field, false);
             return;
         }
 
-        if(!numberInField.matches("\\d+")) {
+        if (!numberInField.matches("\\d+")) {
             setFieldState(field, false);
             addErrorMessage(error);
             return;
@@ -91,25 +90,25 @@ public class LeftistHeapViewModel {
     }
 
     private void deleteErrorMessage(final String error) {
-        if(errorText.contains(error)) {
+        if (errorText.contains(error)) {
             errorText = errorText.replace(error, "");
         }
     }
     private void addErrorMessage(final String error) {
-        if(!errorText.contains(error)) {
+        if (!errorText.contains(error)) {
             errorText += error;
         }
     }
 
     private void setFieldState(final Fields field, final boolean state) {
-        if(field.equals(Fields.INSERT)) {
+        if (field.equals(Fields.INSERT)) {
             insertButtonEnabled = state;
         } else {
             deleteButtonEnabled = state;
         }
     }
     private void setFieldValue(final Fields field, final String value) {
-        if(field.equals(Fields.INSERT)) {
+        if (field.equals(Fields.INSERT)) {
             numberToInsert = value;
         } else {
             numberToDelete = value;

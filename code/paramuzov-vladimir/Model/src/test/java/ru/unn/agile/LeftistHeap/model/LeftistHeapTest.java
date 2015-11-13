@@ -313,12 +313,12 @@ public class LeftistHeapTest {
 
         private void multiplyAllKeysInHeapByTen(final LeftistHeapNode<Integer> leftNode,
                                                 final LeftistHeapNode<Integer> rightNode) {
-            if(leftNode != null) {
-                leftNode.setElement(10*leftNode.getElement());
+            if (leftNode != null) {
+                leftNode.setElement(10 * leftNode.getElement());
                 multiplyAllKeysInHeapByTen(leftNode.getLeftChild(), leftNode.getRightChild());
             }
 
-            if(rightNode != null) {
+            if (rightNode != null) {
                 rightNode.setElement(10 * rightNode.getElement());
                 multiplyAllKeysInHeapByTen(rightNode.getLeftChild(), rightNode.getRightChild());
             }

@@ -6,8 +6,8 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class HeapForm {
-    private LeftistHeapViewModel viewModel;
+public final class HeapForm {
+    private final LeftistHeapViewModel viewModel;
     private JPanel rootPanel;
     private JTextField textNumberToInsert;
     private JTextField textNumberToDelete;
@@ -16,7 +16,7 @@ public class HeapForm {
     private JTextArea textError;
     private JTextArea textHeapContent;
 
-    public HeapForm() {
+    private HeapForm() {
         viewModel = new LeftistHeapViewModel();
         buttonInsert.addActionListener(e -> {
             backBind();
@@ -30,51 +30,33 @@ public class HeapForm {
             bind();
         });
 
-
-        textNumberToInsert.getDocument().addDocumentListener(new DocumentListener() {
+        DocumentListener fieldsListener = new DocumentListener() {
             @Override
-            public void insertUpdate(DocumentEvent e) {
+            public void insertUpdate(final DocumentEvent e) {
                 backBind();
                 bind();
             }
 
             @Override
-            public void removeUpdate(DocumentEvent e) {
+            public void removeUpdate(final DocumentEvent e) {
                 backBind();
                 bind();
             }
 
             @Override
-            public void changedUpdate(DocumentEvent e) {
+            public void changedUpdate(final DocumentEvent e) {
                 backBind();
                 bind();
             }
-        });
+        };
 
-        textNumberToDelete.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                backBind();
-                bind();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                backBind();
-                bind();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                backBind();
-                bind();
-            }
-        });
+        textNumberToInsert.getDocument().addDocumentListener(fieldsListener);
+        textNumberToDelete.getDocument().addDocumentListener(fieldsListener);
 
         bind();
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         JFrame frame = new JFrame("HeapForm");
         frame.setContentPane(new HeapForm().rootPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

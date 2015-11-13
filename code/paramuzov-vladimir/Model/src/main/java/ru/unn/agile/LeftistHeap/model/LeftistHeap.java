@@ -35,10 +35,10 @@ public class LeftistHeap<Type extends Comparable<Type>> {
         size = 0;
     }
 
-    public LeftistHeapNode<Type> findNodeByKey(Type keyToFind) {
+    public LeftistHeapNode<Type> findNodeByKey(final Type keyToFind) {
         LeftistHeapNode<Type> foundNode = findNodeWithKey(root, keyToFind);
 
-        if(foundNode == null) {
+        if (foundNode == null) {
             throw new NullPointerException();
         }
 
@@ -144,16 +144,16 @@ public class LeftistHeap<Type extends Comparable<Type>> {
     private LeftistHeapNode<Type> findNodeWithKey(final LeftistHeapNode<Type> node,
                                                  final Type keyToFind) {
         LeftistHeapNode<Type> foundNode = null;
-        if(node != null) {
-            if(node.getElement().equals(keyToFind)) {
+        if (node != null) {
+            if (node.getElement().equals(keyToFind)) {
                 return node;
             }
             foundNode = findNodeWithKey(node.getLeftChild(), keyToFind);
-            if(foundNode != null) {
+            if (foundNode != null) {
                 return foundNode;
             }
             foundNode = findNodeWithKey(node.getRightChild(), keyToFind);
-            if(foundNode != null) {
+            if (foundNode != null) {
                 return foundNode;
             }
         }
@@ -162,14 +162,14 @@ public class LeftistHeap<Type extends Comparable<Type>> {
 
     private void traversingTree(final LeftistHeapNode<Type> leftNode,
                                 final LeftistHeapNode<Type> rightNode) {
-        if(leftNode != null) {
+        if (leftNode != null) {
             insert(leftNode.getElement());
-            traversingTree(leftNode.getLeftChild(),leftNode.getRightChild());
+            traversingTree(leftNode.getLeftChild(), leftNode.getRightChild());
         }
 
-        if(rightNode != null) {
+        if (rightNode != null) {
             insert(rightNode.getElement());
-            traversingTree(rightNode.getLeftChild(),rightNode.getRightChild());
+            traversingTree(rightNode.getLeftChild(), rightNode.getRightChild());
         }
     }
 
