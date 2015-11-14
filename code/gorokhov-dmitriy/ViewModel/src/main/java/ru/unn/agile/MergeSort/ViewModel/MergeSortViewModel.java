@@ -22,8 +22,7 @@ public class MergeSortViewModel {
     }
 
     public void sort() {
-        Double[] sortingArray;
-        sortingArray = parseSourceArrayToSortingArray();
+        Double[] sortingArray = parseSourceArrayToSortingArray();
 
         MergeSort.sort(sortingArray);
 
@@ -100,7 +99,7 @@ public class MergeSortViewModel {
             for (String anElementsArray : elementsArray) {
                 Double.parseDouble(anElementsArray);
             }
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             if (Objects.equals(sourceArray, "")) {
                 sortingArrayStatus = SortingArrayStatus.EMPTY;
             } else {
