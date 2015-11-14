@@ -27,7 +27,7 @@ public class PolinomMultiplyTest {
     }
 
     @Parameterized.Parameters
-    public static List<Object[]> MultiplyInputAndExpected() {
+    public static List<Object[]> multiplyInputAndExpected() {
         return Arrays.asList(new Object[][] {
             {new double[]{7.0, 15.0}, new double[]{0.0}, new double[]{0.0}},
             {new double[]{7.0, 15.0}, new double[]{4.0}, new double[]{28.0, 60.0}},
