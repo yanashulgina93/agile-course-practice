@@ -59,6 +59,7 @@ public class ViewModel {
         try {
             Double.parseDouble(inputTemperature);
             status = Status.READY;
+            resultTemperature = "";
             isConvertButtonEnable = true;
             return isConvertButtonEnable;
         } catch (NumberFormatException exception) {
