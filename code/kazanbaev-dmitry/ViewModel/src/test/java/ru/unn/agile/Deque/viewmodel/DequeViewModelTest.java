@@ -24,6 +24,16 @@ public class DequeViewModelTest {
     }
 
     @Test
+    public void byDefaultPopFrontButtonIsDisabled() {
+        assertFalse(viewModel.isPopFrontButtonEnabled());
+    }
+
+    @Test
+    public void byDefaultPopBackButtonIsDisabled() {
+        assertFalse(viewModel.isPopBackButtonEnabled());
+    }
+
+    @Test
     public void whenEnteredNumberPushFrontButtonIsEnabled() {
         viewModel.setInputNumber("12");
 

@@ -1,8 +1,14 @@
 package ru.unn.agile.Deque.view;
 
+import ru.unn.agile.Deque.viewmodel.DequeViewModel;
+
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public final class DequeForm {
+    private DequeViewModel viewModel;
+
     private JPanel mainPanel;
     private JTextField inputNumberText;
     private JButton pushFrontButton;
@@ -13,6 +19,41 @@ public final class DequeForm {
     private JButton popBackButton;
 
     private DequeForm() {
+        viewModel = new DequeViewModel();
+
+        inputNumberText.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                backBind();
+                bind();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                backBind();
+                bind();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                backBind();
+                bind();
+            }
+        });
+
+        bind();
+    }
+
+    private void backBind() {
+        viewModel.setInputNumber(inputNumberText.getText());
+    }
+
+    private void bind() {
+        //inputNumberText.setText(viewModel.getInputNumber());
+        pushFrontButton.setEnabled(viewModel.isPushFrontButtonEnabled());
+        pushBackButton.setEnabled(viewModel.isPushBackButtonEnabled());
+        popFrontButton.setEnabled(viewModel.isPopFrontButtonEnabled());
+        popBackButton.setEnabled(viewModel.isPopBackButtonEnabled());
     }
 
     public static void main(final String[] args) {
