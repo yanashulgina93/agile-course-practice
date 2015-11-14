@@ -5,11 +5,15 @@ import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Random;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Enclosed.class)
 public class WhenSortingPrimitiveDataTypesArray {
@@ -129,6 +133,18 @@ public class WhenSortingPrimitiveDataTypesArray {
         private int arraySize;
         private int maxElementValue;
         private long seed;
+    }
+
+    public static class MergeSortTestPrivateConstructor {
+        @Test
+        public void testConstructorIsPrivate()
+                throws NoSuchMethodException, IllegalAccessException,
+                       InvocationTargetException, InstantiationException {
+            Constructor<MergeSort> constructor = MergeSort.class.getDeclaredConstructor();
+            assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+            constructor.setAccessible(true);
+            constructor.newInstance();
+        }
     }
 }
 
