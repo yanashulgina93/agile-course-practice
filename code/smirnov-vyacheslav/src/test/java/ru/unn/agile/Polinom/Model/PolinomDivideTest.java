@@ -13,7 +13,7 @@ public class PolinomDivideTest {
     private Polinom second;
 
     @Before
-    public viod initPolinoms() {
+    public void initPolinoms() {
         first = new Polinom(new double[]{8.0, 2.0, 0.0, 1.0});
         second = new Polinom(new double[]{10.0, 0.0, -6.0, 5.0, -2.0});
     }
