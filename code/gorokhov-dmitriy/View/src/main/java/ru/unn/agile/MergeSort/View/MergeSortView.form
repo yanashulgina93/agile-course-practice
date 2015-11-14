@@ -8,7 +8,7 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="bafd5" class="javax.swing.JTextField" binding="sourceArray">
+      <component id="bafd5" class="javax.swing.JTextField" binding="sourceArrayTextField">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="321" height="24"/>
@@ -17,14 +17,6 @@
         <properties>
           <text value=""/>
         </properties>
-      </component>
-      <component id="fe76" class="javax.swing.JTextField" binding="sortedArray">
-        <constraints>
-          <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="321" height="24"/>
-          </grid>
-        </constraints>
-        <properties/>
       </component>
       <component id="85bb4" class="javax.swing.JLabel">
         <constraints>
@@ -57,7 +49,7 @@
           </grid>
         </constraints>
       </vspacer>
-      <component id="3c737" class="javax.swing.JButton" binding="buttonSort">
+      <component id="3c737" class="javax.swing.JButton" binding="sortButton">
         <constraints>
           <grid row="1" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -76,10 +68,8 @@
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <model>
-            <item value="ascending"/>
-            <item value="descending"/>
-          </model>
+          <enabled value="true"/>
+          <model/>
         </properties>
       </component>
       <component id="26f45" class="javax.swing.JLabel">
@@ -97,26 +87,6 @@
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
       </hspacer>
-      <component id="5891b" class="javax.swing.JTextField" binding="errorStatus">
-        <constraints>
-          <grid row="3" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="9" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties>
-          <editable value="false"/>
-          <enabled value="false"/>
-        </properties>
-      </component>
-      <component id="ffb78" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <font size="14"/>
-          <text value="Status:"/>
-        </properties>
-      </component>
       <hspacer id="7ffce">
         <constraints>
           <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -134,6 +104,36 @@
           <labelFor value="bafd5"/>
           <text value="Input your array here:"/>
           <verticalAlignment value="0"/>
+        </properties>
+      </component>
+      <component id="ffb78" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font size="14"/>
+          <text value="Status:"/>
+        </properties>
+      </component>
+      <component id="5891b" class="javax.swing.JTextField" binding="statusTextField">
+        <constraints>
+          <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="9" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
+        </properties>
+      </component>
+      <component id="fe76" class="javax.swing.JTextField" binding="sortedArrayTextField">
+        <constraints>
+          <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="321" height="24"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
         </properties>
       </component>
     </children>

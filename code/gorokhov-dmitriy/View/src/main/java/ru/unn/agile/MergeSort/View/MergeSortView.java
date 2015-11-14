@@ -1,22 +1,21 @@
 package ru.unn.agile.MergeSort.View;
 
+import ru.unn.agile.MergeSort.ViewModel.MergeSortViewModel;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import ru.unn.agile.MergeSort.ViewModel.MergeSortViewModel;
-
 public final class MergeSortView {
-    private MergeSortViewModel viewModel;
-
+    private final MergeSortViewModel viewModel;
     private JPanel mainPanel;
-    private JTextField sourceArray;
-    private JTextField sortedArray;
-    private JButton buttonSort;
-    private JTextField errorStatus;
-    private JComboBox sortingOrderComboBox;
+    private JTextField sourceArrayTextField;
+    private JTextField sortedArrayTextField;
+    private JButton sortButton;
+    private JTextField statusTextField;
+    private JComboBox<MergeSortViewModel.SortingOrder> sortingOrderComboBox;
 
     public static void main(final String[] args) {
         JFrame frame = new JFrame("MergeSortView");
@@ -27,31 +26,34 @@ public final class MergeSortView {
     }
 
     private MergeSortView(final MergeSortViewModel viewModel) {
-        this.viewModel = new MergeSortViewModel();
+        this.viewModel = viewModel;
 
-        buttonSort.addActionListener(new ActionListener() {
+        loadListOfSortingOrders();
+
+        sortButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                bind();
+            public void actionPerformed(final ActionEvent e) {
                 backBind();
+                viewModel.sort();
+                bind();
             }
         });
 
-        sourceArray.getDocument().addDocumentListener(new DocumentListener() {
+        sourceArrayTextField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
-            public void insertUpdate(DocumentEvent e) {
+            public void insertUpdate(final DocumentEvent e) {
                 backBind();
                 bind();
             }
 
             @Override
-            public void removeUpdate(DocumentEvent e) {
+            public void removeUpdate(final DocumentEvent e) {
                 backBind();
                 bind();
             }
 
             @Override
-            public void changedUpdate(DocumentEvent e) {
+            public void changedUpdate(final DocumentEvent e) {
                 backBind();
                 bind();
             }
@@ -61,13 +63,20 @@ public final class MergeSortView {
     }
 
     private void backBind() {
-        viewModel.setSortingArray(sourceArray.getText());
+        viewModel.setSortingArray(sourceArrayTextField.getText());
+        viewModel.setSortingOrder((MergeSortViewModel.SortingOrder)
+                                  sortingOrderComboBox.getSelectedItem());
     }
 
     private void bind() {
-        buttonSort.setEnabled(viewModel.isSortButtonEnabled());
+        sortedArrayTextField.setText(viewModel.getSortingArray());
+        statusTextField.setText(viewModel.getSortingArrayStatus());
 
-        sortedArray.setText(viewModel.getSortingArray());
+        sortButton.setEnabled(viewModel.isSortButtonEnabled());
     }
 
+    private void loadListOfSortingOrders() {
+        MergeSortViewModel.SortingOrder[] sortingOrder = MergeSortViewModel.SortingOrder.values();
+        sortingOrderComboBox.setModel(new JComboBox<>(sortingOrder).getModel());
+    }
 }
