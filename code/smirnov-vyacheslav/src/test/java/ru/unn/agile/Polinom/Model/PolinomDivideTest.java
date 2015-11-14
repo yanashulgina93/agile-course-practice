@@ -1,8 +1,8 @@
 package test.java.ru.unn.agile.Polinom.Model;
 
-import org.junit.Assert; 
+import org.junit.Assert;
 import org.junit.Test;
-import org.junit.Before; 
+import org.junit.Before;
 
 import java.util.Arrays;
 

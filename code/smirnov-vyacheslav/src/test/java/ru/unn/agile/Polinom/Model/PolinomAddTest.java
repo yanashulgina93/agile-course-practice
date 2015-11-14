@@ -1,10 +1,10 @@
 package test.java.ru.unn.agile.Polinom.Model;
 
-import org.junit.Assert; 
+import org.junit.Assert;
 import org.junit.Test;
-import org.junit.Before; 
-import org.junit.runner.RunWith; 
-import org.junit.runners.Parameterized; 
+import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,7 +32,8 @@ public class PolinomAddTest {
             {new double[]{0.0}, new double[]{0.0}, new double[]{0.0}},
             {new double[]{5.0, 15.0}, new double[]{7.0, 1.0}, new double[]{12.0, 16.0}},
             {new double[]{15.0, -8.0}, new double[]{-2.0, 7.0}, new double[]{13.0, -1.0}},
-            {new double[]{2.0, 9.0, 0.0}, new double[]{0.0, 1.0, 4.0}, new double[]{2.0, 10.0, 4.0}},
+            {new double[]{2.0, 9.0, 0.0}, new double[]{0.0, 1.0, 4.0},
+            new double[]{2.0, 10.0, 4.0}},
             {new double[]{12.64, 0.15, 1007.0009}, new double[]{-12.64, 60.85, 1002.101},
             new double[]{0.0, 61.0, 2009.1019}},
             {new double[]{5.0, 6.0, 7.0}, new double[]{5.0, 6.0, -7.0}, new double[]{10.0, 12.0}},
