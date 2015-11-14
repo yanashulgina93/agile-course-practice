@@ -2,7 +2,7 @@ package main.java.ru.unn.agile.Polinom.Model;
 
 public class Polinom {
     private double[] coefficients;
-    private Polinom residue;
+    private final Polinom residue;
 
     public Polinom() {
         coefficients = new double[1];
@@ -65,7 +65,7 @@ public class Polinom {
         int dividendHighDegree = getHighDegree();
         int dividerHighDegree = operand.getHighDegree();
 
-        if ((dividerHighDegree == 0) && (dividerCoefficients[0] == 0)) {
+        if (dividerHighDegree == 0 && dividerCoefficients[0] == 0) {
             throw new IllegalArgumentException("Divider can't be zero!");
         }
 
@@ -118,8 +118,8 @@ public class Polinom {
     private void reduceIfHighDegreeIsNull() {
         int highNotNullCoefficient = getHighDegree();
 
-        while ((coefficients[highNotNullCoefficient] == 0)
-            && (highNotNullCoefficient > 0)) {
+        while (coefficients[highNotNullCoefficient] == 0
+            && highNotNullCoefficient > 0) {
             highNotNullCoefficient--;
         }
 
