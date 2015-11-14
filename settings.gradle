@@ -85,6 +85,8 @@ include "code/kazanbaev-dmitry/Model"
 project(":code/kazanbaev-dmitry/Model").name = "kazanbaev-dmitry-Model"
 include "code/kazanbaev-dmitry/View"
 project(":code/kazanbaev-dmitry/View").name = "kazanbaev-dmitry-View"
+include "code/kazanbaev-dmitry/ViewModel"
+project(":code/kazanbaev-dmitry/ViewModel").name = "kazanbaev-dmitry-ViewModel"
 
 // Khanova Tatyana
 // Kochanova Kseniya
