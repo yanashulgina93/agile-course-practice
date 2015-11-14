@@ -15,16 +15,7 @@
       <TextField id="firstImaginaryTextField" layoutX="374.0" layoutY="41.0" prefHeight="25.0" prefWidth="132.0" />
       <TextField id="secondRealTextField" layoutX="177.0" layoutY="150.0" prefHeight="25.0" prefWidth="132.0" />
       <TextField id="secondImaginaryTextField" layoutX="378.0" layoutY="150.0" prefHeight="25.0" prefWidth="132.0" />
-      <ComboBox id="operationsComboBox" layoutX="173.0" layoutY="82.0" prefHeight="25.0" prefWidth="132.0" promptText="+" visibleRowCount="4">
-         <items>
-            <FXCollections fx:factory="observableArrayList">
-               <String fx:value="+" />
-               <String fx:value="-" />
-               <String fx:value="*" />
-               <String fx:value="/" />
-            </FXCollections>
-         </items>
-      </ComboBox>
+      <ComboBox id="operationsComboBox" items=${viewModel.operations} layoutX="173.0" layoutY="82.0" prefHeight="25.0" prefWidth="132.0" promptText="+" visibleRowCount="4" />
       <Button id="CalculateButton" defaultButton="true" disable="${viewModel.canCalculate}" layoutX="177.0" layoutY="191.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="335.0" text="Calculate" />
       <Text layoutX="14.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Complex Number:" />
       <Text layoutX="18.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Second Complex Number:" />

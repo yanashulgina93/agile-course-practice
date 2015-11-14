@@ -38,7 +38,6 @@ public class ViewModelTest {
     public void canNotCalculateWhenFieldsAreEmpty() {
         viewModel.calculate();
         assertFalse(viewModel.canCalculateProperty().get());
-        assertEquals("", viewModel.getResultProperty().get());
     }
 
     @Test

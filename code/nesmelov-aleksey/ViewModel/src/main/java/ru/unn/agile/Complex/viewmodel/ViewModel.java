@@ -4,6 +4,8 @@ import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import ru.unn.agile.Complex.model.Complex;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,9 @@ public class ViewModel {
     private final StringProperty errors = new SimpleStringProperty();
     private final ObjectProperty<Operation> operation = new SimpleObjectProperty<Operation>();
     private final BooleanProperty canCalculate = new SimpleBooleanProperty();
-    private final List<ListenerOfChangedValue> listOfListenersOfChanedValues = new ArrayList<>();
+    private final List<ListenerOfChangedValue> listOfListenersOfChangedValues = new ArrayList<>();
+    private final ObjectProperty<ObservableList<Operation>> operations =
+            new SimpleObjectProperty<>(FXCollections.observableArrayList(Operation.values()));
 
     public ViewModel() {
         firstReal.set("");
@@ -36,34 +40,46 @@ public class ViewModel {
         for (StringProperty field : fields) {
             final ListenerOfChangedValue listener = new ListenerOfChangedValue();
             field.addListener(listener);
-            listOfListenersOfChanedValues.add(listener);
+            listOfListenersOfChangedValues.add(listener);
         }
     }
 
     public StringProperty getFirstRealProperty() {
         return firstReal;
     }
+
     public StringProperty getFirstImaginaryProperty() {
         return firstImaginary;
     }
+
     public StringProperty getSecondRealProperty() {
         return secondReal;
     }
+
     public StringProperty getSecondImaginaryProperty() {
         return secondImaginary;
     }
+
     public StringProperty getResultProperty() {
         return result;
     }
+
     public StringProperty getErrorsProperty() {
         return errors;
     }
+
     public ObjectProperty<Operation> getOperationProperty() {
         return operation;
     }
+
     public BooleanProperty canCalculateProperty() {
         return canCalculate;
     }
+
+    public ObjectProperty<ObservableList<Operation>> getOperationsProperty() {
+        return operations;
+    }
+
     public void calculate() {
         if (!canCalculate.get()) {
             return;
@@ -97,6 +113,7 @@ public class ViewModel {
                 break;
         }
     }
+
     private void refreshInputErrors() {
         errors.set("");
         canCalculate.set(true);
@@ -126,6 +143,7 @@ public class ViewModel {
             errors.set("Invalid format!");
         }
     }
+
     private class ListenerOfChangedValue implements ChangeListener<String> {
         @Override
         public void changed(final ObservableValue<? extends String> observable,

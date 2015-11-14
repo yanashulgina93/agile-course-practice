@@ -4,7 +4,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class EquivalenceOfComplexNumbersTest {
-    private final double epsil = 0.00000000000000001;
     private Complex first;
     private Complex second;
 
