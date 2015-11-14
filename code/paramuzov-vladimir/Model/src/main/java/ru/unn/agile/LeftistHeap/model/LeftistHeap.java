@@ -30,6 +30,7 @@ public class LeftistHeap<Type extends Comparable<Type>> {
 
         return cloneHeap.toSortedArray();
     }
+
     public void clear() {
         root = null;
         size = 0;

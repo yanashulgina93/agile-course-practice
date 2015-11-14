@@ -6,10 +6,23 @@ import ru.unn.agile.LeftistHeap.model.LeftistHeapNode;
 import java.util.Arrays;
 
 public class LeftistHeapViewModel {
-    public static final String ERROR_INSERT_WRONG_VALUE = "Wrong value to insert.\n";
-    public static final String ERROR_DELETE_WRONG_VALUE = "Wrong value to delete.\n";
-    public static final String ERROR_VALUE_NOT_FIND = "Element to delete not found.\n";
+    public enum Errors {
+        INSERT_FIELD_BAD_FORMAT("Wrong value to insert. Only integers, please.\n"),
+        DELETE_FIELD_BAD_FORMAT("Wrong value to delete. Only integers, please.\n"),
+        VALUE_TO_DELETE_NOT_FOUND("Element to delete not found.\n");
 
+        private String errorMessage;
+
+        Errors(final String errorMessage) {
+            this.errorMessage = errorMessage;
+        }
+
+        public String getMessage() {
+            return errorMessage;
+        }
+    }
+
+    private enum Fields { INSERT, DELETE }
     private final LeftistHeap<Integer> heap;
     private boolean insertButtonEnabled = false;
     private boolean deleteButtonEnabled = false;
@@ -57,21 +70,19 @@ public class LeftistHeapViewModel {
         try {
             nodeToDelete = heap.findNodeByKey(Integer.parseInt(numberToDelete));
         } catch (NullPointerException e) {
-            addErrorMessage(ERROR_VALUE_NOT_FIND);
+            addErrorMessage(Errors.VALUE_TO_DELETE_NOT_FOUND);
             return;
         }
-        deleteErrorMessage(ERROR_VALUE_NOT_FIND);
+        deleteErrorMessage(Errors.VALUE_TO_DELETE_NOT_FOUND);
         heap.delete(nodeToDelete);
         Object[] content = heap.toSortedArrayWithoutDelete();
         heapContent = Arrays.toString(content);
     }
 
-    private enum Fields { INSERT, DELETE }
-
     private void isNumberInFieldCorrect(final String numberInField,
                                         final Fields field) {
-        String error = field.equals(Fields.DELETE) ? ERROR_DELETE_WRONG_VALUE
-                                                   : ERROR_INSERT_WRONG_VALUE;
+        Errors error = field.equals(Fields.DELETE) ? Errors.DELETE_FIELD_BAD_FORMAT
+                                                   : Errors.INSERT_FIELD_BAD_FORMAT;
         if ("".equals(numberInField)) {
             deleteErrorMessage(error);
             setFieldState(field, false);
@@ -85,20 +96,20 @@ public class LeftistHeapViewModel {
         }
 
         deleteErrorMessage(error);
-        deleteErrorMessage(ERROR_VALUE_NOT_FIND);
+        deleteErrorMessage(Errors.VALUE_TO_DELETE_NOT_FOUND);
         setFieldState(field, true);
         setFieldValue(field, numberInField);
     }
 
-    private void deleteErrorMessage(final String error) {
-        if (errorText.contains(error)) {
-            errorText = errorText.replace(error, "");
+    private void deleteErrorMessage(final Errors error) {
+        if (errorText.contains(error.getMessage())) {
+            errorText = errorText.replace(error.getMessage(), "");
         }
     }
 
-    private void addErrorMessage(final String error) {
-        if (!errorText.contains(error)) {
-            errorText += error;
+    private void addErrorMessage(final Errors error) {
+        if (!errorText.contains(error.getMessage())) {
+            errorText += error.getMessage();
         }
     }
 

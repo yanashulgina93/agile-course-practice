@@ -57,7 +57,8 @@ public class LeftistHeapViewModelTest {
     public void whenInputWrongValueToInsertFieldErrorDisplayed() {
         viewModel.setNumberToInsert("afc");
 
-        assertEquals(LeftistHeapViewModel.ERROR_INSERT_WRONG_VALUE, viewModel.getErrorText());
+        assertEquals(LeftistHeapViewModel.Errors.INSERT_FIELD_BAD_FORMAT.getMessage(),
+                     viewModel.getErrorText());
     }
 
     @Test
@@ -92,7 +93,8 @@ public class LeftistHeapViewModelTest {
         viewModel.setNumberToDelete("1");
         viewModel.deleteElement();
 
-        assertEquals(LeftistHeapViewModel.ERROR_VALUE_NOT_FIND, viewModel.getErrorText());
+        assertEquals(LeftistHeapViewModel.Errors.VALUE_TO_DELETE_NOT_FOUND.getMessage(),
+                     viewModel.getErrorText());
     }
 
     @Test
@@ -117,8 +119,8 @@ public class LeftistHeapViewModelTest {
     public void whenInputWrongValueToDeleteFieldErrorDisplayed() {
         viewModel.setNumberToDelete("afc");
 
-        assertEquals(LeftistHeapViewModel.ERROR_DELETE_WRONG_VALUE,
-                        viewModel.getErrorText());
+        assertEquals(LeftistHeapViewModel.Errors.DELETE_FIELD_BAD_FORMAT.getMessage(),
+                     viewModel.getErrorText());
     }
 
     @Test
@@ -126,8 +128,8 @@ public class LeftistHeapViewModelTest {
         viewModel.setNumberToInsert("afc");
         viewModel.setNumberToDelete("afc");
 
-        assertEquals(LeftistHeapViewModel.ERROR_INSERT_WRONG_VALUE
-                   + LeftistHeapViewModel.ERROR_DELETE_WRONG_VALUE,
+        assertEquals(LeftistHeapViewModel.Errors.INSERT_FIELD_BAD_FORMAT.getMessage()
+                   + LeftistHeapViewModel.Errors.DELETE_FIELD_BAD_FORMAT.getMessage(),
                      viewModel.getErrorText());
     }
 
@@ -137,7 +139,7 @@ public class LeftistHeapViewModelTest {
         viewModel.setNumberToDelete("afc");
         viewModel.setNumberToInsert("0");
 
-        assertEquals(LeftistHeapViewModel.ERROR_DELETE_WRONG_VALUE,
+        assertEquals(LeftistHeapViewModel.Errors.DELETE_FIELD_BAD_FORMAT.getMessage(),
                      viewModel.getErrorText());
     }
 }

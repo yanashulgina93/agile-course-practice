@@ -276,8 +276,7 @@ public class LeftistHeapTest {
         public void canClearHeapByDeletingSingleElements() {
             setUpHeap(heap, 50);
 
-            for (int i = heap.getSize() - 1; i >= 0; i--) {
-                Integer keyToFind = i;
+            for (Integer keyToFind = heap.getSize() - 1; keyToFind >= 0; keyToFind--) {
                 LeftistHeapNode<Integer> foundNode = heap.findNodeByKey(keyToFind);
                 heap.delete(foundNode);
             }
