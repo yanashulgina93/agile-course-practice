@@ -1,9 +1,8 @@
 package ru.unn.agile.Vec3.Model;
 
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
+
+import static org.junit.Assert.*;
 
 public class Vec3Test {
     private Vector3 firstVec;
@@ -28,7 +27,7 @@ public class Vec3Test {
         firstVec  = new Vector3(new double[] {9.0, 9.0, 9.0});
         secondVec = new Vector3(9.0, 9.0, 9.0);
 
-        assert firstVec.equals(secondVec);
+        assertEquals(firstVec, secondVec);
     }
 
     @Test
@@ -60,7 +59,7 @@ public class Vec3Test {
 
         firstVec.normalize();
 
-        assert firstVec.equals(secondVec);
+        assertEquals(firstVec, secondVec);
     }
 
     @Test (expected = ArithmeticException.class)
@@ -92,7 +91,7 @@ public class Vec3Test {
         final double value = 666.0;
         firstVec = new Vector3();
 
-        assertFalse(firstVec.equals(value));
+        assertNotEquals(firstVec, value);
     }
 
     @Test
@@ -100,7 +99,7 @@ public class Vec3Test {
         firstVec  = new Vector3(6.0, 6.0, 6.0);
         Object vector = new Vector3(6.0, 6.0, 6.0);
 
-        assertTrue(firstVec.equals(vector));
+        assertEquals(firstVec, vector);
     }
 
     @Test
@@ -108,7 +107,7 @@ public class Vec3Test {
         firstVec  = new Vector3(6.0, 6.0, 6.0);
         secondVec = new Vector3(6.0, 6.0, 6.0);
 
-        assertTrue(firstVec.hashCode() == secondVec.hashCode());
+        assertEquals(firstVec.hashCode(), secondVec.hashCode());
     }
 
     @Test
@@ -118,7 +117,7 @@ public class Vec3Test {
         firstVec = new Vector3();
         firstVec.setX(value);
 
-        assertTrue(Math.abs(firstVec.x() - value) < Double.MIN_VALUE);
+        assertEquals(firstVec.x(), value, Double.MIN_VALUE);
     }
 
     @Test
@@ -128,7 +127,7 @@ public class Vec3Test {
         firstVec = new Vector3();
         firstVec.setY(value);
 
-        assertTrue(Math.abs(firstVec.y() - value) < Double.MIN_VALUE);
+        assertEquals(firstVec.y(), value, Double.MIN_VALUE);
     }
 
     @Test
@@ -138,7 +137,7 @@ public class Vec3Test {
         firstVec = new Vector3();
         firstVec.setZ(value);
 
-        assertTrue(Math.abs(firstVec.z() - value) < Double.MIN_VALUE);
+        assertEquals(firstVec.z(), value, Double.MIN_VALUE);
     }
 }
 

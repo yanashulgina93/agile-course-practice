@@ -6,6 +6,7 @@ public class Vector3 {
     private double z;
 
     private static final int HASH_FACTOR = 31;
+    private static final String MESSAGE_ERROR_NORMALIZE = "Norm of vector is small";
 
     public Vector3() {
         //
@@ -97,7 +98,7 @@ public class Vector3 {
         final double norm = getNorm();
 
         if (norm < Double.MIN_VALUE) {
-            throw new ArithmeticException("Norm of vector is small: " + norm);
+            throw new ArithmeticException(getMessageErrorNormalize());
         }
 
         x /= norm;
@@ -117,5 +118,9 @@ public class Vector3 {
         vector.normalize();
 
         return vector;
+    }
+
+    public static String getMessageErrorNormalize() {
+        return MESSAGE_ERROR_NORMALIZE;
     }
 }

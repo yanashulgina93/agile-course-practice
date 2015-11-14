@@ -42,7 +42,7 @@
           </grid>
         </constraints>
         <properties>
-          <text value="0"/>
+          <text value="10"/>
         </properties>
       </component>
       <component id="c0804" class="javax.swing.JLabel" binding="lblCoordZ0">

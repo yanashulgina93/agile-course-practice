@@ -3,6 +3,14 @@ package ru.unn.agile.Vec3.ViewModel;
 import ru.unn.agile.Vec3.Model.Vector3;
 
 public class Vector3ViewModel {
+    private static final String DEFAULT_COORD_X0 = "0.0";
+    private static final String DEFAULT_COORD_Y0 = "0.0";
+    private static final String DEFAULT_COORD_Z0 = "0.0";
+
+    private static final String DEFAULT_COORD_X1 = "0.0";
+    private static final String DEFAULT_COORD_Y1 = "0.0";
+    private static final String DEFAULT_COORD_Z1 = "0.0";
+
     private String coordX0;
     private String coordY0;
     private String coordZ0;
@@ -14,16 +22,44 @@ public class Vector3ViewModel {
     private String  resultOfLastAction;
 
     public Vector3ViewModel() {
-        coordX0 = "0.0";
-        coordY0 = "0.0";
-        coordZ0 = "0.0";
-        coordX1 = "0.0";
-        coordY1 = "0.0";
-        coordZ1 = "0.0";
+        coordX0 = DEFAULT_COORD_X0;
+        coordY0 = DEFAULT_COORD_Y0;
+        coordZ0 = DEFAULT_COORD_Z0;
+        coordX1 = DEFAULT_COORD_X1;
+        coordY1 = DEFAULT_COORD_Y1;
+        coordZ1 = DEFAULT_COORD_Z1;
+    }
+
+    public String getDefaultCoordX0() {
+        return DEFAULT_COORD_X0;
+    }
+
+    public String getDefaultCoordY0() {
+        return DEFAULT_COORD_Y0;
+    }
+
+    public String getDefaultCoordZ0() {
+        return DEFAULT_COORD_Z0;
+    }
+
+    public String getDefaultCoordX1() {
+        return DEFAULT_COORD_X1;
+    }
+
+    public String getDefaultCoordY1() {
+        return DEFAULT_COORD_Y1;
+    }
+
+    public String getDefaultCoordZ1() {
+        return DEFAULT_COORD_Z1;
     }
 
     public void setCoordX0(final String coordX0) {
-        this.coordX0 = coordX0;
+        try {
+            this.coordX0 = Double.valueOf(coordX0).toString();
+        } catch (NumberFormatException e) {
+            this.coordX0 = getDefaultCoordX0();
+        }
     }
 
     public void setCoordX0(final double coordX0) {
@@ -31,7 +67,11 @@ public class Vector3ViewModel {
     }
 
     public void setCoordY0(final String coordY0) {
-        this.coordY0 = coordY0;
+        try {
+            this.coordY0 = Double.valueOf(coordY0).toString();
+        } catch (NumberFormatException e) {
+            this.coordY0 = getDefaultCoordY0();
+        }
     }
 
     public void setCoordY0(final double coordY0) {
@@ -39,7 +79,11 @@ public class Vector3ViewModel {
     }
 
     public void setCoordZ0(final String coordZ0) {
-        this.coordZ0 = coordZ0;
+        try {
+            this.coordZ0 = Double.valueOf(coordZ0).toString();
+        } catch (NumberFormatException e) {
+            this.coordZ0 = getDefaultCoordZ0();
+        }
     }
 
     public void setCoordZ0(final double coordZ0) {
@@ -47,7 +91,11 @@ public class Vector3ViewModel {
     }
 
     public void setCoordX1(final String coordX1) {
-        this.coordX1 = coordX1;
+        try {
+            this.coordX1 = Double.valueOf(coordX1).toString();
+        } catch (NumberFormatException e) {
+            this.coordX1 = getDefaultCoordX1();
+        }
     }
 
     public void setCoordX1(final double coordX1) {
@@ -55,7 +103,11 @@ public class Vector3ViewModel {
     }
 
     public void setCoordY1(final String coordY1) {
-        this.coordY1 = coordY1;
+        try {
+            this.coordY1 = Double.valueOf(coordY1).toString();
+        } catch (NumberFormatException e) {
+            this.coordY1 = getDefaultCoordY1();
+        }
     }
 
     public void setCoordY1(final double coordY1) {
@@ -63,7 +115,11 @@ public class Vector3ViewModel {
     }
 
     public void setCoordZ1(final String coordZ1) {
-        this.coordZ1 = coordZ1;
+        try {
+            this.coordZ1 = Double.valueOf(coordZ1).toString();
+        } catch (NumberFormatException e) {
+            this.coordZ1 = getDefaultCoordZ1();
+        }
     }
 
     public void setCoordZ1(final double coordZ1) {
@@ -135,10 +191,13 @@ public class Vector3ViewModel {
 
         try {
             vector.normalize();
-            resultOfLastAction = vector.toString();
         } catch (ArithmeticException exception) {
             resultOfLastAction = exception.getLocalizedMessage();
+
+            return;
         }
+
+        resultOfLastAction = vector.toString();
 
         setComponentsOfFirstVector(vector);
     }
@@ -148,10 +207,13 @@ public class Vector3ViewModel {
 
         try {
             vector.normalize();
-            resultOfLastAction = vector.toString();
         } catch (ArithmeticException exception) {
             resultOfLastAction = exception.getLocalizedMessage();
+
+            return;
         }
+
+        resultOfLastAction = vector.toString();
 
         setComponentsOfSecondVector(vector);
     }
