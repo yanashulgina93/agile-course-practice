@@ -7,6 +7,10 @@ public final class DequeForm {
     private JTextField inputNumberText;
     private JButton pushFrontButton;
     private JButton pushBackButton;
+    private JTable dequeTable;
+    private JScrollPane mainScrollPane;
+    private JButton popFrontButton;
+    private JButton popBackButton;
 
     private DequeForm() {
     }
