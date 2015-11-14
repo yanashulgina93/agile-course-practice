@@ -27,38 +27,38 @@ public final class AreaConverter {
         this.viewModel = viewModel;
 
         loadListOfMeasures();
-        backBind();
+        bind();
 
         convertButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                bind();
-                viewModel.convert();
                 backBind();
+                viewModel.convert();
+                bind();
             }
         });
 
         from.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                bind();
                 backBind();
+                bind();
             }
         });
 
         to.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                bind();
                 backBind();
+                bind();
             }
         });
 
         KeyAdapter keyListener = new KeyAdapter() {
             public void keyReleased(final KeyEvent e) {
-                bind();
-                viewModel.parseInput();
                 backBind();
+                viewModel.parseInput();
+                bind();
             }
         };
 
@@ -79,14 +79,14 @@ public final class AreaConverter {
         to.setModel(new JComboBox<>(measures).getModel());
     }
 
-    private void bind() {
+    private void backBind() {
         viewModel.setInputArea(inputArea.getText());
 
         viewModel.setFrom((AreaMeasure) from.getSelectedItem());
         viewModel.setTo((AreaMeasure) to.getSelectedItem());
     }
 
-    private void backBind() {
+    private void bind() {
         convertButton.setEnabled(viewModel.isConvertButtonEnabled());
 
         resultArea.setText(viewModel.getResultArea());
