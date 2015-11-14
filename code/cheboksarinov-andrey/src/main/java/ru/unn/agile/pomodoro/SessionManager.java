@@ -2,7 +2,6 @@ package ru.unn.agile.pomodoro;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Objects;
 
 public class SessionManager  implements ActionListener {
     static final int POMODORO_MINUTE_COUNT = 25;
@@ -12,11 +11,11 @@ public class SessionManager  implements ActionListener {
 
     private String status;
 
-    private final ITimerWithListener internalTimer;
+    private final IObservableTimer internalTimer;
     private final SessionTimeManager sessionTimeManager;
 
     public SessionManager(final SessionTimeManager sessionTimeManager,
-                          final ITimerWithListener internalTimer) {
+                          final IObservableTimer internalTimer) {
         this.sessionTimeManager = sessionTimeManager;
         this.internalTimer = internalTimer;
 
@@ -38,10 +37,6 @@ public class SessionManager  implements ActionListener {
 
     public int getPomodoroCount() {
         return pomodoroCount;
-    }
-
-    public PomodoroTime getTime() {
-        return sessionTimeManager.getTime();
     }
 
     public String getStatus() {
@@ -79,14 +74,14 @@ public class SessionManager  implements ActionListener {
 
     private void updateSessionTime() {
         calculateNextSecond();
-        if (getTime().getSecondCount() >= 0) {
+        if (sessionTimeManager.getTime().getSecondCount() >= 0) {
             return;
         }
         calculateNextMinute();
-        if (getTime().getMinuteCount() >= 0) {
+        if (sessionTimeManager.getTime().getMinuteCount() >= 0) {
             return;
         }
-        if (Objects.equals(status, "Pomodoro")) {
+        if ("Pomodoro".equals(status)) {
             internalTimer.stop();
             addOnePomodoroToday();
             setRestTimer();
@@ -97,12 +92,14 @@ public class SessionManager  implements ActionListener {
     }
 
     private void calculateNextSecond() {
-        sessionTimeManager.setTime(getTime().getMinuteCount(), getTime().getSecondCount() - 1);
+        sessionTimeManager.setTime(sessionTimeManager.getTime().getMinuteCount(),
+                sessionTimeManager.getTime().getSecondCount() - 1);
     }
 
     private void calculateNextMinute() {
         final int secondWhenNewMinuteStarted = 59;
-        sessionTimeManager.setTime(getTime().getMinuteCount() - 1, secondWhenNewMinuteStarted);
+        sessionTimeManager.setTime(sessionTimeManager.getTime().getMinuteCount() - 1,
+                secondWhenNewMinuteStarted);
     }
 
     private void setWaitStatus() {
