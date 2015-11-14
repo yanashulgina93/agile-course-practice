@@ -65,6 +65,11 @@ public class Point {
         return this.x == point.getX() && this.y == point.getY();
     }
 
+    @Override
+    public String toString() {
+        return "(" + Double.toString(x) + "; " + Double.toString(y) + ")";
+    }
+
     public void swapXY() {
         double tmp = x;
         x = y;

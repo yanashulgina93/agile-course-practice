@@ -134,7 +134,7 @@ public class Segment {
     }
 
     private boolean isEndsOfSecondSegmentOnDifferentSidesOfFirstSegment(final Segment segment1,
-                                                                         final Segment segment2) {
+                                                                        final Segment segment2) {
         return multiplicateVectorsWithSameStart(segment1.getStart(),
                 segment1.getFinish(), segment2.getStart())
                 * multiplicateVectorsWithSameStart(segment1.getStart(),

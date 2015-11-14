@@ -25,7 +25,6 @@ public class ViewModel {
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
 
     private final StringProperty result = new SimpleStringProperty();
-
     private final StringProperty status = new SimpleStringProperty();
 
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
@@ -77,10 +76,6 @@ public class ViewModel {
     }
 
     public void calculate() {
-        if (calculationDisabled.get()) {
-            return;
-        }
-
         Segment segment1 = new Segment(getPoint(seg1Point1X, seg1Point1Y),
                 getPoint(seg1Point2X, seg1Point2Y));
 
@@ -103,24 +98,20 @@ public class ViewModel {
                 break;
             case IntersectionInOnePoint:
                 result.set("Segments intersection in one point "
-                        + convertPointToString(intersection.getSegment().getStart())
+                        + intersection.getSegment().getStart().toString()
                         + ".");
                 break;
             case OnePartOfOther:
             case SegmentsHaveCommonPart:
                 result.set("Segments have common part ["
-                        + convertPointToString(intersection.getSegment().getStart())
-                        + "; " + convertPointToString(intersection.getSegment().getFinish())
+                        + intersection.getSegment().getStart().toString()
+                        + "; " + intersection.getSegment().getFinish().toString()
                         + "].\nLength = "
                         + Double.toString(intersection.getSegment().getLengthSegment()));
                 break;
             default:
                 break;
         }
-    }
-
-    private String convertPointToString(final Point p) {
-        return "(" + Double.toString(p.getX()) + "; " + Double.toString(p.getY()) + ")";
     }
 
     public StringProperty seg1Point1XProperty() {
@@ -167,8 +158,16 @@ public class ViewModel {
         return result;
     }
 
+    public final String getResult() {
+        return result.get();
+    }
+
     public StringProperty statusProperty() {
         return status;
+    }
+
+    public final String getStatus() {
+        return status.get();
     }
 
     private Status getInputStatus() {

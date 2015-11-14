@@ -12,6 +12,7 @@ public class ViewModelTests {
     @Before
     public void setUp() {
         viewModel = new ViewModel();
+        setFirstSegmentValue("1", "5", "5", "5");
     }
 
     @After
@@ -20,103 +21,18 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canSetDefaultValues() {
-        assertEquals("", viewModel.seg1Point1XProperty().get());
-        assertEquals("", viewModel.seg1Point1YProperty().get());
-        assertEquals("", viewModel.seg1Point2XProperty().get());
-        assertEquals("", viewModel.seg1Point2YProperty().get());
-
-        assertEquals("", viewModel.seg2Point1XProperty().get());
-        assertEquals("", viewModel.seg2Point1YProperty().get());
-        assertEquals("", viewModel.seg2Point2XProperty().get());
-        assertEquals("", viewModel.seg2Point2YProperty().get());
-
-        assertEquals("", viewModel.resultProperty().get());
-
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
-    }
-
-    @Test
-    public void statusIsReadyWhenFieldsAreCorrectFill() {
-        setInputData();
-
-        assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
-    }
-
-    @Test
-    public void statusIsBadFormatWhenSomeFieldInvalid() {
-        viewModel.seg1Point1XProperty().set("a");
-
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
-    }
-
-    @Test
-    public void statusIsWaitingIfNotEnoughCorrectData() {
-        viewModel.seg1Point1XProperty().set("0.0");
-
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
-    }
-
-    @Test
-    public void statusIsSuccessWhenCalculatingSuccessful() {
-        setInputData();
-
-        viewModel.calculate();
-
-        assertEquals(Status.SUCCESS.toString(), viewModel.statusProperty().get());
-    }
-
-    @Test
-    public void statusIsWaitingWhenClearBadValue() {
-        viewModel.seg1Point1XProperty().set("a");
-        viewModel.seg1Point1XProperty().set("");
-
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
-    }
-
-    @Test
-    public void calculateButtonIsDisabledInitially() {
-        assertTrue(viewModel.calculationDisabledProperty().get());
-    }
-
-    @Test
-    public void calculateButtonIsDisabledWhenFormatIsBad() {
-        setInputData();
-
-        viewModel.seg1Point1XProperty().set("a");
-
-        assertTrue(viewModel.calculationDisabledProperty().get());
-    }
-
-    @Test
-    public void calculateButtonIsDisabledIfNotEnoughCorrectData() {
-        viewModel.seg1Point1XProperty().set("0");
-
-        assertTrue(viewModel.calculationDisabledProperty().get());
-    }
-
-    @Test
-    public void calculateButtonIsEnabledWhenFieldsAreCorrectFill() {
-        setInputData();
-
-        assertFalse(viewModel.calculationDisabledProperty().get());
-    }
-
-    @Test
     public void findOfIntersectionReturnCorrectResultWhenOneCommonPoint() {
-        setFirstSegmentValue("0", "0", "5", "5");
-        setSecondSegmentValue("0", "5", "5", "0");
+        setSecondSegmentValue("0", "2", "6", "8");
 
         viewModel.calculate();
 
-        assertEquals("Segments intersection in one point (2.5; 2.5).",
+        assertEquals("Segments intersection in one point (3.0; 5.0).",
                 viewModel.resultProperty().get());
     }
 
     @Test
     public void findOfIntersectionReturnCorrectResultWhenNotIntersection() {
-        setFirstSegmentValue("0", "0", "5", "5");
-        setSecondSegmentValue("2", "3", "10", "14");
+        setSecondSegmentValue("0", "0", "10", "4");
 
         viewModel.calculate();
 
@@ -125,29 +41,22 @@ public class ViewModelTests {
 
     @Test
     public void findOfIntersectionReturnCorrectResultWhenOnePartOfOther() {
-        setFirstSegmentValue("0", "5", "5", "5");
-        setSecondSegmentValue("1", "5", "5", "5");
+        setSecondSegmentValue("2", "5", "5", "5");
 
         viewModel.calculate();
 
-        assertEquals("Segments have common part [(1.0; 5.0); (5.0; 5.0)].\nLength = 4.0",
+        assertEquals("Segments have common part [(2.0; 5.0); (5.0; 5.0)].\nLength = 3.0",
                 viewModel.resultProperty().get());
     }
 
     @Test
     public void findOfIntersectionReturnCorrectResultWhenHaveCommonPart() {
-        setFirstSegmentValue("0", "5", "5", "5");
-        setSecondSegmentValue("1", "5", "10", "5");
+        setSecondSegmentValue("2", "5", "10", "5");
 
         viewModel.calculate();
 
-        assertEquals("Segments have common part [(1.0; 5.0); (5.0; 5.0)].\nLength = 4.0",
+        assertEquals("Segments have common part [(2.0; 5.0); (5.0; 5.0)].\nLength = 3.0",
                 viewModel.resultProperty().get());
-    }
-
-    private void setInputData() {
-        setFirstSegmentValue("0", "0", "5", "5");
-        setSecondSegmentValue("0", "5", "5", "0");
     }
 
     private void setSecondSegmentValue(final String startX, final String startY,
