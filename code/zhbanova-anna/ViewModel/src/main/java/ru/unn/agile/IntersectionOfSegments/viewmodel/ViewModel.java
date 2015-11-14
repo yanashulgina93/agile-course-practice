@@ -76,19 +76,15 @@ public class ViewModel {
     }
 
     public void calculate() {
-        Segment segment1 = new Segment(getPoint(seg1Point1X, seg1Point1Y),
-                getPoint(seg1Point2X, seg1Point2Y));
+        Segment segment1 = new Segment(new Point(seg1Point1X.get(), seg1Point1Y.get()),
+                new Point(seg1Point2X.get(), seg1Point2Y.get()));
 
-        Segment segment2 = new Segment(getPoint(seg2Point1X, seg2Point1Y),
-                getPoint(seg2Point2X, seg2Point2Y));
+        Segment segment2 = new Segment(new Point(seg2Point1X.get(), seg2Point1Y.get()),
+                new Point(seg2Point2X.get(), seg2Point2Y.get()));
 
         setStringResult(segment1.isIntersectedWith(segment2));
 
         status.set(Status.SUCCESS.toString());
-    }
-
-    private Point getPoint(final StringProperty x, final StringProperty y) {
-        return new Point(Double.parseDouble(x.get()), Double.parseDouble(y.get()));
     }
 
     private void setStringResult(final Intersection intersection) {
