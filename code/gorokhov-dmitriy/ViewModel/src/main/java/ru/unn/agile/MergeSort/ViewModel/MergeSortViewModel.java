@@ -128,9 +128,9 @@ public class MergeSortViewModel {
     private void parseSortingArrayToResultArray(final Double[] sortingArray) {
         resultArray = "";
 
-        for (int i = 0; i < sortingArray.length - 1; i++) {
-            resultArray += sortingArray[i].toString() + " ";
+        for (Double aSortingArray : sortingArray) {
+            resultArray += aSortingArray.toString() + " ";
         }
-        resultArray += sortingArray[sortingArray.length - 1].toString();
+        resultArray = resultArray.trim();
     }
 }
