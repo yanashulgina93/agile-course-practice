@@ -6,6 +6,7 @@ public class DequeViewModel {
     private final Deque<Integer> deque;
 
     private String inputNumber;
+    private String outputNumber;
     private boolean isPushFrontButtonEnabled;
     private boolean isPushBackButtonEnabled;
     private boolean isPopFrontButtonEnabled;
@@ -30,6 +31,10 @@ public class DequeViewModel {
         return inputNumber;
     }
 
+    public String getOutputNumber() {
+        return outputNumber;
+    }
+
     public boolean isPushFrontButtonEnabled() {
         return isPushFrontButtonEnabled;
     }
@@ -47,13 +52,13 @@ public class DequeViewModel {
     }
 
     public void pushFront() {
-        deque.pushFront(Integer.parseInt(inputNumber));
+        deque.pushFront(Integer.valueOf(inputNumber));
         isPopFrontButtonEnabled = true;
         isPopBackButtonEnabled = true;
     }
 
     public void pushBack() {
-        deque.pushBack(Integer.parseInt(inputNumber));
+        deque.pushBack(Integer.valueOf(inputNumber));
         isPopFrontButtonEnabled = true;
         isPopBackButtonEnabled = true;
     }
@@ -74,5 +79,9 @@ public class DequeViewModel {
             isPopBackButtonEnabled = false;
         }
         return value;
+    }
+
+    public Object[] toArray() {
+        return deque.toArray();
     }
 }

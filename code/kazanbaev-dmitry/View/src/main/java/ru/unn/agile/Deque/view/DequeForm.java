@@ -17,6 +17,7 @@ public final class DequeForm {
     private JScrollPane mainScrollPane;
     private JButton popFrontButton;
     private JButton popBackButton;
+    private JTextField outputNumberText;
 
     private DequeForm() {
         viewModel = new DequeViewModel();
@@ -54,6 +55,7 @@ public final class DequeForm {
         pushBackButton.setEnabled(viewModel.isPushBackButtonEnabled());
         popFrontButton.setEnabled(viewModel.isPopFrontButtonEnabled());
         popBackButton.setEnabled(viewModel.isPopBackButtonEnabled());
+        outputNumberText.setText(viewModel.getOutputNumber());
     }
 
     public static void main(final String[] args) {
