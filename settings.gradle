@@ -138,6 +138,9 @@ include "code/plankina-elena"
 project(":code/plankina-elena").name = "plankina-elena-Model"
 
 // Pronina Anastasiya
+// Sabanov Denis
+include "code/sabanov-denis"
+project(":code/sabanov-denis").name = "sabanov-denis-Model"
 // Sevrikov Ilya
 include "code/sevrikov-ilya"
 project(":code/sevrikov-ilya").name = "sevrikov-ilya-Model"
