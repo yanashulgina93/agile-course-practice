@@ -97,7 +97,7 @@ public class Polinom {
         coefficients = quotient.getCoefficients();
     }
 
-    private static final double round(final double value, final int presicion) {
+    private double round(final double value, final int presicion) {
         if (presicion < 0) {
             throw new IllegalArgumentException();
         }
