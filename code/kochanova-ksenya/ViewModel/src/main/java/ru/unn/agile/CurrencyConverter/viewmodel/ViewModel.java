@@ -30,11 +30,11 @@ public class ViewModel {
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
 
     public ViewModel() {
-        inputValue.set("0.00");
-        outputValue.set("0.00");
+        inputValue.set("");
+        outputValue.set("");
         status.set(Status.WAITING.toString());
         inputUnit.set(UnitCurrency.RUBLE);
-        outputUnit.set(UnitCurrency.RUBLE);
+        outputUnit.set(UnitCurrency.EURO);
 
         BooleanBinding couldConvert = new BooleanBinding() {
             {
@@ -69,6 +69,7 @@ public class ViewModel {
     }
 
     public StringProperty inputValueProperty() {
+
         return inputValue;
     }
     public StringProperty outputValueProperty() {

@@ -21,15 +21,23 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canSetDefaultValueAndUnits() {
-        assertEquals("0.00", viewModel.inputValueProperty().get());
-        assertEquals("0.00", viewModel.inputValueProperty().get());
+    public void canSetDefaultInputValue() {
+        assertEquals("", viewModel.inputValueProperty().get());
     }
 
     @Test
-    public void canSetDefaultUnits() {
+    public void canSetDefaultOutputValue() {
+        assertEquals("", viewModel.outputValueProperty().get());
+    }
+
+    @Test
+         public void canSetDefaultInputUnit() {
         assertEquals(UnitCurrency.RUBLE, viewModel.inputUnitProperty().get());
-        assertEquals(UnitCurrency.RUBLE, viewModel.outputUnitProperty().get());
+    }
+
+    @Test
+    public void canSetDefaultOutputUnit() {
+        assertEquals(UnitCurrency.EURO, viewModel.outputUnitProperty().get());
     }
 
     @Test
@@ -58,13 +66,6 @@ public class ViewModelTests {
         viewModel.inputValueProperty().set("^-^");
 
         assertEquals(Status.WRONG_FORMAT.toString(), viewModel.statusProperty().get());
-    }
-
-    @Test
-    public void rubleIsDefaultCurrency() {
-
-        assertEquals(UnitCurrency.RUBLE, viewModel.inputUnitProperty().get());
-        assertEquals(UnitCurrency.RUBLE, viewModel.outputUnitProperty().get());
     }
 
     @Test
