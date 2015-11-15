@@ -67,10 +67,6 @@ public class ViewModel {
         return units;
     }
 
-    //public final ObservableList<LengthUnit> getUnits() {
-        //return units.get();
-    //}
-
     public ObjectProperty<LengthUnit> inputUnitProperty() {
         return inputUnit;
     }
