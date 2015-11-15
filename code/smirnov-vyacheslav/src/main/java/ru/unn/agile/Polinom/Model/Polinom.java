@@ -25,7 +25,7 @@ public class Polinom {
 
         for (int i = 0; i < operandCoefficients.length; i++) {
             coefficients[i] += operandCoefficients[i];
-            coefficients[i] = round(coefficients[i]);
+            coefficients[i] = roundByPrecision(coefficients[i]);
         }
         reduceIfHighDegreeIsNull();
     }
@@ -47,6 +47,7 @@ public class Polinom {
         for (int i = 0; i < firstCoefficients.length; i++) {
             for (int j = 0; j < secondCoefficients.length; j++) {
                 coefficients[i + j] += firstCoefficients[i] * secondCoefficients[j];
+                coefficients[i + j] = roundByPrecision(coefficients[i + j]);
             }
         }
         reduceIfHighDegreeIsNull();
@@ -59,7 +60,7 @@ public class Polinom {
         int dividendHighDegree = getHighDegree();
         int dividerHighDegree = operand.getHighDegree();
 
-        if (dividerHighDegree == 0 && dividerCoefficients[0] == 0) {
+        if (dividerHighDegree == 0 && roundByPrecision(dividerCoefficients[0]) == 0.0) {
             throw new IllegalArgumentException("Divider can't be zero!");
         }
 
@@ -71,7 +72,7 @@ public class Polinom {
         boolean lastTime = false;
         while (dividendHighDegree >= dividerHighDegree && !lastTime) {
             if (dividendHighDegree == 0) {
-                 lastTime = true;
+                lastTime = true;
             }
 
             int stepCoefficient = dividendHighDegree - dividerHighDegree;
@@ -90,7 +91,7 @@ public class Polinom {
         coefficients = quotient.getCoefficients();
     }
 
-    private double round(final double value) {
+    private double roundByPrecision(final double value) {
         BigDecimal bd = new BigDecimal(Double.toString(value));
         bd = bd.setScale(PRECISION, RoundingMode.HALF_UP);
         return bd.doubleValue();
@@ -120,8 +121,11 @@ public class Polinom {
 
     private void reduceIfHighDegreeIsNull() {
         int highNotNullCoefficient = getHighDegree();
+        if (roundByPrecision(coefficients[highNotNullCoefficient]) != 0.0) {
+            return;
+        }
 
-        while (coefficients[highNotNullCoefficient] == 0
+        while (roundByPrecision(coefficients[highNotNullCoefficient]) == 0.0
             && highNotNullCoefficient > 0) {
             highNotNullCoefficient--;
         }
