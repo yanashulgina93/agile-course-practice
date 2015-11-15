@@ -61,11 +61,11 @@ public class Segment {
                 }
                 makeFirstPointWithLessX(segment1);
                 makeFirstPointWithLessX(segment2);
-                if (segment2.isPartOfSecondWhenSlopeSame(segment1)) {
+                if (segment2.isPartWhenSlopeSame(segment1)) {
                     typeOfIntersection = TypeOfIntersection.OnePartOfOther;
                     startPointOfIntersection = segment2.getStart();
                     finishPointOfIntersection = segment2.getFinish();
-                } else if (segment1.isPartOfSecondWhenSlopeSame(segment2)) {
+                } else if (segment1.isPartWhenSlopeSame(segment2)) {
                     typeOfIntersection = TypeOfIntersection.OnePartOfOther;
                     startPointOfIntersection = segment1.getStart();
                     finishPointOfIntersection = segment1.getFinish();
@@ -119,7 +119,7 @@ public class Segment {
                 || segment.getFinishX() < this.getStartX();
     }
 
-    private boolean isPartOfSecondWhenSlopeSame(final Segment segment) {
+    private boolean isPartWhenSlopeSame(final Segment segment) {
         return this.getStartX() >= segment.getStartX()
                 && this.getFinishX() <= segment.getFinishX();
     }

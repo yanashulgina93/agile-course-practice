@@ -58,7 +58,7 @@
                                                 <Label text="Second point" GridPane.rowIndex="2" />
                                                 <Label text="y" GridPane.columnIndex="3" />
                                                 <Label text="x" GridPane.columnIndex="1" />
-                                                <TextField fx:id="txtSeg2Point1Y" prefHeight="25.0" prefWidth="142.0" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                                                <TextField fx:id="txtSeg2Point1Y" prefHeight="25.0" prefWidth="142.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                                                 <TextField fx:id="txtSeg2Point1X" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                 <TextField fx:id="txtSeg2Point2Y" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                                                 <TextField fx:id="txtSeg2Point2X" GridPane.columnIndex="1" GridPane.rowIndex="2" />
