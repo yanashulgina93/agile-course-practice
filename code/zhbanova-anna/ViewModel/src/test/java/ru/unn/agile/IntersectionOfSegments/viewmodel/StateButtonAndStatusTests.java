@@ -6,18 +6,18 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class StateButtonAndStatusTests {
-        private ViewModel viewModel;
+    private ViewModel viewModel;
 
-        @Before
-        public void setUp() {
-            viewModel = new ViewModel();
-            setInputData();
-        }
+    @Before
+    public void setUp() {
+        viewModel = new ViewModel();
+        setInputData();
+    }
 
-        @After
-        public void tearDown() {
-            viewModel = null;
-        }
+    @After
+    public void tearDown() {
+        viewModel = null;
+    }
 
     @Test
     public void statusIsReadyWhenFieldsAreCorrectFill() {

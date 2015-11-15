@@ -4,8 +4,9 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.util.StringConverter;
+import javafx.util.converter.DoubleStringConverter;
 import ru.unn.agile.IntersectionOfSegments.model.Intersection;
-import ru.unn.agile.IntersectionOfSegments.model.ParseException;
 import ru.unn.agile.IntersectionOfSegments.model.Point;
 import ru.unn.agile.IntersectionOfSegments.model.Segment;
 import java.util.ArrayList;
@@ -22,26 +23,32 @@ public class ViewModel {
     private final StringProperty seg2Point2X = new SimpleStringProperty();
     private final StringProperty seg2Point2Y = new SimpleStringProperty();
 
+    private final StringConverter<Double> converter = new DoubleStringConverter();
+
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
 
     private final StringProperty result = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
+    private final List<StringProperty> fields = new ArrayList<StringProperty>() { {
+        add(seg1Point1X);
+        add(seg1Point1Y);
+        add(seg1Point2X);
+        add(seg1Point2Y);
+
+        add(seg2Point1X);
+        add(seg2Point1Y);
+        add(seg2Point2X);
+        add(seg2Point2Y);
+    } };
 
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
 
     public ViewModel() {
-        seg1Point1X.set("");
-        seg1Point1Y.set("");
-        seg1Point2X.set("");
-        seg1Point2Y.set("");
-
-        seg2Point1X.set("");
-        seg2Point1Y.set("");
-        seg2Point2X.set("");
-        seg2Point2Y.set("");
+        for (StringProperty field : fields) {
+            field.set("");
+        }
 
         result.set("");
-
         status.set(Status.WAITING.toString());
 
         BooleanBinding couldFind = new BooleanBinding() {
@@ -56,18 +63,6 @@ public class ViewModel {
         };
         calculationDisabled.bind(couldFind.not());
 
-        final List<StringProperty> fields = new ArrayList<StringProperty>() { {
-            add(seg1Point1X);
-            add(seg1Point1Y);
-            add(seg1Point2X);
-            add(seg1Point2Y);
-
-            add(seg2Point1X);
-            add(seg2Point1Y);
-            add(seg2Point2X);
-            add(seg2Point2Y);
-        } };
-
         for (StringProperty field : fields) {
             final ValueChangeListener listener = new ValueChangeListener();
             field.addListener(listener);
@@ -76,15 +71,18 @@ public class ViewModel {
     }
 
     public void calculate() {
-        Segment segment1 = new Segment(new Point(seg1Point1X.get(), seg1Point1Y.get()),
-                new Point(seg1Point2X.get(), seg1Point2Y.get()));
-
-        Segment segment2 = new Segment(new Point(seg2Point1X.get(), seg2Point1Y.get()),
-                new Point(seg2Point2X.get(), seg2Point2Y.get()));
+        Segment segment1 = new Segment(getPoint(seg1Point1X, seg1Point1Y),
+                getPoint(seg1Point2X, seg1Point2Y));
+        Segment segment2 = new Segment(getPoint(seg2Point1X, seg2Point1Y),
+                getPoint(seg2Point2X, seg2Point2Y));
 
         setStringResult(segment1.isIntersectedWith(segment2));
 
         status.set(Status.SUCCESS.toString());
+    }
+
+    private Point getPoint(final StringProperty x, final StringProperty y) {
+        return new Point(converter.fromString(x.get()), converter.fromString(y.get()));
     }
 
     private void setStringResult(final Intersection intersection) {
@@ -168,30 +166,17 @@ public class ViewModel {
 
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
-
         try {
-            inputStatus = checkCorrectPoint(seg1Point1X, seg1Point1Y, inputStatus);
-            inputStatus = checkCorrectPoint(seg1Point2X, seg1Point2Y, inputStatus);
-            inputStatus = checkCorrectPoint(seg2Point1X, seg2Point1Y, inputStatus);
-            inputStatus = checkCorrectPoint(seg2Point2X, seg2Point2Y, inputStatus);
-        } catch (ParseException pe) {
+            for (StringProperty field : fields) {
+                if (field.get().isEmpty()) {
+                    inputStatus = Status.WAITING;
+                }
+                converter.fromString(field.get());
+            }
+        } catch (Exception e) {
             inputStatus = Status.BAD_FORMAT;
         }
         return inputStatus;
-    }
-
-    private Status checkCorrectPoint(final StringProperty x, final StringProperty y,
-                                     final Status inputStatus) {
-        try {
-            new Point(x.get(), y.get());
-        } catch (ParseException pe) {
-            if (pe.getMessage().equals("Is empty argument")) {
-                return Status.WAITING;
-            } else {
-                throw pe;
-            }
-        }
-        return  inputStatus;
     }
 
     private class ValueChangeListener implements ChangeListener<String> {
