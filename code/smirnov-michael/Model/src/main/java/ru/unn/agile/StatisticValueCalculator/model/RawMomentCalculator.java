@@ -23,7 +23,7 @@ public class RawMomentCalculator implements IStatisticValueCalculator {
             throw new NullPointerException("Parameter dataForStatistics must not be null");
         }
 
-        if ( dataForStatistics.isEmpty()) {
+        if (dataForStatistics.isEmpty()) {
             return RAW_MOMENT_OF_EMPTY_DATA;
         }
 

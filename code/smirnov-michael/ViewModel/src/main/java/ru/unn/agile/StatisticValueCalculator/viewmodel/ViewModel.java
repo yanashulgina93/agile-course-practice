@@ -5,37 +5,70 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.util.Pair;
+import ru.unn.agile.StatisticValueCalculator.model.*;
+
+import java.util.ArrayList;
 
 public class ViewModel {
     private final StringProperty nameOfCalculatedStatistic = new SimpleStringProperty("");
     private final StringProperty valueOfCalculatedStatistic = new SimpleStringProperty("");
-    private final StringProperty errorOfAddRow = new SimpleStringProperty("");
-    private final StringProperty errorOfAddStatisticParameter = new SimpleStringProperty("");
 
-    private final ObjectProperty<ObservableList<StatisticInfo>> listOfStatistics =
-            new SimpleObjectProperty<>(FXCollections.observableArrayList(StatisticInfo.values()));
+    private final ObjectProperty<InputNote> inputRowError =
+            new SimpleObjectProperty<>(InputNote.VALID_INPUT);
+    private final ObjectProperty<InputNote> inputStatisticParameterError =
+            new SimpleObjectProperty<>(InputNote.VALID_INPUT);
 
-    private final ObjectProperty<StatisticInfo> selectedStatistic;
-    private final ObjectProperty<StatisticParameterName> parameterNameOfSelectedStatistic
+    private final ObjectProperty<ObservableList<StatisticValue>> listOfAvailableStatistics =
+            new SimpleObjectProperty<>(FXCollections.observableArrayList(StatisticValue.values()));
+
+    private final ObjectProperty<StatisticValue> selectedStatistic;
+
+    private final ObjectProperty<StatisticParameter> parameterNameOfSelectedStatistic
             = new SimpleObjectProperty<>();
-    private final BooleanProperty statisticParameterAddFieldVisible
+
+    private final BooleanProperty inputStatisticParameterFieldIsVisible
             = new SimpleBooleanProperty();
 
-    private StringProperty rowAddValue = new SimpleStringProperty("1.0");
-    private StringProperty statisticParameterAddValue = new SimpleStringProperty("0.0");
+    private StringProperty inputRow = new SimpleStringProperty("1.0");
+    private StringProperty inputStatisticParameter = new SimpleStringProperty("0.0");
 
-    private final AddValueChangeListener valueChangeListener
-            = new AddValueChangeListener();
+    private final ObservableList<Pair<String, String>> statisticData
+            = FXCollections.observableArrayList();
+
     private final AddStatisticParameterChangeListener parameterChangeListener
             = new AddStatisticParameterChangeListener();
 
+    private BooleanProperty addInputRowIsDisabled = new SimpleBooleanProperty(false);
+    private BooleanProperty calculationIsDisabled = new SimpleBooleanProperty(false);
+    private BooleanProperty deleteDataRowIsDisabled = new SimpleBooleanProperty(true);
+
+    private int selectedRowInStatisticData = -1;
+
+    private IStatisticValueCalculator calculator;
+
     public ViewModel() {
         selectedStatistic =
-                new SimpleObjectProperty<>(StatisticInfo.ENUMERATION);
+                new SimpleObjectProperty<>(StatisticValue.ENUMERATION);
         setSelectedStatistic(selectedStatistic.get());
 
-        rowAddValue.addListener(valueChangeListener);
-        statisticParameterAddValue.addListener(parameterChangeListener);
+        inputRow.addListener(new AddValueChangeListener());
+        inputStatisticParameter.addListener(parameterChangeListener);
+        selectedStatistic.addListener(new SelectedStatisticListener());
+
+        ArrayList<String> data = new ArrayList<>();
+        data.add("1.0");
+        data.add("2.1");
+        data.add("3.2");
+        data.add("2.1");
+        data.add("1.0");
+        data.add("-5.4");
+        data.add("2.4");
+        data.add("0.0");
+
+        for (Integer i = 1; i <= data.size(); i++) {
+            statisticData.add(new Pair<>(i.toString(), data.get(i - 1)));
+        }
     }
 
     public String getNameOfCalculatedStatistic() {
@@ -44,104 +77,269 @@ public class ViewModel {
     public String getValueOfCalculatedStatistic() {
         return valueOfCalculatedStatistic.get();
     }
-    public String getErrorOfAddRow() {
-        return errorOfAddRow.get();
+    public InputNote getInputRowError() {
+        return inputRowError.get();
     }
-    public StringProperty errorOfAddRowProperty() {
-        return errorOfAddRow;
+    public InputNote getInputStatisticParameterError() {
+        return inputStatisticParameterError.get();
     }
-    public String getErrorOfAddStatisticParameter() {
-        return errorOfAddStatisticParameter.get();
+    public ObservableList<StatisticValue> getListOfAvailableStatistics() {
+        return listOfAvailableStatistics.get();
     }
-    public StringProperty errorOfAddStatisticParameterProperty() {
-        return errorOfAddStatisticParameter;
-    }
-
-    public ObservableList<StatisticInfo> getListOfStatistics() {
-        return listOfStatistics.get();
-    }
-
-    public void setSelectedStatistic(StatisticInfo selectedStatisticInfo) {
-        selectedStatistic.set(selectedStatisticInfo);
-        StatisticParameterName parameterName = selectedStatisticInfo.getParameterName();
-        parameterNameOfSelectedStatistic.set(parameterName);
-
-        if(parameterName != null) {
-            statisticParameterAddFieldVisible.set(true);
-        }
-        else {
-            statisticParameterAddFieldVisible.set(false);
-        }
-    }
-    public StatisticInfo getSelectedStatistic() {
+    public StatisticValue getSelectedStatistic() {
         return selectedStatistic.get();
     }
-    public ObjectProperty<StatisticInfo> selectedStatisticProperty() { return selectedStatistic; }
-
-    public void setParameterNameOfSelectedStatistic(StatisticParameterName parameterName) {
-        parameterNameOfSelectedStatistic.set(parameterName);
-    }
-    public StatisticParameterName getParameterNameOfSelectedStatistic() {
+    public StatisticParameter getParameterNameOfSelectedStatistic() {
         return parameterNameOfSelectedStatistic.get();
     }
-    public ObjectProperty<StatisticParameterName> parameterNameOfSelectedStatisticProperty() {
+    public boolean getInputStatisticParameterFieldIsVisible() {
+        return inputStatisticParameterFieldIsVisible.get();
+    }
+    public String getInputRow() {
+        return inputRow.get();
+    }
+    public String getInputStatisticParameter() {
+        return inputStatisticParameter.get();
+    }
+    public ObservableList<Pair<String, String>> getStatisticData() {
+        return statisticData;
+    }
+    public boolean getAddInputRowIsDisabled() {
+        return addInputRowIsDisabled.get();
+    }
+    public boolean getCalculationIsDisabled() {
+        return calculationIsDisabled.get();
+    }
+    public boolean getDeleteDataRowIsDisabled() {
+        return deleteDataRowIsDisabled.get();
+    }
+
+    public StringProperty nameOfCalculatedStatisticProperty() {
+        return nameOfCalculatedStatistic;
+    }
+    public StringProperty valueOfCalculatedStatisticProperty() {
+        return valueOfCalculatedStatistic;
+    }
+    public ObjectProperty<InputNote> inputRowErrorProperty() {
+        return inputRowError;
+    }
+    public ObjectProperty<InputNote> inputStatisticParameterErrorProperty() {
+        return inputStatisticParameterError;
+    }
+    public ObjectProperty<StatisticValue> selectedStatisticProperty() {
+        return selectedStatistic;
+    }
+    public ObjectProperty<StatisticParameter> parameterNameOfSelectedStatisticProperty() {
         return parameterNameOfSelectedStatistic;
     }
+    public BooleanProperty inputStatisticParameterFieldIsVisibleProperty() {
+        return inputStatisticParameterFieldIsVisible;
+    }
+    public StringProperty inputRowProperty() {
+        return inputRow;
+    }
+    public StringProperty inputStatisticParameterProperty() {
+        return inputStatisticParameter;
+    }
+    public BooleanProperty addInputRowIsDisabledProperty() {
+        return addInputRowIsDisabled;
+    }
+    public BooleanProperty calculationIsDisabledProperty() {
+        return calculationIsDisabled;
+    }
+    public BooleanProperty deleteDataRowIsDisabledProperty() {
+        return deleteDataRowIsDisabled;
+    }
 
-    public boolean getStatisticParameterAddFieldVisible() {
-        return statisticParameterAddFieldVisible.get();
-    }
-    public void setStatisticParameterAddFieldVisible(boolean isVisible) { statisticParameterAddFieldVisible.set(isVisible);}
-    public BooleanProperty statisticParameterAddFieldVisibleProperty() { return statisticParameterAddFieldVisible; }
+    public void setSelectedStatistic(StatisticValue selectedStatisticInfo) {
+        selectedStatistic.set(selectedStatisticInfo);
+        StatisticParameter parameterName = selectedStatisticInfo.getParameterName();
+        parameterNameOfSelectedStatistic.set(parameterName);
 
-    public void setRowAddValue(String value)
-    {
-        rowAddValue.set(value);
+        if (parameterName != null) {
+            inputStatisticParameterFieldIsVisible.set(true);
+        } else {
+            inputStatisticParameterFieldIsVisible.set(false);
+        }
     }
-    public StringProperty rowAddValueProperty() { return rowAddValue; }
-    public String getRowAddValue() {
-        return rowAddValue.get();
+    public void setParameterNameOfSelectedStatistic(StatisticParameter parameterName) {
+        parameterNameOfSelectedStatistic.set(parameterName);
+    }
+    public void setInputStatisticParameterFieldIsVisible(boolean isVisible) {
+        inputStatisticParameterFieldIsVisible.set(isVisible);
+    }
+    public void setInputRow(String value) {
+        inputRow.set(value);
+    }
+    public void setInputStatisticParameter(String inputStatisticParameter) {
+        this.inputStatisticParameter.set(inputStatisticParameter);
+    }
+    public void setStatisticData(ObservableList<Pair<String, String>> data) {
+        statisticData.setAll(data);
+
+        if (statisticData.isEmpty()) {
+            calculationIsDisabled.set(true);
+        }
     }
 
-    public String getStatisticParameterAddValue() {
-        return statisticParameterAddValue.get();
+    public void addRowToStatisticData() {
+        Integer numberOfAddValue = statisticData.size() + 1;
+        statisticData.add(new Pair<>(numberOfAddValue.toString(), inputRow.getValue()));
+        calculationIsDisabled.set(false);
     }
-    public StringProperty statisticParameterAddValueProperty() {
-        return statisticParameterAddValue;
+    public void makeRowInDataNotSelected() {
+        selectedRowInStatisticData = -1;
+        deleteDataRowIsDisabled.set(true);
     }
-    public void setStatisticParameterAddValue(String statisticParameterAddValue) {
-        this.statisticParameterAddValue.set(statisticParameterAddValue);
+    public void selectRowInStatisticData(Integer i) {
+        if (i >= 0 && i < statisticData.size()) {
+            selectedRowInStatisticData = i;
+            deleteDataRowIsDisabled.set(false);
+        } else {
+            makeRowInDataNotSelected();
+        }
+    }
+    public void deleteSelectedRowInStatisticData() {
+        if (deleteDataRowIsDisabled.get() == false) {
+            statisticData.remove(selectedRowInStatisticData);
+            calculationIsDisabled.set(statisticData.isEmpty());
+            reformIndexesInStatisticData();
+        }
+    }
+    public void clearStatisticData() {
+        statisticData.clear();
+        calculationIsDisabled.set(true);
+    }
+    public void calculateSelectedStatistic() {
+        ArrayList<Double> data = new ArrayList<>();
+
+        for (Pair<String, String> item : statisticData) {
+            data.add(Double.parseDouble(item.getValue()));
+        }
+
+        switch (selectedStatistic.get()) {
+            case ENUMERATION: {
+                calculator = new EnumerationCalculator();
+                break;
+            }
+
+            case VARIANCE: {
+                calculator = new VarianceCalculator();
+                break;
+            }
+
+            case PROBABILITY: {
+                double event = Double.parseDouble(inputStatisticParameter.get());
+                calculator = new ProbabilityOfEventCalculator(event);
+                break;
+            }
+
+            case ROW_MOMENT: {
+                int order = Integer.parseInt(inputStatisticParameter.get());
+                calculator = new RawMomentCalculator(order);
+                break;
+            }
+
+            case CENTRAL_MOMENT: {
+                int order = Integer.parseInt(inputStatisticParameter.get());
+                calculator = new CentralMomentCalculator(order);
+                break;
+            }
+        }
+
+        Double statisticValue = calculator.calculate(data);
+        nameOfCalculatedStatistic.set(selectedStatistic.get().toString());
+        valueOfCalculatedStatistic.set(statisticValue.toString());
+    }
+
+    private void reformIndexesInStatisticData() {
+        for (Integer i = 1; i <= statisticData.size(); i++) {
+            Pair<String, String> oldRow = statisticData.get(i - 1);
+            Pair<String, String> newRow = new Pair<>(i.toString(), oldRow.getValue());
+            statisticData.set(i - 1, newRow);
+        }
     }
 
     private class AddValueChangeListener implements ChangeListener<String> {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
-            errorOfAddRow.set("");
-            if(!newValue.isEmpty()) {
+            inputRowError.set(InputNote.VALID_INPUT);
+            addInputRowIsDisabled.set(false);
+
+            if (!newValue.isEmpty()) {
                 try {
                     Double.parseDouble(newValue);
+                } catch (NumberFormatException exception) {
+                    inputRowError.set(InputNote.NOT_A_NUMBER);
+                    addInputRowIsDisabled.set(true);
                 }
-                catch (NumberFormatException exception) {
-                    errorOfAddRow.set("The adding value must be a number");
-                }
+            } else {
+                addInputRowIsDisabled.set(true);
             }
         }
     }
-
+    private class SelectedStatisticListener implements ChangeListener<StatisticValue> {
+        @Override
+        public void changed(ObservableValue<? extends StatisticValue> observable,
+                            StatisticValue oldValue, StatisticValue newValue) {
+            parameterChangeListener.changed(inputStatisticParameter, "",
+                    inputStatisticParameter.get());
+        }
+    }
     private class AddStatisticParameterChangeListener implements ChangeListener<String> {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
-            errorOfAddStatisticParameter.set("");
-            if(!newValue.isEmpty()) {
+            inputStatisticParameterError.set(InputNote.VALID_INPUT);
+            calculationIsDisabled.set(statisticData.isEmpty());
+
+            if (selectedStatistic.getValue().getParameterName() == null) {
+                return;
+            }
+
+            if (!newValue.isEmpty()) {
+                StatisticParameter currentParameterName =
+                        getSelectedStatistic()
+                                .getParameterName();
+                if (currentParameterName == StatisticParameter.ORDER) {
+                    try {
+                        Integer order = Integer.parseInt(newValue);
+                        if (order <= 0) {
+                            throw new NumberFormatException();
+                        }
+                    } catch (NumberFormatException exception) {
+                        inputStatisticParameterError.set(InputNote.NOT_A_POSITIVE_INTEGER);
+                        calculationIsDisabled.set(true);
+                    }
+                }
+
                 try {
                     Double.parseDouble(newValue);
+                } catch (NumberFormatException exception) {
+                    inputStatisticParameterError.set(InputNote.NOT_A_NUMBER);
+                    calculationIsDisabled.set(true);
                 }
-                catch (NumberFormatException exception) {
-                    errorOfAddStatisticParameter.set("The adding value must be a number");
-                }
+            } else {
+                calculationIsDisabled.set(true);
             }
         }
+    }
+}
+
+enum InputNote {
+    VALID_INPUT(""),
+    NOT_A_NUMBER("The adding value must be a number"),
+    NOT_A_POSITIVE_INTEGER("The adding value must be integer > 0");
+
+    private String message;
+
+    InputNote(String errorMessage) {
+        message = errorMessage;
+    }
+
+    @Override
+    public String toString() {
+        return message;
     }
 }

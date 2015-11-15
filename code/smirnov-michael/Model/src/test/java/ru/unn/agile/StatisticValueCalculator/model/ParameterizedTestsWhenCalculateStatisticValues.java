@@ -48,7 +48,7 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
                                                           final double event,
                                                           final double exactProbabilityOfEvent) {
         currentTestingData = new ArrayList<>();
-        for(Number item : testingArray) {
+        for (Number item : testingArray) {
             currentTestingData.add(item.doubleValue());
         }
 
@@ -86,7 +86,6 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
                 exactProbabilityOfTestingEvent,
                 deltaForDoubleAssertEquals);
     }
-
 
 
     private void setUpTest() {

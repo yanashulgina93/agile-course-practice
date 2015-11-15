@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Collection;
+
 import static org.junit.Assert.*;
 
 public class WhenCalculateStatisticValues {
@@ -28,10 +29,10 @@ public class WhenCalculateStatisticValues {
         assertEquals(0.0, enumeration, deltaForDoubleAssertEquals);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     public void throwsWhenCalculatingProbabilityOfEventOnNullData() {
         Double[] data = null;
-        Double event = (double)0;
+        Double event = (double) 0;
         formTestingData(data);
 
         probabilityCalculator = new ProbabilityOfEventCalculator(event);
@@ -41,13 +42,13 @@ public class WhenCalculateStatisticValues {
         assertEquals(0.0, probabilityOfEvent, deltaForDoubleAssertEquals);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     public void throwsWhenCalculatingVarianceOfNullData() {
         varianceCalculator = new VarianceCalculator();
         varianceCalculator.calculate(null);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     public void throwsWhenCalculatingRawMomentOfNullData() {
         Integer[] data = null;
         formTestingData(data);
@@ -95,17 +96,17 @@ public class WhenCalculateStatisticValues {
         assertTrue(rawMomentOfSixOrder > rawMomentOfEightOrder);
     }
 
-    @Test (expected = InvalidParameterException.class)
+    @Test(expected = InvalidParameterException.class)
     public void throwsWhenInstantiateRawMomentOfZeroOrder() {
         rawMomentCalculator = new RawMomentCalculator(0);
     }
 
-    @Test (expected = InvalidParameterException.class)
+    @Test(expected = InvalidParameterException.class)
     public void throwsWhenInstantiateRawMomentWithNegativeOrder() {
         rawMomentCalculator = new RawMomentCalculator(-5);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     public void throwsWhenCalculatingCentralMomentOfSecondOrderOnNullData() {
         centralMomentCalculator = new CentralMomentCalculator(2);
         centralMomentCalculator.calculate(null);
@@ -163,18 +164,18 @@ public class WhenCalculateStatisticValues {
         assertTrue(centralMomentOfSixOrder > centralMomentOfEightOrder);
     }
 
-    @Test (expected = InvalidParameterException.class)
+    @Test(expected = InvalidParameterException.class)
     public void throwsWhenInstantiateCentralMomentWithNegativeOrder() {
         centralMomentCalculator = new CentralMomentCalculator(-3);
     }
 
-    @Test (expected = InvalidParameterException.class)
+    @Test(expected = InvalidParameterException.class)
     public void throwsWhenInstantiateCentralMomentOfZeroOrder() {
         centralMomentCalculator = new CentralMomentCalculator(0);
     }
 
     @Test
-    public  void centralMomentOfThirdOrderOnEmptyDataEqualsToZero() {
+    public void centralMomentOfThirdOrderOnEmptyDataEqualsToZero() {
         centralMomentCalculator = new CentralMomentCalculator(3);
         ArrayList<Double> emptyData = new ArrayList<>();
 
@@ -191,13 +192,13 @@ public class WhenCalculateStatisticValues {
     }
 
     private void formTestingData(final Number[] data) {
-        if (data== null) {
+        if (data == null) {
             testingData = null;
             return;
         }
 
         testingData = new ArrayList<>();
-        for(Number item : data) {
+        for (Number item : data) {
             testingData.add(item.doubleValue());
         }
     }

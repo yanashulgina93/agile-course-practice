@@ -1,12 +1,12 @@
 package ru.unn.agile.StatisticValueCalculator.viewmodel;
 
-public enum StatisticParameterName {
+public enum StatisticParameter {
     ORDER("Order"),
     EVENT("Event");
 
     private final String name;
 
-    StatisticParameterName(String name) {
+    StatisticParameter(String name) {
         this.name = name;
     }
 

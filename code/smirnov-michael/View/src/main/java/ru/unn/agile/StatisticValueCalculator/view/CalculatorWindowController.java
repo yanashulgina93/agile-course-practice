@@ -1,63 +1,78 @@
 package ru.unn.agile.StatisticValueCalculator.view;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import ru.unn.agile.StatisticValueCalculator.viewmodel.StatisticInfo;
+import javafx.util.Pair;
+import ru.unn.agile.StatisticValueCalculator.viewmodel.StatisticValue;
 import ru.unn.agile.StatisticValueCalculator.viewmodel.ViewModel;
 
 public class CalculatorWindowController {
     @FXML
-    private Label labelStatisticParameterName;
+    private Label nameOfStatisticParameter;
     @FXML
     private ViewModel viewModel;
     @FXML
-    private Button buttonClearTable;
+    private Button clearTableButton;
     @FXML
-    private TableView tableData;
+    private TableView<Pair<String, String>> tableData;
     @FXML
-    private TableColumn columnNumber;
+    private TableColumn<Pair<String, String>, String> columnNumber;
     @FXML
-    private TableColumn columnValue;
+    private TableColumn<Pair<String, String>, String> columnValue;
     @FXML
-    private ChoiceBox<StatisticInfo> choiceBoxStatisticValue;
+    private ChoiceBox<StatisticValue> statisticsList;
     @FXML
-    private Button buttonCalculate;
+    private Button calculateButton;
     @FXML
-    private Label labelStatisticsName;
+    private Label nameOfCalculatedStatistic;
     @FXML
-    private Label labelStatisticsValue;
+    private Label valueOfCalculatedStatistic;
     @FXML
     private TextField textStatisticParameterValue;
     @FXML
-    private Label labelStatisticParameterInputError;
+    private Label statisticParameterInputInfo;
     @FXML
-    private Button buttonDeleteRow;
+    private Button deleteRowButton;
     @FXML
-    private Button buttonAddRow;
+    private Button addRowButton;
     @FXML
-    private Label labelRowValueError;
+    private Label rowValueInputInfo;
     @FXML
     private TextField textRowValue;
-    @FXML
-    private Button buttonLoadData;
 
     @FXML
     private void initialize() {
         textRowValue.textProperty()
-                .bindBidirectional(viewModel.rowAddValueProperty());
+                .bindBidirectional(viewModel.inputRowProperty());
         textStatisticParameterValue.textProperty()
-                .bindBidirectional(viewModel.statisticParameterAddValueProperty());
+                .bindBidirectional(viewModel.inputStatisticParameterProperty());
 
-        choiceBoxStatisticValue.getSelectionModel()
-                .selectedItemProperty()
-                .addListener(new ChangeListener<StatisticInfo>() {
-            @Override
-            public void changed(ObservableValue<? extends StatisticInfo> observable,
-                                StatisticInfo oldValue, StatisticInfo newValue) {
-                viewModel.setSelectedStatistic(newValue);
-            }
+        columnNumber.setCellValueFactory(
+                cell -> new SimpleStringProperty(cell.getValue().getKey())
+        );
+        columnValue.setCellValueFactory(
+                cell -> new SimpleStringProperty(cell.getValue().getValue())
+        );
+
+        addRowButton.setOnAction(event -> viewModel.addRowToStatisticData());
+        deleteRowButton.setOnAction(event -> viewModel.deleteSelectedRowInStatisticData());
+        clearTableButton.setOnAction(event -> viewModel.clearStatisticData());
+        calculateButton.setOnAction(event -> viewModel.calculateSelectedStatistic());
+
+        tableData.setItems(viewModel.getStatisticData());
+        tableData.getFocusModel()
+                .focusedIndexProperty()
+                .addListener(
+                        (observable, oldValue, newValue) -> {
+            viewModel.selectRowInStatisticData(newValue.intValue());
         });
+
+        statisticsList.getSelectionModel()
+                .selectedItemProperty()
+                .addListener(
+                        (observable, oldValue, newValue) -> {
+                    viewModel.setSelectedStatistic(newValue);
+                });
     }
 }
