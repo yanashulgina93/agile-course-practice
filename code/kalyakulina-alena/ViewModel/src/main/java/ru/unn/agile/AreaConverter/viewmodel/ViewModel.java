@@ -78,6 +78,7 @@ public class ViewModel {
                 return isConvertButtonEnable;
             } else {
                 status = Status.READY;
+                resultArea = "";
                 isConvertButtonEnable = true;
                 return isConvertButtonEnable;
             }
