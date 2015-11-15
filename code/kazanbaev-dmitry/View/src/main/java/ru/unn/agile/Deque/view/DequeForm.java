@@ -7,7 +7,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 public final class DequeForm {
-    private DequeViewModel viewModel;
+    private final DequeViewModel viewModel;
 
     private JPanel mainPanel;
     private JTextField inputNumberText;
@@ -23,19 +23,19 @@ public final class DequeForm {
 
         inputNumberText.getDocument().addDocumentListener(new DocumentListener() {
             @Override
-            public void insertUpdate(DocumentEvent e) {
+            public void insertUpdate(final DocumentEvent e) {
                 backBind();
                 bind();
             }
 
             @Override
-            public void removeUpdate(DocumentEvent e) {
+            public void removeUpdate(final DocumentEvent e) {
                 backBind();
                 bind();
             }
 
             @Override
-            public void changedUpdate(DocumentEvent e) {
+            public void changedUpdate(final DocumentEvent e) {
                 backBind();
                 bind();
             }
