@@ -6,25 +6,23 @@ import org.junit.Before;
 import org.junit.Test;
 import java.util.Random;
 
-public class QueueTest {
+public class QueueIntTest {
 
     private LabQueue<Integer> testIntQueue;
-    private LabQueue<String> testStrQueue;
     private final int size = 10;
 
     @Before
     public void setUpQueueForTests() {
         testIntQueue = new LabQueue<>();
-        testStrQueue = new LabQueue<>();
     }
     @Test
-    public void canPushInteger() {
-        final int value1 = 1;
-        testIntQueue.push(value1);
+    public void canPushOne() {
+        final int one = 1;
+        testIntQueue.push(one);
 
-        final int value2 = testIntQueue.getHead();
+        final int headValue = testIntQueue.getHead();
 
-        assertEquals(value1, value2);
+        assertEquals(one, headValue);
     }
 
     @Test
@@ -54,57 +52,28 @@ public class QueueTest {
     }
 
     @Test
-    public void canFindElement() {
+    public void canFindElement() throws Exception {
         final int value1 = 9;
-        for (int i = 0; i < size; i++) {
-            testIntQueue.push(size - i);
+        for (int i = size; i > 0; i--) {
+            testIntQueue.push(i);
         }
 
-        testIntQueue.pop();
         final int result = testIntQueue.findElement(value1);
 
-        assertEquals(size - value1 - 1, result);
+        assertEquals(size - value1, result);
     }
 
     @Test
-    public void canPushString() {
-        final String value1 = "first";
-        testStrQueue.push(value1);
-
-        final String value2 = testStrQueue.getHead();
-
-        assertEquals(value1, value2);
-    }
-
-    @Test
-    public  void checkPopFromEmptyQueue() {
+    public  void popFromEmptyQueueReturnNull() {
         Integer value1 = testIntQueue.pop();
 
         assertEquals(null, value1);
     }
 
     @Test
-    public void cantFindElement() {
-        testStrQueue.push("first");
-
-        final int value1 = testStrQueue.findElement("second");
-        final int result = -1;
-
-        assertEquals(result, value1);
-    }
-
-    @Test
-    public void checkHeadFromEmptyQueue() {
-
-        final String value1 = testStrQueue.getHead();
-
-        assertEquals(null, value1);
-    }
-
-    @Test
-    public void canFindRandomElement() {
-        for (int i = 0; i < size; i++) {
-            testIntQueue.push(size - i);
+    public void canFindRandomElement() throws Exception {
+        for (int i = size; i > 0; i--) {
+            testIntQueue.push(i);
         }
 
         Random rand = new Random();
@@ -115,20 +84,20 @@ public class QueueTest {
     }
 
     @Test
-    public void canFindLastElement() {
-        for (int i = 0; i < size; i++) {
-            testIntQueue.push(size - i);
+    public void canFindLastElement() throws Exception {
+        for (int i = size; i > 0; i--) {
+            testIntQueue.push(i);
         }
 
-        final int result = testIntQueue.findElement(1);
+        final int lastElement = testIntQueue.findElement(1);
 
-        assertEquals(9, result);
+        assertEquals(9, lastElement);
     }
 
     @Test
     public void checkSizeAfterPop() {
-        for (int i = 0; i < size; i++) {
-            testIntQueue.push(size - i);
+        for (int i = size; i > 0; i--) {
+            testIntQueue.push(i);
         }
 
         testIntQueue.pop();
@@ -139,8 +108,8 @@ public class QueueTest {
 
     @Test
     public void checkSizeAfterGetHead() {
-        for (int i = 0; i < size; i++) {
-            testIntQueue.push(size - i);
+        for (int i = size; i > 0; i--) {
+            testIntQueue.push(i);
         }
 
         testIntQueue.getHead();

@@ -34,12 +34,12 @@ public class LabQueue<T> {
         return queue.get(0);
     }
 
-    public int findElement(final T element) {
+    public int findElement(final T element) throws Exception {
         for (int i = queue.size() - 1; i >= 0; i--) {
             if (queue.get(i) == element) {
                 return i;
             }
         }
-        return -1;
+        throw new Exception("element not found");
     }
 }
