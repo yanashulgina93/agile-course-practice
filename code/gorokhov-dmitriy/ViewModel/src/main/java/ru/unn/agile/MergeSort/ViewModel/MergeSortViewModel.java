@@ -69,6 +69,7 @@ public class MergeSortViewModel {
             this.order = order;
         }
 
+        @Override
         public String toString() {
             return order;
         }
@@ -85,6 +86,7 @@ public class MergeSortViewModel {
             this.status = status;
         }
 
+        @Override
         public String toString() {
             return status;
         }
