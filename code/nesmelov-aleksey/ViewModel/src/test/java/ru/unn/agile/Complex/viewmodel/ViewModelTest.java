@@ -23,14 +23,42 @@ public class ViewModelTest {
     }
 
     @Test
-    public void canSetDefaultValues() {
+    public void canSetDefaultFirstReal() {
         assertEquals("", viewModel.getFirstRealProperty().get());
+    }
+
+    @Test
+    public void canSetDefaultFirstImaginary() {
         assertEquals("", viewModel.getFirstImaginaryProperty().get());
+    }
+
+    @Test
+    public void canSetDefaultSecondReal() {
+        assertEquals("", viewModel.getSecondRealProperty().get());
+    }
+
+    @Test
+    public void canSetDefaultSecondImaginary() {
         assertEquals("", viewModel.getSecondImaginaryProperty().get());
-        assertEquals("", viewModel.getSecondImaginaryProperty().get());
+    }
+
+    @Test
+    public void canSetDefaultResult() {
         assertEquals("", viewModel.getResultProperty().get());
+    }
+
+    @Test
+    public void canSetDefaultErrors() {
         assertEquals("", viewModel.getErrorsProperty().get());
+    }
+
+    @Test
+    public void canSetDefaultOperation() {
         assertEquals(Operation.ADD.toString(), viewModel.getOperationProperty().get().toString());
+    }
+
+    @Test
+    public void canSetDefaultCanCalculate() {
         assertFalse(viewModel.canCalculateProperty().get());
     }
 
