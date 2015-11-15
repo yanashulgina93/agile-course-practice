@@ -22,30 +22,40 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canSetDefaultValues() {
+    public void canSetDefaultInputValue() {
         assertEquals("", viewModel.inputValueProperty().get());
+    }
+
+    @Test
+    public void canSetDefaultInputUnit() {
         assertEquals(LengthUnit.INCH, viewModel.inputUnitProperty().get());
+    }
+
+    @Test
+    public void canSetDefaultOutputValue() {
         assertEquals("", viewModel.outputValueProperty().get());
+    }
+
+    @Test
+    public void canSetDefaultOutputUnit() {
         assertEquals(LengthUnit.FOOT, viewModel.outputUnitProperty().get());
+    }
+
+    @Test
+    public void canSetDefaultStatus() {
         assertEquals(Status.WAITING.toString(), viewModel.hintMessageProperty().get());
     }
 
     @Test
-    public void statusIsWaitingWhenCalculateWithEmptyField() {
-        viewModel.calculate();
-        assertEquals(Status.WAITING.toString(), viewModel.hintMessageProperty().get());
-    }
-
-    @Test
-    public void statusIsReadyWhenFieldIsFill() {
-        setInputData();
+    public void statusIsReadyWhenFieldIsFillByValidData() {
+        setValidInputData();
 
         assertEquals(Status.READY.toString(), viewModel.hintMessageProperty().get());
     }
 
     @Test
-    public void canReportBadFormat() {
-        viewModel.inputValueProperty().set("a");
+    public void canStatusReportsBadFormat() {
+        setBadInputData();
 
         assertEquals(Status.BAD_FORMAT.toString(), viewModel.hintMessageProperty().get());
     }
@@ -56,21 +66,20 @@ public class ViewModelTests {
     }
 
     @Test
-    public void calculateButtonIsDisabledInitially() {
+    public void calculateButtonIsDisabledWhenProgramStarts() {
         assertTrue(viewModel.calculationDisabledProperty().get());
     }
 
     @Test
     public void calculateButtonIsDisabledWhenFormatIsBad() {
-        setInputData();
         viewModel.inputValueProperty().set("smth");
 
         assertTrue(viewModel.calculationDisabledProperty().get());
     }
 
     @Test
-    public void calculateButtonIsEnabledWithCorrectInput() {
-        setInputData();
+    public void calculateButtonIsEnabledWithValidInput() {
+        setValidInputData();
 
         assertFalse(viewModel.calculationDisabledProperty().get());
     }
@@ -97,15 +106,8 @@ public class ViewModelTests {
     }
 
     @Test
-    public void statusIsReadyWhenSetProperData() {
-        setInputData();
-
-        assertEquals(Status.READY.toString(), viewModel.hintMessageProperty().get());
-    }
-
-    @Test
     public void canSetSuccessMessage() {
-        setInputData();
+        setValidInputData();
 
         viewModel.calculate();
 
@@ -113,36 +115,17 @@ public class ViewModelTests {
     }
 
     @Test
-    public void isButtonUnabledWhenInputValueIsEmpty() {
-        assertTrue(viewModel.getCalculationDisabled());
-    }
-
-    @Test
     public void isErrorMessegeEqualsErrorBadFormatWhenInputDataIncorrect() {
-        viewModel.inputValueProperty().set("a");
+        setBadInputData();
 
-        assertEquals("Error: Bad format", viewModel.getHintMessage());
+        assertEquals(Status.BAD_FORMAT.toString(), viewModel.getHintMessage());
     }
 
-    @Test
-    public void isGetOutputValueReturnsCorrectAnswer() {
-        setInputData();
-        viewModel.inputUnitProperty().set(LengthUnit.INCH);
-        viewModel.outputUnitProperty().set(LengthUnit.FOOT);
-
-        viewModel.calculate();
-
-        assertEquals("0.08333333267716535", viewModel.getOutputValue());
-    }
-
-    @Test
-    public void isGetUnitsReturnsLengthUnitsSequenceOfUnits() {
-        ObservableList<LengthUnit> get = viewModel.unitsProperty().get();
-
-        assertEquals(get, viewModel.getUnits());
-    }
-
-    private void setInputData() {
+    private void setValidInputData() {
         viewModel.inputValueProperty().set("1");
+    }
+
+    private void setBadInputData() {
+        viewModel.inputValueProperty().set("a");
     }
 }

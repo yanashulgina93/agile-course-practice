@@ -38,7 +38,7 @@ public class ViewModel {
             }
             @Override
             protected boolean computeValue() {
-                return getHintStatus() == Status.READY;
+                return getHint() == Status.READY;
             }
         };
         calculationDisabled.bind(couldCalculate.not());
@@ -55,10 +55,6 @@ public class ViewModel {
     }
 
     public void calculate() {
-        if (calculationDisabled.get()) {
-            return;
-        }
-
         outputValue.set(outputUnit.get().convert(inputValue.get(), inputUnit.get()));
         hintMessage.set(Status.SUCCESS.toString());
     }
@@ -71,9 +67,9 @@ public class ViewModel {
         return units;
     }
 
-    public final ObservableList<LengthUnit> getUnits() {
-        return units.get();
-    }
+    //public final ObservableList<LengthUnit> getUnits() {
+        //return units.get();
+    //}
 
     public ObjectProperty<LengthUnit> inputUnitProperty() {
         return inputUnit;
@@ -87,16 +83,8 @@ public class ViewModel {
         return calculationDisabled;
     }
 
-    public final boolean getCalculationDisabled() {
-        return calculationDisabled.get();
-    }
-
     public StringProperty outputValueProperty() {
         return outputValue;
-    }
-
-    public final String getOutputValue() {
-        return outputValue.get();
     }
 
     public StringProperty hintMessageProperty() {
@@ -107,7 +95,7 @@ public class ViewModel {
         return hintMessage.get();
     }
 
-    private Status getHintStatus() {
+    private Status getHint() {
         Status hintStatus = Status.READY;
         if (inputValue.get().isEmpty()) {
             hintStatus = Status.WAITING;
@@ -130,7 +118,7 @@ public class ViewModel {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
-            hintMessage.set(getHintStatus().toString());
+            hintMessage.set(getHint().toString());
         }
     }
 }
@@ -145,6 +133,8 @@ enum Status {
     private Status(final String name) {
         this.name = name;
     }
+
+    @Override
     public String toString() {
         return name;
     }
