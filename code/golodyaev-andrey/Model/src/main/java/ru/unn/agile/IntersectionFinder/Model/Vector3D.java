@@ -1,4 +1,4 @@
-package ru.unn.agile.IntersectionFinder.core;
+package ru.unn.agile.IntersectionFinder.Model;
 
 public class Vector3D {
     private double x;
@@ -9,6 +9,10 @@ public class Vector3D {
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+
+    public Vector3D(final String vectorStr) {
+        this.parse(vectorStr);
     }
 
     @Override
@@ -65,5 +69,53 @@ public class Vector3D {
 
     public Vector3D add(final Vector3D vector) {
         return new Vector3D(x + vector.x, y + vector.y, z + vector.z);
+    }
+
+    private void parseX(final String vectorStr) {
+        int index = vectorStr.indexOf(";");
+        if (index <= 0) {
+            throw new NumberFormatException();
+        }
+        String x = vectorStr.substring(0, vectorStr.indexOf(";"));
+        x = x.trim();
+        this.x = Double.parseDouble(x);
+    }
+
+    private void parseY(final String vectorStr) {
+        int index1 = vectorStr.indexOf(";");
+        if (index1 == vectorStr.length() - 1) {
+            throw new NumberFormatException();
+        }
+        int index2 = vectorStr.indexOf(";", index1 + 1);
+        if (index2 == -1) {
+            throw new NumberFormatException();
+        }
+        String y = vectorStr.substring(index1 + 1, index2);
+            y = y.trim();
+            this.y = Double.parseDouble(y);
+    }
+
+    private void parseZ(final String vectorStr) {
+        int index = vectorStr.indexOf(";");
+        index = vectorStr.indexOf(";", index + 1);
+        if (index == vectorStr.length() - 1) {
+            throw new NumberFormatException();
+        }
+        String z = vectorStr.substring(index + 1);
+        z = z.trim();
+        this.z = Double.parseDouble(z);
+    }
+
+    public void parse(final String vectorStr) {
+        if (vectorStr.isEmpty()) {
+            throw new NumberFormatException("Empty string");
+        }
+        parseX(vectorStr);
+        parseY(vectorStr);
+        parseZ(vectorStr);
+    }
+
+    public String toString() {
+        return x + "; " + y + "; " + z;
     }
 }

@@ -1,4 +1,4 @@
-package ru.unn.agile.IntersectionFinder.core;
+package ru.unn.agile.IntersectionFinder.Model;
 
 public class Line {
     private Vector3D point;

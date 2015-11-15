@@ -1,4 +1,4 @@
-package ru.unn.agile.IntersectionFinder.core;
+package ru.unn.agile.IntersectionFinder.Model;
 
 import org.junit.Before;
 import org.junit.Test;
