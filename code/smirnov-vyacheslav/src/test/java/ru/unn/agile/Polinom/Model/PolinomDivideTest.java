@@ -42,7 +42,7 @@ public class PolinomDivideTest {
         Polinom simplePolinom = new Polinom(new double[]{0.0, 5.0});
 
         first.divide(simplePolinom);
-
+ 
         Assert.assertTrue(Arrays.equals(first.getCoefficients(), new double[]{0.4, 0.0, 0.2}));
     }
 
@@ -50,6 +50,6 @@ public class PolinomDivideTest {
     public void canDividePolinoms() {
         second.divide(first);
 
-        Assert.assertTrue(Arrays.equals(first.getCoefficients(), new double[]{5.0, -2.0}));
+        Assert.assertTrue(Arrays.equals(second.getCoefficients(), new double[]{5.0, -2.0}));
     }
 }

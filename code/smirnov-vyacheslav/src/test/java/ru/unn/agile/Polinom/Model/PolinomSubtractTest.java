@@ -36,7 +36,8 @@ public class PolinomSubtractTest {
             new double[]{2.0, 8.0, -4.0}},
             {new double[]{12.64, 0.15, 1007.0009}, new double[]{12.64, 60.85, 1002.0001},
             new double[]{0.0, -60.70, 5.0008}},
-            {new double[]{5.0, 6.0, -7.0}, new double[]{5.0, 7.0, 7.0}, new double[]{0.0, -1.0}},
+            {new double[]{5.0, 6.0, -7.0}, new double[]{5.0, 7.0, 7.0},
+            new double[]{0.0, -1.0, -14.0}},
             {new double[]{-5.0, 6.0, -7.0}, new double[]{-5.0, 6.0, -7.0}, new double[]{0.0}}
         });
     }

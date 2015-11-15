@@ -50,7 +50,7 @@ public class PolinomAddTest {
     @Test
     public void canAddPolinoms() {
         first.add(second);
-
+ 
         Assert.assertTrue(Arrays.equals(first.getCoefficients(), expectedCoefficients));
     }
 }
