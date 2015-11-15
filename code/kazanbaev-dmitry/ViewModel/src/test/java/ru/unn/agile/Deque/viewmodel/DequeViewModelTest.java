@@ -78,4 +78,22 @@ public class DequeViewModelTest {
 
         assertFalse(viewModel.isPushBackButtonEnabled());
     }
+
+    @Test
+    public void whenDequeIsEmptyPopFrontButtonIsDisabled() {
+        viewModel.setInputNumber("12");
+        viewModel.pushFront();
+        viewModel.popFront();
+
+        assertFalse(viewModel.isPopFrontButtonEnabled());
+    }
+
+    @Test
+    public void whenDequeIsEmptyPopBackButtonIsDisabled() {
+        viewModel.setInputNumber("12");
+        viewModel.pushBack();
+        viewModel.popBack();
+
+        assertFalse(viewModel.isPopBackButtonEnabled());
+    }
 }

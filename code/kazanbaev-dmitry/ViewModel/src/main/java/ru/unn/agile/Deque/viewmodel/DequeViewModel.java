@@ -57,4 +57,22 @@ public class DequeViewModel {
         isPopFrontButtonEnabled = true;
         isPopBackButtonEnabled = true;
     }
+
+    public Integer popFront() {
+        Integer value = deque.popFront();
+        if (deque.isEmpty()) {
+            isPopFrontButtonEnabled = false;
+            isPopBackButtonEnabled = false;
+        }
+        return value;
+    }
+
+    public Integer popBack() {
+        Integer value = deque.popBack();
+        if (deque.isEmpty()) {
+            isPopFrontButtonEnabled = false;
+            isPopBackButtonEnabled = false;
+        }
+        return value;
+    }
 }
