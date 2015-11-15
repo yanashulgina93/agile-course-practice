@@ -69,48 +69,49 @@ public class ViewModel {
     }
 
     public StringProperty inputValueProperty() {
-
         return inputValue;
     }
-    public StringProperty outputValueProperty() {
 
+    public StringProperty outputValueProperty() {
         return outputValue;
     }
-    public final ObjectProperty<UnitCurrency> inputUnitProperty() {
 
+    public final ObjectProperty<UnitCurrency> inputUnitProperty() {
         return inputUnit;
     }
-    public final String getOutputValue() {
 
+    public final String getOutputValue() {
         return outputValue.get();
     }
-    public final ObjectProperty<UnitCurrency> outputUnitProperty() {
 
+    public final ObjectProperty<UnitCurrency> outputUnitProperty() {
         return outputUnit;
     }
-    public ObjectProperty<ObservableList<UnitCurrency>> unitsProperty() {
 
+    public ObjectProperty<ObservableList<UnitCurrency>> unitsProperty() {
         return units;
     }
-    public final ObservableList<UnitCurrency> getUnits() {
 
+    public final ObservableList<UnitCurrency> getUnits() {
         return units.get();
     }
-    public BooleanProperty convertationDisableProperty() {
 
+    public BooleanProperty convertationDisableProperty() {
         return convertationDisable;
     }
-    public final boolean getConvertationDisable() {
 
+    public final boolean getConvertationDisable() {
         return convertationDisable.get();
     }
-    public StringProperty statusProperty() {
 
+    public StringProperty statusProperty() {
         return status;
     }
+
     public final String getStatus() {
         return status.get();
     }
+
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
         if (inputValue.get().isEmpty()) {
