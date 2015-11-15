@@ -9,8 +9,6 @@ import javafx.scene.control.TextField;
 import ru.unn.agile.CurrencyConverter.Model.UnitCurrency;
 import ru.unn.agile.CurrencyConverter.viewmodel.ViewModel;
 
-import java.awt.*;
-
 
 public class CurrencyConverter {
     @FXML
@@ -33,6 +31,7 @@ public class CurrencyConverter {
         btnConvert.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
+
                 viewModel.convert();
             }
         });

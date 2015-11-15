@@ -72,23 +72,43 @@ public class ViewModel {
         return inputValue;
     }
     public StringProperty outputValueProperty() {
+
         return outputValue;
     }
-
     public final ObjectProperty<UnitCurrency> inputUnitProperty() {
+
         return inputUnit;
     }
+    public final String getOutputValue() {
+
+        return outputValue.get();
+    }
     public final ObjectProperty<UnitCurrency> outputUnitProperty() {
+
         return outputUnit;
     }
+    public ObjectProperty<ObservableList<UnitCurrency>> unitsProperty() {
 
+        return units;
+    }
+    public final ObservableList<UnitCurrency> getUnits() {
 
+        return units.get();
+    }
     public BooleanProperty convertationDisableProperty() {
+
         return convertationDisable;
     }
+    public final boolean getConvertationDisable() {
 
+        return convertationDisable.get();
+    }
     public StringProperty statusProperty() {
+
         return status;
+    }
+    public final String getStatus() {
+        return status.get();
     }
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
@@ -97,7 +117,10 @@ public class ViewModel {
         }
         try {
             if (!inputValue.get().isEmpty()) {
-                Double.parseDouble(inputValue.get());
+               double value = Double.parseDouble(inputValue.get());
+                if (value < 0) {
+                    inputStatus = Status.WRONG_FORMAT;
+                }
             }
         } catch (NumberFormatException e) {
             inputStatus = Status.WRONG_FORMAT;
