@@ -24,8 +24,16 @@ public class ViewModelTests {
     public void canSetDefaultValueAndUnits() {
         assertEquals("0.00", viewModel.inputValueProperty().get());
         assertEquals("0.00", viewModel.inputValueProperty().get());
+    }
+
+    @Test
+    public void canSetDefaultUnits() {
         assertEquals(UnitCurrency.RUBLE, viewModel.inputUnitProperty().get());
         assertEquals(UnitCurrency.RUBLE, viewModel.outputUnitProperty().get());
+    }
+
+    @Test
+    public void canSetDefaultMessage() {
         assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
     }
 

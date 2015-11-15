@@ -4,6 +4,8 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import ru.unn.agile.CurrencyConverter.Model.Currency;
 import ru.unn.agile.CurrencyConverter.Model.UnitCurrency;
 
@@ -19,6 +21,9 @@ public class ViewModel {
     private final ObjectProperty<UnitCurrency> outputUnit = new SimpleObjectProperty<>();
 
     private final BooleanProperty convertationDisable = new SimpleBooleanProperty();
+
+    private final ObjectProperty<ObservableList<UnitCurrency>> units =
+            new SimpleObjectProperty<>(FXCollections.observableArrayList(UnitCurrency.values()));
 
     private final StringProperty status = new SimpleStringProperty();
 

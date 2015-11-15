@@ -18,8 +18,6 @@ public class CurrencyConverter {
     @FXML
     private TextField inputValue;
     @FXML
-    private Label outputValue;
-    @FXML
     private ComboBox<UnitCurrency> inputCurrency;
     @FXML
     private ComboBox<UnitCurrency> outputCurrency;

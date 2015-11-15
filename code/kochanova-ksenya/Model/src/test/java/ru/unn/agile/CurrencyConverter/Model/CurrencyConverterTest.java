@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -48,28 +47,18 @@ public class CurrencyConverterTest {
     assertEquals(expectedCurrency, currencyAfterConvert);
 
     }
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void cannotConvertNegativeValue() {
         boolean thrown = false;
         Currency currencyBeforeConvert = new Currency(-100, UnitCurrency.DOLLAR);
-        try {
-            Currency currencyAfterConvert = UnitCurrency.DOLLAR.convertCurrency(
+        Currency currencyAfterConvert = UnitCurrency.DOLLAR.convertCurrency(
                     currencyBeforeConvert, UnitCurrency.DOLLAR);
-        } catch (IllegalArgumentException e) {
-            thrown = true;
-        }
-        assertTrue(thrown);
     }
-    @Test
+
+    @Test(expected = NullPointerException.class)
     public void cannotConvertNull() {
-        boolean thrown = false;
         Currency currencyBeforeConvert = null;
-        try {
-            Currency currencyAfterConvert = UnitCurrency.DOLLAR.convertCurrency(
+        Currency currencyAfterConvert = UnitCurrency.DOLLAR.convertCurrency(
                     currencyBeforeConvert, UnitCurrency.DOLLAR);
-        } catch (NullPointerException e) {
-            thrown = true;
-        }
-        assertTrue(thrown);
     }
 }
