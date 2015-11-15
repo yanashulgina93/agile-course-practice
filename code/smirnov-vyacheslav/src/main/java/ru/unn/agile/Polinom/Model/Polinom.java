@@ -32,8 +32,9 @@ public class Polinom {
 
     public void subtract(final Polinom operand) {
         double[] operandCoefficients = operand.getCoefficients();
-        for (int i = 0; i < operandCoefficients.length; i++)
+        for (int i = 0; i < operandCoefficients.length; i++) {
             operandCoefficients[i] *= -1;
+        }
         add(new Polinom(operandCoefficients));
     }
 
