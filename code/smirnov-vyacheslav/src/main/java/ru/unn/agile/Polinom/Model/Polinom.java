@@ -4,18 +4,14 @@ import java.math.*;
 
 public class Polinom {
     private double[] coefficients;
-    private static final int PRECISION = 4;
+    private static final int PRECISION = 9;
 
     public Polinom() {
         coefficients = new double[1];
     }
 
-    public Polinom(final double[] inputCoefficients) {
-        coefficients = new double[inputCoefficients.length];
-
-        for (int i = 0; i < inputCoefficients.length; i++) {
-            coefficients[i] = inputCoefficients[i];
-        }
+    public Polinom(final double[] coefficients) {
+        this.coefficients = coefficients;
         reduceIfHighDegreeIsNull();
     }
 
@@ -29,20 +25,16 @@ public class Polinom {
 
         for (int i = 0; i < operandCoefficients.length; i++) {
             coefficients[i] += operandCoefficients[i];
-            coefficients[i] = round(coefficients[i], PRECISION);
+            coefficients[i] = round(coefficients[i]);
         }
         reduceIfHighDegreeIsNull();
     }
 
     public void subtract(final Polinom operand) {
         double[] operandCoefficients = operand.getCoefficients();
-        extendPolinom(max(coefficients.length, operandCoefficients.length));
-
-        for (int i = 0; i < operandCoefficients.length; i++) {
-            coefficients[i] -= operandCoefficients[i];
-            coefficients[i] = round(coefficients[i], PRECISION);
-        }
-        reduceIfHighDegreeIsNull();
+        for (int i = 0; i < operandCoefficients.length; i++)
+            operandCoefficients[i] *= -1;
+        add(new Polinom(operandCoefficients));
     }
 
     public void multiply(final Polinom operand) {
@@ -97,13 +89,9 @@ public class Polinom {
         coefficients = quotient.getCoefficients();
     }
 
-    private double round(final double value, final int presicion) {
-        if (presicion < 0) {
-            throw new IllegalArgumentException();
-        }
-
+    private double round(final double value) {
         BigDecimal bd = new BigDecimal(Double.toString(value));
-        bd = bd.setScale(presicion, RoundingMode.HALF_UP);
+        bd = bd.setScale(PRECISION, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
 
