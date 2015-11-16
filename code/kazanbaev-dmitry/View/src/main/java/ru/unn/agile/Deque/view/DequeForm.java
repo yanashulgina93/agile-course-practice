@@ -91,6 +91,15 @@ public final class DequeForm {
             }
         });
 
+        checkButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                backBind();
+                viewModel.doesDequeContain();
+                bind();
+            }
+        });
+
         dequeTable = new JTable(new Object[][]{}, new Object[]{"DEQUE"});
 
         bind();
@@ -106,7 +115,8 @@ public final class DequeForm {
         popFrontButton.setEnabled(viewModel.isPopFrontButtonEnabled());
         popBackButton.setEnabled(viewModel.isPopBackButtonEnabled());
         clearButton.setEnabled(viewModel.isClearButtonEnabled());
-        outputText.setText(viewModel.getOutputNumber());
+        checkButton.setEnabled(viewModel.isCheckButtonEnabled());
+        outputText.setText(viewModel.getOutput());
 
         Object[][] values = new Integer[viewModel.getDequeSize()][1];
         int counter = 0;

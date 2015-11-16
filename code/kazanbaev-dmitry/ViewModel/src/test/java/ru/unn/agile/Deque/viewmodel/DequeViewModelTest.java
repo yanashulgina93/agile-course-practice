@@ -35,6 +35,16 @@ public class DequeViewModelTest {
     }
 
     @Test
+    public void byDefaultClearButtonIsDisabled() {
+        assertFalse(viewModel.isClearButtonEnabled());
+    }
+
+    @Test
+    public void byDefaultCheckButtonIsDisabled() {
+        assertFalse(viewModel.isCheckButtonEnabled());
+    }
+
+    @Test
     public void whenEnteredNumberPushFrontButtonIsEnabled() {
         viewModel.setInputNumber("4");
 
@@ -149,7 +159,7 @@ public class DequeViewModelTest {
 
         viewModel.popBack();
 
-        assertEquals("8", viewModel.getOutputNumber());
+        assertEquals("8", viewModel.getOutput());
     }
 
     @Test
@@ -161,7 +171,7 @@ public class DequeViewModelTest {
 
         viewModel.popFront();
 
-        assertEquals("16", viewModel.getOutputNumber());
+        assertEquals("16", viewModel.getOutput());
     }
 
     @Test
@@ -186,5 +196,43 @@ public class DequeViewModelTest {
         viewModel.popFront();
 
         assertFalse(viewModel.isClearButtonEnabled());
+    }
+
+    @Test
+    public void dequeContains4() {
+        viewModel.setInputNumber("4");
+        viewModel.pushFront();
+
+        viewModel.doesDequeContain();
+
+        assertEquals("true", viewModel.getOutput());
+    }
+
+    @Test
+    public void dequeDoesNotContains8() {
+        viewModel.setInputNumber("15");
+        viewModel.pushFront();
+        viewModel.setInputNumber("8");
+
+        viewModel.doesDequeContain();
+
+        assertEquals("false", viewModel.getOutput());
+    }
+
+    @Test
+    public void whenDequeIsClearedCheckButtonIsDisabled() {
+        viewModel.clearDeque();
+
+        assertFalse(viewModel.isCheckButtonEnabled());
+    }
+
+    @Test
+    public void whenDequeIsEmptyAfterPopCheckButtonIsDisabled() {
+        viewModel.setInputNumber("15162342");
+        viewModel.pushFront();
+
+        viewModel.popFront();
+
+        assertFalse(viewModel.isCheckButtonEnabled());
     }
 }

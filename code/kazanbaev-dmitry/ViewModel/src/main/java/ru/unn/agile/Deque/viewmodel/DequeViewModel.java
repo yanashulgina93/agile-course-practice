@@ -6,12 +6,13 @@ public class DequeViewModel {
     private final Deque<Integer> deque;
 
     private String inputNumber;
-    private String outputNumber;
+    private String output;
     private boolean isPushFrontButtonEnabled;
     private boolean isPushBackButtonEnabled;
     private boolean isPopFrontButtonEnabled;
     private boolean isPopBackButtonEnabled;
     private boolean isClearButtonEnabled;
+    private boolean isCheckButtonEnabled;
 
     public DequeViewModel() {
         deque = new Deque<>();
@@ -23,14 +24,18 @@ public class DequeViewModel {
             Integer.parseInt(inputNumber);
             isPushFrontButtonEnabled = true;
             isPushBackButtonEnabled = true;
+            if (!deque.isEmpty()) {
+                isCheckButtonEnabled = true;
+            }
         } catch (NumberFormatException e) {
             isPushFrontButtonEnabled = false;
             isPushBackButtonEnabled = false;
+            isCheckButtonEnabled = false;
         }
     }
 
-    public String getOutputNumber() {
-        return outputNumber;
+    public String getOutput() {
+        return output;
     }
 
     public boolean isPushFrontButtonEnabled() {
@@ -53,11 +58,16 @@ public class DequeViewModel {
         return isClearButtonEnabled;
     }
 
+    public boolean isCheckButtonEnabled() {
+        return isCheckButtonEnabled;
+    }
+
     public void pushFront() {
         deque.pushFront(Integer.valueOf(inputNumber));
         isPopFrontButtonEnabled = true;
         isPopBackButtonEnabled = true;
         isClearButtonEnabled = true;
+        isCheckButtonEnabled = true;
     }
 
     public void pushBack() {
@@ -65,6 +75,7 @@ public class DequeViewModel {
         isPopFrontButtonEnabled = true;
         isPopBackButtonEnabled = true;
         isClearButtonEnabled = true;
+        isCheckButtonEnabled = true;
     }
 
     public Integer popFront() {
@@ -73,8 +84,9 @@ public class DequeViewModel {
             isPopFrontButtonEnabled = false;
             isPopBackButtonEnabled = false;
             isClearButtonEnabled = false;
+            isCheckButtonEnabled = false;
         }
-        outputNumber = value.toString();
+        output = value.toString();
         return value;
     }
 
@@ -84,8 +96,9 @@ public class DequeViewModel {
             isPopFrontButtonEnabled = false;
             isPopBackButtonEnabled = false;
             isClearButtonEnabled = false;
+            isCheckButtonEnabled = false;
         }
-        outputNumber = value.toString();
+        output = value.toString();
         return value;
     }
 
@@ -104,5 +117,9 @@ public class DequeViewModel {
     public void clearDeque() {
         deque.clear();
         isClearButtonEnabled = false;
+    }
+
+    public void doesDequeContain() {
+        output = String.valueOf(deque.contains(Integer.valueOf(inputNumber)));
     }
 }
