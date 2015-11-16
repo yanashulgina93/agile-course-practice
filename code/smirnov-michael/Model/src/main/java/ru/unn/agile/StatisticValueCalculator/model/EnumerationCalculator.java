@@ -6,7 +6,7 @@ public class EnumerationCalculator implements IStatisticValueCalculator {
     private static final double ENUMERATION_OF_EMPTY_DATA = 0.0;
 
     @Override
-    public double calculate(final Collection<Double> dataForStatistics) throws NullPointerException {
+    public double calculate(final Collection<Double> dataForStatistics) {
         if (dataForStatistics == null) {
             throw new NullPointerException("Parameter dataForStatistics must not be null");
         }

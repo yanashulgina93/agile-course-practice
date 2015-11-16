@@ -178,7 +178,10 @@ public class ViewModelTests {
         viewModel.deleteSelectedRowInStatisticData();
 
         ObservableList<Pair<String, String>> dataTable = viewModel.getStatisticData();
-        assertTrue((dataTable.size() == 1) && dataTable.get(0).getValue().equals("1.0"));
+
+        boolean hasDataTableOnlyOneElement = dataTable.size() == 1;
+        boolean isFirstElementInDataTableEqualsToOne = dataTable.get(0).getValue().equals("1.0");
+        assertTrue(hasDataTableOnlyOneElement && isFirstElementInDataTableEqualsToOne);
     }
 
     @Test

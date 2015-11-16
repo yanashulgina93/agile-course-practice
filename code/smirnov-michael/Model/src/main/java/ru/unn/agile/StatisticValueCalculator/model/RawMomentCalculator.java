@@ -10,7 +10,7 @@ public class RawMomentCalculator implements IStatisticValueCalculator {
 
     private final int order;
 
-    public RawMomentCalculator(final int order) throws InvalidParameterException {
+    public RawMomentCalculator(final int order) {
         if (order <= 0) {
             throw new InvalidParameterException("Order must be >= 0");
         }
@@ -18,7 +18,7 @@ public class RawMomentCalculator implements IStatisticValueCalculator {
     }
 
     @Override
-    public double calculate(final Collection<Double> dataForStatistics) throws NullPointerException {
+    public double calculate(final Collection<Double> dataForStatistics) {
         if (dataForStatistics == null) {
             throw new NullPointerException("Parameter dataForStatistics must not be null");
         }

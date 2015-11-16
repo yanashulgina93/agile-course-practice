@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.util.Pair;
 import ru.unn.agile.StatisticValueCalculator.model.*;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
 public class ViewModel {
@@ -30,8 +31,8 @@ public class ViewModel {
     private final BooleanProperty inputStatisticParameterFieldIsVisible
             = new SimpleBooleanProperty();
 
-    private StringProperty inputRow = new SimpleStringProperty("1.0");
-    private StringProperty inputStatisticParameter = new SimpleStringProperty("0.0");
+    private final StringProperty inputRow = new SimpleStringProperty("1.0");
+    private final StringProperty inputStatisticParameter = new SimpleStringProperty("0.0");
 
     private final ObservableList<Pair<String, String>> statisticData
             = FXCollections.observableArrayList();
@@ -39,13 +40,11 @@ public class ViewModel {
     private final AddStatisticParameterChangeListener parameterChangeListener
             = new AddStatisticParameterChangeListener();
 
-    private BooleanProperty addInputRowIsDisabled = new SimpleBooleanProperty(false);
-    private BooleanProperty calculationIsDisabled = new SimpleBooleanProperty(false);
-    private BooleanProperty deleteDataRowIsDisabled = new SimpleBooleanProperty(true);
+    private final BooleanProperty addInputRowIsDisabled = new SimpleBooleanProperty(false);
+    private final BooleanProperty calculationIsDisabled = new SimpleBooleanProperty(false);
+    private final BooleanProperty deleteDataRowIsDisabled = new SimpleBooleanProperty(true);
 
     private int selectedRowInStatisticData = -1;
-
-    private IStatisticValueCalculator calculator;
 
     public ViewModel() {
         selectedStatistic =
@@ -151,30 +150,31 @@ public class ViewModel {
         return deleteDataRowIsDisabled;
     }
 
-    public void setSelectedStatistic(StatisticValue selectedStatisticInfo) {
+    public void setSelectedStatistic(final StatisticValue selectedStatisticInfo) {
         selectedStatistic.set(selectedStatisticInfo);
         StatisticParameter parameterName = selectedStatisticInfo.getParameterName();
         parameterNameOfSelectedStatistic.set(parameterName);
 
-        if (parameterName != null) {
-            inputStatisticParameterFieldIsVisible.set(true);
-        } else {
+        if (parameterName == null) {
             inputStatisticParameterFieldIsVisible.set(false);
+            return;
         }
+
+        inputStatisticParameterFieldIsVisible.set(true);
     }
-    public void setParameterNameOfSelectedStatistic(StatisticParameter parameterName) {
+    public void setParameterNameOfSelectedStatistic(final StatisticParameter parameterName) {
         parameterNameOfSelectedStatistic.set(parameterName);
     }
-    public void setInputStatisticParameterFieldIsVisible(boolean isVisible) {
+    public void setInputStatisticParameterFieldIsVisible(final boolean isVisible) {
         inputStatisticParameterFieldIsVisible.set(isVisible);
     }
-    public void setInputRow(String value) {
+    public void setInputRow(final String value) {
         inputRow.set(value);
     }
-    public void setInputStatisticParameter(String inputStatisticParameter) {
+    public void setInputStatisticParameter(final String inputStatisticParameter) {
         this.inputStatisticParameter.set(inputStatisticParameter);
     }
-    public void setStatisticData(ObservableList<Pair<String, String>> data) {
+    public void setStatisticData(final ObservableList<Pair<String, String>> data) {
         statisticData.setAll(data);
 
         if (statisticData.isEmpty()) {
@@ -191,16 +191,16 @@ public class ViewModel {
         selectedRowInStatisticData = -1;
         deleteDataRowIsDisabled.set(true);
     }
-    public void selectRowInStatisticData(Integer i) {
-        if (i >= 0 && i < statisticData.size()) {
-            selectedRowInStatisticData = i;
+    public void selectRowInStatisticData(final Integer rowNumber) {
+        if (rowNumber >= 0 && rowNumber < statisticData.size()) {
+            selectedRowInStatisticData = rowNumber;
             deleteDataRowIsDisabled.set(false);
         } else {
             makeRowInDataNotSelected();
         }
     }
     public void deleteSelectedRowInStatisticData() {
-        if (deleteDataRowIsDisabled.get() == false) {
+        if (!deleteDataRowIsDisabled.get()) {
             statisticData.remove(selectedRowInStatisticData);
             calculationIsDisabled.set(statisticData.isEmpty());
             reformIndexesInStatisticData();
@@ -217,34 +217,33 @@ public class ViewModel {
             data.add(Double.parseDouble(item.getValue()));
         }
 
+        IStatisticValueCalculator calculator;
         switch (selectedStatistic.get()) {
-            case ENUMERATION: {
+            case ENUMERATION:
                 calculator = new EnumerationCalculator();
                 break;
-            }
 
-            case VARIANCE: {
+            case VARIANCE:
                 calculator = new VarianceCalculator();
                 break;
-            }
 
-            case PROBABILITY: {
+            case PROBABILITY:
                 double event = Double.parseDouble(inputStatisticParameter.get());
                 calculator = new ProbabilityOfEventCalculator(event);
                 break;
-            }
 
-            case ROW_MOMENT: {
+            case ROW_MOMENT:
                 int order = Integer.parseInt(inputStatisticParameter.get());
                 calculator = new RawMomentCalculator(order);
                 break;
-            }
 
-            case CENTRAL_MOMENT: {
-                int order = Integer.parseInt(inputStatisticParameter.get());
+            case CENTRAL_MOMENT:
+                order = Integer.parseInt(inputStatisticParameter.get());
                 calculator = new CentralMomentCalculator(order);
                 break;
-            }
+
+            default:
+                throw new InvalidParameterException();
         }
 
         Double statisticValue = calculator.calculate(data);
@@ -267,22 +266,23 @@ public class ViewModel {
             inputRowError.set(InputNote.VALID_INPUT);
             addInputRowIsDisabled.set(false);
 
-            if (!newValue.isEmpty()) {
-                try {
-                    Double.parseDouble(newValue);
-                } catch (NumberFormatException exception) {
-                    inputRowError.set(InputNote.NOT_A_NUMBER);
-                    addInputRowIsDisabled.set(true);
-                }
-            } else {
+            if (newValue.isEmpty()) {
+                addInputRowIsDisabled.set(true);
+                return;
+            }
+
+            try {
+                Double.parseDouble(newValue);
+            } catch (NumberFormatException exception) {
+                inputRowError.set(InputNote.NOT_A_NUMBER);
                 addInputRowIsDisabled.set(true);
             }
         }
     }
     private class SelectedStatisticListener implements ChangeListener<StatisticValue> {
         @Override
-        public void changed(ObservableValue<? extends StatisticValue> observable,
-                            StatisticValue oldValue, StatisticValue newValue) {
+        public void changed(final ObservableValue<? extends StatisticValue> observable,
+                            final StatisticValue oldValue, final StatisticValue newValue) {
             parameterChangeListener.changed(inputStatisticParameter, "",
                     inputStatisticParameter.get());
         }
@@ -298,29 +298,30 @@ public class ViewModel {
                 return;
             }
 
-            if (!newValue.isEmpty()) {
-                StatisticParameter currentParameterName =
-                        getSelectedStatistic()
-                                .getParameterName();
-                if (currentParameterName == StatisticParameter.ORDER) {
-                    try {
-                        Integer order = Integer.parseInt(newValue);
-                        if (order <= 0) {
-                            throw new NumberFormatException();
-                        }
-                    } catch (NumberFormatException exception) {
-                        inputStatisticParameterError.set(InputNote.NOT_A_POSITIVE_INTEGER);
-                        calculationIsDisabled.set(true);
-                    }
-                }
+            if (newValue.isEmpty()) {
+                calculationIsDisabled.set(true);
+                return;
+            }
 
+            StatisticParameter currentParameterName =
+                    getSelectedStatistic()
+                            .getParameterName();
+            if (currentParameterName == StatisticParameter.ORDER) {
                 try {
-                    Double.parseDouble(newValue);
+                    Integer order = Integer.parseInt(newValue);
+                    if (order <= 0) {
+                        throw new NumberFormatException();
+                    }
                 } catch (NumberFormatException exception) {
-                    inputStatisticParameterError.set(InputNote.NOT_A_NUMBER);
+                    inputStatisticParameterError.set(InputNote.NOT_A_POSITIVE_INTEGER);
                     calculationIsDisabled.set(true);
                 }
-            } else {
+            }
+
+            try {
+                Double.parseDouble(newValue);
+            } catch (NumberFormatException exception) {
+                inputStatisticParameterError.set(InputNote.NOT_A_NUMBER);
                 calculationIsDisabled.set(true);
             }
         }
@@ -334,7 +335,7 @@ enum InputNote {
 
     private String message;
 
-    InputNote(String errorMessage) {
+    InputNote(final String errorMessage) {
         message = errorMessage;
     }
 

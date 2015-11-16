@@ -6,7 +6,7 @@ public enum StatisticParameter {
 
     private final String name;
 
-    StatisticParameter(String name) {
+    StatisticParameter(final String name) {
         this.name = name;
     }
 

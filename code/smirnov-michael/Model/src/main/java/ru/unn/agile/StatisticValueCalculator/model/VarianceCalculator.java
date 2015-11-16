@@ -12,7 +12,7 @@ public class VarianceCalculator extends CentralMomentCalculator {
     }
 
     @Override
-    public double calculate(final Collection<Double> dataForStatistics) throws NullPointerException {
+    public double calculate(final Collection<Double> dataForStatistics) {
         if (dataForStatistics == null) {
             throw new NullPointerException("Parameter dataForStatistics must not be null");
         }

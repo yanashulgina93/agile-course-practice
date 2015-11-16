@@ -10,11 +10,11 @@ public enum StatisticValue {
     private final String name;
     private final StatisticParameter parameterName;
 
-    StatisticValue(String name) {
+    StatisticValue(final String name) {
         this(name, null);
     }
 
-    StatisticValue(String name, StatisticParameter parameterName) {
+    StatisticValue(final String name, final StatisticParameter parameterName) {
         this.name = name;
         this.parameterName = parameterName;
     }
