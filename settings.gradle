@@ -93,8 +93,12 @@ include "code/kostrov-aleksey"
 project(":code/kostrov-aleksey").name = "kostrov-aleksey-Model"
 
 // Kumaev Vasilij
-include "code/kumaev-vasily"
-project(":code/kumaev-vasily").name = "kumaev-vasily-Model"
+include "code/kumaev-vasily/Model"
+project(":code/kumaev-vasily/Model").name = "kumaev-vasily-Model"
+include "code/kumaev-vasily/View"
+project(":code/kumaev-vasily/View").name = "kumaev-vasily-View"
+include "code/kumaev-vasily/ViewModel"
+project(":code/kumaev-vasily/ViewModel").name = "kumaev-vasily-ViewModel"
 
 // Kuznecov Aleksandr
 // Larin Sergej

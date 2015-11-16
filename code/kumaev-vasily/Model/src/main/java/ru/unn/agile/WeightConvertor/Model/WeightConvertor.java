@@ -19,4 +19,12 @@ public class WeightConvertor {
         }
         return outputWeight;
     }
+
+    public String convert(final String value,
+                          final WeightUnit unitInput, final WeightUnit unitOutput) {
+        Weight weightInput = new Weight(Double.parseDouble(value), unitInput);
+        Weight weightOutput = convert(weightInput, unitOutput);
+        double val = weightOutput.getValue();
+        return Double.toString(val);
+    }
 }
