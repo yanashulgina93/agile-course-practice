@@ -235,4 +235,23 @@ public class DequeViewModelTest {
 
         assertFalse(viewModel.isCheckButtonEnabled());
     }
+
+    @Test
+    public void dequeSizeIs3() {
+        viewModel.setInputNumber("4");
+        viewModel.pushFront();
+        viewModel.setInputNumber("8");
+        viewModel.pushFront();
+        viewModel.setInputNumber("15");
+        viewModel.pushFront();
+
+        assertEquals(3, viewModel.getDequeSize());
+    }
+
+    @Test
+    public void byDefaultDequeIsEmpty() {
+        assertTrue(viewModel.isDequeEmpty());
+    }
+
+
 }
