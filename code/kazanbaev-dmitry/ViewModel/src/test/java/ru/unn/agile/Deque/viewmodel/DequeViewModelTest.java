@@ -81,6 +81,20 @@ public class DequeViewModelTest {
     }
 
     @Test
+    public void whenEnteredNotNumberPushFrontButtonIsDisabled() {
+        viewModel.setInputNumber("1a");
+
+        assertFalse(viewModel.isPushFrontButtonEnabled());
+    }
+
+    @Test
+    public void whenEnteredNotNumberPushBackButtonIsDisabled() {
+        viewModel.setInputNumber("b2");
+
+        assertFalse(viewModel.isPushBackButtonEnabled());
+    }
+
+    @Test
     public void whenDequeIsEmptyPopFrontButtonIsDisabled() {
         viewModel.setInputNumber("4");
         viewModel.pushFront();

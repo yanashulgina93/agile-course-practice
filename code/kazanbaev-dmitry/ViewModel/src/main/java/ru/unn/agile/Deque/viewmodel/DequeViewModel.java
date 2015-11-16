@@ -18,12 +18,13 @@ public class DequeViewModel {
 
     public void setInputNumber(final String inputNumber) {
         this.inputNumber = inputNumber;
-        if ("".equals(inputNumber)) {
-            isPushFrontButtonEnabled = false;
-            isPushBackButtonEnabled = false;
-        } else {
+        try {
+            Integer.parseInt(inputNumber);
             isPushFrontButtonEnabled = true;
             isPushBackButtonEnabled = true;
+        } catch (NumberFormatException e) {
+            isPushFrontButtonEnabled = false;
+            isPushBackButtonEnabled = false;
         }
     }
 
