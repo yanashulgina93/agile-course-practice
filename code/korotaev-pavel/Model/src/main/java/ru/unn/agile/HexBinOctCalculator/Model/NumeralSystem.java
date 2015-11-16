@@ -1,6 +1,6 @@
 package ru.unn.agile.HexBinOctCalculator.Model;
 
-enum NumeralSystem {
+public enum NumeralSystem {
     HEX(16),
     BIN(2),
     OCT(8);

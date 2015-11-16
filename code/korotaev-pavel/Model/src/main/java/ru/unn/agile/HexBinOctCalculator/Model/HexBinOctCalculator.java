@@ -22,39 +22,78 @@ public final class HexBinOctCalculator {
         return (int) Long.parseLong(number, system.getValue());
     }
 
-    public static String add(final Number firstNumber, final Number secondNumber,
+    public static Number add(final Number firstNumber, final Number secondNumber,
                              final NumeralSystem resultSystem) {
         int left = parseString(firstNumber.getValue(), firstNumber.getSystem());
         int right = parseString(secondNumber.getValue(), secondNumber.getSystem());
-        int sum = left + right;
-        return convertResult(sum, resultSystem);
+        String sum = convertResult(left + right, resultSystem);
+        Number result = new Number(sum, resultSystem);
+        return result;
     }
 
-    public static String subtract(final Number firstNumber, final Number secondNumber,
+    public static Number subtract(final Number firstNumber, final Number secondNumber,
                                   final NumeralSystem resultSystem) {
         int left = parseString(firstNumber.getValue(), firstNumber.getSystem());
         int right = parseString(secondNumber.getValue(), secondNumber.getSystem());
-        int diff = left - right;
-        return convertResult(diff, resultSystem);
+        String diff = convertResult(left - right, resultSystem);
+        Number result = new Number(diff, resultSystem);
+        return result;
     }
 
-    public static String multiply(final Number firstNumber, final Number secondNumber,
+    public static Number multiply(final Number firstNumber, final Number secondNumber,
                                   final NumeralSystem resultSystem) {
         int left = parseString(firstNumber.getValue(), firstNumber.getSystem());
         int right = parseString(secondNumber.getValue(), secondNumber.getSystem());
-        int prod = left * right;
-        return convertResult(prod, resultSystem);
+        String prod = convertResult(left * right, resultSystem);
+        Number result = new Number(prod, resultSystem);
+        return result;
     }
 
-    public static String divide(final Number firstNumber, final Number secondNumber,
+    public static Number divide(final Number firstNumber, final Number secondNumber,
                                 final NumeralSystem resultSystem) {
         int left = parseString(firstNumber.getValue(), firstNumber.getSystem());
         int right = parseString(secondNumber.getValue(), secondNumber.getSystem());
         if (right == 0) {
             throw new IllegalArgumentException("Division by zero!");
         } else {
-            int quotient = left / right;
-            return convertResult(quotient, resultSystem);
+            String quotient = convertResult(left / right, resultSystem);
+            Number result = new Number(quotient, resultSystem);
+            return result;
         }
+    }
+
+    public enum Operation {
+        ADD("Add") {
+            public Number apply(final Number left, final Number right, final NumeralSystem system) {
+                return add(left, right, system);
+            }
+        },
+        SUBTRACT("Sub") {
+            public Number apply(final Number left, final Number right, final NumeralSystem system) {
+                return subtract(left, right, system);
+            }
+        },
+        MULTIPLY("Mul") {
+            public Number apply(final Number left, final Number right, final NumeralSystem system) {
+                return multiply(left, right, system);
+            }
+        },
+        DIVIDE("Div") {
+            public Number apply(final Number left, final Number right, final NumeralSystem system) {
+                return divide(left, right, system);
+            }
+        };
+
+        private final String name;
+        Operation(final String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+
+        public abstract Number apply(final Number l, final Number r, final NumeralSystem system);
     }
 }
