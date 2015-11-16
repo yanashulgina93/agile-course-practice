@@ -82,4 +82,12 @@ public class DequeViewModel {
     public Object[] dequeToArray() {
         return deque.toArray();
     }
+
+    public boolean isDequeEmpty() {
+        return deque.isEmpty();
+    }
+
+    public int getDequeSize() {
+        return deque.getSize();
+    }
 }

@@ -5,6 +5,8 @@ import ru.unn.agile.Deque.viewmodel.DequeViewModel;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public final class DequeForm {
     private final DequeViewModel viewModel;
@@ -42,6 +44,44 @@ public final class DequeForm {
             }
         });
 
+        pushFrontButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                backBind();
+                viewModel.pushFront();
+                bind();
+            }
+        });
+
+        pushBackButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                backBind();
+                viewModel.pushBack();
+                bind();
+            }
+        });
+
+        popFrontButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                backBind();
+                viewModel.popFront();
+                bind();
+            }
+        });
+
+        popBackButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                backBind();
+                viewModel.popBack();
+                bind();
+            }
+        });
+
+        dequeTable = new JTable(new Object[][]{}, new Object[]{"DEQUE"});
+
         bind();
     }
 
@@ -55,6 +95,15 @@ public final class DequeForm {
         popFrontButton.setEnabled(viewModel.isPopFrontButtonEnabled());
         popBackButton.setEnabled(viewModel.isPopBackButtonEnabled());
         outputNumberText.setText(viewModel.getOutputNumber());
+
+        Object[][] values = new Integer[viewModel.getDequeSize()][1];
+        int counter = 0;
+        for (Object item : viewModel.dequeToArray()) {
+            values[counter++][0] = item;
+        }
+
+        dequeTable = new JTable(values, new Object[]{"DEQUE"});
+        mainScrollPane.setViewportView(dequeTable);
     }
 
     public static void main(final String[] args) {
