@@ -50,7 +50,6 @@ public final class DequeForm {
     }
 
     private void bind() {
-        //inputNumberText.setText(viewModel.getInputNumber());
         pushFrontButton.setEnabled(viewModel.isPushFrontButtonEnabled());
         pushBackButton.setEnabled(viewModel.isPushBackButtonEnabled());
         popFrontButton.setEnabled(viewModel.isPopFrontButtonEnabled());

@@ -27,10 +27,6 @@ public class DequeViewModel {
         }
     }
 
-    public String getInputNumber() {
-        return inputNumber;
-    }
-
     public String getOutputNumber() {
         return outputNumber;
     }
@@ -69,6 +65,7 @@ public class DequeViewModel {
             isPopFrontButtonEnabled = false;
             isPopBackButtonEnabled = false;
         }
+        outputNumber = value.toString();
         return value;
     }
 
@@ -78,10 +75,11 @@ public class DequeViewModel {
             isPopFrontButtonEnabled = false;
             isPopBackButtonEnabled = false;
         }
+        outputNumber = value.toString();
         return value;
     }
 
-    public Object[] toArray() {
+    public Object[] dequeToArray() {
         return deque.toArray();
     }
 }

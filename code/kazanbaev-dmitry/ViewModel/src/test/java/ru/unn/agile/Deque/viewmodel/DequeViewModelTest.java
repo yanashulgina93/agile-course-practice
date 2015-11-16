@@ -109,7 +109,7 @@ public class DequeViewModelTest {
         testDeque.pushFront(15);
         testDeque.pushFront(16);
 
-        assertArrayEquals(viewModel.toArray(), testDeque.toArray());
+        assertArrayEquals(viewModel.dequeToArray(), testDeque.toArray());
     }
 
     @Test
@@ -123,6 +123,30 @@ public class DequeViewModelTest {
         testDeque.pushBack(23);
         testDeque.pushBack(42);
 
-        assertArrayEquals(viewModel.toArray(), testDeque.toArray());
+        assertArrayEquals(viewModel.dequeToArray(), testDeque.toArray());
+    }
+
+    @Test
+     public void popBackButtonReturnsBackInteger() {
+        viewModel.setInputNumber("4");
+        viewModel.pushBack();
+        viewModel.setInputNumber("8");
+        viewModel.pushBack();
+
+        viewModel.popBack();
+
+        assertEquals("8", viewModel.getOutputNumber());
+    }
+
+    @Test
+    public void popFrontButtonReturnsFrontInteger() {
+        viewModel.setInputNumber("15");
+        viewModel.pushFront();
+        viewModel.setInputNumber("16");
+        viewModel.pushFront();
+
+        viewModel.popFront();
+
+        assertEquals("16", viewModel.getOutputNumber());
     }
 }
