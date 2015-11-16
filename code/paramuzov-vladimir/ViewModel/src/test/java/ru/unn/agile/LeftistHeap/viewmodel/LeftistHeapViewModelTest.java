@@ -72,7 +72,8 @@ public class LeftistHeapViewModelTest {
 
     @Test
     public void byDefaultOperationIsInsert() {
-        assertEquals(LeftistHeapViewModel.Operations.INSERT.toString(), viewModel.getOperation().toString());
+        assertEquals(LeftistHeapViewModel.Operations.INSERT.toString(),
+                     viewModel.getOperation().toString());
     }
 
     @Test
