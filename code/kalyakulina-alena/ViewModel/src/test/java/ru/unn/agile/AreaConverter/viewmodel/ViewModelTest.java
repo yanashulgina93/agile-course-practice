@@ -33,12 +33,13 @@ public class ViewModelTest {
 
     @Test
     public void canSetInputArea() {
-        viewModel.setInputArea("10.0");
-        assertEquals("10.0", viewModel.getInputArea());
+        final String inputArea = "10.0";
+        viewModel.setInputArea(inputArea);
+        assertEquals(inputArea, viewModel.getInputArea());
     }
 
     @Test
-    public void canSetStatusReadyWhenInputAreaIsFilled() {
+    public void canSetStatusReadyWhenInputAreaIsFilledCorrectly() {
         viewModel.setInputArea("1.0");
         viewModel.parseInput();
         assertEquals(Status.READY, viewModel.getStatus());

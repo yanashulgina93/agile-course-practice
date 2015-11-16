@@ -60,7 +60,6 @@ public class ViewModel {
         if (inputArea.isEmpty()) {
             status = Status.WAITING;
             isConvertButtonEnable = false;
-            return isConvertButtonEnable;
         } else {
             double parsedInputArea;
 
@@ -69,20 +68,19 @@ public class ViewModel {
             } catch (Exception exception) {
                 status = Status.WRONG_FORMAT;
                 isConvertButtonEnable = false;
-                return isConvertButtonEnable;
+                return false;
             }
 
             if (parsedInputArea < 0.0) {
                 status = Status.NEGATIVE_AREA;
                 isConvertButtonEnable = false;
-                return isConvertButtonEnable;
             } else {
                 status = Status.READY;
                 resultArea = "";
                 isConvertButtonEnable = true;
-                return isConvertButtonEnable;
             }
         }
+        return isConvertButtonEnable;
     }
 
     public void convert() {
