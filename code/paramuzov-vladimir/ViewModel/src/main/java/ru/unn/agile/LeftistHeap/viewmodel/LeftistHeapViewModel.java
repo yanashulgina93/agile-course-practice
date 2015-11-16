@@ -7,8 +7,7 @@ import java.util.Arrays;
 
 public class LeftistHeapViewModel {
     public enum Errors {
-        INSERT_FIELD_BAD_FORMAT("Wrong value to insert. Only integers, please.\n"),
-        DELETE_FIELD_BAD_FORMAT("Wrong value to delete. Only integers, please.\n"),
+        FIELD_BAD_FORMAT("Wrong value in text field. Only integers, please.\n"),
         VALUE_TO_DELETE_NOT_FOUND("Element to delete not found.\n");
 
         private String errorMessage;
@@ -22,33 +21,69 @@ public class LeftistHeapViewModel {
         }
     }
 
-    private enum Fields { INSERT, DELETE }
+    public enum Operations {
+        INSERT("Insert number"),
+        DELETE("Delete number");
+
+        private String operation;
+
+        Operations(final String operation) {
+            this.operation = operation;
+        }
+
+        @Override
+        public String toString() {
+            return operation;
+        }
+    }
+
     private final LeftistHeap<Integer> heap;
-    private boolean insertButtonEnabled = false;
-    private boolean deleteButtonEnabled = false;
-    private String numberToInsert;
+    private boolean applyButtonEnabled = false;
+    private String keyValue;
     private String heapContent = "[]";
     private String errorText = "";
-    private String numberToDelete;
+    private Operations operation = Operations.INSERT;
 
     public LeftistHeapViewModel() {
         heap = new LeftistHeap<>();
     }
 
-    public boolean isInsertButtonEnabled() {
-        return insertButtonEnabled;
+    public boolean isApplyButtonEnabled() {
+        return applyButtonEnabled;
     }
 
-    public boolean isDeleteButtonEnabled() {
-        return deleteButtonEnabled;
+    public void setKeyValue(final String keyValue) {
+        if ("".equals(keyValue)) {
+            errorText = "";
+            applyButtonEnabled = false;
+            return;
+        }
+
+        if (!keyValue.matches("\\d+|-\\d+")) {
+            errorText = Errors.FIELD_BAD_FORMAT.getMessage();
+            applyButtonEnabled = false;
+            return;
+        }
+
+        errorText = "";
+        applyButtonEnabled = true;
+        this.keyValue = keyValue;
     }
 
-    public void setNumberToInsert(final String numberToInsert) {
-        isNumberInFieldCorrect(numberToInsert, Fields.INSERT);
+    public void setOperation(final Operations operation) {
+        this.operation = operation;
     }
 
-    public void setNumberToDelete(final String numberToDelete) {
-        isNumberInFieldCorrect(numberToDelete, Fields.DELETE);
+    public Operations getOperation() {
+        return operation;
+    }
+
+    public void applyOperation() {
+        if (operation == Operations.INSERT) {
+            insertElement();
+        } else {
+            deleteElement();
+        }
     }
 
     public String getHeapContent() {
@@ -59,73 +94,23 @@ public class LeftistHeapViewModel {
         return errorText;
     }
 
-    public void insertElement() {
-            heap.insert(Integer.parseInt(numberToInsert));
+    private void insertElement() {
+            heap.insert(Integer.parseInt(keyValue));
             Object[] content = heap.toSortedArrayWithoutDelete();
             heapContent = Arrays.toString(content);
     }
 
-    public void deleteElement() {
+    private void deleteElement() {
         LeftistHeapNode<Integer> nodeToDelete;
         try {
-            nodeToDelete = heap.findNodeByKey(Integer.parseInt(numberToDelete));
+            nodeToDelete = heap.findNodeByKey(Integer.parseInt(keyValue));
         } catch (NullPointerException e) {
-            addErrorMessage(Errors.VALUE_TO_DELETE_NOT_FOUND);
+            errorText =  Errors.VALUE_TO_DELETE_NOT_FOUND.getMessage();
             return;
         }
-        deleteErrorMessage(Errors.VALUE_TO_DELETE_NOT_FOUND);
+        errorText = "";
         heap.delete(nodeToDelete);
         Object[] content = heap.toSortedArrayWithoutDelete();
         heapContent = Arrays.toString(content);
-    }
-
-    private void isNumberInFieldCorrect(final String numberInField,
-                                        final Fields field) {
-        Errors error = field.equals(Fields.DELETE) ? Errors.DELETE_FIELD_BAD_FORMAT
-                                                   : Errors.INSERT_FIELD_BAD_FORMAT;
-        if ("".equals(numberInField)) {
-            deleteErrorMessage(error);
-            setFieldState(field, false);
-            return;
-        }
-
-        if (!numberInField.matches("\\d+|-\\d+")) {
-            setFieldState(field, false);
-            addErrorMessage(error);
-            return;
-        }
-
-        deleteErrorMessage(error);
-        deleteErrorMessage(Errors.VALUE_TO_DELETE_NOT_FOUND);
-        setFieldState(field, true);
-        setFieldValue(field, numberInField);
-    }
-
-    private void deleteErrorMessage(final Errors error) {
-        if (errorText.contains(error.getMessage())) {
-            errorText = errorText.replace(error.getMessage(), "");
-        }
-    }
-
-    private void addErrorMessage(final Errors error) {
-        if (!errorText.contains(error.getMessage())) {
-            errorText += error.getMessage();
-        }
-    }
-
-    private void setFieldState(final Fields field, final boolean state) {
-        if (field.equals(Fields.INSERT)) {
-            insertButtonEnabled = state;
-        } else {
-            deleteButtonEnabled = state;
-        }
-    }
-
-    private void setFieldValue(final Fields field, final String value) {
-        if (field.equals(Fields.INSERT)) {
-            numberToInsert = value;
-        } else {
-            numberToDelete = value;
-        }
     }
 }

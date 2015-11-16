@@ -16,82 +16,77 @@ public class LeftistHeapViewModelTest {
     }
 
     @Test
-    public void byDefaultInsertButtonIsDisabled() {
-        assertFalse(viewModel.isInsertButtonEnabled());
+    public void byDefaultApplyButtonIsDisabled() {
+        assertFalse(viewModel.isApplyButtonEnabled());
     }
 
     @Test
-    public void whenInputIntegerToInsertFieldInsertButtonIsEnabled() {
-        viewModel.setNumberToInsert("1");
+    public void whenInputIntegerToKeyValueFieldInsertButtonIsEnabled() {
+        viewModel.setKeyValue("1");
 
-        assertTrue(viewModel.isInsertButtonEnabled());
+        assertTrue(viewModel.isApplyButtonEnabled());
     }
 
     @Test
-    public void whenClearInsertFieldInsertButtonIsDisabled() {
-        viewModel.setNumberToInsert("1");
-        viewModel.setNumberToInsert("");
+    public void whenClearKeyValueFieldApplyButtonIsDisabled() {
+        viewModel.setKeyValue("1");
+        viewModel.setKeyValue("");
 
-        assertFalse(viewModel.isInsertButtonEnabled());
+        assertFalse(viewModel.isApplyButtonEnabled());
     }
 
     @Test
     public void whenInsertOneIntegerToHeapContentDisplayed() {
-        viewModel.setNumberToInsert("1");
-        viewModel.insertElement();
+        viewModel.setKeyValue("1");
+        viewModel.setOperation(LeftistHeapViewModel.Operations.INSERT);
+        viewModel.applyOperation();
 
         assertEquals("[1]", viewModel.getHeapContent());
     }
 
     @Test
     public void whenInsertTwoIntegersToHeapContentDisplayed() {
-        viewModel.setNumberToInsert("1");
-        viewModel.insertElement();
-        viewModel.setNumberToInsert("2");
-        viewModel.insertElement();
+        viewModel.setOperation(LeftistHeapViewModel.Operations.INSERT);
+        viewModel.setKeyValue("1");
+        viewModel.applyOperation();
+        viewModel.setKeyValue("2");
+        viewModel.applyOperation();
 
         assertEquals("[1, 2]", viewModel.getHeapContent());
     }
 
     @Test
-    public void whenInputWrongValueToInsertFieldErrorDisplayed() {
-        viewModel.setNumberToInsert("afc");
+    public void whenInputWrongKeyValueErrorDisplayed() {
+        viewModel.setKeyValue("afc");
 
-        assertEquals(LeftistHeapViewModel.Errors.INSERT_FIELD_BAD_FORMAT.getMessage(),
+        assertEquals(LeftistHeapViewModel.Errors.FIELD_BAD_FORMAT.getMessage(),
                      viewModel.getErrorText());
     }
 
     @Test
-    public void whenInputWrongValueToInsertFieldInsertButtonIsDisabled() {
-        viewModel.setNumberToInsert("afc");
+    public void whenInputWrongValueToKeyFieldApplyButtonIsDisabled() {
+        viewModel.setKeyValue("afc");
 
-        assertFalse(viewModel.isInsertButtonEnabled());
+        assertFalse(viewModel.isApplyButtonEnabled());
     }
 
     @Test
-    public void byDefaultDeleteButtonIsDisabled() {
-        assertFalse(viewModel.isDeleteButtonEnabled());
+    public void byDefaultOperationIsInsert() {
+        assertEquals(LeftistHeapViewModel.Operations.INSERT.toString(), viewModel.getOperation().toString());
     }
 
     @Test
-    public void whenInputIntegerToDeleteFieldDeleteButtonIsEnabled() {
-        viewModel.setNumberToDelete("1");
+    public void canChangeOperation() {
+        viewModel.setOperation(LeftistHeapViewModel.Operations.DELETE);
 
-        assertTrue(viewModel.isDeleteButtonEnabled());
-    }
-
-    @Test
-    public void whenClearDeleteFieldDeleteButtonIsDisabled() {
-        viewModel.setNumberToDelete("1");
-        viewModel.setNumberToDelete("");
-
-        assertFalse(viewModel.isDeleteButtonEnabled());
+        assertEquals(LeftistHeapViewModel.Operations.DELETE, viewModel.getOperation());
     }
 
     @Test
     public void whenTryingToDeleteNotExistingElementErrorDisplayed() {
-        viewModel.setNumberToDelete("1");
-        viewModel.deleteElement();
+        viewModel.setKeyValue("1");
+        viewModel.setOperation(LeftistHeapViewModel.Operations.DELETE);
+        viewModel.applyOperation();
 
         assertEquals(LeftistHeapViewModel.Errors.VALUE_TO_DELETE_NOT_FOUND.getMessage(),
                      viewModel.getErrorText());
@@ -99,47 +94,20 @@ public class LeftistHeapViewModelTest {
 
     @Test
     public void canDeleteExistingElementFromHeap() {
-        viewModel.setNumberToInsert("1");
-        viewModel.setNumberToDelete("1");
-
-        viewModel.insertElement();
-        viewModel.deleteElement();
+        viewModel.setOperation(LeftistHeapViewModel.Operations.INSERT);
+        viewModel.setKeyValue("1");
+        viewModel.applyOperation();
+        viewModel.setOperation(LeftistHeapViewModel.Operations.DELETE);
+        viewModel.applyOperation();
 
         assertEquals("[]", viewModel.getHeapContent());
     }
 
     @Test
-    public void whenInputWrongValueToDeleteFieldDeleteButtonIsDisabled() {
-        viewModel.setNumberToDelete("afc");
+    public void whenFixKeyValueFormatErrorHide() {
+        viewModel.setKeyValue("afc");
+        viewModel.setKeyValue("1");
 
-        assertFalse(viewModel.isDeleteButtonEnabled());
-    }
-
-    @Test
-    public void whenInputWrongValueToDeleteFieldErrorDisplayed() {
-        viewModel.setNumberToDelete("afc");
-
-        assertEquals(LeftistHeapViewModel.Errors.DELETE_FIELD_BAD_FORMAT.getMessage(),
-                     viewModel.getErrorText());
-    }
-
-    @Test
-    public void whenInsertAndDeleteFieldsContainWrongValuesTwoErrorsDisplayed() {
-        viewModel.setNumberToInsert("afc");
-        viewModel.setNumberToDelete("afc");
-
-        assertEquals(LeftistHeapViewModel.Errors.INSERT_FIELD_BAD_FORMAT.getMessage()
-                   + LeftistHeapViewModel.Errors.DELETE_FIELD_BAD_FORMAT.getMessage(),
-                     viewModel.getErrorText());
-    }
-
-    @Test
-    public void canDeleteOneErrorMessageWhenOneOfTwoIncorrectValuesSetsRight() {
-        viewModel.setNumberToInsert("afc");
-        viewModel.setNumberToDelete("afc");
-        viewModel.setNumberToInsert("0");
-
-        assertEquals(LeftistHeapViewModel.Errors.DELETE_FIELD_BAD_FORMAT.getMessage(),
-                     viewModel.getErrorText());
+        assertEquals("", viewModel.getErrorText());
     }
 }

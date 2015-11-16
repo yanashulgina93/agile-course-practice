@@ -12,35 +12,27 @@ import java.awt.event.ActionListener;
 public final class HeapForm {
     private final LeftistHeapViewModel viewModel;
     private JPanel rootPanel;
-    private JTextField textNumberToInsert;
-    private JTextField textNumberToDelete;
-    private JButton buttonInsert;
-    private JButton buttonDelete;
-    private JTextArea textError;
-    private JTextArea textHeapContent;
+    private JTextField keyValueTextField;
+    private JButton applyOperationButton;
+    private JTextArea errorMessageTextField;
+    private JTextArea heapContentTextField;
+    private JComboBox<LeftistHeapViewModel.Operations> operationComboBox;
 
     private HeapForm() {
         viewModel = new LeftistHeapViewModel();
 
-        ActionListener insertButtonListener = new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                backBind();
-                viewModel.insertElement();
-                bind();
-            }
-        };
-        buttonInsert.addActionListener(insertButtonListener);
+        operationComboBox.setModel(new JComboBox<>(
+                LeftistHeapViewModel.Operations.values()).getModel());
 
-        ActionListener deleteButtonListener = new ActionListener() {
+        ActionListener buttonListener = new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 backBind();
-                viewModel.deleteElement();
+                viewModel.applyOperation();
                 bind();
             }
         };
-        buttonDelete.addActionListener(deleteButtonListener);
+        applyOperationButton.addActionListener(buttonListener);
 
         DocumentListener fieldsListener = new DocumentListener() {
             @Override
@@ -62,9 +54,8 @@ public final class HeapForm {
             }
         };
 
-        textNumberToInsert.getDocument().addDocumentListener(fieldsListener);
-        textNumberToDelete.getDocument().addDocumentListener(fieldsListener);
-        textError.setForeground(Color.RED);
+        keyValueTextField.getDocument().addDocumentListener(fieldsListener);
+        errorMessageTextField.setForeground(Color.RED);
 
         bind();
     }
@@ -78,14 +69,14 @@ public final class HeapForm {
     }
 
     private void backBind() {
-        viewModel.setNumberToInsert(textNumberToInsert.getText());
-        viewModel.setNumberToDelete(textNumberToDelete.getText());
+        viewModel.setKeyValue(keyValueTextField.getText());
+        viewModel.setOperation((LeftistHeapViewModel.Operations)
+                                operationComboBox.getSelectedItem());
     }
 
     private void bind() {
-        buttonInsert.setEnabled(viewModel.isInsertButtonEnabled());
-        buttonDelete.setEnabled(viewModel.isDeleteButtonEnabled());
-        textHeapContent.setText(viewModel.getHeapContent());
-        textError.setText(viewModel.getErrorText());
+        applyOperationButton.setEnabled(viewModel.isApplyButtonEnabled());
+        heapContentTextField.setText(viewModel.getHeapContent());
+        errorMessageTextField.setText(viewModel.getErrorText());
     }
 }
