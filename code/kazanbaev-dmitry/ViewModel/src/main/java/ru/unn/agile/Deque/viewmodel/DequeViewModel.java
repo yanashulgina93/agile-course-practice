@@ -11,6 +11,7 @@ public class DequeViewModel {
     private boolean isPushBackButtonEnabled;
     private boolean isPopFrontButtonEnabled;
     private boolean isPopBackButtonEnabled;
+    private boolean isClearButtonEnabled;
 
     public DequeViewModel() {
         deque = new Deque<>();
@@ -48,16 +49,22 @@ public class DequeViewModel {
         return isPopBackButtonEnabled;
     }
 
+    public boolean isClearButtonEnabled() {
+        return isClearButtonEnabled;
+    }
+
     public void pushFront() {
         deque.pushFront(Integer.valueOf(inputNumber));
         isPopFrontButtonEnabled = true;
         isPopBackButtonEnabled = true;
+        isClearButtonEnabled = true;
     }
 
     public void pushBack() {
         deque.pushBack(Integer.valueOf(inputNumber));
         isPopFrontButtonEnabled = true;
         isPopBackButtonEnabled = true;
+        isClearButtonEnabled = true;
     }
 
     public Integer popFront() {
@@ -65,6 +72,7 @@ public class DequeViewModel {
         if (deque.isEmpty()) {
             isPopFrontButtonEnabled = false;
             isPopBackButtonEnabled = false;
+            isClearButtonEnabled = false;
         }
         outputNumber = value.toString();
         return value;
@@ -75,6 +83,7 @@ public class DequeViewModel {
         if (deque.isEmpty()) {
             isPopFrontButtonEnabled = false;
             isPopBackButtonEnabled = false;
+            isClearButtonEnabled = false;
         }
         outputNumber = value.toString();
         return value;
@@ -90,5 +99,10 @@ public class DequeViewModel {
 
     public int getDequeSize() {
         return deque.getSize();
+    }
+
+    public void clearDeque() {
+        deque.clear();
+        isClearButtonEnabled = false;
     }
 }

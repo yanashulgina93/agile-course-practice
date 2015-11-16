@@ -163,4 +163,28 @@ public class DequeViewModelTest {
 
         assertEquals("16", viewModel.getOutputNumber());
     }
+
+    @Test
+    public void clearButtonClearsDeque() {
+        viewModel.clearDeque();
+
+        assertTrue(viewModel.isDequeEmpty());
+    }
+
+    @Test
+    public void whenDequeIsClearedClearButtonIsDisabled() {
+        viewModel.clearDeque();
+
+        assertFalse(viewModel.isClearButtonEnabled());
+    }
+
+    @Test
+    public void whenDequeIsEmptyAfterPopClearButtonIsDisabled() {
+        viewModel.setInputNumber("15162342");
+        viewModel.pushFront();
+
+        viewModel.popFront();
+
+        assertFalse(viewModel.isClearButtonEnabled());
+    }
 }

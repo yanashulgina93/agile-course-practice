@@ -21,6 +21,7 @@ public final class DequeForm {
     private JButton popBackButton;
     private JTextField outputText;
     private JButton clearButton;
+    private JButton checkButton;
 
     private DequeForm() {
         viewModel = new DequeViewModel();
@@ -81,6 +82,15 @@ public final class DequeForm {
             }
         });
 
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                backBind();
+                viewModel.clearDeque();
+                bind();
+            }
+        });
+
         dequeTable = new JTable(new Object[][]{}, new Object[]{"DEQUE"});
 
         bind();
@@ -95,6 +105,7 @@ public final class DequeForm {
         pushBackButton.setEnabled(viewModel.isPushBackButtonEnabled());
         popFrontButton.setEnabled(viewModel.isPopFrontButtonEnabled());
         popBackButton.setEnabled(viewModel.isPopBackButtonEnabled());
+        clearButton.setEnabled(viewModel.isClearButtonEnabled());
         outputText.setText(viewModel.getOutputNumber());
 
         Object[][] values = new Integer[viewModel.getDequeSize()][1];
