@@ -1,4 +1,4 @@
-package ru.unn.agile.Metrics.Model;
+package ru.unn.agile.Metrics.model;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package ru.unn.agile.Metrics.Model;
+package ru.unn.agile.Metrics.model;
 
 public enum Metric {
     RHO_INF(0.0),

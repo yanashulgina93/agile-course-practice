@@ -1,4 +1,4 @@
-package ru.unn.agile.Metrics.View;
+package ru.unn.agile.Metrics.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

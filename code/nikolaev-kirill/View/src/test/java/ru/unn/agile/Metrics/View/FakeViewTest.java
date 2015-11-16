@@ -1,4 +1,4 @@
-package ru.unn.agile.Metrics.View;
+package ru.unn.agile.Metrics.view;
 
 import org.junit.Ignore;
 import org.junit.Test;

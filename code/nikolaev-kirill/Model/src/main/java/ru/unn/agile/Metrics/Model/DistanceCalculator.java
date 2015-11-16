@@ -1,6 +1,6 @@
-package ru.unn.agile.Metrics.Model;
+package ru.unn.agile.Metrics.model;
 
-class DistanceCalculator {
+public class DistanceCalculator {
 
     public float calculateDistance(final float[] firstVector, final float[] secondVector,
                                    final Metric metric) {
