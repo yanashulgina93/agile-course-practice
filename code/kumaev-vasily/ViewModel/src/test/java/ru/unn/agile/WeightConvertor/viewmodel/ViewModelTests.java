@@ -21,17 +21,36 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canSetDefaultValues() {
+    public void canSetDefaultValue() {
         assertEquals("", viewModel.valueProperty().get());
+    }
+
+    @Test
+    public void canSetDefaultInputUnit() {
         assertEquals(WeightUnit.GRAM, viewModel.inputUnitProperty().get());
+    }
+
+    @Test
+    public void canSetDefaultOutputUnit() {
         assertEquals(WeightUnit.KILOGRAM, viewModel.outputUnitProperty().get());
+    }
+
+    @Test
+    public void canSetDefaultResult() {
         assertEquals("", viewModel.resultProperty().get());
+    }
+
+    @Test
+    public void canSetDefaultStatus() {
         assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void statusIsWaitingWhenConvertWithEmptyFields() {
+        viewModel.valueProperty().set("");
+
         viewModel.convert();
+
         assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
     }
 
