@@ -11,7 +11,7 @@ public class Main extends Application {
     @Override
     public void start(final Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("Convertor.fxml"));
-        primaryStage.setTitle("Convertor");
+        primaryStage.setTitle("Weight Convertor");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }

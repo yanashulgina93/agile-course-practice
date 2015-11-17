@@ -46,7 +46,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void statusIsWaitingWhenConvertWithEmptyFields() {
+    public void statusIsWaitingWhenConvertWithEmptyField() {
         viewModel.valueProperty().set("");
 
         viewModel.convert();
@@ -55,7 +55,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void statusIsReadyWhenTextFieldAreCorrectFill() {
+    public void statusIsReadyWhenTextFieldIsCorrectFill() {
         viewModel.valueProperty().set("4");
 
         assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
@@ -74,7 +74,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void convertButtonIsDisableWhenFormatIsBad() {
+    public void convertButtonIsDisableWhenWeChangeInputValueFromValidToBad() {
         viewModel.valueProperty().set("4");
         viewModel.valueProperty().set("a");
 
@@ -96,14 +96,14 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canSetAddUnits() {
+    public void canSetInputUnit() {
         viewModel.inputUnitProperty().set(WeightUnit.CENTNER);
 
         assertEquals(WeightUnit.CENTNER, viewModel.inputUnitProperty().get());
     }
 
     @Test
-    public void addIsDefaultUnits() {
+    public void outputUnitIsDefaultUnit() {
         assertEquals(WeightUnit.KILOGRAM, viewModel.outputUnitProperty().get());
     }
 
@@ -161,6 +161,7 @@ public class ViewModelTests {
         viewModel.convert();
 
         assertEquals("1.0", viewModel.resultProperty().get());
+        assertEquals(WeightUnit.KILOGRAM, viewModel.outputUnitProperty().get());
     }
 
 }

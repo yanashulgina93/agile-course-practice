@@ -13,7 +13,7 @@ public class Convertor {
     @FXML
     private ViewModel viewModel;
     @FXML
-    private TextField txtValue;
+    private TextField txtInputValue;
     @FXML
     private ComboBox<WeightUnit> cbInputUnit;
     @FXML
@@ -23,7 +23,7 @@ public class Convertor {
 
     @FXML
     void initialize() {
-        txtValue.textProperty().bindBidirectional(viewModel.valueProperty());
+        txtInputValue.textProperty().bindBidirectional(viewModel.valueProperty());
 
         cbInputUnit.valueProperty().bindBidirectional(viewModel.inputUnitProperty());
         cbOutputUnit.valueProperty().bindBidirectional(viewModel.outputUnitProperty());
