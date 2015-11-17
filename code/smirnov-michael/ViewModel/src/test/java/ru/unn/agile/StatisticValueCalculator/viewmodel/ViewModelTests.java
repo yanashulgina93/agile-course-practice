@@ -195,6 +195,15 @@ public class ViewModelTests {
     }
 
     @Test
+    public void varianceDescriptionIsSelectedAfterCalculatingVariance() {
+        viewModel.setSelectedStatistic(StatisticValue.VARIANCE);
+        viewModel.calculateSelectedStatistic();
+        String nameOfCalculatedStatistic = viewModel.nameOfCalculatedStatisticProperty().get();
+
+        assertEquals(nameOfCalculatedStatistic, StatisticValue.VARIANCE.toString());
+    }
+
+    @Test
     public void enumerationValueIsShownAfterCalculatingEnumeration() {
         viewModel.setSelectedStatistic(StatisticValue.ENUMERATION);
         viewModel.calculateSelectedStatistic();

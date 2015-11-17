@@ -21,8 +21,8 @@
                    AnchorPane.rightAnchor="287.0"
                    AnchorPane.topAnchor="27.0">
             <columns>
-                <TableColumn prefWidth="75.0" text="#"/>
-                <TableColumn prefWidth="75.0" text="DATA"/>
+                <TableColumn fx:id="columnNumber" prefWidth="75.0" text="#"/>
+                <TableColumn fx:id="columnValue" prefWidth="75.0" text="DATA"/>
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>

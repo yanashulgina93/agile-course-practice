@@ -1,18 +1,24 @@
 package ru.unn.agile.StatisticValueCalculator.view;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.util.Callback;
 import javafx.util.Pair;
 import ru.unn.agile.StatisticValueCalculator.viewmodel.StatisticValue;
 import ru.unn.agile.StatisticValueCalculator.viewmodel.ViewModel;
 
 public class CalculatorWindowController {
     @FXML
-    private final ViewModel viewModel = new ViewModel();
+    private TableColumn<Pair<String,String>, String> columnNumber;
+    @FXML
+    private TableColumn<Pair<String,String>, String> columnValue;
+    @FXML
+    private ViewModel viewModel;
     @FXML
     private Button clearTableButton;
     @FXML
@@ -29,6 +35,10 @@ public class CalculatorWindowController {
     private Button addRowButton;
     @FXML
     private TextField textRowValue;
+
+    private interface ICellFactory extends
+            Callback<TableColumn.CellDataFeatures<Pair<String, String>, String>,
+            ObservableValue<String>>{}
 
     @FXML
     private void initialize() {
@@ -66,6 +76,25 @@ public class CalculatorWindowController {
         });
 
         tableData.setItems(viewModel.getStatisticData());
+
+        columnNumber.setCellValueFactory(
+                new ICellFactory() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Pair<String, String>,
+                    String> param) {
+                return new SimpleStringProperty(param.getValue().getKey());
+            }
+        });
+
+        columnValue.setCellValueFactory(
+                new ICellFactory() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Pair<String, String>,
+                    String> param) {
+                return new SimpleStringProperty(param.getValue().getValue());
+            }
+        });
+
         tableData.getFocusModel()
                 .focusedIndexProperty()
                 .addListener(new ChangeListener<Number>() {
