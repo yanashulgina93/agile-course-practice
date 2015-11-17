@@ -89,4 +89,11 @@ public class Vector3DTest {
 
         assertEquals(vector.add(secondVector), new Vector3D(5.0, 7.0, 9.0));
     }
+
+    @Test
+    public void sameVectorsHasSameHashCodes() {
+        Vector3D secondVector = new Vector3D(1.0, 2.0, 3.0);
+
+        assertEquals(vector.hashCode(), secondVector.hashCode());
+    }
 }
