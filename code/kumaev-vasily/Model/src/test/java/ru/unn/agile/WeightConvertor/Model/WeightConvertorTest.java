@@ -45,6 +45,15 @@ public class WeightConvertorTest {
     }
 
     @Test
+    public void  canConvertString() {
+        String inputValue = "100.0";
+
+        String outputValue = converter.convert(inputValue, WeightUnit.KILOGRAM, WeightUnit.CENTNER);
+
+        assertEquals("1.0", outputValue);
+    }
+
+    @Test
     public void  canConvertKGramsToTon() {
         Weight inputWeight = new Weight(10000.0, WeightUnit.KILOGRAM);
         Weight expectedWeight = new Weight(10.0, WeightUnit.TON);

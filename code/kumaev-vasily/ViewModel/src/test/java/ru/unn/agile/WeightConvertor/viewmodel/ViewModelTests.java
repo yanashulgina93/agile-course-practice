@@ -82,6 +82,13 @@ public class ViewModelTests {
     }
 
     @Test
+    public void convertButtonIsDisabledWhenFormatIsWrong() {
+        viewModel.valueProperty().set("7,1");
+
+        assertTrue(viewModel.convertationDisableProperty().get());
+    }
+
+    @Test
     public void convertButtonIsEnabledWithCorrectInput() {
         viewModel.valueProperty().set("4");
 
