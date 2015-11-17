@@ -18,13 +18,4 @@ public enum WeightUnit {
     public double getMultiplier() {
         return multiplierKGram;
     }
-
-    public String convert(final String value,
-                          final WeightUnit unitInput, final WeightUnit unitOutput) {
-        Weight weightInput = new Weight(Double.parseDouble(value), unitInput);
-        WeightConvertor weightconv = new WeightConvertor();
-        Weight weightOutput = weightconv.convert(weightInput, unitOutput);
-        double val = weightOutput.getValue();
-        return Double.toString(val);
-    }
 }

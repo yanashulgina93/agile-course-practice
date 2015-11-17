@@ -98,6 +98,7 @@ public class ViewModelTests {
     @Test
     public void canSetAddUnits() {
         viewModel.inputUnitProperty().set(WeightUnit.CENTNER);
+
         assertEquals(WeightUnit.CENTNER, viewModel.inputUnitProperty().get());
     }
 

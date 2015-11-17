@@ -6,6 +6,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import ru.unn.agile.WeightConvertor.Model.WeightConvertor;
 import ru.unn.agile.WeightConvertor.Model.WeightUnit;
 
 import java.util.ArrayList;
@@ -60,7 +61,10 @@ public class ViewModel {
             return;
         }
 
-        result.set(outputUnit.get().convert(value.get(), inputUnit.get(), outputUnit.get()));
+        WeightConvertor weightconv = new WeightConvertor();
+
+        result.set(weightconv.convert(value.get(), inputUnit.get(), outputUnit.get()));
+        //result.set(outputUnit.get().convert(value.get(), inputUnit.get(), outputUnit.get()));
         status.set(Status.SUCCESS.toString());
     }
 
