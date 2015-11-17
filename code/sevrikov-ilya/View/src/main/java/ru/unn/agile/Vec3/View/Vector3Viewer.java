@@ -20,14 +20,10 @@ public final class Vector3Viewer {
     private JLabel lblCoordX1;
     private JLabel lblCoordY1;
     private JLabel lblCoordZ1;
-    private JButton btnGetNorm0;
-    private JButton btnNormalize0;
-    private JButton btnGetNorm1;
-    private JButton btnNormalize1;
     private JTextField txtResult;
     private JLabel lblResult;
-    private JButton btnDotProduct;
-    private JButton btnCrossProduct;
+    private JComboBox<ActionList> cmbActionList;
+    private JButton btnCalculate;
 
     private Vector3ViewModel viewModel;
 
@@ -36,9 +32,11 @@ public final class Vector3Viewer {
     private Vector3Viewer(final Vector3ViewModel viewModel) {
         this.viewModel = viewModel;
 
+        loadActionList();
+
         createUIActions();
 
-        bind();
+        backBind();
     }
 
     public static void main(final String[] args) {
@@ -51,59 +49,41 @@ public final class Vector3Viewer {
     }
 
     private void createUIActions() {
-        btnGetNorm0.addActionListener(new ActionListener() {
+        btnCalculate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 backBind();
-                viewModel.getNormOfFirstVector();
-                bind();
-            }
-        });
 
-        btnGetNorm1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                backBind();
-                viewModel.getNormOfSecondVector();
-                bind();
-            }
-        });
+                switch ((ActionList) cmbActionList.getSelectedItem()) {
+                    case GET_NORM_FIRST_VECTOR:     viewModel.getNormOfFirstVector();
+                                                    break;
 
-        btnNormalize0.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                backBind();
-                viewModel.normalizeFirstVector();
-                bind();
-            }
-        });
+                    case GET_NORM_SECOND_VECTOR:    viewModel.getNormOfSecondVector();
+                                                    break;
 
-        btnNormalize1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                backBind();
-                viewModel.normalizeSecondVector();
-                bind();
-            }
-        });
+                    case NORMAlIZE_FIRST_VECTOR:    viewModel.normalizeFirstVector();
+                                                    break;
 
-        btnDotProduct.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                backBind();
-                viewModel.getDotProduct();
-                bind();
-            }
-        });
+                    case NORMALIZE_SECOND_VECTOR:   viewModel.normalizeSecondVector();
+                                                    break;
 
-        btnCrossProduct.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                backBind();
-                viewModel.getCrossProduct();
+                    case CALCULATE_DOT_PRODUCT:     viewModel.getDotProduct();
+                                                    break;
+
+                    case CALCULATE_CROSS_PRODUCT:   viewModel.getCrossProduct();
+                                                    break;
+
+                    default: break;
+                }
+
                 bind();
             }
         });
+    }
+
+    private void loadActionList() {
+        ActionList[] actions = ActionList.values();
+        cmbActionList.setModel(new JComboBox<>(actions).getModel());
     }
 
     private  void backBind() {
