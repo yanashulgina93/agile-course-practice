@@ -21,8 +21,8 @@
                    AnchorPane.rightAnchor="287.0"
                    AnchorPane.topAnchor="27.0">
             <columns>
-                <TableColumn fx:id="columnNumber" prefWidth="75.0" text="#"/>
-                <TableColumn fx:id="columnValue" prefWidth="75.0" text="DATA"/>
+                <TableColumn prefWidth="75.0" text="#"/>
+                <TableColumn prefWidth="75.0" text="DATA"/>
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
@@ -39,7 +39,7 @@
                 text="Calculate statistic value"
                 textAlignment="CENTER" AnchorPane.bottomAnchor="14.0"
                 AnchorPane.rightAnchor="20.0"/>
-        <Label fx:id="nameOfCalculatedStatistic" layoutX="18.0" layoutY="353.0"
+        <Label layoutX="18.0" layoutY="353.0"
                text="${viewModel.nameOfCalculatedStatistic}" AnchorPane.bottomAnchor="67.0"
                AnchorPane.leftAnchor="18.0">
             <font>
@@ -49,14 +49,14 @@
         <Separator layoutX="18.0" layoutY="332.0" prefHeight="19.0" prefWidth="844.0"
                    AnchorPane.bottomAnchor="95.0"
                    AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0"/>
-        <Label fx:id="valueOfCalculatedStatistic" layoutX="213.0" layoutY="234.0"
+        <Label layoutX="213.0" layoutY="234.0"
                text="${viewModel.valueOfCalculatedStatistic}" AnchorPane.bottomAnchor="64.0"
                AnchorPane.leftAnchor="213.0">
             <font>
                 <Font size="21.0"/>
             </font>
         </Label>
-        <Label fx:id="nameOfStatisticParameter" layoutX="479.0" layoutY="242.0"
+        <Label layoutX="479.0" layoutY="242.0"
                text="${viewModel.parameterNameOfSelectedStatistic}"
                visible="${viewModel.inputStatisticParameterFieldIsVisible}"
                AnchorPane.bottomAnchor="70.0"
@@ -65,7 +65,7 @@
                    prefHeight="31.0"
                    prefWidth="250.0" visible="${viewModel.inputStatisticParameterFieldIsVisible}"
                    AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="213.0"/>
-        <Label fx:id="statisticParameterInputInfo" layoutX="417.0" layoutY="322.0" prefHeight="17.0"
+        <Label layoutX="417.0" layoutY="322.0" prefHeight="17.0"
                prefWidth="250.0"
                text="${viewModel.inputStatisticParameterError}" textFill="RED"
                visible="${viewModel.inputStatisticParameterFieldIsVisible}"
@@ -82,7 +82,7 @@
                 mnemonicParsing="false" prefHeight="41.0" prefWidth="79.0" text="Add row"
                 AnchorPane.rightAnchor="190.0"
                 AnchorPane.topAnchor="105.0"/>
-        <Label fx:id="rowValueInputInfo" layoutX="687.0" layoutY="88.0"
+        <Label layoutX="687.0" layoutY="88.0"
                text="${viewModel.inputRowError}" textFill="RED"
                AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="88.0"/>
         <TextField fx:id="textRowValue" layoutX="687.0" layoutY="51.0" prefHeight="30.0"

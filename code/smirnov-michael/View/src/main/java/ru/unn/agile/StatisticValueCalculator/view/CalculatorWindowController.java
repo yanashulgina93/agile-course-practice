@@ -1,6 +1,9 @@
 package ru.unn.agile.StatisticValueCalculator.view;
 
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.Pair;
@@ -9,35 +12,21 @@ import ru.unn.agile.StatisticValueCalculator.viewmodel.ViewModel;
 
 public class CalculatorWindowController {
     @FXML
-    private Label nameOfStatisticParameter;
-    @FXML
-    private ViewModel viewModel;
+    private final ViewModel viewModel = new ViewModel();
     @FXML
     private Button clearTableButton;
     @FXML
     private TableView<Pair<String, String>> tableData;
     @FXML
-    private TableColumn<Pair<String, String>, String> columnNumber;
-    @FXML
-    private TableColumn<Pair<String, String>, String> columnValue;
-    @FXML
     private ChoiceBox<StatisticValue> statisticsList;
     @FXML
     private Button calculateButton;
     @FXML
-    private Label nameOfCalculatedStatistic;
-    @FXML
-    private Label valueOfCalculatedStatistic;
-    @FXML
     private TextField textStatisticParameterValue;
-    @FXML
-    private Label statisticParameterInputInfo;
     @FXML
     private Button deleteRowButton;
     @FXML
     private Button addRowButton;
-    @FXML
-    private Label rowValueInputInfo;
     @FXML
     private TextField textRowValue;
 
@@ -48,31 +37,54 @@ public class CalculatorWindowController {
         textStatisticParameterValue.textProperty()
                 .bindBidirectional(viewModel.inputStatisticParameterProperty());
 
-        columnNumber.setCellValueFactory(
-                cell -> new SimpleStringProperty(cell.getValue().getKey())
-        );
-        columnValue.setCellValueFactory(
-                cell -> new SimpleStringProperty(cell.getValue().getValue())
-        );
+        addRowButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(final ActionEvent event) {
+                viewModel.addRowToStatisticData();
+            }
+        });
 
-        addRowButton.setOnAction(event -> viewModel.addRowToStatisticData());
-        deleteRowButton.setOnAction(event -> viewModel.deleteSelectedRowInStatisticData());
-        clearTableButton.setOnAction(event -> viewModel.clearStatisticData());
-        calculateButton.setOnAction(event -> viewModel.calculateSelectedStatistic());
+        deleteRowButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(final ActionEvent event) {
+                viewModel.deleteSelectedRowInStatisticData();
+            }
+        });
+
+        clearTableButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(final ActionEvent event) {
+                viewModel.clearStatisticData();
+            }
+        });
+
+        calculateButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(final ActionEvent event) {
+                viewModel.calculateSelectedStatistic();
+            }
+        });
 
         tableData.setItems(viewModel.getStatisticData());
         tableData.getFocusModel()
                 .focusedIndexProperty()
-                .addListener(
-                        (observable, oldValue, newValue) -> {
-            viewModel.selectRowInStatisticData(newValue.intValue());
-        });
+                .addListener(new ChangeListener<Number>() {
+                    @Override
+                    public void changed(final ObservableValue<? extends Number> observable,
+                                        final Number oldValue, final Number newValue) {
+                        viewModel.selectRowInStatisticData(newValue.intValue());
+                    }
+                });
 
         statisticsList.getSelectionModel()
                 .selectedItemProperty()
-                .addListener(
-                        (observable, oldValue, newValue) -> {
-                    viewModel.setSelectedStatistic(newValue);
+                .addListener(new ChangeListener<StatisticValue>() {
+                    @Override
+                    public void changed(final ObservableValue<? extends StatisticValue> observable,
+                                        final StatisticValue oldValue,
+                                        final StatisticValue newValue) {
+                        viewModel.setSelectedStatistic(newValue);
+                    }
                 });
     }
 }
