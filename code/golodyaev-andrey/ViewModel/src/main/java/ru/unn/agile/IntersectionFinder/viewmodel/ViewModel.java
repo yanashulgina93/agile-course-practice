@@ -87,6 +87,7 @@ public class ViewModel {
                 result = "";
                 break;
             case OneIntersection:
+                error = ErrorStatus.NO_ERROR;
                 result = intersectionFinder.getIntersectionPoint().toString();
                 break;
             default:
