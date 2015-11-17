@@ -9,10 +9,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public final class Integrator {
-    private JComboBox cmbFunction;
+    private JComboBox<ViewModel.Function> cmbFunction;
     private JTextField txtLowerLimit;
     private JTextField txtUpperLimit;
-    private JComboBox cmbMethod;
+    private JComboBox<ViewModel.IntegrationMethod> cmbMethod;
     private JButton btnIntegrate;
     private JTextField txtResult;
     private JPanel mainPanel;
