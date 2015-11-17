@@ -252,6 +252,4 @@ public class DequeViewModelTest {
     public void byDefaultDequeIsEmpty() {
         assertTrue(viewModel.isDequeEmpty());
     }
-
-
 }
