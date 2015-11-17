@@ -1,5 +1,7 @@
 package ru.unn.agile.IntegrationMethods.viewmodel;
 
+import ru.unn.agile.IntegrationMethods.Model.*;
+
 public class ViewModel {
     private Function function;
     private String lowerLimit;
@@ -7,6 +9,7 @@ public class ViewModel {
     private IntegrationMethod integrationMethod;
     private String result;
     private String status;
+    private boolean isIntegrateButtonEnabled;
 
     public ViewModel() {
         function = Function.X;
@@ -15,6 +18,100 @@ public class ViewModel {
         integrationMethod = IntegrationMethod.LEFT_RECTANGLES;
         result = "";
         status = Status.WAITING;
+        isIntegrateButtonEnabled = false;
+    }
+
+    private boolean areLimitsTextFieldsNotEmpty() {
+        return !lowerLimit.isEmpty() && !upperLimit.isEmpty();
+    }
+
+    private boolean parseLimitsInput() {
+        try {
+            if (!lowerLimit.isEmpty()) {
+                Double.parseDouble(lowerLimit);//вернётся ли double, если попробовать распарсить lowerLimit
+            }
+            if (!upperLimit.isEmpty()) {
+                Double.parseDouble(upperLimit);
+            }
+        } catch (Exception e) {
+            status = Status.BAD_FORMAT;
+            isIntegrateButtonEnabled = false;
+            return false;
+        }
+
+        isIntegrateButtonEnabled = areLimitsTextFieldsNotEmpty();
+        if (isIntegrateButtonEnabled) {
+            status = Status.READY;
+        } else {
+            status = Status.WAITING;
+        }
+
+        return isIntegrateButtonEnabled;
+    }
+
+    private  IFunction createIFunctionObject() {
+        IFunction iFunction;
+        switch (function) {
+            case X:
+                iFunction = new XFunction();
+                break;
+            case COS:
+                iFunction = new CosFunction();
+                break;
+            case EXP:
+                iFunction = new ExpFunction();
+                break;
+            default:
+                throw new IllegalArgumentException("Only x, cos(x) and exp(x) are supported");
+        }
+        return iFunction;
+    }
+
+    public void integrate() {
+        if (!parseLimitsInput()) {
+            return;
+        }
+        IFunction iFunction = createIFunctionObject();
+        Integrator integrator =
+                new Integrator(Double.parseDouble(lowerLimit), Double.parseDouble(upperLimit), iFunction);
+
+        switch (integrationMethod) {
+            case LEFT_RECTANGLES:
+                integrator.leftRectangles();
+                break;
+            case RIGHT_RECTANGLES:
+                integrator.rightRectangles();
+                break;
+            case MIDPOINT_RECTANGLES:
+                integrator.midpointRectangles();
+                break;
+            case TRAPEZES:
+                integrator.trapezes();
+                break;
+            case SIMPSON:
+                integrator.simpson();
+                break;
+            default:
+                throw new IllegalArgumentException("This method is not supported");
+        }
+
+        result = Double.toString(integrator.getIntegralValue());
+        status = Status.SUCCESS;
+    }
+
+    public void processKeyInTextField(final int keyCode) {
+        parseLimitsInput();
+
+        if (keyCode == KeyboardKeys.ENTER) {
+            pressEnter();
+        }
+    }
+
+    private void pressEnter() {
+
+        if (isIntegrateButtonEnabled()) {
+            integrate();
+        }
     }
 
     public Function getFunction() {
@@ -55,6 +152,10 @@ public class ViewModel {
 
     public String getStatus() {
         return status;
+    }
+
+    public boolean isIntegrateButtonEnabled() {
+        return isIntegrateButtonEnabled;
     }
 
     public enum Function {
