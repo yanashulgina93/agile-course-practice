@@ -54,20 +54,20 @@ public class ViewModel {
         if (inputTemperature.isEmpty()) {
             status = Status.WAITING;
             isConvertButtonEnable = false;
-            return isConvertButtonEnable;
+        } else {
+            try {
+                Double.parseDouble(inputTemperature);
+                status = Status.READY;
+                resultTemperature = "";
+                isConvertButtonEnable = true;
+            } catch (NumberFormatException exception) {
+                status = Status.BAD_FORMAT;
+                isConvertButtonEnable = false;
+                resultTemperature = "";
+            }
         }
-        try {
-            Double.parseDouble(inputTemperature);
-            status = Status.READY;
-            resultTemperature = "";
-            isConvertButtonEnable = true;
-            return isConvertButtonEnable;
-        } catch (NumberFormatException exception) {
-            status = Status.BAD_FORMAT;
-            isConvertButtonEnable = false;
-            resultTemperature = "";
-            return isConvertButtonEnable;
-        }
+
+        return isConvertButtonEnable;
     }
 
     public void convert() {

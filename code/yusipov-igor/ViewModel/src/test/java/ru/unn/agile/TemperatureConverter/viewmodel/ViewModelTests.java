@@ -37,7 +37,8 @@ public class ViewModelTests {
 
     @Test
     public void canSetInputTemperature() {
-        viewModel.setInputTemperature("0.0");
+        final String value = "0.0";
+        viewModel.setInputTemperature(value);
         assertEquals("0.0", viewModel.getInputTemperature());
     }
 
@@ -49,53 +50,62 @@ public class ViewModelTests {
 
     @Test
     public void canSetStatusReadyWhenInputIsCorrect() {
-        viewModel.setInputTemperature("1.0");
+        final String value = "1.0";
+        viewModel.setInputTemperature(value);
         viewModel.parse();
         assertEquals(viewModel.getStatus(), Status.READY);
     }
 
     @Test
     public void canSetStatusBadFormatWhenInputIsIncorrect() {
-        viewModel.setInputTemperature("SomethingWicked");
+        final String value = "SomethingWicked";
+        viewModel.setInputTemperature(value);
         viewModel.parse();
         assertEquals(viewModel.getStatus(), Status.BAD_FORMAT);
     }
 
     @Test
     public void canSetStatusWaitingWhenInputIsEmpty() {
-        viewModel.setInputTemperature("");
+        final String value = "";
+        viewModel.setInputTemperature(value);
         viewModel.parse();
         assertEquals(viewModel.getStatus(), Status.WAITING);
     }
 
     @Test
     public void isConvertButtonEnabledWhenInputIsCorrect() {
-        viewModel.setInputTemperature("1.0");
+        final String value = "1.0";
+        viewModel.setInputTemperature(value);
         viewModel.parse();
         assertEquals(true, viewModel.isConvertButtonEnabled());
     }
 
     @Test
     public void isConvertButtonDisabledWhenInputIsIncorrect() {
-        viewModel.setInputTemperature("1.0");
+        String value = "1.0";
+        viewModel.setInputTemperature(value);
         viewModel.parse();
-        viewModel.setInputTemperature("SomethingWicked");
+        value = "SomethingWicked";
+        viewModel.setInputTemperature(value);
         viewModel.parse();
         assertEquals(false, viewModel.isConvertButtonEnabled());
     }
 
     @Test
     public void isConvertButtonDisabledWhenInputIsEmpty() {
-        viewModel.setInputTemperature("1.0");
+        String value = "1.0";
+        viewModel.setInputTemperature(value);
         viewModel.parse();
-        viewModel.setInputTemperature("");
+        value = "";
+        viewModel.setInputTemperature(value);
         viewModel.parse();
         assertEquals(false, viewModel.isConvertButtonEnabled());
     }
 
     @Test
     public void canSetStatusSuccessWhenConvertingIsSuccess() {
-        viewModel.setInputTemperature("1.0");
+        final String value = "1.0";
+        viewModel.setInputTemperature(value);
         viewModel.setScale(TemperatureScaleName.KELVIN);
         viewModel.convert();
         assertEquals(Status.SUCCESS, viewModel.getStatus());
@@ -103,14 +113,16 @@ public class ViewModelTests {
 
     @Test
     public void isCorrectStatusName() {
-        viewModel.setInputTemperature("1.0");
+        final String value = "1.0";
+        viewModel.setInputTemperature(value);
         viewModel.convert();
         assertEquals(viewModel.getStatusName(), "Success");
     }
 
     @Test
     public void isStatusNonPhysicalValueWhenTemperatureIsNonPhysical() {
-        viewModel.setInputTemperature("-274.0");
+        final String value = "-274.0";
+        viewModel.setInputTemperature(value);
         viewModel.convert();
         assertEquals(Status.NON_PHYSICAL_VALUE, viewModel.getStatus());
     }

@@ -21,31 +21,31 @@ public final class Converter {
     private Converter(final ViewModel viewModel) {
         this.viewModel = viewModel;
         bindTemperatureScalesToComboBox();
-        backBind();
+        bind();
 
         buttonConvert.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                bind();
-                viewModel.convert();
                 backBind();
+                viewModel.convert();
+                bind();
             }
         });
 
         comboBoxScales.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                bind();
                 backBind();
+                bind();
             }
         });
 
         KeyAdapter keyListener = new KeyAdapter() {
             @Override
             public void keyReleased(final KeyEvent keyEvent) {
-                bind();
-                viewModel.parse();
                 backBind();
+                viewModel.parse();
+                bind();
             }
         };
         textFieldInput.addKeyListener(keyListener);
@@ -64,12 +64,12 @@ public final class Converter {
         comboBoxScales.setModel(new JComboBox<>(scales).getModel());
     }
 
-    private void bind() {
+    private void backBind() {
         viewModel.setInputTemperature(textFieldInput.getText());
         viewModel.setScale((TemperatureScaleName) comboBoxScales.getSelectedItem());
     }
 
-    private void backBind() {
+    private void bind() {
         comboBoxScales.setSelectedItem(viewModel.getScale());
         buttonConvert.setEnabled(viewModel.isConvertButtonEnabled());
         textFieldResult.setText(viewModel.getResultTemperature());
