@@ -14,9 +14,9 @@ import ru.unn.agile.StatisticValueCalculator.viewmodel.ViewModel;
 
 public class CalculatorWindowController {
     @FXML
-    private TableColumn<Pair<String,String>, String> columnNumber;
+    private TableColumn<Pair<String, String>, String> columnNumber;
     @FXML
-    private TableColumn<Pair<String,String>, String> columnValue;
+    private TableColumn<Pair<String, String>, String> columnValue;
     @FXML
     private ViewModel viewModel;
     @FXML
