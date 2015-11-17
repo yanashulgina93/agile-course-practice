@@ -1,4 +1,4 @@
-package ru.unn.agile.IntersectionFinder.Model;
+package ru.unn.agile.IntersectionFinder.model;
 
 import org.junit.Test;
 import static org.junit.Assert.*;

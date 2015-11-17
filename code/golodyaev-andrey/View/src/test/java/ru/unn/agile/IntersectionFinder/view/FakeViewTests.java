@@ -1,4 +1,4 @@
-package ru.unn.agile.IntersectionFinder.view.legacy;
+package ru.unn.agile.IntersectionFinder.view;
 
 import org.junit.Ignore;
 import org.junit.Test;

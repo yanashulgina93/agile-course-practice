@@ -1,29 +1,13 @@
-package ru.unn.agile.IntersectionFinder.Model;
+package ru.unn.agile.IntersectionFinder.model;
 
 public class IntersectionFinder {
-    private Line line;
-    private Plane plane;
+    private final Line line;
+    private final Plane plane;
     private static final double EPS = 0.00000001;
-    public static enum TypeOfIntersection { NoIntersection, OneIntersection, LineOnThePlane };
+    public enum TypeOfIntersection { NoIntersection, OneIntersection, LineOnThePlane }
 
     public IntersectionFinder(final Line line, final Plane plane) {
         this.line = line;
-        this.plane = plane;
-    }
-
-    public Line getLine() {
-        return line;
-    }
-
-    public void setLine(final Line line) {
-        this.line = line;
-    }
-
-    public Plane getPlane() {
-        return plane;
-    }
-
-    public void setPlane(final Plane plane) {
         this.plane = plane;
     }
 

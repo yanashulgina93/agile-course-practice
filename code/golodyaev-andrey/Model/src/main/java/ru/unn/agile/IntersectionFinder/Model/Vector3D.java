@@ -1,4 +1,4 @@
-package ru.unn.agile.IntersectionFinder.Model;
+package ru.unn.agile.IntersectionFinder.model;
 
 public class Vector3D {
     private double x;
@@ -107,9 +107,6 @@ public class Vector3D {
     }
 
     public void parse(final String vectorStr) {
-        if (vectorStr.isEmpty()) {
-            throw new NumberFormatException("Empty string");
-        }
         parseX(vectorStr);
         parseY(vectorStr);
         parseZ(vectorStr);
