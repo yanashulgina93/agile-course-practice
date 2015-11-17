@@ -28,7 +28,7 @@ public class ViewModel {
     private boolean parseLimitsInput() {
         try {
             if (!lowerLimit.isEmpty()) {
-                Double.parseDouble(lowerLimit);//вернётся ли double, если попробовать распарсить lowerLimit
+                Double.parseDouble(lowerLimit);
             }
             if (!upperLimit.isEmpty()) {
                 Double.parseDouble(upperLimit);
@@ -72,8 +72,8 @@ public class ViewModel {
             return;
         }
         IFunction iFunction = createIFunctionObject();
-        Integrator integrator =
-                new Integrator(Double.parseDouble(lowerLimit), Double.parseDouble(upperLimit), iFunction);
+        Integrator integrator = new Integrator(Double.parseDouble(lowerLimit),
+                Double.parseDouble(upperLimit), iFunction);
 
         switch (integrationMethod) {
             case LEFT_RECTANGLES:
