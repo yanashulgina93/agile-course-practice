@@ -54,8 +54,22 @@ public class Vector3DTestParse {
     }
 
     @Test(expected = Exception.class)
-    public void cantParseWrongStringWithWrongParametersNumber() {
+    public void cantParseWrongStringWithOneParameter() {
+        vectorStr = "1;";
+
+        vector.parse(vectorStr);
+    }
+
+    @Test(expected = Exception.class)
+    public void cantParseWrongStringWithTwoParameters() {
         vectorStr = "1;2;";
+
+        vector.parse(vectorStr);
+    }
+
+    @Test(expected = Exception.class)
+    public void cantParseWrongStringWithTwoParametersWithoutSemicolon() {
+        vectorStr = "1;2";
 
         vector.parse(vectorStr);
     }
