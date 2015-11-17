@@ -36,9 +36,18 @@ public class CalculatorWindowController {
     @FXML
     private TextField textRowValue;
 
-    private interface ICellFactory extends
+    private abstract class CellFactory implements
             Callback<TableColumn.CellDataFeatures<Pair<String, String>, String>,
-            ObservableValue<String>>{}
+                    ObservableValue<String>> {
+        @Override
+        public ObservableValue<String> call(
+                final TableColumn.CellDataFeatures<Pair<String, String>, String> param) {
+            return makePropertyForCell(param.getValue());
+        }
+
+        public abstract ObservableValue<String> makePropertyForCell(
+                final Pair<String, String> rowData);
+    }
 
     @FXML
     private void initialize() {
@@ -77,21 +86,19 @@ public class CalculatorWindowController {
 
         tableData.setItems(viewModel.getStatisticData());
 
-        columnNumber.setCellValueFactory(
-                new ICellFactory() {
+        columnNumber.setCellValueFactory(new CellFactory() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Pair<String, String>,
-                    String> param) {
-                return new SimpleStringProperty(param.getValue().getKey());
+            public ObservableValue<String> makePropertyForCell(
+                    final Pair<String, String> rowData) {
+                return new SimpleStringProperty(rowData.getKey());
             }
         });
 
-        columnValue.setCellValueFactory(
-                new ICellFactory() {
+        columnValue.setCellValueFactory(new CellFactory() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Pair<String, String>,
-                    String> param) {
-                return new SimpleStringProperty(param.getValue().getValue());
+            public ObservableValue<String> makePropertyForCell(
+                    final Pair<String, String> rowData) {
+                return new SimpleStringProperty(rowData.getValue());
             }
         });
 
