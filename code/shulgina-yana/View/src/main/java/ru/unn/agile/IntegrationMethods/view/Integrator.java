@@ -64,7 +64,7 @@ public final class Integrator {
         txtUpperLimit.addKeyListener(keyListener);
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         JFrame frame = new JFrame("Integrator");
         frame.setContentPane(new Integrator(new ViewModel()).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -95,9 +95,5 @@ public final class Integrator {
 
         txtResult.setText(viewModel.getResult());
         lbStatus.setText(viewModel.getStatus());
-    }
-
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
     }
 }
