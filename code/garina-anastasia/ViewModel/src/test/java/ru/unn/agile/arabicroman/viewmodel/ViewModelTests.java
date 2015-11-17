@@ -84,6 +84,32 @@ public class ViewModelTests {
         assertEquals("10", viewModel.getOutputNumber());
     }
 
+    @Test
+    public void whenEnteredArabicNumberDisabledConvertButtonDisabled() {
+        viewModel.setInputNumber("12s");
+
+        assertFalse(viewModel.isConvertButtonEnabled());
+    }
+
+    @Test
+    public void canDetectInvalidRomanNumber() {
+        viewModel.reverseConvertingDirection();
+        viewModel.setInputNumber("sd");
+        viewModel.convert();
+
+        assertTrue(viewModel.hasErrorOccurred());
+    }
+
+    @Test
+    public void canDetectInvalidArabicNumber() {
+        viewModel.reverseConvertingDirection();
+        viewModel.setInputNumber("4000");
+        viewModel.convert();
+
+        assertTrue(viewModel.hasErrorOccurred());
+    }
+
+
 
 
 }

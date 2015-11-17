@@ -6,14 +6,18 @@ public class ArabicRomanConverterViewModel {
 
     private boolean convertButtonEnabled = false;
     private boolean isConvertedNumberArabic = true;
+    private boolean hasErrorOccurred = false;
     private String inputNumber;
     private String outputNumber;
+
 
     public boolean isConvertButtonEnabled() {
         return convertButtonEnabled;
     }
 
     public void setInputNumber(final String inputNumber) {
+        hasErrorOccurred = false;
+        outputNumber = "";
         this.inputNumber = inputNumber;
         if (inputNumber.isEmpty()) {
             convertButtonEnabled = false;
@@ -36,13 +40,18 @@ public class ArabicRomanConverterViewModel {
     }
 
     public void convert() {
-        if (isConvertedNumberArabic) {
-
-            outputNumber = NumeralConverter.convert(Integer.parseInt(inputNumber));
-        } else {
-            outputNumber = String.valueOf(NumeralConverter.convert(inputNumber));
+        try {
+            if (isConvertedNumberArabic) {
+                outputNumber = NumeralConverter.convert(Integer.parseInt(inputNumber));
+            } else {
+                outputNumber = String.valueOf(NumeralConverter.convert(inputNumber));
+            }
+        } catch (Exception e) {
+            hasErrorOccurred = true;
         }
     }
+
+
 
     public void reverseConvertingDirection() {
         if (isConvertedNumberArabic) {
@@ -54,5 +63,9 @@ public class ArabicRomanConverterViewModel {
 
     public boolean isConvertedNumberArabic(){
         return isConvertedNumberArabic;
+    }
+
+    public boolean hasErrorOccurred(){
+        return hasErrorOccurred;
     }
 }
