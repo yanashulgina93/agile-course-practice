@@ -68,10 +68,6 @@ public class ViewModel {
     }
 
     public void findIntersection() {
-        if (!parseInput()) {
-            return;
-        }
-
         Vector3D pointLine = new Vector3D(pointLineStr);
         Vector3D vectorLine = new Vector3D(vectorLineStr);
         Vector3D pointPlane = new Vector3D(pointPlaneStr);

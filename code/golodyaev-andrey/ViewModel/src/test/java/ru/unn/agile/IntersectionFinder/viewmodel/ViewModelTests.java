@@ -54,7 +54,7 @@ public class ViewModelTests {
         assertEquals("", viewModel.getPointPlane());
         assertEquals("", viewModel.getNormalPlane());
         assertEquals("", viewModel.getResult());
-        assertEquals("Some input fields are empty!", viewModel.getError());
+        assertEquals(ViewModel.ErrorStatus.EMPTY_FIELDS, viewModel.getError());
     }
 
     @Test
@@ -86,7 +86,7 @@ public class ViewModelTests {
 
         viewModel.parseInput();
 
-        assertEquals("Some input fields are empty!", viewModel.getError());
+        assertEquals(ViewModel.ErrorStatus.EMPTY_FIELDS, viewModel.getError());
     }
 
     @Test
@@ -105,7 +105,7 @@ public class ViewModelTests {
 
         viewModel.parseInput();
 
-        assertEquals("Some fields contain incorrect data!", viewModel.getError());
+        assertEquals(ViewModel.ErrorStatus.INCORRECT_DATA, viewModel.getError());
     }
 
     @Test
