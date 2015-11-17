@@ -132,7 +132,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void IsGetUnitsEqualsToUnitsPropertyGet() {
+    public void isGetUnitsEqualsToUnitsPropertyGet() {
         assertEquals(viewModel.unitsProperty().get(), viewModel.getUnits());
     }
 }
