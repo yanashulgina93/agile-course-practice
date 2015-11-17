@@ -47,14 +47,14 @@ public class ViewModelTests {
 
     @Test
     public void statusIsReadyWhenFieldIsFillByValidData() {
-        setValidInputData();
+        viewModel.inputValueProperty().set("1");
 
         assertEquals(Status.READY.toString(), viewModel.hintMessageProperty().get());
     }
 
     @Test
     public void canStatusReportsBadFormat() {
-        setBadInputData();
+        viewModel.inputValueProperty().set("a");
 
         assertEquals(Status.BAD_FORMAT.toString(), viewModel.hintMessageProperty().get());
     }
@@ -78,7 +78,7 @@ public class ViewModelTests {
 
     @Test
     public void calculateButtonIsEnabledWithValidInput() {
-        setValidInputData();
+        viewModel.inputValueProperty().set("1");
 
         assertFalse(viewModel.calculationDisabledProperty().get());
     }
@@ -106,7 +106,7 @@ public class ViewModelTests {
 
     @Test
     public void canSetSuccessMessage() {
-        setValidInputData();
+        viewModel.inputValueProperty().set("1");
 
         viewModel.calculate();
 
@@ -115,16 +115,24 @@ public class ViewModelTests {
 
     @Test
     public void isErrorMessegeEqualsErrorBadFormatWhenInputDataIncorrect() {
-        setBadInputData();
+        viewModel.inputValueProperty().set("a");
 
         assertEquals(Status.BAD_FORMAT.toString(), viewModel.getHintMessage());
     }
 
-    private void setValidInputData() {
+    @Test
+    public void canReturnRightOutputValueAsString() {
         viewModel.inputValueProperty().set("1");
+        viewModel.inputUnitProperty().set(LengthUnit.INCH);
+        viewModel.outputUnitProperty().set(LengthUnit.FOOT);
+
+        viewModel.calculate();
+
+        assertEquals("0.08333333267716535", viewModel.getOutputValue());
     }
 
-    private void setBadInputData() {
-        viewModel.inputValueProperty().set("a");
+    @Test
+    public void IsGetUnitsEqualsToUnitsPropertyGet() {
+        assertEquals(viewModel.unitsProperty().get(), viewModel.getUnits());
     }
 }

@@ -67,6 +67,10 @@ public class ViewModel {
         return units;
     }
 
+    public final ObservableList<LengthUnit> getUnits() {
+        return units.get();
+    }
+
     public ObjectProperty<LengthUnit> inputUnitProperty() {
         return inputUnit;
     }
@@ -81,6 +85,10 @@ public class ViewModel {
 
     public StringProperty outputValueProperty() {
         return outputValue;
+    }
+
+    public final String getOutputValue() {
+        return outputValue.get();
     }
 
     public StringProperty hintMessageProperty() {
