@@ -17,7 +17,7 @@ public final class ArabicRomanConverterForm {
     private JLabel outputNumberFormat;
     private JLabel errorText;
 
-    private ArabicRomanConverterViewModel viewModel = new ArabicRomanConverterViewModel();
+    private final ArabicRomanConverterViewModel viewModel = new ArabicRomanConverterViewModel();
 
     private ArabicRomanConverterForm() {
         inputNumber.getDocument().addDocumentListener(new DocumentListener() {

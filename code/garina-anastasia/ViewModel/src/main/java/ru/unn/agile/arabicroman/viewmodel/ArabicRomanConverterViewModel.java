@@ -61,11 +61,11 @@ public class ArabicRomanConverterViewModel {
         }
     }
 
-    public boolean isConvertedNumberArabic(){
+    public boolean isConvertedNumberArabic() {
         return isConvertedNumberArabic;
     }
 
-    public boolean hasErrorOccurred(){
+    public boolean hasErrorOccurred() {
         return hasErrorOccurred;
     }
 }

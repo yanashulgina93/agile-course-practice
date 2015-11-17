@@ -3,7 +3,6 @@ package ru.unn.agile.arabicroman.viewmodel;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
-import ru.unn.agile.arabicroman.viewmodel.ArabicRomanConverterViewModel;
 
 public class ViewModelTests {
     private ArabicRomanConverterViewModel viewModel;
