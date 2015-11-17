@@ -80,37 +80,51 @@ public class ViewModel {
     public StringProperty value1Property() {
         return value1;
     }
-
     public StringProperty value2Property() {
         return value2;
     }
-
     public ObjectProperty<NumeralSystem> system1Property() {
         return system1;
     }
-
     public ObjectProperty<NumeralSystem> system2Property() {
         return system2;
     }
-
     public ObjectProperty<NumeralSystem> finalSystemProperty() {
         return finalSystem;
     }
-
+    public ObjectProperty<ObservableList<NumeralSystem>> systemsProperty() {
+        return systems;
+    }
+    public final ObservableList<NumeralSystem> getSystems() {
+        return systems.get();
+    }
+    public ObjectProperty<ObservableList<Operation>> operationsProperty() {
+        return operations;
+    }
+    public final ObservableList<Operation> getOperations() {
+        return operations.get();
+    }
     public ObjectProperty<Operation> operationProperty() {
         return operation;
     }
-
     public BooleanProperty calculationDisabledProperty() {
         return calculationDisabled;
+    }
+    public final boolean getCalculationDisabled() {
+        return calculationDisabled.get();
     }
 
     public StringProperty resultProperty() {
         return result;
     }
-
+    public final String getResult() {
+        return result.get();
+    }
     public StringProperty statusProperty() {
         return status;
+    }
+    public final String getStatus() {
+        return status.get();
     }
 
     private Status getInputStatus() {
@@ -119,11 +133,11 @@ public class ViewModel {
             inputStatus = Status.WAITING;
         }
         try {
-            if (!value1.get().isEmpty() && system1.get() != NumeralSystem.HEX) {
-                Double.parseDouble(value1.get());
+            if (!value1.get().isEmpty()) {
+                Long.parseLong(value1.get(), system1.get().getValue());
             }
-            if (!value2.get().isEmpty() && system2.get() != NumeralSystem.HEX) {
-                Double.parseDouble(value2.get());
+            if (!value2.get().isEmpty()) {
+                Long.parseLong(value2.get(), system2.get().getValue());
             }
         } catch (NumberFormatException nfe) {
             inputStatus = Status.BAD_FORMAT;

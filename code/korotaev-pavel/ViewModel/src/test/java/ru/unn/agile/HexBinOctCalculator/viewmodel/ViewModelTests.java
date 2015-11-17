@@ -68,13 +68,6 @@ public class ViewModelTests {
     }
 
     @Test
-    public void statusIsReadyWhenFieldsAreHexAndFill() {
-        setInputDataForHex();
-
-        assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
-    }
-
-    @Test
     public void statusIsWaitingIfNotEnoughCorrectData() {
         viewModel.value1Property().set("1");
 
@@ -89,14 +82,6 @@ public class ViewModelTests {
     }
 
     @Test
-    public void doNotReportAboutBadFormatIfHex() {
-        viewModel.system1Property().set(NumeralSystem.HEX);
-        viewModel.value1Property().set("a");
-
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
-    }
-
-    @Test
     public void calculateButtonIsDisabledAtStart() {
         assertTrue(viewModel.calculationDisabledProperty().get());
     }
@@ -107,14 +92,6 @@ public class ViewModelTests {
         viewModel.value1Property().set("abc");
 
         assertTrue(viewModel.calculationDisabledProperty().get());
-    }
-
-    @Test
-    public void calculateButtonIsEnabledWhenSystemIsHex() {
-        setInputDataForHex();
-        viewModel.value1Property().set("abc");
-
-        assertFalse(viewModel.calculationDisabledProperty().get());
     }
 
     @Test
@@ -196,12 +173,5 @@ public class ViewModelTests {
     private void setInputData() {
         viewModel.value1Property().set("111");
         viewModel.value2Property().set("101");
-    }
-
-    private void setInputDataForHex() {
-        viewModel.system1Property().set(NumeralSystem.HEX);
-        viewModel.system2Property().set(NumeralSystem.HEX);
-        viewModel.value1Property().set("abc");
-        viewModel.value2Property().set("123de");
     }
 }
