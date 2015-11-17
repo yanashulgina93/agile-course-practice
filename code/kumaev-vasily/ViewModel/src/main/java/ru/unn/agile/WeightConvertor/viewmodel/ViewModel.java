@@ -64,7 +64,6 @@ public class ViewModel {
         WeightConvertor weightconv = new WeightConvertor();
 
         result.set(weightconv.convert(value.get(), inputUnit.get(), outputUnit.get()));
-        //result.set(outputUnit.get().convert(value.get(), inputUnit.get(), outputUnit.get()));
         status.set(Status.SUCCESS.toString());
     }
 
