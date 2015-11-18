@@ -80,6 +80,11 @@ public class DistanceCalculatorViewModelTests {
     }
 
     @Test
+    public void noErrorMessageByDefault() {
+        assertEquals("", viewModel.getInputStatus());
+    }
+
+    @Test
     public void showErrorMessageWhenBadInputFormat() {
         viewModel.setFirstVec("1 -2.0 3");
         viewModel.setSecondVec("@trash 1.0$");
@@ -133,10 +138,18 @@ public class DistanceCalculatorViewModelTests {
     }
 
     @Test
-    public void showErrorMessageWhenBadFormatAndEmptyInput() {
+    public void showErrorMessageWhenEmptyAndBadInputFormat() {
         viewModel.setFirstVec("@trash 1.0$");
         viewModel.setSecondVec("");
         assertEquals("Bad vector format", viewModel.getInputStatus());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenCalculateInvalidMetricNameThrows() {
+        viewModel.setFirstVec("1.0 -2.0 3.0");
+        viewModel.setSecondVec("-4.0 5.0 -6.0");
+        viewModel.setMetric("RHO ZERO");
+        viewModel.calculate();
     }
 
     @Test

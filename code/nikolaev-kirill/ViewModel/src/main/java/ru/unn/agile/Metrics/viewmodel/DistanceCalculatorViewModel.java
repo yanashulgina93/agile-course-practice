@@ -56,9 +56,6 @@ public class DistanceCalculatorViewModel {
         secondVec.set(secondVector);
     }
 
-    public StringProperty metricProperty() {
-        return metricName;
-    }
     public void setMetric(final String metricName) {
         this.metricName.set(metricName);
     }
