@@ -1,70 +1,123 @@
 package ru.unn.agile.Metrics.viewmodel;
 
+import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import ru.unn.agile.Metrics.model.Metric;
 import ru.unn.agile.Metrics.model.DistanceCalculator;
 
-public class DistanceCalculatorViewModel {
+import java.util.ArrayList;
+import java.util.List;
 
-    private String firstVec;
-    private String secondVec;
-    private String errorMessage;
-    private String distance;
-    private boolean calculateButtonEnabled;
-    private Metric metric;
+public class DistanceCalculatorViewModel {
+    private final StringProperty result = new SimpleStringProperty();
+    private final StringProperty firstVec = new SimpleStringProperty();
+    private final StringProperty secondVec = new SimpleStringProperty();
+    private final StringProperty errorMessage = new SimpleStringProperty();
+    private final BooleanProperty calculateButtonDisabled = new SimpleBooleanProperty();
+    private final StringProperty metricName = new SimpleStringProperty();
+    private final List<ValueChangeListener> valueChangeListeners = new ArrayList<>();
     private final DistanceCalculator calculator = new DistanceCalculator();
 
+
     public DistanceCalculatorViewModel() {
-        firstVec = "";
-        secondVec = "";
-        errorMessage = "";
-        distance = "";
-        calculateButtonEnabled = false;
-        metric = Metric.RHO_INF;
+        result.set("");
+        firstVec.set("");
+        secondVec.set("");
+        errorMessage.set("");
+        calculateButtonDisabled.set(true);
+        metricName.set("RHO INF");
+
+        final List<StringProperty> fields = new ArrayList<StringProperty>() {
+            {
+                add(firstVec);
+                add(secondVec);
+            }
+        };
+
+        for (StringProperty field: fields) {
+            final ValueChangeListener listener = new ValueChangeListener();
+            field.addListener(listener);
+            valueChangeListeners.add(listener);
+        }
     }
 
-    public boolean isCalculateButtonEnabled() {
-        return calculateButtonEnabled;
+    public StringProperty firstVecProperty() {
+        return firstVec;
+    }
+    public void setFirstVec(final String firstVector) {
+        firstVec.set(firstVector);
     }
 
-    public String getErrorMessage() {
+    public StringProperty secondVecProperty() {
+        return secondVec;
+    }
+    public void setSecondVec(final String secondVector) {
+        secondVec.set(secondVector);
+    }
+
+    public StringProperty metricProperty() {
+        return metricName;
+    }
+    public void setMetric(final String metricName) {
+        this.metricName.set(metricName);
+    }
+
+    public StringProperty errorMessageProperty() {
         return errorMessage;
     }
-
-    public String getDistance() {
-        return distance;
+    public String getErrorMessage() {
+        return errorMessage.get();
     }
 
-    public void setVectors(final String firstVec, final String secondVec) {
-        String pattern = "((-?\\d+\\.\\d+)*\\s)*(-?\\d+.\\d+)";
-        boolean isBadInputFormat = !firstVec.matches(pattern) || !secondVec.matches(pattern);
+    public StringProperty resultProperty() {
+        return result;
+    }
+    public String getResult() {
+        return result.get();
+    }
+
+    public BooleanProperty calculateButtonDisabledProperty() {
+        return calculateButtonDisabled;
+    }
+    public boolean isCalculateButtonDisabled() {
+        return calculateButtonDisabled.get();
+    }
+
+    public String getInputStatus() {
+        String firstVector = firstVec.get();
+        String secondVector = secondVec.get();
+        boolean isBadInputFormat = !checkVectorString(firstVector)
+                || !checkVectorString(secondVector);
         if (isBadInputFormat) {
-            error("Bad vector format");
+            calculateButtonDisabled.set(true);
+            return "Bad vector format";
         } else {
-            boolean haveDifferentSize = firstVec.split(" ").length != secondVec.split(" ").length;
+            if (firstVector.isEmpty() || secondVector.isEmpty()) {
+                calculateButtonDisabled.set(true);
+                return "";
+            }
+            boolean haveDifferentSize = firstVector.split(" ").length
+                    != secondVector.split(" ").length;
             if (haveDifferentSize) {
-                error("Vectors have different size");
+                calculateButtonDisabled.set(true);
+                return "Vectors have different size";
             } else {
-                calculateButtonEnabled = true;
-                errorMessage = "";
-                this.firstVec = firstVec;
-                this.secondVec = secondVec;
+                calculateButtonDisabled.set(false);
+                return "";
             }
         }
     }
 
-    public void setMetric(final Metric metric) {
-        this.metric = metric;
-    }
-
     public void calculate() {
-        float[] firstVector = parseVector(firstVec);
-        float[] secondVector = parseVector(secondVec);
-        distance = Float.toString(calculator.calculateDistance(firstVector, secondVector, metric));
-    }
-
-    private void error(final String errorMessage) {
-        calculateButtonEnabled = false;
-        this.errorMessage = errorMessage;
+        if (calculateButtonDisabled.get()) {
+            return;
+        }
+        float[] firstVector = parseVector(firstVec.get());
+        float[] secondVector = parseVector(secondVec.get());
+        Metric metric = parseMetric(metricName.get());
+        result.set(Float.toString(calculator.calculateDistance(firstVector, secondVector,
+                metric)));
     }
 
     private float[] parseVector(final String rawVector) {
@@ -76,5 +129,35 @@ public class DistanceCalculatorViewModel {
             vector[i] = component;
         }
         return vector;
+    }
+
+    private boolean checkVectorString(final String vectorString) {
+        String pattern = "((-?\\d+\\.\\d+|-?\\d+)*\\s)*(-?\\d+\\.\\d+|-?\\d+)";
+        return vectorString.isEmpty() || vectorString.matches(pattern);
+    }
+
+    private Metric parseMetric(final String metricName) {
+        switch (metricName) {
+            case "RHO INF":
+                return Metric.RHO_INF;
+            case "RHO ONE":
+                return Metric.RHO_ONE;
+            case "RHO TWO":
+                return Metric.RHO_TWO;
+            case "RHO THREE":
+                return Metric.RHO_THREE;
+            case "RHO FOUR":
+                return Metric.RHO_FOUR;
+            default:
+                throw new IllegalArgumentException("Invalid metric name");
+        }
+    }
+
+    private class ValueChangeListener implements ChangeListener<String> {
+        @Override
+        public void changed(final ObservableValue<? extends String> observable,
+                            final String oldValue, final String newValue) {
+            errorMessage.set(getInputStatus());
+        }
     }
 }
