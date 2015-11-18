@@ -10,6 +10,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
+    public enum Errors {
+        ZERO_DIVIDER("Divider can't be zero!"),
+        BAD_FORMAT("Invalid format!"),
+        NOT_ERROR("");
+
+        private String errorMessage;
+
+        Errors(final String errorMessage) {
+            this.errorMessage = errorMessage;
+        }
+
+        @Override
+        public String toString() {
+            return errorMessage;
+        }
+    }
     private final StringProperty firstReal = new SimpleStringProperty();
     private final StringProperty firstImaginary = new SimpleStringProperty();
     private final StringProperty secondReal = new SimpleStringProperty();
@@ -18,29 +34,31 @@ public class ViewModel {
     private final StringProperty errors = new SimpleStringProperty();
     private final ObjectProperty<Operation> operation = new SimpleObjectProperty<Operation>();
     private final BooleanProperty canCalculate = new SimpleBooleanProperty();
-    private final List<ListenerOfChangedValue> listOfListenersOfChangedValues = new ArrayList<>();
+    private final List<ChangedValueListener> ChangedValueListeners = new ArrayList<>();
     private final ObjectProperty<ObservableList<Operation>> operations =
             new SimpleObjectProperty<>(FXCollections.observableArrayList(Operation.values()));
+    final List<StringProperty> fields = new ArrayList<StringProperty>() {
+        {
+            add(firstReal);
+            add(firstImaginary);
+            add(secondReal);
+            add(secondImaginary);
+        }
+    };
 
     public ViewModel() {
-        firstReal.set("");
-        firstImaginary.set("");
-        secondReal.set("");
-        secondImaginary.set("");
+        for (StringProperty field : fields) {
+            field.set("0.0");
+        }
         result.set("");
-        errors.set("");
+        errors.set(Errors.NOT_ERROR.toString());
         operation.set(Operation.ADD);
         canCalculate.set(false);
 
-        final List<StringProperty> fields = new ArrayList<StringProperty>();
-        fields.add(firstReal);
-        fields.add(firstImaginary);
-        fields.add(secondReal);
-        fields.add(secondImaginary);
         for (StringProperty field : fields) {
-            final ListenerOfChangedValue listener = new ListenerOfChangedValue();
+            final ChangedValueListener listener = new ChangedValueListener();
             field.addListener(listener);
-            listOfListenersOfChangedValues.add(listener);
+            changedValueListeners.add(listener);
         }
     }
 
@@ -92,6 +110,7 @@ public class ViewModel {
         tmpImaginary = Double.parseDouble(secondImaginary.get());
         Complex second = new Complex(tmpReal, tmpImaginary);
 
+        result.set("");
         switch (operation.get()) {
             case ADD:
                 result.set(first.add(second).toString());
@@ -118,33 +137,20 @@ public class ViewModel {
         errors.set("");
         canCalculate.set(true);
         try {
-            if (firstReal.get().isEmpty()) {
-                canCalculate.set(false);
-            } else {
-                Double.parseDouble(firstReal.get());
-            }
-            if (firstImaginary.get().isEmpty()) {
-                canCalculate.set(false);
-            } else {
-                Double.parseDouble(firstImaginary.get());
-            }
-            if (secondReal.get().isEmpty()) {
-                canCalculate.set(false);
-            } else {
-                Double.parseDouble(secondReal.get());
-            }
-            if (secondImaginary.get().isEmpty()) {
-                canCalculate.set(false);
-            } else {
-                Double.parseDouble(secondImaginary.get());
+            for (StringProperty field : fields) {
+                if (!field.get().isEmpty()) {
+                    Double.parseDouble(field.get());
+                } else {
+                    canCalculate.set(false);
+                }
             }
         } catch (NumberFormatException e) {
             canCalculate.set(false);
-            errors.set("Invalid format!");
+            errors.set(Errors.BAD_FORMAT.toString());
         }
     }
 
-    private class ListenerOfChangedValue implements ChangeListener<String> {
+    private class ChangedValueListener implements ChangeListener<String> {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {

@@ -24,22 +24,22 @@ public class ViewModelTest {
 
     @Test
     public void canSetDefaultFirstReal() {
-        assertEquals("", viewModel.getFirstRealProperty().get());
+        assertEquals("0.0", viewModel.getFirstRealProperty().get());
     }
 
     @Test
     public void canSetDefaultFirstImaginary() {
-        assertEquals("", viewModel.getFirstImaginaryProperty().get());
+        assertEquals("0.0", viewModel.getFirstImaginaryProperty().get());
     }
 
     @Test
     public void canSetDefaultSecondReal() {
-        assertEquals("", viewModel.getSecondRealProperty().get());
+        assertEquals("0.0", viewModel.getSecondRealProperty().get());
     }
 
     @Test
     public void canSetDefaultSecondImaginary() {
-        assertEquals("", viewModel.getSecondImaginaryProperty().get());
+        assertEquals("0.0", viewModel.getSecondImaginaryProperty().get());
     }
 
     @Test
@@ -64,7 +64,6 @@ public class ViewModelTest {
 
     @Test
     public void canNotCalculateWhenFieldsAreEmpty() {
-        viewModel.calculate();
         assertFalse(viewModel.canCalculateProperty().get());
     }
 

@@ -27,17 +27,17 @@ public class ComplexCalculator {
 
     @FXML
     void initialize() {
-        StringProperty viewModelProperty = viewModel.getFirstRealProperty();
-        firstRealTextField.textProperty().bindBidirectional(viewModelProperty);
+        StringProperty tmpProperty = viewModel.getFirstRealProperty();
+        firstRealTextField.textProperty().bindBidirectional(tmpProperty);
 
-        viewModelProperty = viewModel.getFirstImaginaryProperty();
-        firstImaginaryTextField.textProperty().bindBidirectional(viewModelProperty);
+        tmpProperty = viewModel.getFirstImaginaryProperty();
+        firstImaginaryTextField.textProperty().bindBidirectional(tmpProperty);
 
-        viewModelProperty = viewModel.getSecondRealProperty();
-        secondRealTextField.textProperty().bindBidirectional(viewModelProperty);
+        tmpProperty = viewModel.getSecondRealProperty();
+        secondRealTextField.textProperty().bindBidirectional(tmpProperty);
 
-        viewModelProperty = viewModel.getSecondImaginaryProperty();
-        secondImaginaryTextField.textProperty().bindBidirectional(viewModelProperty);
+        tmpProperty = viewModel.getSecondImaginaryProperty();
+        secondImaginaryTextField.textProperty().bindBidirectional(tmpProperty);
 
         operationsComboBox.valueProperty().bindBidirectional(viewModel.getOperationProperty());
         calculateButton.setOnAction(new EventHandler<ActionEvent>() {

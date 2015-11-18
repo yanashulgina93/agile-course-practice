@@ -39,21 +39,21 @@ public class Complex {
 
     @Override
     public String toString() {
-        String resultStr = "";
+        String result = "";
         if (isZero()) {
             return "0.0";
         }
         if (Math.abs(real) > Double.MIN_VALUE) {
-            resultStr += Double.toString(real);
+            result += Double.toString(real);
         }
         if (Math.abs(imaginary) > Double.MIN_VALUE) {
             if (Math.abs(real) > Double.MIN_VALUE
                 && imaginary > Double.MIN_VALUE) {
-                resultStr += "+";
+                result += "+";
             }
-            resultStr += Double.toString(imaginary) + "i";
+            result += Double.toString(imaginary) + "i";
         }
-        return resultStr;
+        return result;
     }
 
     public void setReal(final double real) {
