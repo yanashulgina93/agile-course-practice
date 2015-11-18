@@ -63,14 +63,16 @@ public class ViewModelTests {
     public void canSetRightRectanglesMethod() {
         viewModel.setIntegrationMethod(ViewModel.IntegrationMethod.RIGHT_RECTANGLES);
 
-        assertEquals(ViewModel.IntegrationMethod.RIGHT_RECTANGLES, viewModel.getIntegrationMethod());
+        assertEquals(ViewModel.IntegrationMethod.RIGHT_RECTANGLES,
+                viewModel.getIntegrationMethod());
     }
 
     @Test
     public void canSetMidpointRectanglesMethod() {
         viewModel.setIntegrationMethod(ViewModel.IntegrationMethod.MIDPOINT_RECTANGLES);
 
-        assertEquals(ViewModel.IntegrationMethod.MIDPOINT_RECTANGLES, viewModel.getIntegrationMethod());
+        assertEquals(ViewModel.IntegrationMethod.MIDPOINT_RECTANGLES,
+                viewModel.getIntegrationMethod());
     }
 
     @Test
@@ -269,7 +271,9 @@ public class ViewModelTests {
 
     @Test
     public void canCompareIntegrationMethodsByName() {
-        assertEquals(ViewModel.IntegrationMethod.LEFT_RECTANGLES, ViewModel.IntegrationMethod.LEFT_RECTANGLES);
-        assertNotEquals(ViewModel.IntegrationMethod.LEFT_RECTANGLES, ViewModel.IntegrationMethod.RIGHT_RECTANGLES);
+        assertEquals(ViewModel.IntegrationMethod.LEFT_RECTANGLES,
+                ViewModel.IntegrationMethod.LEFT_RECTANGLES);
+        assertNotEquals(ViewModel.IntegrationMethod.LEFT_RECTANGLES,
+                ViewModel.IntegrationMethod.RIGHT_RECTANGLES);
     }
 }
