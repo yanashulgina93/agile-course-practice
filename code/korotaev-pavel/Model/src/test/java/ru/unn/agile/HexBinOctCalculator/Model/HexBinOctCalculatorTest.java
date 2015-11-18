@@ -11,7 +11,7 @@ public class HexBinOctCalculatorTest {
 
         Number result = HexBinOctCalculator.add(firstNumber, secondNumber, NumeralSystem.OCT);
 
-        assertEquals(result.getValue(), "7");
+        assertEquals("7", result.getValue());
     }
 
     @Test
@@ -21,7 +21,7 @@ public class HexBinOctCalculatorTest {
 
         Number result = HexBinOctCalculator.subtract(firstNumber, secondNumber, NumeralSystem.BIN);
 
-        assertEquals(result.getValue(), "100");
+        assertEquals("100", result.getValue());
     }
 
     @Test
@@ -31,7 +31,7 @@ public class HexBinOctCalculatorTest {
 
         Number result = HexBinOctCalculator.multiply(firstNumber, secondNumber, NumeralSystem.BIN);
 
-        assertEquals(result.getValue(), "1001");
+        assertEquals("1001", result.getValue());
     }
 
     @Test
@@ -41,7 +41,7 @@ public class HexBinOctCalculatorTest {
 
         Number result = HexBinOctCalculator.divide(firstNumber, secondNumber, NumeralSystem.BIN);
 
-        assertEquals(result.getValue(), "111");
+        assertEquals("111", result.getValue());
     }
 
     @Test
@@ -51,7 +51,7 @@ public class HexBinOctCalculatorTest {
 
         Number result = HexBinOctCalculator.add(firstNumber, secondNumber, NumeralSystem.BIN);
 
-        assertEquals(result.getValue(), "101111000");
+        assertEquals("101111000", result.getValue());
     }
 
     @Test
@@ -61,7 +61,7 @@ public class HexBinOctCalculatorTest {
 
         Number result = HexBinOctCalculator.subtract(firstNumber, secondNumber, NumeralSystem.HEX);
 
-        assertEquals(result.getValue(), "cd9");
+        assertEquals("cd9", result.getValue());
     }
 
     @Test
@@ -71,7 +71,7 @@ public class HexBinOctCalculatorTest {
 
         Number result = HexBinOctCalculator.multiply(firstNumber, secondNumber, NumeralSystem.HEX);
 
-        assertEquals(result.getValue(), "2f8");
+        assertEquals("2f8", result.getValue());
     }
 
     @Test
@@ -81,7 +81,7 @@ public class HexBinOctCalculatorTest {
 
         Number result = HexBinOctCalculator.divide(firstNumber, secondNumber, NumeralSystem.HEX);
 
-        assertEquals(result.getValue(), "12");
+        assertEquals("12", result.getValue());
     }
 
     @Test
@@ -91,7 +91,7 @@ public class HexBinOctCalculatorTest {
 
         Number result = HexBinOctCalculator.add(firstNumber, secondNumber, NumeralSystem.HEX);
 
-        assertEquals(result.getValue(), "11");
+        assertEquals("11", result.getValue());
     }
 
     @Test
@@ -101,7 +101,7 @@ public class HexBinOctCalculatorTest {
 
         Number result = HexBinOctCalculator.subtract(firstNumber, secondNumber, NumeralSystem.OCT);
 
-        assertEquals(result.getValue(), "16");
+        assertEquals("16", result.getValue());
     }
 
     @Test
@@ -111,7 +111,7 @@ public class HexBinOctCalculatorTest {
 
         Number result = HexBinOctCalculator.multiply(firstNumber, secondNumber, NumeralSystem.OCT);
 
-        assertEquals(result.getValue(), "74");
+        assertEquals("74", result.getValue());
     }
 
     @Test
@@ -121,7 +121,7 @@ public class HexBinOctCalculatorTest {
 
         Number result = HexBinOctCalculator.divide(firstNumber, secondNumber, NumeralSystem.OCT);
 
-        assertEquals(result.getValue(), "11");
+        assertEquals("11", result.getValue());
     }
 
     @Test
@@ -131,7 +131,7 @@ public class HexBinOctCalculatorTest {
 
         Number result = HexBinOctCalculator.multiply(firstNumber, secondNumber, NumeralSystem.BIN);
 
-        assertEquals(result.getValue(), "100010");
+        assertEquals("100010", result.getValue());
     }
 
     @Test
@@ -141,7 +141,7 @@ public class HexBinOctCalculatorTest {
 
         Number result = HexBinOctCalculator.divide(firstNumber, secondNumber, NumeralSystem.BIN);
 
-        assertEquals(result.getValue(), "11111111111111111111111111110111");
+        assertEquals("11111111111111111111111111110111", result.getValue());
     }
 
     @Test
@@ -151,7 +151,7 @@ public class HexBinOctCalculatorTest {
 
         Number result = HexBinOctCalculator.divide(firstNumber, secondNumber, NumeralSystem.HEX);
 
-        assertEquals(result.getValue(), "15");
+        assertEquals("15", result.getValue());
     }
 
     @Test
@@ -161,7 +161,7 @@ public class HexBinOctCalculatorTest {
 
         Number result = HexBinOctCalculator.multiply(firstNumber, secondNumber, NumeralSystem.HEX);
 
-        assertEquals(result.getValue(), "ffffff7c");
+        assertEquals("ffffff7c", result.getValue());
     }
 
     @Test
@@ -171,7 +171,7 @@ public class HexBinOctCalculatorTest {
 
         Number result = HexBinOctCalculator.multiply(firstNumber, secondNumber, NumeralSystem.OCT);
 
-        assertEquals(result.getValue(), "4714");
+        assertEquals("4714", result.getValue());
     }
 
     @Test
@@ -181,7 +181,7 @@ public class HexBinOctCalculatorTest {
 
         Number result = HexBinOctCalculator.divide(firstNumber, secondNumber, NumeralSystem.OCT);
 
-        assertEquals(result.getValue(), "37777777775");
+        assertEquals("37777777775", result.getValue());
     }
 
     @Test(expected = IllegalArgumentException.class)
