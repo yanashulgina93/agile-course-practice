@@ -59,22 +59,22 @@ public final class HexBinOctCalculator {
     }
 
     public enum Operation {
-        ADD("Add") {
+        ADD("+") {
             public Number apply(final Number left, final Number right, final NumeralSystem system) {
                 return add(left, right, system);
             }
         },
-        SUBTRACT("Sub") {
+        SUBTRACT("-") {
             public Number apply(final Number left, final Number right, final NumeralSystem system) {
                 return subtract(left, right, system);
             }
         },
-        MULTIPLY("Mul") {
+        MULTIPLY("*") {
             public Number apply(final Number left, final Number right, final NumeralSystem system) {
                 return multiply(left, right, system);
             }
         },
-        DIVIDE("Div") {
+        DIVIDE("/") {
             public Number apply(final Number left, final Number right, final NumeralSystem system) {
                 return divide(left, right, system);
             }
