@@ -10,8 +10,8 @@ public class Main extends Application {
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("CalculatorHexBinOct.fxml"));
-        primaryStage.setTitle("CalculatorHexBinOct");
+        Parent root = FXMLLoader.load(getClass().getResource("HexBinOctCalculator.fxml"));
+        primaryStage.setTitle("HexBinOctCalculator");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
