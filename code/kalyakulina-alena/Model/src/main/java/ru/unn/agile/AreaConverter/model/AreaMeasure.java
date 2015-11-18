@@ -6,19 +6,20 @@ public enum AreaMeasure {
     ARE("Are", 100.0),
     HECTARE("Hectare", 10000.0);
 
-    private final String measureName;
-    private final double measureCoeff;
+    private final String name;
+    private final double coefficient;
 
-    AreaMeasure(final String measureName, final double measureCoeff) {
-        this.measureName = measureName;
-        this.measureCoeff = measureCoeff;
+    AreaMeasure(final String name, final double coefficient) {
+        this.name = name;
+        this.coefficient = coefficient;
     }
 
+    @Override
     public String toString() {
-        return measureName;
+        return name;
     }
 
-    public double getMeasureCoeff() {
-        return measureCoeff;
+    public double getCoefficient() {
+        return coefficient;
     }
 }

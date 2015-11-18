@@ -5,7 +5,7 @@ public class AreaConverter {
     private final double convertCoeff;
 
     public AreaConverter(final AreaMeasure from, final AreaMeasure to) {
-        convertCoeff = from.getMeasureCoeff() / to.getMeasureCoeff();
+        convertCoeff = from.getCoefficient() / to.getCoefficient();
     }
 
     public double convert(final double value) {
