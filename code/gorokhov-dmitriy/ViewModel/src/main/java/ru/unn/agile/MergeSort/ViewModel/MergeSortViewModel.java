@@ -33,7 +33,7 @@ public class MergeSortViewModel {
         parseSortingArrayToResultArray(sortingArray);
     }
 
-    public String getSortingArray() {
+    public String getResultArray() {
         return resultArray;
     }
 

@@ -69,7 +69,7 @@ public final class MergeSortView {
     }
 
     private void bind() {
-        sortedArrayTextField.setText(viewModel.getSortingArray());
+        sortedArrayTextField.setText(viewModel.getResultArray());
         statusTextField.setText(viewModel.getSortingArrayStatus());
 
         sortButton.setEnabled(viewModel.isSortButtonEnabled());
