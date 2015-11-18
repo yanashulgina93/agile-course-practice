@@ -50,12 +50,6 @@ public class PolinomArithmeticOperationsTest {
 
             Assert.assertTrue(Arrays.equals(first.getCoefficients(), expectedCoefficients));
         }
-
-        private Polinom first;
-        private Polinom second;
-        private final double[] firstCoefficients;
-        private final double[] secondCoefficients;
-        private final double[] expectedCoefficients;
     }
 
     @RunWith(Parameterized.class)
@@ -95,12 +89,6 @@ public class PolinomArithmeticOperationsTest {
 
             Assert.assertTrue(Arrays.equals(first.getCoefficients(), expectedCoefficients));
         }
-
-        private Polinom first;
-        private Polinom second;
-        private final double[] firstCoefficients;
-        private final double[] secondCoefficients;
-        private final double[] expectedCoefficients;
     }
 
     @RunWith(Parameterized.class)
@@ -139,11 +127,11 @@ public class PolinomArithmeticOperationsTest {
 
             Assert.assertTrue(Arrays.equals(first.getCoefficients(), expectedCoefficients));
         }
-
-        private Polinom first;
-        private Polinom second;
-        private final double[] firstCoefficients;
-        private final double[] secondCoefficients;
-        private final double[] expectedCoefficients;
     }
+
+    private Polinom first;
+    private Polinom second;
+    private final double[] firstCoefficients;
+    private final double[] secondCoefficients;
+    private final double[] expectedCoefficients;
 }
