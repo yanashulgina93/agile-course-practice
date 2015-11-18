@@ -326,7 +326,7 @@ public class LeftistHeapTest {
         public void canGetSortedArrayWithoutHeapClearing() {
             setUpHeap(heap, 5);
 
-            heap.toSortedArrayWithoutDelete();
+            heap.toSortedArray();
 
             assertEquals(5, heap.getSize());
         }
@@ -336,7 +336,7 @@ public class LeftistHeapTest {
             setUpHeap(heap, 5);
             Integer[] correctValues = {0, 1, 2, 3, 4};
 
-            assertArrayEquals(correctValues, heap.toSortedArrayWithoutDelete());
+            assertArrayEquals(correctValues, heap.toSortedArray());
         }
 
         @Test(expected = NullPointerException.class)

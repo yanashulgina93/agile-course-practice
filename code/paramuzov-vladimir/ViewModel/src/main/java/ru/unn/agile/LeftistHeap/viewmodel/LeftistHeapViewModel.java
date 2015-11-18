@@ -96,7 +96,7 @@ public class LeftistHeapViewModel {
 
     private void insertElement() {
             heap.insert(Integer.parseInt(keyValue));
-            Object[] content = heap.toSortedArrayWithoutDelete();
+            Object[] content = heap.toSortedArray();
             heapContent = Arrays.toString(content);
     }
 
@@ -110,7 +110,7 @@ public class LeftistHeapViewModel {
         }
         errorText = "";
         heap.delete(nodeToDelete);
-        Object[] content = heap.toSortedArrayWithoutDelete();
+        Object[] content = heap.toSortedArray();
         heapContent = Arrays.toString(content);
     }
 }

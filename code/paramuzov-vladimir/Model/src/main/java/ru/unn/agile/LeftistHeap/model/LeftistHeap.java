@@ -17,18 +17,13 @@ public class LeftistHeap<Type extends Comparable<Type>> {
     }
 
     public Object[] toSortedArray() {
+        LeftistHeap<Type> cloneHeap = new LeftistHeap<>(this);
         ArrayList<Type> sortedList = new ArrayList<>();
-        while (size > 0) {
-            sortedList.add(extractMin());
+        while (cloneHeap.getSize() > 0) {
+            sortedList.add(cloneHeap.extractMin());
         }
 
         return sortedList.toArray(new Object[sortedList.size()]);
-    }
-
-    public Object[] toSortedArrayWithoutDelete() {
-        LeftistHeap cloneHeap = new LeftistHeap<>(this);
-
-        return cloneHeap.toSortedArray();
     }
 
     public void clear() {
