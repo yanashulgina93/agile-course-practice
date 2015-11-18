@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class Vector3DTestParse {
-    private String vectorStr;
+    private String vectorText;
     private Vector3D vector;
 
     @Before
@@ -16,62 +16,62 @@ public class Vector3DTestParse {
 
     @Test
     public void canParseCorrectString() {
-        vectorStr = " 1  ;-2 ; 3.2";
+        vectorText = " 1  ;-2 ; 3.2";
 
-        vector.parse(vectorStr);
+        vector.parse(vectorText);
 
         assertEquals(vector, new Vector3D(1.0, -2.0, 3.2));
     }
 
     @Test
     public void canCreateVectorFromString() {
-        vectorStr = " 1  ;-2 ; 3.2";
+        vectorText = " 1  ;-2 ; 3.2";
 
-        vector = new Vector3D(vectorStr);
+        vector = new Vector3D(vectorText);
 
         assertEquals(vector, new Vector3D(1.0, -2.0, 3.2));
     }
 
     @Test(expected = Exception.class)
     public void cantParseEmptyString() {
-        vectorStr = "";
+        vectorText = "";
 
-        vector.parse(vectorStr);
+        vector.parse(vectorText);
     }
 
     @Test(expected = Exception.class)
     public void cantParseWrongStringWithLetter() {
-        vectorStr = " 1a  ; 2; 3";
+        vectorText = " 1a  ; 2; 3";
 
-        vector.parse(vectorStr);
+        vector.parse(vectorText);
     }
 
     @Test(expected = Exception.class)
     public void cantParseWrongStringWithSpaceAtTheMiddle() {
-        vectorStr = "1; 2 2; 3";
+        vectorText = "1; 2 2; 3";
 
-        vector.parse(vectorStr);
+        vector.parse(vectorText);
     }
 
     @Test(expected = Exception.class)
     public void cantParseWrongStringWithOneParameter() {
-        vectorStr = "1;";
+        vectorText = "1;";
 
-        vector.parse(vectorStr);
+        vector.parse(vectorText);
     }
 
     @Test(expected = Exception.class)
     public void cantParseWrongStringWithTwoParameters() {
-        vectorStr = "1;2;";
+        vectorText = "1;2;";
 
-        vector.parse(vectorStr);
+        vector.parse(vectorText);
     }
 
     @Test(expected = Exception.class)
     public void cantParseWrongStringWithTwoParametersWithoutSemicolon() {
-        vectorStr = "1;2";
+        vectorText = "1;2";
 
-        vector.parse(vectorStr);
+        vector.parse(vectorText);
     }
 
     @Test

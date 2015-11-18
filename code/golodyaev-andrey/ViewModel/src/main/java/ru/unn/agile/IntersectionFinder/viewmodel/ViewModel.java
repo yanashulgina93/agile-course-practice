@@ -3,21 +3,21 @@ package ru.unn.agile.IntersectionFinder.viewmodel;
 import ru.unn.agile.IntersectionFinder.model.*;
 
 public class ViewModel {
-    private String pointLineStr;
-    private String vectorLineStr;
-    private String pointPlaneStr;
-    private String normalPlaneStr;
+    private String pointLineText;
+    private String vectorLineText;
+    private String pointPlaneText;
+    private String normalPlaneText;
     private String result;
     private String error;
     private boolean isFinderButtonEnabled;
 
     public ViewModel() {
-        pointLineStr = "";
-        vectorLineStr = "";
-        pointPlaneStr = "";
-        normalPlaneStr = "";
+        pointLineText = "";
+        vectorLineText = "";
+        pointPlaneText = "";
+        normalPlaneText = "";
         result = "";
-        error = ErrorStatus.EMPTY_FIELDS;
+        error = ErrorStatus.EMPTY_FIELDS.toString();
         isFinderButtonEnabled = false;
     }
 
@@ -26,24 +26,24 @@ public class ViewModel {
     }
 
     private boolean isInputEmpty() {
-        return pointLineStr.isEmpty() || vectorLineStr.isEmpty()
-                || pointPlaneStr.isEmpty() || normalPlaneStr.isEmpty();
+        return pointLineText.isEmpty() || vectorLineText.isEmpty()
+                || pointPlaneText.isEmpty() || normalPlaneText.isEmpty();
     }
 
     private boolean isInputContainsIllegalData() {
         try {
             Vector3D tmpVector = new Vector3D(0.0, 0.0, 0.0);
-            if (!pointLineStr.isEmpty()) {
-                tmpVector.parse(pointLineStr);
+            if (!pointLineText.isEmpty()) {
+                tmpVector.parse(pointLineText);
             }
-            if (!vectorLineStr.isEmpty()) {
-                tmpVector.parse(vectorLineStr);
+            if (!vectorLineText.isEmpty()) {
+                tmpVector.parse(vectorLineText);
             }
-            if (!pointPlaneStr.isEmpty()) {
-                tmpVector.parse(pointPlaneStr);
+            if (!pointPlaneText.isEmpty()) {
+                tmpVector.parse(pointPlaneText);
             }
-            if (!normalPlaneStr.isEmpty()) {
-                tmpVector.parse(normalPlaneStr);
+            if (!normalPlaneText.isEmpty()) {
+                tmpVector.parse(normalPlaneText);
             }
         } catch (Exception e) {
             return true;
@@ -54,24 +54,24 @@ public class ViewModel {
     public boolean parseInput() {
         if (isInputContainsIllegalData()) {
             isFinderButtonEnabled = false;
-            error = ErrorStatus.INCORRECT_DATA;
+            error = ErrorStatus.INCORRECT_DATA.toString();
             return false;
         }
         if (isInputEmpty()) {
             isFinderButtonEnabled = false;
-            error = ErrorStatus.EMPTY_FIELDS;
+            error = ErrorStatus.EMPTY_FIELDS.toString();
             return false;
         }
         isFinderButtonEnabled = true;
-        error = ErrorStatus.NO_ERROR;
+        error = ErrorStatus.NO_ERROR.toString();
         return true;
     }
 
     public void findIntersection() {
-        Vector3D pointLine = new Vector3D(pointLineStr);
-        Vector3D vectorLine = new Vector3D(vectorLineStr);
-        Vector3D pointPlane = new Vector3D(pointPlaneStr);
-        Vector3D normalPlane = new Vector3D(normalPlaneStr);
+        Vector3D pointLine = new Vector3D(pointLineText);
+        Vector3D vectorLine = new Vector3D(vectorLineText);
+        Vector3D pointPlane = new Vector3D(pointPlaneText);
+        Vector3D normalPlane = new Vector3D(normalPlaneText);
         Line line = new Line(pointLine, vectorLine);
         Plane plane = new Plane(pointPlane, normalPlane);
         IntersectionFinder intersectionFinder = new IntersectionFinder(line, plane);
@@ -79,15 +79,15 @@ public class ViewModel {
         IntersectionFinder.TypeOfIntersection type = intersectionFinder.getTypeOfIntersection();
         switch (type) {
             case NoIntersection:
-                error = ErrorStatus.NO_INTERSECTION;
+                error = ErrorStatus.NO_INTERSECTION.toString();
                 result = "";
                 break;
             case LineOnThePlane:
-                error = ErrorStatus.PLANE_CONTAINS_LINE;
+                error = ErrorStatus.PLANE_CONTAINS_LINE.toString();
                 result = "";
                 break;
             case OneIntersection:
-                error = ErrorStatus.NO_ERROR;
+                error = ErrorStatus.NO_ERROR.toString();
                 result = intersectionFinder.getIntersectionPoint().toString();
                 break;
             default:
@@ -104,58 +104,69 @@ public class ViewModel {
     }
 
     public String getPointLine() {
-        return pointLineStr;
+        return pointLineText;
     }
 
-    public void setPointLine(final String pointLineStr) {
-        if (pointLineStr.equals(this.pointLineStr)) {
+    public void setPointLine(final String pointLineText) {
+        if (pointLineText.equals(this.pointLineText)) {
             return;
         }
 
-        this.pointLineStr = pointLineStr;
+        this.pointLineText = pointLineText;
     }
 
     public String getVectorLine() {
-        return vectorLineStr;
+        return vectorLineText;
     }
 
-    public void setVectorLine(final String vectorLineStr) {
-        if (vectorLineStr.equals(this.vectorLineStr)) {
+    public void setVectorLine(final String vectorLineText) {
+        if (vectorLineText.equals(this.vectorLineText)) {
             return;
         }
 
-        this.vectorLineStr = vectorLineStr;
+        this.vectorLineText = vectorLineText;
     }
 
     public String getPointPlane() {
-        return pointPlaneStr;
+        return pointPlaneText;
     }
 
-    public void setPointPlane(final String pointPlaneStr) {
-        if (pointPlaneStr.equals(this.pointPlaneStr)) {
+    public void setPointPlane(final String pointPlaneText) {
+        if (pointPlaneText.equals(this.pointPlaneText)) {
             return;
         }
 
-        this.pointPlaneStr = pointPlaneStr;
+        this.pointPlaneText = pointPlaneText;
     }
 
     public String getNormalPlane() {
-        return normalPlaneStr;
+        return normalPlaneText;
     }
 
     public void setNormalPlane(final String normalPlane) {
-        if (normalPlane.equals(this.normalPlaneStr)) {
+        if (normalPlane.equals(this.normalPlaneText)) {
             return;
         }
 
-        this.normalPlaneStr = normalPlane;
+        this.normalPlaneText = normalPlane;
     }
 
-    public static class ErrorStatus {
-        public static final String NO_ERROR = "";
-        public static final String NO_INTERSECTION = "No Intersection!";
-        public static final String PLANE_CONTAINS_LINE = "Plane contains line!";
-        public static final String EMPTY_FIELDS = "Some input fields are empty!";
-        public static final String INCORRECT_DATA = "Some fields contain incorrect data!";
+    enum ErrorStatus {
+        NO_ERROR(""),
+        NO_INTERSECTION("No Intersection!"),
+        PLANE_CONTAINS_LINE("Plane contains line!"),
+        EMPTY_FIELDS("Empty fields! Format a;b;c"),
+        INCORRECT_DATA("Incorrect data! Format a;b;c");
+
+        private final String name;
+
+        private ErrorStatus(final String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 }
