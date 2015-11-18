@@ -23,6 +23,7 @@ public enum TemperatureScaleName {
         return scaling;
     }
 
+    @Override
     public String toString() {
         return name;
     }
