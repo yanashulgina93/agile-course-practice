@@ -27,8 +27,7 @@ public final class HexBinOctCalculator {
         int left = parseString(firstNumber.getValue(), firstNumber.getSystem());
         int right = parseString(secondNumber.getValue(), secondNumber.getSystem());
         String sum = convertResult(left + right, resultSystem);
-        Number result = new Number(sum, resultSystem);
-        return result;
+        return new Number(sum, resultSystem);
     }
 
     public static Number subtract(final Number firstNumber, final Number secondNumber,
@@ -36,8 +35,7 @@ public final class HexBinOctCalculator {
         int left = parseString(firstNumber.getValue(), firstNumber.getSystem());
         int right = parseString(secondNumber.getValue(), secondNumber.getSystem());
         String diff = convertResult(left - right, resultSystem);
-        Number result = new Number(diff, resultSystem);
-        return result;
+        return new Number(diff, resultSystem);
     }
 
     public static Number multiply(final Number firstNumber, final Number secondNumber,
@@ -45,8 +43,7 @@ public final class HexBinOctCalculator {
         int left = parseString(firstNumber.getValue(), firstNumber.getSystem());
         int right = parseString(secondNumber.getValue(), secondNumber.getSystem());
         String prod = convertResult(left * right, resultSystem);
-        Number result = new Number(prod, resultSystem);
-        return result;
+        return new Number(prod, resultSystem);
     }
 
     public static Number divide(final Number firstNumber, final Number secondNumber,
@@ -57,8 +54,7 @@ public final class HexBinOctCalculator {
             throw new IllegalArgumentException("Division by zero!");
         } else {
             String quotient = convertResult(left / right, resultSystem);
-            Number result = new Number(quotient, resultSystem);
-            return result;
+            return new Number(quotient, resultSystem);
         }
     }
 

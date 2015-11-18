@@ -12,7 +12,9 @@ public class ViewModelTests {
     private ViewModel viewModel;
 
     @Before
-    public void setUp() { viewModel = new ViewModel(); }
+    public void setUp() {
+        viewModel = new ViewModel();
+    }
 
     @After
     public void tearDown() {
