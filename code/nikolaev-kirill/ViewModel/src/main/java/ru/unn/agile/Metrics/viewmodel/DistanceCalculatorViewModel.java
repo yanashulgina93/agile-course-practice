@@ -108,7 +108,7 @@ public class DistanceCalculatorViewModel {
 
     public void calculate() {
         if (calculateButtonDisabled.get()) {
-            return;
+            throw new IllegalStateException("Calculation is disabled: Empty or incorrect input");
         }
         float[] firstVector = parseVector(firstVec.get());
         float[] secondVector = parseVector(secondVec.get());

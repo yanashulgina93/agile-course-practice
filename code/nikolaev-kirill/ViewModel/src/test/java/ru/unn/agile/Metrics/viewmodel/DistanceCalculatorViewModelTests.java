@@ -144,13 +144,53 @@ public class DistanceCalculatorViewModelTests {
         assertEquals("Bad vector format", viewModel.getInputStatus());
     }
 
+    @Test
+    public void noErrorMessageWhenIncompleteInput() {
+        viewModel.setFirstVec("1 -2.0 3");
+        viewModel.setSecondVec("");
+        assertEquals("", viewModel.getInputStatus());
+    }
+
     @Test(expected = IllegalArgumentException.class)
-    public void whenCalculateInvalidMetricNameThrows() {
+    public void calculateThrowsWhenInvalidMetricName() {
         viewModel.setFirstVec("1.0 -2.0 3.0");
         viewModel.setSecondVec("-4.0 5.0 -6.0");
         viewModel.setMetric("RHO ZERO");
         viewModel.calculate();
     }
+
+    @Test(expected = IllegalStateException.class)
+    public void calculateThrowsWhenIncompleteInput() {
+        viewModel.setFirstVec("");
+        viewModel.setSecondVec("1 -2.0 3");
+        viewModel.setMetric("RHO ONE");
+        viewModel.calculate();
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void calculateThrowsWhenDifferentSize() {
+        viewModel.setFirstVec("4.0 5.0");
+        viewModel.setSecondVec("1 -2.0 3");
+        viewModel.setMetric("RHO TWO");
+        viewModel.calculate();
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void calculateThrowsWhenBadInputFormat() {
+        viewModel.setFirstVec("1 -2.0 3");
+        viewModel.setSecondVec("@trash 1.0$");
+        viewModel.setMetric("RHO THREE");
+        viewModel.calculate();
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void calculateThrowsWhenNoInput() {
+        viewModel.setFirstVec("");
+        viewModel.setSecondVec("");
+        viewModel.setMetric("RHO FOUR");
+        viewModel.calculate();
+    }
+
 
     @Test
     public void whenCalculateDistanceInRhoInf() {
