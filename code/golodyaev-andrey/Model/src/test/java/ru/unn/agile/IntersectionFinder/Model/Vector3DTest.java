@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class Vector3DTest {
-    private final double delta = 0.001;
+    private final double delta = Double.MIN_VALUE;
     private Vector3D vector;
 
     @Before

@@ -3,7 +3,7 @@ package ru.unn.agile.IntersectionFinder.model;
 public class IntersectionFinder {
     private final Line line;
     private final Plane plane;
-    private static final double EPS = 0.00000001;
+    private static final double EPS = Double.MIN_VALUE;
     public enum TypeOfIntersection { NoIntersection, OneIntersection, LineOnThePlane }
 
     public IntersectionFinder(final Line line, final Plane plane) {

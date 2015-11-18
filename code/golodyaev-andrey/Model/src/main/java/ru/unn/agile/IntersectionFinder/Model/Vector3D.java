@@ -11,8 +11,8 @@ public class Vector3D {
         this.z = z;
     }
 
-    public Vector3D(final String vectorStr) {
-        this.parse(vectorStr);
+    public Vector3D(final String vectorText) {
+        this.parse(vectorText);
     }
 
     @Override
@@ -71,45 +71,45 @@ public class Vector3D {
         return new Vector3D(x + vector.x, y + vector.y, z + vector.z);
     }
 
-    private void parseX(final String vectorStr) {
-        int index = vectorStr.indexOf(";");
+    private void parseX(final String vectorText) {
+        int index = vectorText.indexOf(";");
         if (index <= 0) {
             throw new NumberFormatException();
         }
-        String x = vectorStr.substring(0, vectorStr.indexOf(";"));
+        String x = vectorText.substring(0, vectorText.indexOf(";"));
         x = x.trim();
         this.x = Double.parseDouble(x);
     }
 
-    private void parseY(final String vectorStr) {
-        int index1 = vectorStr.indexOf(";");
-        if (index1 == vectorStr.length() - 1) {
+    private void parseY(final String vectorText) {
+        int index1 = vectorText.indexOf(";");
+        if (index1 == vectorText.length() - 1) {
             throw new NumberFormatException();
         }
-        int index2 = vectorStr.indexOf(";", index1 + 1);
+        int index2 = vectorText.indexOf(";", index1 + 1);
         if (index2 == -1) {
             throw new NumberFormatException();
         }
-        String y = vectorStr.substring(index1 + 1, index2);
+        String y = vectorText.substring(index1 + 1, index2);
             y = y.trim();
             this.y = Double.parseDouble(y);
     }
 
-    private void parseZ(final String vectorStr) {
-        int index = vectorStr.indexOf(";");
-        index = vectorStr.indexOf(";", index + 1);
-        if (index == vectorStr.length() - 1) {
+    private void parseZ(final String vectorText) {
+        int index = vectorText.indexOf(";");
+        index = vectorText.indexOf(";", index + 1);
+        if (index == vectorText.length() - 1) {
             throw new NumberFormatException();
         }
-        String z = vectorStr.substring(index + 1);
+        String z = vectorText.substring(index + 1);
         z = z.trim();
         this.z = Double.parseDouble(z);
     }
 
-    public void parse(final String vectorStr) {
-        parseX(vectorStr);
-        parseY(vectorStr);
-        parseZ(vectorStr);
+    public void parse(final String vectorText) {
+        parseX(vectorText);
+        parseY(vectorText);
+        parseZ(vectorText);
     }
 
     public String toString() {
