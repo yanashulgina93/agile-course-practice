@@ -139,7 +139,7 @@ public class ViewModel {
         try {
             for (StringProperty field : fields) {
                 if (field.get().isEmpty()) {
-                    canCalculate.set(false);       
+                    canCalculate.set(false);
                 } else {
                     Double.parseDouble(field.get());
                 }
