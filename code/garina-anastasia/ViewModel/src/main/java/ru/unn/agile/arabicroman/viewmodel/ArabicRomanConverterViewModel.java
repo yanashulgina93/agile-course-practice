@@ -6,37 +6,61 @@ public class ArabicRomanConverterViewModel {
 
     private boolean convertButtonEnabled = false;
     private boolean isConvertedNumberArabic = true;
-    private boolean hasErrorOccurred = false;
     private String inputNumber;
     private String outputNumber;
+    private String errorMessage = "";
+    private String inputNumberFormat = "Arabic Number";
+    private String outputNumberFormat = "Roman Number";
 
+    public String getOutputNumber() {
+        return outputNumber;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public String getInputNumberFormat() {
+        return inputNumberFormat;
+    }
+
+    public String getOutputNumberFormat() {
+        return outputNumberFormat;
+    }
 
     public boolean isConvertButtonEnabled() {
         return convertButtonEnabled;
     }
 
-    public void setInputNumber(final String inputNumber) {
-        hasErrorOccurred = false;
-        outputNumber = "";
-        this.inputNumber = inputNumber;
-        if (inputNumber.isEmpty()) {
-            convertButtonEnabled = false;
-        } else {
-            if (isConvertedNumberArabic) {
-                try {
-                    Integer.parseInt(inputNumber);
-                    convertButtonEnabled = true;
-                } catch (NumberFormatException e) {
-                    convertButtonEnabled = false;
-                }
-            } else {
-                convertButtonEnabled = true;
-            }
-        }
+    public boolean isConvertedNumberArabic() {
+        return isConvertedNumberArabic;
     }
 
-    public String getOutputNumber() {
-        return outputNumber;
+    public void reverseConvertingDirection() {
+        isConvertedNumberArabic = !isConvertedNumberArabic;
+        exchangeTextForIONumbers();
+    }
+
+    private void exchangeTextForIONumbers() {
+        String tempString = inputNumberFormat;
+        inputNumberFormat = outputNumberFormat;
+        outputNumberFormat = tempString;
+    }
+
+    public void setInputNumber(final String inputNumber) {
+        outputNumber = "";
+        errorMessage = "";
+        this.inputNumber = inputNumber;
+        if (isConvertedNumberArabic) {
+            try {
+                Integer.parseInt(inputNumber);
+                convertButtonEnabled = true;
+            } catch (NumberFormatException e) {
+                convertButtonEnabled = false;
+            }
+        } else {
+            convertButtonEnabled = true;
+        }
     }
 
     public void convert() {
@@ -47,25 +71,7 @@ public class ArabicRomanConverterViewModel {
                 outputNumber = String.valueOf(NumeralConverter.convert(inputNumber));
             }
         } catch (Exception e) {
-            hasErrorOccurred = true;
+            errorMessage = "Illegal input number";
         }
-    }
-
-
-
-    public void reverseConvertingDirection() {
-        if (isConvertedNumberArabic) {
-            isConvertedNumberArabic = false;
-        } else {
-            isConvertedNumberArabic = true;
-        }
-    }
-
-    public boolean isConvertedNumberArabic() {
-        return isConvertedNumberArabic;
-    }
-
-    public boolean hasErrorOccurred() {
-        return hasErrorOccurred;
     }
 }

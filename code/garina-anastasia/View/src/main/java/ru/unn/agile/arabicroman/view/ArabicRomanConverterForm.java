@@ -52,15 +52,8 @@ public final class ArabicRomanConverterForm {
         reverseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                viewModel.reverseConvertingDirection();
-                if (viewModel.isConvertedNumberArabic()) {
-                    inputNumberFormat.setText("Arabic Number");
-                    outputNumberFormat.setText("Roman Number");
-                } else {
-                    inputNumberFormat.setText("Roman Number");
-                    outputNumberFormat.setText("Arabic Number");
-                }
                 backBind();
+                viewModel.reverseConvertingDirection();
                 bind();
             }
         });
@@ -71,11 +64,9 @@ public final class ArabicRomanConverterForm {
     private void bind() {
         convertButton.setEnabled(viewModel.isConvertButtonEnabled());
         outputNumber.setText(viewModel.getOutputNumber());
-        if (viewModel.hasErrorOccurred()) {
-            errorText.setText("Illegal input number!");
-        } else {
-            errorText.setText("");
-        }
+        errorText.setText(viewModel.getErrorMessage());
+        inputNumberFormat.setText(viewModel.getInputNumberFormat());
+        outputNumberFormat.setText(viewModel.getOutputNumberFormat());
     }
 
     private void backBind() {

@@ -14,9 +14,28 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canSetDefaultValues() {
+    public void byDefaultConvertButtonDisabled() {
         assertFalse(viewModel.isConvertButtonEnabled());
+    }
+
+    @Test
+    public void byDefaultConvertedNumberIsArabic() {
         assertTrue(viewModel.isConvertedNumberArabic());
+    }
+
+    @Test
+    public void byDefaultErrorMessageStringIsEmpty() {
+        assertEquals("", viewModel.getErrorMessage());
+    }
+
+    @Test
+    public void byDefaultInputNumberIsArabic() {
+        assertEquals("Arabic Number", viewModel.getInputNumberFormat());
+    }
+
+    @Test
+    public void byDefaultOutputNumberIsRoman() {
+        assertEquals("Roman Number", viewModel.getOutputNumberFormat());
     }
 
     @Test
@@ -58,12 +77,37 @@ public class ViewModelTests {
     }
 
     @Test
-    public void whenRomanNumberEmptyConvertButtonDisabled() {
+    public void inputNumberFormatChangedAfterReverse() {
+        String oldOutputNumberFormat = viewModel.getOutputNumberFormat();
         viewModel.reverseConvertingDirection();
-        viewModel.setInputNumber("X");
-        viewModel.setInputNumber("");
 
-        assertFalse(viewModel.isConvertButtonEnabled());
+        assertEquals(oldOutputNumberFormat, viewModel.getInputNumberFormat());
+    }
+
+    @Test
+    public void outputNumberFormatChangedAfterReverse() {
+        String oldInputNumberFormat = viewModel.getInputNumberFormat();
+        viewModel.reverseConvertingDirection();
+
+        assertEquals(oldInputNumberFormat, viewModel.getOutputNumberFormat());
+    }
+
+    @Test
+    public void outputNumberFormatIsNotChangedAfterDoubleReverse() {
+        String oldOutputNumberFormat = viewModel.getOutputNumberFormat();
+        viewModel.reverseConvertingDirection();
+        viewModel.reverseConvertingDirection();
+
+        assertEquals(oldOutputNumberFormat, viewModel.getOutputNumberFormat());
+    }
+
+    @Test
+    public void inputNumberFormatIsNotChangedAfterDoubleReverse() {
+        String oldInputNumberFormat = viewModel.getInputNumberFormat();
+        viewModel.reverseConvertingDirection();
+        viewModel.reverseConvertingDirection();
+
+        assertEquals(oldInputNumberFormat, viewModel.getInputNumberFormat());
     }
 
     @Test
@@ -84,7 +128,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void whenEnteredArabicNumberDisabledConvertButtonDisabled() {
+    public void whenEnteredInvalidArabicNumberConvertButtonDisabled() {
         viewModel.setInputNumber("12s");
 
         assertFalse(viewModel.isConvertButtonEnabled());
@@ -96,19 +140,23 @@ public class ViewModelTests {
         viewModel.setInputNumber("sd");
         viewModel.convert();
 
-        assertTrue(viewModel.hasErrorOccurred());
+        assertEquals("Illegal input number", viewModel.getErrorMessage());
     }
 
     @Test
     public void canDetectInvalidArabicNumber() {
-        viewModel.reverseConvertingDirection();
         viewModel.setInputNumber("4000");
         viewModel.convert();
 
-        assertTrue(viewModel.hasErrorOccurred());
+        assertEquals("Illegal input number", viewModel.getErrorMessage());
     }
 
+    @Test
+    public void errorMessageDisapearsAfterAnotherNumberEntered() {
+        viewModel.setInputNumber("4000");
+        viewModel.convert();
+        viewModel.setInputNumber("400");
 
-
-
+        assertEquals("", viewModel.getErrorMessage());
+    }
 }
