@@ -107,7 +107,7 @@ public class ViewModelTests {
         viewModel.inputStatisticParameterProperty().set("abc123");
         viewModel.inputStatisticParameterProperty().set("123");
 
-        assertEquals(viewModel.inputStatisticParameterErrorProperty().get(),
+        assertEquals(viewModel.getInputStatisticParameterError(),
                 InputNote.VALID_INPUT);
     }
 
@@ -151,7 +151,7 @@ public class ViewModelTests {
         viewModel.selectedStatisticProperty().set(StatisticValue.ENUMERATION);
         viewModel.inputStatisticParameterProperty().set("abc");
 
-        assertFalse(viewModel.calculationIsDisabledProperty().get());
+        assertFalse(viewModel.getCalculationIsDisabled());
     }
 
     @Test
@@ -167,7 +167,7 @@ public class ViewModelTests {
 
         viewModel.selectRowInStatisticData(1);
 
-        assertFalse(viewModel.deleteDataRowIsDisabledProperty().get());
+        assertFalse(viewModel.getDeleteDataRowIsDisabled());
     }
 
     @Test
@@ -209,6 +209,70 @@ public class ViewModelTests {
         viewModel.calculateSelectedStatistic();
 
         assertFalse(viewModel.getValueOfCalculatedStatistic().isEmpty());
+    }
+
+    @Test
+    public void parameterNameIsEqualToOrderWhenRowMomentSelected() {
+        viewModel.setSelectedStatistic(StatisticValue.ROW_MOMENT);
+
+        assertEquals(viewModel.parameterNameOfSelectedStatisticProperty().get(),
+                StatisticParameter.ORDER);
+    }
+
+    @Test
+    public void parameterNameIsEqualToEventWhenProbabilitySelected() {
+        viewModel.setSelectedStatistic(StatisticValue.PROBABILITY);
+
+        assertEquals(viewModel.getParameterNameOfSelectedStatistic(),
+                StatisticParameter.EVENT);
+    }
+
+    @Test
+    public void calculationIsDisabledWhenSetEmptyStatisticData() {
+        ObservableList<Pair<String, String>> emptyData = FXCollections.emptyObservableList();
+        viewModel.setStatisticData(emptyData);
+
+        assertTrue(viewModel.calculationIsDisabledProperty().get());
+    }
+
+    @Test
+    public void deleteRowInDataIsDisabledWhenSelectedRowNumberIsOutOfBounds() {
+        viewModel.selectRowInStatisticData(-1);
+
+        assertTrue(viewModel.deleteDataRowIsDisabledProperty().get());
+    }
+
+    @Test
+    public void nameOfCalculatedStatisticIsEqualsToRowMomentAfterCalculateRowMomentOfSecondOrder() {
+        viewModel.setSelectedStatistic(StatisticValue.ROW_MOMENT);
+        viewModel.inputStatisticParameterProperty().setValue("2");
+        viewModel.calculateSelectedStatistic();
+
+        assertEquals(viewModel.getNameOfCalculatedStatistic(),
+                StatisticValue.ROW_MOMENT.toString());
+    }
+
+    @Test
+    public void addRowToDataTableIsDisabledWhenInputValueIsEmpty() {
+        viewModel.inputRowProperty().set("");
+
+        assertTrue(viewModel.getAddInputRowIsDisabled());
+    }
+
+    @Test
+    public void calculatingIsDisabledWhenStatisticParameterValueIsEmptyAndCentralMomentSelected() {
+        viewModel.setSelectedStatistic(StatisticValue.CENTRAL_MOMENT);
+        viewModel.inputStatisticParameterProperty().set("");
+
+        assertTrue(viewModel.calculationIsDisabledProperty().get());
+    }
+
+    @Test
+    public void calculatingIsEnabledWhenStatisticParameterValueIsEmptyAndVarianceSelected() {
+        viewModel.setSelectedStatistic(StatisticValue.VARIANCE);
+        viewModel.inputStatisticParameterProperty().set("");
+
+        assertFalse(viewModel.calculationIsDisabledProperty().get());
     }
 
     private void setUpDataTable() {
