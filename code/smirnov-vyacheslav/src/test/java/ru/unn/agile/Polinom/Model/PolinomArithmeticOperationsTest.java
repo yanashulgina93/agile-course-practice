@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.junit.experimental.runners.Enclosed;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,9 +18,9 @@ public class PolinomArithmeticOperationsTest {
     public static class PolinomAddTest {
         public PolinomAddTest(final double[] firstCoefficients,
             final double[] secondCoefficients, final double[] expectedCoefficients) {
-            this.firstCoefficients = firstCoefficients;
-            this.secondCoefficients = secondCoefficients;
-            this.expectedCoefficients = expectedCoefficients;
+            PolinomArithmeticOperationsTest.firstCoefficients = firstCoefficients;
+            PolinomArithmeticOperationsTest.secondCoefficients = secondCoefficients;
+            PolinomArithmeticOperationsTest.expectedCoefficients = expectedCoefficients;
         }
 
         @Parameterized.Parameters
@@ -40,15 +41,16 @@ public class PolinomArithmeticOperationsTest {
 
         @Before
         public void initPolinoms() {
-            first = new Polinom(firstCoefficients);
-            second = new Polinom(secondCoefficients);
+            PolinomArithmeticOperationsTest.first = new Polinom(firstCoefficients);
+            PolinomArithmeticOperationsTest.second = new Polinom(secondCoefficients);
         }
 
         @Test
         public void canAddPolinoms() {
-            first.add(second);
+            PolinomArithmeticOperationsTest.first.add(PolinomArithmeticOperationsTest.second);
 
-            Assert.assertTrue(Arrays.equals(first.getCoefficients(), expectedCoefficients));
+            Assert.assertTrue(Arrays.equals(PolinomArithmeticOperationsTest.first.getCoefficients(),
+            expectedCoefficients));
         }
     }
 
@@ -56,9 +58,9 @@ public class PolinomArithmeticOperationsTest {
     public static class PolinomSubtractTest {
         public PolinomSubtractTest(final double[] firstCoefficients,
             final double[] secondCoefficients, final double[] expectedCoefficients) {
-            this.firstCoefficients = firstCoefficients;
-            this.secondCoefficients = secondCoefficients;
-            this.expectedCoefficients = expectedCoefficients;
+            PolinomArithmeticOperationsTest.firstCoefficients = firstCoefficients;
+            PolinomArithmeticOperationsTest.secondCoefficients = secondCoefficients;
+            PolinomArithmeticOperationsTest.expectedCoefficients = expectedCoefficients;
         }
 
         @Parameterized.Parameters
@@ -79,15 +81,16 @@ public class PolinomArithmeticOperationsTest {
 
         @Before
         public void initPolinoms() {
-            first = new Polinom(firstCoefficients);
-            second = new Polinom(secondCoefficients);
+            PolinomArithmeticOperationsTest.first = new Polinom(firstCoefficients);
+            PolinomArithmeticOperationsTest.second = new Polinom(secondCoefficients);
         }
 
         @Test
         public void canSubtractPolinoms() {
-            first.subtract(second);
+            PolinomArithmeticOperationsTest.first.subtract(PolinomArithmeticOperationsTest.second);
 
-            Assert.assertTrue(Arrays.equals(first.getCoefficients(), expectedCoefficients));
+            Assert.assertTrue(Arrays.equals(PolinomArithmeticOperationsTest.first.getCoefficients(),
+                expectedCoefficients));
         }
     }
 
@@ -95,9 +98,9 @@ public class PolinomArithmeticOperationsTest {
     public static class PolinomMultiplyTest {
         public PolinomMultiplyTest(final double[] firstCoefficients,
             final double[] secondCoefficients, final double[] expectedCoefficients) {
-            this.firstCoefficients = firstCoefficients;
-            this.secondCoefficients = secondCoefficients;
-            this.expectedCoefficients = expectedCoefficients;
+            PolinomArithmeticOperationsTest.firstCoefficients = firstCoefficients;
+            PolinomArithmeticOperationsTest.secondCoefficients = secondCoefficients;
+            PolinomArithmeticOperationsTest.expectedCoefficients = expectedCoefficients;
         }
 
         @Parameterized.Parameters
@@ -117,21 +120,21 @@ public class PolinomArithmeticOperationsTest {
 
         @Before
         public void initPolinoms() {
-            first = new Polinom(firstCoefficients);
-            second = new Polinom(secondCoefficients);
+            PolinomArithmeticOperationsTest.first = new Polinom(firstCoefficients);
+            PolinomArithmeticOperationsTest.second = new Polinom(secondCoefficients);
         }
 
         @Test
         public void canMultiplyPolinoms() {
-            first.multiply(second);
+            PolinomArithmeticOperationsTest.first.multiply(PolinomArithmeticOperationsTest.second);
 
             Assert.assertTrue(Arrays.equals(first.getCoefficients(), expectedCoefficients));
         }
     }
 
-    private Polinom first;
-    private Polinom second;
-    private final double[] firstCoefficients;
-    private final double[] secondCoefficients;
-    private final double[] expectedCoefficients;
+    private static Polinom first;
+    private static Polinom second;
+    private static double[] firstCoefficients;
+    private static double[] secondCoefficients;
+    private static double[] expectedCoefficients;
 }
