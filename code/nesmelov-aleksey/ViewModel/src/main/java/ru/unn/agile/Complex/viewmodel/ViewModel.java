@@ -37,7 +37,7 @@ public class ViewModel {
     private final List<ChangedValueListener> changedValueListeners = new ArrayList<>();
     private final ObjectProperty<ObservableList<Operation>> operations =
             new SimpleObjectProperty<>(FXCollections.observableArrayList(Operation.values()));
-    final List<StringProperty> fields = new ArrayList<StringProperty>() {
+    private final List<StringProperty> fields = new ArrayList<StringProperty>() {
         {
             add(firstReal);
             add(firstImaginary);
@@ -134,14 +134,14 @@ public class ViewModel {
     }
 
     private void refreshInputErrors() {
-        errors.set("");
+        errors.set(Errors.NOT_ERROR.toString());
         canCalculate.set(true);
         try {
             for (StringProperty field : fields) {
-                if (!field.get().isEmpty()) {
-                    Double.parseDouble(field.get());
+                if (field.get().isEmpty()) {
+                    canCalculate.set(false);       
                 } else {
-                    canCalculate.set(false);
+                    Double.parseDouble(field.get());
                 }
             }
         } catch (NumberFormatException e) {
