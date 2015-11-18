@@ -29,6 +29,10 @@ public class ViewModelTests {
         assertEquals(viewModel.selectedStatisticProperty().get(), StatisticValue.ENUMERATION);
         assertEquals(viewModel.inputRowProperty().get(), "1.0");
         assertEquals(viewModel.inputStatisticParameterProperty().get(), "0.0");
+
+        ObservableList<StatisticValue> statisticsList =
+                FXCollections.observableArrayList(StatisticValue.values());
+        assertEquals(viewModel.getListOfAvailableStatistics(), statisticsList);
     }
 
     @Test
@@ -215,8 +219,8 @@ public class ViewModelTests {
     public void parameterNameIsEqualToOrderWhenRowMomentSelected() {
         viewModel.setSelectedStatistic(StatisticValue.ROW_MOMENT);
 
-        assertEquals(viewModel.parameterNameOfSelectedStatisticProperty().get(),
-                StatisticParameter.ORDER);
+        assertEquals(viewModel.parameterNameOfSelectedStatisticProperty().get().toString(),
+                StatisticParameter.ORDER.toString());
     }
 
     @Test
@@ -250,6 +254,16 @@ public class ViewModelTests {
 
         assertEquals(viewModel.getNameOfCalculatedStatistic(),
                 StatisticValue.ROW_MOMENT.toString());
+    }
+
+    @Test
+    public void nameOfCalculatedStatisticIsEqualsToProbabilityAfterCalculateProbability() {
+        viewModel.setSelectedStatistic(StatisticValue.PROBABILITY);
+        viewModel.inputStatisticParameterProperty().setValue("-1.2");
+        viewModel.calculateSelectedStatistic();
+
+        assertEquals(viewModel.getNameOfCalculatedStatistic(),
+                StatisticValue.PROBABILITY.toString());
     }
 
     @Test

@@ -6,7 +6,6 @@ import java.util.Collection;
 public class RawMomentCalculator implements IStatisticValueCalculator {
 
     private static final double RAW_MOMENT_OF_EMPTY_DATA = 0.0;
-    private static final double RAW_MOMENT_WITH_NOT_POSITIVE_ORDER = 0.0;
 
     private final int order;
 
@@ -28,9 +27,6 @@ public class RawMomentCalculator implements IStatisticValueCalculator {
         }
 
         int sizeOfData = dataForStatistics.size();
-        if (order <= 0) {
-            return RAW_MOMENT_WITH_NOT_POSITIVE_ORDER;
-        }
 
         double rawMoment = 0.0;
         for (Double instanceOfData : dataForStatistics) {

@@ -3,6 +3,7 @@ package ru.unn.agile.StatisticValueCalculator.model;
 import java.util.Collection;
 
 public class EnumerationCalculator implements IStatisticValueCalculator {
+
     private static final double ENUMERATION_OF_EMPTY_DATA = 0.0;
 
     @Override
@@ -11,7 +12,7 @@ public class EnumerationCalculator implements IStatisticValueCalculator {
             throw new NullPointerException("Parameter dataForStatistics must not be null");
         }
 
-        if (dataForStatistics == null || dataForStatistics.isEmpty()) {
+        if (dataForStatistics.isEmpty()) {
             return ENUMERATION_OF_EMPTY_DATA;
         }
 
