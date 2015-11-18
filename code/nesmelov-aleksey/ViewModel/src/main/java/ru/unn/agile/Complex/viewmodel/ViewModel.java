@@ -34,7 +34,7 @@ public class ViewModel {
     private final StringProperty errors = new SimpleStringProperty();
     private final ObjectProperty<Operation> operation = new SimpleObjectProperty<Operation>();
     private final BooleanProperty canCalculate = new SimpleBooleanProperty();
-    private final List<ChangedValueListener> ChangedValueListeners = new ArrayList<>();
+    private final List<ChangedValueListener> changedValueListeners = new ArrayList<>();
     private final ObjectProperty<ObservableList<Operation>> operations =
             new SimpleObjectProperty<>(FXCollections.observableArrayList(Operation.values()));
     final List<StringProperty> fields = new ArrayList<StringProperty>() {
