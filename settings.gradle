@@ -133,8 +133,12 @@ project(":code/nikolaev-kirill").name = "nikolaev-kirill-Model"
 // Nistratov Artyom
 // Nistratova Elena
 // Paramuzov Vladimir
-include "code/paramuzov-vladimir"
-project(":code/paramuzov-vladimir").name = "paramuzov-vladimir-Model"
+include "code/paramuzov-vladimir/Model"
+project(":code/paramuzov-vladimir/Model").name = "paramuzov-vladimir-Model"
+include "code/paramuzov-vladimir/ViewModel"
+project(":code/paramuzov-vladimir/ViewModel").name = "paramuzov-vladimir-ViewModel"
+include "code/paramuzov-vladimir/View"
+project(":code/paramuzov-vladimir/View").name = "paramuzov-vladimir-View"
 // Plankina Elena
 
 // Plankina Elena
