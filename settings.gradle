@@ -169,8 +169,12 @@ include "code/voronkov-arseny"
 project(":code/voronkov-arseny").name = "voronkov-arseny-lab1-Model"
 
 // Yusipov Igor
-include "code/yusipov-igor"
-project(":code/yusipov-igor").name = "yusipov-igor-Model"
+include "code/yusipov-igor/Model"
+project(":code/yusipov-igor/Model").name = "yusipov-igor-Model"
+include "code/yusipov-igor/View"
+project(":code/yusipov-igor/View").name = "yusipov-igor-View"
+include "code/yusipov-igor/ViewModel"
+project(":code/yusipov-igor/ViewModel").name = "yusipov-igor-ViewModel"
 
 // Zajdullova Alina
 // Zhbanova Anna
