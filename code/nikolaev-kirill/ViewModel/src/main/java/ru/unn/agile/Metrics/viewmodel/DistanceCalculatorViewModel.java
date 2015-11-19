@@ -49,19 +49,19 @@ public class DistanceCalculatorViewModel {
     public StringProperty firstVecProperty() {
         return firstVec;
     }
-    public void setFirstVec(final String firstVector) {
-        firstVec.set(firstVector);
+    public void setFirstVec(final String vectorString) {
+        firstVec.set(vectorString);
     }
 
     public StringProperty secondVecProperty() {
         return secondVec;
     }
-    public void setSecondVec(final String secondVector) {
-        secondVec.set(secondVector);
+    public void setSecondVec(final String vectorString) {
+        secondVec.set(vectorString);
     }
 
-    public void setMetric(final String metricName) {
-        this.metricName.set(metricName);
+    public void setMetric(final String metricString) {
+        metricName.set(metricString);
     }
 
     public StringProperty statusMessageProperty() {
@@ -137,8 +137,8 @@ public class DistanceCalculatorViewModel {
         return vectorString.isEmpty() || vectorString.matches(pattern);
     }
 
-    private Metric parseMetric(final String metricName) {
-        switch (metricName) {
+    private Metric parseMetric(final String metricString) {
+        switch (metricString) {
             case "RHO INF":
                 return Metric.RHO_INF;
             case "RHO ONE":
