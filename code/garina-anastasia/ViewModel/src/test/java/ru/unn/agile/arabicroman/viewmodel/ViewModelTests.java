@@ -111,7 +111,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void convertButtonEnabledWhenRomanNumberNotEmpty() {
+    public void convertButtonEnabledForRomanNumber() {
         viewModel.reverseConvertingDirection();
         viewModel.setInputNumber("X");
 
