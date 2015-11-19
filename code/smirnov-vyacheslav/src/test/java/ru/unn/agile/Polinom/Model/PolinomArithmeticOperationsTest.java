@@ -132,6 +132,54 @@ public class PolinomArithmeticOperationsTest {
         }
     }
 
+    public static class PolinomDivideTest {
+
+        @Before
+        public void initPolinoms() {
+            PolinomArithmeticOperationsTest.first = new Polinom(new double[]{8.0, 2.0, 0.0, 1.0});
+            PolinomArithmeticOperationsTest.second = new Polinom(
+                new double[]{10.0, 0.0, -6.0, 5.0, -2.0});
+        }
+
+        @Test(expected = Exception.class)
+        public void canNotDivideByZero() {
+            PolinomArithmeticOperationsTest.first.divide(new Polinom());
+        }
+
+        @Test(expected = Exception.class)
+        public void canNotDivideByLargeDegree() {
+            PolinomArithmeticOperationsTest.first.divide(PolinomArithmeticOperationsTest.second);
+        }
+
+        @Test
+        public void canDivideByOne() {
+            Polinom one = new Polinom(new double[]{1.0});
+
+            PolinomArithmeticOperationsTest.first.divide(one);
+
+            Assert.assertTrue(Arrays.equals(PolinomArithmeticOperationsTest.first.getCoefficients(),
+                new double[]{8.0, 2.0, 0.0, 1.0}));
+        }
+
+        @Test
+        public void canDivideBySimplePolinom() {
+            Polinom simplePolinom = new Polinom(new double[]{0.0, 5.0});
+
+            PolinomArithmeticOperationsTest.first.divide(simplePolinom);
+
+            Assert.assertTrue(Arrays.equals(PolinomArithmeticOperationsTest.first.getCoefficients(),
+                new double[]{0.4, 0.0, 0.2}));
+        }
+
+        @Test
+        public void canDividePolinoms() {
+            PolinomArithmeticOperationsTest.second.divide(PolinomArithmeticOperationsTest.first);
+
+            Assert.assertTrue(Arrays.equals(
+                PolinomArithmeticOperationsTest.second.getCoefficients(), new double[]{5.0, -2.0}));
+        }
+    }
+
     private static Polinom first;
     private static Polinom second;
     private static double[] firstCoefficients;
