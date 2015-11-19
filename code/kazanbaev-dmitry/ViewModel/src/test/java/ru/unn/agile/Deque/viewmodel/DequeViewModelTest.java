@@ -176,6 +176,9 @@ public class DequeViewModelTest {
 
     @Test
     public void clearButtonClearsDeque() {
+        viewModel.setInputNumber("4");
+        viewModel.pushFront();
+
         viewModel.clearDeque();
 
         assertTrue(viewModel.isDequeEmpty());
@@ -196,6 +199,26 @@ public class DequeViewModelTest {
         viewModel.popFront();
 
         assertFalse(viewModel.isClearButtonEnabled());
+    }
+
+    @Test
+    public void whenDequeIsClearedPopBackButtonIsDisabled() {
+        viewModel.setInputNumber("4");
+        viewModel.pushFront();
+
+        viewModel.clearDeque();
+
+        assertFalse(viewModel.isPopBackButtonEnabled());
+    }
+
+    @Test
+    public void whenDequeIsClearedPopFrontButtonIsDisabled() {
+        viewModel.setInputNumber("4");
+        viewModel.pushFront();
+
+        viewModel.clearDeque();
+
+        assertFalse(viewModel.isPopFrontButtonEnabled());
     }
 
     @Test
@@ -221,6 +244,9 @@ public class DequeViewModelTest {
 
     @Test
     public void whenDequeIsClearedCheckButtonIsDisabled() {
+        viewModel.setInputNumber("4");
+        viewModel.pushFront();
+
         viewModel.clearDeque();
 
         assertFalse(viewModel.isCheckButtonEnabled());

@@ -116,7 +116,10 @@ public class DequeViewModel {
 
     public void clearDeque() {
         deque.clear();
+        isPopFrontButtonEnabled = false;
+        isPopBackButtonEnabled = false;
         isClearButtonEnabled = false;
+        isCheckButtonEnabled = false;
     }
 
     public void doesDequeContain() {
