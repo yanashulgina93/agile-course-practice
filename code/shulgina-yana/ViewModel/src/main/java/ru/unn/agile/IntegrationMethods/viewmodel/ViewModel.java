@@ -108,7 +108,6 @@ public class ViewModel {
     }
 
     private void pressEnter() {
-
         if (isIntegrateButtonEnabled()) {
             integrate();
         }

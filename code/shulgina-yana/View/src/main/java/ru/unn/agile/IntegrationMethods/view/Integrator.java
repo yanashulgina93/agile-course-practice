@@ -23,7 +23,7 @@ public final class Integrator {
 
     private Integrator(final ViewModel viewModel) {
         this.viewModel = viewModel;
-        backBind();
+        bind();
 
         loadListOfFunctions();
         loadListOfMethods();
@@ -31,33 +31,33 @@ public final class Integrator {
         btnIntegrate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                bind();
-                Integrator.this.viewModel.integrate();
                 backBind();
+                viewModel.integrate();
+                bind();
             }
         });
 
         cmbFunction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                bind();
                 backBind();
+                bind();
             }
         });
 
         cmbMethod.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                bind();
                 backBind();
+                bind();
             }
         });
 
         KeyAdapter keyListener = new KeyAdapter() {
             public void keyReleased(final KeyEvent e) {
-                bind();
-                Integrator.this.viewModel.processKeyInTextField(e.getKeyCode());
                 backBind();
+                viewModel.processKeyInTextField(e.getKeyCode());
+                bind();
             }
         };
         txtLowerLimit.addKeyListener(keyListener);
@@ -82,7 +82,7 @@ public final class Integrator {
         cmbMethod.setModel(new JComboBox<>(methods).getModel());
     }
 
-    private void bind() {
+    private void backBind() {
         viewModel.setLowerLimit(txtLowerLimit.getText());
         viewModel.setUpperLimit(txtUpperLimit.getText());
 
@@ -90,7 +90,7 @@ public final class Integrator {
         viewModel.setIntegrationMethod((ViewModel.IntegrationMethod) cmbMethod.getSelectedItem());
     }
 
-    private void backBind() {
+    private void bind() {
         btnIntegrate.setEnabled(viewModel.isIntegrateButtonEnabled());
 
         txtResult.setText(viewModel.getResult());

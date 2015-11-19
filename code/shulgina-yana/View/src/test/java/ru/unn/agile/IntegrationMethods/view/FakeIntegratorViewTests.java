@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.fail;
 
-public class FakeViewTests {
+public class FakeIntegratorViewTests {
     @Ignore
     @Test
     public void fakeTest() {
