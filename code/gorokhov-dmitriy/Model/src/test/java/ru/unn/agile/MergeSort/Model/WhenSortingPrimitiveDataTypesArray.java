@@ -134,17 +134,5 @@ public class WhenSortingPrimitiveDataTypesArray {
         private int maxElementValue;
         private long seed;
     }
-
-    public static class MergeSortTestPrivateConstructor {
-        @Test
-        public void testConstructorIsPrivate()
-                throws NoSuchMethodException, IllegalAccessException,
-                       InvocationTargetException, InstantiationException {
-            Constructor<MergeSort> constructor = MergeSort.class.getDeclaredConstructor();
-            assertTrue(Modifier.isPrivate(constructor.getModifiers()));
-            constructor.setAccessible(true);
-            constructor.newInstance();
-        }
-    }
 }
 
