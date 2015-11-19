@@ -52,18 +52,6 @@ public class QueueIntTest {
     }
 
     @Test
-    public void canFindElement() throws Exception {
-        final int value1 = 9;
-        for (int i = size; i > 0; i--) {
-            testIntQueue.push(i);
-        }
-
-        final int result = testIntQueue.findElement(value1);
-
-        assertEquals(size - value1, result);
-    }
-
-    @Test
     public  void popFromEmptyQueueReturnNull() {
         Integer value1 = testIntQueue.pop();
 
