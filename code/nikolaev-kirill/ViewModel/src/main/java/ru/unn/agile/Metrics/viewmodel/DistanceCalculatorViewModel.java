@@ -1,30 +1,34 @@
 package ru.unn.agile.Metrics.viewmodel;
 
-import javafx.beans.property.*;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import ru.unn.agile.Metrics.model.Metric;
 import ru.unn.agile.Metrics.model.DistanceCalculator;
+import ru.unn.agile.Metrics.model.Metric;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DistanceCalculatorViewModel {
+    public static final String HELP_MESSAGE = "Provide input vectors: decimal or integer numbers "
+            + "separated by single whitespaces";
     private final StringProperty result = new SimpleStringProperty();
     private final StringProperty firstVec = new SimpleStringProperty();
     private final StringProperty secondVec = new SimpleStringProperty();
-    private final StringProperty errorMessage = new SimpleStringProperty();
+    private final StringProperty statusMessage = new SimpleStringProperty();
     private final BooleanProperty calculateButtonDisabled = new SimpleBooleanProperty();
     private final StringProperty metricName = new SimpleStringProperty();
     private final List<ValueChangeListener> valueChangeListeners = new ArrayList<>();
     private final DistanceCalculator calculator = new DistanceCalculator();
 
-
     public DistanceCalculatorViewModel() {
         result.set("");
         firstVec.set("");
         secondVec.set("");
-        errorMessage.set("");
+        statusMessage.set(HELP_MESSAGE);
         calculateButtonDisabled.set(true);
         metricName.set("RHO INF");
 
@@ -60,11 +64,11 @@ public class DistanceCalculatorViewModel {
         this.metricName.set(metricName);
     }
 
-    public StringProperty errorMessageProperty() {
-        return errorMessage;
+    public StringProperty statusMessageProperty() {
+        return statusMessage;
     }
-    public String getErrorMessage() {
-        return errorMessage.get();
+    public String getStatusMessage() {
+        return statusMessage.get();
     }
 
     public StringProperty resultProperty() {
@@ -92,7 +96,7 @@ public class DistanceCalculatorViewModel {
         } else {
             if (firstVector.isEmpty() || secondVector.isEmpty()) {
                 calculateButtonDisabled.set(true);
-                return "";
+                return HELP_MESSAGE;
             }
             boolean haveDifferentSize = firstVector.split(" ").length
                     != secondVector.split(" ").length;
@@ -154,7 +158,7 @@ public class DistanceCalculatorViewModel {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
-            errorMessage.set(getInputStatus());
+            statusMessage.set(getInputStatus());
         }
     }
 }

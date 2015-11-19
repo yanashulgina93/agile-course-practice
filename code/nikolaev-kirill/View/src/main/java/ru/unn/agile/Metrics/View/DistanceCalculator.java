@@ -18,7 +18,7 @@ public class DistanceCalculator {
     @FXML
     private TextField txt2ndVector;
     @FXML
-    private Button btnCalc;
+    private Button btnCalculate;
     @FXML
     private ToggleGroup tgMetrics;
     @FXML
@@ -32,7 +32,7 @@ public class DistanceCalculator {
         txt1stVector.textProperty().bindBidirectional(viewModel.firstVecProperty());
         txt2ndVector.textProperty().bindBidirectional(viewModel.secondVecProperty());
 
-        btnCalc.setOnAction(new EventHandler<ActionEvent>() {
+        btnCalculate.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
                 viewModel.calculate();

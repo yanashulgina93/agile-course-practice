@@ -80,8 +80,8 @@ public class DistanceCalculatorViewModelTests {
     }
 
     @Test
-    public void noErrorMessageByDefault() {
-        assertEquals("", viewModel.getInputStatus());
+    public void showHelpMessageByDefault() {
+        assertEquals(viewModel.HELP_MESSAGE, viewModel.getInputStatus());
     }
 
     @Test
@@ -99,18 +99,18 @@ public class DistanceCalculatorViewModelTests {
     }
 
     @Test
-    public void noErrorMessageWhenCorrectInput() {
+    public void noMessageWhenCorrectInput() {
         viewModel.setFirstVec("1 -2.0 3");
         viewModel.setSecondVec("-4.0 5 -6.0");
         assertEquals("", viewModel.getInputStatus());
     }
 
     @Test
-    public void hideErrorMessageWhenClearVector() {
+    public void showHelpMessageWhenClearVector() {
         viewModel.setFirstVec("1 -2.0 3");
         viewModel.setSecondVec("-4.0 5 -6.0");
         viewModel.setSecondVec("");
-        assertEquals("", viewModel.getInputStatus());
+        assertEquals(viewModel.HELP_MESSAGE, viewModel.getInputStatus());
     }
 
     @Test
@@ -145,10 +145,10 @@ public class DistanceCalculatorViewModelTests {
     }
 
     @Test
-    public void noErrorMessageWhenIncompleteInput() {
+    public void showHelpMessageWhenIncompleteInput() {
         viewModel.setFirstVec("1 -2.0 3");
         viewModel.setSecondVec("");
-        assertEquals("", viewModel.getInputStatus());
+        assertEquals(viewModel.HELP_MESSAGE, viewModel.getInputStatus());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -190,7 +190,6 @@ public class DistanceCalculatorViewModelTests {
         viewModel.setMetric("RHO FOUR");
         viewModel.calculate();
     }
-
 
     @Test
     public void whenCalculateDistanceInRhoInf() {
