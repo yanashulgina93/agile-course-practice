@@ -134,7 +134,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canCleanStatusIfParseIsOK() {
+    public void canCleanStatusIfFormatIsGood() {
         viewModel.setLowerLimit("abc");
         viewModel.processKeyInTextField(KeyboardKeys.ANY);
         viewModel.setLowerLimit("0.0");
@@ -216,12 +216,6 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canGetNumberOfFunctions() {
-        int nFunctions = ViewModel.Function.values().length;
-        assertEquals(3, nFunctions);
-    }
-
-    @Test
     public void canGetListOfFunctions() {
         ViewModel.Function[] functions = ViewModel.Function.values();
         ViewModel.Function[] currentFunctions = new ViewModel.Function[]{
@@ -236,12 +230,6 @@ public class ViewModelTests {
     public void canGetIntegrationMethodName() {
         String leftRectanglesName = ViewModel.IntegrationMethod.LEFT_RECTANGLES.toString();
         assertEquals("left rectangles method", leftRectanglesName);
-    }
-
-    @Test
-    public void canGetNumberOfIntegrationMethods() {
-        int nMethods = ViewModel.IntegrationMethod.values().length;
-        assertEquals(5, nMethods);
     }
 
     @Test
