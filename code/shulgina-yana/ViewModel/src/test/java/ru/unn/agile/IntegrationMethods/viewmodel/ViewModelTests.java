@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 public class ViewModelTests {
     private ViewModel viewModel;
@@ -103,11 +102,6 @@ public class ViewModelTests {
         viewModel.integrate();
 
         assertEquals("2.0000999999998115", viewModel.getResult());
-    }
-
-    private void setTextFields() {
-        viewModel.setLowerLimit("0.0");
-        viewModel.setUpperLimit("2.0");
     }
 
     @Test
@@ -239,12 +233,6 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canCompareFunctionsByName() {
-        assertEquals(ViewModel.Function.X, ViewModel.Function.X);
-        assertNotEquals(ViewModel.Function.X, ViewModel.Function.COS);
-    }
-
-    @Test
     public void canGetIntegrationMethodName() {
         String leftRectanglesName = ViewModel.IntegrationMethod.LEFT_RECTANGLES.toString();
         assertEquals("left rectangles method", leftRectanglesName);
@@ -269,11 +257,8 @@ public class ViewModelTests {
         assertArrayEquals(currentMethods, methods);
     }
 
-    @Test
-    public void canCompareIntegrationMethodsByName() {
-        assertEquals(ViewModel.IntegrationMethod.LEFT_RECTANGLES,
-                ViewModel.IntegrationMethod.LEFT_RECTANGLES);
-        assertNotEquals(ViewModel.IntegrationMethod.LEFT_RECTANGLES,
-                ViewModel.IntegrationMethod.RIGHT_RECTANGLES);
+    private void setTextFields() {
+        viewModel.setLowerLimit("0.0");
+        viewModel.setUpperLimit("2.0");
     }
 }

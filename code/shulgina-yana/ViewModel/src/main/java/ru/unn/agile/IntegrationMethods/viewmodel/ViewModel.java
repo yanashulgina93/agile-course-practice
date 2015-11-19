@@ -168,6 +168,7 @@ public class ViewModel {
             this.name = name;
         }
 
+        @Override
         public String toString() {
             return name;
         }
@@ -185,6 +186,7 @@ public class ViewModel {
             this.name = name;
         }
 
+        @Override
         public String toString() {
             return name;
         }
