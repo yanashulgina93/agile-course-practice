@@ -27,7 +27,7 @@ public class ViewModelTests {
         assertEquals("", viewModel.getUpperLimit());
         assertEquals(ViewModel.IntegrationMethod.LEFT_RECTANGLES, viewModel.getIntegrationMethod());
         assertEquals("", viewModel.getResult());
-        assertEquals(Status.WAITING, viewModel.getStatus());
+        assertEquals(ViewModel.Status.WAITING.toString(), viewModel.getStatus());
     }
 
     @Test
@@ -106,14 +106,14 @@ public class ViewModelTests {
 
     @Test
     public void isStatusWaitingInTheBeginning() {
-        assertEquals(Status.WAITING, viewModel.getStatus());
+        assertEquals(ViewModel.Status.WAITING.toString(), viewModel.getStatus());
     }
 
     @Test
     public void isStatusWaitingWhenIntegrateWithEmptyTextFields() {
         viewModel.integrate();
 
-        assertEquals(Status.WAITING, viewModel.getStatus());
+        assertEquals(ViewModel.Status.WAITING.toString(), viewModel.getStatus());
     }
 
     @Test
@@ -122,7 +122,7 @@ public class ViewModelTests {
 
         viewModel.processKeyInTextField(KeyboardKeys.ANY);
 
-        assertEquals(Status.READY, viewModel.getStatus());
+        assertEquals(ViewModel.Status.READY.toString(), viewModel.getStatus());
     }
 
     @Test
@@ -130,7 +130,7 @@ public class ViewModelTests {
         viewModel.setLowerLimit("abc");
         viewModel.processKeyInTextField(KeyboardKeys.ANY);
 
-        assertEquals(Status.BAD_FORMAT, viewModel.getStatus());
+        assertEquals(ViewModel.Status.BAD_FORMAT.toString(), viewModel.getStatus());
     }
 
     @Test
@@ -140,7 +140,7 @@ public class ViewModelTests {
         viewModel.setLowerLimit("0.0");
         viewModel.processKeyInTextField(KeyboardKeys.ANY);
 
-        assertEquals(Status.WAITING, viewModel.getStatus());
+        assertEquals(ViewModel.Status.WAITING.toString(), viewModel.getStatus());
     }
 
     @Test
@@ -149,7 +149,7 @@ public class ViewModelTests {
 
         viewModel.integrate();
 
-        assertEquals(Status.SUCCESS, viewModel.getStatus());
+        assertEquals(ViewModel.Status.SUCCESS.toString(), viewModel.getStatus());
     }
 
     @Test
@@ -158,7 +158,7 @@ public class ViewModelTests {
 
         viewModel.integrate();
 
-        assertEquals(Status.BAD_FORMAT, viewModel.getStatus());
+        assertEquals(ViewModel.Status.BAD_FORMAT.toString(), viewModel.getStatus());
     }
 
     @Test
@@ -167,7 +167,7 @@ public class ViewModelTests {
 
         viewModel.processKeyInTextField(KeyboardKeys.ANY);
 
-        assertEquals(Status.READY, viewModel.getStatus());
+        assertEquals(ViewModel.Status.READY.toString(), viewModel.getStatus());
     }
 
     @Test
@@ -176,7 +176,7 @@ public class ViewModelTests {
 
         viewModel.processKeyInTextField(KeyboardKeys.ENTER);
 
-        assertEquals(Status.SUCCESS, viewModel.getStatus());
+        assertEquals(ViewModel.Status.SUCCESS.toString(), viewModel.getStatus());
     }
 
     @Test

@@ -17,7 +17,7 @@ public class ViewModel {
         upperLimit = "";
         integrationMethod = IntegrationMethod.LEFT_RECTANGLES;
         result = "";
-        status = Status.WAITING;
+        status = Status.WAITING.toString();
         isIntegrateButtonEnabled = false;
     }
 
@@ -34,16 +34,16 @@ public class ViewModel {
                 Double.parseDouble(upperLimit);
             }
         } catch (Exception e) {
-            status = Status.BAD_FORMAT;
+            status = Status.BAD_FORMAT.toString();
             isIntegrateButtonEnabled = false;
             return false;
         }
 
         isIntegrateButtonEnabled = areLimitsTextFieldsNotEmpty();
         if (isIntegrateButtonEnabled) {
-            status = Status.READY;
+            status = Status.READY.toString();
         } else {
-            status = Status.WAITING;
+            status = Status.WAITING.toString();
         }
 
         return isIntegrateButtonEnabled;
@@ -96,7 +96,7 @@ public class ViewModel {
         }
 
         result = Double.toString(integrator.getIntegralValue());
-        status = Status.SUCCESS;
+        status = Status.SUCCESS.toString();
     }
 
     public void processKeyInTextField(final int keyCode) {
@@ -182,6 +182,23 @@ public class ViewModel {
         private final String name;
 
         private IntegrationMethod(final String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+    }
+
+    public enum Status {
+        WAITING("Please provide input data"),
+        READY ("Press 'Integrate' or Enter"),
+        BAD_FORMAT("Bad format"),
+        SUCCESS("Success");
+        private final String name;
+
+        private Status(final String name) {
             this.name = name;
         }
 
