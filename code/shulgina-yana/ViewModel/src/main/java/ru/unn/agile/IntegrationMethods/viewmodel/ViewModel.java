@@ -101,7 +101,7 @@ public class ViewModel {
     public void processKeyPressing(final int keyCode) {
         parseLimitsInput();
 
-        if ((keyCode == KeyboardKeys.ENTER)&&(isIntegrateButtonEnabled())) {
+        if (keyCode == KeyboardKeys.ENTER && isIntegrateButtonEnabled()) {
             integrate();
         }
     }
