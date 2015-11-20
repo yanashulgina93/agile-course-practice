@@ -18,6 +18,13 @@ public class DequeViewModel {
         deque = new Deque<>();
     }
 
+    private void setPopBackPopFrontClearCheckButtonsEnabled(final boolean isEnabled) {
+        isPopFrontButtonEnabled = isEnabled;
+        isPopBackButtonEnabled = isEnabled;
+        isClearButtonEnabled = isEnabled;
+        isCheckButtonEnabled = isEnabled;
+    }
+
     public void setInputNumber(final String inputNumber) {
         this.inputNumber = inputNumber;
         try {
@@ -64,27 +71,18 @@ public class DequeViewModel {
 
     public void pushFront() {
         deque.pushFront(Integer.valueOf(inputNumber));
-        isPopFrontButtonEnabled = true;
-        isPopBackButtonEnabled = true;
-        isClearButtonEnabled = true;
-        isCheckButtonEnabled = true;
+        setPopBackPopFrontClearCheckButtonsEnabled(true);
     }
 
     public void pushBack() {
         deque.pushBack(Integer.valueOf(inputNumber));
-        isPopFrontButtonEnabled = true;
-        isPopBackButtonEnabled = true;
-        isClearButtonEnabled = true;
-        isCheckButtonEnabled = true;
+        setPopBackPopFrontClearCheckButtonsEnabled(true);
     }
 
     public Integer popFront() {
         Integer value = deque.popFront();
         if (deque.isEmpty()) {
-            isPopFrontButtonEnabled = false;
-            isPopBackButtonEnabled = false;
-            isClearButtonEnabled = false;
-            isCheckButtonEnabled = false;
+            setPopBackPopFrontClearCheckButtonsEnabled(false);
         }
         output = value.toString();
         return value;
@@ -93,10 +91,7 @@ public class DequeViewModel {
     public Integer popBack() {
         Integer value = deque.popBack();
         if (deque.isEmpty()) {
-            isPopFrontButtonEnabled = false;
-            isPopBackButtonEnabled = false;
-            isClearButtonEnabled = false;
-            isCheckButtonEnabled = false;
+            setPopBackPopFrontClearCheckButtonsEnabled(false);
         }
         output = value.toString();
         return value;
@@ -116,10 +111,7 @@ public class DequeViewModel {
 
     public void clearDeque() {
         deque.clear();
-        isPopFrontButtonEnabled = false;
-        isPopBackButtonEnabled = false;
-        isClearButtonEnabled = false;
-        isCheckButtonEnabled = false;
+        setPopBackPopFrontClearCheckButtonsEnabled(false);
     }
 
     public void doesDequeContain() {
