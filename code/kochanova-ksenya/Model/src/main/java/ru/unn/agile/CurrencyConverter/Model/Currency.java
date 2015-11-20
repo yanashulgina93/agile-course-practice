@@ -43,7 +43,7 @@ public class Currency {
         return value;
     }
 
-    public String getValueInStringFormat() {
+    public String getValuetoStringFormat() {
         return Double.toString(value);
     }
 

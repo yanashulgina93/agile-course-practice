@@ -64,7 +64,7 @@ public class ViewModel {
 
         Currency inputCurrency = new Currency(inputValue.getValue(), inputUnit.get());
         outputValue.set(outputUnit.get().convertCurrency(inputCurrency,
-                outputUnit.get()).getValueInStringFormat());
+                outputUnit.get()).getValuetoStringFormat());
         status.set(Status.DONE.toString());
     }
 
