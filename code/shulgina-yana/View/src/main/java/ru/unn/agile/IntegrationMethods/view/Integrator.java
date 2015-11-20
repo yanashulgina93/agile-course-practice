@@ -23,45 +23,45 @@ public final class Integrator {
 
     private Integrator(final ViewModel viewModel) {
         this.viewModel = viewModel;
-        bind();
+        bindFromViewModel();
 
-        loadListOfFunctions();
-        loadListOfMethods();
+        getFunctions();
+        getMethods();
 
         btnIntegrate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                backBind();
+                backBindToViewModel();
                 viewModel.integrate();
-                bind();
+                bindFromViewModel();
             }
         });
 
         cmbFunction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                backBind();
-                bind();
+                backBindToViewModel();
+                bindFromViewModel();
             }
         });
 
         cmbMethod.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                backBind();
-                bind();
+                backBindToViewModel();
+                bindFromViewModel();
             }
         });
 
-        KeyAdapter keyListener = new KeyAdapter() {
+        KeyAdapter keyListenerForLimits = new KeyAdapter() {
             public void keyReleased(final KeyEvent e) {
-                backBind();
-                viewModel.processKeyInTextField(e.getKeyCode());
-                bind();
+                backBindToViewModel();
+                viewModel.processKeyPressing(e.getKeyCode());
+                bindFromViewModel();
             }
         };
-        txtLowerLimit.addKeyListener(keyListener);
-        txtUpperLimit.addKeyListener(keyListener);
+        txtLowerLimit.addKeyListener(keyListenerForLimits);
+        txtUpperLimit.addKeyListener(keyListenerForLimits);
     }
 
     public static void main(final String[] args) {
@@ -72,17 +72,17 @@ public final class Integrator {
         frame.setVisible(true);
     }
 
-    private void loadListOfFunctions() {
+    private void getFunctions() {
         ViewModel.Function[] functions = ViewModel.Function.values();
         cmbFunction.setModel(new JComboBox<>(functions).getModel());
     }
 
-    private void loadListOfMethods() {
+    private void getMethods() {
         ViewModel.IntegrationMethod[] methods = ViewModel.IntegrationMethod.values();
         cmbMethod.setModel(new JComboBox<>(methods).getModel());
     }
 
-    private void backBind() {
+    private void backBindToViewModel() {
         viewModel.setLowerLimit(txtLowerLimit.getText());
         viewModel.setUpperLimit(txtUpperLimit.getText());
 
@@ -90,7 +90,7 @@ public final class Integrator {
         viewModel.setIntegrationMethod((ViewModel.IntegrationMethod) cmbMethod.getSelectedItem());
     }
 
-    private void bind() {
+    private void bindFromViewModel() {
         btnIntegrate.setEnabled(viewModel.isIntegrateButtonEnabled());
 
         txtResult.setText(viewModel.getResult());

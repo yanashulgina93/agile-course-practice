@@ -120,7 +120,7 @@ public class ViewModelTests {
     public void isStatusReadyWhenTextFieldsAreFilled() {
         setTextFields();
 
-        viewModel.processKeyInTextField(KeyboardKeys.ANY);
+        viewModel.processKeyPressing(KeyboardKeys.ANY);
 
         assertEquals(ViewModel.Status.READY.toString(), viewModel.getStatus());
     }
@@ -128,7 +128,7 @@ public class ViewModelTests {
     @Test
     public void isStatusBadFormatWhenInputIsIncorrect() {
         viewModel.setLowerLimit("abc");
-        viewModel.processKeyInTextField(KeyboardKeys.ANY);
+        viewModel.processKeyPressing(KeyboardKeys.ANY);
 
         assertEquals(ViewModel.Status.BAD_FORMAT.toString(), viewModel.getStatus());
     }
@@ -136,9 +136,9 @@ public class ViewModelTests {
     @Test
     public void canCleanStatusIfFormatIsGood() {
         viewModel.setLowerLimit("abc");
-        viewModel.processKeyInTextField(KeyboardKeys.ANY);
+        viewModel.processKeyPressing(KeyboardKeys.ANY);
         viewModel.setLowerLimit("0.0");
-        viewModel.processKeyInTextField(KeyboardKeys.ANY);
+        viewModel.processKeyPressing(KeyboardKeys.ANY);
 
         assertEquals(ViewModel.Status.WAITING.toString(), viewModel.getStatus());
     }
@@ -165,7 +165,7 @@ public class ViewModelTests {
     public void isStatusReadyWhenAnyKeyIsPressed() {
         setTextFields();
 
-        viewModel.processKeyInTextField(KeyboardKeys.ANY);
+        viewModel.processKeyPressing(KeyboardKeys.ANY);
 
         assertEquals(ViewModel.Status.READY.toString(), viewModel.getStatus());
     }
@@ -174,7 +174,7 @@ public class ViewModelTests {
     public void isStatusSuccessWhenEnterIsPressed() {
         setTextFields();
 
-        viewModel.processKeyInTextField(KeyboardKeys.ENTER);
+        viewModel.processKeyPressing(KeyboardKeys.ENTER);
 
         assertEquals(ViewModel.Status.SUCCESS.toString(), viewModel.getStatus());
     }
@@ -182,11 +182,11 @@ public class ViewModelTests {
     @Test
     public void isIntegrateButtonDisabledWhenFormatIsBad() {
         setTextFields();
-        viewModel.processKeyInTextField(KeyboardKeys.ANY);
+        viewModel.processKeyPressing(KeyboardKeys.ANY);
         assertEquals(true, viewModel.isIntegrateButtonEnabled());
 
         viewModel.setLowerLimit("abc");
-        viewModel.processKeyInTextField(KeyboardKeys.ANY);
+        viewModel.processKeyPressing(KeyboardKeys.ANY);
 
         assertEquals(false, viewModel.isIntegrateButtonEnabled());
     }
@@ -195,7 +195,7 @@ public class ViewModelTests {
     public void isIntegrateButtonDisabledWithIncompleteInput() {
         viewModel.setLowerLimit("0.0");
 
-        viewModel.processKeyInTextField(KeyboardKeys.ANY);
+        viewModel.processKeyPressing(KeyboardKeys.ANY);
 
         assertEquals(false, viewModel.isIntegrateButtonEnabled());
     }
@@ -204,7 +204,7 @@ public class ViewModelTests {
     public void isIntegrateButtonEnabledWhenInputIsCorrect() {
         setTextFields();
 
-        viewModel.processKeyInTextField(KeyboardKeys.ANY);
+        viewModel.processKeyPressing(KeyboardKeys.ANY);
 
         assertEquals(true, viewModel.isIntegrateButtonEnabled());
     }

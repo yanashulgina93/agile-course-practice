@@ -21,31 +21,30 @@ public class ViewModel {
         isIntegrateButtonEnabled = false;
     }
 
-    private boolean areLimitsTextFieldsNotEmpty() {
-        return !lowerLimit.isEmpty() && !upperLimit.isEmpty();
+    private boolean isThereEmptyTextField() {
+        return lowerLimit.isEmpty() || upperLimit.isEmpty();
     }
 
     private boolean parseLimitsInput() {
         try {
             if (!lowerLimit.isEmpty()) {
                 Double.parseDouble(lowerLimit);
-            }
+                }
             if (!upperLimit.isEmpty()) {
                 Double.parseDouble(upperLimit);
-            }
+                }
         } catch (Exception e) {
             status = Status.BAD_FORMAT.toString();
             isIntegrateButtonEnabled = false;
             return false;
         }
-
-        isIntegrateButtonEnabled = areLimitsTextFieldsNotEmpty();
-        if (isIntegrateButtonEnabled) {
-            status = Status.READY.toString();
-        } else {
+        if (isThereEmptyTextField()) {
             status = Status.WAITING.toString();
+            isIntegrateButtonEnabled = false;
+        } else {
+            isIntegrateButtonEnabled = true;
+            status = Status.READY.toString();
         }
-
         return isIntegrateButtonEnabled;
     }
 
@@ -99,16 +98,10 @@ public class ViewModel {
         status = Status.SUCCESS.toString();
     }
 
-    public void processKeyInTextField(final int keyCode) {
+    public void processKeyPressing(final int keyCode) {
         parseLimitsInput();
 
-        if (keyCode == KeyboardKeys.ENTER) {
-            pressEnter();
-        }
-    }
-
-    private void pressEnter() {
-        if (isIntegrateButtonEnabled()) {
+        if ((keyCode == KeyboardKeys.ENTER)&&(isIntegrateButtonEnabled())) {
             integrate();
         }
     }
