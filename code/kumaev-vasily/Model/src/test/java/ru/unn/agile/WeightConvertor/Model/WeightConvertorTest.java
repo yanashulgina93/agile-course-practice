@@ -74,6 +74,13 @@ public class WeightConvertorTest {
     }
 
     @Test
+    public void  canUseHashCode() {
+        Weight inputWeight = new Weight(1.0, WeightUnit.GRAM);
+
+        assertEquals(945754858, inputWeight.hashCode());
+    }
+
+    @Test
     public void  canConvertPoundToKGrams() {
         Weight inputWeight = new Weight(2.2, WeightUnit.POUND);
         Weight expectedWeight = new Weight(1.0, WeightUnit.KILOGRAM);
