@@ -23,7 +23,7 @@ public class ViewModel {
     private final StringProperty outputValue = new SimpleStringProperty();
     private final StringProperty hintMessage = new SimpleStringProperty();
 
-    private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
+    private final List<InputValueListener> valueChangedListeners = new ArrayList<>();
 
     public ViewModel() {
         inputValue.set("");
@@ -48,7 +48,7 @@ public class ViewModel {
         } };
 
         for (StringProperty field : fields) {
-            final ValueChangeListener listener = new ValueChangeListener();
+            final InputValueListener listener = new InputValueListener();
             field.addListener(listener);
             valueChangedListeners.add(listener);
         }
@@ -118,7 +118,7 @@ public class ViewModel {
         return hintStatus;
     }
 
-    private class ValueChangeListener implements ChangeListener<String> {
+    private class InputValueListener implements ChangeListener<String> {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
