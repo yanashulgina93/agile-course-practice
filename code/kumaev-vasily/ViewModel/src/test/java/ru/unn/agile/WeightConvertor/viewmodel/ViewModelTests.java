@@ -133,13 +133,6 @@ public class ViewModelTests {
     }
 
     @Test
-    public void statusIsReadyWhenSetProperData() {
-        viewModel.valueProperty().set("1");
-
-        assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
-    }
-
-    @Test
     public void isGetUnitsEqualsToUnitsPropertyGet() {
         assertEquals(viewModel.unitsProperty().get(), viewModel.getUnits());
     }
