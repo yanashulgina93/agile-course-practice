@@ -43,7 +43,8 @@ public class Currency {
         return value;
     }
 
-    public String getValuetoStringFormat() {
+    @Override
+    public String toString() {
         return Double.toString(value);
     }
 
