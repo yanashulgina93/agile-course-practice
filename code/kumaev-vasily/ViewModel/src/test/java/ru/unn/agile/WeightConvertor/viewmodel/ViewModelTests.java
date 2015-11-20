@@ -82,7 +82,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void convertButtonIsDisabledWhenFormatIsWrong() {
+    public void convertButtonIsDisabledWhenInputValueHasCommaInsteadOfDot() {
         viewModel.valueProperty().set("7,1");
 
         assertTrue(viewModel.convertationDisableProperty().get());
@@ -119,12 +119,10 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canSetSuccessMessage() {
-        viewModel.valueProperty().set("1");
+    public void canSetBadFormatMessageWhenNumberIsNegative() {
+        viewModel.valueProperty().set("-1");
 
-        viewModel.convert();
-
-        assertEquals(Status.SUCCESS.toString(), viewModel.statusProperty().get());
+        assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
     }
 
     @Test
@@ -149,7 +147,7 @@ public class ViewModelTests {
 
         viewModel.convert();
 
-        assertEquals("1000.0", viewModel.resultProperty().get());
+        assertEquals("1000.0", viewModel.getResult());
     }
 
     @Test
@@ -161,7 +159,6 @@ public class ViewModelTests {
         viewModel.convert();
 
         assertEquals("1.0", viewModel.resultProperty().get());
-        assertEquals(WeightUnit.KILOGRAM, viewModel.outputUnitProperty().get());
     }
 
 }
