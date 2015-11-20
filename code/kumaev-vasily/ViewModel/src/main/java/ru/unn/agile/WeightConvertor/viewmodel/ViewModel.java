@@ -25,7 +25,7 @@ public class ViewModel {
     private final ObjectProperty<ObservableList<WeightUnit>> units =
             new SimpleObjectProperty<>(FXCollections.observableArrayList(WeightUnit.values()));
 
-    private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
+    private final List<ListenerValueChange> valueChangedListeners = new ArrayList<>();
 
     public ViewModel() {
         inputUnit.set(WeightUnit.GRAM);
@@ -50,7 +50,7 @@ public class ViewModel {
         } };
 
         for (StringProperty field : fields) {
-            final ValueChangeListener listener = new ValueChangeListener();
+            final ListenerValueChange listener = new ListenerValueChange();
             field.addListener(listener);
             valueChangedListeners.add(listener);
         }
@@ -120,7 +120,7 @@ public class ViewModel {
         return statusInput;
     }
 
-    private class ValueChangeListener implements ChangeListener<String> {
+    private class ListenerValueChange implements ChangeListener<String> {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
@@ -130,10 +130,10 @@ public class ViewModel {
 }
 
 enum Status {
-    WAITING("Please provide input data"),
     READY("Press 'Convert' or Enter"),
-    BAD_FORMAT("Bad format"),
-    SUCCESS("Success");
+    WAITING("Please provide input data"),
+    SUCCESS("Success"),
+    BAD_FORMAT("Bad format");
 
     private final String name;
     private Status(final String name) {
