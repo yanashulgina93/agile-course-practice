@@ -102,22 +102,22 @@ public class ViewModel {
     }
 
     private Status getInputStatus() {
-        Status inputStatus = Status.READY;
+        Status statusInput = Status.READY;
         if (value.get().isEmpty()) {
-            inputStatus = Status.WAITING;
+            statusInput = Status.WAITING;
         }
         try {
             if (!value.get().isEmpty()) {
                 double val = Double.parseDouble(value.get());
                 if (val < 0) {
-                    inputStatus = Status.BAD_FORMAT;
+                    statusInput = Status.BAD_FORMAT;
                 }
             }
         } catch (NumberFormatException e) {
-            inputStatus = Status.BAD_FORMAT;
+            statusInput = Status.BAD_FORMAT;
         }
 
-        return inputStatus;
+        return statusInput;
     }
 
     private class ValueChangeListener implements ChangeListener<String> {
