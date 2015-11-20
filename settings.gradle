@@ -104,8 +104,10 @@ include "code/korotaev-pavel"
 project(":code/korotaev-pavel").name = "korotaev-pavel-Model"
 
 // Kostrov Aleksey
-include "code/kostrov-aleksey"
-project(":code/kostrov-aleksey").name = "kostrov-aleksey-Model"
+include "code/kostrov-aleksey/Model"
+project(":code/kostrov-aleksey/Model").name = "kostrov-aleksey-Model"
+include "code/kostrov-aleksey/View"
+project(":code/kostrov-aleksey/View").name = "kostrov-aleksey-View"
 
 // Kumaev Vasilij
 include "code/kumaev-vasily"
