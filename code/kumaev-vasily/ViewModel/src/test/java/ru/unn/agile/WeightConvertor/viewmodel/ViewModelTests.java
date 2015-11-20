@@ -85,7 +85,7 @@ public class ViewModelTests {
     public void convertButtonIsDisabledWhenInputValueHasCommaInsteadOfDot() {
         viewModel.valueProperty().set("7,1");
 
-        assertTrue(viewModel.convertationDisableProperty().get());
+        assertTrue(viewModel.getConvertationDisable());
     }
 
     @Test
@@ -129,7 +129,7 @@ public class ViewModelTests {
     public void canSetBadFormatMessage() {
         viewModel.valueProperty().set("#kochan");
 
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
+        assertEquals(Status.BAD_FORMAT.toString(), viewModel.getStatus());
     }
 
     @Test
@@ -137,6 +137,11 @@ public class ViewModelTests {
         viewModel.valueProperty().set("1");
 
         assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
+    }
+
+    @Test
+    public void isGetUnitsEqualsToUnitsPropertyGet() {
+        assertEquals(viewModel.unitsProperty().get(), viewModel.getUnits());
     }
 
     @Test
