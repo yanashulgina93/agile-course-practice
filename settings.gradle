@@ -178,8 +178,12 @@ project(":code/vodopyanov-dmitry").name = "vodopyanov-dmitry-lab1-Model"
 // Volosenkov Evgenij
 
 // Voronkov Arsenij
-include "code/voronkov-arseny"
-project(":code/voronkov-arseny").name = "voronkov-arseny-lab1-Model"
+include "code/voronkov-arseny/Model"
+project(":code/voronkov-arseny/Model").name = "voronkov-arseny-lab1-Model"
+include "code/voronkov-arseny/View"
+project(":code/voronkov-arseny/View").name = "voronkov-arseny-lab2-View"
+include "code/voronkov-arseny/ViewModel"
+project(":code/voronkov-arseny/ViewModel").name = "voronkov-arseny-lab2-ViewModel"
 
 // Yusipov Igor
 include "code/yusipov-igor/Model"
