@@ -19,17 +19,17 @@ public class DequeViewModel {
     private Action action;
 
     public class OperationsWithDeque {
-        public void pushFront() {
+        private void pushFront() {
             deque.pushFront(Integer.valueOf(inputNumber));
             setPopBackPopFrontClearCheckButtonsEnabled(true);
         }
 
-        public void pushBack() {
+        private void pushBack() {
             deque.pushBack(Integer.valueOf(inputNumber));
             setPopBackPopFrontClearCheckButtonsEnabled(true);
         }
 
-        public Integer popFront() {
+        private Integer popFront() {
             Integer value = deque.popFront();
             if (deque.isEmpty()) {
                 setPopBackPopFrontClearCheckButtonsEnabled(false);
@@ -38,7 +38,7 @@ public class DequeViewModel {
             return value;
         }
 
-        public Integer popBack() {
+        private Integer popBack() {
             Integer value = deque.popBack();
             if (deque.isEmpty()) {
                 setPopBackPopFrontClearCheckButtonsEnabled(false);
@@ -46,6 +46,16 @@ public class DequeViewModel {
             output = value.toString();
             return value;
         }
+
+        private void clear() {
+            deque.clear();
+            setPopBackPopFrontClearCheckButtonsEnabled(false);
+        }
+
+        private void contains() {
+            output = String.valueOf(deque.contains(Integer.valueOf(inputNumber)));
+        }
+
 
         public Object[] toArray() {
             return deque.toArray();
@@ -57,15 +67,6 @@ public class DequeViewModel {
 
         public int getSize() {
             return deque.getSize();
-        }
-
-        public void clear() {
-            deque.clear();
-            setPopBackPopFrontClearCheckButtonsEnabled(false);
-        }
-
-        public void contains() {
-            output = String.valueOf(deque.contains(Integer.valueOf(inputNumber)));
         }
     }
 
@@ -136,6 +137,12 @@ public class DequeViewModel {
 
     public void setAction(final int actionIndex) {
         action = Action.values()[actionIndex];
+
+        setAction(action);
+    }
+
+    public void setAction(final Action action) {
+        this.action = action;
 
         updateDoActionButtonEnabled();
     }
