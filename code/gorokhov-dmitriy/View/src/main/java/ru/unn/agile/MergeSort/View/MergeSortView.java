@@ -33,42 +33,42 @@ public final class MergeSortView {
         sortButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                backBind();
+                mergeSortViewBackBind();
                 viewModel.sort();
-                bind();
+                mergeSortViewBind();
             }
         });
 
         sourceArrayTextField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(final DocumentEvent e) {
-                backBind();
-                bind();
+                mergeSortViewBackBind();
+                mergeSortViewBind();
             }
 
             @Override
             public void removeUpdate(final DocumentEvent e) {
-                backBind();
-                bind();
+                mergeSortViewBackBind();
+                mergeSortViewBind();
             }
 
             @Override
             public void changedUpdate(final DocumentEvent e) {
-                backBind();
-                bind();
+                mergeSortViewBackBind();
+                mergeSortViewBind();
             }
         });
 
-        bind();
+        mergeSortViewBind();
     }
 
-    private void backBind() {
+    private void mergeSortViewBackBind() {
         viewModel.setSortingArray(sourceArrayTextField.getText());
         viewModel.setSortingOrder((MergeSortViewModel.SortingOrder)
                                   sortingOrderComboBox.getSelectedItem());
     }
 
-    private void bind() {
+    private void mergeSortViewBind() {
         sortedArrayTextField.setText(viewModel.getResultArray());
         statusTextField.setText(viewModel.getSortingArrayStatus());
 
