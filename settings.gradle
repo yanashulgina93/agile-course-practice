@@ -180,6 +180,8 @@ include "code/smirnov-michael"
 project(":code/smirnov-michael").name = "smirnov-michael-Model"
 // Smirnov Vyacheslav
 // Sulin Dmitrij
+include "code/sulin-dmitriy"
+project(":code/sulin-dmitriy").name = "sulin-dmitriy-Model"
 // Timonova Anastasiya
 // Vinnickij Vladimir
 
