@@ -50,7 +50,7 @@ public final class DequeForm {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 backBinding();
-                viewModel.pushFront();
+                viewModel.getOperationsWithDeque().pushFront();
                 binding();
             }
         });
@@ -59,7 +59,7 @@ public final class DequeForm {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 backBinding();
-                viewModel.pushBack();
+                viewModel.getOperationsWithDeque().pushBack();
                 binding();
             }
         });
@@ -68,7 +68,7 @@ public final class DequeForm {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 backBinding();
-                viewModel.popFront();
+                viewModel.getOperationsWithDeque().popFront();
                 binding();
             }
         });
@@ -77,7 +77,7 @@ public final class DequeForm {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 backBinding();
-                viewModel.popBack();
+                viewModel.getOperationsWithDeque().popBack();
                 binding();
             }
         });
@@ -86,7 +86,7 @@ public final class DequeForm {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 backBinding();
-                viewModel.clearDeque();
+                viewModel.getOperationsWithDeque().clear();
                 binding();
             }
         });
@@ -95,7 +95,7 @@ public final class DequeForm {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 backBinding();
-                viewModel.doesDequeContain();
+                viewModel.getOperationsWithDeque().contains();
                 binding();
             }
         });
@@ -118,9 +118,9 @@ public final class DequeForm {
         checkButton.setEnabled(viewModel.isCheckButtonEnabled());
         outputText.setText(viewModel.getOutput());
 
-        Object[][] values = new Integer[viewModel.getDequeSize()][1];
+        Object[][] values = new Integer[viewModel.getOperationsWithDeque().getSize()][1];
         int counter = 0;
-        for (Object item : viewModel.dequeToArray()) {
+        for (Object item : viewModel.getOperationsWithDeque().toArray()) {
             values[counter++][0] = item;
         }
 

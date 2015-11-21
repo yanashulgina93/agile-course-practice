@@ -61,7 +61,7 @@ public class DequeViewModelTest {
     @Test
     public void whenDequeIsNotEmptyPopFrontButtonIsEnabled() {
         viewModel.setInputNumber("15");
-        viewModel.pushFront();
+        viewModel.getOperationsWithDeque().pushFront();
 
         assertTrue(viewModel.isPopFrontButtonEnabled());
     }
@@ -69,7 +69,7 @@ public class DequeViewModelTest {
     @Test
     public void whenDequeIsNotEmptyPopBackButtonIsEnabled() {
         viewModel.setInputNumber("16");
-        viewModel.pushBack();
+        viewModel.getOperationsWithDeque().pushBack();
 
         assertTrue(viewModel.isPopBackButtonEnabled());
     }
@@ -107,8 +107,8 @@ public class DequeViewModelTest {
     @Test
     public void whenDequeIsEmptyPopFrontButtonIsDisabled() {
         viewModel.setInputNumber("4");
-        viewModel.pushFront();
-        viewModel.popFront();
+        viewModel.getOperationsWithDeque().pushFront();
+        viewModel.getOperationsWithDeque().popFront();
 
         assertFalse(viewModel.isPopFrontButtonEnabled());
     }
@@ -116,8 +116,8 @@ public class DequeViewModelTest {
     @Test
     public void whenDequeIsEmptyPopBackButtonIsDisabled() {
         viewModel.setInputNumber("8");
-        viewModel.pushBack();
-        viewModel.popBack();
+        viewModel.getOperationsWithDeque().pushBack();
+        viewModel.getOperationsWithDeque().popBack();
 
         assertFalse(viewModel.isPopBackButtonEnabled());
     }
@@ -125,39 +125,39 @@ public class DequeViewModelTest {
     @Test
     public void pushFrontButtonAddsIntegersToDequeFront() {
         viewModel.setInputNumber("15");
-        viewModel.pushFront();
+        viewModel.getOperationsWithDeque().pushFront();
         viewModel.setInputNumber("16");
-        viewModel.pushFront();
+        viewModel.getOperationsWithDeque().pushFront();
 
         Deque<Integer> testDeque = new Deque<>();
         testDeque.pushFront(15);
         testDeque.pushFront(16);
 
-        assertArrayEquals(viewModel.dequeToArray(), testDeque.toArray());
+        assertArrayEquals(viewModel.getOperationsWithDeque().toArray(), testDeque.toArray());
     }
 
     @Test
     public void pushBackButtonAddsIntegersToDequeBack() {
         viewModel.setInputNumber("23");
-        viewModel.pushBack();
+        viewModel.getOperationsWithDeque().pushBack();
         viewModel.setInputNumber("42");
-        viewModel.pushBack();
+        viewModel.getOperationsWithDeque().pushBack();
 
         Deque<Integer> testDeque = new Deque<>();
         testDeque.pushBack(23);
         testDeque.pushBack(42);
 
-        assertArrayEquals(viewModel.dequeToArray(), testDeque.toArray());
+        assertArrayEquals(viewModel.getOperationsWithDeque().toArray(), testDeque.toArray());
     }
 
     @Test
      public void popBackButtonReturnsBackInteger() {
         viewModel.setInputNumber("4");
-        viewModel.pushBack();
+        viewModel.getOperationsWithDeque().pushBack();
         viewModel.setInputNumber("8");
-        viewModel.pushBack();
+        viewModel.getOperationsWithDeque().pushBack();
 
-        viewModel.popBack();
+        viewModel.getOperationsWithDeque().popBack();
 
         assertEquals("8", viewModel.getOutput());
     }
@@ -165,11 +165,11 @@ public class DequeViewModelTest {
     @Test
     public void popFrontButtonReturnsFrontInteger() {
         viewModel.setInputNumber("15");
-        viewModel.pushFront();
+        viewModel.getOperationsWithDeque().pushFront();
         viewModel.setInputNumber("16");
-        viewModel.pushFront();
+        viewModel.getOperationsWithDeque().pushFront();
 
-        viewModel.popFront();
+        viewModel.getOperationsWithDeque().popFront();
 
         assertEquals("16", viewModel.getOutput());
     }
@@ -177,16 +177,16 @@ public class DequeViewModelTest {
     @Test
     public void clearButtonClearsDeque() {
         viewModel.setInputNumber("4");
-        viewModel.pushFront();
+        viewModel.getOperationsWithDeque().pushFront();
 
-        viewModel.clearDeque();
+        viewModel.getOperationsWithDeque().clear();
 
-        assertTrue(viewModel.isDequeEmpty());
+        assertTrue(viewModel.getOperationsWithDeque().isEmpty());
     }
 
     @Test
     public void whenDequeIsClearedClearButtonIsDisabled() {
-        viewModel.clearDeque();
+        viewModel.getOperationsWithDeque().clear();
 
         assertFalse(viewModel.isClearButtonEnabled());
     }
@@ -194,9 +194,9 @@ public class DequeViewModelTest {
     @Test
     public void whenDequeIsEmptyAfterPopClearButtonIsDisabled() {
         viewModel.setInputNumber("15162342");
-        viewModel.pushFront();
+        viewModel.getOperationsWithDeque().pushFront();
 
-        viewModel.popFront();
+        viewModel.getOperationsWithDeque().popFront();
 
         assertFalse(viewModel.isClearButtonEnabled());
     }
@@ -204,9 +204,9 @@ public class DequeViewModelTest {
     @Test
     public void whenDequeIsClearedPopBackButtonIsDisabled() {
         viewModel.setInputNumber("4");
-        viewModel.pushFront();
+        viewModel.getOperationsWithDeque().pushFront();
 
-        viewModel.clearDeque();
+        viewModel.getOperationsWithDeque().clear();
 
         assertFalse(viewModel.isPopBackButtonEnabled());
     }
@@ -214,9 +214,9 @@ public class DequeViewModelTest {
     @Test
     public void whenDequeIsClearedPopFrontButtonIsDisabled() {
         viewModel.setInputNumber("4");
-        viewModel.pushFront();
+        viewModel.getOperationsWithDeque().pushFront();
 
-        viewModel.clearDeque();
+        viewModel.getOperationsWithDeque().clear();
 
         assertFalse(viewModel.isPopFrontButtonEnabled());
     }
@@ -224,9 +224,9 @@ public class DequeViewModelTest {
     @Test
     public void dequeContains4() {
         viewModel.setInputNumber("4");
-        viewModel.pushFront();
+        viewModel.getOperationsWithDeque().pushFront();
 
-        viewModel.doesDequeContain();
+        viewModel.getOperationsWithDeque().contains();
 
         assertEquals("true", viewModel.getOutput());
     }
@@ -234,10 +234,10 @@ public class DequeViewModelTest {
     @Test
     public void dequeDoesNotContains8() {
         viewModel.setInputNumber("15");
-        viewModel.pushFront();
+        viewModel.getOperationsWithDeque().pushFront();
         viewModel.setInputNumber("8");
 
-        viewModel.doesDequeContain();
+        viewModel.getOperationsWithDeque().contains();
 
         assertEquals("false", viewModel.getOutput());
     }
@@ -245,9 +245,9 @@ public class DequeViewModelTest {
     @Test
     public void whenDequeIsClearedCheckButtonIsDisabled() {
         viewModel.setInputNumber("4");
-        viewModel.pushFront();
+        viewModel.getOperationsWithDeque().pushFront();
 
-        viewModel.clearDeque();
+        viewModel.getOperationsWithDeque().clear();
 
         assertFalse(viewModel.isCheckButtonEnabled());
     }
@@ -255,9 +255,9 @@ public class DequeViewModelTest {
     @Test
     public void whenDequeIsEmptyAfterPopCheckButtonIsDisabled() {
         viewModel.setInputNumber("15162342");
-        viewModel.pushFront();
+        viewModel.getOperationsWithDeque().pushFront();
 
-        viewModel.popFront();
+        viewModel.getOperationsWithDeque().popFront();
 
         assertFalse(viewModel.isCheckButtonEnabled());
     }
@@ -265,17 +265,17 @@ public class DequeViewModelTest {
     @Test
     public void dequeSizeIs3() {
         viewModel.setInputNumber("4");
-        viewModel.pushFront();
+        viewModel.getOperationsWithDeque().pushFront();
         viewModel.setInputNumber("8");
-        viewModel.pushFront();
+        viewModel.getOperationsWithDeque().pushFront();
         viewModel.setInputNumber("15");
-        viewModel.pushFront();
+        viewModel.getOperationsWithDeque().pushFront();
 
-        assertEquals(3, viewModel.getDequeSize());
+        assertEquals(3, viewModel.getOperationsWithDeque().getSize());
     }
 
     @Test
     public void byDefaultDequeIsEmpty() {
-        assertTrue(viewModel.isDequeEmpty());
+        assertTrue(viewModel.getOperationsWithDeque().isEmpty());
     }
 }
