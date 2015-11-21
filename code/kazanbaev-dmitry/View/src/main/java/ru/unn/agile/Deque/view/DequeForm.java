@@ -13,109 +13,65 @@ public final class DequeForm {
 
     private JPanel mainPanel;
     private JTextField inputNumber;
-    private JButton pushFrontButton;
-    private JButton pushBackButton;
     private JTable dequeTable;
     private JScrollPane mainScrollPane;
-    private JButton popFrontButton;
-    private JButton popBackButton;
     private JTextField outputText;
-    private JButton clearButton;
-    private JButton checkButton;
+    private JComboBox<String> selectActionBox;
+    private JButton doActionButton;
+
+    private final String[] actions = {"PushFront", "PushBack", "PopFront",
+            "PopBack", "Clear", "Check if contains"};
 
     private DequeForm() {
         viewModel = new DequeViewModel();
 
         inputNumber.getDocument().addDocumentListener(new DocumentListener() {
             @Override
-            public void insertUpdate(final DocumentEvent e) {
-                backBinding();
-                binding();
+            public void insertUpdate(final DocumentEvent event) {
+                backBind();
+                bind();
             }
 
             @Override
-            public void removeUpdate(final DocumentEvent e) {
-                backBinding();
-                binding();
+            public void removeUpdate(final DocumentEvent event) {
+                backBind();
+                bind();
             }
 
             @Override
-            public void changedUpdate(final DocumentEvent e) {
-                backBinding();
-                binding();
+            public void changedUpdate(final DocumentEvent event) {
+                backBind();
+                bind();
             }
         });
 
-        pushFrontButton.addActionListener(new ActionListener() {
+        doActionButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(final ActionEvent e) {
-                backBinding();
-                viewModel.getOperationsWithDeque().pushFront();
-                binding();
+            public void actionPerformed(final ActionEvent event) {
+                backBind();
+                viewModel.doAction();
+                bind();
             }
         });
 
-        pushBackButton.addActionListener(new ActionListener() {
+        selectActionBox.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(final ActionEvent e) {
-                backBinding();
-                viewModel.getOperationsWithDeque().pushBack();
-                binding();
+            public void actionPerformed(final ActionEvent event) {
+                backBind();
+                bind();
             }
         });
 
-        popFrontButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                backBinding();
-                viewModel.getOperationsWithDeque().popFront();
-                binding();
-            }
-        });
-
-        popBackButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                backBinding();
-                viewModel.getOperationsWithDeque().popBack();
-                binding();
-            }
-        });
-
-        clearButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                backBinding();
-                viewModel.getOperationsWithDeque().clear();
-                binding();
-            }
-        });
-
-        checkButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                backBinding();
-                viewModel.getOperationsWithDeque().contains();
-                binding();
-            }
-        });
-
-        dequeTable = new JTable(new Object[][]{}, new Object[]{"DEQUE"});
-
-        binding();
+        bind();
     }
 
-    private void backBinding() {
+    private void backBind() {
         viewModel.setInputNumber(inputNumber.getText());
+        viewModel.setAction(selectActionBox.getSelectedIndex());
     }
 
-    private void binding() {
-        pushFrontButton.setEnabled(viewModel.isPushFrontButtonEnabled());
-        pushBackButton.setEnabled(viewModel.isPushBackButtonEnabled());
-        popFrontButton.setEnabled(viewModel.isPopFrontButtonEnabled());
-        popBackButton.setEnabled(viewModel.isPopBackButtonEnabled());
-        clearButton.setEnabled(viewModel.isClearButtonEnabled());
-        checkButton.setEnabled(viewModel.isCheckButtonEnabled());
+    private void bind() {
+        doActionButton.setEnabled(viewModel.isDoActionButtonEnabled());
         outputText.setText(viewModel.getOutput());
 
         Object[][] values = new Integer[viewModel.getOperationsWithDeque().getSize()][1];
@@ -135,5 +91,10 @@ public final class DequeForm {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+    }
+
+    private void createUIComponents() {
+        dequeTable = new JTable(new Object[][]{}, new Object[]{"DEQUE"});
+        selectActionBox = new JComboBox<>(actions);
     }
 }

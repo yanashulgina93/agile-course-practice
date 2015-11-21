@@ -14,66 +14,9 @@ public class DequeViewModel {
     private boolean isPopBackButtonEnabled;
     private boolean isClearButtonEnabled;
     private boolean isCheckButtonEnabled;
+    private boolean isDoActionButtonEnabled;
 
-    public DequeViewModel() {
-        deque = new Deque<>();
-        operationsWithDeque = new OperationsWithDeque();
-    }
-
-    public OperationsWithDeque getOperationsWithDeque() {
-        return operationsWithDeque;
-    }
-
-    private void setPopBackPopFrontClearCheckButtonsEnabled(final boolean isEnabled) {
-        isPopFrontButtonEnabled = isEnabled;
-        isPopBackButtonEnabled = isEnabled;
-        isClearButtonEnabled = isEnabled;
-        isCheckButtonEnabled = isEnabled;
-    }
-
-    public void setInputNumber(final String inputNumber) {
-        this.inputNumber = inputNumber;
-        try {
-            Integer.parseInt(inputNumber);
-            isPushFrontButtonEnabled = true;
-            isPushBackButtonEnabled = true;
-            if (!deque.isEmpty()) {
-                isCheckButtonEnabled = true;
-            }
-        } catch (NumberFormatException e) {
-            isPushFrontButtonEnabled = false;
-            isPushBackButtonEnabled = false;
-            isCheckButtonEnabled = false;
-        }
-    }
-
-    public String getOutput() {
-        return output;
-    }
-
-    public boolean isPushFrontButtonEnabled() {
-        return isPushFrontButtonEnabled;
-    }
-
-    public boolean isPushBackButtonEnabled() {
-        return isPushBackButtonEnabled;
-    }
-
-    public boolean isPopFrontButtonEnabled() {
-        return isPopFrontButtonEnabled;
-    }
-
-    public boolean isPopBackButtonEnabled() {
-        return isPopBackButtonEnabled;
-    }
-
-    public boolean isClearButtonEnabled() {
-        return isClearButtonEnabled;
-    }
-
-    public boolean isCheckButtonEnabled() {
-        return isCheckButtonEnabled;
-    }
+    private Action action;
 
     public class OperationsWithDeque {
         public void pushFront() {
@@ -123,6 +66,138 @@ public class DequeViewModel {
 
         public void contains() {
             output = String.valueOf(deque.contains(Integer.valueOf(inputNumber)));
+        }
+    }
+
+    public enum Action {
+        PushFront, PushBack, PopFront, PopBack, Clear, Check_if_contains
+    }
+
+    public DequeViewModel() {
+        deque = new Deque<>();
+        operationsWithDeque = new OperationsWithDeque();
+        action = Action.PushFront;
+    }
+
+    public OperationsWithDeque getOperationsWithDeque() {
+        return operationsWithDeque;
+    }
+
+    private void setPopBackPopFrontClearCheckButtonsEnabled(final boolean isEnabled) {
+        isPopFrontButtonEnabled = isEnabled;
+        isPopBackButtonEnabled = isEnabled;
+        isClearButtonEnabled = isEnabled;
+        isCheckButtonEnabled = isEnabled;
+
+        updateDoActionButtonEnabled();
+    }
+
+    private void updateDoActionButtonEnabled() {
+        switch (action) {
+            case PushFront:
+                isDoActionButtonEnabled = isPushFrontButtonEnabled;
+                break;
+            case PushBack:
+                isDoActionButtonEnabled = isPushBackButtonEnabled;
+                break;
+            case PopFront:
+                isDoActionButtonEnabled = isPopFrontButtonEnabled;
+                break;
+            case PopBack:
+                isDoActionButtonEnabled = isPopBackButtonEnabled;
+                break;
+            case Clear:
+                isDoActionButtonEnabled = isClearButtonEnabled;
+                break;
+            case Check_if_contains:
+                isDoActionButtonEnabled = isCheckButtonEnabled;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void setInputNumber(final String inputNumber) {
+        this.inputNumber = inputNumber;
+        try {
+            Integer.parseInt(inputNumber);
+            isPushFrontButtonEnabled = true;
+            isPushBackButtonEnabled = true;
+            if (!deque.isEmpty()) {
+                isCheckButtonEnabled = true;
+            }
+        } catch (NumberFormatException e) {
+            isPushFrontButtonEnabled = false;
+            isPushBackButtonEnabled = false;
+            isCheckButtonEnabled = false;
+        }
+        updateDoActionButtonEnabled();
+    }
+
+    public void setAction(final int actionIndex) {
+        action = Action.values()[actionIndex];
+
+        updateDoActionButtonEnabled();
+    }
+
+    public Action getAction() {
+        return action;
+    }
+
+    public String getOutput() {
+        return output;
+    }
+
+    public boolean isPushFrontButtonEnabled() {
+        return isPushFrontButtonEnabled;
+    }
+
+    public boolean isPushBackButtonEnabled() {
+        return isPushBackButtonEnabled;
+    }
+
+    public boolean isPopFrontButtonEnabled() {
+        return isPopFrontButtonEnabled;
+    }
+
+    public boolean isPopBackButtonEnabled() {
+        return isPopBackButtonEnabled;
+    }
+
+    public boolean isClearButtonEnabled() {
+        return isClearButtonEnabled;
+    }
+
+    public boolean isCheckButtonEnabled() {
+        return isCheckButtonEnabled;
+    }
+
+    public boolean isDoActionButtonEnabled() {
+        return isDoActionButtonEnabled;
+    }
+
+    public void doAction() {
+        switch (action) {
+            case PushFront:
+                operationsWithDeque.pushFront();
+                break;
+            case PushBack:
+                operationsWithDeque.pushBack();
+                break;
+            case PopFront:
+                operationsWithDeque.popFront();
+                break;
+            case PopBack:
+                operationsWithDeque.popBack();
+                break;
+            case Clear:
+                operationsWithDeque.clear();
+                break;
+            case Check_if_contains:
+                operationsWithDeque.contains();
+                break;
+            default:
+                break;
         }
     }
 }

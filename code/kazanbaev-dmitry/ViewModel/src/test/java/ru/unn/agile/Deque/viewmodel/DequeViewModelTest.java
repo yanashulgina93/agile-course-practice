@@ -278,4 +278,23 @@ public class DequeViewModelTest {
     public void byDefaultDequeIsEmpty() {
         assertTrue(viewModel.getOperationsWithDeque().isEmpty());
     }
+
+    @Test
+    public void byDefaultDoActionButtonIsDisabled() {
+        assertFalse(viewModel.isDoActionButtonEnabled());
+    }
+
+    @Test
+    public void whenPopBackIsSelectedActionIsPopBack() {
+        viewModel.setAction(3);
+
+        assertEquals(DequeViewModel.Action.PopBack, viewModel.getAction());
+    }
+
+    @Test
+    public void whenCheckIsSelectedActionIsCheck() {
+        viewModel.setAction(5);
+
+        assertEquals(DequeViewModel.Action.Check_if_contains, viewModel.getAction());
+    }
 }
