@@ -178,6 +178,14 @@ public class PolinomArithmeticOperationsTest {
             Assert.assertTrue(Arrays.equals(
                 PolinomArithmeticOperationsTest.second.getCoefficients(), new double[]{5.0, -2.0}));
         }
+
+        @Test
+        public void canDivideBySelf() {
+            PolinomArithmeticOperationsTest.first.divide(PolinomArithmeticOperationsTest.first);
+
+            Assert.assertTrue(Arrays.equals(
+                PolinomArithmeticOperationsTest.first.getCoefficients(), new double[]{1.0}));
+        }
     }
 
     private static Polinom first;
