@@ -58,33 +58,34 @@ public class ViewModelTest {
     }
 
     @Test
-    public void canSetDefaultCanCalculate() {
-        assertFalse(viewModel.canCalculateProperty().get());
+    public void canSetDefaultDisabledCalculate() {
+        assertFalse(viewModel.disabledCalculateProperty().get());
     }
 
     @Test
     public void canNotCalculateWhenFieldsAreEmpty() {
-        assertFalse(viewModel.canCalculateProperty().get());
+        cleanData();
+        assertTrue(viewModel.disabledCalculateProperty().get());
     }
 
     @Test
     public void canCalculateWhenFieldsAreFill() {
         setPositiveData();
-        assertTrue(viewModel.canCalculateProperty().get());
+        assertFalse(viewModel.disabledCalculateProperty().get());
     }
 
     @Test
     public void canNotCalculateWhenEnterNumbersAndDeleteIt() {
         setPositiveData();
         cleanData();
-        assertFalse(viewModel.canCalculateProperty().get());
+        assertTrue(viewModel.disabledCalculateProperty().get());
     }
 
     @Test
     public void canNotCalculateWhenFormatIsBad() {
         setPositiveData();
         viewModel.getFirstRealProperty().set("a");
-        assertFalse(viewModel.canCalculateProperty().get());
+        assertTrue(viewModel.disabledCalculateProperty().get());
     }
 
     @Test
@@ -94,10 +95,10 @@ public class ViewModelTest {
     }
 
     @Test
-    public void errorsIsEmptyWhenDeleteNumberWithBadFormat() {
+    public void errorsIsEmptyLineWhenDeleteNumberWithBadFormat() {
         viewModel.getFirstRealProperty().set("a");
         viewModel.getFirstRealProperty().set("");
-        assertEquals("", viewModel.getErrorsProperty().get());
+        assertEquals("Empty line!", viewModel.getErrorsProperty().get());
     }
 
     @Test

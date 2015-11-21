@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import ru.unn.agile.Complex.viewmodel.*;
 
 public class ComplexCalculator {
@@ -20,6 +21,10 @@ public class ComplexCalculator {
     private TextField secondRealTextField;
     @FXML
     private TextField secondImaginaryTextField;
+    @FXML
+    private Text resultText;
+    @FXML
+    private Text errorsText;
     @FXML
     private ComboBox<Operation> operationsComboBox;
     @FXML
@@ -38,6 +43,12 @@ public class ComplexCalculator {
 
         tmpProperty = viewModel.getSecondImaginaryProperty();
         secondImaginaryTextField.textProperty().bindBidirectional(tmpProperty);
+
+        tmpProperty = viewModel.getResultProperty();
+        resultText.textProperty().bindBidirectional(tmpProperty);
+
+        tmpProperty = viewModel.getErrorsProperty();
+        errorsText.textProperty().bindBidirectional(tmpProperty);
 
         operationsComboBox.valueProperty().bindBidirectional(viewModel.getOperationProperty());
         calculateButton.setOnAction(new EventHandler<ActionEvent>() {

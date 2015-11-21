@@ -13,6 +13,7 @@ public class ViewModel {
     public enum Errors {
         ZERO_DIVIDER("Divider can't be zero!"),
         BAD_FORMAT("Invalid format!"),
+        EMPTY_LINE("Empty line!"),
         NOT_ERROR("");
 
         private String errorMessage;
@@ -33,7 +34,7 @@ public class ViewModel {
     private final StringProperty result = new SimpleStringProperty();
     private final StringProperty errors = new SimpleStringProperty();
     private final ObjectProperty<Operation> operation = new SimpleObjectProperty<Operation>();
-    private final BooleanProperty canCalculate = new SimpleBooleanProperty();
+    private final BooleanProperty disabledCalculate = new SimpleBooleanProperty();
     private final List<ChangedValueListener> changedValueListeners = new ArrayList<>();
     private final ObjectProperty<ObservableList<Operation>> operations =
             new SimpleObjectProperty<>(FXCollections.observableArrayList(Operation.values()));
@@ -53,7 +54,7 @@ public class ViewModel {
         result.set("");
         errors.set(Errors.NOT_ERROR.toString());
         operation.set(Operation.ADD);
-        canCalculate.set(false);
+        disabledCalculate.set(false);
 
         for (StringProperty field : fields) {
             final ChangedValueListener listener = new ChangedValueListener();
@@ -90,16 +91,24 @@ public class ViewModel {
         return operation;
     }
 
-    public BooleanProperty canCalculateProperty() {
-        return canCalculate;
+    public BooleanProperty disabledCalculateProperty() {
+        return disabledCalculate;
     }
 
     public ObjectProperty<ObservableList<Operation>> getOperationsProperty() {
         return operations;
     }
 
+    public final ObservableList<Operation> getOperations() {
+        return operations.get();
+    }
+
+    public final boolean getDisabledCalculate() {
+        return disabledCalculate.get();
+    }
+
     public void calculate() {
-        if (!canCalculate.get()) {
+        if (disabledCalculate.get()) {
             return;
         }
         double tmpReal = Double.parseDouble(firstReal.get());
@@ -125,7 +134,7 @@ public class ViewModel {
                 try {
                     result.set(first.divide(second).toString());
                 } catch (IllegalArgumentException e) {
-                    errors.set("Divider can't be zero!");
+                    errors.set(Errors.ZERO_DIVIDER.toString());
                 }
                 break;
             default:
@@ -135,17 +144,20 @@ public class ViewModel {
 
     private void refreshInputErrors() {
         errors.set(Errors.NOT_ERROR.toString());
-        canCalculate.set(true);
+        disabledCalculate.set(false);
+        if (firstReal.get().isEmpty() || firstImaginary.get().isEmpty()
+                || secondReal.get().isEmpty() || secondImaginary.get().isEmpty()) {
+            disabledCalculate.set(true);
+            errors.set(Errors.EMPTY_LINE.toString());
+        }
         try {
             for (StringProperty field : fields) {
-                if (field.get().isEmpty()) {
-                    canCalculate.set(false);
-                } else {
+                if (!field.get().isEmpty()) {
                     Double.parseDouble(field.get());
                 }
             }
         } catch (NumberFormatException e) {
-            canCalculate.set(false);
+            disabledCalculate.set(true);
             errors.set(Errors.BAD_FORMAT.toString());
         }
     }
