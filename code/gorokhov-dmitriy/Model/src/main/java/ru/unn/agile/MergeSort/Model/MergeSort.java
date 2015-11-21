@@ -2,7 +2,7 @@ package ru.unn.agile.MergeSort.Model;
 
 import java.util.Vector;
 
-final class MergeSort {
+public final class MergeSort {
     public static <Type extends Comparable<Type>> void sort(final Type[] sortingArray) {
         if (sortingArray == null) {
             return;
