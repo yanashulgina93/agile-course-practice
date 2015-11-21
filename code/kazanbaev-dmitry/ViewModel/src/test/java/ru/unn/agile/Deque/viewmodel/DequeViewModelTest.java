@@ -349,4 +349,18 @@ public class DequeViewModelTest {
 
         assertEquals(Action.Check_if_contains, viewModel.getAction());
     }
+
+    @Test
+    public void whenActionIndexIs1ActionIsPushBack() {
+        viewModel.setAction(1);
+
+        assertEquals(Action.PushBack, viewModel.getAction());
+    }
+
+    @Test
+    public void whenActionIndexIs3ActionIsPopBack() {
+        viewModel.setAction(3);
+
+        assertEquals(Action.PopBack, viewModel.getAction());
+    }
 }
