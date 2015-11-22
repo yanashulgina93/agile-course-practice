@@ -5,9 +5,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.fail;
 
-public class FakeViewTests {
+public class FakeNewthonMethodTests {
     @Ignore@Test
-    public void fakeTast() {
-        fail("No test for view");
+    public void fakeNewthonMethodTast() {
+        fail("Fake test");
     }
 }
