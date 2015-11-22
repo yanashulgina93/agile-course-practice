@@ -54,8 +54,12 @@ project(":code/eremeeva-alexandra/eremeeva-alexandra-lab1").name = "eremeeva-ale
 // Esyagin Ivan
 
 // Filicheva Svetlana
-include "code/filicheva-svetlana"
-project(":code/filicheva-svetlana").name = "filicheva-svetlana-Model"
+include "code/filicheva-svetlana/Model"
+project(":code/filicheva-svetlana/Model").name = "filicheva-svetlana-Model"
+include "code/filicheva-svetlana/View"
+project(":code/filicheva-svetlana/View").name = "filicheva-svetlana-View"
+include "code/filicheva-svetlana/ViewModel"
+project(":code/filicheva-svetlana/ViewModel").name = "filicheva-svetlana-ViewModel"
 
 // Francuzova Natalya
 
@@ -208,4 +212,4 @@ project(":code/zhbanova-anna/View").name = "zhbanova-anna-View"
 
 // Zykov Ilya
 include "code/zykov-ilya"
-project(":code/zykov-ilya").name = "zykov-ilya-Model"
+project(":code/zykov-ilya").name  = "zykov-ilya-Model"

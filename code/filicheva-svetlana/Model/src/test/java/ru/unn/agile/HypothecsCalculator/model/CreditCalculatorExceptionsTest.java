@@ -1,4 +1,4 @@
-package ru.unn.agile.HypothecsCalculator.core;
+package ru.unn.agile.HypothecsCalculator.model;
 
 import org.junit.Test;
 import java.util.GregorianCalendar;
