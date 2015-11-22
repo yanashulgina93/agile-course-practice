@@ -8,54 +8,67 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class RootCalculator {
+public final class Calculator {
 
     private NewtonMethodViewModel viewModel;
     private JPanel mainPanel;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JButton button1;
+    private JTextField txtLeftPont;
+    private JTextField txtRightPoint;
+    private JTextField txtFunction;
+    private JButton calculateButton;
+    private JTextField txtRoot;
+    private JLabel labelStatus;
+    private JTextField txtDerivative;
 
-    private RootCalculator(NewtonMethodViewModel viewModel) {
+    private Calculator() {
+    }
+
+    private Calculator(final NewtonMethodViewModel viewModel) {
         this.viewModel = viewModel;
         backBind();
 
-        button1.addActionListener(new ActionListener() {
+        calculateButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 bind();
+                viewModel.calculateRoot();
                 backBind();
             }
         });
 
         KeyAdapter keyListener = new KeyAdapter() {
             @Override
-            public void keyReleased(KeyEvent e) {
+            public void keyReleased(final KeyEvent e) {
                 bind();
+                viewModel.processKeyInTextField(e.getKeyCode());
                 backBind();
             }
         };
-        textField1.addKeyListener(keyListener);
-        textField2.addKeyListener(keyListener);
-        textField3.addKeyListener(keyListener);
+        txtLeftPont.addKeyListener(keyListener);
+        txtRightPoint.addKeyListener(keyListener);
+        txtFunction.addKeyListener(keyListener);
+        txtDerivative.addKeyListener(keyListener);
     }
 
     private void backBind() {
-        button1.setEnabled(viewModel.isCalculateButtonEnabled());
+        calculateButton.setEnabled(viewModel.isCalculateButtonEnabled());
+        txtRoot.setText(String.valueOf(viewModel.getRoot()));
+        labelStatus.setText(viewModel.getStatus());
     }
 
     private void bind() {
-        viewModel.setFunction(textField3.getText());
-        viewModel.setLeftPointOfRange(textField1.getText());
-        viewModel.setRightPointOfRange(textField2.getText());
+        viewModel.setFunction(txtFunction.getText());
+        viewModel.setDerivative(txtDerivative.getText());
+        viewModel.setLeftPointOfRange(txtLeftPont.getText());
+        viewModel.setRightPointOfRange(txtRightPoint.getText());
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         JFrame frame = new JFrame("Calculator");
-        frame.setContentPane(new RootCalculator(new NewtonMethodViewModel()).mainPanel);
+        frame.setContentPane(new Calculator(new NewtonMethodViewModel()).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
     }
+
 }
