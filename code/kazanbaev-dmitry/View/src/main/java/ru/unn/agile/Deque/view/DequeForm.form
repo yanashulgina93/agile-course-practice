@@ -46,11 +46,20 @@
           <enabled value="false"/>
         </properties>
       </component>
-      <component id="b1cb1" class="javax.swing.JComboBox" binding="selectActionBox" custom-create="true">
+      <component id="b1cb1" class="javax.swing.JComboBox" binding="selectActionBox">
         <constraints>
           <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <model>
+            <item value="PushFront"/>
+            <item value="PushBack"/>
+            <item value="PopFront"/>
+            <item value="PopBack"/>
+            <item value="Clear"/>
+            <item value="Check if contains"/>
+          </model>
+        </properties>
       </component>
       <component id="6fa12" class="javax.swing.JButton" binding="doActionButton">
         <constraints>

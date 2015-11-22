@@ -19,9 +19,6 @@ public final class DequeForm {
     private JComboBox<String> selectActionBox;
     private JButton doActionButton;
 
-    private final String[] actions = {"PushFront", "PushBack", "PopFront",
-            "PopBack", "Clear", "Check if contains"};
-
     private DequeForm() {
         viewModel = new DequeViewModel();
 
@@ -95,6 +92,5 @@ public final class DequeForm {
 
     private void createUIComponents() {
         dequeTable = new JTable(new Object[][]{}, new Object[]{"DEQUE"});
-        selectActionBox = new JComboBox<>(actions);
     }
 }
