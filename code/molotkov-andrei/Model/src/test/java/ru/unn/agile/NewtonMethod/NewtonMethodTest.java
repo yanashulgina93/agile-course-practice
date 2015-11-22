@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Enclosed.class)
 public class NewtonMethodTest {
@@ -52,19 +53,26 @@ public class NewtonMethodTest {
 
         @Test
         public void whenCanFindRoot() {
-            Double root = newtonMethod.searchRoot(leftPoint, rightPoint);
+            Double root = null;
+            try {
+                root = newtonMethod.searchRoot(leftPoint, rightPoint);
+            } catch (NoMonotonicFunctionException e) {
+                root = 0.0;
+            } catch (NoRootInRangeException e) {
+                root = 0.0;
+            }
             assertEquals(expectedRoot, root, delta);
         }
     }
     @RunWith(Parameterized.class)
-    public static class WhenCanNotFindRoot {
+    public static class WhenFunctionIsNotMonotonic {
         private NewtonMethod newtonMethod;
         private final String baseFunction;
         private final String derivativeFunction;
         private final double leftPoint;
         private final double rightPoint;
 
-        public WhenCanNotFindRoot(final String baseFunction,
+        public WhenFunctionIsNotMonotonic(final String baseFunction,
                                   final String derivativeFunction,
                                   final double leftPoint,
                                   final double rightPoint) {
@@ -75,10 +83,8 @@ public class NewtonMethodTest {
         }
 
         @Parameterized.Parameters
-        public static List<Object[]> getFunctionsAndRangeWhenNotRoot() {
+        public static List<Object[]> getFunctionsAndRangeWhenFunctionNotMonotonic() {
             return Arrays.asList(new Object[][]{
-                    {"(x+3)*(x+3)-2=", "2*(x+3)=", -2, -2},
-                    {"(x+3)*(x+3)-2=", "2*(x+3)=", -2.9, -1.7},
                     {"(x+3)*(x+3)-2=", "2*(x+3)=", -4, -1}
             });
         }
@@ -88,9 +94,17 @@ public class NewtonMethodTest {
             newtonMethod = new NewtonMethod(baseFunction, derivativeFunction);
         }
 
-        @Test(expected = IllegalArgumentException.class)
+        @Test
         public void whenCanNotFindRoot() {
-            newtonMethod.searchRoot(leftPoint, rightPoint);
+            boolean result = false;
+            try {
+                newtonMethod.searchRoot(leftPoint, rightPoint);
+            } catch (NoMonotonicFunctionException e) {
+                result = true;
+            } catch (NoRootInRangeException e) {
+                result = true;
+            }
+            assertTrue(result);
         }
     }
 }

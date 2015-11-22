@@ -11,10 +11,13 @@ public class NewtonMethod {
         this.derivativeFunc = new Function(derivativeFunc);
     }
 
-    public Double searchRoot(final double leftPointRange, final double rightPointRange) {
-        if (!canCalculateRoot(leftPointRange, rightPointRange)) {
-            throw new IllegalArgumentException("Function is not monotonic and "
-                                                + "root is not in range");
+    public Double searchRoot(final double leftPointRange, final double rightPointRange)
+            throws NoMonotonicFunctionException, NoRootInRangeException {
+        if (!isMonotonicFunction(leftPointRange, rightPointRange)) {
+            throw new NoMonotonicFunctionException("Function is not monotonic");
+        }
+        if (!rootIsInRange(leftPointRange, rightPointRange)) {
+            throw new NoRootInRangeException("Root is not in range");
         }
         previousPoint = rightPointRange;
         nextPoint = calculateNextPoint(previousPoint);
