@@ -1,5 +1,7 @@
 package ru.unn.agile.HypothecCalculator.view;
 
+import ru.unn.agile.HypothecCalculator.viewmodel.ViewModel;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -14,21 +16,28 @@ public final class HypothecCalculator {
     private JTextField interestRate;
     private JTextField downPayment;
     private JTextField countOfPeriods;
-    private JComboBox currencyType;
-    private JComboBox periodType;
-    private JComboBox interestRateType;
+    private JComboBox<ViewModel.CurrencyType> currencyType;
+    private JComboBox<ViewModel.PeriodType> periodType;
+    private JComboBox<ViewModel.InterestRateType> interestRateType;
     private JTextField flatFee;
     private JTextField monthlyFee;
-    private JComboBox flatFeeType;
-    private JComboBox monthlyFeeType;
-    private JComboBox creditType;
-    private JComboBox startMonth;
-    private JComboBox startYear;
+    private JComboBox<ViewModel.FlatFeeType> flatFeeType;
+    private JComboBox<ViewModel.MonthlyFeeType> monthlyFeeType;
+    private JComboBox<ViewModel.CreditType> creditType;
     private JLabel monthlyPayment;
     private JLabel overpaymentWithFees;
     private JLabel overpayment;
+    private JTextField month;
+    private JTextField year;
+    private JTextField day;
+    private JButton compute;
+    private JLabel status;
 
-    private HypothecCalculator() { }
+    private ViewModel viewModel;
+
+    private HypothecCalculator() {
+        loadAllLists();
+    }
 
     private void createUIComponents() {
         mainPanel = new DollarPanel();
@@ -40,6 +49,45 @@ public final class HypothecCalculator {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+    }
+
+    private void loadListOfCurrencies() {
+        ViewModel.CurrencyType[] currencies = ViewModel.CurrencyType.values();
+        currencyType.setModel(new JComboBox<>(currencies).getModel());
+    }
+
+    private void loadListOfPeriods() {
+        ViewModel.PeriodType[] periods = ViewModel.PeriodType.values();
+        periodType.setModel(new JComboBox<>(periods).getModel());
+    }
+
+    private void loadListOfInterestRateTypes() {
+        ViewModel.InterestRateType[] types = ViewModel.InterestRateType.values();
+        interestRateType.setModel(new JComboBox<>(types).getModel());
+    }
+
+    private void loadListOfFlatFeeTypes() {
+        ViewModel.FlatFeeType[] types = ViewModel.FlatFeeType.values();
+        flatFeeType.setModel(new JComboBox<>(types).getModel());
+    }
+
+    private void loadListOfMonthlyFeeTypes() {
+        ViewModel.MonthlyFeeType[] types = ViewModel.MonthlyFeeType.values();
+        monthlyFeeType.setModel(new JComboBox<>(types).getModel());
+    }
+
+    private void loadListOfCreditTypes() {
+        ViewModel.CreditType[] types = ViewModel.CreditType.values();
+        creditType.setModel(new JComboBox<>(types).getModel());
+    }
+
+    private void loadAllLists() {
+        loadListOfCurrencies();
+        loadListOfPeriods();
+        loadListOfInterestRateTypes();
+        loadListOfFlatFeeTypes();
+        loadListOfMonthlyFeeTypes();
+        loadListOfCreditTypes();
     }
 }
 
