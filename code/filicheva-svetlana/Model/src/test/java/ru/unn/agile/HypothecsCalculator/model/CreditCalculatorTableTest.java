@@ -31,9 +31,9 @@ public class CreditCalculatorTableTest {
 
     @Test
     public void canCreateTable() {
-        CreditCalculator credit = getCredit();
+        GraphicOfPayments graphicOfPayments = new GraphicOfPayments(getCredit());
 
-        DefaultTableModel graphic = credit.getGraphicOfPayments();
+        DefaultTableModel graphic = graphicOfPayments.getTableModel();
 
         for (int i = 0; i < rightGraphic.getColumnCount(); i++) {
              for (int j = 0; j < rightGraphic.getRowCount(); j++) {
@@ -43,16 +43,16 @@ public class CreditCalculatorTableTest {
         }
     }
 
-    private CreditCalculator getCredit() {
-        return new CreditCalculator(new Hypothec.Builder(4000.0, 4)
-                .setInterestRate(2.0)
-                .setInterestRateType(Hypothec.InterestRateType.MONTHLY)
-                .setMonthlyFee(1.0)
-                .setMonthlyFeeType(Hypothec.MonthlyFeeType.CREDIT_BALANCE_PERCENT)
-                .setStartDate(new GregorianCalendar(2015, Calendar.NOVEMBER, 4))
-                .setCurrency(Hypothec.CurrencyType.RUBLE)
-                .setCreditType(creditType)
-                .build());
+    private Hypothec getCredit() {
+        return new Hypothec.Builder(4000.0, 4)
+                .interestRate(2.0)
+                .interestRateType(Hypothec.InterestRateType.MONTHLY)
+                .monthlyFee(1.0)
+                .monthlyFeeType(Hypothec.MonthlyFeeType.CREDIT_BALANCE_PERCENT)
+                .startDate(new GregorianCalendar(2015, Calendar.NOVEMBER, 4))
+                .currency(Hypothec.CurrencyType.RUBLE)
+                .creditType(creditType)
+                .build();
     }
 
     private static Object[][] parametersOfTests = new Object[][]{

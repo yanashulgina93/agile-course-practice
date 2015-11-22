@@ -34,7 +34,7 @@ public class CreditCalculatorExceptionsTest {
         final double negativeDownPayment = -1000.0;
 
         new CreditCalculator(new Hypothec.Builder(creditSum, creditPeriod)
-                .setDownPayment(negativeDownPayment).build());
+                .downPayment(negativeDownPayment).build());
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -42,7 +42,7 @@ public class CreditCalculatorExceptionsTest {
         final double tooLargeDownPayment = 20000.0;
 
         new CreditCalculator(new Hypothec.Builder(creditSum, creditPeriod)
-                .setDownPayment(tooLargeDownPayment).build());
+                .downPayment(tooLargeDownPayment).build());
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -50,7 +50,7 @@ public class CreditCalculatorExceptionsTest {
         final double negativeInterestRate = -100.0;
 
         new CreditCalculator(new Hypothec.Builder(creditSum, creditPeriod)
-                .setInterestRate(negativeInterestRate).build());
+                .interestRate(negativeInterestRate).build());
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -58,7 +58,7 @@ public class CreditCalculatorExceptionsTest {
         final double negativeMonthlyFee = -100.0;
 
         new CreditCalculator(new Hypothec.Builder(creditSum, creditPeriod)
-                .setMonthlyFee(negativeMonthlyFee).build());
+                .monthlyFee(negativeMonthlyFee).build());
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -66,7 +66,7 @@ public class CreditCalculatorExceptionsTest {
         final double negativeFlatFee = -100.0;
 
         new CreditCalculator(new Hypothec.Builder(creditSum, creditPeriod)
-                .setMonthlyFee(negativeFlatFee).build());
+                .monthlyFee(negativeFlatFee).build());
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -74,7 +74,7 @@ public class CreditCalculatorExceptionsTest {
         final GregorianCalendar tooEarlyDate = new GregorianCalendar(1980, Calendar.MARCH, 10);
 
         new CreditCalculator(new Hypothec.Builder(creditSum, creditPeriod)
-                .setStartDate(tooEarlyDate).build());
+                .startDate(tooEarlyDate).build());
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -82,6 +82,6 @@ public class CreditCalculatorExceptionsTest {
         final GregorianCalendar tooLargeDate = new GregorianCalendar(2150, Calendar.MARCH, 10);
 
         new CreditCalculator(new Hypothec.Builder(creditSum, creditPeriod)
-                .setStartDate(tooLargeDate).build());
+                .startDate(tooLargeDate).build());
     }
 }

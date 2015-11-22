@@ -144,7 +144,7 @@ public class Hypothec {
             return new Hypothec(this);
         }
 
-        public Builder setDownPayment(final double downPayment) {
+        public Builder downPayment(final double downPayment) {
             if (downPayment < 0) {
                 throw new IllegalArgumentException("Negative down payment");
             }
@@ -155,12 +155,12 @@ public class Hypothec {
             return this;
         }
 
-        public Builder setPeriodType(final PeriodType periodType) {
+        public Builder periodType(final PeriodType periodType) {
             this.periodType = periodType;
             return this;
         }
 
-        public Builder setInterestRate(final double interestRate) {
+        public Builder interestRate(final double interestRate) {
             if (interestRate < 0) {
                 throw new IllegalArgumentException("Negative interest rate");
             }
@@ -168,17 +168,17 @@ public class Hypothec {
             return this;
         }
 
-        public Builder setInterestRateType(final InterestRateType interestRateType) {
+        public Builder interestRateType(final InterestRateType interestRateType) {
             this.interestRateType = interestRateType;
             return this;
         }
 
-        public Builder setCreditType(final CreditType creditType) {
+        public Builder creditType(final CreditType creditType) {
             this.creditType = creditType;
             return this;
         }
 
-        public Builder setMonthlyFee(final double monthlyFee) {
+        public Builder monthlyFee(final double monthlyFee) {
             if (monthlyFee < 0) {
                 throw new IllegalArgumentException("Negative monthly fee");
             }
@@ -186,12 +186,12 @@ public class Hypothec {
             return this;
         }
 
-        public Builder setMonthlyFeeType(final MonthlyFeeType monthlyFeeType) {
+        public Builder monthlyFeeType(final MonthlyFeeType monthlyFeeType) {
             this.monthlyFeeType = monthlyFeeType;
             return this;
         }
 
-        public Builder setFlatFee(final double flatFee) {
+        public Builder flatFee(final double flatFee) {
             if (flatFee < 0) {
                 throw new IllegalArgumentException("Negative flat fee");
             }
@@ -199,17 +199,17 @@ public class Hypothec {
             return this;
         }
 
-        public Builder setFlatFeeType(final FlatFeeType flatFeeType) {
+        public Builder flatFeeType(final FlatFeeType flatFeeType) {
             this.flatFeeType = flatFeeType;
             return this;
         }
 
-        public Builder setCurrency(final CurrencyType currencyType) {
+        public Builder currency(final CurrencyType currencyType) {
             this.currencyType = currencyType;
             return this;
         }
 
-        public Builder setStartDate(final GregorianCalendar startDate) {
+        public Builder startDate(final GregorianCalendar startDate) {
             if (startDate.get(Calendar.YEAR) < EARLIEST_VALID_YEAR) {
                 throw new IllegalArgumentException("Too early start date");
             }
