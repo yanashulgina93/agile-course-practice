@@ -52,8 +52,12 @@ project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-l
 // Francuzova Natalya
 
 // Ganin Aleksej
-include "code/ganin-aleksei"
-project(":code/ganin-aleksei").name = "ganin-aleksei-Model"
+include "code/ganin-aleksei/Model"
+project(":code/ganin-aleksei/Model").name = "ganin-aleksei-Model"
+include "code/ganin-aleksei/ViewModel"
+project(":code/ganin-aleksei/ViewModel").name = "ganin-aleksei-ViewModel"
+include "code/ganin-aleksei/View"
+project(":code/ganin-aleksei/View").name = "ganin-aleksei-View"
 
 // Garina Anastasia
 include "code/garina-anastasia"
