@@ -4,8 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import ru.unn.agile.Minesweeper.Model.Model;
-
 public class ViewModelTest extends ViewModel {
 
     private ViewModel minesweeper;
@@ -183,17 +181,5 @@ public class ViewModelTest extends ViewModel {
         minesweeper.openCell(0, 0);
         minesweeper.newGame();
         assertEquals(minesweeper.getSmileIco(), minesweeper.getSmileIcon());
-    }
-
-    @Test
-    public void getBoardHeightTransmitsValueOfModel() {
-        Model model = new Model();
-        assertEquals(model.getBoardHeight(), minesweeper.getBoardHeight());
-    }
-
-    @Test
-    public void getBoardWidthTransmitsValueOfModel() {
-        Model model = new Model();
-        assertEquals(model.getBoardWidth(), minesweeper.getBoardWidth());
     }
 }
