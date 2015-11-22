@@ -5,6 +5,7 @@ import java.util.Stack;
 public class ParserFunction {
     private int indexChar = 0;
     private final Stack<Character> leftBracketsStack = new Stack<>();
+
     public boolean isCorrectFunction(final String function) {
         char ch = function.charAt(0);
         if (!isCorrectFirstCharacter(ch)) {
