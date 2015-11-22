@@ -162,18 +162,11 @@ public class ViewModel {
 
         inputStatisticParameterFieldIsVisible.set(true);
     }
-    /*public void setParameterNameOfSelectedStatistic(final StatisticParameter parameterName) {
-        parameterNameOfSelectedStatistic.set(parameterName);
-    }
-    public void setInputStatisticParameterFieldIsVisible(final boolean isVisible) {
-        inputStatisticParameterFieldIsVisible.set(isVisible);
-    }*/
+
     public void setInputRow(final String value) {
         inputRow.set(value);
     }
-    /*public void setInputStatisticParameter(final String inputStatisticParameter) {
-        this.inputStatisticParameter.set(inputStatisticParameter);
-    }*/
+
     public void setStatisticData(final ObservableList<Pair<String, String>> data) {
         statisticData.setAll(data);
 
