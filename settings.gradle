@@ -59,7 +59,7 @@ project(":code/filicheva-svetlana").name = "filicheva-svetlana-Model"
 
 // Francuzova Natalya
 
-// Ganin Aleksej"
+// Ganin Aleksej
 include "code/ganin-aleksei/Model"
 project(":code/ganin-aleksei/Model").name = "ganin-aleksei-Model"
 include "code/ganin-aleksei/ViewModel"
