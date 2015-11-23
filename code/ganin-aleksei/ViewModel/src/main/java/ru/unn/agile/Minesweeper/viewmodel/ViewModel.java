@@ -1,11 +1,12 @@
-package ru.unn.agile.Minesweeper.ViewModel;
+package ru.unn.agile.Minesweeper.viewmodel;
 
+/*
 import javafx.scene.image.*;
 import javafx.beans.property.SimpleStringProperty;
-import ru.unn.agile.Minesweeper.Model.Model;
+import ru.unn.agile.Minesweeper.Model.Model;*/
 
 public class ViewModel {
-
+/*
     private final Model minesweeperModel = new Model();
 
     private final SimpleStringProperty mineCounter = new SimpleStringProperty();
@@ -38,12 +39,12 @@ public class ViewModel {
     private static final int CELL_VALUE_6 = 6;
     private static final int CELL_VALUE_7 = 7;
     private static final int CELL_VALUE_8 = 8;
-
+*/
 
     public ViewModel() {
         /* empty */
     }
-
+/*
     public void newGame() {
         minesweeperModel.newGame();
     }
@@ -184,5 +185,5 @@ public class ViewModel {
 
     public Image getWinnerIcon() {
         return winnerIcon;
-    }
+    }*/
 }
