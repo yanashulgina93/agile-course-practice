@@ -9,7 +9,7 @@ import javafx.scene.image.*;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 
-import ru.unn.agile.Minesweeper.ViewModel.ViewModel;
+import ru.unn.agile.Minesweeper.viewmodel.ViewModel;
 
 public class View {
 
