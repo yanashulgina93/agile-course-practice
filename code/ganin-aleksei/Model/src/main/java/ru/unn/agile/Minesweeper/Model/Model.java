@@ -96,8 +96,8 @@ public class Model {
                 unsetIssue();
                 unsetFlag();
                 setValue(0);
-                mine = false;
                 openV = false;
+                mine = false;
             }
 
             public int getX() {
