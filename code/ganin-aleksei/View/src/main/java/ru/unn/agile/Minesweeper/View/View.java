@@ -1,6 +1,5 @@
 package ru.unn.agile.Minesweeper.View;
 
-import javafx.application.*;
 import javafx.event.*;
 import javafx.scene.*;
 import javafx.scene.input.MouseButton;
@@ -10,7 +9,7 @@ import javafx.scene.image.*;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 
-import ru.unn.agile.Minesweeper.viewmodel.ViewModel;
+import ru.unn.agile.Minesweeper.ViewModel.ViewModel;
 
 public class View {
 
