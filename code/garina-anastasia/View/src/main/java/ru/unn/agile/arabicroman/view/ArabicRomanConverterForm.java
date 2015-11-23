@@ -23,45 +23,45 @@ public final class ArabicRomanConverterForm {
         inputNumber.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(final DocumentEvent e) {
-                backBind();
-                bind();
+                bindDataFromViewToViewModel();
+                bindDataFromViewModelToView();
             }
 
             @Override
             public void removeUpdate(final DocumentEvent e) {
-                backBind();
-                bind();
+                bindDataFromViewToViewModel();
+                bindDataFromViewModelToView();
             }
 
             @Override
             public void changedUpdate(final DocumentEvent e) {
-                backBind();
-                bind();
+                bindDataFromViewToViewModel();
+                bindDataFromViewModelToView();
             }
         });
 
         convertButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                backBind();
+                bindDataFromViewToViewModel();
                 viewModel.convert();
-                bind();
+                bindDataFromViewModelToView();
             }
         });
 
         reverseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                backBind();
+                bindDataFromViewToViewModel();
                 viewModel.reverseConvertingDirection();
-                bind();
+                bindDataFromViewModelToView();
             }
         });
 
-        bind();
+        bindDataFromViewModelToView();
     }
 
-    private void bind() {
+    private void bindDataFromViewModelToView() {
         convertButton.setEnabled(viewModel.isConvertButtonEnabled());
         outputNumber.setText(viewModel.getOutputNumber());
         errorText.setText(viewModel.getErrorMessage());
@@ -69,7 +69,7 @@ public final class ArabicRomanConverterForm {
         outputNumberFormat.setText(viewModel.getOutputNumberFormat());
     }
 
-    private void backBind() {
+    private void bindDataFromViewToViewModel() {
         viewModel.setInputNumber(inputNumber.getText());
     }
 
