@@ -157,7 +157,7 @@ public class NewtonMethodViewModel {
         return !function.isEmpty() && !derivative.isEmpty() && !leftPointOfRange.isEmpty()
                 && !rightPointOfRange.isEmpty();
     }
-    
+
     private void calculateRoot() {
         NewtonMethod newtonMethod = new NewtonMethod(function, derivative);
         try {
