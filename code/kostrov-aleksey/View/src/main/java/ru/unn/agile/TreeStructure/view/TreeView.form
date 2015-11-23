@@ -16,7 +16,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="449f3" class="javax.swing.JRadioButton" binding="search_by_keyRadioButton" default-binding="true">
+          <component id="449f3" class="javax.swing.JRadioButton" binding="searchRadioButton">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -40,7 +40,7 @@
               <text value="Insert"/>
             </properties>
           </component>
-          <component id="24b31" class="javax.swing.JButton" binding="DOButton" default-binding="true">
+          <component id="24b31" class="javax.swing.JButton" binding="buttonDo">
             <constraints>
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -58,7 +58,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="39339" class="javax.swing.JTextField" binding="inputKeyTextField" default-binding="true">
+          <component id="39339" class="javax.swing.JTextField" binding="textKey">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -69,7 +69,7 @@
               <text value="Input key"/>
             </properties>
           </component>
-          <component id="f811d" class="javax.swing.JTextField" binding="inputDataTextField" default-binding="true">
+          <component id="f811d" class="javax.swing.JTextField" binding="textData">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -90,13 +90,15 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="4bec" class="javax.swing.JTextArea" binding="textArea1" default-binding="true">
+          <component id="4bec" class="javax.swing.JTextArea" binding="textError">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="50"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <text value=""/>
+            </properties>
           </component>
         </children>
       </grid>

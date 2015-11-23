@@ -108,6 +108,8 @@ include "code/kostrov-aleksey/Model"
 project(":code/kostrov-aleksey/Model").name = "kostrov-aleksey-Model"
 include "code/kostrov-aleksey/View"
 project(":code/kostrov-aleksey/View").name = "kostrov-aleksey-View"
+include "code/kostrov-aleksey/ViewModel"
+project(":code/kostrov-aleksey/ViewModel").name = "kostrov-aleksey-ViewModel"
 
 // Kumaev Vasilij
 include "code/kumaev-vasily"

@@ -1,5 +1,5 @@
 dependencies {
-    compile project(':kostrov-aleksey-ViewModel')
+    compile project(':kostrov-aleksey-Model')
 }
 
 sourceSets {
