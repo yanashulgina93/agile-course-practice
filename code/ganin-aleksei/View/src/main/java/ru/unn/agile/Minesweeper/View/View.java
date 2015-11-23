@@ -35,6 +35,8 @@ public class View {
 
     public class BoardView extends Group {
 
+        private final CellView[][] cells;
+
         public class CellView extends Label {
             public CellView(final int x, final int y) {
                 setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -52,9 +54,6 @@ public class View {
                 });
             }
         }
-
-        private final CellView[][] cells;
-
 
         public BoardView(final int boardWidth, final int boardHeight) {
             cells = new CellView[boardHeight][boardWidth];
