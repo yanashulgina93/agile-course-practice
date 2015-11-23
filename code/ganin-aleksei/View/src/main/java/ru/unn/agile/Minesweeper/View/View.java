@@ -1,13 +1,9 @@
 package ru.unn.agile.Minesweeper.View;
 
-import javafx.event.*;
-import javafx.scene.*;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.*;
-import javafx.scene.image.*;
-import javafx.scene.Group;
-import javafx.scene.control.Label;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import ru.unn.agile.Minesweeper.viewmodel.ViewModel;
 
@@ -20,35 +16,54 @@ public class View {
 
     private static final int SMILE_POSITION_Y = 0;
     private static final int MINE_COUNTER_POSITION_Y = 70;
+    private static final int SMILE_SIZE = 50;
 
-    private Group root;
+    private static final int MINE_COUNTER_HEIGHT = 20;
+    private static final int MINE_COUNTER_WIDTH = 50;
 
-    private final BoardView board = new BoardView(
+    private final  BoardView board = new BoardView(
             minesweeperViewModel.getBoardWidth(),
             minesweeperViewModel.getBoardHeight()
     );
+    private final  JLabel smile;
+    private final  JLabel mineCounter;
 
-    private final Label smile;
-    private final Label mineCounter;
-
-
-    public class BoardView extends Group {
+    public class BoardView extends JLabel {
 
         private final CellView[][] cells;
 
-        public class CellView extends Label {
+        public class CellView extends JLabel {
             public CellView(final int x, final int y) {
-                setOnMouseClicked(new EventHandler<MouseEvent>() {
+                addMouseListener(new MouseListener() {
                     @Override
-                    public void handle(final MouseEvent mouseEvent) {
-                        if (mouseEvent.getButton() == MouseButton.PRIMARY) {
-                            minesweeperViewModel.openCell(x, y);
-                        }
-
-                        if (mouseEvent.getButton() == MouseButton.SECONDARY) {
+                    public void mouseClicked(final MouseEvent e) {
+                        if (SwingUtilities.isRightMouseButton(e)) {
                             minesweeperViewModel.markCell(x, y);
                         }
+                        if (SwingUtilities.isLeftMouseButton(e)) {
+                            minesweeperViewModel.openCell(x, y);
+                        }
                         binding();
+                    }
+
+                    @Override
+                    public void mousePressed(final MouseEvent e) {
+                        /* empty */
+                    }
+
+                    @Override
+                    public void mouseReleased(final MouseEvent e) {
+                        /* empty */
+                    }
+
+                    @Override
+                    public void mouseEntered(final MouseEvent e) {
+                        /* empty */
+                    }
+
+                    @Override
+                    public void mouseExited(final MouseEvent e) {
+                        /* empty */
                     }
                 });
             }
@@ -60,66 +75,97 @@ public class View {
                 cells[y] = new CellView[boardWidth];
                 for (int x = 0; x < boardWidth; x++) {
                     CellView cell = new CellView(x, y);
-                    cell.setLayoutX(x * getCellSize());
-                    cell.setLayoutY(y * getCellSize());
-                    getChildren().add(cell);
+                    cell.setBounds(y * CELL_SIZE, x * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                    add(cell);
                     cells[y][x] = cell;
                 }
             }
         }
     }
 
-
     public View() {
-        smile = new Label();
-        mineCounter = new Label();
-    }
 
-    public void start(final Stage primaryStage) {
+        JFrame frame = new JFrame("Сапер");
+        frame.setSize(minesweeperViewModel.getBoardWidth(), minesweeperViewModel.getBoardHeight());
 
-        primaryStage.setTitle("Сапер");
-
-        root = new Group();
-        Scene scene = new Scene(
-                root,
-                getWindowWidth(),
-                getWindowHeight()
-        );
-
-        smile.setLayoutX(getSmilePositionX());
-        smile.setLayoutY(getSmilePositionY());
-        smile.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        smile = new JLabel() {
             @Override
-            public void handle(final MouseEvent mouseEvent) {
-                minesweeperViewModel.newGame();
+            protected void paintComponent(final Graphics g) {
+                g.setColor(Color.WHITE);
+                g.fillRect(0, 0, getWidth(), getHeight());
+                super.paintComponent(g);
+            }
+        };
+
+        smile.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(final MouseEvent e) {
+                if (SwingUtilities.isLeftMouseButton(e)) {
+                    minesweeperViewModel.newGame();
+                }
                 binding();
             }
+
+            @Override
+            public void mousePressed(final MouseEvent es) {
+                /* empty */
+
+            }
+
+            @Override
+            public void mouseReleased(final MouseEvent es) {
+                /* empty */
+            }
+
+            @Override
+            public void mouseEntered(final MouseEvent es) {
+                /* empty */
+            }
+
+            @Override
+            public void mouseExited(final MouseEvent es) {
+                /* empty */
+            }
         });
-        root.getChildren().add(smile);
 
-        mineCounter.setLayoutX(getMineCounterPositionX());
-        mineCounter.setLayoutY(getMineCounterPositionY());
-        root.getChildren().add(mineCounter);
+        smile.setBounds(getSmilePositionX(), getSmilePositionY(), SIDEBAR_SIZE, SMILE_SIZE);
 
-        root.getChildren().add(board);
+        mineCounter = new JLabel();
+        mineCounter.setBounds(
+                getMineCounterPositionX(),
+                getMineCounterPositionY(),
+                MINE_COUNTER_WIDTH,
+                MINE_COUNTER_HEIGHT
+        );
 
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        frame.setSize(
+                minesweeperViewModel.getBoardWidth() * (CELL_SIZE + 1)
+                +  MINE_COUNTER_WIDTH,
+                minesweeperViewModel.getBoardHeight() * (CELL_SIZE + 1)
+        );
+        frame.add(smile);
+        frame.add(mineCounter);
+        frame.add(board);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
 
         binding();
+    }
+
+    public static void main(final String[] args) {
+        new View();
     }
 
     private void binding() {
 
         for (int y = 0; y < minesweeperViewModel.getBoardHeight(); y++) {
             for (int x = 0; x < minesweeperViewModel.getBoardWidth(); x++) {
-                board.cells[y][x].setGraphic(new ImageView(minesweeperViewModel.getCellIcon(x, y)));
+                board.cells[y][x].setIcon(minesweeperViewModel.getCellIcon(x, y));
             }
         }
 
         mineCounter.setText(minesweeperViewModel.getMineCounter());
-
-        smile.setGraphic(new ImageView(minesweeperViewModel.getSmileIcon()));
+        smile.setIcon(minesweeperViewModel.getSmileIcon());
     }
 
     public int getCellSize() {
@@ -148,9 +194,5 @@ public class View {
 
     public int getMineCounterPositionY() {
         return MINE_COUNTER_POSITION_Y;
-    }
-
-    public Parent getRoot() {
-        return root;
     }
 }

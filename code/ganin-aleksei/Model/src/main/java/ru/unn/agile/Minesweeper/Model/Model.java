@@ -8,7 +8,7 @@ public class Model {
     public static final int BOARD_HEIGHT = 32;
     public static final int BOARD_WIDTH = 32;
 
-    private static final int DEFAULT_MINES = 1000;
+    private static final int DEFAULT_MINES = 20;
 
     private boolean lost;
     private boolean end;

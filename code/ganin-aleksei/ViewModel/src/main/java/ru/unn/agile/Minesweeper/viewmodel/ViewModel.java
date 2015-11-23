@@ -1,33 +1,32 @@
 package ru.unn.agile.Minesweeper.viewmodel;
 
-import javafx.scene.image.*;
-import javafx.beans.property.SimpleStringProperty;
+import javax.swing.*;
+import java.awt.*;
+
 import ru.unn.agile.Minesweeper.Model.Model;
 
 public class ViewModel {
 
     private final Model minesweeperModel = new Model();
 
-    private final SimpleStringProperty mineCounter = new SimpleStringProperty();
+    private static ImageIcon flagIcon = new ImageIcon("images/flag_20x20.png");
+    private static ImageIcon closeIcon = new ImageIcon("images/close_20x20.png");
+    private static ImageIcon issueIcon = new ImageIcon("images/issue_20x20.png");
+    private static ImageIcon mineIcon = new ImageIcon("images/mine_20x20.png");
 
-    private static Image flagIcon = new Image("file:images/flag_20x20.png");
-    private static Image closeIcon = new Image("file:images/close_20x20.png");
-    private static Image issueIcon = new Image("file:images/issue_20x20.png");
-    private static Image mineIcon = new Image("file:images/mine_20x20.png");
+    private static ImageIcon val0Icon = new ImageIcon("images/val_0_20x20.png");
+    private static ImageIcon val1Icon = new ImageIcon("images/val_1_20x20.png");
+    private static ImageIcon val2Icon = new ImageIcon("images/val_2_20x20.png");
+    private static ImageIcon val3Icon = new ImageIcon("images/val_3_20x20.png");
+    private static ImageIcon val4Icon = new ImageIcon("images/val_4_20x20.png");
+    private static ImageIcon val5Icon = new ImageIcon("images/val_5_20x20.png");
+    private static ImageIcon val6Icon = new ImageIcon("images/val_6_20x20.png");
+    private static ImageIcon val7Icon = new ImageIcon("images/val_7_20x20.png");
+    private static ImageIcon val8Icon = new ImageIcon("images/val_8_20x20.png");
 
-    private static Image val0Icon = new Image("file:images/val_0_20x20.png");
-    private static Image val1Icon = new Image("file:images/val_1_20x20.png");
-    private static Image val2Icon = new Image("file:images/val_2_20x20.png");
-    private static Image val3Icon = new Image("file:images/val_3_20x20.png");
-    private static Image val4Icon = new Image("file:images/val_4_20x20.png");
-    private static Image val5Icon = new Image("file:images/val_5_20x20.png");
-    private static Image val6Icon = new Image("file:images/val_6_20x20.png");
-    private static Image val7Icon = new Image("file:images/val_7_20x20.png");
-    private static Image val8Icon = new Image("file:images/val_8_20x20.png");
-
-    private static Image smileIcon = new Image("file:images/smile_50x50.png");
-    private static Image deadIcon = new Image("file:images/dead_50x50.png");
-    private static Image winnerIcon = new Image("file:images/winner_50x50.png");
+    private static ImageIcon smileIcon = new ImageIcon("images/smile_50x50.png");
+    private static ImageIcon deadIcon = new ImageIcon("images/dead_50x50.png");
+    private static ImageIcon winnerIcon = new ImageIcon("images/winner_50x50.png");
 
     private static final int CELL_VALUE_0 = 0;
     private static final int CELL_VALUE_1 = 1;
@@ -55,7 +54,7 @@ public class ViewModel {
         minesweeperModel.markCell(x, y);
     }
 
-    public Image getCellIcon(final int x, final int y) {
+    public ImageIcon getCellIcon(final int x, final int y) {
         if (minesweeperModel.isCellClose(x, y)) {
             if (minesweeperModel.isCellFlag(x, y)) {
                 return flagIcon;
@@ -90,7 +89,7 @@ public class ViewModel {
         }
     }
 
-    public Image getSmileIcon() {
+    public ImageIcon getSmileIcon() {
         if (minesweeperModel.isGameEnd()) {
             if (minesweeperModel.isLost()) {
                 return deadIcon;
@@ -121,67 +120,67 @@ public class ViewModel {
         return minesweeperModel.getBoardWidth();
     }
 
-    public Image getFlagIcon() {
+    public ImageIcon getFlagIcon() {
         return flagIcon;
     }
 
-    public Image getCloseIcon() {
+    public ImageIcon getCloseIcon() {
         return closeIcon;
     }
 
-    public Image getIssueIcon() {
+    public ImageIcon getIssueIcon() {
         return issueIcon;
     }
 
-    public Image getMineIcon() {
+    public ImageIcon getMineIcon() {
         return mineIcon;
     }
 
-    public Image getVal0Icon() {
+    public ImageIcon getVal0Icon() {
         return val0Icon;
     }
 
-    public Image getVal1Icon() {
+    public ImageIcon getVal1Icon() {
         return val1Icon;
     }
 
-    public Image getVal2Icon() {
+    public ImageIcon getVal2Icon() {
         return val2Icon;
     }
 
-    public Image getVal3Icon() {
+    public ImageIcon getVal3Icon() {
         return val3Icon;
     }
 
-    public Image getVal4Icon() {
+    public ImageIcon getVal4Icon() {
         return val4Icon;
     }
 
-    public Image getVal5Icon() {
+    public ImageIcon getVal5Icon() {
         return val5Icon;
     }
 
-    public Image getVal6Icon() {
+    public ImageIcon getVal6Icon() {
         return val6Icon;
     }
 
-    public Image getVal7Icon() {
+    public ImageIcon getVal7Icon() {
         return val7Icon;
     }
 
-    public Image getVal8Icon() {
+    public ImageIcon getVal8Icon() {
         return val8Icon;
     }
 
-    public Image getSmileIco() {
+    public ImageIcon getSmileIco() {
         return smileIcon;
     }
 
-    public Image getDeadIcon() {
+    public ImageIcon getDeadIcon() {
         return deadIcon;
     }
 
-    public Image getWinnerIcon() {
+    public ImageIcon getWinnerIcon() {
         return winnerIcon;
     }
 }
