@@ -1,10 +1,9 @@
 apply from:   rootDir.getAbsolutePath() + '/code/config/scripts/javafx.plugin'
 
-dependencies {
-    compile project(':ganin-aleksei-Model')
+javafx {
+    mainClass 'ru.unn.agile.Minesweeper.viewmodel.ViewModel'
 }
 
-sourceSets {
-    main.java.srcDir 'src/main/java'
-    test.java.srcDir 'src/test/java'
+dependencies {
+    compile project(':ganin-aleksei-Model')
 }

@@ -12,7 +12,7 @@ import javafx.scene.control.Label;
 
 import ru.unn.agile.Minesweeper.viewmodel.ViewModel;
 
-public class View extends Application {
+public class View {
 
     private final ViewModel minesweeperViewModel = new ViewModel();
 
@@ -21,6 +21,8 @@ public class View extends Application {
 
     private static final int SMILE_POSITION_Y = 0;
     private static final int MINE_COUNTER_POSITION_Y = 70;
+
+    private Group root;
 
     private final BoardView board = new BoardView(
             minesweeperViewModel.getBoardWidth(),
@@ -75,14 +77,11 @@ public class View extends Application {
         mineCounter = new Label();
     }
 
-    public static void main(String[] args) {
-        Application.launch(args);
-    }
-    @Override public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) {
 
         primaryStage.setTitle("Сапер");
 
-        Group root = new Group();
+        root = new Group();
         Scene scene = new Scene(
                 root,
                 getWindowWidth(),
@@ -151,5 +150,9 @@ public class View extends Application {
 
     public int getMineCounterPositionY(){
         return MINE_COUNTER_POSITION_Y;
+    }
+
+    public Parent getRoot(){
+        return root;
     }
 }

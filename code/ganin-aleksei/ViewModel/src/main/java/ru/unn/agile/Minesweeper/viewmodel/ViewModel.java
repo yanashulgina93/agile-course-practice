@@ -1,12 +1,13 @@
 package ru.unn.agile.Minesweeper.viewmodel;
 
-import javafx.scene.image.Image;
+import javafx.scene.image.*;
 import javafx.beans.property.SimpleStringProperty;
 import ru.unn.agile.Minesweeper.Model.Model;
 
 public class ViewModel {
 
     private final Model minesweeperModel = new Model();
+
     private final SimpleStringProperty mineCounter = new SimpleStringProperty();
 
     private static Image flagIcon = new Image("file:images/flag_20x20.png");
@@ -120,7 +121,6 @@ public class ViewModel {
     public int getBoardWidth() {
         return minesweeperModel.getBoardWidth();
     }
-
 
     public Image getFlagIcon() {
         return flagIcon;

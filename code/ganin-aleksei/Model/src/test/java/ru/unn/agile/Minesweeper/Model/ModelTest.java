@@ -142,12 +142,12 @@ public class ModelTest {
     }
 
     @Test
-    public void getBoardHeight(){
+    public void getBoardHeight() {
         assertEquals(minesweeper.BOARD_HEIGHT, minesweeper.getBoardHeight());
     }
 
     @Test
-    public void getBoardWidth(){
+    public void getBoardWidth() {
         Model model = new Model();
         assertEquals(minesweeper.BOARD_WIDTH, minesweeper.getBoardWidth());
     }
