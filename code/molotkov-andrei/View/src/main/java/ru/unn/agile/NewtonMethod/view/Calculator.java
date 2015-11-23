@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
 
 public final class Calculator {
 
-    private NewtonMethodViewModel viewModel;
+    private final NewtonMethodViewModel viewModel;
     private JPanel mainPanel;
     private JTextField txtLeftPont;
     private JTextField txtRightPoint;
@@ -20,43 +20,43 @@ public final class Calculator {
     private JLabel labelStatus;
     private JTextField txtDerivative;
 
-    private Calculator() {
-    }
+    private static final int ENTER_KEY_CODE = 10;
 
     private Calculator(final NewtonMethodViewModel viewModel) {
         this.viewModel = viewModel;
-        backBind();
+        newtonMethodBind();
 
         calculateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                bind();
-                viewModel.calculateRoot();
-                backBind();
+                newtonMethodBackBind();
+                viewModel.processKeyInTextField(ENTER_KEY_CODE);
+                newtonMethodBind();
             }
         });
 
         KeyAdapter keyListener = new KeyAdapter() {
             @Override
             public void keyReleased(final KeyEvent e) {
-                bind();
+                newtonMethodBackBind();
                 viewModel.processKeyInTextField(e.getKeyCode());
-                backBind();
+                newtonMethodBind();
             }
         };
+
         txtLeftPont.addKeyListener(keyListener);
         txtRightPoint.addKeyListener(keyListener);
         txtFunction.addKeyListener(keyListener);
         txtDerivative.addKeyListener(keyListener);
     }
 
-    private void backBind() {
+    private void newtonMethodBind() {
         calculateButton.setEnabled(viewModel.isCalculateButtonEnabled());
         txtRoot.setText(String.valueOf(viewModel.getRoot()));
         labelStatus.setText(viewModel.getStatus());
     }
 
-    private void bind() {
+    private void newtonMethodBackBind() {
         viewModel.setFunction(txtFunction.getText());
         viewModel.setDerivative(txtDerivative.getText());
         viewModel.setLeftPointOfRange(txtLeftPont.getText());
