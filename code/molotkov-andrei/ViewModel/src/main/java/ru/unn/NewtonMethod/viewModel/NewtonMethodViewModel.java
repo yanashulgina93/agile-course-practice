@@ -1,14 +1,7 @@
 package ru.unn.NewtonMethod.viewModel;
 
+import ru.unn.agile.NewtonMethod.ConverterToPolishNotation;
 import ru.unn.agile.NewtonMethod.NewtonMethod;
-import ru.unn.agile.NewtonMethod.NoMonotonicFunctionException;
-import ru.unn.agile.NewtonMethod.NoRootInRangeException;
-
-class BadFunctionException extends Exception {
-    public BadFunctionException(final String message) {
-        super(message);
-    }
-}
 
 public class NewtonMethodViewModel {
     private boolean isCalculateButtonEnabled;
@@ -16,9 +9,9 @@ public class NewtonMethodViewModel {
     private String derivative;
     private String leftPointOfRange;
     private String rightPointOfRange;
-    private String status;
+    private Status status;
     private double root;
-    private ParserFunction parser;
+    private ConverterToPolishNotation converter;
 
     public NewtonMethodViewModel() {
         isCalculateButtonEnabled = false;
@@ -30,95 +23,48 @@ public class NewtonMethodViewModel {
         status = Status.WAITING;
     }
 
+    public enum KeyboardKeys {
+        ENTER(10),
+        ANY(777);
+        private int key;
+
+        KeyboardKeys(final int key) {
+            this.key = key;
+        }
+
+        public int getKey() {
+            return key;
+        }
+    }
+
+    public enum Status {
+        WAITING("Please provide input data"),
+        READY("Press 'Calculate' or Enter"),
+        BAD_FORMAT_RANGE("Bad format of range"),
+        BAD_FORMAT_FUNCTION("Incorrect function"),
+        SUCCESS("Success"),
+        NO_ROOT("Root is not in range");
+        private String message;
+
+        Status(final String message) {
+            this.message = message;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+    }
+
     public boolean isCalculateButtonEnabled() {
         return isCalculateButtonEnabled;
     }
 
     public void processKeyInTextField(final int keyCode) {
-        parseInputRange();
+        parseInput();
 
-        if (keyCode == KeyboardKeys.ENTER) {
+        if (keyCode == KeyboardKeys.ENTER.getKey()) {
             enterPressed();
         }
-    }
-
-    private void enterPressed() {
-        if (isCalculateButtonEnabled()) {
-            calculateRoot();
-        }
-    }
-
-    private boolean parseInputRange() {
-        try {
-            if (!leftPointOfRange.isEmpty() && !rightPointOfRange.isEmpty() && !isCorrectRange()) {
-                throw new Exception("Incorrect range");
-            }
-            if (!leftPointOfRange.isEmpty()) {
-                Double.parseDouble(leftPointOfRange);
-            }
-            if (!rightPointOfRange.isEmpty()) {
-                Double.parseDouble(rightPointOfRange);
-
-            }
-            if (!function.isEmpty()) {
-                parser = new ParserFunction();
-                if (!parser.isCorrectFunction(function)) {
-                    throw new BadFunctionException("Incorrect function");
-                }
-            }
-            if (!derivative.isEmpty()) {
-                parser = new ParserFunction();
-                if (!parser.isCorrectFunction(derivative)) {
-                    throw new BadFunctionException("Incorrect derivative");
-                }
-            }
-        } catch (BadFunctionException e) {
-            status = Status.BAD_FORMAT_FUNCTION;
-            isCalculateButtonEnabled = false;
-            return false;
-        } catch (Exception e) {
-            status = Status.BAD_FORMAT_RANGE;
-            isCalculateButtonEnabled = false;
-            return false;
-        }
-
-        isCalculateButtonEnabled = isInputAvailable();
-        if (isCalculateButtonEnabled) {
-            status = Status.READY;
-        } else {
-
-            status = Status.WAITING;
-        }
-        return isCalculateButtonEnabled;
-    }
-
-    private boolean isCorrectRange() {
-        return Double.parseDouble(leftPointOfRange) < Double.parseDouble(rightPointOfRange);
-    }
-
-    private boolean isInputAvailable() {
-        return !function.isEmpty() && !derivative.isEmpty() && !leftPointOfRange.isEmpty()
-                && !rightPointOfRange.isEmpty();
-    }
-
-
-    public void calculateRoot() {
-        if (!parseInputRange()) {
-            return;
-        }
-
-        NewtonMethod newtonMethod = new NewtonMethod(function, derivative);
-        try {
-            root = newtonMethod.searchRoot(Double.parseDouble(leftPointOfRange),
-                    Double.parseDouble(rightPointOfRange));
-        } catch (NoMonotonicFunctionException e) {
-            status = Status.NO_MONOTONIC;
-            return;
-        } catch (NoRootInRangeException e) {
-            status = Status.NO_ROOT;
-            return;
-        }
-        status = Status.SUCCESS;
     }
 
     public void setFunction(final String function) {
@@ -154,18 +100,74 @@ public class NewtonMethodViewModel {
     }
 
     public String getStatus() {
-        return status;
+        return status.getMessage();
     }
 
-    public final class Status {
-        public static final String WAITING = "Please provide input data";
-        public static final String READY = "Press 'Calculate' or Enter";
-        public static final String BAD_FORMAT_RANGE = "Bad format of range";
-        public static final String BAD_FORMAT_FUNCTION = "Incorrect function";
-        public static final String SUCCESS = "Success";
-        public static final String NO_MONOTONIC = "Function is not monotonic in range";
-        public static final String NO_ROOT = "Root is not in range";
+    private void enterPressed() {
+        if (isCalculateButtonEnabled()) {
+            calculateRoot();
+        }
+    }
 
-        private Status() { }
+    private void parseInput() {
+        try {
+            if (!leftPointOfRange.isEmpty()) {
+                Double.parseDouble(leftPointOfRange);
+            }
+            if (!rightPointOfRange.isEmpty()) {
+                Double.parseDouble(rightPointOfRange);
+
+            }
+            if (!function.isEmpty()) {
+                converter = new ConverterToPolishNotation();
+                converter.convert(function);
+            }
+            if (!derivative.isEmpty()) {
+                converter = new ConverterToPolishNotation();
+                converter.convert(derivative);
+            }
+        } catch (ArithmeticException e) {
+            status = Status.BAD_FORMAT_FUNCTION;
+            isCalculateButtonEnabled = false;
+            return;
+        } catch (Exception e) {
+            status = Status.BAD_FORMAT_RANGE;
+            isCalculateButtonEnabled = false;
+            return;
+        }
+
+        isCalculateButtonEnabled = isInputAvailable();
+        if (isCalculateButtonEnabled) {
+            if (!isRangeCorrect()) {
+                status = Status.BAD_FORMAT_RANGE;
+                isCalculateButtonEnabled = false;
+                return;
+            }
+            status = Status.READY;
+        } else {
+            status = Status.WAITING;
+        }
+    }
+
+    private boolean isRangeCorrect() {
+        return Double.parseDouble(leftPointOfRange) < Double.parseDouble(rightPointOfRange);
+    }
+
+    private boolean isInputAvailable() {
+        return !function.isEmpty() && !derivative.isEmpty() && !leftPointOfRange.isEmpty()
+                && !rightPointOfRange.isEmpty();
+    }
+
+
+    private void calculateRoot() {
+        NewtonMethod newtonMethod = new NewtonMethod(function, derivative);
+        try {
+            root = newtonMethod.searchRoot(Double.parseDouble(leftPointOfRange),
+                                           Double.parseDouble(rightPointOfRange));
+        } catch (IllegalArgumentException e) {
+            status = Status.NO_ROOT;
+            return;
+        }
+        status = Status.SUCCESS;
     }
 }
