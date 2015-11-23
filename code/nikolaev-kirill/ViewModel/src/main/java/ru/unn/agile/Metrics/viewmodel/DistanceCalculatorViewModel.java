@@ -16,8 +16,8 @@ public class DistanceCalculatorViewModel {
     public static final String HELP_MESSAGE = "Provide input vectors: decimal or integer numbers "
             + "separated by single whitespaces";
     private final StringProperty result = new SimpleStringProperty();
-    private final StringProperty firstVec = new SimpleStringProperty();
-    private final StringProperty secondVec = new SimpleStringProperty();
+    private final StringProperty firstVector = new SimpleStringProperty();
+    private final StringProperty secondVector = new SimpleStringProperty();
     private final StringProperty statusMessage = new SimpleStringProperty();
     private final BooleanProperty calculateButtonDisabled = new SimpleBooleanProperty();
     private final StringProperty metricName = new SimpleStringProperty();
@@ -26,16 +26,16 @@ public class DistanceCalculatorViewModel {
 
     public DistanceCalculatorViewModel() {
         result.set("");
-        firstVec.set("");
-        secondVec.set("");
+        firstVector.set("");
+        secondVector.set("");
         statusMessage.set(HELP_MESSAGE);
         calculateButtonDisabled.set(true);
         metricName.set("RHO INF");
 
         final List<StringProperty> fields = new ArrayList<StringProperty>() {
             {
-                add(firstVec);
-                add(secondVec);
+                add(firstVector);
+                add(secondVector);
             }
         };
 
@@ -46,18 +46,18 @@ public class DistanceCalculatorViewModel {
         }
     }
 
-    public StringProperty firstVecProperty() {
-        return firstVec;
+    public StringProperty firstVectorProperty() {
+        return firstVector;
     }
-    public void setFirstVec(final String vectorString) {
-        firstVec.set(vectorString);
+    public void setFirstVector(final String vectorString) {
+        firstVector.set(vectorString);
     }
 
-    public StringProperty secondVecProperty() {
-        return secondVec;
+    public StringProperty secondVectorProperty() {
+        return secondVector;
     }
-    public void setSecondVec(final String vectorString) {
-        secondVec.set(vectorString);
+    public void setSecondVector(final String vectorString) {
+        secondVector.set(vectorString);
     }
 
     public void setMetric(final String metricString) {
@@ -86,8 +86,8 @@ public class DistanceCalculatorViewModel {
     }
 
     public String getInputStatus() {
-        String firstVector = firstVec.get();
-        String secondVector = secondVec.get();
+        String firstVector = this.firstVector.get();
+        String secondVector = this.secondVector.get();
         boolean isBadInputFormat = !checkVectorString(firstVector)
                 || !checkVectorString(secondVector);
         if (isBadInputFormat) {
@@ -114,8 +114,8 @@ public class DistanceCalculatorViewModel {
         if (calculateButtonDisabled.get()) {
             throw new IllegalStateException("Calculation is disabled: Empty or incorrect input");
         }
-        float[] firstVector = parseVector(firstVec.get());
-        float[] secondVector = parseVector(secondVec.get());
+        float[] firstVector = parseVector(this.firstVector.get());
+        float[] secondVector = parseVector(this.secondVector.get());
         Metric metric = parseMetric(metricName.get());
         result.set(Float.toString(calculator.calculateDistance(firstVector, secondVector,
                 metric)));

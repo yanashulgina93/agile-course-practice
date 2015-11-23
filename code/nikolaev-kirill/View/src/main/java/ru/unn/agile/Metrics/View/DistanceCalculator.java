@@ -14,23 +14,23 @@ public class DistanceCalculator {
     @FXML
     private DistanceCalculatorViewModel viewModel;
     @FXML
-    private TextField txt1stVector;
+    private TextField txtField1stVector;
     @FXML
-    private TextField txt2ndVector;
+    private TextField txtField2ndVector;
     @FXML
     private Button btnCalculate;
     @FXML
-    private ToggleGroup tgMetrics;
+    private ToggleGroup toggleGroupMetrics;
     @FXML
-    private RadioButton rbRhoInf;
-    private RadioButton selected;
+    private RadioButton radioBtnRhoInf;
+    private RadioButton radioBtnSelected;
 
     @FXML
     public void initialize() {
-        selected = rbRhoInf;
+        radioBtnSelected = radioBtnRhoInf;
 
-        txt1stVector.textProperty().bindBidirectional(viewModel.firstVecProperty());
-        txt2ndVector.textProperty().bindBidirectional(viewModel.secondVecProperty());
+        txtField1stVector.textProperty().bindBidirectional(viewModel.firstVectorProperty());
+        txtField2ndVector.textProperty().bindBidirectional(viewModel.secondVectorProperty());
 
         btnCalculate.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -39,12 +39,12 @@ public class DistanceCalculator {
             }
         });
 
-        tgMetrics.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+        toggleGroupMetrics.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             @Override
             public void changed(final ObservableValue<? extends Toggle> observable,
                                 final Toggle oldValue, final Toggle newValue) {
-                selected = (RadioButton) newValue.getToggleGroup().getSelectedToggle();
-                viewModel.setMetric(selected.getText());
+                radioBtnSelected = (RadioButton) newValue.getToggleGroup().getSelectedToggle();
+                viewModel.setMetric(radioBtnSelected.getText());
             }
         });
     }
