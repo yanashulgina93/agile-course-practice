@@ -29,7 +29,6 @@ public class CanCalculateValueOfFunction {
     @Parameterized.Parameters
     public static List<Object[]> testDataFunc() {
         return Arrays.asList(new Object[][]{
-                {"=", 0.0, 0.0},
                 {"3=", 0.0, 3},
                 {"3*x+5=", 1.0, 8.0},
                 {"3+x=", 4.0, 7.0},

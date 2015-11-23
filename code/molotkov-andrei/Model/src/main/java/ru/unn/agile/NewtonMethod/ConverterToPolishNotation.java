@@ -7,55 +7,88 @@ enum Priority { low, equally, bracket, addDiff, multDiv }
 public class ConverterToPolishNotation {
     private final Stack<String> reversPolishStack;
     private final Stack<String> operationStak;
+    private final Stack<Character> leftBracketsStack;
     private int indexChar;
 
     public ConverterToPolishNotation() {
         reversPolishStack = new Stack<>();
         operationStak     = new Stack<>();
+        leftBracketsStack = new Stack<>();
         indexChar = 0;
     }
 
     public String convert(final String infixExpression) {
-        char ch;
+        char ch = infixExpression.charAt(0);
+        if (!isCorrectFirstCharacter(ch)) {
+            throw  new ArithmeticException("Incorrect first character");
+        }
+        char tempCh;
         do {
             ch = infixExpression.charAt(indexChar++);
             if (Character.isAlphabetic(ch)) {
                 reversPolishStack.push(Character.toString(ch));
+                tempCh = infixExpression.charAt(indexChar);
+                if (!isAllowableCaseForVariable(tempCh)) {
+                    throw new ArithmeticException("Incorrect character after variable");
+                }
             } else if (Character.isDigit(ch)) {
+                tempCh = infixExpression.charAt(indexChar);
+                if (!isAllowableCaseForDigit(tempCh)) {
+                    throw new ArithmeticException("Incorrect character after digit");
+                }
                 indexChar--;
                 collectingNumber(infixExpression);
             } else if (ch == '(') {
                 operationStak.push(Character.toString(ch));
+                leftBracketsStack.push(ch);
+                tempCh = infixExpression.charAt(indexChar);
+                if (!isAllowableCaseForLeftBracket(tempCh)) {
+                    throw new ArithmeticException("Incorrect character after left bracket");
+                }
             } else if (ch == ')') {
+                if (leftBracketsStack.isEmpty()) {
+                    throw new ArithmeticException("Missing left bracket");
+                }
+                leftBracketsStack.pop();
+                tempCh = infixExpression.charAt(indexChar);
+                if (!isAllowableCaseForRightBracket(tempCh)) {
+                    throw new ArithmeticException("Incorrect character after right bracket");
+                }
                 calculateInBrackets();
             } else if (isOperator(ch)) {
                 setOperatorToStack(ch);
+                if (ch == '=') {
+                    break;
+                }
+                tempCh = infixExpression.charAt(indexChar);
+                if (!isAllowableCaseForOperator(tempCh)) {
+                    throw new ArithmeticException("Incorrect character after operator");
+                }
             }
         } while (ch != '=' && indexChar < infixExpression.length());
-
         return createPolishExpression();
     }
 
     private Priority getOperationPriority(final char operator) {
-        Priority prioritet = Priority.low;
+        Priority priority = Priority.low;
         switch (operator) {
             case '*':
             case '/':
-                prioritet = Priority.multDiv;
+                priority = Priority.multDiv;
                 break;
             case '+':
             case '-':
-                prioritet = Priority.addDiff;
+                priority = Priority.addDiff;
                 break;
             case '(':
-                prioritet = Priority.bracket;
+                priority = Priority.bracket;
                 break;
             case '=':
-                prioritet = Priority.equally;
+                priority = Priority.equally;
                 break;
             default:
         }
-        return prioritet;
+        return priority;
     }
 
     private boolean isOperator(final char character) {
@@ -122,5 +155,39 @@ public class ConverterToPolishNotation {
             }
             reversPolishStack.push(Character.toString(tempChar));
         }
+    }
+
+    private boolean isAllowableCaseForVariable(final char character) {
+        return isOperator(character) || isRightBracket(character);
+    }
+
+    private boolean isAllowableCaseForDigit(final char character) {
+        return isAllowableCaseForVariable(character) || Character.isDigit(character);
+    }
+
+    private boolean isAllowableCaseForOperator(final char character) {
+        return Character.isAlphabetic(character) || Character.isDigit(character)
+                || isLeftBracket(character);
+    }
+
+    private boolean isCorrectFirstCharacter(final char character) {
+        return isAllowableCaseForOperator(character);
+    }
+
+    private boolean isAllowableCaseForLeftBracket(final char character) {
+        return Character.isAlphabetic(character) || Character.isDigit(character)
+                || isRightBracket(character);
+    }
+
+    private boolean isAllowableCaseForRightBracket(final char character) {
+        return isOperator(character) || isRightBracket(character);
+    }
+
+    private boolean isRightBracket(final char character) {
+        return character == ')';
+    }
+
+    private boolean isLeftBracket(final char character) {
+        return character == '(';
     }
 }
