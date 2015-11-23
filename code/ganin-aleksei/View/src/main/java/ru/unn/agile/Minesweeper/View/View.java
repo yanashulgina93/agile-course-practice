@@ -77,7 +77,7 @@ public class View {
         mineCounter = new Label();
     }
 
-    public void start(Stage primaryStage) {
+    public void start(final Stage primaryStage) {
 
         primaryStage.setTitle("Сапер");
 
