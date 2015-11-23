@@ -11,10 +11,5 @@ public class ViewTest {
     public void fakeTest() {
         fail("No tests for view");
     }
-
-    @Test
-    public void defaultSmileIconIsSmileIcon() {
-        assertEquals(true, true);
-    }
 }
 
