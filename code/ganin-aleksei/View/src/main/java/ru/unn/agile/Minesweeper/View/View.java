@@ -36,10 +36,10 @@ public class View {
     public class BoardView extends Group {
 
         public class CellView extends Label {
-            public CellView(final int x, final int y){
+            public CellView(final int x, final int y) {
                 setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
-                    public void handle(MouseEvent mouseEvent) {
+                    public void handle(final MouseEvent mouseEvent) {
                         if (mouseEvent.getButton() == MouseButton.PRIMARY) {
                             minesweeperViewModel.openCell(x, y);
                         }
@@ -56,7 +56,7 @@ public class View {
         private final CellView[][] cells;
 
 
-        public BoardView(final int boardWidth, final int boardHeight){
+        public BoardView(final int boardWidth, final int boardHeight) {
             cells = new CellView[boardHeight][boardWidth];
             for (int y = 0; y < boardHeight; y++) {
                 cells[y] = new CellView[boardWidth];
@@ -72,7 +72,7 @@ public class View {
     }
 
 
-    public View(){
+    public View() {
         smile = new Label();
         mineCounter = new Label();
     }
@@ -92,7 +92,7 @@ public class View {
         smile.setLayoutY(getSmilePositionY());
         smile.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent mouseEvent) {
+            public void handle(final MouseEvent mouseEvent) {
                 minesweeperViewModel.newGame();
                 binding();
             }
@@ -111,10 +111,10 @@ public class View {
         binding();
     }
 
-    private void binding(){
+    private void binding() {
 
-        for(int y = 0; y < minesweeperViewModel.getBoardHeight(); y++){
-            for(int x = 0; x < minesweeperViewModel.getBoardWidth(); x++){
+        for (int y = 0; y < minesweeperViewModel.getBoardHeight(); y++) {
+            for (int x = 0; x < minesweeperViewModel.getBoardWidth(); x++) {
                 board.cells[y][x].setGraphic(new ImageView(minesweeperViewModel.getCellIcon(x, y)));
             }
         }
@@ -124,35 +124,35 @@ public class View {
         smile.setGraphic(new ImageView(minesweeperViewModel.getSmileIcon()));
     }
 
-    public int getCellSize(){
+    public int getCellSize() {
         return CELL_SIZE;
     }
 
-    public int getWindowWidth(){
+    public int getWindowWidth() {
         return  minesweeperViewModel.getBoardWidth() * CELL_SIZE + SIDEBAR_SIZE;
     }
 
-    public int getWindowHeight(){
+    public int getWindowHeight() {
         return minesweeperViewModel.getBoardHeight() * CELL_SIZE;
     }
 
-    public int getSmilePositionX(){
+    public int getSmilePositionX() {
         return minesweeperViewModel.getBoardWidth() * CELL_SIZE;
     }
 
-    public int getSmilePositionY(){
+    public int getSmilePositionY() {
         return SMILE_POSITION_Y;
     }
 
-    public int getMineCounterPositionX(){
+    public int getMineCounterPositionX() {
         return minesweeperViewModel.getBoardWidth() * CELL_SIZE;
     }
 
-    public int getMineCounterPositionY(){
+    public int getMineCounterPositionY() {
         return MINE_COUNTER_POSITION_Y;
     }
 
-    public Parent getRoot(){
+    public Parent getRoot() {
         return root;
     }
 }
