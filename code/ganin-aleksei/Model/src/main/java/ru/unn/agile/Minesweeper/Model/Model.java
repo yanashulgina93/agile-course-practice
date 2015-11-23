@@ -5,8 +5,8 @@ import java.util.Random;
 
 public class Model {
 
-    public static final int BOARD_HEIGHT = 40;
-    public static final int BOARD_WIDTH = 60;
+    public static final int BOARD_HEIGHT = 32;
+    public static final int BOARD_WIDTH = 32;
 
     private static final int DEFAULT_MINES = 1000;
 

@@ -77,7 +77,7 @@ public class ModelTest {
     @Test
     public void whenOpenAllFreeCellsIsGameEndIsTrue() {
         minesweeper.boardClear();
-        minesweeper.openCell(0, 1);
+        minesweeper.openCell(0, 0);
         assertTrue(minesweeper.isGameEnd());
     }
 
