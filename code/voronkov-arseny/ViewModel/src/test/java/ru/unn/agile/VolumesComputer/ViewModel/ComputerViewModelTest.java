@@ -93,4 +93,31 @@ public class ComputerViewModelTest {
         m_viewModel.parse();
         assertFalse(m_viewModel.isInputCorrect());
     }
+    @Test
+    public void parseThreeGoodParameters() {
+        m_viewModel.setFigure(FigureName.CUBOID);
+        m_viewModel.setParameter1("2.0");
+        m_viewModel.setParameter2("3.0");
+        m_viewModel.setParameter3("4.0");
+        m_viewModel.parse();
+        assertTrue(m_viewModel.isInputCorrect());
+    }
+    @Test
+    public void parseThreeBadParameters() {
+        m_viewModel.setFigure(FigureName.CUBOID);
+        m_viewModel.setParameter1("2.0");
+        m_viewModel.setParameter2("3.0");
+        m_viewModel.setParameter3("oioioi");
+        m_viewModel.parse();
+        assertFalse(m_viewModel.isInputCorrect());
+    }
+    @Test
+    public void parseThreeEmptyParameters() {
+        m_viewModel.setFigure(FigureName.CUBOID);
+        m_viewModel.setParameter1("");
+        m_viewModel.setParameter2("");
+        m_viewModel.setParameter3("");
+        m_viewModel.parse();
+        assertFalse(m_viewModel.isInputCorrect());
+    }
 }
