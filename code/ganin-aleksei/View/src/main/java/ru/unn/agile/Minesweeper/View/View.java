@@ -1,14 +1,14 @@
 package ru.unn.agile.Minesweeper.View;
-
+/*
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import ru.unn.agile.Minesweeper.viewmodel.ViewModel;
-
+*/
 public class View {
-
+/*
     private final ViewModel minesweeperViewModel = new ViewModel();
 
     public static final int CELL_SIZE = 20;
@@ -47,22 +47,22 @@ public class View {
 
                     @Override
                     public void mousePressed(final MouseEvent e) {
-                        /* empty */
+                        // empty
                     }
 
                     @Override
                     public void mouseReleased(final MouseEvent e) {
-                        /* empty */
+                        // empty
                     }
 
                     @Override
                     public void mouseEntered(final MouseEvent e) {
-                        /* empty */
+                        // empty
                     }
 
                     @Override
                     public void mouseExited(final MouseEvent e) {
-                        /* empty */
+                        // empty
                     }
                 });
             }
@@ -81,9 +81,9 @@ public class View {
             }
         }
     }
-
+*/
     public View() {
-
+/*
         JFrame frame = new JFrame("Сапер");
         frame.setSize(minesweeperViewModel.getBoardWidth(), minesweeperViewModel.getBoardHeight());
 
@@ -107,23 +107,23 @@ public class View {
 
             @Override
             public void mousePressed(final MouseEvent es) {
-                /* empty */
+                // empty
 
             }
 
             @Override
             public void mouseReleased(final MouseEvent es) {
-                /* empty */
+                // empty
             }
 
             @Override
             public void mouseEntered(final MouseEvent es) {
-                /* empty */
+                // empty
             }
 
             @Override
             public void mouseExited(final MouseEvent es) {
-                /* empty */
+                // empty
             }
         });
 
@@ -153,8 +153,9 @@ public class View {
         frame.setVisible(true);
 
         binding();
+        */
     }
-
+/*
     private void binding() {
 
         for (int y = 0; y < minesweeperViewModel.getBoardHeight(); y++) {
@@ -170,4 +171,5 @@ public class View {
     public int getCellSize() {
         return CELL_SIZE;
     }
+    */
 }
