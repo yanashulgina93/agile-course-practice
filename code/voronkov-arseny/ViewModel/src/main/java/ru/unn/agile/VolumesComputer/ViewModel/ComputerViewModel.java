@@ -8,11 +8,13 @@ public class ComputerViewModel {
     private double m_parameter2;
     private double m_parameter3;
     private FigureName m_figureName;
+    private boolean m_inputCorrect;
 
     public ComputerViewModel() {
         m_parameter1str = m_parameter2str = m_parameter3str = "";
         m_parameter1 = m_parameter2 = m_parameter3 = 0.0;
         m_figureName = FigureName.CUBOID;
+        m_inputCorrect = false;
     }
     public void setParameter1(final String parameterString) {
         m_parameter1str = parameterString;
@@ -47,5 +49,35 @@ public class ComputerViewModel {
     public boolean isParameter3enabled() {
         return m_figureName.getParametersCount() >= 3;
     }
+    public boolean isInputCorrect() {
+        return m_inputCorrect;
+    }
+    public void parse() {
+        final int paramsCount = m_figureName.getParametersCount();
+        m_inputCorrect = true;
+        if (paramsCount < 1) {
+            return;
+        }
+        if (paramsCount > 3) {
+            m_inputCorrect = false;
+            return;
+        }
+        m_parameter1 = parseParameter(m_parameter1str);
+        if (m_inputCorrect && paramsCount > 1) {
+            m_parameter2 = parseParameter(m_parameter2str);
+        }
+        if (m_inputCorrect && paramsCount > 2) {
+            m_parameter3 = parseParameter(m_parameter3str);
+        }
+    }
 
+    private double parseParameter(final String parameterString) {
+        double res = 0.0;
+        try {
+            res = Double.valueOf(m_parameter1str);
+        } catch (NumberFormatException e) {
+            m_inputCorrect = false;
+        }
+        return res;
+    }
 }

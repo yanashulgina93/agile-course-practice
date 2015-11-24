@@ -69,4 +69,12 @@ public class ComputerViewModelTest {
             }
         }
     }
+    @Test
+    public void parseTwoGoodParameters() {
+        m_viewModel.setFigure(FigureName.SPHEROID);
+        m_viewModel.setParameter1("2.0");
+        m_viewModel.setParameter2("3.0");
+        m_viewModel.parse();
+        assertTrue(m_viewModel.isInputCorrect());
+    }
 }
