@@ -69,13 +69,94 @@ public class DequeViewModel {
     }
 
     public enum Action {
-        PushFront, PushBack, PopFront, PopBack, Clear, Check_if_contains
+        PushFront {
+            @Override
+            public void doAction() {
+                operations.pushFront();
+            }
+
+            @Override
+            public boolean getEnabled() {
+                return viewModel.isPushActionEnabled();
+            }
+        },
+        PushBack {
+            @Override
+            public void doAction() {
+                operations.pushBack();
+            }
+
+            @Override
+            public boolean getEnabled() {
+                return viewModel.isPushActionEnabled();
+            }
+        },
+        PopFront {
+            @Override
+            public void doAction() {
+                operations.popFront();
+            }
+
+            @Override
+            public boolean getEnabled() {
+                return viewModel.isPopActionEnabled();
+            }
+        },
+        PopBack {
+            @Override
+            public void doAction() {
+                operations.popBack();
+            }
+
+            @Override
+            public boolean getEnabled() {
+                return viewModel.isPopActionEnabled();
+            }
+        },
+        Clear {
+            @Override
+            public void doAction() {
+                operations.clear();
+            }
+
+            @Override
+            public boolean getEnabled() {
+                return viewModel.isClearActionEnabled();
+            }
+        },
+        Check_if_contains {
+            @Override
+            public void doAction() {
+                operations.contains();
+            }
+
+            @Override
+            public boolean getEnabled() {
+                return viewModel.isCheckActionEnabled();
+            }
+        };
+
+        private static OperationsWithDeque operations;
+        private static DequeViewModel viewModel;
+
+        public void setOperations(final OperationsWithDeque operations) {
+            Action.operations = operations;
+        }
+
+        public void setViewModel(final DequeViewModel viewModel) {
+            Action.viewModel = viewModel;
+        }
+
+        public abstract void doAction();
+        public abstract boolean getEnabled();
     }
 
     public DequeViewModel() {
         deque = new Deque<>();
         operationsWithDeque = new OperationsWithDeque();
         action = Action.PushFront;
+        action.setOperations(operationsWithDeque);
+        action.setViewModel(this);
     }
 
     public OperationsWithDeque getOperationsWithDeque() {
@@ -91,24 +172,7 @@ public class DequeViewModel {
     }
 
     private void updateDoActionButtonEnabled() {
-        switch (action) {
-            case PushFront:
-            case PushBack:
-                isDoActionButtonEnabled = isPushActionEnabled;
-                break;
-            case PopFront:
-            case PopBack:
-                isDoActionButtonEnabled = isPopActionEnabled;
-                break;
-            case Clear:
-                isDoActionButtonEnabled = isClearActionEnabled;
-                break;
-            case Check_if_contains:
-                isDoActionButtonEnabled = isCheckActionEnabled;
-                break;
-            default:
-                break;
-        }
+        isDoActionButtonEnabled = action.getEnabled();
     }
 
     public void setInputNumber(final String inputNumber) {
@@ -167,27 +231,6 @@ public class DequeViewModel {
     }
 
     public void doAction() {
-        switch (action) {
-            case PushFront:
-                operationsWithDeque.pushFront();
-                break;
-            case PushBack:
-                operationsWithDeque.pushBack();
-                break;
-            case PopFront:
-                operationsWithDeque.popFront();
-                break;
-            case PopBack:
-                operationsWithDeque.popBack();
-                break;
-            case Clear:
-                operationsWithDeque.clear();
-                break;
-            case Check_if_contains:
-                operationsWithDeque.contains();
-                break;
-            default:
-                break;
-        }
+        action.doAction();
     }
 }
