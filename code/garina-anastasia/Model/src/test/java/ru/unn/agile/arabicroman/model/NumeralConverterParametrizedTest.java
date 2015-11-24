@@ -1,4 +1,4 @@
-package ru.unn.agile.arabicroman;
+package ru.unn.agile.arabicroman.model;
 
 import org.junit.Test;
 import static org.junit.Assert.*;

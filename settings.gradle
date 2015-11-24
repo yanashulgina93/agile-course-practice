@@ -64,8 +64,12 @@ include "code/ganin-aleksei"
 project(":code/ganin-aleksei").name = "ganin-aleksei-Model"
 
 // Garina Anastasia
-include "code/garina-anastasia"
-project(":code/garina-anastasia").name = "garina-anastasia-lab1"
+include "code/garina-anastasia/Model"
+project(":code/garina-anastasia/Model").name = "garina-anastasia-Model"
+include "code/garina-anastasia/View"
+project(":code/garina-anastasia/View").name = "garina-anastasia-View"
+include "code/garina-anastasia/ViewModel"
+project(":code/garina-anastasia/ViewModel").name = "garina-anastasia-ViewModel"
 
 // Gatchenko Viktor
 include "code/gatchenko-viktor"

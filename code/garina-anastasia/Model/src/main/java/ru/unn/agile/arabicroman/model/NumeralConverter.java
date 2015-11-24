@@ -1,4 +1,4 @@
-package ru.unn.agile.arabicroman;
+package ru.unn.agile.arabicroman.model;
 
 public final class NumeralConverter {
     private static final String [] PRIMARY_ROMAN_SYMBOLS = {"I", "V", "X", "L", "C", "D", "M"};
@@ -7,7 +7,7 @@ public final class NumeralConverter {
     private NumeralConverter() {
     }
 
-    static String convert(final int arabicNumber) {
+    public static String convert(final int arabicNumber) {
         final int maxValidNumber = 3999;
         if (arabicNumber < 0 || arabicNumber > maxValidNumber) {
             throw new IllegalArgumentException();
@@ -56,7 +56,7 @@ public final class NumeralConverter {
         }
     }
 
-    static int convert(final String romanNumber) {
+    public static int convert(final String romanNumber) {
         if (romanNumber == null || romanNumber.isEmpty()) {
             return 0;
         }
