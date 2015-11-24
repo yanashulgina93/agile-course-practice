@@ -5,7 +5,7 @@ public class Main {
         new View();
     }
 
-    public Main() {
+    private Main() {
 
     }
 }
