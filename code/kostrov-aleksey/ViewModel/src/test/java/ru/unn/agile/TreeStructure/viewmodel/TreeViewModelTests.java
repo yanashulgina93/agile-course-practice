@@ -17,8 +17,22 @@ public class TreeViewModelTests {
     }
 
     @Test
-    public void whenSelectedTypeOperationsAndInputKey() {
+    public void whenSelectedTypeOperationsAndInputKey_DoButtonIsEnabled() {
         viewModel.setKey("100");
         assertTrue(viewModel.isDoButtonEnabled());
     }
+
+    @Test
+    public void whenKeyClear_DoButtonIsDisabled() {
+        viewModel.setKey("100");
+        viewModel.setKey("");
+        assertFalse(viewModel.isDoButtonEnabled());
+    }
+
+    @Test
+    public void canSelectTypeOperation() {
+        viewModel.setOperation(TreeViewModel.Operation.TRUNCATE);
+        assertEquals(TreeViewModel.Operation.TRUNCATE, viewModel.getOperation());
+    }
+
 }

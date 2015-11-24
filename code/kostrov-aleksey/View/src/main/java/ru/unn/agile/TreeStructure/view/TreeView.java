@@ -1,8 +1,9 @@
 package ru.unn.agile.TreeStructure.view;
 import ru.unn.agile.TreeStructure.viewmodel.TreeViewModel;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.event.*;
 
 public class TreeView {
     private JPanel mainPanel;
@@ -13,22 +14,73 @@ public class TreeView {
     private JTextArea textError;
     private JTextField textKey;
     private JTextField textData;
+    private TreeViewModel viewModel;
+    private TreeViewModel.Operation operation;
 
-    TreeViewModel viewModel = new TreeViewModel();
-
-    public TreeView() {
+    public TreeView(final TreeViewModel viewModel) {
+        this.viewModel = viewModel;
         insertRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                backBind();
                 bind();
+                insertRadioButton.setSelected(true);
+                searchRadioButton.setSelected(false);
+                truncateRadioButton.setSelected(false);
+                operation = TreeViewModel.Operation.INSERT;
+                backBind();
             }
         });
+
+        searchRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                bind();
+                insertRadioButton.setSelected(false);
+                searchRadioButton.setSelected(true);
+                truncateRadioButton.setSelected(false);
+                operation = TreeViewModel.Operation.SEARCH;
+                backBind();
+            }
+        });
+
+        truncateRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                bind();
+                insertRadioButton.setSelected(false);
+                searchRadioButton.setSelected(false);
+                truncateRadioButton.setSelected(true);
+                operation = TreeViewModel.Operation.TRUNCATE;
+                backBind();
+            }
+        });
+
+        textKey.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                bind();
+                backBind();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                bind();
+                backBind();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                bind();
+                backBind();
+            }
+        });
+
         backBind();
     }
 
     private void bind() {
-
+        viewModel.setKey(textKey.getText());
+        viewModel.setOperation(operation);
     }
 
     private void backBind() {
@@ -37,7 +89,7 @@ public class TreeView {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("TreeView");
-        frame.setContentPane(new TreeView().mainPanel);
+        frame.setContentPane(new TreeView(new TreeViewModel()).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -45,5 +97,6 @@ public class TreeView {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+
     }
 }

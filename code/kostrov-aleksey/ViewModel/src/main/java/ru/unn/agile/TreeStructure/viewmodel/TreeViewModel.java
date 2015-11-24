@@ -4,22 +4,38 @@ public class TreeViewModel {
     private String key;
     private String data;
     private Operation operation;
+
     private boolean doButtonEnabled;
 
-    TreeViewModel() {
+    public TreeViewModel() {
         key = "";
         data = "";
         operation = Operation.INSERT;
         doButtonEnabled = false;
     }
+
     public boolean isDoButtonEnabled() {
-        if (key != "")
+        if (!key.isEmpty())
             doButtonEnabled = true;
+        else
+            doButtonEnabled = false;
         return doButtonEnabled;
     }
+
     public void setKey(String key) {
         this.key = key;
+        if(!key.isEmpty())
+            doButtonEnabled = true;
     }
+
+    public void setOperation(Operation operation) {
+        this.operation = operation;
+    }
+
+    public Operation getOperation() {
+        return operation;
+    }
+
     public enum Operation {
         INSERT("Insert"),
         SEARCH("Search_by_key"),
