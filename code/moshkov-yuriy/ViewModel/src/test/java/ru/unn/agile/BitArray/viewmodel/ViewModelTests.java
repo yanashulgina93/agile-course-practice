@@ -10,4 +10,14 @@ import static org.junit.Assert.*;
 
 public class ViewModelTests {
     private ViewModel viewModel;
+
+    @Before
+    public void initializeViewModel() {
+        viewModel = new ViewModel();
+    }
+
+    @Test
+    public void isDoOperationNotEnabledInBeggining() {
+        assertTrue(viewModel.isDoOperationEnabled() == false);
+    }
 }
