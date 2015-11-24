@@ -41,4 +41,32 @@ public class ComputerViewModelTest {
         m_viewModel.setFigure(figure);
         assertEquals(m_viewModel.getFigure(), figure);
     }
+    @Test
+    public void parametersEnabling() {
+        final FigureName[] figures = FigureName.values();
+        int paramsCount;
+        for (FigureName figure : figures) {
+            m_viewModel.setFigure(figure);
+            paramsCount = figure.getParametersCount();
+            if (paramsCount < 1) {
+                assertTrue(!(m_viewModel.isParameter1enabled()
+                        && m_viewModel.isParameter2enabled()
+                        && m_viewModel.isParameter3enabled()));
+            } else if (paramsCount < 2) {
+                assertTrue(m_viewModel.isParameter1enabled()
+                        && !(m_viewModel.isParameter2enabled()
+                        && m_viewModel.isParameter3enabled()));
+            } else if (paramsCount < 3) {
+                assertTrue(m_viewModel.isParameter1enabled()
+                        && m_viewModel.isParameter2enabled()
+                        && !m_viewModel.isParameter3enabled());
+            } else if (paramsCount == 3) {
+                assertTrue(m_viewModel.isParameter1enabled()
+                        && m_viewModel.isParameter2enabled()
+                        && m_viewModel.isParameter3enabled());
+            } else {
+                fail("View model need more parameters!");
+            }
+        }
+    }
 }

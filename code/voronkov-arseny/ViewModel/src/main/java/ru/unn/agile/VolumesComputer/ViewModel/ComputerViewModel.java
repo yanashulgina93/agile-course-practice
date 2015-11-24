@@ -38,5 +38,14 @@ public class ComputerViewModel {
     public FigureName getFigure() {
         return m_figureName;
     }
+    public boolean isParameter1enabled() {
+        return m_figureName.getParametersCount() >= 1;
+    }
+    public boolean isParameter2enabled() {
+        return m_figureName.getParametersCount() >= 2;
+    }
+    public boolean isParameter3enabled() {
+        return m_figureName.getParametersCount() >= 3;
+    }
 
 }
