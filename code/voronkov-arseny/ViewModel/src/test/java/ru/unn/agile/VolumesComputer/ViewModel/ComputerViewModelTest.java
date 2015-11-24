@@ -85,4 +85,12 @@ public class ComputerViewModelTest {
         m_viewModel.parse();
         assertFalse(m_viewModel.isInputCorrect());
     }
+    @Test
+    public void parseTwoEmptyParameters() {
+        m_viewModel.setFigure(FigureName.SPHEROID);
+        m_viewModel.setParameter1("");
+        m_viewModel.setParameter2("");
+        m_viewModel.parse();
+        assertFalse(m_viewModel.isInputCorrect());
+    }
 }
