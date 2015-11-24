@@ -1,4 +1,4 @@
-package ru.unn.agile.ComplexNumber.view.legacy;
+package ru.unn.agile.BitArray.view;
 
 import org.junit.Ignore;
 import org.junit.Test;

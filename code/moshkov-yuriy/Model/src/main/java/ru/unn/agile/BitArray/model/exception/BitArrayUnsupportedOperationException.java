@@ -1,4 +1,4 @@
-package ru.unn.agile.BitArray.core;
+package ru.unn.agile.BitArray.model.exception;
 
 public class BitArrayUnsupportedOperationException extends RuntimeException {
     public BitArrayUnsupportedOperationException(final String message) {

@@ -1,4 +1,7 @@
-package ru.unn.agile.BitArray.core;
+package ru.unn.agile.BitArray.model;
+
+import ru.unn.agile.BitArray.model.exception.BitArrayDifferentSizeException;
+import ru.unn.agile.BitArray.model.exception.BitArrayUnsupportedOperationException;
 
 import java.util.Arrays;
 
@@ -7,9 +10,9 @@ public class BitArray {
     private final int size;
 
     public BitArray(final int size) {
+        this.size = size;
         arrayBit = new Boolean[size];
         Arrays.fill(arrayBit, false);
-        size = size;
     }
 
     public Boolean getBit(final int index) {
