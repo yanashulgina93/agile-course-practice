@@ -18,7 +18,9 @@ public class ComputerViewModelTest {
         m_viewModel = null;
     }
     @Test
-    public void failTest() {
-        fail("turumburumtururum");
+    public void setParameter1() {
+        final String param = "2.0";
+        m_viewModel.setParameter1(param);
+        assertEquals(m_viewModel.getParameter1(), param);
     }
 }

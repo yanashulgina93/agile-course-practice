@@ -14,4 +14,11 @@ public class ComputerViewModel {
         m_parameter1 = m_parameter2 = m_parameter3 = 0.0;
         m_figureName = FigureName.CUBOID;
     }
+    public void setParameter1(final String parameterString) {
+        m_parameter1str = parameterString;
+    }
+    public String getParameter1() {
+        return m_parameter1str;
+    }
+
 }
