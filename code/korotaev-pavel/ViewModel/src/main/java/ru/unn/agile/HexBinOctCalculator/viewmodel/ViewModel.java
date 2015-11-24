@@ -107,20 +107,20 @@ public class ViewModel {
     public ObjectProperty<Operation> operationProperty() {
         return operation;
     }
-    public BooleanProperty calculationDisabledProperty() {
+    public BooleanProperty calcDisabledProperty() {
         return calculationDisabled;
     }
-    public final boolean getCalculationDisabled() {
+    public final boolean getCalcDisabled() {
         return calculationDisabled.get();
     }
 
-    public StringProperty resultProperty() {
+    public StringProperty resProperty() {
         return result;
     }
     public final String getResult() {
         return result.get();
     }
-    public StringProperty statusProperty() {
+    public StringProperty statProperty() {
         return status;
     }
     public final String getStatus() {
@@ -149,7 +149,7 @@ public class ViewModel {
     private class ValueChangeListener implements ChangeListener<String> {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
-                            final String oldValue, final String newValue) {
+                            final String previousValue, final String replacedValue) {
             status.set(getInputStatus().toString());
         }
     }
