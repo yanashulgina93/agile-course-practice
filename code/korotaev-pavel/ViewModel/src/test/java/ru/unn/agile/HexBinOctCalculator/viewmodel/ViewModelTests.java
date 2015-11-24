@@ -56,7 +56,7 @@ public class ViewModelTests {
         assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
     }
 
-    @Test
+    @Test(expected = IllegalStateException.class)
     public void statusIsWaitingWhenCalculateAndFieldsAreEmpty() {
         viewModel.calculate();
         assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());

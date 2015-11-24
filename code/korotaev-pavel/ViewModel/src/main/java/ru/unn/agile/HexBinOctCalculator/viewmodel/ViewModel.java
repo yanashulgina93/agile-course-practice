@@ -67,7 +67,7 @@ public class ViewModel {
 
     public void calculate() {
         if (calculationDisabled.get()) {
-            return;
+            throw new IllegalStateException("Calculation is disabled");
         }
 
         Number first = new Number(value1.get(), system1.get());
