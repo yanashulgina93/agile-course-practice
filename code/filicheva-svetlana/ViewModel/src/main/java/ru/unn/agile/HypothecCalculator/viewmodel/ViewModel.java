@@ -3,7 +3,25 @@ package ru.unn.agile.HypothecCalculator.viewmodel;
 
 public class ViewModel {
 
+    private String status;
+    private boolean isButtonEnabled;
 
+
+    public ViewModel() {
+        status = Status.WAITING;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(final String status) {
+        this.status = status;
+    }
+
+    public boolean isButtonEnabled() {
+        return isButtonEnabled;
+    }
 
     public enum CurrencyType {
         DOLLARS("$"),
@@ -95,5 +113,14 @@ public class ViewModel {
         public String toString() {
             return name;
         }
+    }
+
+    public final class Status {
+        public static final String WAITING = "Введите параметры кредита";
+        public static final String READY = "Press 'Calculate' or Enter";
+        public static final String BAD_FORMAT = "Bad format";
+        public static final String SUCCESS = "Success";
+
+        private Status() { }
     }
 }

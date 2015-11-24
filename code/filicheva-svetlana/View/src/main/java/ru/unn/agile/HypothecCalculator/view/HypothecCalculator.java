@@ -33,10 +33,11 @@ public final class HypothecCalculator {
     private JButton compute;
     private JLabel status;
 
-    private ViewModel viewModel;
+    private final ViewModel viewModel = new ViewModel();
 
     private HypothecCalculator() {
         loadAllLists();
+        backBind();
     }
 
     private void createUIComponents() {
@@ -49,6 +50,14 @@ public final class HypothecCalculator {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+    }
+
+    private void bind() {
+        viewModel.setStatus(status.getText());
+    }
+
+    private void backBind() {
+        status.setText(viewModel.getStatus());
     }
 
     private void loadListOfCurrencies() {
@@ -92,6 +101,9 @@ public final class HypothecCalculator {
 }
 
 class DollarPanel extends JPanel {
+
+    public DollarPanel() { }
+
     public void paintComponent(final Graphics g) {
         Image im = null;
         try {
