@@ -5,13 +5,15 @@ import ru.unn.agile.HypothecCalculator.viewmodel.ViewModel;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 
 public final class HypothecCalculator {
 
     private JPanel mainPanel;
-    private JTable graphicOfPayments;
     private JTextField houseCost;
     private JTextField interestRate;
     private JTextField downPayment;
@@ -24,14 +26,15 @@ public final class HypothecCalculator {
     private JComboBox<ViewModel.FlatFeeType> flatFeeType;
     private JComboBox<ViewModel.MonthlyFeeType> monthlyFeeType;
     private JComboBox<ViewModel.CreditType> creditType;
+    private JTextField month;
+    private JTextField year;
+    private JButton compute;
+    private JLabel status;
+
+    private JTable graphicOfPayments;
     private JLabel monthlyPayment;
     private JLabel overpaymentWithFees;
     private JLabel overpayment;
-    private JTextField month;
-    private JTextField year;
-    private JTextField day;
-    private JButton compute;
-    private JLabel status;
 
     private final ViewModel viewModel = new ViewModel();
 
@@ -44,6 +47,14 @@ public final class HypothecCalculator {
         mainPanel = new DollarPanel();
         }
 
+    KeyAdapter keyListener = new KeyAdapter() {
+        public void keyReleased(final KeyEvent e) {
+            bind();
+            viewModel.parseInput();
+            backBind();
+        }
+    };
+
     public static void main(final String[] args) {
         JFrame frame = new JFrame("Ипотечный калькулятор");
         frame.setContentPane(new HypothecCalculator().mainPanel);
@@ -54,10 +65,43 @@ public final class HypothecCalculator {
 
     private void bind() {
         viewModel.setStatus(status.getText());
+        viewModel.setHouseCost(houseCost.getText());
+        viewModel.setDownPayment(downPayment.getText());
+        viewModel.setCountOfPeriods(countOfPeriods.getText());
+        viewModel.setInterestRate(interestRate.getText());
+        viewModel.setFlatFee(flatFee.getText());
+        viewModel.setMonthlyFee(monthlyFee.getText());
+
+        viewModel.setCurrencyType((ViewModel.CurrencyType) currencyType.getSelectedItem());
+        viewModel.setPeriodType((ViewModel.PeriodType) periodType.getSelectedItem());
+        viewModel.setInterestRateType((ViewModel.InterestRateType) interestRateType.getSelectedItem());
+        viewModel.setFlatFeeType((ViewModel.FlatFeeType) flatFeeType.getSelectedItem());
+        viewModel.setMonthlyFeeType((ViewModel.MonthlyFeeType) monthlyFeeType.getSelectedItem());
+        viewModel.setCreditType((ViewModel.CreditType) creditType.getSelectedItem());
+
+        viewModel.setStartMonth(month.getText());
+        viewModel.setStartYear(year.getText());
     }
 
     private void backBind() {
         status.setText(viewModel.getStatus());
+        compute.setEnabled(viewModel.isButtonEnabled());
+        houseCost.setText(viewModel.getHouseCost());
+        downPayment.setText(viewModel.getDownPayment());
+        countOfPeriods.setText(viewModel.getCountOfPeriods());
+        interestRate.setText(viewModel.getInterestRate());
+        flatFee.setText(viewModel.getFlatFee());
+        monthlyFee.setText(viewModel.getMonthlyFee());
+
+        currencyType.setSelectedItem(viewModel.getCurrencyType());
+        periodType.setSelectedItem(viewModel.getPeriodType());
+        interestRateType.setSelectedItem(viewModel.getInterestRateType());
+        flatFeeType.setSelectedItem(viewModel.getFlatFeeType());
+        monthlyFeeType.setSelectedItem(viewModel.getMonthlyFeeType());
+        creditType.setSelectedItem(viewModel.getCreditType());
+
+        month.setText(viewModel.getStartMonth());
+        year.setText(viewModel.getStartYear());
     }
 
     private void loadListOfCurrencies() {
