@@ -16,10 +16,15 @@ public final class ArabicRomanConverterForm {
     private JLabel inputNumberFormat;
     private JLabel outputNumberFormat;
     private JLabel errorText;
+    private ArabicRomanConverterViewModel viewModel;
 
-    private final ArabicRomanConverterViewModel viewModel = new ArabicRomanConverterViewModel();
+    private ArabicRomanConverterForm() { }
 
-    private ArabicRomanConverterForm() {
+    private ArabicRomanConverterForm(final ArabicRomanConverterViewModel viewModel) {
+        this.viewModel = viewModel;
+        bindDataFromViewToViewModel();
+        bindDataFromViewModelToView();
+
         inputNumber.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(final DocumentEvent e) {
@@ -52,13 +57,11 @@ public final class ArabicRomanConverterForm {
         reverseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                bindDataFromViewToViewModel();
                 viewModel.reverseConvertingDirection();
+                bindDataFromViewToViewModel();
                 bindDataFromViewModelToView();
             }
         });
-
-        bindDataFromViewModelToView();
     }
 
     private void bindDataFromViewModelToView() {
@@ -75,7 +78,8 @@ public final class ArabicRomanConverterForm {
 
     public static void main(final String[] args) {
         JFrame frame = new JFrame("ArabicRomanConverterForm");
-        frame.setContentPane(new ArabicRomanConverterForm().mainPanel);
+        frame.setContentPane(new ArabicRomanConverterForm(
+                new ArabicRomanConverterViewModel()).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
