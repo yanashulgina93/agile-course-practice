@@ -183,6 +183,8 @@ project(":code/smirnov-alexandr").name = "smirnov-alexandr-lab1-Model"
 include "code/smirnov-michael"
 project(":code/smirnov-michael").name = "smirnov-michael-Model"
 // Smirnov Vyacheslav
+include "code/smirnov-vyacheslav"
+project(":code/smirnov-vyacheslav").name = "smirnov-vyacheslav-lab1-Model"
 // Sulin Dmitrij
 include "code/sulin-dmitriy"
 project(":code/sulin-dmitriy").name = "sulin-dmitriy-Model"
