@@ -20,4 +20,27 @@ public class ViewModelTests {
     public void isDoOperationNotEnabledInBeggining() {
         assertTrue(viewModel.isDoOperationEnabled() == false);
     }
+
+    @Test
+    public void isInitArrayBtnNotEnabledInBeggining() {
+        assertTrue(viewModel.isInitArrayEnabled() == false);
+    }
+
+    @Test
+    public void isSizeArrayNotEnabledWhenInputEmptyString() {
+        viewModel.setSizeArray("");
+        assertTrue(viewModel.isInitArrayEnabled() == false);
+    }
+
+    @Test
+    public void isSizeArrayNotEnabledWhenInputInvalidNumber() {
+        viewModel.setSizeArray("aaaa");
+        assertTrue(viewModel.isInitArrayEnabled() == false);
+    }
+
+    @Test
+    public void isSizeArrayEnabledWhenInputValidNumber() {
+        viewModel.setSizeArray("11");
+        assertTrue(viewModel.isInitArrayEnabled());
+    }
 }
