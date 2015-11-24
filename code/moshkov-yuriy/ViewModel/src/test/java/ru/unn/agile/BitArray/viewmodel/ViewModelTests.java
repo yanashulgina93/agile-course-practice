@@ -43,4 +43,16 @@ public class ViewModelTests {
         viewModel.setSizeArray("11");
         assertTrue(viewModel.isInitArrayEnabled());
     }
+
+    @Test
+    public void isFirstBitArrayNullAtBeggining() {
+        assertNull(viewModel.gitFirstBitArray());
+    }
+
+    @Test
+    public void isFirstBitArrayNotNullWhenInitArray() {
+        viewModel.setSizeArray("5");
+        viewModel.initArray();
+        assertNotNull(viewModel.gitFirstBitArray());
+    }
 }

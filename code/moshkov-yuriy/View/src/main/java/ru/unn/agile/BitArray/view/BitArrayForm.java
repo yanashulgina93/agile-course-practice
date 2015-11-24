@@ -5,6 +5,7 @@ import ru.unn.agile.BitArray.viewmodel.ViewModel;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -20,7 +21,7 @@ public class BitArrayForm {
     private JTable firstBitArrayTable;
     private JTable secondBitArrayTable;
     private JTable resultBitArrayTable;
-    private JComboBox operationCombobox;
+    private JComboBox<ViewModel.Operation> operationCombobox;
     private JButton doOperationBtn;
     private JTextPane logText;
 
@@ -28,12 +29,14 @@ public class BitArrayForm {
 
     private BitArrayForm(final ViewModel viewModel) {
         this.viewModel = viewModel;
+        loadListOfOperations();
         backBind();
 
         initArrayBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
                 bind();
+                viewModel.initArray();
                 backBind();
             }
         });
@@ -57,20 +60,20 @@ public class BitArrayForm {
         sizeArrayTxt.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(final DocumentEvent event) {
-                backBind();
                 bind();
+                backBind();
             }
 
             @Override
             public void removeUpdate(final DocumentEvent event) {
-                backBind();
                 bind();
+                backBind();
             }
 
             @Override
             public void changedUpdate(final DocumentEvent event) {
-                backBind();
                 bind();
+                backBind();
             }
         });
     }
@@ -86,10 +89,26 @@ public class BitArrayForm {
 
     private void bind() {
         viewModel.setSizeArray(sizeArrayTxt.getText());
+        viewModel.setOperation((ViewModel.Operation) operationCombobox.getSelectedItem());
+    }
+
+    private void loadListOfOperations() {
+        ViewModel.Operation[] operations = ViewModel.Operation.values();
+        operationCombobox.setModel(new JComboBox<>(operations).getModel());
     }
 
     private void backBind() {
         doOperationBtn.setEnabled(viewModel.isDoOperationEnabled());
         initArrayBtn.setEnabled(viewModel.isInitArrayEnabled());
+        if (viewModel.gitFirstBitArray() != null) {
+            Object[][] values = new Boolean[1][Array.getLength(viewModel.gitFirstBitArray().getBitArray())];
+            Object[][] header = new String[1][Array.getLength(viewModel.gitFirstBitArray().getBitArray())];
+            int counter = 0;
+            for (Object item : viewModel.gitFirstBitArray().getBitArray()) {
+                header[0][counter] = Integer.toString(counter);
+                values[0][counter++] = item;
+            }
+            firstBitArrayTable = new JTable(values, header);
+        }
     }
 }
