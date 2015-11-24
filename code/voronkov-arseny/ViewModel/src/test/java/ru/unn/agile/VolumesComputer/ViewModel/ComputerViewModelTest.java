@@ -35,4 +35,10 @@ public class ComputerViewModelTest {
         m_viewModel.setParameter3(param);
         assertEquals(m_viewModel.getParameter3(), param);
     }
+    @Test
+    public void setFigure() {
+        final FigureName figure = FigureName.RIGHT_CYLINDER;
+        m_viewModel.setFigure(figure);
+        assertEquals(m_viewModel.getFigure(), figure);
+    }
 }

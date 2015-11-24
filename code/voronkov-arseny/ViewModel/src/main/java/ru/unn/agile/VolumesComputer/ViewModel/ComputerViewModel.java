@@ -23,6 +23,9 @@ public class ComputerViewModel {
     public void setParameter3(final String parameterString) {
         m_parameter3str = parameterString;
     }
+    public void setFigure(final FigureName figureName) {
+        m_figureName = figureName;
+    }
     public String getParameter1() {
         return m_parameter1str;
     }
@@ -31,6 +34,9 @@ public class ComputerViewModel {
     }
     public String getParameter3() {
         return m_parameter3str;
+    }
+    public FigureName getFigure() {
+        return m_figureName;
     }
 
 }
