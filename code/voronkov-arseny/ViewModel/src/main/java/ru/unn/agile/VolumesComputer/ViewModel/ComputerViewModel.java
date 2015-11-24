@@ -74,7 +74,7 @@ public class ComputerViewModel {
     private double parseParameter(final String parameterString) {
         double res = 0.0;
         try {
-            res = Double.valueOf(m_parameter1str);
+            res = Double.valueOf(parameterString);
         } catch (NumberFormatException e) {
             m_inputCorrect = false;
         }

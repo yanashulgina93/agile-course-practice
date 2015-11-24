@@ -49,9 +49,9 @@ public class ComputerViewModelTest {
             m_viewModel.setFigure(figure);
             paramsCount = figure.getParametersCount();
             if (paramsCount < 1) {
-                assertTrue(!(m_viewModel.isParameter1enabled()
+                assertFalse(m_viewModel.isParameter1enabled()
                         && m_viewModel.isParameter2enabled()
-                        && m_viewModel.isParameter3enabled()));
+                        && m_viewModel.isParameter3enabled());
             } else if (paramsCount < 2) {
                 assertTrue(m_viewModel.isParameter1enabled()
                         && !(m_viewModel.isParameter2enabled()
@@ -76,5 +76,13 @@ public class ComputerViewModelTest {
         m_viewModel.setParameter2("3.0");
         m_viewModel.parse();
         assertTrue(m_viewModel.isInputCorrect());
+    }
+    @Test
+    public void parseTwoBadParameters() {
+        m_viewModel.setFigure(FigureName.SPHEROID);
+        m_viewModel.setParameter1("2.0");
+        m_viewModel.setParameter2("oioioi");
+        m_viewModel.parse();
+        assertFalse(m_viewModel.isInputCorrect());
     }
 }
