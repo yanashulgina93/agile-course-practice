@@ -39,7 +39,7 @@
             <properties>
               <enabled value="true"/>
               <hideActionText value="false"/>
-              <selected value="true"/>
+              <selected value="false"/>
               <text value="Insert"/>
               <verifyInputWhenFocusTarget value="true"/>
               <visible value="true"/>

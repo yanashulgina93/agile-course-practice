@@ -19,6 +19,12 @@ public class TreeView {
 
     public TreeView(final TreeViewModel viewModel) {
         this.viewModel = viewModel;
+
+        buttonDo.addActionListener(e -> {
+            bind();
+            viewModel.doOperation();
+            backBind();
+        });
         insertRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -74,17 +80,20 @@ public class TreeView {
                 backBind();
             }
         });
-
+        bind();
         backBind();
     }
 
     private void bind() {
         viewModel.setKey(textKey.getText());
+        viewModel.setData(textData.getText());
         viewModel.setOperation(operation);
     }
 
     private void backBind() {
         buttonDo.setEnabled(viewModel.isDoButtonEnabled());
+        textData.setEnabled(viewModel.isDataTextFieldEnabled());
+        textError.setText(viewModel.getErrorMessage());
     }
 
     public static void main(String[] args) {
@@ -97,6 +106,5 @@ public class TreeView {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
-
     }
 }
