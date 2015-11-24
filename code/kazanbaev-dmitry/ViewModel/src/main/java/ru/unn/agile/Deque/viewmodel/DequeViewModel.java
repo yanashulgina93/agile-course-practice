@@ -8,12 +8,10 @@ public class DequeViewModel {
 
     private String inputNumber;
     private String output;
-    private boolean isPushFrontButtonEnabled;
-    private boolean isPushBackButtonEnabled;
-    private boolean isPopFrontButtonEnabled;
-    private boolean isPopBackButtonEnabled;
-    private boolean isClearButtonEnabled;
-    private boolean isCheckButtonEnabled;
+    private boolean isPushActionEnabled;
+    private boolean isPopActionEnabled;
+    private boolean isClearActionEnabled;
+    private boolean isCheckActionEnabled;
     private boolean isDoActionButtonEnabled;
 
     private Action action;
@@ -21,18 +19,18 @@ public class DequeViewModel {
     public class OperationsWithDeque {
         private void pushFront() {
             deque.pushFront(Integer.valueOf(inputNumber));
-            setPopBackPopFrontClearCheckButtonsEnabled(true);
+            setPopClearCheckActionsEnabled(true);
         }
 
         private void pushBack() {
             deque.pushBack(Integer.valueOf(inputNumber));
-            setPopBackPopFrontClearCheckButtonsEnabled(true);
+            setPopClearCheckActionsEnabled(true);
         }
 
         private Integer popFront() {
             Integer value = deque.popFront();
             if (deque.isEmpty()) {
-                setPopBackPopFrontClearCheckButtonsEnabled(false);
+                setPopClearCheckActionsEnabled(false);
             }
             output = value.toString();
             return value;
@@ -41,7 +39,7 @@ public class DequeViewModel {
         private Integer popBack() {
             Integer value = deque.popBack();
             if (deque.isEmpty()) {
-                setPopBackPopFrontClearCheckButtonsEnabled(false);
+                setPopClearCheckActionsEnabled(false);
             }
             output = value.toString();
             return value;
@@ -49,7 +47,7 @@ public class DequeViewModel {
 
         private void clear() {
             deque.clear();
-            setPopBackPopFrontClearCheckButtonsEnabled(false);
+            setPopClearCheckActionsEnabled(false);
         }
 
         private void contains() {
@@ -84,11 +82,10 @@ public class DequeViewModel {
         return operationsWithDeque;
     }
 
-    private void setPopBackPopFrontClearCheckButtonsEnabled(final boolean isEnabled) {
-        isPopFrontButtonEnabled = isEnabled;
-        isPopBackButtonEnabled = isEnabled;
-        isClearButtonEnabled = isEnabled;
-        isCheckButtonEnabled = isEnabled;
+    private void setPopClearCheckActionsEnabled(final boolean isEnabled) {
+        isPopActionEnabled = isEnabled;
+        isClearActionEnabled = isEnabled;
+        isCheckActionEnabled = isEnabled;
 
         updateDoActionButtonEnabled();
     }
@@ -96,22 +93,18 @@ public class DequeViewModel {
     private void updateDoActionButtonEnabled() {
         switch (action) {
             case PushFront:
-                isDoActionButtonEnabled = isPushFrontButtonEnabled;
-                break;
             case PushBack:
-                isDoActionButtonEnabled = isPushBackButtonEnabled;
+                isDoActionButtonEnabled = isPushActionEnabled;
                 break;
             case PopFront:
-                isDoActionButtonEnabled = isPopFrontButtonEnabled;
-                break;
             case PopBack:
-                isDoActionButtonEnabled = isPopBackButtonEnabled;
+                isDoActionButtonEnabled = isPopActionEnabled;
                 break;
             case Clear:
-                isDoActionButtonEnabled = isClearButtonEnabled;
+                isDoActionButtonEnabled = isClearActionEnabled;
                 break;
             case Check_if_contains:
-                isDoActionButtonEnabled = isCheckButtonEnabled;
+                isDoActionButtonEnabled = isCheckActionEnabled;
                 break;
             default:
                 break;
@@ -122,15 +115,13 @@ public class DequeViewModel {
         this.inputNumber = inputNumber;
         try {
             Integer.parseInt(inputNumber);
-            isPushFrontButtonEnabled = true;
-            isPushBackButtonEnabled = true;
+            isPushActionEnabled = true;
             if (!deque.isEmpty()) {
-                isCheckButtonEnabled = true;
+                isCheckActionEnabled = true;
             }
         } catch (NumberFormatException e) {
-            isPushFrontButtonEnabled = false;
-            isPushBackButtonEnabled = false;
-            isCheckButtonEnabled = false;
+            isPushActionEnabled = false;
+            isCheckActionEnabled = false;
         }
         updateDoActionButtonEnabled();
     }
@@ -155,28 +146,20 @@ public class DequeViewModel {
         return output;
     }
 
-    public boolean isPushFrontButtonEnabled() {
-        return isPushFrontButtonEnabled;
+    public boolean isPushActionEnabled() {
+        return isPushActionEnabled;
     }
 
-    public boolean isPushBackButtonEnabled() {
-        return isPushBackButtonEnabled;
+    public boolean isPopActionEnabled() {
+        return isPopActionEnabled;
     }
 
-    public boolean isPopFrontButtonEnabled() {
-        return isPopFrontButtonEnabled;
+    public boolean isClearActionEnabled() {
+        return isClearActionEnabled;
     }
 
-    public boolean isPopBackButtonEnabled() {
-        return isPopBackButtonEnabled;
-    }
-
-    public boolean isClearButtonEnabled() {
-        return isClearButtonEnabled;
-    }
-
-    public boolean isCheckButtonEnabled() {
-        return isCheckButtonEnabled;
+    public boolean isCheckActionEnabled() {
+        return isCheckActionEnabled;
     }
 
     public boolean isDoActionButtonEnabled() {

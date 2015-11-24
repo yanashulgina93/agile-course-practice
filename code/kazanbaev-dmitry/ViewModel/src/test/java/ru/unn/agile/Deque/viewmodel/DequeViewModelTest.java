@@ -16,121 +16,69 @@ public class DequeViewModelTest {
     }
 
     @Test
-    public void byDefaultPushFrontButtonIsDisabled() {
-        assertFalse(viewModel.isPushFrontButtonEnabled());
+    public void byDefaultPushActionIsDisabled() {
+        assertFalse(viewModel.isPushActionEnabled());
     }
 
     @Test
-    public void byDefaultPushBackButtonIsDisabled() {
-        assertFalse(viewModel.isPushBackButtonEnabled());
+    public void byDefaultPopActionIsDisabled() {
+        assertFalse(viewModel.isPopActionEnabled());
     }
 
     @Test
-    public void byDefaultPopFrontButtonIsDisabled() {
-        assertFalse(viewModel.isPopFrontButtonEnabled());
+    public void byDefaultClearActionIsDisabled() {
+        assertFalse(viewModel.isClearActionEnabled());
     }
 
     @Test
-    public void byDefaultPopBackButtonIsDisabled() {
-        assertFalse(viewModel.isPopBackButtonEnabled());
+    public void byDefaultCheckActionIsDisabled() {
+        assertFalse(viewModel.isCheckActionEnabled());
     }
 
     @Test
-    public void byDefaultClearButtonIsDisabled() {
-        assertFalse(viewModel.isClearButtonEnabled());
-    }
-
-    @Test
-    public void byDefaultCheckButtonIsDisabled() {
-        assertFalse(viewModel.isCheckButtonEnabled());
-    }
-
-    @Test
-    public void whenEnteredNumberPushFrontButtonIsEnabled() {
+    public void whenEnteredNumberPushActionIsEnabled() {
         viewModel.setInputNumber("4");
 
-        assertTrue(viewModel.isPushFrontButtonEnabled());
+        assertTrue(viewModel.isPushActionEnabled());
     }
 
     @Test
-    public void whenEnteredNumberPushBackButtonIsDisabled() {
-        viewModel.setInputNumber("8");
-
-        assertTrue(viewModel.isPushBackButtonEnabled());
-    }
-
-    @Test
-    public void whenDequeIsNotEmptyPopFrontButtonIsEnabled() {
+    public void whenDequeIsNotEmptyPopActionIsEnabled() {
         viewModel.setInputNumber("15");
         viewModel.setAction(Action.PushFront);
         viewModel.doAction();
 
-        assertTrue(viewModel.isPopFrontButtonEnabled());
+        assertTrue(viewModel.isPopActionEnabled());
     }
 
     @Test
-    public void whenDequeIsNotEmptyPopBackButtonIsEnabled() {
-        viewModel.setInputNumber("16");
-        viewModel.setAction(Action.PushBack);
-        viewModel.doAction();
-
-        assertTrue(viewModel.isPopBackButtonEnabled());
-    }
-
-    @Test
-    public void whenClearedNumberPushFrontButtonIsDisabled() {
+    public void whenClearedNumberPushActionIsDisabled() {
         viewModel.setInputNumber("23");
         viewModel.setInputNumber("");
 
-        assertFalse(viewModel.isPushFrontButtonEnabled());
+        assertFalse(viewModel.isPushActionEnabled());
     }
 
     @Test
-    public void whenClearedNumberPushBackButtonIsDisabled() {
-        viewModel.setInputNumber("42");
-        viewModel.setInputNumber("");
-
-        assertFalse(viewModel.isPushBackButtonEnabled());
-    }
-
-    @Test
-    public void whenEnteredNotNumberPushFrontButtonIsDisabled() {
+    public void whenEnteredNotNumberPushActionIsDisabled() {
         viewModel.setInputNumber("1a");
 
-        assertFalse(viewModel.isPushFrontButtonEnabled());
+        assertFalse(viewModel.isPushActionEnabled());
     }
 
     @Test
-    public void whenEnteredNotNumberPushBackButtonIsDisabled() {
-        viewModel.setInputNumber("b2");
-
-        assertFalse(viewModel.isPushBackButtonEnabled());
-    }
-
-    @Test
-    public void whenDequeIsEmptyPopFrontButtonIsDisabled() {
+    public void whenDequeIsEmptyPopActionIsDisabled() {
         viewModel.setInputNumber("4");
         viewModel.setAction(Action.PushFront);
         viewModel.doAction();
         viewModel.setAction(Action.PopFront);
         viewModel.doAction();
 
-        assertFalse(viewModel.isPopFrontButtonEnabled());
+        assertFalse(viewModel.isPopActionEnabled());
     }
 
     @Test
-    public void whenDequeIsEmptyPopBackButtonIsDisabled() {
-        viewModel.setInputNumber("8");
-        viewModel.setAction(Action.PushBack);
-        viewModel.doAction();
-        viewModel.setAction(Action.PopBack);
-        viewModel.doAction();
-
-        assertFalse(viewModel.isPopBackButtonEnabled());
-    }
-
-    @Test
-    public void pushFrontButtonAddsIntegersToDequeFront() {
+    public void pushFrontAddsIntegersToDequeFront() {
         viewModel.setInputNumber("15");
         viewModel.setAction(Action.PushFront);
         viewModel.doAction();
@@ -145,7 +93,7 @@ public class DequeViewModelTest {
     }
 
     @Test
-    public void pushBackButtonAddsIntegersToDequeBack() {
+    public void pushBackAddsIntegersToDequeBack() {
         viewModel.setInputNumber("23");
         viewModel.setAction(Action.PushBack);
         viewModel.doAction();
@@ -160,7 +108,7 @@ public class DequeViewModelTest {
     }
 
     @Test
-     public void popBackButtonReturnsBackInteger() {
+     public void popBackReturnsBackInteger() {
         viewModel.setInputNumber("4");
         viewModel.setAction(Action.PushBack);
         viewModel.doAction();
@@ -174,7 +122,7 @@ public class DequeViewModelTest {
     }
 
     @Test
-    public void popFrontButtonReturnsFrontInteger() {
+    public void popFrontReturnsFrontInteger() {
         viewModel.setInputNumber("15");
         viewModel.setAction(Action.PushFront);
         viewModel.doAction();
@@ -188,7 +136,7 @@ public class DequeViewModelTest {
     }
 
     @Test
-    public void clearButtonClearsDeque() {
+    public void clearActionClearsDeque() {
         viewModel.setInputNumber("4");
         viewModel.setAction(Action.PushFront);
         viewModel.doAction();
@@ -200,15 +148,15 @@ public class DequeViewModelTest {
     }
 
     @Test
-    public void whenDequeIsClearedClearButtonIsDisabled() {
+    public void whenDequeIsClearedClearActionIsDisabled() {
         viewModel.setAction(Action.Clear);
         viewModel.doAction();
 
-        assertFalse(viewModel.isClearButtonEnabled());
+        assertFalse(viewModel.isClearActionEnabled());
     }
 
     @Test
-    public void whenDequeIsEmptyAfterPopClearButtonIsDisabled() {
+    public void whenDequeIsEmptyAfterPopClearActionIsDisabled() {
         viewModel.setInputNumber("15162342");
         viewModel.setAction(Action.PushFront);
         viewModel.doAction();
@@ -216,11 +164,11 @@ public class DequeViewModelTest {
         viewModel.setAction(Action.PopFront);
         viewModel.doAction();
 
-        assertFalse(viewModel.isClearButtonEnabled());
+        assertFalse(viewModel.isClearActionEnabled());
     }
 
     @Test
-    public void whenDequeIsClearedPopBackButtonIsDisabled() {
+    public void whenDequeIsClearedPopActionIsDisabled() {
         viewModel.setInputNumber("4");
         viewModel.setAction(Action.PushFront);
         viewModel.doAction();
@@ -228,19 +176,7 @@ public class DequeViewModelTest {
         viewModel.setAction(Action.Clear);
         viewModel.doAction();
 
-        assertFalse(viewModel.isPopBackButtonEnabled());
-    }
-
-    @Test
-    public void whenDequeIsClearedPopFrontButtonIsDisabled() {
-        viewModel.setInputNumber("4");
-        viewModel.setAction(Action.PushFront);
-        viewModel.doAction();
-
-        viewModel.setAction(Action.Clear);
-        viewModel.doAction();
-
-        assertFalse(viewModel.isPopFrontButtonEnabled());
+        assertFalse(viewModel.isPopActionEnabled());
     }
 
     @Test
@@ -256,7 +192,7 @@ public class DequeViewModelTest {
     }
 
     @Test
-    public void dequeDoesNotContains8() {
+    public void dequeDoesNotContain8() {
         viewModel.setInputNumber("15");
         viewModel.setAction(Action.PushFront);
         viewModel.doAction();
@@ -269,7 +205,7 @@ public class DequeViewModelTest {
     }
 
     @Test
-    public void whenDequeIsClearedCheckButtonIsDisabled() {
+    public void whenDequeIsClearedCheckActionIsDisabled() {
         viewModel.setInputNumber("4");
         viewModel.setAction(Action.PushFront);
         viewModel.doAction();
@@ -277,11 +213,11 @@ public class DequeViewModelTest {
         viewModel.setAction(Action.Clear);
         viewModel.doAction();
 
-        assertFalse(viewModel.isCheckButtonEnabled());
+        assertFalse(viewModel.isCheckActionEnabled());
     }
 
     @Test
-    public void whenDequeIsEmptyAfterPopCheckButtonIsDisabled() {
+    public void whenDequeIsEmptyAfterPopCheckActionIsDisabled() {
         viewModel.setInputNumber("15162342");
         viewModel.setAction(Action.PushFront);
         viewModel.doAction();
@@ -289,7 +225,7 @@ public class DequeViewModelTest {
         viewModel.setAction(Action.PopFront);
         viewModel.doAction();
 
-        assertFalse(viewModel.isCheckButtonEnabled());
+        assertFalse(viewModel.isCheckActionEnabled());
     }
 
     @Test
