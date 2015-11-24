@@ -12,7 +12,6 @@ public class View {
     private final ViewModel minesweeperViewModel = new ViewModel();
 
     public static final int CELL_SIZE = 20;
-    public static final int SIDEBAR_SIZE = 60;
 
     private static final int SMILE_POSITION_Y = 0;
     private static final int MINE_COUNTER_POSITION_Y = 70;
@@ -128,12 +127,16 @@ public class View {
             }
         });
 
-        smile.setBounds(getSmilePositionX(), getSmilePositionY(), SIDEBAR_SIZE, SMILE_SIZE);
+        smile.setBounds(
+                minesweeperViewModel.getBoardWidth() * CELL_SIZE,
+                SMILE_POSITION_Y,
+                SMILE_SIZE, SMILE_SIZE
+        );
 
         mineCounter = new JLabel();
         mineCounter.setBounds(
-                getMineCounterPositionX(),
-                getMineCounterPositionY(),
+                minesweeperViewModel.getBoardWidth() * CELL_SIZE,
+                MINE_COUNTER_POSITION_Y,
                 MINE_COUNTER_WIDTH,
                 MINE_COUNTER_HEIGHT
         );
@@ -152,10 +155,6 @@ public class View {
         binding();
     }
 
-    public static void main(final String[] args) {
-        new View();
-    }
-
     private void binding() {
 
         for (int y = 0; y < minesweeperViewModel.getBoardHeight(); y++) {
@@ -170,29 +169,5 @@ public class View {
 
     public int getCellSize() {
         return CELL_SIZE;
-    }
-
-    public int getWindowWidth() {
-        return  minesweeperViewModel.getBoardWidth() * CELL_SIZE + SIDEBAR_SIZE;
-    }
-
-    public int getWindowHeight() {
-        return minesweeperViewModel.getBoardHeight() * CELL_SIZE;
-    }
-
-    public int getSmilePositionX() {
-        return minesweeperViewModel.getBoardWidth() * CELL_SIZE;
-    }
-
-    public int getSmilePositionY() {
-        return SMILE_POSITION_Y;
-    }
-
-    public int getMineCounterPositionX() {
-        return minesweeperViewModel.getBoardWidth() * CELL_SIZE;
-    }
-
-    public int getMineCounterPositionY() {
-        return MINE_COUNTER_POSITION_Y;
     }
 }
