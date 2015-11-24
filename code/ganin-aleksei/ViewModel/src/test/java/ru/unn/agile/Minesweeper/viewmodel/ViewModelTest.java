@@ -188,4 +188,14 @@ public class ViewModelTest extends ViewModel {
         minesweeper.newGame();
         assertEquals(minesweeper.getSmileIco(), minesweeper.getSmileIcon());
     }
+
+    @Test
+    public void getBoardHeightMastBeGreaterZero() {
+        assertTrue(minesweeper.getBoardHeight() > 0);
+    }
+
+    @Test
+    public void getBoardWidthMastBeGreaterZero() {
+        assertTrue(minesweeper.getBoardWidth() > 0);
+    }
 }
