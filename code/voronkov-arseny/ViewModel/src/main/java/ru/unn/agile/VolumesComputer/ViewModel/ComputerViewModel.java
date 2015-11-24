@@ -17,8 +17,20 @@ public class ComputerViewModel {
     public void setParameter1(final String parameterString) {
         m_parameter1str = parameterString;
     }
+    public void setParameter2(final String parameterString) {
+        m_parameter2str = parameterString;
+    }
+    public void setParameter3(final String parameterString) {
+        m_parameter3str = parameterString;
+    }
     public String getParameter1() {
         return m_parameter1str;
+    }
+    public String getParameter2() {
+        return m_parameter2str;
+    }
+    public String getParameter3() {
+        return m_parameter3str;
     }
 
 }
