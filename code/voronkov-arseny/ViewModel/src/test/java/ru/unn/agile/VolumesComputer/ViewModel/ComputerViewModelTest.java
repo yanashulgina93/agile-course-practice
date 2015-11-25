@@ -42,34 +42,36 @@ public class ComputerViewModelTest {
         m_viewModel.setFigure(figure);
         assertEquals(m_viewModel.getFigure(), figure);
     }
+
     @Test
-    public void parametersEnabling() {
-        final FigureName[] figures = FigureName.values();
-        int paramsCount;
-        for (FigureName figure : figures) {
-            m_viewModel.setFigure(figure);
-            paramsCount = figure.getParametersCount();
-            if (paramsCount < 1) {
-                assertFalse(m_viewModel.isParameter1enabled()
-                        && m_viewModel.isParameter2enabled()
-                        && m_viewModel.isParameter3enabled());
-            } else if (paramsCount < 2) {
-                assertTrue(m_viewModel.isParameter1enabled()
-                        && !(m_viewModel.isParameter2enabled()
-                        && m_viewModel.isParameter3enabled()));
-            } else if (paramsCount < 3) {
-                assertTrue(m_viewModel.isParameter1enabled()
-                        && m_viewModel.isParameter2enabled()
-                        && !m_viewModel.isParameter3enabled());
-            } else if (paramsCount == 3) {
-                assertTrue(m_viewModel.isParameter1enabled()
-                        && m_viewModel.isParameter2enabled()
-                        && m_viewModel.isParameter3enabled());
-            } else {
-                fail("View model need more parameters!");
-            }
-        }
+    public void cuboidParametersEnabling() {
+        m_viewModel.setFigure(FigureName.CUBOID);
+        assertTrue(m_viewModel.isParameter1enabled()
+                && m_viewModel.isParameter2enabled()
+                && m_viewModel.isParameter3enabled());
     }
+    @Test
+    public void spheroidParametersEnabling() {
+        m_viewModel.setFigure(FigureName.SPHEROID);
+        assertTrue(m_viewModel.isParameter1enabled()
+                && m_viewModel.isParameter2enabled()
+                && !m_viewModel.isParameter3enabled());
+    }
+    @Test
+    public void rightCylinderParametersEnabling() {
+        m_viewModel.setFigure(FigureName.RIGHT_CYLINDER);
+        assertTrue(m_viewModel.isParameter1enabled()
+                && m_viewModel.isParameter2enabled()
+                && m_viewModel.isParameter3enabled());
+    }
+    @Test
+    public void rightCircularConeParametersEnabling() {
+        m_viewModel.setFigure(FigureName.RIGHT_CIRCULAR_CONE);
+        assertTrue(m_viewModel.isParameter1enabled()
+                && m_viewModel.isParameter2enabled()
+                && !m_viewModel.isParameter3enabled());
+    }
+
     @Test
     public void parseTwoGoodParameters() {
         m_viewModel.setFigure(FigureName.SPHEROID);
@@ -94,6 +96,7 @@ public class ComputerViewModelTest {
         m_viewModel.parse();
         assertFalse(m_viewModel.isInputCorrect());
     }
+
     @Test
     public void parseThreeGoodParameters() {
         m_viewModel.setFigure(FigureName.CUBOID);
@@ -121,6 +124,7 @@ public class ComputerViewModelTest {
         m_viewModel.parse();
         assertFalse(m_viewModel.isInputCorrect());
     }
+
     @Test
     public void solveBadParameters() {
         m_viewModel.setParameter1("hehehe");

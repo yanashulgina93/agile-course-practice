@@ -103,41 +103,16 @@ public class ComputerViewModel {
         }
         if (m_inputCorrect) {
             try {
-                switch (m_figureName) {
-                    case CUBOID: {
-                        m_volumeStr = String.valueOf(
-                                VolumesComputer.solve(new Cuboid(
-                                        m_parameter1,
-                                        m_parameter2,
-                                        m_parameter3)));
-                        break;
-                    }
-                    case SPHEROID: {
-                        m_volumeStr = String.valueOf(
-                                VolumesComputer.solve(new Spheroid(
-                                        m_parameter1,
-                                        m_parameter2)));
-                        break;
-                    }
-                    case RIGHT_CYLINDER: {
-                        m_volumeStr = String.valueOf(
-                                VolumesComputer.solve(new RightCylinder(
-                                        m_parameter1,
-                                        m_parameter2,
-                                        m_parameter3)));
-                        break;
-                    }
-                    case RIGHT_CIRCULAR_CONE: {
-                        m_volumeStr = String.valueOf(
-                                VolumesComputer.solve(new RightCircularCone(
-                                        m_parameter1,
-                                        m_parameter2)));
-                        break;
-                    }
-                    default: {
-                        m_volumeStr = BAD_VOLUME_STRING;
-                        break;
-                    }
+                if (m_figureName == FigureName.CUBOID) {
+                    solveCuboid();
+                } else if (m_figureName == FigureName.SPHEROID) {
+                    solveSpheroid();
+                } else if (m_figureName == FigureName.RIGHT_CYLINDER) {
+                    solveRightCylinder();
+                } else if (m_figureName == FigureName.RIGHT_CIRCULAR_CONE) {
+                    solveRightCircularCone();
+                } else {
+                    m_volumeStr = BAD_VOLUME_STRING;
                 }
             } catch (NegativeParametersException e) {
                 m_volumeStr = BAD_VOLUME_STRING;
@@ -160,5 +135,21 @@ public class ComputerViewModel {
         return m_figureName.getParametersCount() >= parameterIndex
                 ? m_figureName.getParametersNames()[parameterIndex - 1]
                 : DISABLE_PARAMETER_STRING;
+    }
+    private void solveCuboid() {
+        m_volumeStr = String.valueOf(VolumesComputer.solve(new Cuboid(
+                m_parameter1, m_parameter2, m_parameter3)));
+    }
+    private void solveSpheroid() {
+        m_volumeStr = String.valueOf(VolumesComputer.solve(
+                new Spheroid(m_parameter1, m_parameter2)));
+    }
+    private void solveRightCylinder() {
+        m_volumeStr = String.valueOf(VolumesComputer.solve(new RightCylinder(
+                m_parameter1, m_parameter2, m_parameter3)));
+    }
+    private void solveRightCircularCone() {
+        m_volumeStr = String.valueOf(VolumesComputer.solve(
+                new RightCircularCone(m_parameter1, m_parameter2)));
     }
 }
