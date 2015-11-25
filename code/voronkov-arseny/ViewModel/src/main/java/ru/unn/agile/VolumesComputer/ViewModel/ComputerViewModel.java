@@ -126,7 +126,7 @@ public class ComputerViewModel {
                 mVolumeStr = BAD_VOLUME_STRING;
             }
         } else {
-            mVolumeStr = "hehehe";
+            mVolumeStr = EMPTY_VOLUME_STRING;
         }
     }
 
