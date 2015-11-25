@@ -55,7 +55,7 @@ public class Computer {
             }
         });
         m_comboBoxFigures.setModel(
-                new JComboBox<FigureName>(FigureName.values()).getModel());
+                new JComboBox<>(FigureName.values()).getModel());
         m_comboBoxFigures.setSelectedIndex(0);
     }
     private void textFieldIn1initialize() {
