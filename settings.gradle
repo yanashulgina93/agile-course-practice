@@ -102,9 +102,13 @@ include "code/kalyakulina-alena/ViewModel"
 project(":code/kalyakulina-alena/ViewModel").name = "kalyakulina-alena-ViewModel"
 
 // Karpunin Yaroslav
-// Kazanbaev Dmitrij
-include "code/kazanbaev-dmitry"
-project(":code/kazanbaev-dmitry").name = "kazanbaev-dmitry-model"
+// Kazanbaev Dmitry
+include "code/kazanbaev-dmitry/Model"
+project(":code/kazanbaev-dmitry/Model").name = "kazanbaev-dmitry-Model"
+include "code/kazanbaev-dmitry/View"
+project(":code/kazanbaev-dmitry/View").name = "kazanbaev-dmitry-View"
+include "code/kazanbaev-dmitry/ViewModel"
+project(":code/kazanbaev-dmitry/ViewModel").name = "kazanbaev-dmitry-ViewModel"
 
 // Khanova Tatyana
 // Kochanova Kseniya
