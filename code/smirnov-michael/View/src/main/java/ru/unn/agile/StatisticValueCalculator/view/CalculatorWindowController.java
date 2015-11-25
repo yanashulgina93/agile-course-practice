@@ -10,7 +10,7 @@ import javafx.scene.control.*;
 import javafx.util.Callback;
 import javafx.util.Pair;
 import ru.unn.agile.StatisticValueCalculator.viewmodel.StatisticValue;
-import ru.unn.agile.StatisticValueCalculator.viewmodel.ViewModel;
+import ru.unn.agile.StatisticValueCalculator.viewmodel.StatisticCalculatorViewModel;
 
 public class CalculatorWindowController {
     @FXML
@@ -18,7 +18,7 @@ public class CalculatorWindowController {
     @FXML
     private TableColumn<Pair<String, String>, String> columnValue;
     @FXML
-    private ViewModel viewModel;
+    private StatisticCalculatorViewModel viewModel;
     @FXML
     private Button clearTableButton;
     @FXML

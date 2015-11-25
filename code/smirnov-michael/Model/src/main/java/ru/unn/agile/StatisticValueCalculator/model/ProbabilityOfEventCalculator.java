@@ -3,7 +3,6 @@ package ru.unn.agile.StatisticValueCalculator.model;
 import java.util.Collection;
 
 public class ProbabilityOfEventCalculator implements IStatisticValueCalculator {
-
     private Double event;
 
     private static final double EPS_FOR_DOUBLE_COMPARISON = 1e-3;

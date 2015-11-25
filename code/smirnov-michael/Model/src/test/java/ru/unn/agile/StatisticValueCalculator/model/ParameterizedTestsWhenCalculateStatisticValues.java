@@ -1,5 +1,6 @@
 package ru.unn.agile.StatisticValueCalculator.model;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -13,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(Parameterized.class)
 public class ParameterizedTestsWhenCalculateStatisticValues {
 
-    private EnumerationCalculator enumerationCalculator;
+    private MeanCalculator meanCalculator;
     private ProbabilityOfEventCalculator probabilityCalculator;
     private VarianceCalculator varianceCalculator;
 
@@ -21,7 +22,7 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
 
     private Collection<Double> currentTestingData;
 
-    private double exactEnumeration;
+    private double exactMean;
     private double exactVariance;
     private double testingEvent;
     private double exactProbabilityOfTestingEvent;
@@ -43,7 +44,7 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
     }
 
     public ParameterizedTestsWhenCalculateStatisticValues(final Number[] testingArray,
-                                                          final double exactEnumeration,
+                                                          final double exactMean,
                                                           final double exactVariance,
                                                           final double event,
                                                           final double exactProbabilityOfEvent) {
@@ -52,25 +53,21 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
             currentTestingData.add(item.doubleValue());
         }
 
-        this.exactEnumeration = exactEnumeration;
+        this.exactMean = exactMean;
         this.exactVariance = exactVariance;
         this.testingEvent = event;
         this.exactProbabilityOfTestingEvent = exactProbabilityOfEvent;
     }
 
     @Test
-    public void calculatedEnumerationOfNumericDataIsEqualToExactEnumeration() {
-        setUpTest();
+    public void calculatedMeanOfNumericDataIsEqualToExactMean() {
+        double calculatedMean = meanCalculator.calculate(currentTestingData);
 
-        double calculatedEnumeration = enumerationCalculator.calculate(currentTestingData);
-
-        assertEquals(exactEnumeration, calculatedEnumeration, deltaForDoubleAssertEquals);
+        assertEquals(exactMean, calculatedMean, deltaForDoubleAssertEquals);
     }
 
     @Test
     public void calculatedVarianceOfNumericDataIsEqualToExactVariance() {
-        setUpTest();
-
         double calculatedVariance = varianceCalculator.calculate(currentTestingData);
 
         assertEquals(exactVariance, calculatedVariance, deltaForDoubleAssertEquals);
@@ -78,8 +75,6 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
 
     @Test
     public void calculatedProbabilityOfTestingEventOnNumericDataIsEqualToExactProbability() {
-        setUpTest();
-
         double calculatedProbability = probabilityCalculator.calculate(currentTestingData);
 
         assertEquals(calculatedProbability,
@@ -87,22 +82,22 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
                 deltaForDoubleAssertEquals);
     }
 
-
-    private void setUpTest() {
-        enumerationCalculator = new EnumerationCalculator();
+    @Before
+    public void setUpTest() {
+        meanCalculator = new MeanCalculator();
         varianceCalculator = new VarianceCalculator();
         probabilityCalculator = new ProbabilityOfEventCalculator(testingEvent);
     }
 
     private static Object[] formTestData(final Number[] numericData,
-                                         final double exactEnumeration,
+                                         final double exactMean,
                                          final double exactVariance,
                                          final double event,
                                          final double exactProbabilityOfEvent) {
 
         Object[] testData = new Object[5];
         testData[0] = numericData;
-        testData[1] = exactEnumeration;
+        testData[1] = exactMean;
         testData[2] = exactVariance;
         testData[3] = event;
         testData[4] = exactProbabilityOfEvent;
@@ -112,13 +107,13 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
 
     private static Object[] formTestDataFromEmptyIntegerArray() {
         Integer[] emptyIntegerArray = {};
-        double exactEnumerationOfEmptyIntegerArray = 0.0;
+        double exactMeanOfEmptyIntegerArray = 0.0;
         double exactVarianceOfEmptyIntegerArray = 0.0;
         double testingEvent = 1;
         double probabilityOfTestingEvent = 0.0;
 
         return formTestData(emptyIntegerArray,
-                exactEnumerationOfEmptyIntegerArray,
+                exactMeanOfEmptyIntegerArray,
                 exactVarianceOfEmptyIntegerArray,
                 testingEvent,
                 probabilityOfTestingEvent);
@@ -126,13 +121,13 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
 
     private static Object[] formTestDataFromConstantIntegerArray() {
         Integer[] constantIntegerArray = {5, 5, 5, 5};
-        double exactEnumerationOfConstantIntegerArray = 5.0;
+        double exactMeanOfConstantIntegerArray = 5.0;
         double exactVarianceOfConstantIntegerArray = 0.0;
         double testingEvent = 5;
         double probabilityOfTestingEvent = 1.0;
 
         return formTestData(constantIntegerArray,
-                exactEnumerationOfConstantIntegerArray,
+                exactMeanOfConstantIntegerArray,
                 exactVarianceOfConstantIntegerArray,
                 testingEvent,
                 probabilityOfTestingEvent);
@@ -140,13 +135,13 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
 
     private static Object[] formTestDataFromShortIntegerArray() {
         Integer[] shortIntegerArray = {-1, -1, 5, 8, 10, 4, 4, 8};
-        double exactEnumerationOfShortIntegerArray = 4.625;
+        double exactMeanOfShortIntegerArray = 4.625;
         double exactVarianceOfShortIntegerArray = 16.553;
         double testingEvent = 2;
         double probabilityOfTestingEvent = 0.0;
 
         return formTestData(shortIntegerArray,
-                exactEnumerationOfShortIntegerArray,
+                exactMeanOfShortIntegerArray,
                 exactVarianceOfShortIntegerArray,
                 testingEvent,
                 probabilityOfTestingEvent);
@@ -157,13 +152,13 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
         for (int i = 0; i < monotoneIntegerArray.length; i++) {
             monotoneIntegerArray[i] = i;
         }
-        double exactEnumerationOfMonotoneIntegerArray = 49.5;
+        double exactMeanOfMonotoneIntegerArray = 49.5;
         double exactVarianceOfMonotoneIntegerArray = 841.667;
         double testingEvent = 15;
         double probabilityOfTestingEvent = 0.01;
 
         return formTestData(monotoneIntegerArray,
-                exactEnumerationOfMonotoneIntegerArray,
+                exactMeanOfMonotoneIntegerArray,
                 exactVarianceOfMonotoneIntegerArray,
                 testingEvent,
                 probabilityOfTestingEvent);
@@ -171,13 +166,13 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
 
     private static Object[] formTestDataFromFloatArrayContainedOneNumber() {
         Float[] floatArrayContainedOneNumber = {3.14f};
-        double exactEnumerationOfFloatArrayContainedOneNumber = 3.14;
+        double exactMeanOfFloatArrayContainedOneNumber = 3.14;
         double exactVarianceOfFloatArrayContainedOneNumber = 0.0;
         double testingEvent = 3.13;
         double probabilityOfTestingEvent = 0.0;
 
         return formTestData(floatArrayContainedOneNumber,
-                exactEnumerationOfFloatArrayContainedOneNumber,
+                exactMeanOfFloatArrayContainedOneNumber,
                 exactVarianceOfFloatArrayContainedOneNumber,
                 testingEvent,
                 probabilityOfTestingEvent);
@@ -185,13 +180,13 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
 
     private static Object[] formTestDataFromShortFloatArray() {
         Float[] shortFloatArray = {1.f, 2.25f, 1.f, 2.25f, 2.25f, 2.25f};
-        double exactEnumerationOfShortFloatArray = 11.0 / 6.0;
+        double exactMeanOfShortFloatArray = 11.0 / 6.0;
         double exactVarianceOfShortFloatArray = 0.417;
         double testingEvent = 2.25f;
         double probabilityOfTestingEvent = 4.0 / 6.0;
 
         return formTestData(shortFloatArray,
-                exactEnumerationOfShortFloatArray,
+                exactMeanOfShortFloatArray,
                 exactVarianceOfShortFloatArray,
                 testingEvent,
                 probabilityOfTestingEvent);
@@ -203,13 +198,13 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
             doubleArrayOfOneCosPeriod[i] = Math.cos(i * 2 * Math.PI
                     / doubleArrayOfOneCosPeriod.length);
         }
-        double exactEnumerationOfDoubleArrayOfOneCosPeriod = 0.0;
+        double exactMeanOfDoubleArrayOfOneCosPeriod = 0.0;
         double exactVarianceOfDoubleArrayOfOneCosPeriod = 0.5;
         double testingEvent = -2.0;
         double probabilityOfTestingEvent = 0.0;
 
         return formTestData(doubleArrayOfOneCosPeriod,
-                exactEnumerationOfDoubleArrayOfOneCosPeriod,
+                exactMeanOfDoubleArrayOfOneCosPeriod,
                 exactVarianceOfDoubleArrayOfOneCosPeriod,
                 testingEvent,
                 probabilityOfTestingEvent);

@@ -10,31 +10,32 @@ import static org.junit.Assert.*;
 
 public class WhenCalculateStatisticValues {
 
-    private EnumerationCalculator enumerationCalculator;
+    private MeanCalculator meanCalculator;
     private VarianceCalculator varianceCalculator;
     private ProbabilityOfEventCalculator probabilityCalculator;
     private RawMomentCalculator rawMomentCalculator;
     private CentralMomentCalculator centralMomentCalculator;
+    private MomentCalculator momentCalculator;
+
     private Collection<Double> testingData;
 
     private double deltaForDoubleAssertEquals = 1e-3;
 
     @Test
-    public void enumerationIsZeroWhenStatisticDataIsEmpty() {
-        enumerationCalculator = new EnumerationCalculator();
+    public void meanIsZeroWhenStatisticDataIsEmpty() {
+        meanCalculator = new MeanCalculator();
         ArrayList<Double> emptyData = new ArrayList<>();
 
-        double enumeration = enumerationCalculator.calculate(emptyData);
+        double mean = meanCalculator.calculate(emptyData);
 
-        assertEquals(0.0, enumeration, deltaForDoubleAssertEquals);
+        assertEquals(0.0, mean, deltaForDoubleAssertEquals);
     }
 
     @Test(expected = NullPointerException.class)
     public void throwsWhenCalculatingProbabilityOfEventOnNullData() {
         Double[] data = null;
-        Double event = (double) 0;
+        Double event = 0.0;
         formTestingData(data);
-
         probabilityCalculator = new ProbabilityOfEventCalculator(event);
 
         double probabilityOfEvent = probabilityCalculator.calculate(testingData);
@@ -45,6 +46,7 @@ public class WhenCalculateStatisticValues {
     @Test(expected = NullPointerException.class)
     public void throwsWhenCalculatingVarianceOfNullData() {
         varianceCalculator = new VarianceCalculator();
+
         varianceCalculator.calculate(null);
     }
 
@@ -52,22 +54,30 @@ public class WhenCalculateStatisticValues {
     public void throwsWhenCalculatingRawMomentOfNullData() {
         Integer[] data = null;
         formTestingData(data);
-
         rawMomentCalculator = new RawMomentCalculator(3);
+
         rawMomentCalculator.calculate(testingData);
     }
 
     @Test
-    public void rawMomentOfFirstOrderOnIntegerArrayIsEqualToEnumeration() {
-        formTestingData(formIntegerArrayWithBigVariance());
+    public void momentOfFirstOrderWithZeroOffsetOnArrayOfOnesIsEqualToOne() {
+        formTestingData(new Integer[]{1, 1, 1, 1});
+        momentCalculator = new MomentCalculator(1, 0.0);
 
+        double value = momentCalculator.calculate(testingData);
+
+        assertEquals(1.0, value, deltaForDoubleAssertEquals);
+    }
+    @Test
+    public void rawMomentOfFirstOrderOnIntegerArrayIsEqualToMean() {
+        formTestingData(formIntegerArrayWithBigVariance());
         rawMomentCalculator = new RawMomentCalculator(1);
-        enumerationCalculator = new EnumerationCalculator();
+        meanCalculator = new MeanCalculator();
 
         double rawMomentOfFirstOrder = rawMomentCalculator.calculate(testingData);
-        double enumeration = enumerationCalculator.calculate(testingData);
+        double mean = meanCalculator.calculate(testingData);
 
-        assertEquals(rawMomentOfFirstOrder, enumeration, deltaForDoubleAssertEquals);
+        assertEquals(rawMomentOfFirstOrder, mean, deltaForDoubleAssertEquals);
     }
 
     @Test
