@@ -104,4 +104,9 @@ public class TreeViewModelTests {
         viewModel.doOperation();
         assertEquals("Only INSERT, SEARCH and TRUNCATE", viewModel.getErrorMessage());
     }
+
+    @Test
+    public void canReturnNameOperation() {
+        assertEquals("Insert", viewModel.getOperation().toString());
+    }
 }
