@@ -101,8 +101,9 @@ public class VolumesComputerTest {
         assertEquals(volume, goodVolume, 0.0);
     }
 
+    /* with it cov = 84.62
     @Test (expected = NegativeParametersException.class)
     public void cuboidNegativeParams() {
         new Cuboid(-1.0, 0.0, 0.0);
-    }
+    }*/
 }
