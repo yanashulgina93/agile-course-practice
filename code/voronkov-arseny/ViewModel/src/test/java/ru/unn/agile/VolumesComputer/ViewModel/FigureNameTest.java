@@ -43,21 +43,29 @@ public class FigureNameTest {
     @Test
     public void cuboidParametersNames() {
         assertArrayEquals(FigureName.CUBOID.getParametersNames(),
-                new String[] { "Width", "Height", "Length" });
+                new String[] {
+                        "Width", "Height", "Length"
+                });
     }
     @Test
     public void spheroidParametersNames() {
         assertArrayEquals(FigureName.SPHEROID.getParametersNames(),
-                new String[] { "Semimajor axis", "Semiminor axis" });
+                new String[] {
+                        "Semimajor axis", "Semiminor axis"
+                });
     }
     @Test
     public void rightCylinderParametersNames() {
         assertArrayEquals(FigureName.RIGHT_CYLINDER.getParametersNames(),
-                new String[] { "Semimajor axis", "Semiminor axis", "Height" });
+                new String[] {
+                        "Semimajor axis", "Semiminor axis", "Height"
+                });
     }
     @Test
     public void rightCircularParametersNames() {
         assertArrayEquals(FigureName.RIGHT_CIRCULAR_CONE.getParametersNames(),
-                new String[] { "Radius", "Height" });
+                new String[] {
+                        "Radius", "Height"
+                });
     }
 }
