@@ -101,9 +101,25 @@ public class VolumesComputerTest {
         assertEquals(volume, goodVolume, 0.0);
     }
 
-    /* with it cov = 84.62
-    @Test (expected = NegativeParametersException.class)
-    public void cuboidNegativeParams() {
-        new Cuboid(-1.0, 0.0, 0.0);
-    }*/
+    @Test
+    public void negative1() {
+        NegativeParametersException e = new NegativeParametersException();
+        assertEquals(e.getMessage(), "Parameters must not be negative.");
+    }
+    @Test (expected = NullPointerException.class)
+    public void cuboidNullParameter() {
+        VolumesComputer.solve((ICubiform)null);
+    }
+    @Test (expected = NullPointerException.class)
+    public void spheroidNullParameter() {
+        VolumesComputer.solve((ISpheroid) null);
+    }
+    @Test (expected = NullPointerException.class)
+    public void rightCylinderNullParameter() {
+        VolumesComputer.solve((IRightCylindrical) null);
+    }
+    @Test (expected = NullPointerException.class)
+    public void rightCircularConeNullParameter() {
+        VolumesComputer.solve((IRightCircularConical) null);
+    }
 }
