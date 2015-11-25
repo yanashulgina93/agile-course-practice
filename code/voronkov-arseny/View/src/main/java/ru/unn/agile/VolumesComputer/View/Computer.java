@@ -66,6 +66,7 @@ public final class Computer {
             }
             mButtonSolve.doClick();
         } catch (NullPointerException e) {
+            mViewModel = new ComputerViewModel();
         }
     }
     // and this method too.
