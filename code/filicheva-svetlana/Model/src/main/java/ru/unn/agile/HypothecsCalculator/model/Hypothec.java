@@ -127,29 +127,34 @@ public class Hypothec {
         private static final int EARLIEST_VALID_YEAR = 1991;
         private static final int LATEST_VALID_YEAR = 2100;
 
-        public Builder(final double houseCost, final int creditPeriod) {
+        public Builder(final double houseCost, final int creditPeriod) throws HypothecInputException {
 
             if (houseCost < 0) {
-                throw new IllegalArgumentException("Negative house cost");
+                throw new HypothecInputException("Negative house cost");
             }
             if (creditPeriod <= 0) {
-                throw new IllegalArgumentException("Not positive credit period");
+                throw new HypothecInputException("Not positive credit period");
             }
 
             this.houseCost = houseCost;
             this.creditPeriod = creditPeriod;
         }
 
+        public Builder() {
+            houseCost = 0.0;
+            creditPeriod = 0;
+        }
+
         public Hypothec build() {
             return new Hypothec(this);
         }
 
-        public Builder downPayment(final double downPayment) {
+        public Builder downPayment(final double downPayment) throws HypothecInputException {
             if (downPayment < 0) {
-                throw new IllegalArgumentException("Negative down payment");
+                throw new HypothecInputException("Negative down payment");
             }
             if (downPayment > houseCost) {
-                throw new IllegalArgumentException("Down payment is more then house cost");
+                throw new HypothecInputException("Down payment is more then house cost");
             }
             this.downPayment = downPayment;
             return this;
@@ -160,9 +165,9 @@ public class Hypothec {
             return this;
         }
 
-        public Builder interestRate(final double interestRate) {
+        public Builder interestRate(final double interestRate) throws HypothecInputException {
             if (interestRate < 0) {
-                throw new IllegalArgumentException("Negative interest rate");
+                throw new HypothecInputException("Negative interest rate");
             }
             this.interestRate = interestRate;
             return this;
@@ -178,9 +183,9 @@ public class Hypothec {
             return this;
         }
 
-        public Builder monthlyFee(final double monthlyFee) {
+        public Builder monthlyFee(final double monthlyFee) throws HypothecInputException {
             if (monthlyFee < 0) {
-                throw new IllegalArgumentException("Negative monthly fee");
+                throw new HypothecInputException("Negative monthly fee");
             }
             this.monthlyFee = monthlyFee;
             return this;
@@ -191,9 +196,9 @@ public class Hypothec {
             return this;
         }
 
-        public Builder flatFee(final double flatFee) {
+        public Builder flatFee(final double flatFee) throws HypothecInputException {
             if (flatFee < 0) {
-                throw new IllegalArgumentException("Negative flat fee");
+                throw new HypothecInputException("Negative flat fee");
             }
             this.flatFee = flatFee;
             return this;
@@ -209,12 +214,12 @@ public class Hypothec {
             return this;
         }
 
-        public Builder startDate(final GregorianCalendar startDate) {
+        public Builder startDate(final GregorianCalendar startDate) throws HypothecInputException {
             if (startDate.get(Calendar.YEAR) < EARLIEST_VALID_YEAR) {
-                throw new IllegalArgumentException("Too early start date");
+                throw new HypothecInputException("Too early start date");
             }
             if (startDate.get(Calendar.YEAR) > LATEST_VALID_YEAR) {
-                throw new IllegalArgumentException("Too late start date");
+                throw new HypothecInputException("Too late start date");
             }
             this.startDate = startDate;
             return this;

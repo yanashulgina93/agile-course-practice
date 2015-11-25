@@ -44,15 +44,21 @@ public class CreditCalculatorTableTest {
     }
 
     private Hypothec getCredit() {
-        return new Hypothec.Builder(4000.0, 4)
-                .interestRate(2.0)
-                .interestRateType(Hypothec.InterestRateType.MONTHLY)
-                .monthlyFee(1.0)
-                .monthlyFeeType(Hypothec.MonthlyFeeType.CREDIT_BALANCE_PERCENT)
-                .startDate(new GregorianCalendar(2015, Calendar.NOVEMBER, 4))
-                .currency(Hypothec.CurrencyType.RUBLE)
-                .creditType(creditType)
-                .build();
+        Hypothec hypothec;
+        try {
+            hypothec = new Hypothec.Builder(4000.0, 4)
+                    .interestRate(2.0)
+                    .interestRateType(Hypothec.InterestRateType.MONTHLY)
+                    .monthlyFee(1.0)
+                    .monthlyFeeType(Hypothec.MonthlyFeeType.CREDIT_BALANCE_PERCENT)
+                    .startDate(new GregorianCalendar(2015, Calendar.NOVEMBER, 4))
+                    .currency(Hypothec.CurrencyType.RUBLE)
+                    .creditType(creditType)
+                    .build();
+        } catch (Exception e) {
+            hypothec = new Hypothec(new Hypothec.Builder());
+        }
+        return hypothec;
     }
 
     private static Object[][] parametersOfTests = new Object[][]{

@@ -41,19 +41,22 @@ public final class HypothecCalculator {
     private HypothecCalculator() {
         loadAllLists();
         backBind();
+
+
+        KeyAdapter keyListener = new KeyAdapter() {
+            public void keyReleased(final KeyEvent e) {
+                bind();
+                viewModel.parseInput();
+                backBind();
+            }
+        };
+        houseCost.addKeyListener(keyListener);
     }
 
     private void createUIComponents() {
         mainPanel = new DollarPanel();
         }
 
-    KeyAdapter keyListener = new KeyAdapter() {
-        public void keyReleased(final KeyEvent e) {
-            bind();
-            viewModel.parseInput();
-            backBind();
-        }
-    };
 
     public static void main(final String[] args) {
         JFrame frame = new JFrame("Ипотечный калькулятор");

@@ -1,5 +1,7 @@
 package ru.unn.agile.HypothecCalculator.viewmodel;
 
+import ru.unn.agile.HypothecsCalculator.model;
+
 public class ViewModel {
 
     private String status;
@@ -26,6 +28,29 @@ public class ViewModel {
         status = Status.READY;
         isButtonEnabled = true;
 
+        houseCost = "";
+        downPayment = "";
+        countOfPeriods = "";
+        interestRate = "";
+        flatFee = "";
+        monthlyFee = "";
+
+        currencyType = CurrencyType.DOLLARS;
+        periodType = PeriodType.MONTH;
+        interestRateType = InterestRateType.MONTHLY;
+        flatFeeType = FlatFeeType.PERCENT;
+        monthlyFeeType = MonthlyFeeType.CREDIT_SUM_PERCENT;
+        creditType = CreditType.DIFFERENTIATED;
+
+        startMonth = "";
+        startYear = "";
+
+    }
+
+    public void loadExample() {
+        status = Status.READY;
+        isButtonEnabled = true;
+
         houseCost = "2500000";
         downPayment = "0";
         countOfPeriods = "15";
@@ -42,7 +67,6 @@ public class ViewModel {
 
         startMonth = "1";
         startYear = "1992";
-
     }
 
     public String getStatus() {
@@ -170,6 +194,19 @@ public class ViewModel {
     }
 
     public void parseInput() {
+        status = Status.READY;
+
+        if (houseCost == "") status = Status.WAITING;
+        else try {
+            Double.parseDouble(houseCost);
+
+        } catch (Hypothec e) {
+            status = Status.BAD_FORMAT;
+            isButtonEnabled = false;
+            return;
+        }
+
+
     }
 
 
