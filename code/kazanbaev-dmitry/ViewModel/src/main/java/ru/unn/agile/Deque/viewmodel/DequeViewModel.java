@@ -4,75 +4,23 @@ import ru.unn.agile.Deque.model.Deque;
 
 public class DequeViewModel {
     private final Deque<Integer> deque;
-    private final OperationsWithDeque operationsWithDeque;
 
     private String inputNumber;
     private String output;
     private boolean isPushActionEnabled;
     private boolean isPopActionEnabled;
     private boolean isClearActionEnabled;
-    private boolean isCheckActionEnabled;
+    private boolean isContainsActionEnabled;
     private boolean isDoActionButtonEnabled;
 
     private Action action;
-
-    public class OperationsWithDeque {
-        private void pushFront() {
-            deque.pushFront(Integer.valueOf(inputNumber));
-            setPopClearCheckActionsEnabled(true);
-        }
-
-        private void pushBack() {
-            deque.pushBack(Integer.valueOf(inputNumber));
-            setPopClearCheckActionsEnabled(true);
-        }
-
-        private Integer popFront() {
-            Integer value = deque.popFront();
-            if (deque.isEmpty()) {
-                setPopClearCheckActionsEnabled(false);
-            }
-            output = value.toString();
-            return value;
-        }
-
-        private Integer popBack() {
-            Integer value = deque.popBack();
-            if (deque.isEmpty()) {
-                setPopClearCheckActionsEnabled(false);
-            }
-            output = value.toString();
-            return value;
-        }
-
-        private void clear() {
-            deque.clear();
-            setPopClearCheckActionsEnabled(false);
-        }
-
-        private void contains() {
-            output = String.valueOf(deque.contains(Integer.valueOf(inputNumber)));
-        }
-
-
-        public Object[] toArray() {
-            return deque.toArray();
-        }
-
-        public boolean isEmpty() {
-            return deque.isEmpty();
-        }
-
-        public int getSize() {
-            return deque.getSize();
-        }
-    }
 
     public enum Action {
         PushFront {
             @Override
             public void doAction() {
-                operations.pushFront();
+                viewModel.deque.pushFront(Integer.valueOf(viewModel.inputNumber));
+                viewModel.setPopClearCheckActionsEnabled(true);
             }
 
             @Override
@@ -83,7 +31,8 @@ public class DequeViewModel {
         PushBack {
             @Override
             public void doAction() {
-                operations.pushBack();
+                viewModel.deque.pushBack(Integer.valueOf(viewModel.inputNumber));
+                viewModel.setPopClearCheckActionsEnabled(true);
             }
 
             @Override
@@ -94,7 +43,11 @@ public class DequeViewModel {
         PopFront {
             @Override
             public void doAction() {
-                operations.popFront();
+                Integer value = viewModel.deque.popFront();
+                if (viewModel.deque.isEmpty()) {
+                    viewModel.setPopClearCheckActionsEnabled(false);
+                }
+                viewModel.output = value.toString();
             }
 
             @Override
@@ -105,7 +58,11 @@ public class DequeViewModel {
         PopBack {
             @Override
             public void doAction() {
-                operations.popBack();
+                Integer value = viewModel.deque.popBack();
+                if (viewModel.deque.isEmpty()) {
+                    viewModel.setPopClearCheckActionsEnabled(false);
+                }
+                viewModel.output = value.toString();
             }
 
             @Override
@@ -116,7 +73,8 @@ public class DequeViewModel {
         Clear {
             @Override
             public void doAction() {
-                operations.clear();
+                viewModel.deque.clear();
+                viewModel.setPopClearCheckActionsEnabled(false);
             }
 
             @Override
@@ -124,24 +82,21 @@ public class DequeViewModel {
                 return viewModel.isClearActionEnabled();
             }
         },
-        Check_if_contains {
+        Contains {
             @Override
             public void doAction() {
-                operations.contains();
+                viewModel.output = String.valueOf(
+                        viewModel.deque.contains(
+                                Integer.valueOf(viewModel.inputNumber)));
             }
 
             @Override
             public boolean getEnabled() {
-                return viewModel.isCheckActionEnabled();
+                return viewModel.isContainsActionEnabled();
             }
         };
 
-        private static OperationsWithDeque operations;
         private static DequeViewModel viewModel;
-
-        public void setOperations(final OperationsWithDeque operations) {
-            Action.operations = operations;
-        }
 
         public void setViewModel(final DequeViewModel viewModel) {
             Action.viewModel = viewModel;
@@ -149,24 +104,30 @@ public class DequeViewModel {
 
         public abstract void doAction();
         public abstract boolean getEnabled();
+
+        public Object[] toArray() {
+            return viewModel.deque.toArray();
+        }
+
+        public boolean isEmpty() {
+            return viewModel.deque.isEmpty();
+        }
+
+        public int getSize() {
+            return viewModel.deque.getSize();
+        }
     }
 
     public DequeViewModel() {
         deque = new Deque<>();
-        operationsWithDeque = new OperationsWithDeque();
         action = Action.PushFront;
-        action.setOperations(operationsWithDeque);
         action.setViewModel(this);
-    }
-
-    public OperationsWithDeque getOperationsWithDeque() {
-        return operationsWithDeque;
     }
 
     private void setPopClearCheckActionsEnabled(final boolean isEnabled) {
         isPopActionEnabled = isEnabled;
         isClearActionEnabled = isEnabled;
-        isCheckActionEnabled = isEnabled;
+        isContainsActionEnabled = isEnabled;
 
         updateDoActionButtonEnabled();
     }
@@ -181,11 +142,11 @@ public class DequeViewModel {
             Integer.parseInt(inputNumber);
             isPushActionEnabled = true;
             if (!deque.isEmpty()) {
-                isCheckActionEnabled = true;
+                isContainsActionEnabled = true;
             }
         } catch (NumberFormatException e) {
             isPushActionEnabled = false;
-            isCheckActionEnabled = false;
+            isContainsActionEnabled = false;
         }
         updateDoActionButtonEnabled();
     }
@@ -222,8 +183,8 @@ public class DequeViewModel {
         return isClearActionEnabled;
     }
 
-    public boolean isCheckActionEnabled() {
-        return isCheckActionEnabled;
+    public boolean isContainsActionEnabled() {
+        return isContainsActionEnabled;
     }
 
     public boolean isDoActionButtonEnabled() {

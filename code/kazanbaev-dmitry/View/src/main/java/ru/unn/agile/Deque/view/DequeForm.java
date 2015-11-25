@@ -71,9 +71,9 @@ public final class DequeForm {
         doActionButton.setEnabled(viewModel.isDoActionButtonEnabled());
         outputText.setText(viewModel.getOutput());
 
-        Object[][] values = new Integer[viewModel.getOperationsWithDeque().getSize()][1];
+        Object[][] values = new Integer[viewModel.getAction().getSize()][1];
         int counter = 0;
-        for (Object item : viewModel.getOperationsWithDeque().toArray()) {
+        for (Object item : viewModel.getAction().toArray()) {
             values[counter++][0] = item;
         }
 

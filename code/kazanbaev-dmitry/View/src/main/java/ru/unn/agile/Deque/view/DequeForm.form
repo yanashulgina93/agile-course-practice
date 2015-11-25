@@ -57,7 +57,7 @@
             <item value="PopFront"/>
             <item value="PopBack"/>
             <item value="Clear"/>
-            <item value="Check if contains"/>
+            <item value="Contains"/>
           </model>
         </properties>
       </component>

@@ -32,7 +32,7 @@ public class DequeViewModelTest {
 
     @Test
     public void byDefaultCheckActionIsDisabled() {
-        assertFalse(viewModel.isCheckActionEnabled());
+        assertFalse(viewModel.isContainsActionEnabled());
     }
 
     @Test
@@ -89,7 +89,7 @@ public class DequeViewModelTest {
         testDeque.pushFront(15);
         testDeque.pushFront(16);
 
-        assertArrayEquals(viewModel.getOperationsWithDeque().toArray(), testDeque.toArray());
+        assertArrayEquals(viewModel.getAction().toArray(), testDeque.toArray());
     }
 
     @Test
@@ -104,7 +104,7 @@ public class DequeViewModelTest {
         testDeque.pushBack(23);
         testDeque.pushBack(42);
 
-        assertArrayEquals(viewModel.getOperationsWithDeque().toArray(), testDeque.toArray());
+        assertArrayEquals(viewModel.getAction().toArray(), testDeque.toArray());
     }
 
     @Test
@@ -144,7 +144,7 @@ public class DequeViewModelTest {
         viewModel.setAction(Action.Clear);
         viewModel.doAction();
 
-        assertTrue(viewModel.getOperationsWithDeque().isEmpty());
+        assertTrue(viewModel.getAction().isEmpty());
     }
 
     @Test
@@ -185,7 +185,7 @@ public class DequeViewModelTest {
         viewModel.setAction(Action.PushFront);
         viewModel.doAction();
 
-        viewModel.setAction(Action.Check_if_contains);
+        viewModel.setAction(Action.Contains);
         viewModel.doAction();
 
         assertEquals("true", viewModel.getOutput());
@@ -198,7 +198,7 @@ public class DequeViewModelTest {
         viewModel.doAction();
         viewModel.setInputNumber("8");
 
-        viewModel.setAction(Action.Check_if_contains);
+        viewModel.setAction(Action.Contains);
         viewModel.doAction();
 
         assertEquals("false", viewModel.getOutput());
@@ -213,7 +213,7 @@ public class DequeViewModelTest {
         viewModel.setAction(Action.Clear);
         viewModel.doAction();
 
-        assertFalse(viewModel.isCheckActionEnabled());
+        assertFalse(viewModel.isContainsActionEnabled());
     }
 
     @Test
@@ -225,7 +225,7 @@ public class DequeViewModelTest {
         viewModel.setAction(Action.PopFront);
         viewModel.doAction();
 
-        assertFalse(viewModel.isCheckActionEnabled());
+        assertFalse(viewModel.isContainsActionEnabled());
     }
 
     @Test
@@ -238,12 +238,12 @@ public class DequeViewModelTest {
         viewModel.setInputNumber("15");
         viewModel.doAction();
 
-        assertEquals(3, viewModel.getOperationsWithDeque().getSize());
+        assertEquals(3, viewModel.getAction().getSize());
     }
 
     @Test
     public void byDefaultDequeIsEmpty() {
-        assertTrue(viewModel.getOperationsWithDeque().isEmpty());
+        assertTrue(viewModel.getAction().isEmpty());
     }
 
     @Test
@@ -281,9 +281,9 @@ public class DequeViewModelTest {
 
     @Test
     public void whenCheckIsSelectedActionIsCheck() {
-        viewModel.setAction(Action.Check_if_contains);
+        viewModel.setAction(Action.Contains);
 
-        assertEquals(Action.Check_if_contains, viewModel.getAction());
+        assertEquals(Action.Contains, viewModel.getAction());
     }
 
     @Test
