@@ -108,7 +108,7 @@ public class VolumesComputerTest {
     }
     @Test (expected = NullPointerException.class)
     public void cuboidNullParameter() {
-        VolumesComputer.solve((ICubiform)null);
+        VolumesComputer.solve((ICubiform) null);
     }
     @Test (expected = NullPointerException.class)
     public void spheroidNullParameter() {
