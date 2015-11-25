@@ -59,6 +59,13 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
         this.exactProbabilityOfTestingEvent = exactProbabilityOfEvent;
     }
 
+    @Before
+    public void setUpTest() {
+        meanCalculator = new MeanCalculator();
+        varianceCalculator = new VarianceCalculator();
+        probabilityCalculator = new ProbabilityOfEventCalculator(testingEvent);
+    }
+
     @Test
     public void calculatedMeanOfNumericDataIsEqualToExactMean() {
         double calculatedMean = meanCalculator.calculate(currentTestingData);
@@ -80,13 +87,6 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
         assertEquals(calculatedProbability,
                 exactProbabilityOfTestingEvent,
                 deltaForDoubleAssertEquals);
-    }
-
-    @Before
-    public void setUpTest() {
-        meanCalculator = new MeanCalculator();
-        varianceCalculator = new VarianceCalculator();
-        probabilityCalculator = new ProbabilityOfEventCalculator(testingEvent);
     }
 
     private static Object[] formTestData(final Number[] numericData,
