@@ -27,20 +27,20 @@ public class ComputerViewModel {
         m_volumeStr = EMPTY_VOLUME_STRING;
     }
     public void setParameter1(final String parameterString) {
+        m_parsed = m_parameter1str.equals(parameterString);
         m_parameter1str = parameterString;
-        m_parsed = false;
     }
     public void setParameter2(final String parameterString) {
+        m_parsed = m_parameter2str.equals(parameterString);
         m_parameter2str = parameterString;
-        m_parsed = false;
     }
     public void setParameter3(final String parameterString) {
+        m_parsed = m_parameter3str.equals(parameterString);
         m_parameter3str = parameterString;
-        m_parsed = false;
     }
     public void setFigure(final FigureName figureName) {
+        m_parsed = m_figureName == figureName;
         m_figureName = figureName;
-        m_parsed = false;
     }
     public String getParameter1() {
         return m_parameter1str;
@@ -64,6 +64,9 @@ public class ComputerViewModel {
         return m_figureName.getParametersCount() >= 3;
     }
     public boolean isInputCorrect() {
+        if (!m_parsed) {
+            parse();
+        }
         return m_inputCorrect;
     }
     public String getVolume() {
@@ -118,7 +121,7 @@ public class ComputerViewModel {
                 m_volumeStr = BAD_VOLUME_STRING;
             }
         } else {
-            m_volumeStr = EMPTY_VOLUME_STRING;
+            m_volumeStr = "hehehe";
         }
     }
 
