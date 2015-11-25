@@ -1,8 +1,8 @@
 package ru.unn.agile.VolumesComputer.Model;
 
 public class Spheroid implements ISpheroid {
-    private double mSemimajorAxis;
-    private double mSemiminorAxis;
+    private final double mSemimajorAxis;
+    private final double mSemiminorAxis;
 
     public Spheroid(final double semimajorAxis,
                     final double semiminorAxis) {

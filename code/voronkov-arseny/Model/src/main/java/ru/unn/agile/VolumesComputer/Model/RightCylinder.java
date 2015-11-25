@@ -1,9 +1,9 @@
 package ru.unn.agile.VolumesComputer.Model;
 
 public class RightCylinder implements IRightCylindrical {
-    private double mSemimajorAxis;
-    private double mSemiminorAxis;
-    private double mHeight;
+    private final double mSemimajorAxis;
+    private final double mSemiminorAxis;
+    private final double mHeight;
 
     public RightCylinder(final double semimajorAxis,
                          final double semiminorAxis,

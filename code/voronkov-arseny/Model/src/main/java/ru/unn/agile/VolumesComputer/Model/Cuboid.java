@@ -1,9 +1,9 @@
 package ru.unn.agile.VolumesComputer.Model;
 
 public class Cuboid implements ICubiform {
-    private double mWidth;
-    private double mHeight;
-    private double mLength;
+    private final double mWidth;
+    private final double mHeight;
+    private final double mLength;
 
     public Cuboid(final double width,
                   final double height,

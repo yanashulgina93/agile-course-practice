@@ -1,8 +1,8 @@
 package ru.unn.agile.VolumesComputer.Model;
 
 public class RightCircularCone implements IRightCircularConical {
-    private double mRadius;
-    private double mHeight;
+    private final double mRadius;
+    private final double mHeight;
 
     public RightCircularCone(final double radius,
                              final double height) {
