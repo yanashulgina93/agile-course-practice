@@ -7,10 +7,10 @@ public enum FigureName {
     SPHEROID("Spheroid", new String[] {
             "Semimajor axis", "Semiminor axis"
     }),
-    RIGHT_CYLINDER("RightCylinder", new String[] {
+    RIGHT_CYLINDER("Right cylinder", new String[] {
             "Semimajor axis", "Semiminor axis", "Height"
     }),
-    RIGHT_CIRCULAR_CONE("RightCircularCone", new String[] {
+    RIGHT_CIRCULAR_CONE("Right circular cone", new String[] {
             "Radius", "Height"
     });
 
