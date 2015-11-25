@@ -7,6 +7,7 @@ public class ComputerViewModel {
             = "I can't solve volume for this strange figure!";
     public static final String EMPTY_VOLUME_STRING = "";
     public static final String DISABLE_PARAMETER_STRING = "No parameter";
+    private static final int THREE = 3;
     private String mParameter1str;
     private String mParameter2str;
     private String mParameter3str;
@@ -19,8 +20,12 @@ public class ComputerViewModel {
     private String mVolumeStr;
 
     public ComputerViewModel() {
-        mParameter1str = mParameter2str = mParameter3str = "";
-        mParameter1 = mParameter2 = mParameter3 = 0.0;
+        mParameter1str = "";
+        mParameter2str = "";
+        mParameter3str = "";
+        mParameter1 = 0.0;
+        mParameter2 = 0.0;
+        mParameter3 = 0.0;
         mFigureName = FigureName.CUBOID;
         mInputCorrect = false;
         mParsed = false;
@@ -61,7 +66,7 @@ public class ComputerViewModel {
         return mFigureName.getParametersCount() >= 2;
     }
     public boolean isParameter3enabled() {
-        return mFigureName.getParametersCount() >= 3;
+        return mFigureName.getParametersCount() >= THREE;
     }
     public boolean isInputCorrect() {
         if (!mParsed) {
@@ -79,7 +84,7 @@ public class ComputerViewModel {
         return getParameterName(2);
     }
     public String getParameter3name() {
-        return getParameterName(3);
+        return getParameterName(THREE);
     }
     public void parse() {
         mParsed = true;
@@ -88,7 +93,7 @@ public class ComputerViewModel {
         if (paramsCount < 1) {
             return;
         }
-        if (paramsCount > 3) {
+        if (paramsCount > THREE) {
             mInputCorrect = false;
             return;
         }
