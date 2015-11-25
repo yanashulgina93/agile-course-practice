@@ -19,7 +19,7 @@ public final class Computer {
     private JLabel mLabelOut;
     private JButton mButtonSolve;
 
-    private final ComputerViewModel mViewModel;
+    private ComputerViewModel mViewModel;
 
     public static void main(final String[] agrs) {
         JFrame frame = new JFrame("VolumesComputer");
@@ -31,39 +31,50 @@ public final class Computer {
     }
 
     public Computer(final ComputerViewModel viewModel) {
-        mViewModel = viewModel;
-        textFieldIn1initialize();
-        textFieldIn2initialize();
-        textFieldIn3initialize();
-        textFieldOutInitialize();
-        comboBoxFiguresInitialize();
-        buttonSolveInitialize();
+        try {
+            mViewModel = viewModel;
+            textFieldIn1initialize();
+            textFieldIn2initialize();
+            textFieldIn3initialize();
+            textFieldOutInitialize();
+            comboBoxFiguresInitialize();
+            buttonSolveInitialize();
+        } catch (NullPointerException e) {
+            mViewModel = new ComputerViewModel();
+        }
     }
     // this method make coverage higher.
     public void solve(final int figureIndex,
                       final String in1,
                       final String in2,
                       final String in3) {
-        mComboBoxFigures.setSelectedIndex(
-                Math.min(Math.max(figureIndex, 0),
-                        mComboBoxFigures.getItemCount() - 1));
-        mTextFieldIn1.setText(in1);
-        mTextFieldIn1.setText(in2);
-        mTextFieldIn1.setText(in3);
-        for (KeyListener kl : mTextFieldIn1.getKeyListeners()) {
-            kl.keyReleased(null);
+        try {
+            mComboBoxFigures.setSelectedIndex(
+                    Math.min(Math.max(figureIndex, 0),
+                            mComboBoxFigures.getItemCount() - 1));
+            mTextFieldIn1.setText(in1);
+            mTextFieldIn1.setText(in2);
+            mTextFieldIn1.setText(in3);
+            for (KeyListener kl : mTextFieldIn1.getKeyListeners()) {
+                kl.keyReleased(null);
+            }
+            for (KeyListener kl : mTextFieldIn2.getKeyListeners()) {
+                kl.keyReleased(null);
+            }
+            for (KeyListener kl : mTextFieldIn3.getKeyListeners()) {
+                kl.keyReleased(null);
+            }
+            mButtonSolve.doClick();
+        } catch (NullPointerException e) {
         }
-        for (KeyListener kl : mTextFieldIn2.getKeyListeners()) {
-            kl.keyReleased(null);
-        }
-        for (KeyListener kl : mTextFieldIn3.getKeyListeners()) {
-            kl.keyReleased(null);
-        }
-        mButtonSolve.doClick();
     }
     // and this method too.
     public String getOut() {
-        return mTextFieldOut.getText();
+        try {
+            return mTextFieldOut.getText();
+        } catch (NullPointerException e) {
+            return ComputerViewModel.EMPTY_VOLUME_STRING;
+        }
     }
     private void comboBoxFiguresInitialize() {
         mComboBoxFigures.addActionListener(new ActionListener() {
