@@ -50,10 +50,20 @@ public final class Computer {
         mTextFieldIn1.setText(in1);
         mTextFieldIn1.setText(in2);
         mTextFieldIn1.setText(in3);
-        mTextFieldIn1.getKeyListeners()[0].keyReleased(null);
-        mTextFieldIn2.getKeyListeners()[0].keyReleased(null);
-        mTextFieldIn3.getKeyListeners()[0].keyReleased(null);
+        for (KeyListener kl : mTextFieldIn1.getKeyListeners()) {
+            kl.keyReleased(null);
+        }
+        for (KeyListener kl : mTextFieldIn2.getKeyListeners()) {
+            kl.keyReleased(null);
+        }
+        for (KeyListener kl : mTextFieldIn3.getKeyListeners()) {
+            kl.keyReleased(null);
+        }
         mButtonSolve.doClick();
+    }
+    // and this method too.
+    public String getOut() {
+        return mTextFieldOut.getText();
     }
     private void comboBoxFiguresInitialize() {
         mComboBoxFigures.addActionListener(new ActionListener() {
