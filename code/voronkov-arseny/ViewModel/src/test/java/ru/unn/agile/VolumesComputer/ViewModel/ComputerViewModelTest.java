@@ -208,4 +208,47 @@ public class ComputerViewModelTest {
         assertEquals(m_viewModel.getVolume(),
                 ComputerViewModel.BAD_VOLUME_STRING);
     }
+
+    @Test
+    public void parametersNamesCuboid() {
+        m_viewModel.setFigure(FigureName.CUBOID);
+        assertArrayEquals(FigureName.CUBOID.getParametersNames(),
+                new String[] {
+                        m_viewModel.getParameter1name(),
+                        m_viewModel.getParameter2name(),
+                        m_viewModel.getParameter3name()
+                });
+    }
+    @Test
+    public void parametersNamesSpheroid() {
+        m_viewModel.setFigure(FigureName.SPHEROID);
+        assertEquals(m_viewModel.getParameter3name(),
+                m_viewModel.DISABLE_PARAMETER_STRING);
+        assertArrayEquals(FigureName.SPHEROID.getParametersNames(),
+                new String[] {
+                        m_viewModel.getParameter1name(),
+                        m_viewModel.getParameter2name()
+                });
+    }
+    @Test
+    public void parametersNamesRightCylinder() {
+        m_viewModel.setFigure(FigureName.RIGHT_CYLINDER);
+        assertArrayEquals(FigureName.RIGHT_CYLINDER.getParametersNames(),
+                new String[] {
+                        m_viewModel.getParameter1name(),
+                        m_viewModel.getParameter2name(),
+                        m_viewModel.getParameter3name()
+                });
+    }
+    @Test
+    public void parametersNamesRightCircularCone() {
+        m_viewModel.setFigure(FigureName.RIGHT_CIRCULAR_CONE);
+        assertEquals(m_viewModel.getParameter3name(),
+                m_viewModel.DISABLE_PARAMETER_STRING);
+        assertArrayEquals(FigureName.RIGHT_CIRCULAR_CONE.getParametersNames(),
+                new String[] {
+                        m_viewModel.getParameter1name(),
+                        m_viewModel.getParameter2name()
+                });
+    }
 }

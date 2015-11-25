@@ -6,6 +6,7 @@ public class ComputerViewModel {
     public static final String BAD_VOLUME_STRING
             = "I can't solve volume for this strange figure!";
     public static final String EMPTY_VOLUME_STRING = "";
+    public static final String DISABLE_PARAMETER_STRING = "No parameter";
     private String m_parameter1str;
     private String m_parameter2str;
     private String m_parameter3str;
@@ -67,6 +68,15 @@ public class ComputerViewModel {
     }
     public String getVolume() {
         return m_volumeStr;
+    }
+    public String getParameter1name() {
+        return getParameterName(1);
+    }
+    public String getParameter2name() {
+        return getParameterName(2);
+    }
+    public String getParameter3name() {
+        return getParameterName(3);
     }
     public void parse() {
         m_parsed = true;
@@ -145,5 +155,10 @@ public class ComputerViewModel {
             m_inputCorrect = false;
         }
         return res;
+    }
+    private String getParameterName(final int parameterIndex) {
+        return m_figureName.getParametersCount() >= parameterIndex
+                ? m_figureName.getParametersNames()[parameterIndex - 1]
+                : DISABLE_PARAMETER_STRING;
     }
 }
