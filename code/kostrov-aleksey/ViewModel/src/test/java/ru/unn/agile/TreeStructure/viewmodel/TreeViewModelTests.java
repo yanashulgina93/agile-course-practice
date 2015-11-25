@@ -4,32 +4,34 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 public class TreeViewModelTests {
-    private TreeViewModel viewModel;
+    private TreeViewModel viewModel, viewDefaultModel;
 
     @Before
     public void initializeViewModel() {
         viewModel = new TreeViewModel();
+        viewModel.setKey("100");
+        viewModel.setData("qwerty");
+        viewModel.doOperation();
     }
 
     @Test
     public void byDefault_DoButtonIsDisabled() {
-        assertFalse(viewModel.isDoButtonEnabled());
+        viewDefaultModel = new TreeViewModel();
+        assertFalse(viewDefaultModel.isDoButtonEnabled());
     }
 
     @Test
-    public void byDefault_DataTextFieldIsDisabled() {
-        assertFalse(viewModel.isDataTextFieldEnabled());
+    public void byDefault_DataTextFieldIsEnabled() {
+        assertTrue(viewModel.isDataTextFieldEnabled());
     }
 
     @Test
     public void whenSelectedTypeOperationsAndInputKey_DoButtonIsEnabled() {
-        viewModel.setKey("100");
         assertTrue(viewModel.isDoButtonEnabled());
     }
 
     @Test
     public void whenKeyClear_DoButtonIsDisabled() {
-        viewModel.setKey("100");
         viewModel.setKey("");
         assertFalse(viewModel.isDoButtonEnabled());
     }
@@ -42,24 +44,17 @@ public class TreeViewModelTests {
 
     @Test
     public void canInsertNewNode() {
-        viewModel.setKey("100");
-        viewModel.doOperation();
         assertEquals("Node was added successfully", viewModel.getErrorMessage());
     }
 
     @Test
     public void canInsertAlreadyAddedNode() {
-        viewModel.setKey("100");
-        viewModel.doOperation();
         viewModel.doOperation();
         assertEquals("Node with this key already exists.", viewModel.getErrorMessage());
     }
 
     @Test
     public void canSearchExistElement() {
-        viewModel.setKey("100");
-        viewModel.setData("qwerty");
-        viewModel.doOperation();
         viewModel.setOperation(TreeViewModel.Operation.SEARCH);
         viewModel.doOperation();
         assertEquals("qwerty", viewModel.getSearchedData());
@@ -67,12 +62,34 @@ public class TreeViewModelTests {
 
     @Test
     public void canSearchNotExistElement() {
-        viewModel.setKey("100");
-        viewModel.doOperation();
         viewModel.setKey("10");
         viewModel.setOperation(TreeViewModel.Operation.SEARCH);
         viewModel.doOperation();
         assertEquals("Element not found", viewModel.getErrorMessage());
+    }
+
+    @Test
+    public void canTruncateAnExistKey() {
+        viewModel.setOperation(TreeViewModel.Operation.TRUNCATE);
+        viewModel.doOperation();
+        viewModel.setOperation(TreeViewModel.Operation.SEARCH);
+        viewModel.doOperation();
+        assertEquals("Element not found", viewModel.getErrorMessage());
+    }
+
+    @Test
+    public void canTruncateAnNotExistKey() {
+        viewModel.setKey("101");
+        viewModel.setOperation(TreeViewModel.Operation.TRUNCATE);
+        viewModel.doOperation();
+        assertEquals("It is not possible, element not found", viewModel.getErrorMessage());
+    }
+
+    @Test
+    public void canDoOperationWhenInputKeyNotCorrect() {
+        viewModel.setKey("qwe");
+        viewModel.doOperation();
+        assertEquals("Key is not correct", viewModel.getErrorMessage());
     }
 
 }

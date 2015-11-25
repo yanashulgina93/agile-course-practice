@@ -5,7 +5,10 @@
     <constraints>
       <xy x="12" y="19" width="939" height="526"/>
     </constraints>
-    <properties/>
+    <properties>
+      <minimumSize width="398" height="250"/>
+      <preferredSize width="398" height="250"/>
+    </properties>
     <border type="none"/>
     <children>
       <grid id="d0210" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -39,7 +42,7 @@
             <properties>
               <enabled value="true"/>
               <hideActionText value="false"/>
-              <selected value="false"/>
+              <selected value="true"/>
               <text value="Insert"/>
               <verifyInputWhenFocusTarget value="true"/>
               <visible value="true"/>
@@ -102,6 +105,8 @@
               </grid>
             </constraints>
             <properties>
+              <enabled value="false"/>
+              <font size="18"/>
               <text value=""/>
             </properties>
           </component>

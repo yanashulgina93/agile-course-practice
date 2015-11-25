@@ -15,7 +15,8 @@ public class TreeView {
     private JTextField textKey;
     private JTextField textData;
     private TreeViewModel viewModel;
-    private TreeViewModel.Operation operation;
+    private TreeViewModel.Operation operation = TreeViewModel.Operation.INSERT;
+
 
     public TreeView(final TreeViewModel viewModel) {
         this.viewModel = viewModel;
@@ -27,55 +28,55 @@ public class TreeView {
         });
         insertRadioButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                bind();
+            public void actionPerformed(final ActionEvent e) {
                 insertRadioButton.setSelected(true);
                 searchRadioButton.setSelected(false);
                 truncateRadioButton.setSelected(false);
                 operation = TreeViewModel.Operation.INSERT;
+                bind();
                 backBind();
             }
         });
 
         searchRadioButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                bind();
+            public void actionPerformed(final ActionEvent e) {
                 insertRadioButton.setSelected(false);
                 searchRadioButton.setSelected(true);
                 truncateRadioButton.setSelected(false);
                 operation = TreeViewModel.Operation.SEARCH;
+                bind();
                 backBind();
             }
         });
 
         truncateRadioButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                bind();
+            public void actionPerformed(final ActionEvent e) {
                 insertRadioButton.setSelected(false);
                 searchRadioButton.setSelected(false);
                 truncateRadioButton.setSelected(true);
                 operation = TreeViewModel.Operation.TRUNCATE;
+                bind();
                 backBind();
             }
         });
 
         textKey.getDocument().addDocumentListener(new DocumentListener() {
             @Override
-            public void insertUpdate(DocumentEvent e) {
+            public void insertUpdate(final DocumentEvent e) {
                 bind();
                 backBind();
             }
 
             @Override
-            public void removeUpdate(DocumentEvent e) {
+            public void removeUpdate(final DocumentEvent e) {
                 bind();
                 backBind();
             }
 
             @Override
-            public void changedUpdate(DocumentEvent e) {
+            public void changedUpdate(final DocumentEvent e) {
                 bind();
                 backBind();
             }
@@ -93,10 +94,11 @@ public class TreeView {
     private void backBind() {
         buttonDo.setEnabled(viewModel.isDoButtonEnabled());
         textData.setEnabled(viewModel.isDataTextFieldEnabled());
+        textData.setText(viewModel.getSearchedData());
         textError.setText(viewModel.getErrorMessage());
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         JFrame frame = new JFrame("TreeView");
         frame.setContentPane(new TreeView(new TreeViewModel()).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

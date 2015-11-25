@@ -11,7 +11,6 @@ public class TreeViewModel {
     private String message;
     private String dataBySearchedElement;
     private Node tempNode;
-
     private boolean doButtonEnabled;
     private boolean textDataFieldEnabled;
 
@@ -28,55 +27,68 @@ public class TreeViewModel {
     }
 
     public boolean isDoButtonEnabled() {
-        if (!key.isEmpty())
+        if (!key.isEmpty()) {
             doButtonEnabled = true;
-        else
+        } else {
             doButtonEnabled = false;
+        }
         return doButtonEnabled;
     }
 
     public boolean isDataTextFieldEnabled() {
-        if (operation == Operation.INSERT)
+        if (operation == Operation.INSERT) {
             textDataFieldEnabled = true;
-        else
+        } else {
             textDataFieldEnabled = false;
+        }
         return textDataFieldEnabled;
     }
 
-    public void setKey(String key) {
+    public void setKey(final String key) {
         this.key = key;
-        if(!key.isEmpty())
+        if(!key.isEmpty()) {
             doButtonEnabled = true;
+        }
     }
 
-    public void setData(String data) {
+    public void setData(final String data) {
         this.data = data;
     }
 
-    public void setOperation(Operation operation) {
+    public void setOperation(final Operation operation) {
         this.operation = operation;
     }
 
     public void doOperation() {
-        switch (operation) {
-            case INSERT:
-                if(!tree.addNode(Integer.valueOf(key), data))
-                    message = "Node with this key already exists.";
-                else
-                    message = "Node was added successfully";
-                break;
-            case SEARCH:
-                tempNode = tree.searchByKey(Integer.valueOf(key));
-                if(tempNode != null) {
-                    dataBySearchedElement = (String) (tempNode.getData());
-                    message = "";
-                } else {
-                    message = "Element not found";
-                }
-                break;
-            case TRUNCATE:
-                tree.truncateByKey(key);
-                break;
+        try {
+            switch (operation) {
+                case INSERT:
+                    if (!tree.addNode(Integer.valueOf(key), data)) {
+                        message = "Node with this key already exists.";
+                    } else {
+                        message = "Node was added successfully";
+                    }
+                    break;
+                case SEARCH:
+                    tempNode = tree.searchByKey(Integer.valueOf(key));
+                    if (tempNode != null) {
+                        dataBySearchedElement = (String) (tempNode.getData());
+                        message = "";
+                    } else {
+                        message = "Element not found";
+                    }
+                    break;
+                case TRUNCATE:
+                    try {
+                        tree.truncateByKey(Integer.valueOf(key));
+                        message = "Truncate was successfully";
+                    } catch (Exception e) {
+                        message = "It is not possible, element not found";
+                    }
+                    break;
+            }
+        } catch (Exception e) {
+            message = "Key is not correct";
         }
     }
 
