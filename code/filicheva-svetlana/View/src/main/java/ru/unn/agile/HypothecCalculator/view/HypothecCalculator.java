@@ -5,7 +5,6 @@ import ru.unn.agile.HypothecCalculator.viewmodel.ViewModel;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -51,6 +50,9 @@ public final class HypothecCalculator {
             }
         };
         houseCost.addKeyListener(keyListener);
+        interestRate.addKeyListener(keyListener);
+        downPayment.addKeyListener(keyListener);
+        countOfPeriods.addKeyListener(keyListener);
     }
 
     private void createUIComponents() {
@@ -77,7 +79,8 @@ public final class HypothecCalculator {
 
         viewModel.setCurrencyType((ViewModel.CurrencyType) currencyType.getSelectedItem());
         viewModel.setPeriodType((ViewModel.PeriodType) periodType.getSelectedItem());
-        viewModel.setInterestRateType((ViewModel.InterestRateType) interestRateType.getSelectedItem());
+        viewModel.setInterestRateType(
+                (ViewModel.InterestRateType) interestRateType.getSelectedItem());
         viewModel.setFlatFeeType((ViewModel.FlatFeeType) flatFeeType.getSelectedItem());
         viewModel.setMonthlyFeeType((ViewModel.MonthlyFeeType) monthlyFeeType.getSelectedItem());
         viewModel.setCreditType((ViewModel.CreditType) creditType.getSelectedItem());
@@ -148,8 +151,6 @@ public final class HypothecCalculator {
 }
 
 class DollarPanel extends JPanel {
-
-    public DollarPanel() { }
 
     public void paintComponent(final Graphics g) {
         Image im = null;

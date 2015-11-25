@@ -147,7 +147,14 @@ public class CreditCalculatorTest {
                             new RightValues(1000.0, 1000.0, 0.0, 0.0)
                     }
             };
-        } catch (HypothecInputException e) { }
+        } catch (HypothecInputException e) {
+            parametersOfTests = new Object[][]{
+                    {
+                            new CreditCalculator(new Hypothec.Builder().build()),
+                            new RightValues(0.0, 0.0, 0.0, 0.0)
+                    }
+            };
+        }
     }
 
 

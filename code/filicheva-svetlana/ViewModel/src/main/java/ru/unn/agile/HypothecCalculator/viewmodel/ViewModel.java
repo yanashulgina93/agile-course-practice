@@ -1,6 +1,6 @@
 package ru.unn.agile.HypothecCalculator.viewmodel;
 
-import ru.unn.agile.HypothecsCalculator.model;
+import ru.unn.agile.HypothecsCalculator.model.*;
 
 public class ViewModel {
 
@@ -24,9 +24,11 @@ public class ViewModel {
     private String startMonth;
     private String startYear;
 
+    private Hypothec.Builder hypothecForParsing;
+
     public ViewModel() {
-        status = Status.READY;
-        isButtonEnabled = true;
+        status = Status.WAITING;
+        isButtonEnabled = false;
 
         houseCost = "";
         downPayment = "";
@@ -48,8 +50,6 @@ public class ViewModel {
     }
 
     public void loadExample() {
-        status = Status.READY;
-        isButtonEnabled = true;
 
         houseCost = "2500000";
         downPayment = "0";
@@ -67,6 +67,8 @@ public class ViewModel {
 
         startMonth = "1";
         startYear = "1992";
+
+        parseInput();
     }
 
     public String getStatus() {
@@ -85,7 +87,7 @@ public class ViewModel {
         return houseCost;
     }
 
-    public void setHouseCost(String houseCost) {
+    public void setHouseCost(final String houseCost) {
         this.houseCost = houseCost;
     }
 
@@ -93,7 +95,7 @@ public class ViewModel {
         return downPayment;
     }
 
-    public void setDownPayment(String downPayment) {
+    public void setDownPayment(final String downPayment) {
         this.downPayment = downPayment;
     }
 
@@ -101,7 +103,7 @@ public class ViewModel {
         return countOfPeriods;
     }
 
-    public void setCountOfPeriods(String countOfPeriods) {
+    public void setCountOfPeriods(final String countOfPeriods) {
         this.countOfPeriods = countOfPeriods;
     }
 
@@ -109,7 +111,7 @@ public class ViewModel {
         return interestRate;
     }
 
-    public void setInterestRate(String interestRate) {
+    public void setInterestRate(final String interestRate) {
         this.interestRate = interestRate;
     }
 
@@ -117,7 +119,7 @@ public class ViewModel {
         return flatFee;
     }
 
-    public void setFlatFee(String flatFee) {
+    public void setFlatFee(final String flatFee) {
         this.flatFee = flatFee;
     }
 
@@ -125,7 +127,7 @@ public class ViewModel {
         return monthlyFee;
     }
 
-    public void setMonthlyFee(String monthlyFee) {
+    public void setMonthlyFee(final String monthlyFee) {
         this.monthlyFee = monthlyFee;
     }
 
@@ -133,7 +135,7 @@ public class ViewModel {
         return currencyType;
     }
 
-    public void setCurrencyType(CurrencyType currencyType) {
+    public void setCurrencyType(final CurrencyType currencyType) {
         this.currencyType = currencyType;
     }
 
@@ -141,7 +143,7 @@ public class ViewModel {
         return periodType;
     }
 
-    public void setPeriodType(PeriodType periodType) {
+    public void setPeriodType(final PeriodType periodType) {
         this.periodType = periodType;
     }
 
@@ -149,7 +151,7 @@ public class ViewModel {
         return interestRateType;
     }
 
-    public void setInterestRateType(InterestRateType interestRateType) {
+    public void setInterestRateType(final InterestRateType interestRateType) {
         this.interestRateType = interestRateType;
     }
 
@@ -157,7 +159,7 @@ public class ViewModel {
         return flatFeeType;
     }
 
-    public void setFlatFeeType(FlatFeeType flatFeeType) {
+    public void setFlatFeeType(final FlatFeeType flatFeeType) {
         this.flatFeeType = flatFeeType;
     }
 
@@ -165,7 +167,7 @@ public class ViewModel {
         return monthlyFeeType;
     }
 
-    public void setMonthlyFeeType(MonthlyFeeType monthlyFeeType) {
+    public void setMonthlyFeeType(final MonthlyFeeType monthlyFeeType) {
         this.monthlyFeeType = monthlyFeeType;
     }
 
@@ -173,7 +175,7 @@ public class ViewModel {
         return creditType;
     }
 
-    public void setCreditType(CreditType creditType) {
+    public void setCreditType(final CreditType creditType) {
         this.creditType = creditType;
     }
 
@@ -181,7 +183,7 @@ public class ViewModel {
         return startMonth;
     }
 
-    public void setStartMonth(String startMonth) {
+    public void setStartMonth(final String startMonth) {
         this.startMonth = startMonth;
     }
 
@@ -189,26 +191,106 @@ public class ViewModel {
         return startYear;
     }
 
-    public void setStartYear(String startYear) {
+    public void setStartYear(final String startYear) {
         this.startYear = startYear;
     }
 
     public void parseInput() {
         status = Status.READY;
+        isButtonEnabled = false;
 
-        if (houseCost == "") status = Status.WAITING;
-        else try {
-            Double.parseDouble(houseCost);
+        hypothecForParsing = new Hypothec.Builder();
 
-        } catch (Hypothec e) {
-            status = Status.BAD_FORMAT;
-            isButtonEnabled = false;
+        if (!houseCostAndCountOfPeriodsIsOK()) {
             return;
+        }
+        if (!downPaymentIsOK()) {
+            return;
+        }
+        if (!interestRateIsOK()) {
+            return;
+        }
+
+
+        if (status == Status.READY) {
+            isButtonEnabled = true;
         }
 
 
     }
 
+    private boolean houseCostAndCountOfPeriodsIsOK() {
+        double houseCostDouble;
+        int countOfPeriodsDouble;
+
+        if (houseCost.isEmpty()) {
+            status = Status.WAITING;
+            houseCostDouble = 0.0;
+        } else {
+            try {
+                houseCostDouble = Double.parseDouble(houseCost);
+            }  catch (Exception e) {
+                status = Status.BAD_FORMAT;
+                return false;
+            }
+        }
+
+        if (countOfPeriods.isEmpty()) {
+            status = Status.WAITING;
+            countOfPeriodsDouble = 1;
+        } else {
+            try {
+                countOfPeriodsDouble = Integer.parseInt(countOfPeriods);
+            } catch (Exception e) {
+                status = Status.BAD_FORMAT;
+                return false;
+            }
+        }
+
+        try {
+            hypothecForParsing = new Hypothec.Builder(houseCostDouble, countOfPeriodsDouble);
+        } catch (HypothecInputException e) {
+            status = e.getMessage();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean downPaymentIsOK() {
+        if (downPayment.isEmpty()) {
+            status = Status.WAITING;
+        } else {
+            try {
+                double downPaymentDouble = Double.parseDouble(downPayment);
+                hypothecForParsing.downPayment(downPaymentDouble);
+            } catch (HypothecInputException e) {
+                status = e.getMessage();
+                return false;
+            } catch (Exception e) {
+                status = Status.BAD_FORMAT;
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean interestRateIsOK() {
+        if (interestRate.isEmpty()) {
+            status = Status.WAITING;
+        } else {
+            try {
+                double interestRateDouble = Double.parseDouble(interestRate);
+                hypothecForParsing.interestRate(interestRateDouble);
+            } catch (HypothecInputException e) {
+                status = e.getMessage();
+                return false;
+            } catch (Exception e) {
+                status = Status.BAD_FORMAT;
+                return false;
+            }
+        }
+        return true;
+    }
 
     public enum CurrencyType {
         DOLLARS("$"),
@@ -305,7 +387,7 @@ public class ViewModel {
     public final class Status {
         public static final String WAITING = "Введите параметры кредита";
         public static final String READY = "Нажмите кнопку \"Рассчитать\"";
-        public static final String BAD_FORMAT = "Bad format";
+        public static final String BAD_FORMAT = "Введены даннные неверного формата ";
         public static final String SUCCESS = "Success";
 
         private Status() { }
