@@ -19,7 +19,7 @@ public final class Computer {
     private JLabel mLabelOut;
     private JButton mButtonSolve;
 
-    private ComputerViewModel mViewModel;
+    private final ComputerViewModel mViewModel;
 
     public static void main(final String[] agrs) {
         JFrame frame = new JFrame("VolumesComputer");
