@@ -6,7 +6,7 @@ import ru.unn.agile.VolumesComputer.ViewModel.FigureName;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class Computer {
+public final class Computer {
     private JComboBox<FigureName> mComboBoxFigures;
     private JTextField mTextFieldIn1;
     private JTextField mTextFieldIn2;
@@ -92,7 +92,7 @@ public class Computer {
     private void buttonSolveInitialize() {
         mButtonSolve.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 mViewModel.setParameter1(mTextFieldIn1.getText());
                 mViewModel.setParameter2(mTextFieldIn2.getText());
                 mViewModel.setParameter3(mTextFieldIn3.getText());
