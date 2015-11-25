@@ -7,7 +7,7 @@ public class TreeViewModel {
     private String key;
     private String data;
     private Operation operation;
-    private Tree tree;
+    private Tree<Integer, String> tree;
     private String message;
     private String dataBySearchedElement;
     private Node tempNode;
@@ -23,14 +23,14 @@ public class TreeViewModel {
         operation = Operation.INSERT;
         doButtonEnabled = false;
         textDataFieldEnabled = false;
-        tree = new Tree();
+        tree = new Tree<>();
     }
 
     public boolean isDoButtonEnabled() {
-        if (!key.isEmpty()) {
-            doButtonEnabled = true;
-        } else {
+        if (key.isEmpty()) {
             doButtonEnabled = false;
+        } else {
+            doButtonEnabled = true;
         }
         return doButtonEnabled;
     }
@@ -46,7 +46,7 @@ public class TreeViewModel {
 
     public void setKey(final String key) {
         this.key = key;
-        if(!key.isEmpty()) {
+        if (!key.isEmpty()) {
             doButtonEnabled = true;
         }
     }
@@ -63,19 +63,19 @@ public class TreeViewModel {
         try {
             switch (operation) {
                 case INSERT:
-                    if (!tree.addNode(Integer.valueOf(key), data)) {
-                        message = "Node with this key already exists.";
-                    } else {
+                    if (tree.addNode(Integer.valueOf(key), data)) {
                         message = "Node was added successfully";
+                    } else {
+                        message = "Node with this key already exists.";
                     }
                     break;
                 case SEARCH:
                     tempNode = tree.searchByKey(Integer.valueOf(key));
-                    if (tempNode != null) {
+                    if (tempNode == null) {
+                        message = "Element not found";
+                    } else {
                         dataBySearchedElement = (String) (tempNode.getData());
                         message = "";
-                    } else {
-                        message = "Element not found";
                     }
                     break;
                 case TRUNCATE:
@@ -86,6 +86,8 @@ public class TreeViewModel {
                         message = "It is not possible, element not found";
                     }
                     break;
+                default:
+                    throw new IllegalArgumentException("Only INSERT, SEARCH and TRUNCATE");
             }
         } catch (Exception e) {
             message = "Key is not correct";

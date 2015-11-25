@@ -5,7 +5,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.event.*;
 
-public class TreeView {
+public final class TreeView {
     private JPanel mainPanel;
     private JRadioButton insertRadioButton;
     private JRadioButton searchRadioButton;
@@ -17,8 +17,8 @@ public class TreeView {
     private TreeViewModel viewModel;
     private TreeViewModel.Operation operation = TreeViewModel.Operation.INSERT;
 
-
-    public TreeView(final TreeViewModel viewModel) {
+    private TreeView() { }
+    private TreeView(final TreeViewModel viewModel) {
         this.viewModel = viewModel;
 
         buttonDo.addActionListener(e -> {
@@ -104,9 +104,5 @@ public class TreeView {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-    }
-
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
     }
 }

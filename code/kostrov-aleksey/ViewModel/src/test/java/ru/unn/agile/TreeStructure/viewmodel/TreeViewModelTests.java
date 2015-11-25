@@ -15,23 +15,23 @@ public class TreeViewModelTests {
     }
 
     @Test
-    public void byDefault_DoButtonIsDisabled() {
+    public void byDefaultDoButtonIsDisabled() {
         viewDefaultModel = new TreeViewModel();
         assertFalse(viewDefaultModel.isDoButtonEnabled());
     }
 
     @Test
-    public void byDefault_DataTextFieldIsEnabled() {
+    public void byDefaultDataTextFieldIsEnabled() {
         assertTrue(viewModel.isDataTextFieldEnabled());
     }
 
     @Test
-    public void whenSelectedTypeOperationsAndInputKey_DoButtonIsEnabled() {
+    public void whenSelectedTypeOperationsAndInputKeyDoButtonIsEnabled() {
         assertTrue(viewModel.isDoButtonEnabled());
     }
 
     @Test
-    public void whenKeyClear_DoButtonIsDisabled() {
+    public void whenKeyClearDoButtonIsDisabled() {
         viewModel.setKey("");
         assertFalse(viewModel.isDoButtonEnabled());
     }
