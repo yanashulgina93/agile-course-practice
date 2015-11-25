@@ -1,8 +1,8 @@
 package ru.unn.agile.VolumesComputer.Model;
 
 public class RightCircularCone implements IRightCircularConical {
-    private double m_radius;
-    private double m_height;
+    private double mRadius;
+    private double mHeight;
 
     public RightCircularCone(final double radius,
                              final double height)
@@ -10,15 +10,15 @@ public class RightCircularCone implements IRightCircularConical {
         if (radius < 0.0 || height < 0.0) {
             throw new NegativeParametersException();
         }
-        m_radius = radius;
-        m_height = height;
+        mRadius = radius;
+        mHeight = height;
     }
     @Override
     public double getRadius() {
-        return m_radius;
+        return mRadius;
     }
     @Override
     public double getHeight() {
-        return m_height;
+        return mHeight;
     }
 }
