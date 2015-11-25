@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class Computer {
-    private JComboBox m_comboBoxFigures;
+    private JComboBox<FigureName> m_comboBoxFigures;
     private JTextField m_textFieldIn1;
     private JTextField m_textFieldIn2;
     private JTextField m_textFieldIn3;
