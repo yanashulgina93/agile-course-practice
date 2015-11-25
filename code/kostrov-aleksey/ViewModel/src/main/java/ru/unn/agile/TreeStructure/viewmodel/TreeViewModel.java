@@ -87,7 +87,8 @@ public class TreeViewModel {
                     }
                     break;
                 default:
-                    throw new IllegalArgumentException("Only INSERT, SEARCH and TRUNCATE");
+                    message = "Only INSERT, SEARCH and TRUNCATE";
+                    break;
             }
         } catch (Exception e) {
             message = "Key is not correct";
@@ -109,16 +110,13 @@ public class TreeViewModel {
     public enum Operation {
         INSERT("Insert"),
         SEARCH("Search_by_key"),
-        TRUNCATE("Truncate");
-
+        TRUNCATE("Truncate"),
+        OTHER("Other");
         private final String name;
 
         private Operation(final String name) {
             this.name = name;
         }
-
-        public String toString() {
-            return name;
-        }
     }
+
 }

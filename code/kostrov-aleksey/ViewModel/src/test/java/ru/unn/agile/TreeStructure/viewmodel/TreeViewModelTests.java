@@ -92,4 +92,16 @@ public class TreeViewModelTests {
         assertEquals("Key is not correct", viewModel.getErrorMessage());
     }
 
+    @Test
+    public void canDisabledTextDataField() {
+        viewModel.setOperation(TreeViewModel.Operation.TRUNCATE);
+        assertFalse(viewModel.isDataTextFieldEnabled());
+    }
+
+    @Test
+    public void canDoOperationWithNotCorrectOperation() {
+        viewModel.setOperation(TreeViewModel.Operation.OTHER);
+        viewModel.doOperation();
+        assertEquals("Only INSERT, SEARCH and TRUNCATE", viewModel.getErrorMessage());
+    }
 }
