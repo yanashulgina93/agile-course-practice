@@ -44,7 +44,7 @@ public class ComputerViewModel {
         mParameter3str = parameterString;
     }
     public void setFigure(final FigureName figureName) {
-        mParsed = mFigureName == figureName;
+        mParsed = mFigureName.equals(figureName);
         mFigureName = figureName;
     }
     public String getParameter1() {
