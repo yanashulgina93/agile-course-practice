@@ -106,45 +106,15 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
     }
 
     private static Object[] formTestDataFromEmptyIntegerArray() {
-        Integer[] emptyIntegerArray = {};
-        double exactMeanOfEmptyIntegerArray = 0.0;
-        double exactVarianceOfEmptyIntegerArray = 0.0;
-        double testingEvent = 1;
-        double probabilityOfTestingEvent = 0.0;
-
-        return formTestData(emptyIntegerArray,
-                exactMeanOfEmptyIntegerArray,
-                exactVarianceOfEmptyIntegerArray,
-                testingEvent,
-                probabilityOfTestingEvent);
+        return formTestData(new Integer[]{}, 0.0, 0.0, 1.0, 0.0);
     }
 
     private static Object[] formTestDataFromConstantIntegerArray() {
-        Integer[] constantIntegerArray = {5, 5, 5, 5};
-        double exactMeanOfConstantIntegerArray = 5.0;
-        double exactVarianceOfConstantIntegerArray = 0.0;
-        double testingEvent = 5;
-        double probabilityOfTestingEvent = 1.0;
-
-        return formTestData(constantIntegerArray,
-                exactMeanOfConstantIntegerArray,
-                exactVarianceOfConstantIntegerArray,
-                testingEvent,
-                probabilityOfTestingEvent);
+        return formTestData(new Integer[] {5, 5, 5, 5}, 5.0, 0.0, 5.0, 1.0);
     }
 
     private static Object[] formTestDataFromShortIntegerArray() {
-        Integer[] shortIntegerArray = {-1, -1, 5, 8, 10, 4, 4, 8};
-        double exactMeanOfShortIntegerArray = 4.625;
-        double exactVarianceOfShortIntegerArray = 16.553;
-        double testingEvent = 2;
-        double probabilityOfTestingEvent = 0.0;
-
-        return formTestData(shortIntegerArray,
-                exactMeanOfShortIntegerArray,
-                exactVarianceOfShortIntegerArray,
-                testingEvent,
-                probabilityOfTestingEvent);
+        return formTestData(new Integer[] {-1, -1, 5, 8, 10, 4, 4, 8}, 4.625, 16.553, 2.0, 0.0);
     }
 
     private static Object[] formTestDataFromMonotoneIntegerArray() {
@@ -152,44 +122,17 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
         for (int i = 0; i < monotoneIntegerArray.length; i++) {
             monotoneIntegerArray[i] = i;
         }
-        double exactMeanOfMonotoneIntegerArray = 49.5;
-        double exactVarianceOfMonotoneIntegerArray = 841.667;
-        double testingEvent = 15;
-        double probabilityOfTestingEvent = 0.01;
 
-        return formTestData(monotoneIntegerArray,
-                exactMeanOfMonotoneIntegerArray,
-                exactVarianceOfMonotoneIntegerArray,
-                testingEvent,
-                probabilityOfTestingEvent);
+        return formTestData(monotoneIntegerArray, 49.5, 841.667, 15, 0.01);
     }
 
     private static Object[] formTestDataFromFloatArrayContainedOneNumber() {
-        Float[] floatArrayContainedOneNumber = {3.14f};
-        double exactMeanOfFloatArrayContainedOneNumber = 3.14;
-        double exactVarianceOfFloatArrayContainedOneNumber = 0.0;
-        double testingEvent = 3.13;
-        double probabilityOfTestingEvent = 0.0;
-
-        return formTestData(floatArrayContainedOneNumber,
-                exactMeanOfFloatArrayContainedOneNumber,
-                exactVarianceOfFloatArrayContainedOneNumber,
-                testingEvent,
-                probabilityOfTestingEvent);
+        return formTestData(new Float[] {3.14f}, 3.14, 0.0, 3.13, 0.0);
     }
 
     private static Object[] formTestDataFromShortFloatArray() {
-        Float[] shortFloatArray = {1.f, 2.25f, 1.f, 2.25f, 2.25f, 2.25f};
-        double exactMeanOfShortFloatArray = 11.0 / 6.0;
-        double exactVarianceOfShortFloatArray = 0.417;
-        double testingEvent = 2.25f;
-        double probabilityOfTestingEvent = 4.0 / 6.0;
-
-        return formTestData(shortFloatArray,
-                exactMeanOfShortFloatArray,
-                exactVarianceOfShortFloatArray,
-                testingEvent,
-                probabilityOfTestingEvent);
+        return formTestData(new Float[] {1.f, 2.25f, 1.f, 2.25f, 2.25f, 2.25f},
+                11.0 / 6.0, 0.417, 2.25f, 4.0 / 6.0);
     }
 
     private static Object[] formTestDataFromDoubleArrayOfOneCosPeriod() {
@@ -198,15 +141,7 @@ public class ParameterizedTestsWhenCalculateStatisticValues {
             doubleArrayOfOneCosPeriod[i] = Math.cos(i * 2 * Math.PI
                     / doubleArrayOfOneCosPeriod.length);
         }
-        double exactMeanOfDoubleArrayOfOneCosPeriod = 0.0;
-        double exactVarianceOfDoubleArrayOfOneCosPeriod = 0.5;
-        double testingEvent = -2.0;
-        double probabilityOfTestingEvent = 0.0;
 
-        return formTestData(doubleArrayOfOneCosPeriod,
-                exactMeanOfDoubleArrayOfOneCosPeriod,
-                exactVarianceOfDoubleArrayOfOneCosPeriod,
-                testingEvent,
-                probabilityOfTestingEvent);
+        return formTestData(doubleArrayOfOneCosPeriod, 0.0, 0.5, -2.0, 0.0);
     }
 }

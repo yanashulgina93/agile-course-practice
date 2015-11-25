@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -117,15 +118,13 @@ public class StatisticCalculatorViewModelTests {
 
     @Test
     public void newValueIsSavedIntoDataTableWhenNewRowAdded() {
-        String newRow = "3.14";
-
-        viewModel.setInputRow(newRow);
+        viewModel.setInputRow("3.14");
         viewModel.addRowToStatisticData();
 
         Integer sizeOfData = viewModel.getStatisticData().size();
         Pair<String, String> lastRowInData = viewModel.getStatisticData().get(sizeOfData - 1);
 
-        assertEquals(newRow, lastRowInData.getValue());
+        assertEquals("3.14", lastRowInData.getValue());
     }
 
     @Test
@@ -181,10 +180,10 @@ public class StatisticCalculatorViewModelTests {
         viewModel.selectRowInStatisticData(1);
         viewModel.deleteSelectedRowInStatisticData();
 
-        ObservableList<Pair<String, String>> dataTable = viewModel.getStatisticData();
+        boolean hasDataTableOnlyOneElement = viewModel.getStatisticData().size() == 1;
+        boolean isFirstElementInDataTableEqualsToOne = viewModel.getStatisticData()
+                .get(0).getValue().equals("1.0");
 
-        boolean hasDataTableOnlyOneElement = dataTable.size() == 1;
-        boolean isFirstElementInDataTableEqualsToOne = dataTable.get(0).getValue().equals("1.0");
         assertTrue(hasDataTableOnlyOneElement && isFirstElementInDataTableEqualsToOne);
     }
 
@@ -194,13 +193,13 @@ public class StatisticCalculatorViewModelTests {
 
         viewModel.clearStatisticData();
 
-        ObservableList<Pair<String, String>> dataTable = viewModel.getStatisticData();
-        assertTrue(dataTable.isEmpty());
+        assertTrue(viewModel.getStatisticData().isEmpty());
     }
 
     @Test
     public void varianceDescriptionIsSelectedAfterCalculatingVariance() {
         viewModel.setSelectedStatistic(StatisticValue.VARIANCE);
+
         viewModel.calculateSelectedStatistic();
         String nameOfCalculatedStatistic = viewModel.nameOfCalculatedStatisticProperty().get();
 
@@ -210,6 +209,7 @@ public class StatisticCalculatorViewModelTests {
     @Test
     public void enumerationValueIsShownAfterCalculatingEnumeration() {
         viewModel.setSelectedStatistic(StatisticValue.ENUMERATION);
+
         viewModel.calculateSelectedStatistic();
 
         assertFalse(viewModel.getValueOfCalculatedStatistic().isEmpty());
@@ -233,8 +233,7 @@ public class StatisticCalculatorViewModelTests {
 
     @Test
     public void calculationIsDisabledWhenSetEmptyStatisticData() {
-        ObservableList<Pair<String, String>> emptyData = FXCollections.emptyObservableList();
-        viewModel.setStatisticData(emptyData);
+        viewModel.setStatisticData(FXCollections.emptyObservableList());
 
         assertTrue(viewModel.calculationIsDisabledProperty().get());
     }
@@ -250,6 +249,7 @@ public class StatisticCalculatorViewModelTests {
     public void nameOfCalculatedStatisticIsEqualsToRowMomentAfterCalculateRowMomentOfSecondOrder() {
         viewModel.setSelectedStatistic(StatisticValue.ROW_MOMENT);
         viewModel.inputStatisticParameterProperty().setValue("2");
+
         viewModel.calculateSelectedStatistic();
 
         assertEquals(viewModel.getNameOfCalculatedStatistic(),
@@ -260,6 +260,7 @@ public class StatisticCalculatorViewModelTests {
     public void nameOfCalculatedStatisticIsEqualsToProbabilityAfterCalculateProbability() {
         viewModel.setSelectedStatistic(StatisticValue.PROBABILITY);
         viewModel.inputStatisticParameterProperty().setValue("-1.2");
+
         viewModel.calculateSelectedStatistic();
 
         assertEquals(viewModel.getNameOfCalculatedStatistic(),
@@ -290,9 +291,7 @@ public class StatisticCalculatorViewModelTests {
     }
 
     private void setUpDataTable() {
-        ArrayList<String> statistics = new ArrayList<>();
-        statistics.add("1.0");
-        statistics.add("2.0");
+        ArrayList<String> statistics = new ArrayList<>(Arrays.asList("1.0", "2.0"));
 
         ObservableList<Pair<String, String>> dataTable = FXCollections.observableArrayList();
         for (Integer i = 1; i <= statistics.size(); i++) {

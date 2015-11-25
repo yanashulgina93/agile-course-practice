@@ -24,19 +24,16 @@ public class WhenCalculateStatisticValues {
     @Test
     public void meanIsZeroWhenStatisticDataIsEmpty() {
         meanCalculator = new MeanCalculator();
-        ArrayList<Double> emptyData = new ArrayList<>();
 
-        double mean = meanCalculator.calculate(emptyData);
+        double mean = meanCalculator.calculate(new ArrayList<>());
 
         assertEquals(0.0, mean, deltaForDoubleAssertEquals);
     }
 
     @Test(expected = NullPointerException.class)
     public void throwsWhenCalculatingProbabilityOfEventOnNullData() {
-        Double[] data = null;
-        Double event = 0.0;
-        formTestingData(data);
-        probabilityCalculator = new ProbabilityOfEventCalculator(event);
+        formTestingData(null);
+        probabilityCalculator = new ProbabilityOfEventCalculator(0.0);
 
         double probabilityOfEvent = probabilityCalculator.calculate(testingData);
 
@@ -52,8 +49,7 @@ public class WhenCalculateStatisticValues {
 
     @Test(expected = NullPointerException.class)
     public void throwsWhenCalculatingRawMomentOfNullData() {
-        Integer[] data = null;
-        formTestingData(data);
+        formTestingData(null);
         rawMomentCalculator = new RawMomentCalculator(3);
 
         rawMomentCalculator.calculate(testingData);
@@ -124,8 +120,7 @@ public class WhenCalculateStatisticValues {
 
     @Test
     public void centralMomentOfConstantIntegerDataEqualsToZero() {
-        Integer[] constantData = {1, 1, 1};
-        formTestingData(constantData);
+        formTestingData(new Integer[] {1, 1, 1});
 
         centralMomentCalculator = new CentralMomentCalculator(1);
         double centralMomentOfFirstOrder = centralMomentCalculator.calculate(testingData);
@@ -135,10 +130,9 @@ public class WhenCalculateStatisticValues {
 
     @Test
     public void centralMomentOfSecondOrderEqualsToOffsetVariance() {
-        Double[] data = formDoubleArrayWithSmallVariance();
-        formTestingData(data);
-
+        formTestingData(formDoubleArrayWithSmallVariance());
         varianceCalculator = new VarianceCalculator();
+
         double unbiasedVariance = ((double) (testingData.size() - 1)) / testingData.size()
                 * varianceCalculator.calculate(testingData);
 

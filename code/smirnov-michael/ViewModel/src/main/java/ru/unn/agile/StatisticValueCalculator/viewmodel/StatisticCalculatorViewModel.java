@@ -10,6 +10,7 @@ import ru.unn.agile.StatisticValueCalculator.model.*;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class StatisticCalculatorViewModel {
     private final StringProperty nameOfCalculatedStatistic = new SimpleStringProperty("");
@@ -55,15 +56,8 @@ public class StatisticCalculatorViewModel {
         inputStatisticParameter.addListener(parameterChangeListener);
         selectedStatistic.addListener(new SelectedStatisticListener());
 
-        ArrayList<String> data = new ArrayList<>();
-        data.add("1.0");
-        data.add("2.1");
-        data.add("3.2");
-        data.add("2.1");
-        data.add("1.0");
-        data.add("-5.4");
-        data.add("2.4");
-        data.add("0.0");
+        ArrayList<String> data = new ArrayList<>(Arrays.asList("1.0", "2.1", "3.2",
+                "2.1", "1.0", "-5.4", "2.4", "0.0"));
 
         for (Integer i = 1; i <= data.size(); i++) {
             statisticData.add(new Pair<>(i.toString(), data.get(i - 1)));
@@ -73,42 +67,55 @@ public class StatisticCalculatorViewModel {
     public String getNameOfCalculatedStatistic() {
         return nameOfCalculatedStatistic.get();
     }
+
     public String getValueOfCalculatedStatistic() {
         return valueOfCalculatedStatistic.get();
     }
+
     public InputNote getInputRowError() {
         return inputRowError.get();
     }
+
     public InputNote getInputStatisticParameterError() {
         return inputStatisticParameterError.get();
     }
+
     public ObservableList<StatisticValue> getListOfAvailableStatistics() {
         return listOfAvailableStatistics.get();
     }
+
     public StatisticValue getSelectedStatistic() {
         return selectedStatistic.get();
     }
+
     public StatisticParameter getParameterNameOfSelectedStatistic() {
         return parameterNameOfSelectedStatistic.get();
     }
+
     public boolean getInputStatisticParameterFieldIsVisible() {
         return inputStatisticParameterFieldIsVisible.get();
     }
+
     public String getInputRow() {
         return inputRow.get();
     }
+
     public String getInputStatisticParameter() {
         return inputStatisticParameter.get();
     }
+
     public ObservableList<Pair<String, String>> getStatisticData() {
         return statisticData;
     }
+
     public boolean getAddInputRowIsDisabled() {
         return addInputRowIsDisabled.get();
     }
+
     public boolean getCalculationIsDisabled() {
         return calculationIsDisabled.get();
     }
+
     public boolean getDeleteDataRowIsDisabled() {
         return deleteDataRowIsDisabled.get();
     }
@@ -116,36 +123,47 @@ public class StatisticCalculatorViewModel {
     public StringProperty nameOfCalculatedStatisticProperty() {
         return nameOfCalculatedStatistic;
     }
+
     public StringProperty valueOfCalculatedStatisticProperty() {
         return valueOfCalculatedStatistic;
     }
+
     public ObjectProperty<InputNote> inputRowErrorProperty() {
         return inputRowError;
     }
+
     public ObjectProperty<InputNote> inputStatisticParameterErrorProperty() {
         return inputStatisticParameterError;
     }
+
     public ObjectProperty<StatisticValue> selectedStatisticProperty() {
         return selectedStatistic;
     }
+
     public ObjectProperty<StatisticParameter> parameterNameOfSelectedStatisticProperty() {
         return parameterNameOfSelectedStatistic;
     }
+
     public BooleanProperty inputStatisticParameterFieldIsVisibleProperty() {
         return inputStatisticParameterFieldIsVisible;
     }
+
     public StringProperty inputRowProperty() {
         return inputRow;
     }
+
     public StringProperty inputStatisticParameterProperty() {
         return inputStatisticParameter;
     }
+
     public BooleanProperty addInputRowIsDisabledProperty() {
         return addInputRowIsDisabled;
     }
+
     public BooleanProperty calculationIsDisabledProperty() {
         return calculationIsDisabled;
     }
+
     public BooleanProperty deleteDataRowIsDisabledProperty() {
         return deleteDataRowIsDisabled;
     }
@@ -180,10 +198,12 @@ public class StatisticCalculatorViewModel {
         statisticData.add(new Pair<>(numberOfAddValue.toString(), inputRow.getValue()));
         calculationIsDisabled.set(false);
     }
+
     public void makeRowInDataNotSelected() {
         selectedRowInStatisticData = -1;
         deleteDataRowIsDisabled.set(true);
     }
+
     public void selectRowInStatisticData(final Integer rowNumber) {
         if (rowNumber >= 0 && rowNumber < statisticData.size()) {
             selectedRowInStatisticData = rowNumber;
@@ -192,6 +212,7 @@ public class StatisticCalculatorViewModel {
             makeRowInDataNotSelected();
         }
     }
+
     public void deleteSelectedRowInStatisticData() {
         if (!deleteDataRowIsDisabled.get()) {
             statisticData.remove(selectedRowInStatisticData);
@@ -199,10 +220,12 @@ public class StatisticCalculatorViewModel {
             reformIndexesInStatisticData();
         }
     }
+
     public void clearStatisticData() {
         statisticData.clear();
         calculationIsDisabled.set(true);
     }
+
     public void calculateSelectedStatistic() {
         ArrayList<Double> data = new ArrayList<>();
 
@@ -272,6 +295,7 @@ public class StatisticCalculatorViewModel {
             }
         }
     }
+
     private class SelectedStatisticListener implements ChangeListener<StatisticValue> {
         @Override
         public void changed(final ObservableValue<? extends StatisticValue> observable,
@@ -280,6 +304,7 @@ public class StatisticCalculatorViewModel {
                     inputStatisticParameter.get());
         }
     }
+
     private class AddStatisticParameterChangeListener implements ChangeListener<String> {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
