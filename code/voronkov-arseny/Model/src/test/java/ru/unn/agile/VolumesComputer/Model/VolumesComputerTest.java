@@ -101,11 +101,6 @@ public class VolumesComputerTest {
         assertEquals(volume, goodVolume, 0.0);
     }
 
-    @Test
-    public void negative1() {
-        NegativeParametersException e = new NegativeParametersException();
-        assertEquals(e.getMessage(), "Parameters must not be negative.");
-    }
     @Test (expected = NullPointerException.class)
     public void cuboidNullParameter() {
         VolumesComputer.solve((ICubiform) null);
