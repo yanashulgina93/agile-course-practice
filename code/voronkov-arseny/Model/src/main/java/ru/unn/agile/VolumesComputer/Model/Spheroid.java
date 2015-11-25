@@ -5,8 +5,7 @@ public class Spheroid implements ISpheroid {
     private double mSemiminorAxis;
 
     public Spheroid(final double semimajorAxis,
-                    final double semiminorAxis)
-            throws NegativeParametersException {
+                    final double semiminorAxis) {
         if (semimajorAxis < 0.0 || semiminorAxis < 0.0) {
             throw new NegativeParametersException();
         }

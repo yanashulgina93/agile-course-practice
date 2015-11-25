@@ -7,8 +7,7 @@ public class RightCylinder implements IRightCylindrical {
 
     public RightCylinder(final double semimajorAxis,
                          final double semiminorAxis,
-                         final double height)
-            throws NegativeParametersException {
+                         final double height) {
         if (semimajorAxis < 0.0 || semiminorAxis < 0.0 || height < 0.0) {
             throw new NegativeParametersException();
         }

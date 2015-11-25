@@ -5,8 +5,7 @@ public class RightCircularCone implements IRightCircularConical {
     private double mHeight;
 
     public RightCircularCone(final double radius,
-                             final double height)
-            throws NegativeParametersException {
+                             final double height) {
         if (radius < 0.0 || height < 0.0) {
             throw new NegativeParametersException();
         }

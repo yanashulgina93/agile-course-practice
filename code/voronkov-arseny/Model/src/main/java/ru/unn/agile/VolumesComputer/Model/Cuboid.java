@@ -7,7 +7,7 @@ public class Cuboid implements ICubiform {
 
     public Cuboid(final double width,
                   final double height,
-                  final double length) throws NegativeParametersException {
+                  final double length) {
         if (width < 0.0 || height < 0.0 || length < 0.0) {
             throw new NegativeParametersException();
         }
