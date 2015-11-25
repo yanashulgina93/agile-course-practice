@@ -21,11 +21,15 @@ public final class TreeView {
     private TreeView(final TreeViewModel viewModel) {
         this.viewModel = viewModel;
 
-        buttonDo.addActionListener(e -> {
-            bind();
-            viewModel.doOperation();
-            backBind();
+        buttonDo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                bind();
+                TreeView.this.viewModel.doOperation();
+                backBind();
+            }
         });
+
         insertRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
