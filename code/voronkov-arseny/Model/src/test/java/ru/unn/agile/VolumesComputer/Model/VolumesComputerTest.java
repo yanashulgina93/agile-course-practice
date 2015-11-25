@@ -100,4 +100,9 @@ public class VolumesComputerTest {
                 new RightCircularCone(r, h));
         assertEquals(volume, goodVolume, 0.0);
     }
+
+    @Test (expected = NegativeParametersException.class)
+    public void cuboidNegativeParams() {
+        new Cuboid(-1.0, 0.0, 0.0);
+    }
 }
