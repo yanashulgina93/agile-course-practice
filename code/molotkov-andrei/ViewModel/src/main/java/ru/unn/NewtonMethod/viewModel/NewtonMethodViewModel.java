@@ -12,6 +12,8 @@ public class NewtonMethodViewModel {
     private Status status;
     private double root;
     private ConverterToPolishNotation converter;
+    private static final int NUMBER_FIELDS = 4;
+    private int numberFillFields = 0;
 
     public NewtonMethodViewModel() {
         isCalculateButtonEnabled = false;
@@ -26,7 +28,6 @@ public class NewtonMethodViewModel {
     public enum KeyboardKeys {
         ENTER(10),
         ANY(777);
-        private int key;
 
         KeyboardKeys(final int key) {
             this.key = key;
@@ -35,6 +36,8 @@ public class NewtonMethodViewModel {
         public int getKey() {
             return key;
         }
+
+        private int key;
     }
 
     public enum Status {
@@ -44,7 +47,6 @@ public class NewtonMethodViewModel {
         BAD_FORMAT_FUNCTION("Incorrect function"),
         SUCCESS("Success"),
         NO_ROOT("Root is not in range");
-        private String message;
 
         Status(final String message) {
             this.message = message;
@@ -53,6 +55,8 @@ public class NewtonMethodViewModel {
         public String getMessage() {
             return message;
         }
+
+        private String message;
     }
 
     public boolean isCalculateButtonEnabled() {
@@ -95,6 +99,14 @@ public class NewtonMethodViewModel {
         this.rightPointOfRange = rightPointOfRange;
     }
 
+    public String  getLeftPoint() {
+        return leftPointOfRange;
+    }
+
+    public String getRightPoint() {
+        return rightPointOfRange;
+    }
+
     public double getRoot() {
         return root;
     }
@@ -110,22 +122,9 @@ public class NewtonMethodViewModel {
     }
 
     private void parseInput() {
+        numberFillFields = 0;
         try {
-            if (!leftPointOfRange.isEmpty()) {
-                Double.parseDouble(leftPointOfRange);
-            }
-            if (!rightPointOfRange.isEmpty()) {
-                Double.parseDouble(rightPointOfRange);
-
-            }
-            if (!function.isEmpty()) {
-                converter = new ConverterToPolishNotation();
-                converter.convert(function);
-            }
-            if (!derivative.isEmpty()) {
-                converter = new ConverterToPolishNotation();
-                converter.convert(derivative);
-            }
+            checkInputValues();
         } catch (ArithmeticException e) {
             status = Status.BAD_FORMAT_FUNCTION;
             isCalculateButtonEnabled = false;
@@ -138,24 +137,47 @@ public class NewtonMethodViewModel {
 
         isCalculateButtonEnabled = isInputAvailable();
         if (isCalculateButtonEnabled) {
-            if (!isRangeCorrect()) {
-                status = Status.BAD_FORMAT_RANGE;
-                isCalculateButtonEnabled = false;
-                return;
-            }
+            checkRangeCorrect();
             status = Status.READY;
         } else {
             status = Status.WAITING;
         }
     }
 
-    private boolean isRangeCorrect() {
-        return Double.parseDouble(leftPointOfRange) < Double.parseDouble(rightPointOfRange);
+    private void checkInputValues() {
+        if (!leftPointOfRange.isEmpty()) {
+            Double.parseDouble(leftPointOfRange);
+            numberFillFields++;
+        }
+        if (!rightPointOfRange.isEmpty()) {
+            Double.parseDouble(rightPointOfRange);
+            numberFillFields++;
+        }
+        if (!function.isEmpty()) {
+            converter = new ConverterToPolishNotation();
+            converter.convert(function);
+            numberFillFields++;
+        }
+        if (!derivative.isEmpty()) {
+            converter = new ConverterToPolishNotation();
+            converter.convert(derivative);
+            numberFillFields++;
+        }
+    }
+
+    private void checkRangeCorrect() {
+        if (Double.parseDouble(leftPointOfRange) >= Double.parseDouble(rightPointOfRange)) {
+            String temp = leftPointOfRange;
+            leftPointOfRange = rightPointOfRange;
+            rightPointOfRange = temp;
+        }
     }
 
     private boolean isInputAvailable() {
-        return !function.isEmpty() && !derivative.isEmpty() && !leftPointOfRange.isEmpty()
-                && !rightPointOfRange.isEmpty();
+        if (numberFillFields == NUMBER_FIELDS) {
+            return true;
+        }
+        return false;
     }
 
     private void calculateRoot() {
