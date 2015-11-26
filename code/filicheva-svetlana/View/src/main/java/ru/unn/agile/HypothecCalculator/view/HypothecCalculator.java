@@ -1,10 +1,13 @@
 package ru.unn.agile.HypothecCalculator.view;
 
 import ru.unn.agile.HypothecCalculator.viewmodel.ViewModel;
+import ru.unn.agile.HypothecsCalculator.model.Hypothec;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -18,14 +21,14 @@ public final class HypothecCalculator {
     private JTextField interestRate;
     private JTextField downPayment;
     private JTextField countOfPeriods;
-    private JComboBox<ViewModel.CurrencyType> currencyType;
-    private JComboBox<ViewModel.PeriodType> periodType;
-    private JComboBox<ViewModel.InterestRateType> interestRateType;
+    private JComboBox<Hypothec.CurrencyType> currencyType;
+    private JComboBox<Hypothec.PeriodType> periodType;
+    private JComboBox<Hypothec.InterestRateType> interestRateType;
     private JTextField flatFee;
     private JTextField monthlyFee;
-    private JComboBox<ViewModel.FlatFeeType> flatFeeType;
-    private JComboBox<ViewModel.MonthlyFeeType> monthlyFeeType;
-    private JComboBox<ViewModel.CreditType> creditType;
+    private JComboBox<Hypothec.FlatFeeType> flatFeeType;
+    private JComboBox<Hypothec.MonthlyFeeType> monthlyFeeType;
+    private JComboBox<Hypothec.CreditType> creditType;
     private JTextField month;
     private JTextField year;
     private JButton compute;
@@ -46,7 +49,7 @@ public final class HypothecCalculator {
         KeyAdapter keyListener = new KeyAdapter() {
             public void keyReleased(final KeyEvent e) {
                 bind();
-                viewModel.parseInput();
+                viewModel.checkInput();
                 backBind();
             }
         };
@@ -59,7 +62,57 @@ public final class HypothecCalculator {
         month.addKeyListener(keyListener);
         year.addKeyListener(keyListener);
 
-        
+
+        currencyType.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                bind();
+                backBind();
+            }
+        });
+        periodType.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                bind();
+                backBind();
+            }
+        });
+        interestRateType.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                bind();
+                backBind();
+            }
+        });
+        flatFeeType.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                bind();
+                backBind();
+            }
+        });
+        monthlyFeeType.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                bind();
+                backBind();
+            }
+        });
+        creditType.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                bind();
+                backBind();
+            }
+        });
+        compute.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                bind();
+                viewModel.compute();
+                backBind();
+            }
+        });
     }
 
     private void createUIComponents() {
@@ -84,13 +137,13 @@ public final class HypothecCalculator {
         viewModel.setFlatFee(flatFee.getText());
         viewModel.setMonthlyFee(monthlyFee.getText());
 
-        viewModel.setCurrencyType((ViewModel.CurrencyType) currencyType.getSelectedItem());
-        viewModel.setPeriodType((ViewModel.PeriodType) periodType.getSelectedItem());
+        viewModel.setCurrencyType((Hypothec.CurrencyType) currencyType.getSelectedItem());
+        viewModel.setPeriodType((Hypothec.PeriodType) periodType.getSelectedItem());
         viewModel.setInterestRateType(
-                (ViewModel.InterestRateType) interestRateType.getSelectedItem());
-        viewModel.setFlatFeeType((ViewModel.FlatFeeType) flatFeeType.getSelectedItem());
-        viewModel.setMonthlyFeeType((ViewModel.MonthlyFeeType) monthlyFeeType.getSelectedItem());
-        viewModel.setCreditType((ViewModel.CreditType) creditType.getSelectedItem());
+                (Hypothec.InterestRateType) interestRateType.getSelectedItem());
+        viewModel.setFlatFeeType((Hypothec.FlatFeeType) flatFeeType.getSelectedItem());
+        viewModel.setMonthlyFeeType((Hypothec.MonthlyFeeType) monthlyFeeType.getSelectedItem());
+        viewModel.setCreditType((Hypothec.CreditType) creditType.getSelectedItem());
 
         viewModel.setStartMonth(month.getText());
         viewModel.setStartYear(year.getText());
@@ -118,32 +171,32 @@ public final class HypothecCalculator {
     }
 
     private void loadListOfCurrencies() {
-        ViewModel.CurrencyType[] currencies = ViewModel.CurrencyType.values();
+        Hypothec.CurrencyType[] currencies = Hypothec.CurrencyType.values();
         currencyType.setModel(new JComboBox<>(currencies).getModel());
     }
 
     private void loadListOfPeriods() {
-        ViewModel.PeriodType[] periods = ViewModel.PeriodType.values();
+        Hypothec.PeriodType[] periods = Hypothec.PeriodType.values();
         periodType.setModel(new JComboBox<>(periods).getModel());
     }
 
     private void loadListOfInterestRateTypes() {
-        ViewModel.InterestRateType[] types = ViewModel.InterestRateType.values();
+        Hypothec.InterestRateType[] types = Hypothec.InterestRateType.values();
         interestRateType.setModel(new JComboBox<>(types).getModel());
     }
 
     private void loadListOfFlatFeeTypes() {
-        ViewModel.FlatFeeType[] types = ViewModel.FlatFeeType.values();
+        Hypothec.FlatFeeType[] types = Hypothec.FlatFeeType.values();
         flatFeeType.setModel(new JComboBox<>(types).getModel());
     }
 
     private void loadListOfMonthlyFeeTypes() {
-        ViewModel.MonthlyFeeType[] types = ViewModel.MonthlyFeeType.values();
+        Hypothec.MonthlyFeeType[] types = Hypothec.MonthlyFeeType.values();
         monthlyFeeType.setModel(new JComboBox<>(types).getModel());
     }
 
     private void loadListOfCreditTypes() {
-        ViewModel.CreditType[] types = ViewModel.CreditType.values();
+        Hypothec.CreditType[] types = Hypothec.CreditType.values();
         creditType.setModel(new JComboBox<>(types).getModel());
     }
 

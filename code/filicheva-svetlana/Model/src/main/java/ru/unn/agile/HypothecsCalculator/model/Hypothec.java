@@ -230,36 +230,96 @@ public class Hypothec {
         }
     }
 
+    public enum CurrencyType {
+        DOLLAR("$"),
+        EURO("€"),
+        RUBLE("руб.");
+
+        private final String name;
+
+        CurrencyType(final String name) {
+            this.name = name;
+        }
+
+        public String toString() {
+            return name;
+        }
+    }
+
     public enum PeriodType {
-        MONTH,
-        YEAR
+        MONTH("месяцев"),
+        YEAR("лет");
+
+        private final String name;
+
+        PeriodType(final String name) {
+            this.name = name;
+        }
+
+        public String toString() {
+            return name;
+        }
     }
 
     public enum InterestRateType {
-        MONTHLY,
-        YEARLY
-    }
+        MONTHLY("% ежемесячно"),
+        YEARLY("% ежегодно");
 
-    public enum CreditType {
-        DIFFERENTIATED,
-        ANNUITY
-    }
+        private final String name;
 
-    public enum MonthlyFeeType {
-        CREDIT_BALANCE_PERCENT,
-        CREDIT_SUM_PERCENT,
-        CONSTANT_SUM
+        InterestRateType(final String name) {
+            this.name = name;
+        }
+
+        public String toString() {
+            return name;
+        }
     }
 
     public enum FlatFeeType {
-        PERCENT,
-        CONSTANT_SUM
+        PERCENT("% от суммы кредита"),
+        CONSTANT_SUM("фиксированная сумма");
+
+        private final String name;
+
+        FlatFeeType(final String name) {
+            this.name = name;
+        }
+
+        public String toString() {
+            return name;
+        }
     }
 
-    public enum CurrencyType {
-        RUBLE,
-        DOLLAR,
-        EURO
+    public enum MonthlyFeeType {
+        CREDIT_SUM_PERCENT("% от суммы кредита"),
+        CREDIT_BALANCE_PERCENT("% от остатка долга"),
+        CONSTANT_SUM("фиксированная сумма");
+
+        private final String name;
+
+        MonthlyFeeType(final String name) {
+            this.name = name;
+        }
+
+        public String toString() {
+            return name;
+        }
+    }
+
+    public enum CreditType {
+        DIFFERENTIATED("дифференцированный"),
+        ANNUITY("аннуитетный");
+
+        private final String name;
+
+        CreditType(final String name) {
+            this.name = name;
+        }
+
+        public String toString() {
+            return name;
+        }
     }
 
 }

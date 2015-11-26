@@ -117,6 +117,7 @@
             <properties>
               <font name="Source Code Pro" size="14"/>
               <foreground color="-12097436"/>
+              <model/>
             </properties>
           </component>
           <component id="4e642" class="javax.swing.JComboBox" binding="periodType">

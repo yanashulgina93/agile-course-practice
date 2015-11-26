@@ -3,6 +3,7 @@ package ru.unn.agile.HypothecCalculator.viewmodel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import ru.unn.agile.HypothecsCalculator.model.Hypothec;
 import ru.unn.agile.HypothecsCalculator.model.HypothecInputException;
 
 import static org.junit.Assert.assertEquals;
@@ -43,12 +44,12 @@ public class ViewModelTextFieldsTest {
         assertEquals("", viewModel.getInterestRate());
         assertEquals("", viewModel.getFlatFee());
         assertEquals("", viewModel.getMonthlyFee());
-        assertEquals(ViewModel.CurrencyType.DOLLARS, viewModel.getCurrencyType());
-        assertEquals(ViewModel.PeriodType.MONTH, viewModel.getPeriodType());
-        assertEquals(ViewModel.InterestRateType.MONTHLY, viewModel.getInterestRateType());
-        assertEquals(ViewModel.FlatFeeType.PERCENT, viewModel.getFlatFeeType());
-        assertEquals(ViewModel.MonthlyFeeType.CREDIT_SUM_PERCENT, viewModel.getMonthlyFeeType());
-        assertEquals(ViewModel.CreditType.DIFFERENTIATED, viewModel.getCreditType());
+        assertEquals(Hypothec.CurrencyType.DOLLAR, viewModel.getCurrencyType());
+        assertEquals(Hypothec.PeriodType.MONTH, viewModel.getPeriodType());
+        assertEquals(Hypothec.InterestRateType.MONTHLY, viewModel.getInterestRateType());
+        assertEquals(Hypothec.FlatFeeType.PERCENT, viewModel.getFlatFeeType());
+        assertEquals(Hypothec.MonthlyFeeType.CREDIT_SUM_PERCENT, viewModel.getMonthlyFeeType());
+        assertEquals(Hypothec.CreditType.DIFFERENTIATED, viewModel.getCreditType());
         assertEquals("", viewModel.getStartMonth());
         assertEquals("", viewModel.getStartYear());
     }
@@ -56,7 +57,7 @@ public class ViewModelTextFieldsTest {
     @Test
     public void canLoadExample() {
         loadExample();
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.READY, viewModel.getStatus());
         assertEquals(true, viewModel.isButtonEnabled());
@@ -67,7 +68,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setHouseCost("");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.WAITING, viewModel.getStatus());
     }
@@ -77,7 +78,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setHouseCost("qw");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.getStatus());
     }
@@ -87,7 +88,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setHouseCost("-100");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(HypothecInputException.NEGATIVE_HOUSE_COST, viewModel.getStatus());
     }
@@ -97,7 +98,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setHouseCost("100");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.READY, viewModel.getStatus());
     }
@@ -107,7 +108,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setHouseCost("");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -117,7 +118,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setHouseCost("qw");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -127,7 +128,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setHouseCost("-100");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -137,7 +138,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setCountOfPeriods("");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.WAITING, viewModel.getStatus());
     }
@@ -147,7 +148,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setCountOfPeriods("pgffff");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.getStatus());
     }
@@ -157,7 +158,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setCountOfPeriods("0");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(HypothecInputException.NOT_POSITIVE_CREDIT_PERIOD, viewModel.getStatus());
     }
@@ -167,7 +168,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setCountOfPeriods("1");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.READY, viewModel.getStatus());
     }
@@ -177,7 +178,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setCountOfPeriods("");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -187,7 +188,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setCountOfPeriods("fdddddw");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -197,7 +198,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setCountOfPeriods("0");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -207,7 +208,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setDownPayment("");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.WAITING, viewModel.getStatus());
     }
@@ -217,7 +218,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setDownPayment("eee");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.getStatus());
     }
@@ -227,7 +228,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setDownPayment("-400");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(HypothecInputException.NEGATIVE_DOWN_PAYMENT, viewModel.getStatus());
     }
@@ -237,7 +238,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setDownPayment("10");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.READY, viewModel.getStatus());
     }
@@ -248,7 +249,7 @@ public class ViewModelTextFieldsTest {
         viewModel.setHouseCost("100");
         viewModel.setDownPayment("120");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(
                 HypothecInputException.DOWN_PAYMENT_IS_MORE_THAN_HOUSE_COST,
@@ -260,7 +261,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setDownPayment("");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -270,7 +271,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setDownPayment("eeee");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -280,7 +281,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setDownPayment("-100");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -291,7 +292,7 @@ public class ViewModelTextFieldsTest {
         viewModel.setHouseCost("100");
         viewModel.setDownPayment("120");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -301,7 +302,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setInterestRate("");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.WAITING, viewModel.getStatus());
     }
@@ -311,7 +312,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setInterestRate("qqffw");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.getStatus());
     }
@@ -321,7 +322,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setInterestRate("-10");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(HypothecInputException.NEGATIVE_INTEREST_RATE, viewModel.getStatus());
     }
@@ -331,7 +332,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setInterestRate("150");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.READY, viewModel.getStatus());
     }
@@ -341,7 +342,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setInterestRate("");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -351,7 +352,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setInterestRate("kgh");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -361,7 +362,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setInterestRate("-8");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -371,7 +372,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setFlatFee("");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.WAITING, viewModel.getStatus());
     }
@@ -381,7 +382,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setFlatFee("wwwzzzz");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.getStatus());
     }
@@ -391,7 +392,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setFlatFee("-1.0");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(HypothecInputException.NEGATIVE_FLAT_FEE, viewModel.getStatus());
     }
@@ -401,7 +402,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setFlatFee("150.0");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.READY, viewModel.getStatus());
     }
@@ -411,7 +412,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setFlatFee("");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -421,7 +422,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setFlatFee("yyy");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -431,7 +432,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setFlatFee("-34.9");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -441,7 +442,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setMonthlyFee("");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.WAITING, viewModel.getStatus());
     }
@@ -451,7 +452,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setMonthlyFee("tutuh");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.getStatus());
     }
@@ -461,7 +462,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setMonthlyFee("-1.20");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(HypothecInputException.NEGATIVE_MONTHLY_FEE, viewModel.getStatus());
     }
@@ -471,7 +472,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setMonthlyFee("1330.0");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.READY, viewModel.getStatus());
     }
@@ -481,7 +482,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setMonthlyFee("");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -491,7 +492,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setMonthlyFee("veryverybad");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -501,7 +502,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setMonthlyFee("-4.9");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -511,7 +512,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setStartMonth("");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.WAITING, viewModel.getStatus());
     }
@@ -521,7 +522,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setStartMonth("12.9");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.getStatus());
     }
@@ -531,7 +532,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setStartMonth("13");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(HypothecInputException.BAD_MONTH, viewModel.getStatus());
     }
@@ -541,7 +542,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setStartMonth("3");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.READY, viewModel.getStatus());
     }
@@ -551,7 +552,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setStartMonth("");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -561,7 +562,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setStartMonth("ufff");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -571,7 +572,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setStartMonth("-4");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -581,7 +582,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setStartYear("");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.WAITING, viewModel.getStatus());
     }
@@ -591,7 +592,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setStartYear("hg17.3");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.getStatus());
     }
@@ -601,7 +602,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setStartYear("1313");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(HypothecInputException.BAD_DATA, viewModel.getStatus());
     }
@@ -611,7 +612,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setStartYear("1993");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(ViewModel.Status.READY, viewModel.getStatus());
     }
@@ -621,7 +622,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setStartYear("");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -631,7 +632,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setStartYear("15.2");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }
@@ -641,7 +642,7 @@ public class ViewModelTextFieldsTest {
         loadExample();
         viewModel.setStartYear("1990");
 
-        viewModel.parseInput();
+        viewModel.checkInput();
 
         assertEquals(false, viewModel.isButtonEnabled());
     }

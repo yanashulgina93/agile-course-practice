@@ -2,8 +2,9 @@ package ru.unn.agile.HypothecCalculator.viewmodel;
 
 import ru.unn.agile.HypothecsCalculator.model.*;
 
-import java.util.GregorianCalendar;
+import javax.swing.table.DefaultTableModel;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class ViewModel {
 
@@ -17,17 +18,23 @@ public class ViewModel {
     private String flatFee;
     private String monthlyFee;
 
-    private CurrencyType currencyType;
-    private PeriodType periodType;
-    private InterestRateType interestRateType;
-    private FlatFeeType flatFeeType;
-    private MonthlyFeeType monthlyFeeType;
-    private CreditType creditType;
+    private Hypothec.CurrencyType currencyType;
+    private Hypothec.PeriodType periodType;
+    private Hypothec.InterestRateType interestRateType;
+    private Hypothec.FlatFeeType flatFeeType;
+    private Hypothec.MonthlyFeeType monthlyFeeType;
+    private Hypothec.CreditType creditType;
 
     private String startMonth;
     private String startYear;
 
+    private String monthlyPayment;
+    private String overpaymentWithFees;
+    private String overpayment;
+    private DefaultTableModel graphicOfPayments;
+
     private Hypothec.Builder hypothecForParsing;
+    private CreditCalculator creditCalculator;
 
     public ViewModel() {
         status = Status.WAITING;
@@ -40,12 +47,12 @@ public class ViewModel {
         flatFee = "";
         monthlyFee = "";
 
-        currencyType = CurrencyType.DOLLARS;
-        periodType = PeriodType.MONTH;
-        interestRateType = InterestRateType.MONTHLY;
-        flatFeeType = FlatFeeType.PERCENT;
-        monthlyFeeType = MonthlyFeeType.CREDIT_SUM_PERCENT;
-        creditType = CreditType.DIFFERENTIATED;
+        currencyType = Hypothec.CurrencyType.DOLLAR;
+        periodType = Hypothec.PeriodType.MONTH;
+        interestRateType = Hypothec.InterestRateType.MONTHLY;
+        flatFeeType = Hypothec.FlatFeeType.PERCENT;
+        monthlyFeeType = Hypothec.MonthlyFeeType.CREDIT_SUM_PERCENT;
+        creditType = Hypothec.CreditType.DIFFERENTIATED;
 
         startMonth = "";
         startYear = "";
@@ -111,51 +118,51 @@ public class ViewModel {
         this.monthlyFee = monthlyFee;
     }
 
-    public CurrencyType getCurrencyType() {
+    public Hypothec.CurrencyType getCurrencyType() {
         return currencyType;
     }
 
-    public void setCurrencyType(final CurrencyType currencyType) {
+    public void setCurrencyType(final Hypothec.CurrencyType currencyType) {
         this.currencyType = currencyType;
     }
 
-    public PeriodType getPeriodType() {
+    public Hypothec.PeriodType getPeriodType() {
         return periodType;
     }
 
-    public void setPeriodType(final PeriodType periodType) {
+    public void setPeriodType(final Hypothec.PeriodType periodType) {
         this.periodType = periodType;
     }
 
-    public InterestRateType getInterestRateType() {
+    public Hypothec.InterestRateType getInterestRateType() {
         return interestRateType;
     }
 
-    public void setInterestRateType(final InterestRateType interestRateType) {
+    public void setInterestRateType(final Hypothec.InterestRateType interestRateType) {
         this.interestRateType = interestRateType;
     }
 
-    public FlatFeeType getFlatFeeType() {
+    public Hypothec.FlatFeeType getFlatFeeType() {
         return flatFeeType;
     }
 
-    public void setFlatFeeType(final FlatFeeType flatFeeType) {
+    public void setFlatFeeType(final Hypothec.FlatFeeType flatFeeType) {
         this.flatFeeType = flatFeeType;
     }
 
-    public MonthlyFeeType getMonthlyFeeType() {
+    public Hypothec.MonthlyFeeType getMonthlyFeeType() {
         return monthlyFeeType;
     }
 
-    public void setMonthlyFeeType(final MonthlyFeeType monthlyFeeType) {
+    public void setMonthlyFeeType(final Hypothec.MonthlyFeeType monthlyFeeType) {
         this.monthlyFeeType = monthlyFeeType;
     }
 
-    public CreditType getCreditType() {
+    public Hypothec.CreditType getCreditType() {
         return creditType;
     }
 
-    public void setCreditType(final CreditType creditType) {
+    public void setCreditType(final Hypothec.CreditType creditType) {
         this.creditType = creditType;
     }
 
@@ -175,36 +182,36 @@ public class ViewModel {
         this.startYear = startYear;
     }
 
-    public void parseInput() {
+    public boolean checkInput() {
         status = Status.READY;
         isButtonEnabled = false;
 
         hypothecForParsing = new Hypothec.Builder();
 
         if (!houseCostAndCountOfPeriodsIsOK()) {
-            return;
+            return false;
         }
         if (!downPaymentIsOK()) {
-            return;
+            return false;
         }
         if (!interestRateIsOK()) {
-            return;
+            return false;
         }
         if (!flatFeeIsOK()) {
-            return;
+            return false;
         }
         if (!monthlyFeeIsOK()) {
-            return;
+            return false;
         }
-        if (!startDateIsOK()){
-            return;
+        if (!startDateIsOK()) {
+            return false;
         }
 
         if (status == Status.READY) {
             isButtonEnabled = true;
+            return true;
         }
-
-
+        return false;
     }
 
     private boolean houseCostAndCountOfPeriodsIsOK() {
@@ -322,10 +329,9 @@ public class ViewModel {
 
         if (startMonth.isEmpty() || startYear.isEmpty()) {
             status = Status.WAITING;
-        }
-        else {
+        } else {
             try {
-                month = Integer.parseInt(startMonth);
+                month = Integer.parseInt(startMonth) - 1;
                 year = Integer.parseInt(startYear);
             } catch (Exception e) {
                 status = Status.BAD_FORMAT;
@@ -333,7 +339,7 @@ public class ViewModel {
             }
 
             try {
-                if (month < 0 || month > 12) {
+                if (month < Calendar.JANUARY || month > Calendar.DECEMBER) {
                     throw new HypothecInputException(HypothecInputException.BAD_MONTH);
                 }
             } catch (HypothecInputException e) {
@@ -342,108 +348,64 @@ public class ViewModel {
             }
 
             try {
-                GregorianCalendar date = new GregorianCalendar(year, month - 1, 1);
+                GregorianCalendar date = new GregorianCalendar(year, month, 1);
                 hypothecForParsing.startDate(date);
             } catch (HypothecInputException e) {
                 status = e.getMessage();
                 return false;
             }
-
         }
         return true;
     }
 
-    public enum CurrencyType {
-        DOLLARS("$"),
-        EURO("€"),
-        RUBLE("руб.");
+    public void compute() {
 
-        private final String name;
+        if (checkInput()) {
+            creditCalculator = new CreditCalculator(createHypothec());
 
-        CurrencyType(final String name) {
-            this.name = name;
-        }
-
-        public String toString() {
-            return name;
+            computeMonthlyPayment();
         }
     }
 
-    public enum PeriodType {
-        MONTH("месяцев"),
-        YEAR("лет");
-
-        private final String name;
-
-        PeriodType(final String name) {
-            this.name = name;
+    private Hypothec createHypothec() {
+        Hypothec hypothec;
+        try {
+            hypothec = new Hypothec
+                    .Builder(Double.parseDouble(houseCost), Integer.parseInt(countOfPeriods))
+                    .periodType(periodType)
+                    .downPayment(Double.parseDouble(downPayment))
+                    .interestRate(Double.parseDouble(interestRate))
+                    .interestRateType(interestRateType)
+                    .monthlyFee(Double.parseDouble(monthlyFee))
+                    .monthlyFeeType(monthlyFeeType)
+                    .creditType(creditType)
+                    .build();
+        } catch (HypothecInputException e) {
+            hypothec = new Hypothec.Builder().build();
         }
-
-        public String toString() {
-            return name;
-        }
+        return hypothec;
     }
 
-    public enum InterestRateType {
-        MONTHLY("% ежемесячно"),
-        YEARLY("% ежегодно");
+    private void computeMonthlyPayment() {
+        double highestMonthlyPayment =
+                creditCalculator.computeHighestMonthlyPayment();
+        double lowestMonthlyPayment =
+                creditCalculator.computeLowestMonthlyPayment();
 
-        private final String name;
-
-        InterestRateType(final String name) {
-            this.name = name;
+        if (highestMonthlyPayment - lowestMonthlyPayment < 0.001) {
+            monthlyPayment = Double.toString(highestMonthlyPayment);
+        } else {
+            monthlyPayment = Double.toString(highestMonthlyPayment)
+                    + " ... "
+                    + Double.toString(lowestMonthlyPayment);
         }
 
-        public String toString() {
-            return name;
-        }
     }
 
-    public enum FlatFeeType {
-        PERCENT("% от суммы кредита"),
-        CONSTANT_SUM("фиксированная сумма");
-
-        private final String name;
-
-        FlatFeeType(final String name) {
-            this.name = name;
-        }
-
-        public String toString() {
-            return name;
-        }
+    public String getMonthlyPayment() {
+        return monthlyPayment;
     }
 
-    public enum MonthlyFeeType {
-        CREDIT_SUM_PERCENT("% от суммы кредита"),
-        CREDIT_BALANCE_PERCENT("% от остатка долга"),
-        CONSTANT_SUM("фиксированная сумма");
-
-        private final String name;
-
-        MonthlyFeeType(final String name) {
-            this.name = name;
-        }
-
-        public String toString() {
-            return name;
-        }
-    }
-
-    public enum CreditType {
-        DIFFERENTIATED("дифференцированный"),
-        ANNUITY("аннуитетный");
-
-        private final String name;
-
-        CreditType(final String name) {
-            this.name = name;
-        }
-
-        public String toString() {
-            return name;
-        }
-    }
 
     public final class Status {
         public static final String WAITING = "Введите параметры кредита";
