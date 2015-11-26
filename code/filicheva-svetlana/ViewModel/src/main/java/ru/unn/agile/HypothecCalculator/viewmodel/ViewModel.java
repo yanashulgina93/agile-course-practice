@@ -2,6 +2,9 @@ package ru.unn.agile.HypothecCalculator.viewmodel;
 
 import ru.unn.agile.HypothecsCalculator.model.*;
 
+import java.util.GregorianCalendar;
+import java.util.Calendar;
+
 public class ViewModel {
 
     private String status;
@@ -46,29 +49,6 @@ public class ViewModel {
 
         startMonth = "";
         startYear = "";
-
-    }
-
-    public void loadExample() {
-
-        houseCost = "2500000";
-        downPayment = "0";
-        countOfPeriods = "15";
-        interestRate = "16.5";
-        flatFee = "10";
-        monthlyFee = "2";
-
-        currencyType = CurrencyType.RUBLE;
-        periodType = PeriodType.YEAR;
-        interestRateType = InterestRateType.YEARLY;
-        flatFeeType = FlatFeeType.CONSTANT_SUM;
-        monthlyFeeType = MonthlyFeeType.CONSTANT_SUM;
-        creditType = CreditType.ANNUITY;
-
-        startMonth = "1";
-        startYear = "1992";
-
-        parseInput();
     }
 
     public String getStatus() {
@@ -210,7 +190,15 @@ public class ViewModel {
         if (!interestRateIsOK()) {
             return;
         }
-
+        if (!flatFeeIsOK()) {
+            return;
+        }
+        if (!monthlyFeeIsOK()) {
+            return;
+        }
+        if (!startDateIsOK()){
+            return;
+        }
 
         if (status == Status.READY) {
             isButtonEnabled = true;
@@ -288,6 +276,79 @@ public class ViewModel {
                 status = Status.BAD_FORMAT;
                 return false;
             }
+        }
+        return true;
+    }
+
+    private boolean flatFeeIsOK() {
+        if (flatFee.isEmpty()) {
+            status = Status.WAITING;
+        } else {
+            try {
+                double flatFeeDouble = Double.parseDouble(flatFee);
+                hypothecForParsing.flatFee(flatFeeDouble);
+            } catch (HypothecInputException e) {
+                status = e.getMessage();
+                return false;
+            } catch (Exception e) {
+                status = Status.BAD_FORMAT;
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean monthlyFeeIsOK() {
+        if (monthlyFee.isEmpty()) {
+            status = Status.WAITING;
+        } else {
+            try {
+                double monthlyFeeDouble = Double.parseDouble(monthlyFee);
+                hypothecForParsing.monthlyFee(monthlyFeeDouble);
+            } catch (HypothecInputException e) {
+                status = e.getMessage();
+                return false;
+            } catch (Exception e) {
+                status = Status.BAD_FORMAT;
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean startDateIsOK() {
+        int month;
+        int year;
+
+        if (startMonth.isEmpty() || startYear.isEmpty()) {
+            status = Status.WAITING;
+        }
+        else {
+            try {
+                month = Integer.parseInt(startMonth);
+                year = Integer.parseInt(startYear);
+            } catch (Exception e) {
+                status = Status.BAD_FORMAT;
+                return false;
+            }
+
+            try {
+                if (month < 0 || month > 12) {
+                    throw new HypothecInputException(HypothecInputException.BAD_MONTH);
+                }
+            } catch (HypothecInputException e) {
+                status = e.getMessage();
+                return false;
+            }
+
+            try {
+                GregorianCalendar date = new GregorianCalendar(year, month - 1, 1);
+                hypothecForParsing.startDate(date);
+            } catch (HypothecInputException e) {
+                status = e.getMessage();
+                return false;
+            }
+
         }
         return true;
     }

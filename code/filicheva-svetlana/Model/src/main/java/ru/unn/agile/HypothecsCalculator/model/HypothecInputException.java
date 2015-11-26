@@ -18,7 +18,9 @@ public class HypothecInputException extends Exception {
     public static final String NEGATIVE_FLAT_FEE =
             "Ошибка: единовременная комиссия отрицательна";
     public static final String BAD_DATA =
-            "Ошибка: год начала выплат должен быть не меньше 1991 и не больше 2100";
+            "Ошибка: введите год не меньше 1991 и не больше 2100";
+    public static final String BAD_MONTH =
+            "Ошибка: неверный месяц";
 
 
     public HypothecInputException() {

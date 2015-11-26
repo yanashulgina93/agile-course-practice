@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 
+
 public final class HypothecCalculator {
 
     private JPanel mainPanel;
@@ -53,6 +54,12 @@ public final class HypothecCalculator {
         interestRate.addKeyListener(keyListener);
         downPayment.addKeyListener(keyListener);
         countOfPeriods.addKeyListener(keyListener);
+        flatFee.addKeyListener(keyListener);
+        monthlyFee.addKeyListener(keyListener);
+        month.addKeyListener(keyListener);
+        year.addKeyListener(keyListener);
+
+        
     }
 
     private void createUIComponents() {

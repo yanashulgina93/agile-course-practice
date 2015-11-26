@@ -7,7 +7,7 @@ import ru.unn.agile.HypothecsCalculator.model.HypothecInputException;
 
 import static org.junit.Assert.assertEquals;
 
-public class ViewModelTest {
+public class ViewModelTextFieldsTest {
     private ViewModel viewModel;
 
     private final double delta = 0.01;
@@ -20,6 +20,17 @@ public class ViewModelTest {
     @After
     public void tearDown() {
         viewModel = null;
+    }
+
+    private void loadExample() {
+        viewModel.setHouseCost("2500000");
+        viewModel.setCountOfPeriods("15");
+        viewModel.setDownPayment("0");
+        viewModel.setInterestRate("10.0");
+        viewModel.setFlatFee("0");
+        viewModel.setMonthlyFee("2");
+        viewModel.setStartMonth("1");
+        viewModel.setStartYear("1992");
     }
 
     @Test
@@ -44,29 +55,16 @@ public class ViewModelTest {
 
     @Test
     public void canLoadExample() {
-        viewModel.loadExample();
+        loadExample();
+        viewModel.parseInput();
 
         assertEquals(ViewModel.Status.READY, viewModel.getStatus());
         assertEquals(true, viewModel.isButtonEnabled());
-        assertEquals("2500000", viewModel.getHouseCost());
-        assertEquals("0", viewModel.getDownPayment());
-        assertEquals("15", viewModel.getCountOfPeriods());
-        assertEquals("16.5", viewModel.getInterestRate());
-        assertEquals("10", viewModel.getFlatFee());
-        assertEquals("2", viewModel.getMonthlyFee());
-        assertEquals(ViewModel.CurrencyType.RUBLE, viewModel.getCurrencyType());
-        assertEquals(ViewModel.PeriodType.YEAR, viewModel.getPeriodType());
-        assertEquals(ViewModel.InterestRateType.YEARLY, viewModel.getInterestRateType());
-        assertEquals(ViewModel.FlatFeeType.CONSTANT_SUM, viewModel.getFlatFeeType());
-        assertEquals(ViewModel.MonthlyFeeType.CONSTANT_SUM, viewModel.getMonthlyFeeType());
-        assertEquals(ViewModel.CreditType.ANNUITY, viewModel.getCreditType());
-        assertEquals("1", viewModel.getStartMonth());
-        assertEquals("1992", viewModel.getStartYear());
     }
 
     @Test
     public void isStatusWaitingWhenHouseCostFieldIsEmpty() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setHouseCost("");
 
         viewModel.parseInput();
@@ -76,7 +74,7 @@ public class ViewModelTest {
 
     @Test
     public void isStatusBadFormatWhenHouseCostHasBadFormat() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setHouseCost("qw");
 
         viewModel.parseInput();
@@ -86,7 +84,7 @@ public class ViewModelTest {
 
     @Test
     public void isStatusErrorWhenHouseCostHasWrongValue() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setHouseCost("-100");
 
         viewModel.parseInput();
@@ -96,7 +94,7 @@ public class ViewModelTest {
 
     @Test
     public void isStatusReadyWhenHouseCostIsRight() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setHouseCost("100");
 
         viewModel.parseInput();
@@ -106,7 +104,7 @@ public class ViewModelTest {
 
     @Test
     public void isButtonDisabledWhenHouseCostFieldIsEmpty() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setHouseCost("");
 
         viewModel.parseInput();
@@ -116,7 +114,7 @@ public class ViewModelTest {
 
     @Test
     public void isButtonDisabledWhenHouseCostHasBadFormat() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setHouseCost("qw");
 
         viewModel.parseInput();
@@ -126,7 +124,7 @@ public class ViewModelTest {
 
     @Test
     public void isButtonDisabledWhenHouseCostHasWrongValue() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setHouseCost("-100");
 
         viewModel.parseInput();
@@ -136,7 +134,7 @@ public class ViewModelTest {
 
     @Test
     public void isStatusWaitingWhenCountOfPeriodsFieldIsEmpty() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setCountOfPeriods("");
 
         viewModel.parseInput();
@@ -146,7 +144,7 @@ public class ViewModelTest {
 
     @Test
     public void isStatusBadFormatWhenCountOfPeriodsHasBadFormat() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setCountOfPeriods("pgffff");
 
         viewModel.parseInput();
@@ -156,7 +154,7 @@ public class ViewModelTest {
 
     @Test
     public void isStatusErrorWhenCountOfPeriodsHasWrongValue() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setCountOfPeriods("0");
 
         viewModel.parseInput();
@@ -166,7 +164,7 @@ public class ViewModelTest {
 
     @Test
     public void isStatusReadyWhenCountOfPeriodsIsRight() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setCountOfPeriods("1");
 
         viewModel.parseInput();
@@ -176,7 +174,7 @@ public class ViewModelTest {
 
     @Test
     public void isButtonDisabledWhenCountOfPeriodsFieldIsEmpty() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setCountOfPeriods("");
 
         viewModel.parseInput();
@@ -186,7 +184,7 @@ public class ViewModelTest {
 
     @Test
     public void isButtonDisabledWhenCountOfPeriodsHasBadFormat() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setCountOfPeriods("fdddddw");
 
         viewModel.parseInput();
@@ -196,7 +194,7 @@ public class ViewModelTest {
 
     @Test
     public void isButtonDisabledCountOfPeriodsHasWrongValue() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setCountOfPeriods("0");
 
         viewModel.parseInput();
@@ -206,7 +204,7 @@ public class ViewModelTest {
 
     @Test
     public void isStatusWaitingWhenDownPaymentFieldIsEmpty() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setDownPayment("");
 
         viewModel.parseInput();
@@ -216,7 +214,7 @@ public class ViewModelTest {
 
     @Test
     public void isStatusBadFormatWhenDownPaymentHasBadFormat() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setDownPayment("eee");
 
         viewModel.parseInput();
@@ -226,7 +224,7 @@ public class ViewModelTest {
 
     @Test
     public void isStatusErrorWhenDownPaymentHasWrongValue() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setDownPayment("-400");
 
         viewModel.parseInput();
@@ -236,7 +234,7 @@ public class ViewModelTest {
 
     @Test
     public void isStatusReadyWhenDownPaymentIsRight() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setDownPayment("10");
 
         viewModel.parseInput();
@@ -246,7 +244,7 @@ public class ViewModelTest {
 
     @Test
     public void isStatusErrorWhenDownPaymentIsMoreThanHouseCost() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setHouseCost("100");
         viewModel.setDownPayment("120");
 
@@ -259,7 +257,7 @@ public class ViewModelTest {
 
     @Test
     public void isButtonDisabledWhenDownPaymentFieldIsEmpty() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setDownPayment("");
 
         viewModel.parseInput();
@@ -269,7 +267,7 @@ public class ViewModelTest {
 
     @Test
     public void isButtonDisabledWhenDownPaymentHasBadFormat() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setDownPayment("eeee");
 
         viewModel.parseInput();
@@ -279,7 +277,7 @@ public class ViewModelTest {
 
     @Test
     public void isButtonDisabledWhenDownPaymentHasWrongValue() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setDownPayment("-100");
 
         viewModel.parseInput();
@@ -289,7 +287,7 @@ public class ViewModelTest {
 
     @Test
     public void isButtonDisabledWhenDownPaymentIsMoreThanHouseCost() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setHouseCost("100");
         viewModel.setDownPayment("120");
 
@@ -300,7 +298,7 @@ public class ViewModelTest {
 
     @Test
     public void isStatusWaitingWhenInterestRateFieldIsEmpty() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setInterestRate("");
 
         viewModel.parseInput();
@@ -310,7 +308,7 @@ public class ViewModelTest {
 
     @Test
     public void isStatusBadFormatWhenInterestRateHasBadFormat() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setInterestRate("qqffw");
 
         viewModel.parseInput();
@@ -320,7 +318,7 @@ public class ViewModelTest {
 
     @Test
     public void isStatusErrorWhenInterestRateHasWrongValue() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setInterestRate("-10");
 
         viewModel.parseInput();
@@ -330,7 +328,7 @@ public class ViewModelTest {
 
     @Test
     public void isStatusReadyWhenInterestRateIsRight() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setInterestRate("150");
 
         viewModel.parseInput();
@@ -340,7 +338,7 @@ public class ViewModelTest {
 
     @Test
     public void isButtonDisabledWhenInterestRateFieldIsEmpty() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setInterestRate("");
 
         viewModel.parseInput();
@@ -350,7 +348,7 @@ public class ViewModelTest {
 
     @Test
     public void isButtonDisabledWhenInterestRateHasBadFormat() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setInterestRate("kgh");
 
         viewModel.parseInput();
@@ -360,8 +358,288 @@ public class ViewModelTest {
 
     @Test
     public void isButtonDisabledWhenInterestRateHasWrongValue() {
-        viewModel.loadExample();
+        loadExample();
         viewModel.setInterestRate("-8");
+
+        viewModel.parseInput();
+
+        assertEquals(false, viewModel.isButtonEnabled());
+    }
+
+    @Test
+    public void isStatusWaitingWhenFlatFeeFieldIsEmpty() {
+        loadExample();
+        viewModel.setFlatFee("");
+
+        viewModel.parseInput();
+
+        assertEquals(ViewModel.Status.WAITING, viewModel.getStatus());
+    }
+
+    @Test
+    public void isStatusBadFormatWhenFlatFeeHasBadFormat() {
+        loadExample();
+        viewModel.setFlatFee("wwwzzzz");
+
+        viewModel.parseInput();
+
+        assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.getStatus());
+    }
+
+    @Test
+    public void isStatusErrorWhenFlatFeeHasWrongValue() {
+        loadExample();
+        viewModel.setFlatFee("-1.0");
+
+        viewModel.parseInput();
+
+        assertEquals(HypothecInputException.NEGATIVE_FLAT_FEE, viewModel.getStatus());
+    }
+
+    @Test
+    public void isStatusReadyWhenFlatFeeIsRight() {
+        loadExample();
+        viewModel.setFlatFee("150.0");
+
+        viewModel.parseInput();
+
+        assertEquals(ViewModel.Status.READY, viewModel.getStatus());
+    }
+
+    @Test
+    public void isButtonDisabledWhenFlatFeeFieldIsEmpty() {
+        loadExample();
+        viewModel.setFlatFee("");
+
+        viewModel.parseInput();
+
+        assertEquals(false, viewModel.isButtonEnabled());
+    }
+
+    @Test
+    public void isButtonDisabledWhenFlatFeeHasBadFormat() {
+        loadExample();
+        viewModel.setFlatFee("yyy");
+
+        viewModel.parseInput();
+
+        assertEquals(false, viewModel.isButtonEnabled());
+    }
+
+    @Test
+    public void isButtonDisabledWhenFlatFeeHasWrongValue() {
+        loadExample();
+        viewModel.setFlatFee("-34.9");
+
+        viewModel.parseInput();
+
+        assertEquals(false, viewModel.isButtonEnabled());
+    }
+
+    @Test
+    public void isStatusWaitingWhenMonthlyFeeFieldIsEmpty() {
+        loadExample();
+        viewModel.setMonthlyFee("");
+
+        viewModel.parseInput();
+
+        assertEquals(ViewModel.Status.WAITING, viewModel.getStatus());
+    }
+
+    @Test
+    public void isStatusBadFormatWhenMonthlyFeeHasBadFormat() {
+        loadExample();
+        viewModel.setMonthlyFee("tutuh");
+
+        viewModel.parseInput();
+
+        assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.getStatus());
+    }
+
+    @Test
+    public void isStatusErrorWhenMonthlyFeeHasWrongValue() {
+        loadExample();
+        viewModel.setMonthlyFee("-1.20");
+
+        viewModel.parseInput();
+
+        assertEquals(HypothecInputException.NEGATIVE_MONTHLY_FEE, viewModel.getStatus());
+    }
+
+    @Test
+    public void isStatusReadyWhenMonthlyFeeIsRight() {
+        loadExample();
+        viewModel.setMonthlyFee("1330.0");
+
+        viewModel.parseInput();
+
+        assertEquals(ViewModel.Status.READY, viewModel.getStatus());
+    }
+
+    @Test
+    public void isButtonDisabledWhenMonthlyFeeFieldIsEmpty() {
+        loadExample();
+        viewModel.setMonthlyFee("");
+
+        viewModel.parseInput();
+
+        assertEquals(false, viewModel.isButtonEnabled());
+    }
+
+    @Test
+    public void isButtonDisabledWhenMonthlyFeeHasBadFormat() {
+        loadExample();
+        viewModel.setMonthlyFee("veryverybad");
+
+        viewModel.parseInput();
+
+        assertEquals(false, viewModel.isButtonEnabled());
+    }
+
+    @Test
+    public void isButtonDisabledWhenMonthlyFeeHasWrongValue() {
+        loadExample();
+        viewModel.setMonthlyFee("-4.9");
+
+        viewModel.parseInput();
+
+        assertEquals(false, viewModel.isButtonEnabled());
+    }
+
+    @Test
+    public void isStatusWaitingWhenStartMonthFieldIsEmpty() {
+        loadExample();
+        viewModel.setStartMonth("");
+
+        viewModel.parseInput();
+
+        assertEquals(ViewModel.Status.WAITING, viewModel.getStatus());
+    }
+
+    @Test
+    public void isStatusBadFormatWhenStartMonthHasBadFormat() {
+        loadExample();
+        viewModel.setStartMonth("12.9");
+
+        viewModel.parseInput();
+
+        assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.getStatus());
+    }
+
+    @Test
+    public void isStatusErrorWhenStartMonthHasWrongValue() {
+        loadExample();
+        viewModel.setStartMonth("13");
+
+        viewModel.parseInput();
+
+        assertEquals(HypothecInputException.BAD_MONTH, viewModel.getStatus());
+    }
+
+    @Test
+    public void isStatusReadyWhenStartMonthIsRight() {
+        loadExample();
+        viewModel.setStartMonth("3");
+
+        viewModel.parseInput();
+
+        assertEquals(ViewModel.Status.READY, viewModel.getStatus());
+    }
+
+    @Test
+    public void isButtonDisabledWhenStartMonthFieldIsEmpty() {
+        loadExample();
+        viewModel.setStartMonth("");
+
+        viewModel.parseInput();
+
+        assertEquals(false, viewModel.isButtonEnabled());
+    }
+
+    @Test
+    public void isButtonDisabledWhenStartMonthHasBadFormat() {
+        loadExample();
+        viewModel.setStartMonth("ufff");
+
+        viewModel.parseInput();
+
+        assertEquals(false, viewModel.isButtonEnabled());
+    }
+
+    @Test
+    public void isButtonDisabledWhenStartMonthHasWrongValue() {
+        loadExample();
+        viewModel.setStartMonth("-4");
+
+        viewModel.parseInput();
+
+        assertEquals(false, viewModel.isButtonEnabled());
+    }
+
+    @Test
+    public void isStatusWaitingWhenStartYearFieldIsEmpty() {
+        loadExample();
+        viewModel.setStartYear("");
+
+        viewModel.parseInput();
+
+        assertEquals(ViewModel.Status.WAITING, viewModel.getStatus());
+    }
+
+    @Test
+    public void isStatusBadFormatWhenStartYearHasBadFormat() {
+        loadExample();
+        viewModel.setStartYear("hg17.3");
+
+        viewModel.parseInput();
+
+        assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.getStatus());
+    }
+
+    @Test
+    public void isStatusErrorWhenStartYearHasWrongValue() {
+        loadExample();
+        viewModel.setStartYear("1313");
+
+        viewModel.parseInput();
+
+        assertEquals(HypothecInputException.BAD_DATA, viewModel.getStatus());
+    }
+
+    @Test
+    public void isStatusReadyWhenStartYearIsRight() {
+        loadExample();
+        viewModel.setStartYear("1993");
+
+        viewModel.parseInput();
+
+        assertEquals(ViewModel.Status.READY, viewModel.getStatus());
+    }
+
+    @Test
+    public void isButtonDisabledWhenStartYearFieldIsEmpty() {
+        loadExample();
+        viewModel.setStartYear("");
+
+        viewModel.parseInput();
+
+        assertEquals(false, viewModel.isButtonEnabled());
+    }
+
+    @Test
+    public void isButtonDisabledWhenStartYearHasBadFormat() {
+        loadExample();
+        viewModel.setStartYear("15.2");
+
+        viewModel.parseInput();
+
+        assertEquals(false, viewModel.isButtonEnabled());
+    }
+
+    @Test
+    public void isButtonDisabledWhenStartYearHasWrongValue() {
+        loadExample();
+        viewModel.setStartYear("1990");
 
         viewModel.parseInput();
 
