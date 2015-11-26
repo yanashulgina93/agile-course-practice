@@ -26,7 +26,7 @@ public class ViewModelComputingTests {
         viewModel.setCountOfPeriods("12");
         viewModel.setDownPayment("200");
         viewModel.setInterestRate("1");
-        viewModel.setFlatFee("0");
+        viewModel.setFlatFee("10");
         viewModel.setMonthlyFee("2");
         viewModel.setStartMonth("1");
         viewModel.setStartYear("1992");
@@ -91,5 +91,16 @@ public class ViewModelComputingTests {
         assertEquals("113.33 ... 104.17", viewModel.getMonthlyPayment());
     }
 
+    @Test
+    public void canComputeOverpaymentForAnnuityCredit() {
+        viewModel.compute();
+        assertEquals("66.19", viewModel.getOverpayment());
+    }
 
+    @Test
+    public void canComputeOverpaymentForDifferentiatedCredit() {
+        viewModel.setCreditType(Hypothec.CreditType.DIFFERENTIATED);
+        viewModel.compute();
+        assertEquals("65.0", viewModel.getOverpayment());
+    }
 }

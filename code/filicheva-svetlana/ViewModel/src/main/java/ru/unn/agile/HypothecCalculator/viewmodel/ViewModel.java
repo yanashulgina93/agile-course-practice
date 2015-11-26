@@ -364,6 +364,8 @@ public class ViewModel {
             creditCalculator = new CreditCalculator(createHypothec());
 
             computeMonthlyPayment();
+
+            computeOverpayment();
         }
     }
 
@@ -399,11 +401,18 @@ public class ViewModel {
                     + " ... "
                     + Double.toString(lowestMonthlyPayment);
         }
+    }
 
+    private void computeOverpayment() {
+        overpayment = Double.toString(creditCalculator.computeOverpayment());
     }
 
     public String getMonthlyPayment() {
         return monthlyPayment;
+    }
+
+    public String getOverpayment() {
+        return overpayment;
     }
 
 
