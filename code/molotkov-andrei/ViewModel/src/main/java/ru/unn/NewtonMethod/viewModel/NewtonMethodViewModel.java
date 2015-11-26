@@ -77,14 +77,14 @@ public class NewtonMethodViewModel {
         if (function.equals(this.function)) {
             return;
         }
-        this.function = function + "=";
+        this.function = function;
     }
 
     public void setDerivative(final String derivative) {
         if (derivative.equals(this.derivative)) {
             return;
         }
-        this.derivative = derivative + "=";
+        this.derivative = derivative;
     }
 
     public void setLeftPointOfRange(final String leftPointOfRange) {
@@ -156,10 +156,12 @@ public class NewtonMethodViewModel {
             numberFillFields++;
         }
         if (!function.isEmpty()) {
+            function += "=";
             converter.convert(function);
             numberFillFields++;
         }
         if (!derivative.isEmpty()) {
+            derivative += "=";
             converter.convert(derivative);
             numberFillFields++;
         }
