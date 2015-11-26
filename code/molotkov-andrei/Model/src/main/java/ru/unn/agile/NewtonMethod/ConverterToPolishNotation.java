@@ -23,6 +23,7 @@ public class ConverterToPolishNotation {
             throw  new ArithmeticException("Incorrect first character");
         }
         char tempCharacter;
+        indexChar = 0;
         do {
             character = infixExpression.charAt(indexChar++);
             if (Character.isAlphabetic(character)) {

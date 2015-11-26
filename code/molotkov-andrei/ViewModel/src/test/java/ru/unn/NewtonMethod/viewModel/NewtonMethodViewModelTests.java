@@ -8,7 +8,6 @@ import static org.junit.Assert.*;
 
 public class NewtonMethodViewModelTests {
     private NewtonMethodViewModel viewModel;
-    private final double delta = 0.001;
 
     @Before
     public void setUp() {
@@ -167,6 +166,6 @@ public class NewtonMethodViewModelTests {
 
         viewModel.processKeyInTextField(10);
 
-        assertEquals(-1.585, viewModel.getRoot(), delta);
+        assertEquals("-1.586", viewModel.getRoot());
     }
 }

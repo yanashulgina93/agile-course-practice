@@ -13,6 +13,7 @@ public class NewtonMethodViewModel {
     private double root;
     private ConverterToPolishNotation converter;
     private static final int NUMBER_FIELDS = 4;
+    private static final int NUMBER_DECIMAL_PLACES = 1000;
     private int numberFillFields = 0;
 
     public NewtonMethodViewModel() {
@@ -23,6 +24,7 @@ public class NewtonMethodViewModel {
         rightPointOfRange = "";
         root = 0;
         status = Status.WAITING;
+        converter = new ConverterToPolishNotation();
     }
 
     public enum KeyboardKeys {
@@ -107,8 +109,8 @@ public class NewtonMethodViewModel {
         return rightPointOfRange;
     }
 
-    public double getRoot() {
-        return root;
+    public String getRoot() {
+        return String.valueOf(root);
     }
 
     public String getStatus() {
@@ -122,7 +124,6 @@ public class NewtonMethodViewModel {
     }
 
     private void parseInput() {
-        numberFillFields = 0;
         try {
             checkInputValues();
         } catch (ArithmeticException e) {
@@ -145,6 +146,7 @@ public class NewtonMethodViewModel {
     }
 
     private void checkInputValues() {
+        numberFillFields = 0;
         if (!leftPointOfRange.isEmpty()) {
             Double.parseDouble(leftPointOfRange);
             numberFillFields++;
@@ -154,12 +156,10 @@ public class NewtonMethodViewModel {
             numberFillFields++;
         }
         if (!function.isEmpty()) {
-            converter = new ConverterToPolishNotation();
             converter.convert(function);
             numberFillFields++;
         }
         if (!derivative.isEmpty()) {
-            converter = new ConverterToPolishNotation();
             converter.convert(derivative);
             numberFillFields++;
         }
@@ -174,10 +174,7 @@ public class NewtonMethodViewModel {
     }
 
     private boolean isInputAvailable() {
-        if (numberFillFields == NUMBER_FIELDS) {
-            return true;
-        }
-        return false;
+        return numberFillFields == NUMBER_FIELDS;
     }
 
     private void calculateRoot() {
@@ -189,6 +186,13 @@ public class NewtonMethodViewModel {
             status = Status.NO_ROOT;
             return;
         }
+        roundResult(NUMBER_DECIMAL_PLACES);
         status = Status.SUCCESS;
+    }
+
+    private void roundResult(final int numberDecimalPlaces) {
+        root *= numberDecimalPlaces;
+        root = Math.round(root);
+        root /= numberDecimalPlaces;
     }
 }
