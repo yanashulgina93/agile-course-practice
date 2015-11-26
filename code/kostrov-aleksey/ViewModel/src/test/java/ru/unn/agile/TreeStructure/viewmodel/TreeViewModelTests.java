@@ -10,13 +10,15 @@ public class TreeViewModelTests {
     public void initializeViewModel() {
         viewModel = new TreeViewModel();
         viewModel.setKey("100");
-        viewModel.setData("qwerty");
+        viewModel.setDataFromNode("qwerty");
+
         viewModel.doOperation();
     }
 
     @Test
     public void byDefaultDoButtonIsDisabled() {
         viewDefaultModel = new TreeViewModel();
+
         assertFalse(viewDefaultModel.isDoButtonEnabled());
     }
 
@@ -26,87 +28,82 @@ public class TreeViewModelTests {
     }
 
     @Test
-    public void whenSelectedTypeOperationsAndInputKeyDoButtonIsEnabled() {
-        assertTrue(viewModel.isDoButtonEnabled());
-    }
-
-    @Test
-    public void whenKeyClearDoButtonIsDisabled() {
+    public void whenKeyTextFieldClearDoButtonIsDisabled() {
         viewModel.setKey("");
+
         assertFalse(viewModel.isDoButtonEnabled());
     }
 
     @Test
     public void canSelectTypeOperation() {
-        viewModel.setOperation(TreeViewModel.Operation.TRUNCATE);
+        viewModel.setOperation("Truncate");
+
         assertEquals(TreeViewModel.Operation.TRUNCATE, viewModel.getOperation());
     }
 
     @Test
     public void canInsertNewNode() {
-        assertEquals("Node was added successfully", viewModel.getErrorMessage());
+        assertEquals("Success", viewModel.getErrorMessage());
     }
 
     @Test
-    public void canInsertAlreadyAddedNode() {
+    public void displayErrorMessageWhenTryingToAddExistingElement() {
         viewModel.doOperation();
+
         assertEquals("Node with this key already exists.", viewModel.getErrorMessage());
     }
 
     @Test
     public void canSearchExistElement() {
-        viewModel.setOperation(TreeViewModel.Operation.SEARCH);
+        viewModel.setOperation("Search");
+
         viewModel.doOperation();
+
         assertEquals("qwerty", viewModel.getSearchedData());
     }
 
     @Test
-    public void canSearchNotExistElement() {
+    public void displayErrorMessageWhenTryingToSearchNotExistElement() {
         viewModel.setKey("10");
-        viewModel.setOperation(TreeViewModel.Operation.SEARCH);
+        viewModel.setOperation("Search");
+
         viewModel.doOperation();
+
         assertEquals("Element not found", viewModel.getErrorMessage());
     }
 
     @Test
     public void canTruncateAnExistKey() {
-        viewModel.setOperation(TreeViewModel.Operation.TRUNCATE);
+        viewModel.setOperation("Truncate");
         viewModel.doOperation();
-        viewModel.setOperation(TreeViewModel.Operation.SEARCH);
+
+        viewModel.setOperation("Search");
         viewModel.doOperation();
+
         assertEquals("Element not found", viewModel.getErrorMessage());
     }
 
     @Test
-    public void canTruncateAnNotExistKey() {
+    public void displayErrorMessageWhenTryingToTruncateAnNotExistKey() {
         viewModel.setKey("101");
-        viewModel.setOperation(TreeViewModel.Operation.TRUNCATE);
+        viewModel.setOperation("Truncate");
+
         viewModel.doOperation();
-        assertEquals("It is not possible, element not found", viewModel.getErrorMessage());
+
+        assertEquals("Element not found", viewModel.getErrorMessage());
     }
 
     @Test
-    public void canDoOperationWhenInputKeyNotCorrect() {
+    public void displayErrorMessageWhenKeyNotComparable() {
         viewModel.setKey("qwe");
+
         viewModel.doOperation();
-        assertEquals("Key is not correct", viewModel.getErrorMessage());
+
+        assertEquals("Key is not comparable", viewModel.getErrorMessage());
     }
 
     @Test
-    public void canDisabledTextDataField() {
-        viewModel.setOperation(TreeViewModel.Operation.TRUNCATE);
-        assertFalse(viewModel.isDataTextFieldEnabled());
-    }
-
-    @Test
-    public void canDoOperationWithNotCorrectOperation() {
-        viewModel.setOperation(TreeViewModel.Operation.OTHER);
-        viewModel.doOperation();
-        assertEquals("Only INSERT, SEARCH and TRUNCATE", viewModel.getErrorMessage());
-    }
-
-    @Test
-    public void canReturnNameOperation() {
+    public void canReturnNameCurrentOperation() {
         assertEquals("Insert", viewModel.getOperation().toString());
     }
 }

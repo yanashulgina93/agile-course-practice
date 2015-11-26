@@ -7,98 +7,97 @@ import java.awt.event.*;
 
 public final class TreeView {
     private JPanel mainPanel;
+    private ButtonGroup operationButtonGroup;
     private JRadioButton insertRadioButton;
     private JRadioButton searchRadioButton;
     private JRadioButton truncateRadioButton;
     private JButton buttonDo;
     private JTextArea textError;
     private JTextField textKey;
-    private JTextField textData;
+    private JTextField textDataFromNode;
     private TreeViewModel viewModel;
-    private TreeViewModel.Operation operation = TreeViewModel.Operation.INSERT;
+    private String operation;
 
     private TreeView() { }
     private TreeView(final TreeViewModel viewModel) {
         this.viewModel = viewModel;
+        operation = "Insert";
+        operationButtonGroup = new ButtonGroup();
+        operationButtonGroup.add(insertRadioButton);
+        operationButtonGroup.add(searchRadioButton);
+        operationButtonGroup.add(truncateRadioButton);
+        operationButtonGroup.setSelected(insertRadioButton.getModel(), true);
+        insertRadioButton.setActionCommand("Insert");
+        searchRadioButton.setActionCommand("Search");
+        truncateRadioButton.setActionCommand("Truncate");
 
         buttonDo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                bind();
+                treeViewBind();
                 TreeView.this.viewModel.doOperation();
-                backBind();
+                treeViewBackBind();
             }
         });
 
         insertRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                insertRadioButton.setSelected(true);
-                searchRadioButton.setSelected(false);
-                truncateRadioButton.setSelected(false);
-                operation = TreeViewModel.Operation.INSERT;
-                bind();
-                backBind();
+                treeViewBind();
+                treeViewBackBind();
             }
         });
 
         searchRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                insertRadioButton.setSelected(false);
-                searchRadioButton.setSelected(true);
-                truncateRadioButton.setSelected(false);
-                operation = TreeViewModel.Operation.SEARCH;
-                bind();
-                backBind();
+                treeViewBind();
+                treeViewBackBind();
             }
         });
 
         truncateRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                insertRadioButton.setSelected(false);
-                searchRadioButton.setSelected(false);
-                truncateRadioButton.setSelected(true);
-                operation = TreeViewModel.Operation.TRUNCATE;
-                bind();
-                backBind();
+                treeViewBind();
+                treeViewBackBind();
             }
         });
 
         textKey.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(final DocumentEvent e) {
-                bind();
-                backBind();
+                treeViewBind();
+                treeViewBackBind();
             }
 
             @Override
             public void removeUpdate(final DocumentEvent e) {
-                bind();
-                backBind();
+                treeViewBind();
+                treeViewBackBind();
             }
 
             @Override
             public void changedUpdate(final DocumentEvent e) {
-                bind();
-                backBind();
+                treeViewBind();
+                treeViewBackBind();
             }
         });
-        bind();
-        backBind();
+        treeViewBind();
+        treeViewBackBind();
     }
 
-    private void bind() {
-        viewModel.setKey(textKey.getText());
-        viewModel.setData(textData.getText());
+    private void treeViewBind() {
+        operation = operationButtonGroup.getSelection().getActionCommand();
         viewModel.setOperation(operation);
+        viewModel.setKey(textKey.getText());
+        viewModel.setDataFromNode(textDataFromNode.getText());
     }
 
-    private void backBind() {
+    private void treeViewBackBind() {
         buttonDo.setEnabled(viewModel.isDoButtonEnabled());
-        textData.setEnabled(viewModel.isDataTextFieldEnabled());
-        textData.setText(viewModel.getSearchedData());
+        textDataFromNode.setEnabled(viewModel.isDataTextFieldEnabled());
+        textDataFromNode.setText(viewModel.getSearchedData());
         textError.setText(viewModel.getErrorMessage());
     }
 

@@ -24,6 +24,8 @@
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <opaque value="true"/>
+              <rolloverEnabled value="false"/>
               <text value="Search_by_key"/>
             </properties>
           </component>
@@ -42,7 +44,7 @@
             <properties>
               <enabled value="true"/>
               <hideActionText value="false"/>
-              <selected value="true"/>
+              <selected value="false"/>
               <text value="Insert"/>
               <verifyInputWhenFocusTarget value="true"/>
               <visible value="true"/>
@@ -77,7 +79,7 @@
               <text value=""/>
             </properties>
           </component>
-          <component id="f811d" class="javax.swing.JTextField" binding="textData">
+          <component id="f811d" class="javax.swing.JTextField" binding="textDataFromNode">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -114,4 +116,11 @@
       </grid>
     </children>
   </grid>
+  <buttonGroups>
+    <group name="buttonsOperationGroup">
+      <member id="449f3"/>
+      <member id="aa21a"/>
+      <member id="e9e44"/>
+    </group>
+  </buttonGroups>
 </form>
