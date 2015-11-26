@@ -61,14 +61,7 @@ public class View {
     public View() {
         JFrame frame = new JFrame("Сапер");
         frame.setSize(minesweeperViewModel.getBoardWidth(), minesweeperViewModel.getBoardHeight());
-        smile = new JLabel() {
-            @Override
-            protected void paintComponent(final Graphics g) {
-                g.setColor(Color.WHITE);
-                g.fillRect(0, 0, getWidth(), getHeight());
-                super.paintComponent(g);
-            }
-        };
+        smile = new JLabel();
         smile.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(final MouseEvent e) {
