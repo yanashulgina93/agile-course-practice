@@ -52,12 +52,13 @@ public class ConvertToPolishNotationTests {
             assertEquals(postfixFormula, polishNotation);
         }
     }
+
     @RunWith(Parameterized.class)
-    public static class WhenCanNotConvertToPolishNotation {
+    public static class WhenConvertToPolishNotation {
         private ConverterToPolishNotation converter;
         private final String infixFormula;
 
-        public WhenCanNotConvertToPolishNotation(final String infixFormula) {
+        public WhenConvertToPolishNotation(final String infixFormula) {
             this.infixFormula = infixFormula;
         }
 

@@ -6,66 +6,66 @@ enum Priority { low, equally, bracket, addDiff, multDiv }
 
 public class ConverterToPolishNotation {
     private final Stack<String> reversPolishStack;
-    private final Stack<String> operationStak;
+    private final Stack<String> operationStack;
     private final Stack<Character> leftBracketsStack;
     private int indexChar;
 
     public ConverterToPolishNotation() {
         reversPolishStack = new Stack<>();
-        operationStak     = new Stack<>();
+        operationStack     = new Stack<>();
         leftBracketsStack = new Stack<>();
         indexChar = 0;
     }
 
     public String convert(final String infixExpression) {
-        char ch = infixExpression.charAt(0);
-        if (!isCorrectFirstCharacter(ch)) {
+        char character = infixExpression.charAt(0);
+        if (!isCorrectFirstCharacter(character)) {
             throw  new ArithmeticException("Incorrect first character");
         }
-        char tempCh;
+        char tempCharacter;
         do {
-            ch = infixExpression.charAt(indexChar++);
-            if (Character.isAlphabetic(ch)) {
-                reversPolishStack.push(Character.toString(ch));
-                tempCh = infixExpression.charAt(indexChar);
-                if (!isAllowableCaseForVariable(tempCh)) {
+            character = infixExpression.charAt(indexChar++);
+            if (Character.isAlphabetic(character)) {
+                reversPolishStack.push(Character.toString(character));
+                tempCharacter = infixExpression.charAt(indexChar);
+                if (!isAllowableCaseForVariable(tempCharacter)) {
                     throw new ArithmeticException("Incorrect character after variable");
                 }
-            } else if (Character.isDigit(ch)) {
-                tempCh = infixExpression.charAt(indexChar);
-                if (!isAllowableCaseForDigit(tempCh)) {
+            } else if (Character.isDigit(character)) {
+                tempCharacter = infixExpression.charAt(indexChar);
+                if (!isAllowableCaseForDigit(tempCharacter)) {
                     throw new ArithmeticException("Incorrect character after digit");
                 }
                 indexChar--;
                 collectingNumber(infixExpression);
-            } else if (ch == '(') {
-                operationStak.push(Character.toString(ch));
-                leftBracketsStack.push(ch);
-                tempCh = infixExpression.charAt(indexChar);
-                if (!isAllowableCaseForLeftBracket(tempCh)) {
+            } else if (character == '(') {
+                operationStack.push(Character.toString(character));
+                leftBracketsStack.push(character);
+                tempCharacter = infixExpression.charAt(indexChar);
+                if (!isAllowableCaseForLeftBracket(tempCharacter)) {
                     throw new ArithmeticException("Incorrect character after left bracket");
                 }
-            } else if (ch == ')') {
+            } else if (character == ')') {
                 if (leftBracketsStack.isEmpty()) {
                     throw new ArithmeticException("Missing left bracket");
                 }
                 leftBracketsStack.pop();
-                tempCh = infixExpression.charAt(indexChar);
-                if (!isAllowableCaseForRightBracket(tempCh)) {
+                tempCharacter = infixExpression.charAt(indexChar);
+                if (!isAllowableCaseForRightBracket(tempCharacter)) {
                     throw new ArithmeticException("Incorrect character after right bracket");
                 }
                 calculateInBrackets();
-            } else if (isOperator(ch)) {
-                setOperatorToStack(ch);
-                if (ch == '=') {
+            } else if (isOperator(character)) {
+                setOperatorToStack(character);
+                if (character == '=') {
                     break;
                 }
-                tempCh = infixExpression.charAt(indexChar);
-                if (!isAllowableCaseForOperator(tempCh)) {
+                tempCharacter = infixExpression.charAt(indexChar);
+                if (!isAllowableCaseForOperator(tempCharacter)) {
                     throw new ArithmeticException("Incorrect character after operator");
                 }
             }
-        } while (ch != '=' && indexChar < infixExpression.length());
+        } while (character != '=' && indexChar < infixExpression.length());
         return createPolishExpression();
     }
 
@@ -135,21 +135,21 @@ public class ConverterToPolishNotation {
     }
 
     private void setOperatorToStack(final char ch) {
-        while (!operationStak.isEmpty()) {
-            char t = operationStak.pop().charAt(0);
+        while (!operationStack.isEmpty()) {
+            char t = operationStack.pop().charAt(0);
             if (getOperationPriority(ch).ordinal() <= getOperationPriority(t).ordinal()) {
                 reversPolishStack.push(Character.toString(t));
             } else {
-                operationStak.push(Character.toString(t));
+                operationStack.push(Character.toString(t));
                 break;
             }
         }
-        operationStak.push(Character.toString(ch));
+        operationStack.push(Character.toString(ch));
     }
 
     private void calculateInBrackets() {
         while (true) {
-            char tempChar = operationStak.pop().charAt(0);
+            char tempChar = operationStack.pop().charAt(0);
             if (tempChar == '(') {
                 break;
             }
