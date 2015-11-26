@@ -34,71 +34,58 @@ public final class TreeView {
         buttonDo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                treeViewBind();
+                treeViewBackBind();
                 TreeView.this.viewModel.doOperation();
-                treeViewBackBind();
+                treeViewBind();
             }
         });
 
-        insertRadioButton.addActionListener(new ActionListener() {
+        ActionListener listenerRadioButton = new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                treeViewBind();
                 treeViewBackBind();
-            }
-        });
-
-        searchRadioButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
                 treeViewBind();
-                treeViewBackBind();
             }
-        });
-
-        truncateRadioButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                treeViewBind();
-                treeViewBackBind();
-            }
-        });
+        };
+        searchRadioButton.addActionListener(listenerRadioButton);
+        truncateRadioButton.addActionListener(listenerRadioButton);
+        insertRadioButton.addActionListener(listenerRadioButton);
 
         textKey.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(final DocumentEvent e) {
-                treeViewBind();
                 treeViewBackBind();
+                treeViewBind();
             }
 
             @Override
             public void removeUpdate(final DocumentEvent e) {
-                treeViewBind();
                 treeViewBackBind();
+                treeViewBind();
             }
 
             @Override
             public void changedUpdate(final DocumentEvent e) {
-                treeViewBind();
                 treeViewBackBind();
+                treeViewBind();
             }
         });
-        treeViewBind();
         treeViewBackBind();
+        treeViewBind();
     }
 
     private void treeViewBind() {
-        operation = operationButtonGroup.getSelection().getActionCommand();
-        viewModel.setOperation(operation);
-        viewModel.setKey(textKey.getText());
-        viewModel.setDataFromNode(textDataFromNode.getText());
-    }
-
-    private void treeViewBackBind() {
         buttonDo.setEnabled(viewModel.isDoButtonEnabled());
         textDataFromNode.setEnabled(viewModel.isDataTextFieldEnabled());
         textDataFromNode.setText(viewModel.getSearchedData());
         textError.setText(viewModel.getErrorMessage());
+    }
+
+    private void treeViewBackBind() {
+        operation = operationButtonGroup.getSelection().getActionCommand();
+        viewModel.setOperation(operation);
+        viewModel.setKey(textKey.getText());
+        viewModel.setDataFromNode(textDataFromNode.getText());
     }
 
     public static void main(final String[] args) {

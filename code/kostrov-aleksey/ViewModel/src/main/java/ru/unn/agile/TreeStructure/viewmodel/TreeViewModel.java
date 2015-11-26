@@ -13,6 +13,33 @@ public class TreeViewModel {
     private boolean doButtonEnabled;
     private boolean textDataFieldEnabled;
 
+    private void enablerDoButton() {
+        if (key.isEmpty()) {
+            doButtonEnabled = false;
+        } else {
+            doButtonEnabled = true;
+        }
+    }
+
+    private Operation typeOperationID(final String operation) {
+        switch (operation) {
+            case "Insert":
+                return Operation.INSERT;
+            case "Search":
+                return Operation.SEARCH;
+            default:
+                return Operation.TRUNCATE;
+        }
+    }
+
+    private void enablerDataTextField() {
+        if (operation == Operation.INSERT) {
+            textDataFieldEnabled = true;
+        } else {
+            textDataFieldEnabled = false;
+        }
+    }
+
     public TreeViewModel() {
         key = "";
         data = "";
@@ -32,22 +59,6 @@ public class TreeViewModel {
         return textDataFieldEnabled;
     }
 
-    private void enablerDoButton() {
-        if (key.isEmpty()) {
-            doButtonEnabled = false;
-        } else {
-            doButtonEnabled = true;
-        }
-    }
-
-    private void enablerDataTextField() {
-        if (operation == Operation.INSERT) {
-            textDataFieldEnabled = true;
-        } else {
-            textDataFieldEnabled = false;
-        }
-    }
-
     public void setKey(final String key) {
         this.key = key;
         enablerDoButton();
@@ -62,19 +73,7 @@ public class TreeViewModel {
         this.operation = typeOperationID(operation);
     }
 
-    private Operation typeOperationID(final String operation) {
-        switch (operation) {
-            case "Insert":
-                return Operation.INSERT;
-            case "Search":
-                return Operation.SEARCH;
-            default:
-                return Operation.TRUNCATE;
-        }
-    }
-
     public void doOperation() {
-        final Node tempNode;
         try {
             switch (operation) {
                 case INSERT:
@@ -85,7 +84,7 @@ public class TreeViewModel {
                     }
                     break;
                 case SEARCH:
-                    tempNode = tree.searchByKey(Integer.valueOf(key));
+                    final Node tempNode = tree.searchByKey(Integer.valueOf(key));
                     if (tempNode == null) {
                         message = ErrorMessage.NOT_FOUND;
                     } else {

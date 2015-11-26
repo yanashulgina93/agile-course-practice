@@ -23,7 +23,7 @@ public class TreeViewModelTests {
     }
 
     @Test
-    public void byDefaultDataTextFieldIsEnabled() {
+    public void byDefaultDataTextFieldIsDisabled() {
         assertTrue(viewModel.isDataTextFieldEnabled());
     }
 
@@ -43,14 +43,14 @@ public class TreeViewModelTests {
 
     @Test
     public void canInsertNewNode() {
-        assertEquals("Success", viewModel.getErrorMessage());
+        assertEquals(TreeViewModel.ErrorMessage.SUCCESS, viewModel.getErrorMessage());
     }
 
     @Test
     public void displayErrorMessageWhenTryingToAddExistingElement() {
         viewModel.doOperation();
 
-        assertEquals("Node with this key already exists.", viewModel.getErrorMessage());
+        assertEquals(TreeViewModel.ErrorMessage.ALREADY_EXISTS, viewModel.getErrorMessage());
     }
 
     @Test
@@ -69,18 +69,18 @@ public class TreeViewModelTests {
 
         viewModel.doOperation();
 
-        assertEquals("Element not found", viewModel.getErrorMessage());
+        assertEquals(TreeViewModel.ErrorMessage.NOT_FOUND, viewModel.getErrorMessage());
     }
 
     @Test
-    public void canTruncateAnExistKey() {
+    public void displayErrorMessageWhenTryingToTruncateAnExistKey() {
         viewModel.setOperation("Truncate");
         viewModel.doOperation();
 
         viewModel.setOperation("Search");
         viewModel.doOperation();
 
-        assertEquals("Element not found", viewModel.getErrorMessage());
+        assertEquals(TreeViewModel.ErrorMessage.NOT_FOUND, viewModel.getErrorMessage());
     }
 
     @Test
@@ -90,7 +90,7 @@ public class TreeViewModelTests {
 
         viewModel.doOperation();
 
-        assertEquals("Element not found", viewModel.getErrorMessage());
+        assertEquals(TreeViewModel.ErrorMessage.NOT_FOUND, viewModel.getErrorMessage());
     }
 
     @Test
@@ -99,11 +99,12 @@ public class TreeViewModelTests {
 
         viewModel.doOperation();
 
-        assertEquals("Key is not comparable", viewModel.getErrorMessage());
+        assertEquals(TreeViewModel.ErrorMessage.KEY_NOT_CORRECT, viewModel.getErrorMessage());
     }
 
     @Test
     public void canReturnNameCurrentOperation() {
-        assertEquals("Insert", viewModel.getOperation().toString());
+        assertEquals(TreeViewModel.Operation.INSERT.toString(),
+                viewModel.getOperation().toString());
     }
 }
