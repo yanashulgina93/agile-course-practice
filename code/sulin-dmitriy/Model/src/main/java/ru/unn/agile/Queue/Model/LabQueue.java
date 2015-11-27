@@ -37,7 +37,7 @@ public class LabQueue<T> {
     public int findElement(final T element) throws Exception {
         for (int i = 0; i <= queue.size() - 1; i++) {
             T temp = queue.get(i);
-            if (temp.equals(element) ) {
+            if (temp.equals(element)) {
                 return i;
             }
         }
