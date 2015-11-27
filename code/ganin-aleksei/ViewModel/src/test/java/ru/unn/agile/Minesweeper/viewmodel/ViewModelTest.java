@@ -20,39 +20,39 @@ public class ViewModelTest extends ViewModel {
 
     @Test
     public void defaultSmileIconIsSmileIcon() {
-        assertEquals(minesweeper.getSmileIcon(), minesweeper.getSmileIcon());
+        assertEquals(minesweeper.getSmileTex(), minesweeper.getSmileText());
     }
 
     @Test
     public void whenWinSmileIconIsWinnerIcon() {
         minesweeper.boardClear();
         minesweeper.openCell(0, 0);
-        assertEquals(minesweeper.getWinnerIcon(), minesweeper.getSmileIcon());
+        assertEquals(minesweeper.getWinnerText(), minesweeper.getSmileText());
     }
 
     @Test
     public void whenLostSmileIconIsDeadIcon() {
         minesweeper.setMine(0, 0);
         minesweeper.openCell(0, 0);
-        assertEquals(minesweeper.getDeadIcon(), minesweeper.getSmileIcon());
+        assertEquals(minesweeper.getDeadText(), minesweeper.getSmileText());
     }
 
     @Test
     public void defaultCellIconIsCloseIcon() {
-        assertEquals(minesweeper.getCloseIcon(), minesweeper.getCellIcon(0, 0));
+        assertEquals(minesweeper.getCloseText(), minesweeper.getCellText(0, 0));
     }
 
     @Test
     public void whenOnceMarkCellCellIconIsFlagIcon() {
         minesweeper.markCell(0, 0);
-        assertEquals(minesweeper.getFlagIcon(), minesweeper.getCellIcon(0, 0));
+        assertEquals(minesweeper.getFlagText(), minesweeper.getCellText(0, 0));
     }
 
     @Test
     public void whenTwiceMarkedCellCellIconIsIssueIcon() {
         minesweeper.markCell(0, 0);
         minesweeper.markCell(0, 0);
-        assertEquals(minesweeper.getIssueIcon(), minesweeper.getCellIcon(0, 0));
+        assertEquals(minesweeper.getIssueText(), minesweeper.getCellText(0, 0));
     }
 
     @Test
@@ -60,21 +60,14 @@ public class ViewModelTest extends ViewModel {
         minesweeper.markCell(0, 0);
         minesweeper.markCell(0, 0);
         minesweeper.markCell(0, 0);
-        assertEquals(minesweeper.getCloseIcon(), minesweeper.getCellIcon(0, 0));
+        assertEquals(minesweeper.getCloseText(), minesweeper.getCellText(0, 0));
     }
 
     @Test
     public void whenOpenedMineCellIconIsMineIcon() {
         minesweeper.setMine(0, 0);
         minesweeper.openCell(0, 0);
-        assertEquals(minesweeper.getMineIcon(), minesweeper.getCellIcon(0, 0));
-    }
-
-    @Test
-    public void whenOpenedFreeCellAnEmptyBoardCellIconIsVal0Icon() {
-        minesweeper.boardClear();
-        minesweeper.openCell(1, 1);
-        assertEquals(minesweeper.getVal0Icon(), minesweeper.getCellIcon(1, 1));
+        assertEquals(minesweeper.getMineText(), minesweeper.getCellText(0, 0));
     }
 
     @Test
@@ -82,7 +75,7 @@ public class ViewModelTest extends ViewModel {
         minesweeper.boardClear();
         minesweeper.setMine(0, 0);
         minesweeper.openCell(1, 1);
-        assertEquals(minesweeper.getVal1Icon(), minesweeper.getCellIcon(1, 1));
+        assertEquals("1", minesweeper.getCellText(1, 1));
     }
 
     @Test
@@ -91,7 +84,7 @@ public class ViewModelTest extends ViewModel {
         minesweeper.setMine(0, 0);
         minesweeper.setMine(0, 1);
         minesweeper.openCell(1, 1);
-        assertEquals(minesweeper.getVal2Icon(), minesweeper.getCellIcon(1, 1));
+        assertEquals("2", minesweeper.getCellText(1, 1));
     }
 
     @Test
@@ -101,57 +94,7 @@ public class ViewModelTest extends ViewModel {
         minesweeper.setMine(0, 1);
         minesweeper.setMine(0, 2);
         minesweeper.openCell(1, 1);
-        assertEquals(minesweeper.getVal3Icon(), minesweeper.getCellIcon(1, 1));
-    }
-
-    @Test
-    public void whenOpenedFreeCellCloseTo4MineCellIconIsVal4Icon() {
-        minesweeper.boardClear();
-        minesweeper.setMine(0, 0);
-        minesweeper.setMine(0, 1);
-        minesweeper.setMine(0, 2);
-        minesweeper.setMine(1, 0);
-        minesweeper.openCell(1, 1);
-        assertEquals(minesweeper.getVal4Icon(), minesweeper.getCellIcon(1, 1));
-    }
-
-    @Test
-    public void whenOpenedFreeCellCloseTo5MineCellIconIsVal5Icon() {
-        minesweeper.boardClear();
-        minesweeper.setMine(1, 2);
-        minesweeper.setMine(0, 0);
-        minesweeper.setMine(0, 1);
-        minesweeper.setMine(0, 2);
-        minesweeper.setMine(1, 0);
-        minesweeper.openCell(1, 1);
-        assertEquals(minesweeper.getVal5Icon(), minesweeper.getCellIcon(1, 1));
-    }
-
-    @Test
-    public void whenOpenedFreeCellCloseTo6MineCellIconIsVal6Icon() {
-        minesweeper.boardClear();
-        minesweeper.setMine(0, 2);
-        minesweeper.setMine(0, 0);
-        minesweeper.setMine(0, 1);
-        minesweeper.setMine(1, 0);
-        minesweeper.setMine(1, 2);
-        minesweeper.setMine(2, 0);
-        minesweeper.openCell(1, 1);
-        assertEquals(minesweeper.getVal6Icon(), minesweeper.getCellIcon(1, 1));
-    }
-
-    @Test
-    public void whenOpenedFreeCellCloseTo7MineCellIconIsVal7Icon() {
-        minesweeper.boardClear();
-        minesweeper.setMine(1, 0);
-        minesweeper.setMine(0, 0);
-        minesweeper.setMine(0, 2);
-        minesweeper.setMine(0, 1);
-        minesweeper.setMine(1, 2);
-        minesweeper.setMine(2, 0);
-        minesweeper.setMine(2, 1);
-        minesweeper.openCell(1, 1);
-        assertEquals(minesweeper.getVal7Icon(), minesweeper.getCellIcon(1, 1));
+        assertEquals("3", minesweeper.getCellText(1, 1));
     }
 
     @Test
@@ -166,7 +109,7 @@ public class ViewModelTest extends ViewModel {
         minesweeper.setMine(2, 2);
         minesweeper.setMine(2, 1);
         minesweeper.openCell(1, 1);
-        assertEquals(minesweeper.getVal8Icon(), minesweeper.getCellIcon(1, 1));
+        assertEquals("8", minesweeper.getCellText(1, 1));
     }
     @Test
     public void whenEmptyBoardMineCounterString0() {
@@ -186,7 +129,7 @@ public class ViewModelTest extends ViewModel {
         minesweeper.setMine(0, 0);
         minesweeper.openCell(0, 0);
         minesweeper.newGame();
-        assertEquals(minesweeper.getSmileIco(), minesweeper.getSmileIcon());
+        assertEquals(minesweeper.getSmileTex(), minesweeper.getSmileText());
     }
 
     @Test
