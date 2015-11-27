@@ -11,8 +11,6 @@ import static org.junit.Assert.assertEquals;
 public class ViewModelTextFieldsTest {
     private ViewModel viewModel;
 
-    private final double delta = 0.01;
-
     @Before
     public void setUp() {
         viewModel = new ViewModel();
@@ -39,19 +37,19 @@ public class ViewModelTextFieldsTest {
         assertEquals(ViewModel.Status.WAITING, viewModel.getStatus());
         assertEquals(false, viewModel.isButtonEnabled());
         assertEquals("", viewModel.getHouseCost());
-        assertEquals("", viewModel.getDownPayment());
+        assertEquals("0", viewModel.getDownPayment());
         assertEquals("", viewModel.getCountOfPeriods());
         assertEquals("", viewModel.getInterestRate());
-        assertEquals("", viewModel.getFlatFee());
-        assertEquals("", viewModel.getMonthlyFee());
+        assertEquals("0", viewModel.getFlatFee());
+        assertEquals("0", viewModel.getMonthlyFee());
         assertEquals(Hypothec.CurrencyType.DOLLAR, viewModel.getCurrencyType());
         assertEquals(Hypothec.PeriodType.MONTH, viewModel.getPeriodType());
         assertEquals(Hypothec.InterestRateType.MONTHLY, viewModel.getInterestRateType());
-        assertEquals(Hypothec.FlatFeeType.PERCENT, viewModel.getFlatFeeType());
+        assertEquals(Hypothec.FlatFeeType.CONSTANT_SUM, viewModel.getFlatFeeType());
         assertEquals(Hypothec.MonthlyFeeType.CREDIT_SUM_PERCENT, viewModel.getMonthlyFeeType());
         assertEquals(Hypothec.CreditType.DIFFERENTIATED, viewModel.getCreditType());
-        assertEquals("", viewModel.getStartMonth());
-        assertEquals("", viewModel.getStartYear());
+        assertEquals("11", viewModel.getStartMonth());
+        assertEquals("2015", viewModel.getStartYear());
     }
 
     @Test

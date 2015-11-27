@@ -1,7 +1,6 @@
 package ru.unn.agile.HypothecCalculator.viewmodel;
 
 import ru.unn.agile.HypothecsCalculator.model.*;
-
 import javax.swing.table.DefaultTableModel;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -35,154 +34,36 @@ public class ViewModel {
 
     private Hypothec.Builder hypothecForParsing;
     private CreditCalculator creditCalculator;
+    private GraphicOfPaymentsMaker graphicOfPaymentsMaker;
+
+    private static final double DOUBLE_DELTA = 0.001;
 
     public ViewModel() {
         status = Status.WAITING;
         isButtonEnabled = false;
 
         houseCost = "";
-        downPayment = "";
+        downPayment = "0";
         countOfPeriods = "";
         interestRate = "";
-        flatFee = "";
-        monthlyFee = "";
+        flatFee = "0";
+        monthlyFee = "0";
 
         currencyType = Hypothec.CurrencyType.DOLLAR;
         periodType = Hypothec.PeriodType.MONTH;
         interestRateType = Hypothec.InterestRateType.MONTHLY;
-        flatFeeType = Hypothec.FlatFeeType.PERCENT;
+        flatFeeType = Hypothec.FlatFeeType.CONSTANT_SUM;
         monthlyFeeType = Hypothec.MonthlyFeeType.CREDIT_SUM_PERCENT;
         creditType = Hypothec.CreditType.DIFFERENTIATED;
 
-        startMonth = "";
-        startYear = "";
-    }
+        startMonth = "11";
+        startYear = "2015";
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(final String status) {
-        this.status = status;
-    }
-
-    public boolean isButtonEnabled() {
-        return isButtonEnabled;
-    }
-
-    public String getHouseCost() {
-        return houseCost;
-    }
-
-    public void setHouseCost(final String houseCost) {
-        this.houseCost = houseCost;
-    }
-
-    public String getDownPayment() {
-        return downPayment;
-    }
-
-    public void setDownPayment(final String downPayment) {
-        this.downPayment = downPayment;
-    }
-
-    public String getCountOfPeriods() {
-        return countOfPeriods;
-    }
-
-    public void setCountOfPeriods(final String countOfPeriods) {
-        this.countOfPeriods = countOfPeriods;
-    }
-
-    public String getInterestRate() {
-        return interestRate;
-    }
-
-    public void setInterestRate(final String interestRate) {
-        this.interestRate = interestRate;
-    }
-
-    public String getFlatFee() {
-        return flatFee;
-    }
-
-    public void setFlatFee(final String flatFee) {
-        this.flatFee = flatFee;
-    }
-
-    public String getMonthlyFee() {
-        return monthlyFee;
-    }
-
-    public void setMonthlyFee(final String monthlyFee) {
-        this.monthlyFee = monthlyFee;
-    }
-
-    public Hypothec.CurrencyType getCurrencyType() {
-        return currencyType;
-    }
-
-    public void setCurrencyType(final Hypothec.CurrencyType currencyType) {
-        this.currencyType = currencyType;
-    }
-
-    public Hypothec.PeriodType getPeriodType() {
-        return periodType;
-    }
-
-    public void setPeriodType(final Hypothec.PeriodType periodType) {
-        this.periodType = periodType;
-    }
-
-    public Hypothec.InterestRateType getInterestRateType() {
-        return interestRateType;
-    }
-
-    public void setInterestRateType(final Hypothec.InterestRateType interestRateType) {
-        this.interestRateType = interestRateType;
-    }
-
-    public Hypothec.FlatFeeType getFlatFeeType() {
-        return flatFeeType;
-    }
-
-    public void setFlatFeeType(final Hypothec.FlatFeeType flatFeeType) {
-        this.flatFeeType = flatFeeType;
-    }
-
-    public Hypothec.MonthlyFeeType getMonthlyFeeType() {
-        return monthlyFeeType;
-    }
-
-    public void setMonthlyFeeType(final Hypothec.MonthlyFeeType monthlyFeeType) {
-        this.monthlyFeeType = monthlyFeeType;
-    }
-
-    public Hypothec.CreditType getCreditType() {
-        return creditType;
-    }
-
-    public void setCreditType(final Hypothec.CreditType creditType) {
-        this.creditType = creditType;
-    }
-
-    public String getStartMonth() {
-        return startMonth;
-    }
-
-    public void setStartMonth(final String startMonth) {
-        this.startMonth = startMonth;
-    }
-
-    public String getStartYear() {
-        return startYear;
-    }
-
-    public void setStartYear(final String startYear) {
-        this.startYear = startYear;
+        graphicOfPayments = new DefaultTableModel();
     }
 
     public boolean checkInput() {
+        cleanOutput();
         status = Status.READY;
         isButtonEnabled = false;
 
@@ -213,6 +94,24 @@ public class ViewModel {
         }
         return false;
     }
+
+    public void compute() {
+
+        if (checkInput()) {
+            Hypothec hypothec = createHypothec();
+
+            creditCalculator = new CreditCalculator(hypothec);
+            graphicOfPaymentsMaker = new GraphicOfPaymentsMaker(hypothec);
+
+            computeMonthlyPayment();
+            computeOverpayment();
+            computeOverpaymentWithFees();
+            createTable();
+
+            status = Status.SUCCESS;
+        }
+    }
+
 
     private boolean houseCostAndCountOfPeriodsIsOK() {
         double houseCostDouble;
@@ -358,29 +257,24 @@ public class ViewModel {
         return true;
     }
 
-    public void compute() {
-
-        if (checkInput()) {
-            creditCalculator = new CreditCalculator(createHypothec());
-
-            computeMonthlyPayment();
-
-            computeOverpayment();
-        }
-    }
-
     private Hypothec createHypothec() {
         Hypothec hypothec;
         try {
             hypothec = new Hypothec
                     .Builder(Double.parseDouble(houseCost), Integer.parseInt(countOfPeriods))
+                    .currency(currencyType)
                     .periodType(periodType)
                     .downPayment(Double.parseDouble(downPayment))
                     .interestRate(Double.parseDouble(interestRate))
                     .interestRateType(interestRateType)
+                    .flatFee(Double.parseDouble(flatFee))
+                    .flatFeeType(flatFeeType)
                     .monthlyFee(Double.parseDouble(monthlyFee))
                     .monthlyFeeType(monthlyFeeType)
                     .creditType(creditType)
+                    .startDate(
+                            new GregorianCalendar(Integer.parseInt(startYear),
+                                    Integer.parseInt(startMonth) - 1, 1))
                     .build();
         } catch (HypothecInputException e) {
             hypothec = new Hypothec.Builder().build();
@@ -394,7 +288,7 @@ public class ViewModel {
         double lowestMonthlyPayment =
                 creditCalculator.computeLowestMonthlyPayment();
 
-        if (highestMonthlyPayment - lowestMonthlyPayment < 0.001) {
+        if (highestMonthlyPayment - lowestMonthlyPayment < DOUBLE_DELTA) {
             monthlyPayment = Double.toString(highestMonthlyPayment);
         } else {
             monthlyPayment = Double.toString(highestMonthlyPayment)
@@ -407,6 +301,147 @@ public class ViewModel {
         overpayment = Double.toString(creditCalculator.computeOverpayment());
     }
 
+    private void computeOverpaymentWithFees() {
+        overpaymentWithFees = Double.toString(creditCalculator.computeOverpaymentWithFees());
+    }
+
+    private void cleanOutput() {
+        monthlyPayment = "...";
+        overpaymentWithFees = "...";
+        overpayment = "...";
+
+        graphicOfPayments = new DefaultTableModel();
+    }
+
+    private void createTable() {
+        graphicOfPayments = graphicOfPaymentsMaker.getTableModel();
+    }
+
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(final String status) {
+        this.status = status;
+    }
+
+    public boolean isButtonEnabled() {
+        return isButtonEnabled;
+    }
+
+    public String getHouseCost() {
+        return houseCost;
+    }
+
+    public void setHouseCost(final String houseCost) {
+        this.houseCost = houseCost;
+    }
+
+    public String getDownPayment() {
+        return downPayment;
+    }
+
+    public void setDownPayment(final String downPayment) {
+        this.downPayment = downPayment;
+    }
+
+    public String getCountOfPeriods() {
+        return countOfPeriods;
+    }
+
+    public void setCountOfPeriods(final String countOfPeriods) {
+        this.countOfPeriods = countOfPeriods;
+    }
+
+    public String getInterestRate() {
+        return interestRate;
+    }
+
+    public void setInterestRate(final String interestRate) {
+        this.interestRate = interestRate;
+    }
+
+    public String getFlatFee() {
+        return flatFee;
+    }
+
+    public void setFlatFee(final String flatFee) {
+        this.flatFee = flatFee;
+    }
+
+    public String getMonthlyFee() {
+        return monthlyFee;
+    }
+
+    public void setMonthlyFee(final String monthlyFee) {
+        this.monthlyFee = monthlyFee;
+    }
+
+    public Hypothec.CurrencyType getCurrencyType() {
+        return currencyType;
+    }
+
+    public void setCurrencyType(final Hypothec.CurrencyType currencyType) {
+        this.currencyType = currencyType;
+    }
+
+    public Hypothec.PeriodType getPeriodType() {
+        return periodType;
+    }
+
+    public void setPeriodType(final Hypothec.PeriodType periodType) {
+        this.periodType = periodType;
+    }
+
+    public Hypothec.InterestRateType getInterestRateType() {
+        return interestRateType;
+    }
+
+    public void setInterestRateType(final Hypothec.InterestRateType interestRateType) {
+        this.interestRateType = interestRateType;
+    }
+
+    public Hypothec.FlatFeeType getFlatFeeType() {
+        return flatFeeType;
+    }
+
+    public void setFlatFeeType(final Hypothec.FlatFeeType flatFeeType) {
+        this.flatFeeType = flatFeeType;
+    }
+
+    public Hypothec.MonthlyFeeType getMonthlyFeeType() {
+        return monthlyFeeType;
+    }
+
+    public void setMonthlyFeeType(final Hypothec.MonthlyFeeType monthlyFeeType) {
+        this.monthlyFeeType = monthlyFeeType;
+    }
+
+    public Hypothec.CreditType getCreditType() {
+        return creditType;
+    }
+
+    public void setCreditType(final Hypothec.CreditType creditType) {
+        this.creditType = creditType;
+    }
+
+    public String getStartMonth() {
+        return startMonth;
+    }
+
+    public void setStartMonth(final String startMonth) {
+        this.startMonth = startMonth;
+    }
+
+    public String getStartYear() {
+        return startYear;
+    }
+
+    public void setStartYear(final String startYear) {
+        this.startYear = startYear;
+    }
+
     public String getMonthlyPayment() {
         return monthlyPayment;
     }
@@ -415,12 +450,20 @@ public class ViewModel {
         return overpayment;
     }
 
+    public String getOverpaymentWithFees() {
+        return overpaymentWithFees;
+    }
+
+    public DefaultTableModel getGraphicOfPayments() {
+        return graphicOfPayments;
+    }
+
 
     public final class Status {
         public static final String WAITING = "Введите параметры кредита";
         public static final String READY = "Нажмите кнопку \"Рассчитать\"";
         public static final String BAD_FORMAT = "Введены даннные неверного формата ";
-        public static final String SUCCESS = "Success";
+        public static final String SUCCESS = "Успех полностью достигнут";
 
         private Status() { }
     }

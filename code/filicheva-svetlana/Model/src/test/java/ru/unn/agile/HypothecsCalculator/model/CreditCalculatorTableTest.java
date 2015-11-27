@@ -31,7 +31,7 @@ public class CreditCalculatorTableTest {
 
     @Test
     public void canCreateTable() {
-        GraphicOfPayments graphicOfPayments = new GraphicOfPayments(getCredit());
+        GraphicOfPaymentsMaker graphicOfPayments = new GraphicOfPaymentsMaker(getCredit());
 
         DefaultTableModel graphic = graphicOfPayments.getTableModel();
 
@@ -69,13 +69,13 @@ public class CreditCalculatorTableTest {
                             {3, "01.2016", 1050.0, 1000.0, 40.0, 10.0, 1000.0},
                             {4, "02.2016", 1020.0, 1000.0, 20.0, 0.0, 0.0}},
                             new String[]{
-                                "№ платежа",
-                                "Дата платежа",
-                                "Сумма платежа",
-                                "Платеж по основному долгу",
-                                "Платеж по процентам",
-                                "Ежемесячная комиссия",
-                                "Остаток основной задолженности"}),
+                                    "<html>№ <br>платежа",
+                                    "<html>Дата <br>платежа",
+                                    "<html>Сумма <br>платежа",
+                                    "<html>Платеж по <br>основному долгу",
+                                    "<html>Платеж по <br>процентам",
+                                    "<html>Ежемесячная <br>комиссия",
+                                    "<html>Остаток <br>основной <br>задолженности"}),
                     Hypothec.CreditType.DIFFERENTIATED
             },
             {
@@ -85,13 +85,13 @@ public class CreditCalculatorTableTest {
                             {3, "01.2016", 1060.8, 1009.7, 40.8, 10.3, 1029.9},
                             {4, "02.2016", 1050.5, 1029.9, 20.6, 0.0, 0.0} },
                             new String[]{
-                                "№ платежа",
-                                "Дата платежа",
-                                "Сумма платежа",
-                                "Платеж по основному долгу",
-                                "Платеж по процентам",
-                                "Ежемесячная комиссия",
-                                "Остаток основной задолженности"}),
+                                    "<html>№ <br>платежа",
+                                    "<html>Дата <br>платежа",
+                                    "<html>Сумма <br>платежа",
+                                    "<html>Платеж по <br>основному долгу",
+                                    "<html>Платеж по <br>процентам",
+                                    "<html>Ежемесячная <br>комиссия",
+                                    "<html>Остаток <br>основной <br>задолженности"}),
                     Hypothec.CreditType.ANNUITY
             }
     };

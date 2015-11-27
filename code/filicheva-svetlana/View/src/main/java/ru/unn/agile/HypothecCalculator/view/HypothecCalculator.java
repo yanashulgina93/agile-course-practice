@@ -5,6 +5,7 @@ import ru.unn.agile.HypothecsCalculator.model.Hypothec;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +13,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-
 
 public final class HypothecCalculator {
 
@@ -40,6 +40,8 @@ public final class HypothecCalculator {
     private JLabel overpayment;
 
     private final ViewModel viewModel = new ViewModel();
+
+    private static final int HEADERS_HEIGHT = 50;
 
     private HypothecCalculator() {
         loadAllLists();
@@ -117,8 +119,11 @@ public final class HypothecCalculator {
 
     private void createUIComponents() {
         mainPanel = new DollarPanel();
-        }
 
+        graphicOfPayments = new JTable();
+        JTableHeader header = graphicOfPayments.getTableHeader();
+        header.setPreferredSize(new Dimension(graphicOfPayments.getWidth(), HEADERS_HEIGHT));
+        }
 
     public static void main(final String[] args) {
         JFrame frame = new JFrame("Ипотечный калькулятор");
@@ -168,6 +173,24 @@ public final class HypothecCalculator {
 
         month.setText(viewModel.getStartMonth());
         year.setText(viewModel.getStartYear());
+
+        monthlyPayment.setText(viewModel.getMonthlyPayment());
+        overpaymentWithFees.setText(viewModel.getOverpaymentWithFees());
+        overpayment.setText(viewModel.getOverpayment());
+
+        DefaultTableModel model = viewModel.getGraphicOfPayments();
+        graphicOfPayments.setModel(model);
+        graphicOfPayments.setPreferredSize(new Dimension(graphicOfPayments.getWidth(),
+                graphicOfPayments.getRowHeight() * model.getRowCount()));
+    }
+
+    private void loadAllLists() {
+        loadListOfCurrencies();
+        loadListOfPeriods();
+        loadListOfInterestRateTypes();
+        loadListOfFlatFeeTypes();
+        loadListOfMonthlyFeeTypes();
+        loadListOfCreditTypes();
     }
 
     private void loadListOfCurrencies() {
@@ -198,15 +221,6 @@ public final class HypothecCalculator {
     private void loadListOfCreditTypes() {
         Hypothec.CreditType[] types = Hypothec.CreditType.values();
         creditType.setModel(new JComboBox<>(types).getModel());
-    }
-
-    private void loadAllLists() {
-        loadListOfCurrencies();
-        loadListOfPeriods();
-        loadListOfInterestRateTypes();
-        loadListOfFlatFeeTypes();
-        loadListOfMonthlyFeeTypes();
-        loadListOfCreditTypes();
     }
 }
 

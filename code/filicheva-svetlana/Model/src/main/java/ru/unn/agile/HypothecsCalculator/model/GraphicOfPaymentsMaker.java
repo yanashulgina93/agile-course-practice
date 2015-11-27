@@ -6,21 +6,21 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class GraphicOfPayments {
+public class GraphicOfPaymentsMaker {
     private final Hypothec hypothec;
     private final CreditCalculator creditCalculator;
 
     private static final String[] COLUMN_NAMES = {
-            "№ платежа",
-            "Дата платежа",
-            "Сумма платежа",
-            "Платеж по основному долгу",
-            "Платеж по процентам",
-            "Ежемесячная комиссия",
-            "Остаток основной задолженности"
+            "<html>№ <br>платежа",
+            "<html>Дата <br>платежа",
+            "<html>Сумма <br>платежа",
+            "<html>Платеж по <br>основному долгу",
+            "<html>Платеж по <br>процентам",
+            "<html>Ежемесячная <br>комиссия",
+            "<html>Остаток <br>основной <br>задолженности"
     };
 
-    public GraphicOfPayments(final Hypothec hypothec) {
+    public GraphicOfPaymentsMaker(final Hypothec hypothec) {
         this.hypothec = hypothec;
         creditCalculator = new CreditCalculator(hypothec);
     }

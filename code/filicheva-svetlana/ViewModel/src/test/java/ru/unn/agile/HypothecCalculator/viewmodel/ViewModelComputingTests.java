@@ -26,7 +26,7 @@ public class ViewModelComputingTests {
         viewModel.setCountOfPeriods("12");
         viewModel.setDownPayment("200");
         viewModel.setInterestRate("1");
-        viewModel.setFlatFee("10");
+        viewModel.setFlatFee("0");
         viewModel.setMonthlyFee("2");
         viewModel.setStartMonth("1");
         viewModel.setStartYear("1992");
@@ -103,4 +103,49 @@ public class ViewModelComputingTests {
         viewModel.compute();
         assertEquals("65.0", viewModel.getOverpayment());
     }
+
+    @Test
+    public void canComputeOverpaymentWithFeesForAnnuityCredit() {
+        viewModel.compute();
+        assertEquals("306.2", viewModel.getOverpaymentWithFees());
+    }
+
+    @Test
+    public void canComputeOverpaymentWithFeesForDifferentiatedCredit() {
+        viewModel.setCreditType(Hypothec.CreditType.DIFFERENTIATED);
+        viewModel.compute();
+        assertEquals("305.0", viewModel.getOverpaymentWithFees());
+    }
+
+    @Test
+    public void canComputeOverpaymentWithFeesForMonthlyFeeTypeCreditBalancePercent() {
+        viewModel.setMonthlyFeeType(Hypothec.MonthlyFeeType.CREDIT_BALANCE_PERCENT);
+        viewModel.setMonthlyFee("1");
+        viewModel.compute();
+        assertEquals("122.39", viewModel.getOverpaymentWithFees());
+    }
+
+    @Test
+    public void canComputeOverpaymentWithFeesForMonthlyFeeTypeConstSum() {
+        viewModel.setMonthlyFeeType(Hypothec.MonthlyFeeType.CONSTANT_SUM);
+        viewModel.setMonthlyFee("10");
+        viewModel.compute();
+        assertEquals("186.2", viewModel.getOverpaymentWithFees());
+    }
+
+    @Test
+    public void canComputeOverpaymentWithFeesForFlatFeeConstSum() {
+        viewModel.setFlatFee("100");
+        viewModel.compute();
+        assertEquals("406.2", viewModel.getOverpaymentWithFees());
+    }
+
+    @Test
+    public void canComputeOverpaymentWithFeesForFlatFeeTypeCreditPercent() {
+        viewModel.setFlatFeeType(Hypothec.FlatFeeType.PERCENT);
+        viewModel.setFlatFee("12");
+        viewModel.compute();
+        assertEquals("426.2", viewModel.getOverpaymentWithFees());
+    }
+
 }
