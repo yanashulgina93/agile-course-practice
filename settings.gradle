@@ -212,4 +212,4 @@ project(":code/zhbanova-anna/View").name = "zhbanova-anna-View"
 
 // Zykov Ilya
 include "code/zykov-ilya"
-project(":code/zykov-ilya").name  = "zykov-ilya-Model"
+project(":code/zykov-ilya").name = "zykov-ilya-Model"

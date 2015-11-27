@@ -241,6 +241,7 @@ public class Hypothec {
             this.name = name;
         }
 
+        @Override
         public String toString() {
             return name;
         }
@@ -256,6 +257,7 @@ public class Hypothec {
             this.name = name;
         }
 
+        @Override
         public String toString() {
             return name;
         }
@@ -271,6 +273,7 @@ public class Hypothec {
             this.name = name;
         }
 
+        @Override
         public String toString() {
             return name;
         }
@@ -286,6 +289,7 @@ public class Hypothec {
             this.name = name;
         }
 
+        @Override
         public String toString() {
             return name;
         }
@@ -302,6 +306,7 @@ public class Hypothec {
             this.name = name;
         }
 
+        @Override
         public String toString() {
             return name;
         }
@@ -317,6 +322,7 @@ public class Hypothec {
             this.name = name;
         }
 
+        @Override
         public String toString() {
             return name;
         }
