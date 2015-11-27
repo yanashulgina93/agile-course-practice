@@ -8,7 +8,7 @@ public class ViewModel {
 
     private final Model minesweeperModel = new Model();
 
-    private static String flagText = new String ("!");
+    private static String flagText = new String("!");
     private static String closeText = new String("#");
     private static String issueText = new String("?");
     private static String mineText = new String("*");
@@ -46,7 +46,7 @@ public class ViewModel {
             return mineText;
         } else {
             int value = minesweeperModel.getCellValue(x, y);
-            if(value == 0) {
+            if (value == 0) {
                 return "";
             } else {
                 return Integer.toString(minesweeperModel.getCellValue(x, y));

@@ -71,6 +71,13 @@ public class ViewModelTest extends ViewModel {
     }
 
     @Test
+    public void whenOpenedFreeCellCloseTo0MineCellIconIsVal0Icon() {
+        minesweeper.boardClear();
+        minesweeper.openCell(0, 0);
+        assertEquals("", minesweeper.getCellText(0, 0));
+    }
+
+    @Test
     public void whenOpenedFreeCellCloseTo1MineCellIconIsVal1Icon() {
         minesweeper.boardClear();
         minesweeper.setMine(0, 0);
