@@ -13,7 +13,7 @@ public class View {
     public static final int CELL_SIZE = 20;
     private static final int SMILE_POSITION_Y = 0;
     private static final int MINE_COUNTER_POSITION_Y = 70;
-    private static final int SMILE_SIZE = 50;
+    private static final int SMILE_SIZE = 100;
     private static final int MINE_COUNTER_HEIGHT = 20;
     private static final int MINE_COUNTER_WIDTH = 50;
     private final  BoardView board = new BoardView(
@@ -100,11 +100,11 @@ public class View {
     private void binding() {
         for (int y = 0; y < minesweeperViewModel.getBoardHeight(); y++) {
             for (int x = 0; x < minesweeperViewModel.getBoardWidth(); x++) {
-                board.cells[y][x].setIcon(minesweeperViewModel.getCellIcon(x, y));
+                board.cells[y][x].setText(minesweeperViewModel.getCellText(x, y));
             }
         }
         mineCounter.setText(minesweeperViewModel.getMineCounter());
-        smile.setIcon(minesweeperViewModel.getSmileIcon());
+        smile.setText(minesweeperViewModel.getSmileText());
     }
 
     public int getCellSize() {
