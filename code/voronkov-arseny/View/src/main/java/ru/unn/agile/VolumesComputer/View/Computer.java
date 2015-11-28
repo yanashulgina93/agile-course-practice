@@ -48,9 +48,12 @@ public final class Computer {
                 labelIn1.setText(viewModel.getParameter1name() + ":");
                 labelIn2.setText(viewModel.getParameter2name() + ":");
                 labelIn3.setText(viewModel.getParameter3name() + ":");
-                textFieldIn1.setEnabled(viewModel.isParameter1enabled());
-                textFieldIn2.setEnabled(viewModel.isParameter2enabled());
-                textFieldIn3.setEnabled(viewModel.isParameter3enabled());
+                labelIn1.setVisible(viewModel.isParameter1enabled());
+                labelIn2.setVisible(viewModel.isParameter2enabled());
+                labelIn3.setVisible(viewModel.isParameter3enabled());
+                textFieldIn1.setVisible(viewModel.isParameter1enabled());
+                textFieldIn2.setVisible(viewModel.isParameter2enabled());
+                textFieldIn3.setVisible(viewModel.isParameter3enabled());
                 buttonSolve.setEnabled(viewModel.isInputCorrect());
             }
         });
