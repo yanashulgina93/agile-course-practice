@@ -16,4 +16,8 @@ public class TemperatureConverterFakeLogger implements TemperatureConverterLogge
     public List<String> getFullLog() {
         return log;
     }
+
+    public int getLogSize() {
+        return log.size();
+    }
 }

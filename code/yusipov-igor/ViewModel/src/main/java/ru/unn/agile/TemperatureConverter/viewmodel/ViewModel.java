@@ -3,6 +3,8 @@ package ru.unn.agile.TemperatureConverter.viewmodel;
 import ru.unn.agile.TemperatureConverter.model.TemperatureConverter;
 import ru.unn.agile.TemperatureConverter.model.TemperatureScaleName;
 
+import java.util.List;
+
 public class ViewModel {
     private String inputTemperature;
     private String resultTemperature;
@@ -23,7 +25,6 @@ public class ViewModel {
         }
 
         this.logger = logger;
-        isInputChanged = true;
 
         setStateToDefault();
     }
@@ -34,6 +35,7 @@ public class ViewModel {
         status = Status.WAITING;
         scale = TemperatureScaleName.FAHRENHEIT;
         isConvertButtonEnable = false;
+        isInputChanged = false;
     }
 
     public String getInputTemperature() {
@@ -62,6 +64,7 @@ public class ViewModel {
 
     public void setInputTemperature(final String inputTemperature) {
         this.inputTemperature = inputTemperature;
+        isInputChanged = true;
     }
 
     public void setScale(final TemperatureScaleName scale) {
@@ -73,15 +76,29 @@ public class ViewModel {
             status = Status.WAITING;
             isConvertButtonEnable = false;
         } else {
+
+            double parsedInputTemperature;
+
             try {
+                parsedInputTemperature = Double.parseDouble(inputTemperature);
                 Double.parseDouble(inputTemperature);
                 status = Status.READY;
                 resultTemperature = "";
                 isConvertButtonEnable = true;
-            } catch (NumberFormatException exception) {
+            } catch (Exception exception) {
                 status = Status.BAD_FORMAT;
                 isConvertButtonEnable = false;
                 resultTemperature = "";
+                return isConvertButtonEnable;
+            }
+
+            if (parsedInputTemperature < TemperatureConverter.PHYSICAL_LIMIT) {
+                status = Status.NON_PHYSICAL_VALUE;
+                isConvertButtonEnable = false;
+            } else {
+                status = Status.READY;
+                resultTemperature = "";
+                isConvertButtonEnable = true;
             }
         }
 
@@ -90,15 +107,31 @@ public class ViewModel {
 
     public void convert() {
         if (parse()) {
-            try {
-                TemperatureConverter converter = new TemperatureConverter(scale);
-                double temperature = converter.convert(Double.parseDouble(inputTemperature));
-                resultTemperature = Double.toString(temperature);
-                status = Status.SUCCESS;
-            } catch (IllegalArgumentException exception) {
-                resultTemperature = "";
-                status = Status.NON_PHYSICAL_VALUE;
+            TemperatureConverter converter = new TemperatureConverter(scale);
+            double temperature = converter.convert(Double.parseDouble(inputTemperature));
+            resultTemperature = Double.toString(temperature);
+            status = Status.SUCCESS;
+        }
+    }
+
+    public List<String> getLog() {
+        return logger.getFullLog();
+    }
+
+    public void onInputValueFocusLost() {
+        if (isInputChanged) {
+
+            parse();
+
+            if (status == Status.BAD_FORMAT) {
+                logger.log(LogMessage.INCORRECT_INPUT.toString() + inputTemperature);
+            } else if (status == Status.NON_PHYSICAL_VALUE) {
+                logger.log(LogMessage.NON_PHYSICAL_INPUT.toString() + inputTemperature);
+            } else {
+                logger.log(LogMessage.INPUT_EDITED.toString() + inputTemperature);
             }
+
+            isInputChanged = false;
         }
     }
 }
