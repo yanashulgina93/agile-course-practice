@@ -124,8 +124,12 @@ include "code/kochanova-ksenya/ViewModel"
 project(":code/kochanova-ksenya/ViewModel").name = "kochanova-ksenya-ViewModel"
 // Korotaev Aleksej
 // Korotaev Pavel
-include "code/korotaev-pavel"
-project(":code/korotaev-pavel").name = "korotaev-pavel-Model"
+include "code/korotaev-pavel/Model"
+project(":code/korotaev-pavel/Model").name = "korotaev-pavel-Model"
+include "code/korotaev-pavel/View"
+project(":code/korotaev-pavel/View").name = "korotaev-pavel-View"
+include "code/korotaev-pavel/ViewModel"
+project(":code/korotaev-pavel/ViewModel").name = "korotaev-pavel-ViewModel"
 
 // Kostrov Aleksey
 include "code/kostrov-aleksey"
