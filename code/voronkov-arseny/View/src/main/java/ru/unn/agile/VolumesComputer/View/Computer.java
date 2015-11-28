@@ -8,15 +8,15 @@ import java.awt.event.*;
 
 public final class Computer {
     private JComboBox<FigureName> comboBoxFigures;
-    private JTextField textFieldIn1;
-    private JTextField textFieldIn2;
-    private JTextField textFieldIn3;
-    private JTextField textFieldOut;
+    private JTextField textFieldParameter1;
+    private JTextField textFieldParameter2;
+    private JTextField textFieldParameter3;
+    private JTextField textFieldVolume;
     private JPanel panelMain;
-    private JLabel labelIn1;
-    private JLabel labelIn2;
-    private JLabel labelIn3;
-    private JLabel labelOut;
+    private JLabel labelParameter1;
+    private JLabel labelParameter2;
+    private JLabel labelParameter3;
+    private JLabel labelVolume;
     private JButton buttonSolve;
 
     private final ComputerViewModel viewModel;
@@ -32,10 +32,10 @@ public final class Computer {
 
     private Computer(final ComputerViewModel viewModel) {
         this.viewModel = viewModel;
-        textFieldIn1initialize();
-        textFieldIn2initialize();
-        textFieldIn3initialize();
-        textFieldOutInitialize();
+        textFieldParameter1initialize();
+        textFieldParameter2initialize();
+        textFieldParameter3initialize();
+        textFieldVolumeInitialize();
         comboBoxFiguresInitialize();
         buttonSolveInitialize();
     }
@@ -45,15 +45,15 @@ public final class Computer {
             public void actionPerformed(final ActionEvent e) {
                 viewModel.setFigure(
                         (FigureName) comboBoxFigures.getSelectedItem());
-                labelIn1.setText(viewModel.getParameter1name() + ":");
-                labelIn2.setText(viewModel.getParameter2name() + ":");
-                labelIn3.setText(viewModel.getParameter3name() + ":");
-                labelIn1.setVisible(viewModel.isParameter1enabled());
-                labelIn2.setVisible(viewModel.isParameter2enabled());
-                labelIn3.setVisible(viewModel.isParameter3enabled());
-                textFieldIn1.setVisible(viewModel.isParameter1enabled());
-                textFieldIn2.setVisible(viewModel.isParameter2enabled());
-                textFieldIn3.setVisible(viewModel.isParameter3enabled());
+                labelParameter1.setText(viewModel.getParameter1name() + ":");
+                labelParameter2.setText(viewModel.getParameter2name() + ":");
+                labelParameter3.setText(viewModel.getParameter3name() + ":");
+                labelParameter1.setVisible(viewModel.isParameter1enabled());
+                labelParameter2.setVisible(viewModel.isParameter2enabled());
+                labelParameter3.setVisible(viewModel.isParameter3enabled());
+                textFieldParameter1.setVisible(viewModel.isParameter1enabled());
+                textFieldParameter2.setVisible(viewModel.isParameter2enabled());
+                textFieldParameter3.setVisible(viewModel.isParameter3enabled());
                 buttonSolve.setEnabled(viewModel.isInputCorrect());
             }
         });
@@ -61,46 +61,46 @@ public final class Computer {
         comboBoxFigures.setModel(new JComboBox<>(figures).getModel());
         comboBoxFigures.setSelectedIndex(0);
     }
-    private void textFieldIn1initialize() {
-        textFieldIn1.addKeyListener(new KeyAdapter() {
+    private void textFieldParameter1initialize() {
+        textFieldParameter1.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(final KeyEvent keyEvent) {
-                viewModel.setParameter1(textFieldIn1.getText());
+                viewModel.setParameter1(textFieldParameter1.getText());
                 buttonSolve.setEnabled(viewModel.isInputCorrect());
             }
         });
     }
-    private void textFieldIn2initialize() {
-        textFieldIn2.addKeyListener(new KeyAdapter() {
+    private void textFieldParameter2initialize() {
+        textFieldParameter2.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(final KeyEvent keyEvent) {
-                viewModel.setParameter2(textFieldIn2.getText());
+                viewModel.setParameter2(textFieldParameter2.getText());
                 buttonSolve.setEnabled(viewModel.isInputCorrect());
             }
         });
     }
-    private void textFieldIn3initialize() {
-        textFieldIn3.addKeyListener(new KeyAdapter() {
+    private void textFieldParameter3initialize() {
+        textFieldParameter3.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(final KeyEvent keyEvent) {
-                viewModel.setParameter3(textFieldIn3.getText());
+                viewModel.setParameter3(textFieldParameter3.getText());
                 buttonSolve.setEnabled(viewModel.isInputCorrect());
             }
         });
     }
-    private void textFieldOutInitialize() {
-        textFieldOut.setEditable(false);
-        textFieldOut.setText(viewModel.getVolume());
+    private void textFieldVolumeInitialize() {
+        textFieldVolume.setEditable(false);
+        textFieldVolume.setText(viewModel.getVolume());
     }
     private void buttonSolveInitialize() {
         buttonSolve.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                viewModel.setParameter1(textFieldIn1.getText());
-                viewModel.setParameter2(textFieldIn2.getText());
-                viewModel.setParameter3(textFieldIn3.getText());
+                viewModel.setParameter1(textFieldParameter1.getText());
+                viewModel.setParameter2(textFieldParameter2.getText());
+                viewModel.setParameter3(textFieldParameter3.getText());
                 viewModel.solve();
-                textFieldOut.setText(viewModel.getVolume());
+                textFieldVolume.setText(viewModel.getVolume());
             }
         });
     }
