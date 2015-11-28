@@ -1,4 +1,7 @@
-package ru.unn.agile.BitArray.core;
+package ru.unn.agile.BitArray.model;
+
+import ru.unn.agile.BitArray.model.exception.BitArrayDifferentSizeException;
+import ru.unn.agile.BitArray.model.exception.BitArrayUnsupportedOperationException;
 
 import org.junit.Test;
 import org.junit.Before;
