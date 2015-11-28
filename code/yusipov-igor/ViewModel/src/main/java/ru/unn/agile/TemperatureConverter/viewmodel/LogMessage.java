@@ -3,7 +3,8 @@ package ru.unn.agile.TemperatureConverter.viewmodel;
 public enum LogMessage {
     INCORRECT_INPUT("Input temperature value has a bad format: "),
     INPUT_EDITED("New input temperature value: "),
-    NON_PHYSICAL_INPUT("Input temperature value is non-physical: ");
+    NON_PHYSICAL_INPUT("Input temperature value is non-physical: "),
+    SCALE_CHANGED("Temperature scale changed to: ");
 
     private final String name;
 

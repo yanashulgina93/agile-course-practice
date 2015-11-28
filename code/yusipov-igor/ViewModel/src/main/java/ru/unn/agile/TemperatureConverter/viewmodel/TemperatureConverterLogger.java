@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface TemperatureConverterLogger {
 
-    void log(String msg);
+    void log(final String msg);
 
     List<String> getFullLog();
 }

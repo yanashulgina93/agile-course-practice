@@ -3,6 +3,7 @@ package ru.unn.agile.TemperatureConverter.viewmodel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import ru.unn.agile.TemperatureConverter.model.TemperatureScaleName;
 
 import java.util.List;
 
@@ -105,4 +106,14 @@ public class ViewModelLoggingTests {
         List<String> log = viewModel.getLog();
         assertEquals(1, log.size());
     }
+
+    @Test
+    public void canAddMessageToLogWhenScaleIsChanged() {
+        viewModel.setScale(TemperatureScaleName.NEWTON);
+        List<String> log = viewModel.getLog();
+        final String expected = LogMessage.SCALE_CHANGED.toString() + TemperatureScaleName.NEWTON.toString();
+        assertEquals(expected, log.get(0));
+
+    }
+
 }

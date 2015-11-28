@@ -68,7 +68,10 @@ public class ViewModel {
     }
 
     public void setScale(final TemperatureScaleName scale) {
-        this.scale = scale;
+        if (this.scale != scale) {
+            this.scale = scale;
+            logger.log(LogMessage.SCALE_CHANGED.toString() + scale.toString());
+        }
     }
 
     public boolean parse() {
@@ -134,4 +137,6 @@ public class ViewModel {
             isInputChanged = false;
         }
     }
+
+
 }
