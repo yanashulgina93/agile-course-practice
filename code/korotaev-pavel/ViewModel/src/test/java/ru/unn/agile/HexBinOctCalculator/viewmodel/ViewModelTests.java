@@ -48,39 +48,39 @@ public class ViewModelTests {
 
     @Test
     public void canSetDefaultResult() {
-        assertEquals("", viewModel.resProperty().get());
+        assertEquals("", viewModel.resultProperty().get());
     }
 
     @Test
     public void canSetDefaultStatus() {
-        assertEquals(Status.WAITING.toString(), viewModel.statProperty().get());
+        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
     }
 
     @Test(expected = IllegalStateException.class)
     public void statusIsWaitingWhenCalculateAndFieldsAreEmpty() {
         viewModel.calculate();
-        assertEquals(Status.WAITING.toString(), viewModel.statProperty().get());
+        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void statusIsReadyWhenAllFieldsAreFill() {
         setInputData();
 
-        assertEquals(Status.READY.toString(), viewModel.statProperty().get());
+        assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void statusIsWaitingIfNotEnoughCorrectData() {
         viewModel.value1Property().set("1");
 
-        assertEquals(Status.WAITING.toString(), viewModel.statProperty().get());
+        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void doReportAboutBadFormat() {
         viewModel.value1Property().set("a");
 
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.statProperty().get());
+        assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
     }
 
     @Test
@@ -132,7 +132,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals("71", viewModel.resProperty().get());
+        assertEquals("71", viewModel.resultProperty().get());
     }
 
     @Test
@@ -141,7 +141,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(Status.SUCCESS.toString(), viewModel.statProperty().get());
+        assertEquals(Status.SUCCESS.toString(), viewModel.statusProperty().get());
     }
 
     @Test
@@ -155,7 +155,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals("11011", viewModel.resProperty().get());
+        assertEquals("11011", viewModel.resultProperty().get());
     }
 
     @Test
@@ -169,7 +169,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals("37777777775", viewModel.resProperty().get());
+        assertEquals("37777777775", viewModel.resultProperty().get());
     }
 
     private void setInputData() {

@@ -25,7 +25,7 @@ public class ViewModel {
     private final ObjectProperty<ObservableList<Operation>> operations =
             new SimpleObjectProperty<>(FXCollections.observableArrayList(Operation.values()));
     private final ObjectProperty<Operation> operation = new SimpleObjectProperty<>();
-    private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
+    private final BooleanProperty calcDisabled = new SimpleBooleanProperty();
 
     private final StringProperty result = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
@@ -51,7 +51,7 @@ public class ViewModel {
                 return getInputStatus() == Status.READY;
             }
         };
-        calculationDisabled.bind(couldCalculate.not());
+        calcDisabled.bind(couldCalculate.not());
 
         final List<StringProperty> fields = new ArrayList<StringProperty>() { {
             add(value1);
@@ -66,7 +66,7 @@ public class ViewModel {
     }
 
     public void calculate() {
-        if (calculationDisabled.get()) {
+        if (calcDisabled.get()) {
             throw new IllegalStateException("Calculation is disabled");
         }
 
@@ -108,19 +108,19 @@ public class ViewModel {
         return operation;
     }
     public BooleanProperty calcDisabledProperty() {
-        return calculationDisabled;
+        return calcDisabled;
     }
     public final boolean getCalcDisabled() {
-        return calculationDisabled.get();
+        return calcDisabled.get();
     }
 
-    public StringProperty resProperty() {
+    public StringProperty resultProperty() {
         return result;
     }
     public final String getResult() {
         return result.get();
     }
-    public StringProperty statProperty() {
+    public StringProperty statusProperty() {
         return status;
     }
     public final String getStatus() {
