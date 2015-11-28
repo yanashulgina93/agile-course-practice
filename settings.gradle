@@ -204,8 +204,12 @@ project(":code/sulin-dmitriy").name = "sulin-dmitriy-Model"
 // Vinnickij Vladimir
 
 // Vodopyanov Dmitry
-include "code/vodopyanov-dmitry"
-project(":code/vodopyanov-dmitry").name = "vodopyanov-dmitry-lab1-Model"
+include "code/vodopyanov-dmitry/Model"
+project(":code/vodopyanov-dmitry/Model").name = "vodopyanov-dmitry-Model"
+include "code/vodopyanov-dmitry/ViewModel"
+project(":code/vodopyanov-dmitry/ViewModel").name = "vodopyanov-dmitry-ViewModel"
+include "code/vodopyanov-dmitry/View"
+project(":code/vodopyanov-dmitry/View").name = "vodopyanov-dmitry-View"
 
 // Volosenkov Evgenij
 

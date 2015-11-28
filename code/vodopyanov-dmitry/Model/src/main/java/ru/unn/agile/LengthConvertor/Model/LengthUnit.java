@@ -25,6 +25,10 @@ public enum LengthUnit {
         }
     }
 
+    public String convert(final String value, final LengthUnit unitInput) {
+        return Double.toString(convert(Double.parseDouble(value), unitInput));
+    }
+
     public double getMultiplierMeter() {
         return multiplierMeter;
     }
