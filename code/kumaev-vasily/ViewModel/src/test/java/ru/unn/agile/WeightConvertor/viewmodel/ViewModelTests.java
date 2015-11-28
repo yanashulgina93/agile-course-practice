@@ -70,7 +70,7 @@ public class ViewModelTests {
 
     @Test
     public void convertButtonIsDisableInitially() {
-        assertTrue(viewModel.convertationDisableProperty().get());
+        assertTrue(viewModel.conversionDisabledProperty().get());
     }
 
     @Test
@@ -78,21 +78,21 @@ public class ViewModelTests {
         viewModel.valueProperty().set("4");
         viewModel.valueProperty().set("a");
 
-        assertTrue(viewModel.convertationDisableProperty().get());
+        assertTrue(viewModel.conversionDisabledProperty().get());
     }
 
     @Test
     public void convertButtonIsDisabledWhenInputValueHasCommaInsteadOfDot() {
         viewModel.valueProperty().set("7,1");
 
-        assertTrue(viewModel.getConvertationDisable());
+        assertTrue(viewModel.getConversionDisabled());
     }
 
     @Test
     public void convertButtonIsEnabledWithCorrectInput() {
         viewModel.valueProperty().set("4");
 
-        assertFalse(viewModel.convertationDisableProperty().get());
+        assertFalse(viewModel.conversionDisabledProperty().get());
     }
 
     @Test

@@ -20,7 +20,7 @@ public class ViewModel {
     private final ObjectProperty<WeightUnit> inputUnit = new SimpleObjectProperty<>();
     private final ObjectProperty<WeightUnit> outputUnit = new SimpleObjectProperty<>();
 
-    private final BooleanProperty convertationDisable = new SimpleBooleanProperty();
+    private final BooleanProperty conversionDisabled = new SimpleBooleanProperty();
 
     private final ObjectProperty<ObservableList<WeightUnit>> units =
             new SimpleObjectProperty<>(FXCollections.observableArrayList(WeightUnit.values()));
@@ -43,7 +43,7 @@ public class ViewModel {
                 return getInputStatus() == Status.READY;
             }
         };
-        convertationDisable.bind(couldConvert.not());
+        conversionDisabled.bind(couldConvert.not());
 
         final List<StringProperty> fields = new ArrayList<StringProperty>() { {
             add(value);
@@ -57,7 +57,7 @@ public class ViewModel {
     }
 
     public void convert() {
-        if (convertationDisable.get()) {
+        if (conversionDisabled.get()) {
             return;
         }
 
@@ -88,11 +88,11 @@ public class ViewModel {
     public final ObservableList<WeightUnit> getUnits() {
         return units.get();
     }
-    public BooleanProperty convertationDisableProperty() {
-        return convertationDisable;
+    public BooleanProperty conversionDisabledProperty() {
+        return conversionDisabled;
     }
-    public final boolean getConvertationDisable() {
-        return convertationDisable.get();
+    public final boolean getConversionDisabled() {
+        return conversionDisabled.get();
     }
     public StringProperty statusProperty() {
         return status;
