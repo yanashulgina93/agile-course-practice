@@ -14,24 +14,24 @@ public enum FigureName {
             "Radius", "Height"
     });
 
-    private final String mName;
-    private final int mParametersCount;
-    private final String[] mParametersNames;
+    private final String name;
+    private final int parametersCount;
+    private final String[] parametersNames;
 
     FigureName(final String name,
                final String[] parametersNames) {
-        mName = name;
-        mParametersCount = parametersNames.length;
-        mParametersNames = parametersNames.clone();
+        this.name = name;
+        parametersCount = parametersNames.length;
+        this.parametersNames = parametersNames.clone();
     }
     @Override
     public String toString() {
-        return mName;
+        return name;
     }
     public int getParametersCount() {
-        return mParametersCount;
+        return parametersCount;
     }
     public String[] getParametersNames() {
-        return mParametersNames;
+        return parametersNames;
     }
 }

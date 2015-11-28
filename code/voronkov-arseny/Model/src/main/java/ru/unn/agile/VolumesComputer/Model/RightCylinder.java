@@ -1,9 +1,9 @@
 package ru.unn.agile.VolumesComputer.Model;
 
 public class RightCylinder implements IRightCylindrical {
-    private final double mSemimajorAxis;
-    private final double mSemiminorAxis;
-    private final double mHeight;
+    private final double semimajorAxis;
+    private final double semiminorAxis;
+    private final double height;
 
     public RightCylinder(final double semimajorAxis,
                          final double semiminorAxis,
@@ -11,20 +11,20 @@ public class RightCylinder implements IRightCylindrical {
         if (semimajorAxis < 0.0 || semiminorAxis < 0.0 || height < 0.0) {
             throw new NegativeParametersException();
         }
-        mSemimajorAxis = semimajorAxis;
-        mSemiminorAxis = semiminorAxis;
-        mHeight = height;
+        this.semimajorAxis = semimajorAxis;
+        this.semiminorAxis = semiminorAxis;
+        this.height = height;
     }
     @Override
     public double getSemimajorAxis() {
-        return mSemimajorAxis;
+        return semimajorAxis;
     }
     @Override
     public double getSemiminorAxis() {
-        return mSemiminorAxis;
+        return semiminorAxis;
     }
     @Override
     public double getHeight() {
-        return mHeight;
+        return height;
     }
 }

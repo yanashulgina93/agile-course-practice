@@ -8,74 +8,74 @@ public class ComputerViewModel {
     public static final String EMPTY_VOLUME_STRING = "";
     public static final String DISABLE_PARAMETER_STRING = "No parameter";
     private static final int THREE = 3;
-    private String mParameter1str;
-    private String mParameter2str;
-    private String mParameter3str;
-    private double mParameter1;
-    private double mParameter2;
-    private double mParameter3;
-    private FigureName mFigureName;
-    private boolean mInputCorrect;
-    private boolean mParsed;
-    private String mVolumeStr;
+    private String parameter1str;
+    private String parameter2str;
+    private String parameter3str;
+    private double parameter1;
+    private double parameter2;
+    private double parameter3;
+    private FigureName figureName;
+    private boolean inputCorrect;
+    private boolean parsed;
+    private String volumeStr;
 
     public ComputerViewModel() {
-        mParameter1str = "";
-        mParameter2str = "";
-        mParameter3str = "";
-        mParameter1 = 0.0;
-        mParameter2 = 0.0;
-        mParameter3 = 0.0;
-        mFigureName = FigureName.CUBOID;
-        mInputCorrect = false;
-        mParsed = false;
-        mVolumeStr = EMPTY_VOLUME_STRING;
+        parameter1str = "";
+        parameter2str = "";
+        parameter3str = "";
+        parameter1 = 0.0;
+        parameter2 = 0.0;
+        parameter3 = 0.0;
+        figureName = FigureName.CUBOID;
+        inputCorrect = false;
+        parsed = false;
+        volumeStr = EMPTY_VOLUME_STRING;
     }
     public void setParameter1(final String parameterString) {
-        mParsed = mParameter1str.equals(parameterString);
-        mParameter1str = parameterString;
+        parsed = parameter1str.equals(parameterString);
+        parameter1str = parameterString;
     }
     public void setParameter2(final String parameterString) {
-        mParsed = mParameter2str.equals(parameterString);
-        mParameter2str = parameterString;
+        parsed = parameter2str.equals(parameterString);
+        parameter2str = parameterString;
     }
     public void setParameter3(final String parameterString) {
-        mParsed = mParameter3str.equals(parameterString);
-        mParameter3str = parameterString;
+        parsed = parameter3str.equals(parameterString);
+        parameter3str = parameterString;
     }
     public void setFigure(final FigureName figureName) {
-        mParsed = mFigureName.equals(figureName);
-        mFigureName = figureName;
+        parsed = this.figureName.equals(figureName);
+        this.figureName = figureName;
     }
     public String getParameter1() {
-        return mParameter1str;
+        return parameter1str;
     }
     public String getParameter2() {
-        return mParameter2str;
+        return parameter2str;
     }
     public String getParameter3() {
-        return mParameter3str;
+        return parameter3str;
     }
     public FigureName getFigure() {
-        return mFigureName;
+        return figureName;
     }
     public boolean isParameter1enabled() {
-        return mFigureName.getParametersCount() >= 1;
+        return figureName.getParametersCount() >= 1;
     }
     public boolean isParameter2enabled() {
-        return mFigureName.getParametersCount() >= 2;
+        return figureName.getParametersCount() >= 2;
     }
     public boolean isParameter3enabled() {
-        return mFigureName.getParametersCount() >= THREE;
+        return figureName.getParametersCount() >= THREE;
     }
     public boolean isInputCorrect() {
-        if (!mParsed) {
+        if (!parsed) {
             parse();
         }
-        return mInputCorrect;
+        return inputCorrect;
     }
     public String getVolume() {
-        return mVolumeStr;
+        return volumeStr;
     }
     public String getParameter1name() {
         return getParameterName(1);
@@ -87,46 +87,46 @@ public class ComputerViewModel {
         return getParameterName(THREE);
     }
     public void parse() {
-        mParsed = true;
-        final int paramsCount = mFigureName.getParametersCount();
-        mInputCorrect = true;
+        parsed = true;
+        final int paramsCount = figureName.getParametersCount();
+        inputCorrect = true;
         if (paramsCount < 1) {
             return;
         }
         if (paramsCount > THREE) {
-            mInputCorrect = false;
+            inputCorrect = false;
             return;
         }
-        mParameter1 = parseParameter(mParameter1str);
-        if (mInputCorrect && paramsCount > 1) {
-            mParameter2 = parseParameter(mParameter2str);
+        parameter1 = parseParameter(parameter1str);
+        if (inputCorrect && paramsCount > 1) {
+            parameter2 = parseParameter(parameter2str);
         }
-        if (mInputCorrect && paramsCount > 2) {
-            mParameter3 = parseParameter(mParameter3str);
+        if (inputCorrect && paramsCount > 2) {
+            parameter3 = parseParameter(parameter3str);
         }
     }
     public void solve() {
-        if (!mParsed) {
+        if (!parsed) {
             parse();
         }
-        if (mInputCorrect) {
+        if (inputCorrect) {
             try {
-                if (mFigureName == FigureName.CUBOID) {
+                if (figureName == FigureName.CUBOID) {
                     solveCuboid();
-                } else if (mFigureName == FigureName.SPHEROID) {
+                } else if (figureName == FigureName.SPHEROID) {
                     solveSpheroid();
-                } else if (mFigureName == FigureName.RIGHT_CYLINDER) {
+                } else if (figureName == FigureName.RIGHT_CYLINDER) {
                     solveRightCylinder();
-                } else if (mFigureName == FigureName.RIGHT_CIRCULAR_CONE) {
+                } else if (figureName == FigureName.RIGHT_CIRCULAR_CONE) {
                     solveRightCircularCone();
                 } else {
-                    mVolumeStr = BAD_VOLUME_STRING;
+                    volumeStr = BAD_VOLUME_STRING;
                 }
             } catch (NegativeParametersException e) {
-                mVolumeStr = BAD_VOLUME_STRING;
+                volumeStr = BAD_VOLUME_STRING;
             }
         } else {
-            mVolumeStr = EMPTY_VOLUME_STRING;
+            volumeStr = EMPTY_VOLUME_STRING;
         }
     }
 
@@ -135,29 +135,29 @@ public class ComputerViewModel {
         try {
             res = Double.valueOf(parameterString);
         } catch (NumberFormatException e) {
-            mInputCorrect = false;
+            inputCorrect = false;
         }
         return res;
     }
     private String getParameterName(final int parameterIndex) {
-        return mFigureName.getParametersCount() >= parameterIndex
-                ? mFigureName.getParametersNames()[parameterIndex - 1]
+        return figureName.getParametersCount() >= parameterIndex
+                ? figureName.getParametersNames()[parameterIndex - 1]
                 : DISABLE_PARAMETER_STRING;
     }
     private void solveCuboid() {
-        mVolumeStr = String.valueOf(VolumesComputer.solve(new Cuboid(
-                mParameter1, mParameter2, mParameter3)));
+        volumeStr = String.valueOf(VolumesComputer.solve(new Cuboid(
+                parameter1, parameter2, parameter3)));
     }
     private void solveSpheroid() {
-        mVolumeStr = String.valueOf(VolumesComputer.solve(
-                new Spheroid(mParameter1, mParameter2)));
+        volumeStr = String.valueOf(VolumesComputer.solve(
+                new Spheroid(parameter1, parameter2)));
     }
     private void solveRightCylinder() {
-        mVolumeStr = String.valueOf(VolumesComputer.solve(new RightCylinder(
-                mParameter1, mParameter2, mParameter3)));
+        volumeStr = String.valueOf(VolumesComputer.solve(new RightCylinder(
+                parameter1, parameter2, parameter3)));
     }
     private void solveRightCircularCone() {
-        mVolumeStr = String.valueOf(VolumesComputer.solve(
-                new RightCircularCone(mParameter1, mParameter2)));
+        volumeStr = String.valueOf(VolumesComputer.solve(
+                new RightCircularCone(parameter1, parameter2)));
     }
 }

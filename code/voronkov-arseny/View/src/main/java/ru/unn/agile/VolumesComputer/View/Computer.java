@@ -7,31 +7,31 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public final class Computer {
-    private JComboBox<FigureName> mComboBoxFigures;
-    private JTextField mTextFieldIn1;
-    private JTextField mTextFieldIn2;
-    private JTextField mTextFieldIn3;
-    private JTextField mTextFieldOut;
-    private JPanel mPanelMain;
-    private JLabel mLabelIn1;
-    private JLabel mLabelIn2;
-    private JLabel mLabelIn3;
-    private JLabel mLabelOut;
-    private JButton mButtonSolve;
+    private JComboBox<FigureName> comboBoxFigures;
+    private JTextField textFieldIn1;
+    private JTextField textFieldIn2;
+    private JTextField textFieldIn3;
+    private JTextField textFieldOut;
+    private JPanel panelMain;
+    private JLabel labelIn1;
+    private JLabel labelIn2;
+    private JLabel labelIn3;
+    private JLabel labelOut;
+    private JButton buttonSolve;
 
-    private final ComputerViewModel mViewModel;
+    private final ComputerViewModel viewModel;
 
     public static void main(final String[] agrs) {
         JFrame frame = new JFrame("VolumesComputer");
         frame.setContentPane(
-                new Computer(new ComputerViewModel()).mPanelMain);
+                new Computer(new ComputerViewModel()).panelMain);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
     }
 
     private Computer(final ComputerViewModel viewModel) {
-        mViewModel = viewModel;
+        this.viewModel = viewModel;
         textFieldIn1initialize();
         textFieldIn2initialize();
         textFieldIn3initialize();
@@ -40,64 +40,64 @@ public final class Computer {
         buttonSolveInitialize();
     }
     private void comboBoxFiguresInitialize() {
-        mComboBoxFigures.addActionListener(new ActionListener() {
+        comboBoxFigures.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                mViewModel.setFigure(
-                        (FigureName) mComboBoxFigures.getSelectedItem());
-                mLabelIn1.setText(mViewModel.getParameter1name() + ":");
-                mLabelIn2.setText(mViewModel.getParameter2name() + ":");
-                mLabelIn3.setText(mViewModel.getParameter3name() + ":");
-                mTextFieldIn1.setEnabled(mViewModel.isParameter1enabled());
-                mTextFieldIn2.setEnabled(mViewModel.isParameter2enabled());
-                mTextFieldIn3.setEnabled(mViewModel.isParameter3enabled());
-                mButtonSolve.setEnabled(mViewModel.isInputCorrect());
+                viewModel.setFigure(
+                        (FigureName) comboBoxFigures.getSelectedItem());
+                labelIn1.setText(viewModel.getParameter1name() + ":");
+                labelIn2.setText(viewModel.getParameter2name() + ":");
+                labelIn3.setText(viewModel.getParameter3name() + ":");
+                textFieldIn1.setEnabled(viewModel.isParameter1enabled());
+                textFieldIn2.setEnabled(viewModel.isParameter2enabled());
+                textFieldIn3.setEnabled(viewModel.isParameter3enabled());
+                buttonSolve.setEnabled(viewModel.isInputCorrect());
             }
         });
         final FigureName[] figures = FigureName.values();
-        mComboBoxFigures.setModel(new JComboBox<>(figures).getModel());
-        mComboBoxFigures.setSelectedIndex(0);
+        comboBoxFigures.setModel(new JComboBox<>(figures).getModel());
+        comboBoxFigures.setSelectedIndex(0);
     }
     private void textFieldIn1initialize() {
-        mTextFieldIn1.addKeyListener(new KeyAdapter() {
+        textFieldIn1.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(final KeyEvent keyEvent) {
-                mViewModel.setParameter1(mTextFieldIn1.getText());
-                mButtonSolve.setEnabled(mViewModel.isInputCorrect());
+                viewModel.setParameter1(textFieldIn1.getText());
+                buttonSolve.setEnabled(viewModel.isInputCorrect());
             }
         });
     }
     private void textFieldIn2initialize() {
-        mTextFieldIn2.addKeyListener(new KeyAdapter() {
+        textFieldIn2.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(final KeyEvent keyEvent) {
-                mViewModel.setParameter2(mTextFieldIn2.getText());
-                mButtonSolve.setEnabled(mViewModel.isInputCorrect());
+                viewModel.setParameter2(textFieldIn2.getText());
+                buttonSolve.setEnabled(viewModel.isInputCorrect());
             }
         });
     }
     private void textFieldIn3initialize() {
-        mTextFieldIn3.addKeyListener(new KeyAdapter() {
+        textFieldIn3.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(final KeyEvent keyEvent) {
-                mViewModel.setParameter3(mTextFieldIn3.getText());
-                mButtonSolve.setEnabled(mViewModel.isInputCorrect());
+                viewModel.setParameter3(textFieldIn3.getText());
+                buttonSolve.setEnabled(viewModel.isInputCorrect());
             }
         });
     }
     private void textFieldOutInitialize() {
-        mTextFieldOut.setEditable(false);
-        mTextFieldOut.setText(mViewModel.getVolume());
+        textFieldOut.setEditable(false);
+        textFieldOut.setText(viewModel.getVolume());
     }
     private void buttonSolveInitialize() {
-        mButtonSolve.addActionListener(new ActionListener() {
+        buttonSolve.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                mViewModel.setParameter1(mTextFieldIn1.getText());
-                mViewModel.setParameter2(mTextFieldIn2.getText());
-                mViewModel.setParameter3(mTextFieldIn3.getText());
-                mViewModel.solve();
-                mTextFieldOut.setText(mViewModel.getVolume());
+                viewModel.setParameter1(textFieldIn1.getText());
+                viewModel.setParameter2(textFieldIn2.getText());
+                viewModel.setParameter3(textFieldIn3.getText());
+                viewModel.solve();
+                textFieldOut.setText(viewModel.getVolume());
             }
         });
     }
