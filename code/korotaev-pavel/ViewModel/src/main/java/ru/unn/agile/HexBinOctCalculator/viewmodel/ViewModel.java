@@ -73,7 +73,8 @@ public class ViewModel {
         Number first = new Number(value1.get(), system1.get());
         Number second = new Number(value2.get(), system2.get());
 
-        calcResult.set(operation.get().apply(first, second, finalSystem.get()).getValue().toString());
+        calcResult.set(operation.get().apply(first, second,
+                finalSystem.get()).getValue().toString());
         calcStatus.set(Status.SUCCESS.toString());
     }
 
