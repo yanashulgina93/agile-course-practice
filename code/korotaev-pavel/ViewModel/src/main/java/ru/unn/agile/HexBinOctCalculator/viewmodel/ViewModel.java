@@ -27,8 +27,8 @@ public class ViewModel {
     private final ObjectProperty<Operation> operation = new SimpleObjectProperty<>();
     private final BooleanProperty calcDisabled = new SimpleBooleanProperty();
 
-    private final StringProperty result = new SimpleStringProperty();
-    private final StringProperty status = new SimpleStringProperty();
+    private final StringProperty calcResult = new SimpleStringProperty();
+    private final StringProperty calcStatus = new SimpleStringProperty();
 
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
 
@@ -39,8 +39,8 @@ public class ViewModel {
         system2.set(NumeralSystem.BIN);
         finalSystem.set(NumeralSystem.HEX);
         operation.set(Operation.ADD);
-        result.set("");
-        status.set(Status.WAITING.toString());
+        calcResult.set("");
+        calcStatus.set(Status.WAITING.toString());
 
         BooleanBinding couldCalculate = new BooleanBinding() {
             {
@@ -73,8 +73,8 @@ public class ViewModel {
         Number first = new Number(value1.get(), system1.get());
         Number second = new Number(value2.get(), system2.get());
 
-        result.set(operation.get().apply(first, second, finalSystem.get()).getValue().toString());
-        status.set(Status.SUCCESS.toString());
+        calcResult.set(operation.get().apply(first, second, finalSystem.get()).getValue().toString());
+        calcStatus.set(Status.SUCCESS.toString());
     }
 
     public StringProperty value1Property() {
@@ -114,17 +114,17 @@ public class ViewModel {
         return calcDisabled.get();
     }
 
-    public StringProperty resultProperty() {
-        return result;
+    public StringProperty calcResultProperty() {
+        return calcResult;
     }
-    public final String getResult() {
-        return result.get();
+    public final String getCalcResult() {
+        return calcResult.get();
     }
-    public StringProperty statusProperty() {
-        return status;
+    public StringProperty calcStatusProperty() {
+        return calcStatus;
     }
-    public final String getStatus() {
-        return status.get();
+    public final String getCalcStatus() {
+        return calcStatus.get();
     }
 
     private Status getInputStatus() {
@@ -150,7 +150,7 @@ public class ViewModel {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String previousValue, final String replacedValue) {
-            status.set(getInputStatus().toString());
+            calcStatus.set(getInputStatus().toString());
         }
     }
 }
