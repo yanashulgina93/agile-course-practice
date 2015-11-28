@@ -196,8 +196,13 @@ project(":code/shulgina-yana/ViewModel").name = "shulgina-yana-ViewModel"
 include "code/smirnov-alexandr"
 project(":code/smirnov-alexandr").name = "smirnov-alexandr-lab1-Model"
 // Smirnov Mixail
-include "code/smirnov-michael"
-project(":code/smirnov-michael").name = "smirnov-michael-Model"
+include "code/smirnov-michael/Model"
+project(":code/smirnov-michael/Model").name = "smirnov-michael-Model"
+include "code/smirnov-michael/ViewModel"
+project(":code/smirnov-michael/ViewModel").name = "smirnov-michael-ViewModel"
+include "code/smirnov-michael/View"
+project(":code/smirnov-michael/View").name = "smirnov-michael-View"
+
 // Smirnov Vyacheslav
 include "code/smirnov-vyacheslav"
 project(":code/smirnov-vyacheslav").name = "smirnov-vyacheslav-lab1-Model"
