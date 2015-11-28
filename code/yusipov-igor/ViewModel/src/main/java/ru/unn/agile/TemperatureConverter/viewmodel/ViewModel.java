@@ -9,8 +9,26 @@ public class ViewModel {
     private Status status;
     private TemperatureScaleName scale;
     private boolean isConvertButtonEnable;
+    private TemperatureConverterLogger logger;
+    private boolean isInputChanged;
 
     public ViewModel() {
+        setStateToDefault();
+    }
+
+    public ViewModel(final TemperatureConverterLogger logger) {
+
+        if (logger == null) {
+            throw new IllegalArgumentException("Logger parameter can't be null");
+        }
+
+        this.logger = logger;
+        isInputChanged = true;
+
+        setStateToDefault();
+    }
+
+    private void setStateToDefault() {
         inputTemperature = "";
         resultTemperature = "";
         status = Status.WAITING;
