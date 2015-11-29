@@ -13,8 +13,8 @@ public class TreeViewModel {
     private boolean doButtonEnabled;
     private boolean textDataFieldEnabled;
 
-    private void enablerDoButton() {
-        if (key.isEmpty()) {
+    private void changeEnableStateDoButton(final boolean keyTextFieldIsEmpty) {
+        if (keyTextFieldIsEmpty) {
             doButtonEnabled = false;
         } else {
             doButtonEnabled = true;
@@ -32,7 +32,7 @@ public class TreeViewModel {
         }
     }
 
-    private void enablerDataTextField() {
+    private void changeEnableStateDataTextField() {
         if (operation == Operation.INSERT) {
             textDataFieldEnabled = true;
         } else {
@@ -61,12 +61,12 @@ public class TreeViewModel {
 
     public void setKey(final String key) {
         this.key = key;
-        enablerDoButton();
+        changeEnableStateDoButton(key.isEmpty());
     }
 
     public void setDataFromNode(final String data) {
         this.data = data;
-        enablerDataTextField();
+        changeEnableStateDataTextField();
     }
 
     public void setOperation(final String operation) {
@@ -93,14 +93,12 @@ public class TreeViewModel {
                     }
                     break;
                 default:
-                    try {
-                        tree.truncateByKey(Integer.valueOf(key));
-                        message = ErrorMessage.SUCCESS;
-                    } catch (Exception e) {
-                        message = ErrorMessage.NOT_FOUND;
-                    }
+                    tree.truncateByKey(Integer.valueOf(key));
+                    message = ErrorMessage.SUCCESS;
                     break;
             }
+        } catch (NullPointerException e) {
+            message = ErrorMessage.NOT_FOUND;
         } catch (Exception e) {
             message = ErrorMessage.KEY_NOT_CORRECT;
         }
