@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.lang.reflect.Array;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -16,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 /**
  * Created by ruymoshkov on 11/20/2015.
  */
-public class BitArrayForm {
+public final class BitArrayForm {
     private ViewModel viewModel;
 
     private JPanel mainPanel;
@@ -27,7 +26,6 @@ public class BitArrayForm {
     private JTable resultBitArrayTable;
     private JComboBox<ViewModel.Operation> operationCombobox;
     private JButton doOperationBtn;
-    private JTextPane logText;
     private JScrollPane firstBitArrayScrollPane;
     private JScrollPane secondBitArrayScrollPane;
     private JScrollPane resultBitArrayScrollPane;
@@ -151,6 +149,15 @@ public class BitArrayForm {
         });
 
         return result;
+    }
+
+    private void createUIComponents() {
+        Object[][] values = new Object[][]{};
+        Object[] header = new Object[]{};
+
+        firstBitArrayTable = new JTable(values, header);
+        secondBitArrayTable = new JTable(values, header);
+        resultBitArrayTable = new JTable(values, header);
     }
 
     private class BitArrayMouseAdapter extends MouseAdapter {

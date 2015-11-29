@@ -27,14 +27,13 @@ public class ViewModel {
         return isDoOperationButtonEnabled;
     }
 
-    public void setSizeArray(String sizeArray) {
+    public void setSizeArray(final String sizeArray) {
         this.inputSizeArray = sizeArray;
         int size;
         try {
             size = Integer.parseInt(inputSizeArray);
             isInitializeArrayButtonEnabled = size > 0;
-        }
-        catch (NumberFormatException exception) {
+        } catch (NumberFormatException exception) {
             isInitializeArrayButtonEnabled = false;
         }
     }
@@ -56,7 +55,7 @@ public class ViewModel {
         isDoOperationButtonEnabled = true;
     }
 
-    public void setOperation(Operation operation) {
+    public void setOperation(final Operation operation) {
         this.operation = operation;
         operation.setViewModel(this);
     }
@@ -77,7 +76,7 @@ public class ViewModel {
         return operation;
     }
 
-    public void setFirstBitArray(BitArray firstBitArray) {
+    public void setFirstBitArray(final BitArray firstBitArray) {
         this.firstBitArray = firstBitArray;
     }
 
@@ -85,11 +84,11 @@ public class ViewModel {
         operation.doOperation();
     }
 
-    public void setSecondBitArray(BitArray secondBitArray) {
+    public void setSecondBitArray(final BitArray secondBitArray) {
         this.secondBitArray = secondBitArray;
     }
 
-    public void setResultBitArray(BitArray resultBitArray) {
+    public void setResultBitArray(final BitArray resultBitArray) {
         this.resultBitArray = resultBitArray;
     }
 
