@@ -1,23 +1,24 @@
 package ru.unn.agile.Queue.View;
 
 import ru.unn.agile.Queue.ViewModel.LabQueueViewModel;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
 
 public final class QueueManager {
     private JPanel mainPanel;
     private JButton pushElement;
     private JButton findElement;
     private JButton popElement;
-    private JFormattedTextField textFieldForDataOutput;
-    private JFormattedTextField textFieldForDataInput;
-    private JLabel labelForDataOutput;
-    private JLabel labelForDataInput;
-    private JLabel labelForSize;
-    private JTextField textFieldForSize;
-    private JLabel labelForHeadElement;
-    private JTextField textFieldForHeadElement;
+    private JFormattedTextField dataOutputTextField;
+    private JFormattedTextField dataInputTextField;
+    private JLabel dataOutputLabel;
+    private JLabel dataInputLabel;
+    private JLabel sizeLabel;
+    private JTextField sizeTextField;
+    private JLabel headElementLabel;
+    private JTextField headElementTextField;
     private LabQueueViewModel viewModel;
 
     private QueueManager() { }
@@ -55,18 +56,18 @@ public final class QueueManager {
     }
 
     private void bindFromViewModel() {
-        textFieldForDataInput.setText(viewModel.getFieldForDataInput());
-        textFieldForDataOutput.setText(viewModel.getFieldForDataOutput());
-        textFieldForHeadElement.setText(viewModel.getFieldForHeadElement());
-        textFieldForSize.setText(Integer.toString(viewModel.getFieldForSize()));
+        dataInputTextField.setText(viewModel.getDataInputField());
+        dataOutputTextField.setText(viewModel.getDataOutputField());
+        headElementTextField.setText(viewModel.getHeadElementField());
+        sizeTextField.setText(Integer.toString(viewModel.getSizeField()));
         findElement.setEnabled(viewModel.isFindButtonEnabled());
         pushElement.setEnabled(viewModel.isPushButtonEnabled());
         popElement.setEnabled(viewModel.isPopButtonEnabled());
     }
 
     private void backBindToViewModel() {
-        viewModel.setFieldForDataInput(textFieldForDataInput.getText());
-        viewModel.setFieldForDataOutput(textFieldForDataOutput.getText());
+        viewModel.setDataInputField(dataInputTextField.getText());
+        viewModel.setDataOutputField(dataOutputTextField.getText());
      }
 
     public static void main(final String[] args) {

@@ -5,19 +5,19 @@ import ru.unn.agile.Queue.Model.LabQueue;
 public class LabQueueViewModel {
 
     private final LabQueue<String> testQueue = new LabQueue<>();
-    private int fieldForSize;
-    private String fieldForHeadElement;
-    private String fieldForDataInput;
-    private String fieldForDataOutput;
+    private int sizeField;
+    private String headElementField;
+    private String dataInputField;
+    private String dataOutputField;
     private boolean isFindButtonEnabled;
     private boolean isPopButtonEnabled;
     private final boolean isPushButtonEnabled;
 
     public LabQueueViewModel() {
-        fieldForSize = 0;
-        fieldForDataInput = "";
-        fieldForDataOutput = "";
-        fieldForHeadElement = "";
+        sizeField = 0;
+        dataInputField = "";
+        dataOutputField = "";
+        headElementField = "";
         isFindButtonEnabled = false;
         isPopButtonEnabled = false;
         isPushButtonEnabled = true;
@@ -35,36 +35,36 @@ public class LabQueueViewModel {
         return isPushButtonEnabled;
     }
 
-    public int getFieldForSize() {
-        return fieldForSize;
+    public int getSizeField() {
+        return sizeField;
     }
 
-    public void updateFieldForSize() {
-        fieldForSize = testQueue.getSize();
+    public void updateSizeField() {
+        sizeField = testQueue.getSize();
     }
 
-    public String getFieldForHeadElement() {
-        return fieldForHeadElement;
+    public String getHeadElementField() {
+        return headElementField;
     }
 
-    public void updateFieldForHeadElement() {
-        fieldForHeadElement = testQueue.getHead();
+    public void updateHeadElementField() {
+        headElementField = testQueue.getHead();
     }
 
-    public String getFieldForDataInput() {
-        return fieldForDataInput;
+    public String getDataInputField() {
+        return dataInputField;
     }
 
-    public void setFieldForDataInput(final String newValue) {
-        fieldForDataInput = newValue;
+    public void setDataInputField(final String newValue) {
+        dataInputField = newValue;
     }
 
-    public String getFieldForDataOutput() {
-        return fieldForDataOutput;
+    public String getDataOutputField() {
+        return dataOutputField;
     }
 
-    public void setFieldForDataOutput(final String newValue) {
-        fieldForDataOutput = newValue;
+    public void setDataOutputField(final String newValue) {
+        dataOutputField = newValue;
     }
 
     public void setFindButtonEnabled(final boolean newValue) {
@@ -76,18 +76,18 @@ public class LabQueueViewModel {
     }
 
     public void pushElement() {
-        testQueue.push(fieldForDataInput);
-        updateFieldForHeadElement();
-        updateFieldForSize();
+        testQueue.push(dataInputField);
+        updateHeadElementField();
+        updateSizeField();
         setFindButtonEnabled(true);
         setPopButtonEnabled(true);
      }
 
     public void popElement() {
         String tempValue = testQueue.pop();
-        updateFieldForHeadElement();
-        updateFieldForSize();
-        setFieldForDataOutput(tempValue);
+        updateHeadElementField();
+        updateSizeField();
+        setDataOutputField(tempValue);
         if (testQueue.isEmpty()) {
             setFindButtonEnabled(false);
             setPopButtonEnabled(false);
@@ -96,13 +96,13 @@ public class LabQueueViewModel {
 
     public void findElement() {
         int answer;
-        String value = getFieldForDataInput();
+        String value = getDataInputField();
         try {
             answer = testQueue.findElement(value);
         } catch (Exception exception) {
-            setFieldForDataOutput("Element Not Found");
+            setDataOutputField("Element Not Found");
             return;
         }
-        setFieldForDataOutput(Integer.toString(answer));
+        setDataOutputField(Integer.toString(answer));
     }
 }

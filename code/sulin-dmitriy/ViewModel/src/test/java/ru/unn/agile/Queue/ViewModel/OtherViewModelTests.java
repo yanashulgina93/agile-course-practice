@@ -2,8 +2,13 @@ package ru.unn.agile.Queue.ViewModel;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
 import java.util.Random;
+
+import static org.junit.Assert.*;
+
+
+
 
 public class OtherViewModelTests {
 
@@ -17,18 +22,18 @@ public class OtherViewModelTests {
     public void canPushElement() {
         final String value = "Element";
 
-        viewModel.setFieldForDataInput(value);
+        viewModel.setDataInputField(value);
         viewModel.pushElement();
-        viewModel.updateFieldForHeadElement();
+        viewModel.updateHeadElementField();
 
-        assertEquals(value, viewModel.getFieldForHeadElement());
+        assertEquals(value, viewModel.getHeadElementField());
     }
 
     @Test
     public void whenQueueIsNotEmptyPopButtonIsEnabled() {
         final String value = "Element";
 
-        viewModel.setFieldForDataInput(value);
+        viewModel.setDataInputField(value);
         viewModel.pushElement();
 
         assertTrue(viewModel.isPopButtonEnabled());
@@ -38,21 +43,43 @@ public class OtherViewModelTests {
     public void whenQueueIsNotEmptyFindButtonIsEnabled() {
         final String value = "Element";
 
-        viewModel.setFieldForDataInput(value);
+        viewModel.setDataInputField(value);
         viewModel.pushElement();
 
         assertTrue(viewModel.isFindButtonEnabled());
     }
 
     @Test
-    public void canPopElement() {
+    public void whenQueueIsEmptyPopButtonIsDisabled() {
         final String value = "Element";
 
-        viewModel.setFieldForDataInput(value);
+        viewModel.setDataInputField(value);
         viewModel.pushElement();
         viewModel.popElement();
 
-        assertEquals(value, viewModel.getFieldForDataOutput());
+        assertFalse(viewModel.isPopButtonEnabled());
+    }
+
+    @Test
+    public void whenQueueIsEmptyFindButtonIsDisabled() {
+        final String value = "Element";
+
+        viewModel.setDataInputField(value);
+        viewModel.pushElement();
+        viewModel.popElement();
+
+        assertFalse(viewModel.isFindButtonEnabled());
+    }
+
+    @Test
+    public void canPopElement() {
+        final String value = "Element";
+
+        viewModel.setDataInputField(value);
+        viewModel.pushElement();
+        viewModel.popElement();
+
+        assertEquals(value, viewModel.getDataOutputField());
     }
 
     @Test
@@ -60,13 +87,13 @@ public class OtherViewModelTests {
         final String value1 = "Element";
         final String value2 = "NewElement";
 
-        viewModel.setFieldForDataInput(value1);
+        viewModel.setDataInputField(value1);
         viewModel.pushElement();
-        viewModel.setFieldForDataInput(value2);
+        viewModel.setDataInputField(value2);
         viewModel.pushElement();
         viewModel.findElement();
 
-        assertEquals("1", viewModel.getFieldForDataOutput());
+        assertEquals("1", viewModel.getDataOutputField());
     }
 
     @Test
@@ -74,12 +101,12 @@ public class OtherViewModelTests {
         final String value1 = "Element";
         final String value2 = "NewElement";
 
-        viewModel.setFieldForDataInput(value1);
+        viewModel.setDataInputField(value1);
         viewModel.pushElement();
-        viewModel.setFieldForDataInput(value2);
+        viewModel.setDataInputField(value2);
         viewModel.findElement();
 
-        assertEquals("Element Not Found", viewModel.getFieldForDataOutput());
+        assertEquals("Element Not Found", viewModel.getDataOutputField());
     }
 
     @Test
@@ -87,15 +114,15 @@ public class OtherViewModelTests {
         final int size = 10;
 
         for (int i = size; i > 0; i--) {
-            viewModel.setFieldForDataInput(Integer.toString(i));
+            viewModel.setDataInputField(Integer.toString(i));
             viewModel.pushElement();
         }
 
         Random rand = new Random();
         final int value1 = 1 + rand.nextInt(size);
-        viewModel.setFieldForDataInput(Integer.toString(value1));
+        viewModel.setDataInputField(Integer.toString(value1));
         viewModel.findElement();
-        final int result = Integer.valueOf(viewModel.getFieldForDataOutput());
+        final int result = Integer.valueOf(viewModel.getDataOutputField());
 
         assertEquals(size - value1, result);
     }
