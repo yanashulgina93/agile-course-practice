@@ -19,6 +19,7 @@ public class ViewModel {
         secondBitArray = new BitArray(0);
         resultBitArray = new BitArray(0);
         operation = Operation.OR;
+        operation.setViewModel(this);
     }
 
 
@@ -57,6 +58,7 @@ public class ViewModel {
 
     public void setOperation(Operation operation) {
         this.operation = operation;
+        operation.setViewModel(this);
     }
 
     public BitArray getFirstBitArray() {
@@ -75,11 +77,52 @@ public class ViewModel {
         return operation;
     }
 
+    public void setFirstBitArray(BitArray firstBitArray) {
+        this.firstBitArray = firstBitArray;
+    }
+
+    public void doOperation() {
+        operation.doOperation();
+    }
+
+    public void setSecondBitArray(BitArray secondBitArray) {
+        this.secondBitArray = secondBitArray;
+    }
+
+    public void setResultBitArray(BitArray resultBitArray) {
+        this.resultBitArray = resultBitArray;
+    }
+
     public enum Operation {
-        OR("OR"),
-        AND("AND"),
-        NOT("NOT"),
-        XOR("XOR");
+        OR("OR") {
+            @Override
+            public void doOperation() {
+                viewModel.resultBitArray = viewModel.firstBitArray.or(
+                        viewModel.secondBitArray);
+            }
+        },
+        AND("AND") {
+            @Override
+            public void doOperation() {
+                viewModel.resultBitArray = viewModel.firstBitArray.and(
+                        viewModel.secondBitArray);
+            }
+        },
+        NOT("NOT") {
+            @Override
+            public void doOperation() {
+                viewModel.resultBitArray = viewModel.firstBitArray.not();
+            }
+        },
+        XOR("XOR") {
+            @Override
+            public void doOperation() {
+                viewModel.resultBitArray = viewModel.firstBitArray.xor(
+                        viewModel.secondBitArray);
+            }
+        };
+
+        private static ViewModel viewModel;
         private final String name;
 
         private Operation(final String name) {
@@ -89,5 +132,11 @@ public class ViewModel {
         public String toString() {
             return name;
         }
+
+        public void setViewModel(final ViewModel viewModel) {
+            Operation.viewModel = viewModel;
+        }
+
+        public abstract void doOperation();
     }
 }

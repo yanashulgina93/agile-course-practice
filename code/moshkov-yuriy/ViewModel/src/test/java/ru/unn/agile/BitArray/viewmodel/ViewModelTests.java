@@ -4,16 +4,19 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ru.unn.agile.BitArray.model.BitArray;
 import ru.unn.agile.BitArray.viewmodel.ViewModel.Operation;
 
 import static org.junit.Assert.*;
 
 public class ViewModelTests {
     private ViewModel viewModel;
+    private BitArray testBitArray;
 
     @Before
     public void initializeViewModel() {
         viewModel = new ViewModel();
+        testBitArray = new BitArray(5);
     }
 
     @Test
@@ -88,5 +91,65 @@ public class ViewModelTests {
     public void canSetOperation() {
         viewModel.setOperation(Operation.AND);
         assertEquals(Operation.AND, viewModel.getOperation());
+    }
+
+    @Test
+    public void canSetFirstBitArray() {
+        viewModel.setFirstBitArray(testBitArray);
+        assertEquals(testBitArray, viewModel.getFirstBitArray());
+    }
+
+    @Test
+    public void canSetSecondBitArray() {
+        viewModel.setSecondBitArray(testBitArray);
+        assertEquals(testBitArray, viewModel.getSecondBitArray());
+    }
+
+    @Test
+    public void canSetResultBitArray() {
+        viewModel.setResultBitArray(testBitArray);
+        assertEquals(testBitArray, viewModel.getResultBitArray());
+    }
+
+    @Test
+    public void canDoOrOperation() {
+        initArraysForOperations();
+        viewModel.doOperation();
+        assertNotNull(viewModel.getResultBitArray());
+    }
+
+    @Test
+    public void canDoAndOperation() {
+        viewModel.setOperation(Operation.AND);
+        initArraysForOperations();
+        viewModel.doOperation();
+        assertNotNull(viewModel.getResultBitArray());
+    }
+
+    @Test
+    public void canDoNotOperation() {
+        viewModel.setOperation(Operation.NOT);
+        initArraysForOperations();
+        viewModel.doOperation();
+        assertNotNull(viewModel.getResultBitArray());
+    }
+
+    @Test
+    public void canDoXorOperation() {
+        viewModel.setOperation(Operation.XOR);
+        initArraysForOperations();
+        viewModel.doOperation();
+        assertNotNull(viewModel.getResultBitArray());
+    }
+
+    private void initArraysForOperations() {
+        viewModel.setSizeArray("5");
+        viewModel.initArray();
+        BitArray firstBitArray = viewModel.getFirstBitArray();
+        BitArray secondBitArray = viewModel.getSecondBitArray();
+        firstBitArray.setAll(true);
+        secondBitArray.setAll(false);
+        viewModel.setFirstBitArray(firstBitArray);
+        viewModel.setSecondBitArray(secondBitArray);
     }
 }

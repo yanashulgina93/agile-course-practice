@@ -52,6 +52,7 @@ public class BitArrayForm {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
                 bind();
+                viewModel.doOperation();
                 backBind();
             }
         });
@@ -96,6 +97,16 @@ public class BitArrayForm {
     private void bind() {
         viewModel.setSizeArray(sizeArrayTxt.getText());
         viewModel.setOperation((ViewModel.Operation) operationCombobox.getSelectedItem());
+
+        BitArray firstBitArray = viewModel.getFirstBitArray();
+        BitArray secondBitArray = viewModel.getSecondBitArray();
+        for (int i = 0; i < firstBitArrayTable.getColumnCount(); i++) {
+            firstBitArray.setBit(i, (Boolean) firstBitArrayTable.getValueAt(0, i));
+            secondBitArray.setBit(i, (Boolean) secondBitArrayTable.getValueAt(0, i));
+        }
+
+        viewModel.setFirstBitArray(firstBitArray);
+        viewModel.setSecondBitArray(secondBitArray);
     }
 
     private void loadListOfOperations() {
@@ -114,6 +125,10 @@ public class BitArrayForm {
         secondBitArrayTable = createTableFromBitArray(viewModel.getSecondBitArray());
         secondBitArrayTable.addMouseListener(new BitArrayMouseAdapter());
         secondBitArrayScrollPane.setViewportView(secondBitArrayTable);
+
+        resultBitArrayTable = createTableFromBitArray(viewModel.getResultBitArray());
+        resultBitArrayTable.setEnabled(false);
+        resultBitArrayScrollPane.setViewportView(resultBitArrayTable);
     }
 
     private JTable createTableFromBitArray(final BitArray bitArray) {
