@@ -4,7 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import ru.unn.agile.BitArray.viewmodel.ViewModel;
+import ru.unn.agile.BitArray.viewmodel.ViewModel.Operation;
 
 import static org.junit.Assert.*;
 
@@ -18,28 +18,28 @@ public class ViewModelTests {
 
     @Test
     public void isDoOperationNotEnabledInBeggining() {
-        assertTrue(viewModel.isDoOperationEnabled() == false);
+        assertFalse(viewModel.isDoOperationEnabled());
     }
 
     @Test
     public void isInitArrayBtnNotEnabledInBeggining() {
-        assertTrue(viewModel.isInitArrayEnabled() == false);
+        assertFalse(viewModel.isInitArrayEnabled());
     }
 
     @Test
-    public void isSizeArrayNotEnabledWhenInputEmptyString() {
+    public void isInitArrayNotEnabledWhenInputEmptyString() {
         viewModel.setSizeArray("");
-        assertTrue(viewModel.isInitArrayEnabled() == false);
+        assertFalse(viewModel.isInitArrayEnabled());
     }
 
     @Test
-    public void isSizeArrayNotEnabledWhenInputInvalidNumber() {
+    public void isInitArrayNotEnabledWhenInputInvalidNumber() {
         viewModel.setSizeArray("aaaa");
-        assertTrue(viewModel.isInitArrayEnabled() == false);
+        assertFalse(viewModel.isInitArrayEnabled());
     }
 
     @Test
-    public void isSizeArrayEnabledWhenInputValidNumber() {
+    public void isInitArrayEnabledWhenInputValidNumber() {
         viewModel.setSizeArray("11");
         assertTrue(viewModel.isInitArrayEnabled());
     }
@@ -70,5 +70,23 @@ public class ViewModelTests {
         viewModel.setSizeArray("5");
         viewModel.initArray();
         assertTrue(viewModel.getResultBitArray().getSize() == 5);
+    }
+
+    @Test
+    public void isDoOperationEnabledWhenInitArrays() {
+        viewModel.setSizeArray("5");
+        viewModel.initArray();
+        assertTrue(viewModel.isDoOperationEnabled());
+    }
+
+    @Test
+    public void isDefaultOperationOr() {
+        assertEquals(Operation.OR, viewModel.getOperation());
+    }
+
+    @Test
+    public void canSetOperation() {
+        viewModel.setOperation(Operation.AND);
+        assertEquals(Operation.AND, viewModel.getOperation());
     }
 }

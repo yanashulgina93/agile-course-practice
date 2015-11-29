@@ -110,6 +110,10 @@ public class BitArrayForm {
         firstBitArrayTable = createTableFromBitArray(viewModel.getFirstBitArray());
         firstBitArrayTable.addMouseListener(new BitArrayMouseAdapter());
         firstBitArrayScrollPane.setViewportView(firstBitArrayTable);
+
+        secondBitArrayTable = createTableFromBitArray(viewModel.getSecondBitArray());
+        secondBitArrayTable.addMouseListener(new BitArrayMouseAdapter());
+        secondBitArrayScrollPane.setViewportView(secondBitArrayTable);
     }
 
     private JTable createTableFromBitArray(final BitArray bitArray) {

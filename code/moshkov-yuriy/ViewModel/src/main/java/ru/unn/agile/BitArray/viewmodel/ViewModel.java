@@ -18,6 +18,7 @@ public class ViewModel {
         firstBitArray = new BitArray(0);
         secondBitArray = new BitArray(0);
         resultBitArray = new BitArray(0);
+        operation = Operation.OR;
     }
 
 
@@ -68,6 +69,10 @@ public class ViewModel {
 
     public BitArray getResultBitArray() {
         return resultBitArray;
+    }
+
+    public Operation getOperation() {
+        return operation;
     }
 
     public enum Operation {
