@@ -38,7 +38,7 @@ public class ViewModel {
         }
     }
 
-    public boolean isInitArrayEnabled() {
+    public boolean isInitializeArrayButtonEnabled() {
         return isInitializeArrayButtonEnabled;
     }
 
@@ -46,7 +46,7 @@ public class ViewModel {
         return firstBitArray;
     }
 
-    public void initArray() {
+    public void initializeArray() {
         int size = Integer.parseInt(inputSizeArray);
         firstBitArray = new BitArray(size);
         secondBitArray = new BitArray(size);

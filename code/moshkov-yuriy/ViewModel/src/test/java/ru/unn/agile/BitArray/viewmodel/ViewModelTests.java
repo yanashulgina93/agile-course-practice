@@ -25,59 +25,59 @@ public class ViewModelTests {
 
     @Test
     public void isInitArrayBtnNotEnabledInBeggining() {
-        assertFalse(viewModel.isInitArrayEnabled());
+        assertFalse(viewModel.isInitializeArrayButtonEnabled());
     }
 
     @Test
     public void isInitArrayNotEnabledWhenInputEmptyString() {
         viewModel.setSizeArray("");
-        assertFalse(viewModel.isInitArrayEnabled());
+        assertFalse(viewModel.isInitializeArrayButtonEnabled());
     }
 
     @Test
     public void isInitArrayNotEnabledWhenInputInvalidNumber() {
         viewModel.setSizeArray("aaaa");
-        assertFalse(viewModel.isInitArrayEnabled());
+        assertFalse(viewModel.isInitializeArrayButtonEnabled());
     }
 
     @Test
     public void isInitArrayEnabledWhenInputValidNumber() {
         viewModel.setSizeArray("11");
-        assertTrue(viewModel.isInitArrayEnabled());
+        assertTrue(viewModel.isInitializeArrayButtonEnabled());
     }
 
     @Test
     public void isFirstBitArrayNotNullWhenInitArray() {
         viewModel.setSizeArray("5");
-        viewModel.initArray();
+        viewModel.initializeArray();
         assertNotNull(viewModel.gitFirstBitArray());
     }
 
     @Test
     public void isFirstBitArraySizeEquals5WhenInputSize5() {
         viewModel.setSizeArray("5");
-        viewModel.initArray();
+        viewModel.initializeArray();
         assertTrue(viewModel.gitFirstBitArray().getSize() == 5);
     }
 
     @Test
     public void isSecondBitArraySizeEquals5WhenInputSize5() {
         viewModel.setSizeArray("5");
-        viewModel.initArray();
+        viewModel.initializeArray();
         assertTrue(viewModel.getSecondBitArray().getSize() == 5);
     }
 
     @Test
     public void isResultBitArraySizeEquals5WhenInputSize5() {
         viewModel.setSizeArray("5");
-        viewModel.initArray();
+        viewModel.initializeArray();
         assertTrue(viewModel.getResultBitArray().getSize() == 5);
     }
 
     @Test
     public void isDoOperationEnabledWhenInitArrays() {
         viewModel.setSizeArray("5");
-        viewModel.initArray();
+        viewModel.initializeArray();
         assertTrue(viewModel.isDoOperationEnabled());
     }
 
@@ -143,7 +143,7 @@ public class ViewModelTests {
 
     private void initArraysForOperations() {
         viewModel.setSizeArray("5");
-        viewModel.initArray();
+        viewModel.initializeArray();
         BitArray firstBitArray = viewModel.getFirstBitArray();
         BitArray secondBitArray = viewModel.getSecondBitArray();
         firstBitArray.setAll(true);

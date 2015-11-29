@@ -12,23 +12,15 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
-/**
- * Created by ruymoshkov on 11/20/2015.
- */
 public final class BitArrayForm {
     private ViewModel viewModel;
 
     private JPanel mainPanel;
     private JTextField sizeArrayTxt;
-    private JButton initArrayBtn;
-    private JTable firstBitArrayTable;
-    private JTable secondBitArrayTable;
-    private JTable resultBitArrayTable;
+    private JButton initArrayBtn, doOperationBtn;
+    private JTable firstBitArrayTable, secondBitArrayTable, resultBitArrayTable;
     private JComboBox<ViewModel.Operation> operationCombobox;
-    private JButton doOperationBtn;
-    private JScrollPane firstBitArrayScrollPane;
-    private JScrollPane secondBitArrayScrollPane;
-    private JScrollPane resultBitArrayScrollPane;
+    private JScrollPane firstBitArrayScrollPane, secondBitArrayScrollPane, resultBitArrayScrollPane;
 
     private BitArrayForm() { }
 
@@ -41,7 +33,7 @@ public final class BitArrayForm {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
                 bind();
-                viewModel.initArray();
+                viewModel.initializeArray();
                 backBind();
             }
         });
@@ -114,7 +106,7 @@ public final class BitArrayForm {
 
     private void backBind() {
         doOperationBtn.setEnabled(viewModel.isDoOperationEnabled());
-        initArrayBtn.setEnabled(viewModel.isInitArrayEnabled());
+        initArrayBtn.setEnabled(viewModel.isInitializeArrayButtonEnabled());
 
         firstBitArrayTable = createTableFromBitArray(viewModel.getFirstBitArray());
         firstBitArrayTable.addMouseListener(new BitArrayMouseAdapter());
