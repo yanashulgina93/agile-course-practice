@@ -103,6 +103,6 @@ public class LabQueueViewModel {
             setDataOutputField("Element Not Found");
             return;
         }
-        setDataOutputField(Integer.toString(answer));
+        setDataOutputField(Integer.toString(answer + 1));
     }
 }

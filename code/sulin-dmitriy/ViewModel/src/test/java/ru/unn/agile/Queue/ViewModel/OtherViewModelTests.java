@@ -93,7 +93,7 @@ public class OtherViewModelTests {
         viewModel.pushElement();
         viewModel.findElement();
 
-        assertEquals("1", viewModel.getDataOutputField());
+        assertEquals("2", viewModel.getDataOutputField());
     }
 
     @Test
@@ -123,7 +123,7 @@ public class OtherViewModelTests {
         viewModel.setDataInputField(Integer.toString(value1));
         viewModel.findElement();
         final int result = Integer.valueOf(viewModel.getDataOutputField());
-
-        assertEquals(size - value1, result);
+        final int realResult = size - value1 + 1;
+        assertEquals(realResult, result);
     }
 }
