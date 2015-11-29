@@ -45,14 +45,30 @@ public class ViewModelTests {
     }
 
     @Test
-    public void isFirstBitArrayNullAtBeggining() {
-        assertNull(viewModel.gitFirstBitArray());
-    }
-
-    @Test
     public void isFirstBitArrayNotNullWhenInitArray() {
         viewModel.setSizeArray("5");
         viewModel.initArray();
         assertNotNull(viewModel.gitFirstBitArray());
+    }
+
+    @Test
+    public void isFirstBitArraySizeEquals5WhenInputSize5() {
+        viewModel.setSizeArray("5");
+        viewModel.initArray();
+        assertTrue(viewModel.gitFirstBitArray().getSize() == 5);
+    }
+
+    @Test
+    public void isSecondBitArraySizeEquals5WhenInputSize5() {
+        viewModel.setSizeArray("5");
+        viewModel.initArray();
+        assertTrue(viewModel.getSecondBitArray().getSize() == 5);
+    }
+
+    @Test
+    public void isResultBitArraySizeEquals5WhenInputSize5() {
+        viewModel.setSizeArray("5");
+        viewModel.initArray();
+        assertTrue(viewModel.getResultBitArray().getSize() == 5);
     }
 }

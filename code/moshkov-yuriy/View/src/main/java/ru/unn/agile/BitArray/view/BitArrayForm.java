@@ -1,13 +1,17 @@
 package ru.unn.agile.BitArray.view;
 
 import ru.unn.agile.BitArray.viewmodel.ViewModel;
+import ru.unn.agile.BitArray.model.BitArray;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.lang.reflect.Array;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * Created by ruymoshkov on 11/20/2015.
@@ -24,6 +28,9 @@ public class BitArrayForm {
     private JComboBox<ViewModel.Operation> operationCombobox;
     private JButton doOperationBtn;
     private JTextPane logText;
+    private JScrollPane firstBitArrayScrollPane;
+    private JScrollPane secondBitArrayScrollPane;
+    private JScrollPane resultBitArrayScrollPane;
 
     private BitArrayForm() { }
 
@@ -99,15 +106,44 @@ public class BitArrayForm {
     private void backBind() {
         doOperationBtn.setEnabled(viewModel.isDoOperationEnabled());
         initArrayBtn.setEnabled(viewModel.isInitArrayEnabled());
-        if (viewModel.gitFirstBitArray() != null) {
-            Object[][] values = new Boolean[1][Array.getLength(viewModel.gitFirstBitArray().getBitArray())];
-            Object[][] header = new String[1][Array.getLength(viewModel.gitFirstBitArray().getBitArray())];
-            int counter = 0;
-            for (Object item : viewModel.gitFirstBitArray().getBitArray()) {
-                header[0][counter] = Integer.toString(counter);
-                values[0][counter++] = item;
+
+        firstBitArrayTable = createTableFromBitArray(viewModel.getFirstBitArray());
+        firstBitArrayTable.addMouseListener(new BitArrayMouseAdapter());
+        firstBitArrayScrollPane.setViewportView(firstBitArrayTable);
+    }
+
+    private JTable createTableFromBitArray(final BitArray bitArray) {
+        JTable result = new JTable();
+
+        Object[][] values = new Boolean[1][bitArray.getSize()];
+        Object[] header = new String[bitArray.getSize()];
+
+        int counter = 0;
+        for (Object item : bitArray.getBitArray()) {
+            header[counter] = Integer.toString(counter);
+            values[0][counter++] = item;
+        }
+
+        result.setModel(new DefaultTableModel(values, header) {
+            @Override
+            public boolean isCellEditable(final int row, final int column) {
+                return false;
             }
-            firstBitArrayTable = new JTable(values, header);
+        });
+
+        return result;
+    }
+
+    private class BitArrayMouseAdapter extends MouseAdapter {
+        @Override
+        public void mouseClicked(final MouseEvent e) {
+            if (e.getClickCount() == 2) {
+                JTable target = (JTable) e.getSource();
+                int row = target.getSelectedRow();
+                int column = target.getSelectedColumn();
+                boolean value = (boolean) target.getValueAt(row, column);
+                target.setValueAt(!value, row, column);
+            }
         }
     }
 }

@@ -5,41 +5,40 @@ import ru.unn.agile.BitArray.model.BitArray;
 
 public class ViewModel {
     private BitArray firstBitArray;
+    private BitArray secondBitArray;
+    private BitArray resultBitArray;
 
-    private boolean isDoOpeationButtonEnabled;
-    private String sizeArray;
-    private boolean initArrayButtonEnabled;
+    private boolean isDoOperationButtonEnabled;
+    private String inputSizeArray;
+    private boolean isInitializeArrayButtonEnabled;
     private Operation operation;
 
     public ViewModel() {
-        isDoOpeationButtonEnabled = false;
+        isDoOperationButtonEnabled = false;
+        firstBitArray = new BitArray(0);
+        secondBitArray = new BitArray(0);
+        resultBitArray = new BitArray(0);
     }
 
 
     public boolean isDoOperationEnabled() {
-        return isDoOpeationButtonEnabled;
+        return isDoOperationButtonEnabled;
     }
 
     public void setSizeArray(String sizeArray) {
-        this.sizeArray = sizeArray;
-        int size = -1;
+        this.inputSizeArray = sizeArray;
+        int size;
         try {
-            size = Integer.parseInt(sizeArray);
+            size = Integer.parseInt(inputSizeArray);
+            isInitializeArrayButtonEnabled = size > 0;
         }
         catch (NumberFormatException exception) {
+            isInitializeArrayButtonEnabled = false;
         }
-        finally {
-            if (size > 0) {
-                initArrayButtonEnabled = true;
-            } else {
-                initArrayButtonEnabled = false;
-            }
-        }
-
     }
 
     public boolean isInitArrayEnabled() {
-        return initArrayButtonEnabled;
+        return isInitializeArrayButtonEnabled;
     }
 
     public BitArray gitFirstBitArray() {
@@ -47,12 +46,28 @@ public class ViewModel {
     }
 
     public void initArray() {
-        int size = Integer.parseInt(sizeArray);
+        int size = Integer.parseInt(inputSizeArray);
         firstBitArray = new BitArray(size);
+        secondBitArray = new BitArray(size);
+        resultBitArray = new BitArray(size);
+
+        isDoOperationButtonEnabled = true;
     }
 
     public void setOperation(Operation operation) {
         this.operation = operation;
+    }
+
+    public BitArray getFirstBitArray() {
+        return firstBitArray;
+    }
+
+    public BitArray getSecondBitArray() {
+        return secondBitArray;
+    }
+
+    public BitArray getResultBitArray() {
+        return resultBitArray;
     }
 
     public enum Operation {
