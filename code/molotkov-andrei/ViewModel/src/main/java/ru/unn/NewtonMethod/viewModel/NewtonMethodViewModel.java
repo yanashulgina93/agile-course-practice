@@ -58,6 +58,10 @@ public class NewtonMethodViewModel {
             return message;
         }
 
+        public void setMessage(final String message) {
+            this.message = message;
+        }
+
         private String message;
     }
 
@@ -185,6 +189,7 @@ public class NewtonMethodViewModel {
             root = newtonMethod.searchRoot(Double.parseDouble(leftPointOfRange),
                                            Double.parseDouble(rightPointOfRange));
         } catch (IllegalArgumentException e) {
+            Status.NO_ROOT.setMessage(e.getMessage());
             status = Status.NO_ROOT;
             return;
         }

@@ -12,9 +12,11 @@ public class NewtonMethod {
     }
 
     public Double searchRoot(final double leftPointRange, final double rightPointRange) {
-        if (!canCalculateRoot(leftPointRange, rightPointRange)) {
-            throw new IllegalArgumentException("Function is not monotonic and "
-                    + "root is not in range");
+        if (!isMonotonicFunction(leftPointRange, rightPointRange)) {
+            throw new IllegalArgumentException("Function is not monotonic");
+        }
+        if (!rootIsInRange(leftPointRange, rightPointRange)) {
+            throw new IllegalArgumentException("Root is not in range");
         }
         previousPoint = rightPointRange;
         nextPoint = calculateNextPoint(previousPoint);
@@ -72,10 +74,5 @@ public class NewtonMethod {
             }
         }
         return result;
-    }
-
-    private boolean canCalculateRoot(final double leftPointRange, final double rightPointRange) {
-        return rootIsInRange(leftPointRange, rightPointRange)
-                && isMonotonicFunction(leftPointRange, rightPointRange);
     }
 }
