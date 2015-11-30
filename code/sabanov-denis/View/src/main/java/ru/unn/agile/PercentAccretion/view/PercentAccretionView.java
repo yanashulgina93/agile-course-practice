@@ -46,8 +46,8 @@ public final class PercentAccretionView {
         ActionListener radioBtnListener = new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                backBind();
-                bind();
+                backBindPercentAccretionView();
+                bindPercentAccretionView();
             }
         };
 
@@ -61,13 +61,13 @@ public final class PercentAccretionView {
         calculateSumBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                backBind();
+                backBindPercentAccretionView();
                 viewModel.calculateResultSum();
-                bind();
+                bindPercentAccretionView();
             }
         });
 
-        bind();
+        bindPercentAccretionView();
 
     }
 
@@ -75,20 +75,20 @@ public final class PercentAccretionView {
         tField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(final DocumentEvent e) {
-                backBind();
-                bind();
+                backBindPercentAccretionView();
+                bindPercentAccretionView();
             }
 
             @Override
             public void removeUpdate(final DocumentEvent e) {
-                backBind();
-                bind();
+                backBindPercentAccretionView();
+                bindPercentAccretionView();
             }
 
             @Override
             public void changedUpdate(final DocumentEvent e) {
-                backBind();
-                bind();
+                backBindPercentAccretionView();
+                bindPercentAccretionView();
             }
         });
     }
@@ -101,13 +101,13 @@ public final class PercentAccretionView {
         frame.setVisible(true);
     }
 
-    private void bind() {
+    private void bindPercentAccretionView() {
         calculateSumBtn.setEnabled(viewModel.isCalculateButtonEnabled());
         errorTArea.setText(viewModel.getErrorMessage());
         resultTField.setText(viewModel.getResultSum());
     }
 
-    private void backBind() {
+    private void backBindPercentAccretionView() {
         viewModel.setInitialSum(initialSumTFld.getText());
         viewModel.setPercentRate(percentRateTFld.getText());
         viewModel.setCountOfYears(countOfYearsTFld.getText());
