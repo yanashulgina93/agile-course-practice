@@ -34,7 +34,7 @@ public class Model {
             private boolean mine;
             private boolean issue;
             private boolean flag;
-            private boolean openV;
+            private boolean isOpen = true;
             private int value;
 
             private final int y;
@@ -60,43 +60,35 @@ public class Model {
                 return value;
             }
 
-            public void setIssue() {
-                issue = true;
+            public void setIssue(final boolean issue) {
+                this.issue = issue;
             }
 
             public boolean isIssue() {
                 return issue;
             }
 
-            public void unsetIssue() {
-                issue = false;
-            }
-
-            public void setFlag() {
-                flag = true;
+            public void setFlag(final boolean flag) {
+                this.flag = flag;
             }
 
             public boolean isFlag() {
                 return flag;
             }
 
-            public void unsetFlag() {
-                flag = false;
-            }
-
             public void open() {
-                openV = true;
+                isOpen = true;
             }
 
             public boolean isOpen() {
-                return openV;
+                return isOpen;
             }
 
             public void clear() {
-                unsetIssue();
-                unsetFlag();
+                setIssue(false);
+                setFlag(false);
                 setValue(0);
-                openV = false;
+                isOpen = false;
                 mine = false;
             }
 
@@ -211,7 +203,7 @@ public class Model {
             CellModel cell = cells[y][x];
             if (!cell.isFlag()) {
                 setFlagCellsCount(flagCellsCount + 1);
-                cell.setFlag();
+                cell.setFlag(true);
             }
         }
 
@@ -219,7 +211,7 @@ public class Model {
             CellModel cell = cells[y][x];
             if (cell.isFlag()) {
                 setFlagCellsCount(flagCellsCount - 1);
-                cell.unsetFlag();
+                cell.setFlag(false);
             }
         }
 
@@ -281,9 +273,9 @@ public class Model {
         if (!cell.isOpen() && cell.isFlag()) {
             mineCounter++;
             board.unsetFlag(y, x);
-            cell.setIssue();
+            cell.setIssue(true);
         } else if (!cell.isOpen() && cell.isIssue()) {
-            cell.unsetIssue();
+            cell.setIssue(false);
         } else if (!cell.isOpen()) {
             board.setFlag(y, x);
             mineCounter--;
