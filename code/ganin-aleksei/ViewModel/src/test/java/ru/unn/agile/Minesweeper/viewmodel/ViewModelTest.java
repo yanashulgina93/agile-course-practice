@@ -14,11 +14,6 @@ public class ViewModelTest extends ViewModel {
     }
 
     @Test
-    public void emptyTest() {
-        assertTrue(true);
-    }
-
-    @Test
     public void defaultSmileIconIsSmileIcon() {
         assertEquals(minesweeper.getSmileTex(), minesweeper.getSmileText());
     }
