@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 public class PercentAccretionTest {
 
     private PercentData data;
+    Factory factory;
 
     @Before
     public void initializePercentData() {
@@ -14,102 +15,53 @@ public class PercentAccretionTest {
         data.setInitialSum(100);
         data.setPercentRate(50);
         data.setCountOfYears(1);
-        data.setPercentPayingPerYear(0);
+        factory = new Factory();
     }
 
     @Test
     public void canCalculateSumWithSimplePercent() {
         double expectedSum = 150.0;
-        double actualSum = PercentAccretion.calculateSumWithSimplePercent(data);
+        PercentAccretion simplePercentCounter = factory.getPercentAccretion("simple");
+        double actualSum = simplePercentCounter.calculate(data);
         double delta = 0.00001;
         assertEquals(expectedSum, actualSum, delta);
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void catchExceptionWithNormalPercentRateSumWithNULL() {
-        PercentAccretion.calculateSumWithNominalPercentRate(data);
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void catchExceptionWithEffectivePercentRateSumWithNULL() {
-        PercentAccretion.calculateSumWithEffectivePercentRate(data);
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void catchExceptionWithEffectivePercentRateWithNULL() {
-        PercentAccretion.calculateEffectivePercentRate(data);
-    }
-
-    @Test (expected = IllegalArgumentException.class)
     public void catchExceptionWhenWrongArgInSimplePercent() {
         data.setPercentRate(-1);
-        PercentAccretion.calculateSumWithSimplePercent(data);
+        PercentAccretion simplePercentCounter = factory.getPercentAccretion("simple");
+        simplePercentCounter.calculate(data);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void catchExceptionWhenWrongArgInComplexPercent() {
         data.setPercentRate(-1);
-        PercentAccretion.calculateSumWithComplexPercent(data);
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void catchExceptionWhenWrongArgsInNominalPercent() {
-        data.setPercentRate(-1);
-        PercentAccretion.calculateSumWithNominalPercentRate(data);
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void catchExceptionWhenWrongArgsInEffectivePercentRate() {
-        data.setPercentRate(-1);
-        PercentAccretion.calculateEffectivePercentRate(data);
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void catchExceptionWhenWrongArgsEffectivePercentSum() {
-        data.setPercentRate(-1);
-        PercentAccretion.calculateSumWithEffectivePercentRate(data);
+        PercentAccretion complexPercentCounter = factory.getPercentAccretion("complex");
+        complexPercentCounter.calculate(data);
     }
 
     @Test
     public void canCalculateSumWithComplexPercent() {
         double expectedValue = 150.0;
-        double actualValue = PercentAccretion.calculateSumWithComplexPercent(data);
+        PercentAccretion complexPercentCounter = factory.getPercentAccretion("complex");
+        double actualValue = complexPercentCounter.calculate(data);
         double delta = 0.00001;
         assertEquals(expectedValue, actualValue, delta);
     }
 
     @Test
-    public void canCalculateSumWithNominalRate() {
-        double expectedValue = 150.0;
-        data.setPercentPayingPerYear(1);
-        double actualValue = PercentAccretion.calculateSumWithNominalPercentRate(data);
-        double delta = 0.1;
-        assertEquals(expectedValue, actualValue, delta);
+    public void canGetSimplePercentAccretionFromFactory() {
+        assertEquals(SimplePercentAccretion.class, factory.getPercentAccretion("simple").getClass());
     }
 
     @Test
-    public void canCalculateEffectiveRate() {
-        double expectedValue = 50.0;
-        data.setPercentPayingPerYear(1);
-        double actualValue = PercentAccretion.calculateEffectivePercentRate(data);
-        double delta = 0.01;
-        assertEquals(expectedValue, actualValue, delta);
+    public void canGetComplexPercentAccretionFromFactory() {
+        assertEquals(ComplexPercentAccretion.class, factory.getPercentAccretion("complex").getClass());
     }
 
     @Test
-    public void canCalculateSumWithEffectiveRate() {
-        double expectedValue = 150.0;
-        data.setPercentPayingPerYear(1);
-        double actualValue = PercentAccretion.calculateSumWithEffectivePercentRate(data);
-        double delta = 0.1;
-        assertEquals(expectedValue, actualValue, delta);
-    }
-
-    @Test
-    public void compareNominalAndEffectiveSum() {
-        double delta = 0.0001;
-        data.setPercentPayingPerYear(1);
-        assertEquals(PercentAccretion.calculateSumWithNominalPercentRate(data),
-                PercentAccretion.calculateSumWithEffectivePercentRate(data), delta);
+    public void canGetNullWhenWrongArgumentFromFactory() {
+        assertEquals(null, factory.getPercentAccretion("sda"));
     }
 }

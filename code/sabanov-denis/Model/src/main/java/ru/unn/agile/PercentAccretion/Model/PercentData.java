@@ -3,13 +3,12 @@ package ru.unn.agile.PercentAccretion.Model;
 public class PercentData {
     private double initialSum;
     private double percentRate;
-    private int percentPayingPerYear;
     private int countOfYears;
+    public static final double FROM_PERCENT = 0.01;
 
     public PercentData() {
         initialSum = 0;
         percentRate = 0;
-        percentPayingPerYear = 0;
         countOfYears = 0;
     }
 
@@ -19,10 +18,6 @@ public class PercentData {
 
     public void setPercentRate(final double newPercentRate) {
         percentRate = newPercentRate;
-    }
-
-    public void setPercentPayingPerYear(final int newPercentPayingPerYear) {
-        percentPayingPerYear = newPercentPayingPerYear;
     }
 
     public void setCountOfYears(final int newCountOfYears) {
@@ -35,10 +30,6 @@ public class PercentData {
 
     public double getPercentRate() {
         return percentRate;
-    }
-
-    public int getPercentPayingPerYear() {
-        return percentPayingPerYear;
     }
 
     public int getCountOfYears() {

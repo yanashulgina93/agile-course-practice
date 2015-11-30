@@ -14,7 +14,6 @@ public class PercentDataTest {
         data.setInitialSum(100);
         data.setPercentRate(10);
         data.setCountOfYears(2);
-        data.setPercentPayingPerYear(2);
     }
 
     @Test
@@ -39,13 +38,6 @@ public class PercentDataTest {
     }
 
     @Test
-    public void canGetPercentPayingPerYear() {
-        double expectedValue = 2.0;
-        double delta = 0.0001;
-        assertEquals(expectedValue, data.getPercentPayingPerYear(), delta);
-    }
-
-    @Test
     public void canSetInitialSum() {
         data.setInitialSum(500);
         double expectedValue = 500.0;
@@ -67,13 +59,5 @@ public class PercentDataTest {
         double expectedValue = 3.0;
         double delta = 0.0001;
         assertEquals(expectedValue, data.getCountOfYears(), delta);
-    }
-
-    @Test
-    public void canSetPercentPayingPerYear() {
-        data.setPercentPayingPerYear(5);
-        double expectedValue = 5.0;
-        double delta = 0.0001;
-        assertEquals(expectedValue, data.getPercentPayingPerYear(), delta);
     }
 }
