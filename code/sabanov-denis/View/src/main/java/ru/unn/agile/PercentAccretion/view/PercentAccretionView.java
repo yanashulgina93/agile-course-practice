@@ -6,6 +6,7 @@ import javax.swing.event.DocumentListener;
 
 import ru.unn.agile.PercentAccretion.viewmodel.PercentAccretionViewModel;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -53,65 +54,9 @@ public final class PercentAccretionView {
         simplePercentRBtn.addActionListener(radioBtnListener);
         complexPercentRBtn.addActionListener(radioBtnListener);
 
-        initialSumTFld.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(final DocumentEvent e) {
-                backBind();
-                bind();
-            }
-
-            @Override
-            public void removeUpdate(final DocumentEvent e) {
-                backBind();
-                bind();
-            }
-
-            @Override
-            public void changedUpdate(final DocumentEvent e) {
-                backBind();
-                bind();
-            }
-        });
-
-        percentRateTFld.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(final DocumentEvent e) {
-                backBind();
-                bind();
-            }
-
-            @Override
-            public void removeUpdate(final DocumentEvent e) {
-                backBind();
-                bind();
-            }
-
-            @Override
-            public void changedUpdate(final DocumentEvent e) {
-                backBind();
-                bind();
-            }
-        });
-
-        countOfYearsTFld.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(final DocumentEvent e) {
-                backBind();
-                bind();
-            }
-
-            @Override
-            public void removeUpdate(final DocumentEvent e) {
-                backBind();
-                bind();
-            }
-
-            @Override
-            public void changedUpdate(final DocumentEvent e) {
-                backBind();
-                bind();
-            }
-        });
+        addListener(initialSumTFld);
+        addListener(countOfYearsTFld);
+        addListener(percentRateTFld);
 
         calculateSumBtn.addActionListener(new ActionListener() {
             @Override
@@ -124,6 +69,28 @@ public final class PercentAccretionView {
 
         bind();
 
+    }
+
+    private void addListener(final JTextField tField) {
+        tField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(final DocumentEvent e) {
+                backBind();
+                bind();
+            }
+
+            @Override
+            public void removeUpdate(final DocumentEvent e) {
+                backBind();
+                bind();
+            }
+
+            @Override
+            public void changedUpdate(final DocumentEvent e) {
+                backBind();
+                bind();
+            }
+        });
     }
 
     public static void main(final String[] args) {
