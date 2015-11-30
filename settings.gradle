@@ -148,8 +148,12 @@ project(":code/kumaev-vasily/ViewModel").name = "kumaev-vasily-ViewModel"
 // Mixejceva Lyudmila
 
 // Molotkov Andrej
-include "code/molotkov-andrei"
-project(":code/molotkov-andrei").name = "molotkov-andrei-Model"
+include "code/molotkov-andrei/Model"
+project(":code/molotkov-andrei/Model").name = "molotkov-andrei-Model"
+include "code/molotkov-andrei/ViewModel"
+project(":code/molotkov-andrei/ViewModel").name = "molotkov-andrei-ViewModel"
+include "code/molotkov-andrei/View"
+project(":code/molotkov-andrei/View").name = "molotkov-andrei-View"
 
 // Moshkov Yurij
 include "code/moshkov-yuriy"
