@@ -104,7 +104,7 @@ public class View {
             }
         }
         mineCounter.setText(minesweeperViewModel.getMineCounter());
-        smile.setText(minesweeperViewModel.getSmileText());
+        smile.setText(minesweeperViewModel.getTextSmile());
     }
 
     public int getCellSize() {

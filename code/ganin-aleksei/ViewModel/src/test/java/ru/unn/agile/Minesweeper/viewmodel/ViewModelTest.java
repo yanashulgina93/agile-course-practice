@@ -14,44 +14,44 @@ public class ViewModelTest extends ViewModel {
     }
 
     @Test
-    public void defaultSmileIconIsSmileIcon() {
-        assertEquals(minesweeper.getSmileTex(), minesweeper.getSmileText());
+    public void defaultTextSmileIsSmileText() {
+        assertEquals(minesweeper.getSmileText(), minesweeper.getTextSmile());
     }
 
     @Test
-    public void whenWinSmileIconIsWinnerIcon() {
+    public void whenWinSmileTextIsWinnerText() {
         minesweeper.boardClear();
         minesweeper.openCell(0, 0);
-        assertEquals(minesweeper.getWinnerText(), minesweeper.getSmileText());
+        assertEquals(minesweeper.getWinnerText(), minesweeper.getTextSmile());
     }
 
     @Test
-    public void whenLostSmileIconIsDeadIcon() {
+    public void whenLostSmileTextIsDeadText() {
         minesweeper.setMine(0, 0);
         minesweeper.openCell(0, 0);
-        assertEquals(minesweeper.getDeadText(), minesweeper.getSmileText());
+        assertEquals(minesweeper.getDeadText(), minesweeper.getTextSmile());
     }
 
     @Test
-    public void defaultCellIconIsCloseIcon() {
+    public void defaultCellTextIsCloseText() {
         assertEquals(minesweeper.getCloseText(), minesweeper.getCellText(0, 0));
     }
 
     @Test
-    public void whenOnceMarkCellCellIconIsFlagIcon() {
+    public void whenOnceMarkCellCellTextIsFlagText() {
         minesweeper.markCell(0, 0);
         assertEquals(minesweeper.getFlagText(), minesweeper.getCellText(0, 0));
     }
 
     @Test
-    public void whenTwiceMarkedCellCellIconIsIssueIcon() {
+    public void whenTwiceMarkedCellCellTextIsIssueText() {
         minesweeper.markCell(0, 0);
         minesweeper.markCell(0, 0);
         assertEquals(minesweeper.getIssueText(), minesweeper.getCellText(0, 0));
     }
 
     @Test
-    public void whenThreesMarkedCellCellIconIsCloseIcon() {
+    public void whenThreesMarkedCellCellTextIsCloseText() {
         minesweeper.markCell(0, 0);
         minesweeper.markCell(0, 0);
         minesweeper.markCell(0, 0);
@@ -59,21 +59,21 @@ public class ViewModelTest extends ViewModel {
     }
 
     @Test
-    public void whenOpenedMineCellIconIsMineIcon() {
+    public void whenOpenedMineCellTextIsMineText() {
         minesweeper.setMine(0, 0);
         minesweeper.openCell(0, 0);
         assertEquals(minesweeper.getMineText(), minesweeper.getCellText(0, 0));
     }
 
     @Test
-    public void whenOpenedFreeCellCloseTo0MineCellIconIsVal0Icon() {
+    public void whenOpenedFreeCellOnFreeBoardCellTextIsEmptyString() {
         minesweeper.boardClear();
         minesweeper.openCell(0, 0);
         assertEquals("", minesweeper.getCellText(0, 0));
     }
 
     @Test
-    public void whenOpenedFreeCellCloseTo1MineCellIconIsVal1Icon() {
+    public void openedCellTextIs1When1MineIsAround() {
         minesweeper.boardClear();
         minesweeper.setMine(0, 0);
         minesweeper.openCell(1, 1);
@@ -81,7 +81,7 @@ public class ViewModelTest extends ViewModel {
     }
 
     @Test
-    public void whenOpenedFreeCellCloseTo2MineCellIconIsVal2Icon() {
+    public void openedCellTextIs2When2MineIsAround() {
         minesweeper.boardClear();
         minesweeper.setMine(0, 0);
         minesweeper.setMine(0, 1);
@@ -90,7 +90,7 @@ public class ViewModelTest extends ViewModel {
     }
 
     @Test
-    public void whenOpenedFreeCellCloseTo3MineCellIconIsVal3Icon() {
+    public void openedCellTextIs3When3MineIsAround() {
         minesweeper.boardClear();
         minesweeper.setMine(0, 0);
         minesweeper.setMine(0, 1);
@@ -100,7 +100,7 @@ public class ViewModelTest extends ViewModel {
     }
 
     @Test
-    public void whenOpenedFreeCellCloseTo8MineCellIconIsVal1Icon() {
+    public void openedCellTextIs8When8MineIsAround() {
         minesweeper.boardClear();
         minesweeper.setMine(0, 1);
         minesweeper.setMine(0, 0);
@@ -127,20 +127,20 @@ public class ViewModelTest extends ViewModel {
     }
 
     @Test
-    public void whenNewGameSmileIconIsSmileIcon() {
+    public void whenNewGameSmileTextIsSmileText() {
         minesweeper.setMine(0, 0);
         minesweeper.openCell(0, 0);
         minesweeper.newGame();
-        assertEquals(minesweeper.getSmileTex(), minesweeper.getSmileText());
+        assertEquals(minesweeper.getSmileText(), minesweeper.getTextSmile());
     }
 
     @Test
-    public void getBoardHeightMastBeGreaterZero() {
+    public void boardHeightMastBeGreaterZero() {
         assertTrue(minesweeper.getBoardHeight() > 0);
     }
 
     @Test
-    public void getBoardWidthMastBeGreaterZero() {
+    public void boardWidthMastBeGreaterZero() {
         assertTrue(minesweeper.getBoardWidth() > 0);
     }
 }

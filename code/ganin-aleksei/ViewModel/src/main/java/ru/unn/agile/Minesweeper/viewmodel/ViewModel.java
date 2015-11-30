@@ -54,7 +54,7 @@ public class ViewModel {
         }
     }
 
-    public String getSmileText() {
+    public String getTextSmile() {
         if (minesweeperModel.isGameEnd()) {
             if (minesweeperModel.isLost()) {
                 return deadText;
@@ -101,7 +101,7 @@ public class ViewModel {
         return mineText;
     }
 
-    public String getSmileTex() {
+    public String getSmileText() {
         return smileText;
     }
 
