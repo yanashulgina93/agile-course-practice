@@ -10,7 +10,7 @@ public class PercentAccretionViewModel {
     private boolean percentRateIsCorrect;
     private boolean countOfYearsIsCorrect;
     private String percentType;
-    private PercentData data;
+    private final PercentData data;
     private String errorMessage;
     private String resultSum;
 
@@ -32,7 +32,7 @@ public class PercentAccretionViewModel {
         return data;
     }
 
-    public void setPercentType(String value) {
+    public void setPercentType(final String value) {
         percentType = value;
         resultSum = "";
     }
@@ -41,16 +41,15 @@ public class PercentAccretionViewModel {
         return errorMessage;
     }
 
-    public void setInitialSum(String value) {
+    public void setInitialSum(final String value) {
         errorMessage = "";
         resultSum = "";
-        if (value.equals("")) {
+        if ("".equals(value)) {
             initialSumIsCorrect = false;
             errorMessage = "Please fill fields!";
             return;
         }
-        if (!value.matches("\\d+"))
-        {
+        if (!value.matches("\\d+")) {
             initialSumIsCorrect = false;
             errorMessage = "Please enter correct values!";
             return;
@@ -59,16 +58,15 @@ public class PercentAccretionViewModel {
         initialSumIsCorrect = true;
     }
 
-    public void setPercentRate(String value) {
+    public void setPercentRate(final String value) {
         errorMessage = "";
         resultSum = "";
-        if (value.equals("")) {
+        if ("".equals(value)) {
             percentRateIsCorrect = false;
             errorMessage = "Please fill fields!";
             return;
         }
-        if (!value.matches("\\d+"))
-        {
+        if (!value.matches("\\d+")) {
             percentRateIsCorrect = false;
             errorMessage = "Please enter correct values!";
             return;
@@ -77,16 +75,15 @@ public class PercentAccretionViewModel {
         percentRateIsCorrect = true;
     }
 
-    public void setCountOfYears(String value) {
+    public void setCountOfYears(final String value) {
         errorMessage = "";
         resultSum = "";
-        if (value.equals("")) {
+        if ("".equals(value)) {
             countOfYearsIsCorrect = false;
             errorMessage = "Please fill fields!";
             return;
         }
-        if (!value.matches("\\d+"))
-        {
+        if (!value.matches("\\d+")) {
             countOfYearsIsCorrect = false;
             errorMessage = "Please enter correct values!";
             return;

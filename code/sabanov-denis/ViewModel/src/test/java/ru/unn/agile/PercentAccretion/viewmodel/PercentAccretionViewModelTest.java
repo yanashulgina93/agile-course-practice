@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 
 public class PercentAccretionViewModelTest {
 
-    PercentAccretionViewModel viewModel;
+    private PercentAccretionViewModel viewModel;
 
     @Before
     public void initialize() {
@@ -71,8 +71,8 @@ public class PercentAccretionViewModelTest {
         viewModel.setCountOfYears("2");
         viewModel.setPercentType("simple");
         viewModel.calculateResultSum();
-        String expected_value = "3.0";
-        assertEquals(expected_value, viewModel.getResultSum());
+        String expectedValue = "3.0";
+        assertEquals(expectedValue, viewModel.getResultSum());
     }
 
     @Test
@@ -82,8 +82,8 @@ public class PercentAccretionViewModelTest {
         viewModel.setCountOfYears("2");
         viewModel.setPercentType("complex");
         viewModel.calculateResultSum();
-        String expected_value = "4.0";
-        assertEquals(expected_value, viewModel.getResultSum());
+        String expectedValue = "4.0";
+        assertEquals(expectedValue, viewModel.getResultSum());
     }
 
     @Test
@@ -94,8 +94,8 @@ public class PercentAccretionViewModelTest {
         viewModel.setPercentType("simple");
         viewModel.calculateResultSum();
         viewModel.setInitialSum("2");
-        String expected_value = "";
-        assertEquals(expected_value, viewModel.getResultSum());
+        String expectedValue = "";
+        assertEquals(expectedValue, viewModel.getResultSum());
     }
 
     @Test
@@ -106,8 +106,8 @@ public class PercentAccretionViewModelTest {
         viewModel.setPercentType("simple");
         viewModel.calculateResultSum();
         viewModel.setPercentType("complex");
-        String expected_value = "";
-        assertEquals(expected_value, viewModel.getResultSum());
+        String expectedValue = "";
+        assertEquals(expectedValue, viewModel.getResultSum());
     }
 
 }

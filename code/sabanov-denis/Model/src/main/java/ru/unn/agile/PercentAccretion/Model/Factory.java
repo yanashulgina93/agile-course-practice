@@ -1,7 +1,7 @@
 package ru.unn.agile.PercentAccretion.Model;
 
 public class Factory {
-    public PercentAccretion getPercentAccretion(String id) {
+    public PercentAccretion getPercentAccretion(final String id) {
         if (id == "simple") {
             return new SimplePercentAccretion();
         } else if (id == "complex") {

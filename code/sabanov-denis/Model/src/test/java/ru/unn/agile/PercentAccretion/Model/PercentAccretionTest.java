@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 public class PercentAccretionTest {
 
     private PercentData data;
-    Factory factory;
+    private Factory factory;
 
     @Before
     public void initializePercentData() {
@@ -52,12 +52,14 @@ public class PercentAccretionTest {
 
     @Test
     public void canGetSimplePercentAccretionFromFactory() {
-        assertEquals(SimplePercentAccretion.class, factory.getPercentAccretion("simple").getClass());
+        assertEquals(SimplePercentAccretion.class,
+                     factory.getPercentAccretion("simple").getClass());
     }
 
     @Test
     public void canGetComplexPercentAccretionFromFactory() {
-        assertEquals(ComplexPercentAccretion.class, factory.getPercentAccretion("complex").getClass());
+        assertEquals(ComplexPercentAccretion.class,
+                     factory.getPercentAccretion("complex").getClass());
     }
 
     @Test

@@ -9,7 +9,7 @@ import ru.unn.agile.PercentAccretion.viewmodel.PercentAccretionViewModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PercentAccretionView {
+public final class PercentAccretionView {
     private final PercentAccretionViewModel viewModel;
 
     private JTextField initialSumTFld;
@@ -29,7 +29,7 @@ public class PercentAccretionView {
     private JPanel calculationPanel;
     private JPanel formPanel;
     private JTextField resultTField;
-    private ButtonGroup radioBtnGroup;
+    private final ButtonGroup radioBtnGroup;
 
     private PercentAccretionView() {
         viewModel = new PercentAccretionViewModel();
@@ -44,7 +44,7 @@ public class PercentAccretionView {
 
         ActionListener radioBtnListener = new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 backBind();
                 bind();
             }
@@ -55,19 +55,19 @@ public class PercentAccretionView {
 
         initialSumTFld.getDocument().addDocumentListener(new DocumentListener() {
             @Override
-            public void insertUpdate(DocumentEvent e) {
+            public void insertUpdate(final DocumentEvent e) {
                 backBind();
                 bind();
             }
 
             @Override
-            public void removeUpdate(DocumentEvent e) {
+            public void removeUpdate(final DocumentEvent e) {
                 backBind();
                 bind();
             }
 
             @Override
-            public void changedUpdate(DocumentEvent e) {
+            public void changedUpdate(final DocumentEvent e) {
                 backBind();
                 bind();
             }
@@ -75,19 +75,19 @@ public class PercentAccretionView {
 
         percentRateTFld.getDocument().addDocumentListener(new DocumentListener() {
             @Override
-            public void insertUpdate(DocumentEvent e) {
+            public void insertUpdate(final DocumentEvent e) {
                 backBind();
                 bind();
             }
 
             @Override
-            public void removeUpdate(DocumentEvent e) {
+            public void removeUpdate(final DocumentEvent e) {
                 backBind();
                 bind();
             }
 
             @Override
-            public void changedUpdate(DocumentEvent e) {
+            public void changedUpdate(final DocumentEvent e) {
                 backBind();
                 bind();
             }
@@ -95,19 +95,19 @@ public class PercentAccretionView {
 
         countOfYearsTFld.getDocument().addDocumentListener(new DocumentListener() {
             @Override
-            public void insertUpdate(DocumentEvent e) {
+            public void insertUpdate(final DocumentEvent e) {
                 backBind();
                 bind();
             }
 
             @Override
-            public void removeUpdate(DocumentEvent e) {
+            public void removeUpdate(final DocumentEvent e) {
                 backBind();
                 bind();
             }
 
             @Override
-            public void changedUpdate(DocumentEvent e) {
+            public void changedUpdate(final DocumentEvent e) {
                 backBind();
                 bind();
             }
@@ -115,7 +115,7 @@ public class PercentAccretionView {
 
         calculateSumBtn.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 backBind();
                 viewModel.calculateResultSum();
                 bind();
@@ -126,7 +126,7 @@ public class PercentAccretionView {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         JFrame frame = new JFrame("PercentAccretionView");
         frame.setContentPane(new PercentAccretionView().formPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
