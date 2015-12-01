@@ -32,6 +32,14 @@ public final class PercentAccretionView {
     private JTextField resultTField;
     private final ButtonGroup radioBtnGroup;
 
+    public static void main(final String[] args) {
+        JFrame frame = new JFrame("PercentAccretionView");
+        frame.setContentPane(new PercentAccretionView().formPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+    }
+
     private PercentAccretionView() {
         viewModel = new PercentAccretionViewModel();
 
@@ -54,9 +62,9 @@ public final class PercentAccretionView {
         simplePercentRBtn.addActionListener(radioBtnListener);
         complexPercentRBtn.addActionListener(radioBtnListener);
 
-        addListener(initialSumTFld);
-        addListener(countOfYearsTFld);
-        addListener(percentRateTFld);
+        initialSumTFld.getDocument().addDocumentListener(textFieldsListener);
+        countOfYearsTFld.getDocument().addDocumentListener(textFieldsListener);
+        percentRateTFld.getDocument().addDocumentListener(textFieldsListener);
 
         calculateSumBtn.addActionListener(new ActionListener() {
             @Override
@@ -71,35 +79,26 @@ public final class PercentAccretionView {
 
     }
 
-    private void addListener(final JTextField tField) {
-        tField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(final DocumentEvent e) {
-                backBindPercentAccretionView();
-                bindPercentAccretionView();
-            }
+    private final DocumentListener textFieldsListener = new DocumentListener() {
+        @Override
+        public void insertUpdate(final DocumentEvent e) {
+            backBindPercentAccretionView();
+            bindPercentAccretionView();
+        }
 
-            @Override
-            public void removeUpdate(final DocumentEvent e) {
-                backBindPercentAccretionView();
-                bindPercentAccretionView();
-            }
+        @Override
+        public void removeUpdate(final DocumentEvent e) {
+            backBindPercentAccretionView();
+            bindPercentAccretionView();
+        }
 
-            @Override
-            public void changedUpdate(final DocumentEvent e) {
-                backBindPercentAccretionView();
-                bindPercentAccretionView();
-            }
-        });
-    }
+        @Override
+        public void changedUpdate(final DocumentEvent e) {
+            backBindPercentAccretionView();
+            bindPercentAccretionView();
+        }
 
-    public static void main(final String[] args) {
-        JFrame frame = new JFrame("PercentAccretionView");
-        frame.setContentPane(new PercentAccretionView().formPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    }
+    };
 
     private void bindPercentAccretionView() {
         calculateSumBtn.setEnabled(viewModel.isCalculateButtonEnabled());

@@ -5,6 +5,21 @@ import ru.unn.agile.PercentAccretion.Model.PercentAccretion;
 import ru.unn.agile.PercentAccretion.Model.PercentData;
 
 public class PercentAccretionViewModel {
+    public enum PercentAccretionErrors {
+        FIELD_IS_EMPTY("Please fill fields!"),
+        INCORRECT_VALUES("Please enter correct values!"),
+        NO_ERRORS("");
+
+        private String errorMessage;
+
+        PercentAccretionErrors(final String errorMessage) {
+            this.errorMessage = errorMessage;
+        }
+
+        public String getMessage() {
+            return errorMessage;
+        }
+    }
     private boolean calculateButtonEnabled;
     private boolean initialSumIsCorrect;
     private boolean percentRateIsCorrect;
@@ -13,6 +28,8 @@ public class PercentAccretionViewModel {
     private final PercentData data;
     private String errorMessage;
     private String resultSum;
+    private static final String EMPTY_STRING = "";
+
 
 
     public String getResultSum() {
@@ -20,8 +37,9 @@ public class PercentAccretionViewModel {
     }
 
     public boolean isCalculateButtonEnabled() {
-        if (initialSumIsCorrect && percentRateIsCorrect && countOfYearsIsCorrect) {
+        if (checkFieldsHaveRightValues()) {
             calculateButtonEnabled = true;
+            errorMessage = PercentAccretionErrors.NO_ERRORS.getMessage();
         } else {
             calculateButtonEnabled = false;
         }
@@ -34,7 +52,7 @@ public class PercentAccretionViewModel {
 
     public void setPercentType(final String value) {
         percentType = value;
-        resultSum = "";
+        resultSum = EMPTY_STRING;
     }
 
     public String getErrorMessage() {
@@ -42,54 +60,36 @@ public class PercentAccretionViewModel {
     }
 
     public void setInitialSum(final String value) {
-        errorMessage = "";
-        resultSum = "";
-        if ("".equals(value)) {
+        resultSum = EMPTY_STRING;
+        if (checkValue(value)) {
             initialSumIsCorrect = false;
-            errorMessage = "Please fill fields!";
-            return;
-        }
-        if (!value.matches("\\d+")) {
-            initialSumIsCorrect = false;
-            errorMessage = "Please enter correct values!";
             return;
         }
         data.setInitialSum(Double.valueOf(value));
         initialSumIsCorrect = true;
+        clearErrorMessage();
     }
 
     public void setPercentRate(final String value) {
-        errorMessage = "";
-        resultSum = "";
-        if ("".equals(value)) {
+        resultSum = EMPTY_STRING;
+        if (checkValue(value)) {
             percentRateIsCorrect = false;
-            errorMessage = "Please fill fields!";
-            return;
-        }
-        if (!value.matches("\\d+")) {
-            percentRateIsCorrect = false;
-            errorMessage = "Please enter correct values!";
             return;
         }
         data.setPercentRate(Double.valueOf(value));
         percentRateIsCorrect = true;
+        clearErrorMessage();
     }
 
     public void setCountOfYears(final String value) {
-        errorMessage = "";
-        resultSum = "";
-        if ("".equals(value)) {
+        resultSum = EMPTY_STRING;
+        if (checkValue(value)) {
             countOfYearsIsCorrect = false;
-            errorMessage = "Please fill fields!";
-            return;
-        }
-        if (!value.matches("\\d+")) {
-            countOfYearsIsCorrect = false;
-            errorMessage = "Please enter correct values!";
             return;
         }
         data.setCountOfYears(Integer.valueOf(value));
         countOfYearsIsCorrect = true;
+        clearErrorMessage();
     }
 
     public void calculateResultSum() {
@@ -104,7 +104,29 @@ public class PercentAccretionViewModel {
         initialSumIsCorrect = false;
         percentRateIsCorrect = false;
         countOfYearsIsCorrect = false;
-        percentType = "";
-        errorMessage = "Please fill fields!";
+        percentType = EMPTY_STRING;
+        errorMessage = PercentAccretionErrors.FIELD_IS_EMPTY.getMessage();
+    }
+
+    private boolean checkValue(final String value) {
+        if (EMPTY_STRING.equals(value)) {
+            errorMessage = PercentAccretionErrors.FIELD_IS_EMPTY.getMessage();
+            return true;
+        }
+        if (!value.matches("\\d+")) {
+            errorMessage = PercentAccretionErrors.INCORRECT_VALUES.getMessage();
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkFieldsHaveRightValues() {
+        return initialSumIsCorrect && percentRateIsCorrect && countOfYearsIsCorrect;
+    }
+
+    private void clearErrorMessage() {
+        if (checkFieldsHaveRightValues()) {
+            errorMessage = PercentAccretionErrors.NO_ERRORS.getMessage();
+        }
     }
 }
