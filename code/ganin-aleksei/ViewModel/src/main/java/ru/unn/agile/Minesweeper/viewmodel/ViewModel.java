@@ -8,14 +8,40 @@ public class ViewModel {
 
     private final Model minesweeperModel = new Model();
 
-    private static String flagText = new String("!");
-    private static String closeText = new String("#");
-    private static String issueText = new String("?");
-    private static String mineText = new String("*");
+    private enum CellText {
+        flag("!"),
+        close("#"),
+        issue("?"),
+        mine("*");
 
-    private static String smileText = new String("Живой");
-    private static String deadText = new String("Мертвый");
-    private static String winnerText = new String("Выиграл");
+        private final String text;
+
+        private CellText(final String text) {
+            this.text = text;
+        }
+
+        @Override
+        public String toString() {
+            return text;
+        }
+    }
+
+    private enum SmilesText {
+        smile("Живой"),
+        dead("Мертвый"),
+        winner("Выиграл");
+
+        private final String text;
+
+        private SmilesText(final String text) {
+            this.text = text;
+        }
+
+        @Override
+        public String toString() {
+            return text;
+        }
+    }
 
     public ViewModel() {
         /* empty */
@@ -36,14 +62,14 @@ public class ViewModel {
     public String getCellText(final int x, final int y) {
         if (minesweeperModel.isCellClose(x, y)) {
             if (minesweeperModel.isCellFlag(x, y)) {
-                return flagText;
+                return CellText.flag.toString();
             } else if (minesweeperModel.isCellIssue(x, y)) {
-                return issueText;
+                return CellText.issue.toString();
             } else {
-                return closeText;
+                return CellText.close.toString();
             }
         } else if (minesweeperModel.isCellMine(x, y)) {
-            return mineText;
+            return CellText.mine.toString();
         } else {
             int value = minesweeperModel.getCellValue(x, y);
             if (value == 0) {
@@ -57,12 +83,12 @@ public class ViewModel {
     public String getTextSmile() {
         if (minesweeperModel.isGameEnd()) {
             if (minesweeperModel.isLost()) {
-                return deadText;
+                return SmilesText.dead.toString();
             } else {
-                return winnerText;
+                return SmilesText.winner.toString();
             }
         }
-        return smileText;
+        return SmilesText.smile.toString();
     }
 
     public void boardClear() {
@@ -86,30 +112,30 @@ public class ViewModel {
     }
 
     public String getFlagText() {
-        return flagText;
+        return CellText.flag.toString();
     }
 
     public String getCloseText() {
-        return closeText;
+        return CellText.close.toString();
     }
 
     public String getIssueText() {
-        return issueText;
+        return CellText.issue.toString();
     }
 
     public String getMineText() {
-        return mineText;
+        return CellText.mine.toString();
     }
 
     public String getSmileText() {
-        return smileText;
+        return SmilesText.smile.toString();
     }
 
     public String getDeadText() {
-        return deadText;
+        return SmilesText.dead.toString();
     }
 
     public String getWinnerText() {
-        return winnerText;
+        return SmilesText.winner.toString();
     }
 }
