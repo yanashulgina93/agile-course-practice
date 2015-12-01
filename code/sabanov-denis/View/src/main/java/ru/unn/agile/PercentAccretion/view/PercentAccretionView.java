@@ -31,7 +31,27 @@ public final class PercentAccretionView {
     private JPanel formPanel;
     private JTextField resultTField;
     private final ButtonGroup radioBtnGroup;
+    private final DocumentListener textFieldsListener = new DocumentListener() {
+        @Override
+        public void insertUpdate(final DocumentEvent e) {
+            backBindPercentAccretionView();
+            bindPercentAccretionView();
+        }
 
+        @Override
+        public void removeUpdate(final DocumentEvent e) {
+            backBindPercentAccretionView();
+            bindPercentAccretionView();
+        }
+
+        @Override
+        public void changedUpdate(final DocumentEvent e) {
+            backBindPercentAccretionView();
+            bindPercentAccretionView();
+        }
+
+    };
+    
     public static void main(final String[] args) {
         JFrame frame = new JFrame("PercentAccretionView");
         frame.setContentPane(new PercentAccretionView().formPanel);
@@ -78,27 +98,6 @@ public final class PercentAccretionView {
         bindPercentAccretionView();
 
     }
-
-    private final DocumentListener textFieldsListener = new DocumentListener() {
-        @Override
-        public void insertUpdate(final DocumentEvent e) {
-            backBindPercentAccretionView();
-            bindPercentAccretionView();
-        }
-
-        @Override
-        public void removeUpdate(final DocumentEvent e) {
-            backBindPercentAccretionView();
-            bindPercentAccretionView();
-        }
-
-        @Override
-        public void changedUpdate(final DocumentEvent e) {
-            backBindPercentAccretionView();
-            bindPercentAccretionView();
-        }
-
-    };
 
     private void bindPercentAccretionView() {
         calculateSumBtn.setEnabled(viewModel.isCalculateButtonEnabled());
