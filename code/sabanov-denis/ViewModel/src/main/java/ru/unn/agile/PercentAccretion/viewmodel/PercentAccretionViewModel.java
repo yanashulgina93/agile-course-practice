@@ -24,7 +24,7 @@ public class PercentAccretionViewModel {
     private boolean initialSumIsCorrect;
     private boolean percentRateIsCorrect;
     private boolean countOfYearsIsCorrect;
-    private String percentType;
+    private Factory.PercentAccretionOperations operation;
     private final PercentData data;
     private String errorMessage;
     private String resultSum;
@@ -49,7 +49,14 @@ public class PercentAccretionViewModel {
     }
 
     public void setPercentType(final String value) {
-        percentType = value;
+        if (Factory.PercentAccretionOperations.
+                SIMPLE_PERCENT_SUM.toString().equals(value)) {
+            operation = Factory.PercentAccretionOperations.SIMPLE_PERCENT_SUM;
+        }
+        if (Factory.PercentAccretionOperations.
+                COMPLEX_PERCENT_SUM.toString().equals(value)) {
+            operation = Factory.PercentAccretionOperations.COMPLEX_PERCENT_SUM;
+        }
         resultSum = EMPTY_STRING;
     }
 
@@ -92,7 +99,7 @@ public class PercentAccretionViewModel {
 
     public void calculateResultSum() {
         Factory factory = new Factory();
-        PercentAccretion percentCounter = factory.getPercentAccretion(percentType);
+        PercentAccretion percentCounter = factory.getPercentAccretion(operation);
         resultSum = String.valueOf(percentCounter.calculate(data));
     }
 
@@ -102,7 +109,7 @@ public class PercentAccretionViewModel {
         initialSumIsCorrect = false;
         percentRateIsCorrect = false;
         countOfYearsIsCorrect = false;
-        percentType = EMPTY_STRING;
+        operation = Factory.PercentAccretionOperations.COMPLEX_PERCENT_SUM;
         errorMessage = PercentAccretionErrors.FIELD_IS_EMPTY.getMessage();
     }
 

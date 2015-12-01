@@ -4,15 +4,14 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import ru.unn.agile.PercentAccretion.Model.Factory;
 import ru.unn.agile.PercentAccretion.viewmodel.PercentAccretionViewModel;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public final class PercentAccretionView {
     private final PercentAccretionViewModel viewModel;
-
     private JTextField initialSumTextField;
     private JTextField percentRateTextField;
     private JTextField countOfYearsTextField;
@@ -29,7 +28,7 @@ public final class PercentAccretionView {
     private JPanel choosePercentPanel;
     private JPanel calculationPanel;
     private JPanel formPanel;
-    private JTextField resultTField;
+    private JTextField resultTextField;
     private final ButtonGroup radioButtonGroup;
 
     public static void main(final String[] args) {
@@ -48,8 +47,10 @@ public final class PercentAccretionView {
         radioButtonGroup.add(complexPercentRadioButton);
 
         radioButtonGroup.setSelected(simplePercentRadioButton.getModel(), true);
-        simplePercentRadioButton.setActionCommand("simple");
-        complexPercentRadioButton.setActionCommand("complex");
+        simplePercentRadioButton.setActionCommand(
+                Factory.PercentAccretionOperations.SIMPLE_PERCENT_SUM.toString());
+        complexPercentRadioButton.setActionCommand(
+                Factory.PercentAccretionOperations.COMPLEX_PERCENT_SUM.toString());
 
         ActionListener radioButtonListener = new ActionListener() {
             @Override
@@ -96,13 +97,12 @@ public final class PercentAccretionView {
         });
 
         bindPercentAccretionView();
-
     }
 
     private void bindPercentAccretionView() {
         calculateSumButton.setEnabled(viewModel.isCalculateButtonEnabled());
         errorTextArea.setText(viewModel.getErrorMessage());
-        resultTField.setText(viewModel.getResultSum());
+        resultTextField.setText(viewModel.getResultSum());
     }
 
     private void backBindPercentAccretionView() {

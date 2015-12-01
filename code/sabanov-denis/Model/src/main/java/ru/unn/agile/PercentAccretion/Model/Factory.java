@@ -17,10 +17,10 @@ public class Factory {
         }
     }
 
-    public PercentAccretion getPercentAccretion(final String id) {
-        if (id == PercentAccretionOperations.SIMPLE_PERCENT_SUM.toString()) {
+    public PercentAccretion getPercentAccretion(final PercentAccretionOperations operation) {
+        if (operation == PercentAccretionOperations.SIMPLE_PERCENT_SUM) {
             return new SimplePercentAccretion();
-        } else if (id == PercentAccretionOperations.COMPLEX_PERCENT_SUM.toString()) {
+        } else if (operation == PercentAccretionOperations.COMPLEX_PERCENT_SUM) {
             return new ComplexPercentAccretion();
         }
         return null;

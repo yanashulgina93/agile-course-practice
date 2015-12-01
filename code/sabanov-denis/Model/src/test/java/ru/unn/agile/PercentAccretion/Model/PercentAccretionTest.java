@@ -21,7 +21,7 @@ public class PercentAccretionTest {
     public void canCalculateSumWithSimplePercent() {
         double expectedSum = 150.0;
         PercentAccretion simplePercentCounter = factory.getPercentAccretion(
-                Factory.PercentAccretionOperations.SIMPLE_PERCENT_SUM.toString());
+                Factory.PercentAccretionOperations.SIMPLE_PERCENT_SUM);
         double actualSum = simplePercentCounter.calculate(data);
         double delta = 0.00001;
 
@@ -32,7 +32,7 @@ public class PercentAccretionTest {
     public void catchExceptionWhenWrongArgInSimplePercent() {
         data.setPercentRate(-1);
         PercentAccretion simplePercentCounter = factory.getPercentAccretion(
-                Factory.PercentAccretionOperations.SIMPLE_PERCENT_SUM.toString());
+                Factory.PercentAccretionOperations.SIMPLE_PERCENT_SUM);
         simplePercentCounter.calculate(data);
     }
 
@@ -40,7 +40,7 @@ public class PercentAccretionTest {
     public void catchExceptionWhenWrongArgInComplexPercent() {
         data.setPercentRate(-1);
         PercentAccretion complexPercentCounter = factory.getPercentAccretion(
-                Factory.PercentAccretionOperations.COMPLEX_PERCENT_SUM.toString());
+                Factory.PercentAccretionOperations.COMPLEX_PERCENT_SUM);
         complexPercentCounter.calculate(data);
     }
 
@@ -48,7 +48,7 @@ public class PercentAccretionTest {
     public void canCalculateSumWithComplexPercent() {
         double expectedValue = 150.0;
         PercentAccretion complexPercentCounter = factory.getPercentAccretion(
-                Factory.PercentAccretionOperations.COMPLEX_PERCENT_SUM.toString());
+                Factory.PercentAccretionOperations.COMPLEX_PERCENT_SUM);
         double actualValue = complexPercentCounter.calculate(data);
         double delta = 0.00001;
 
@@ -59,18 +59,13 @@ public class PercentAccretionTest {
     public void canGetSimplePercentAccretionFromFactory() {
         assertEquals(SimplePercentAccretion.class,
                      factory.getPercentAccretion(Factory.
-                             PercentAccretionOperations.SIMPLE_PERCENT_SUM.toString()).getClass());
+                             PercentAccretionOperations.SIMPLE_PERCENT_SUM).getClass());
     }
 
     @Test
     public void canGetComplexPercentAccretionFromFactory() {
         assertEquals(ComplexPercentAccretion.class,
                      factory.getPercentAccretion(Factory.
-                             PercentAccretionOperations.COMPLEX_PERCENT_SUM.toString()).getClass());
-    }
-
-    @Test
-    public void canGetNullWhenWrongArgumentFromFactory() {
-        assertEquals(null, factory.getPercentAccretion("sda"));
+                             PercentAccretionOperations.COMPLEX_PERCENT_SUM).getClass());
     }
 }

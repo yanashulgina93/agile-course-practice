@@ -16,7 +16,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="23006" class="javax.swing.JLabel" binding="initialSumLbl">
+          <component id="23006" class="javax.swing.JLabel" binding="initialSumLabel">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -24,7 +24,7 @@
               <text value="Начальная Сумма"/>
             </properties>
           </component>
-          <component id="2f647" class="javax.swing.JLabel" binding="timeLbl">
+          <component id="2f647" class="javax.swing.JLabel" binding="timeLabel">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -32,7 +32,7 @@
               <text value="Время (количество лет)"/>
             </properties>
           </component>
-          <component id="4973c" class="javax.swing.JLabel" binding="percentRLbl">
+          <component id="4973c" class="javax.swing.JLabel" binding="percentRateLabel">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -50,7 +50,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="349f1" class="javax.swing.JTextField" binding="initialSumTFld">
+          <component id="349f1" class="javax.swing.JTextField" binding="initialSumTextField">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -58,7 +58,7 @@
             </constraints>
             <properties/>
           </component>
-          <component id="be1e6" class="javax.swing.JTextField" binding="percentRateTFld">
+          <component id="be1e6" class="javax.swing.JTextField" binding="percentRateTextField">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -66,7 +66,7 @@
             </constraints>
             <properties/>
           </component>
-          <component id="f27ba" class="javax.swing.JTextField" binding="countOfYearsTFld">
+          <component id="f27ba" class="javax.swing.JTextField" binding="countOfYearsTextField">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -84,7 +84,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="6d331" class="javax.swing.JTextArea" binding="errorTArea">
+          <component id="6d331" class="javax.swing.JTextArea" binding="errorTextArea">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="50"/>
@@ -95,7 +95,7 @@
               <text value=""/>
             </properties>
           </component>
-          <component id="5a2c4" class="javax.swing.JTextField" binding="resultTField">
+          <component id="5a2c4" class="javax.swing.JTextField" binding="resultTextField">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -115,7 +115,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="10fc2" class="javax.swing.JRadioButton" binding="simplePercentRBtn">
+          <component id="10fc2" class="javax.swing.JRadioButton" binding="simplePercentRadioButton">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -123,7 +123,7 @@
               <text value="Простые проценты"/>
             </properties>
           </component>
-          <component id="3cc9c" class="javax.swing.JRadioButton" binding="complexPercentRBtn">
+          <component id="3cc9c" class="javax.swing.JRadioButton" binding="complexPercentRadioButton">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -141,7 +141,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="9763d" class="javax.swing.JButton" binding="calculateSumBtn">
+          <component id="9763d" class="javax.swing.JButton" binding="calculateSumButton">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>

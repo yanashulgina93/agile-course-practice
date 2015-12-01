@@ -5,7 +5,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class PercentDataTest {
-
     private PercentData data;
 
     @Before
@@ -42,27 +41,30 @@ public class PercentDataTest {
 
     @Test
     public void canSetInitialSum() {
-        data.setInitialSum(500);
         double expectedValue = 500.0;
         double delta = 0.0001;
+
+        data.setInitialSum(500);
 
         assertEquals(expectedValue, data.getInitialSum(), delta);
     }
 
     @Test
     public void canSetPercentRate() {
-        data.setPercentRate(50);
         double expectedValue = 50.0;
         double delta = 0.0001;
+
+        data.setPercentRate(50);
 
         assertEquals(expectedValue, data.getPercentRate(), delta);
     }
 
     @Test
     public void canSetCountOfYears() {
-        data.setCountOfYears(3);
         double expectedValue = 3.0;
         double delta = 0.0001;
+
+        data.setCountOfYears(3);
 
         assertEquals(expectedValue, data.getCountOfYears(), delta);
     }

@@ -1,7 +1,6 @@
 package ru.unn.agile.PercentAccretion.Model;
 
 public class ComplexPercentAccretion extends PercentAccretion {
-
     @Override
     public double calculate(final PercentData data) {
         if (checkArguments(data)) {

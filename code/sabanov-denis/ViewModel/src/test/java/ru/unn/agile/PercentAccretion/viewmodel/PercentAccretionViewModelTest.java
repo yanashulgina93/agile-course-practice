@@ -1,10 +1,11 @@
 package ru.unn.agile.PercentAccretion.viewmodel;
 import org.junit.Before;
 import org.junit.Test;
+import ru.unn.agile.PercentAccretion.Model.Factory;
+
 import static org.junit.Assert.*;
 
 public class PercentAccretionViewModelTest {
-
     private PercentAccretionViewModel viewModel;
 
     @Before
@@ -76,52 +77,55 @@ public class PercentAccretionViewModelTest {
 
     @Test
     public void whenCalculateSimplePercentSumShowResult() {
+        String expectedValue = "3.0";
+
         viewModel.setInitialSum("1");
         viewModel.setPercentRate("100");
         viewModel.setCountOfYears("2");
-        viewModel.setPercentType("simple");
+        viewModel.setPercentType(Factory.PercentAccretionOperations.SIMPLE_PERCENT_SUM.toString());
         viewModel.calculateResultSum();
-        String expectedValue = "3.0";
 
         assertEquals(expectedValue, viewModel.getResultSum());
     }
 
     @Test
     public void whenCalculateComplexPercentSumShowResult() {
+        String expectedValue = "4.0";
+
         viewModel.setInitialSum("1");
         viewModel.setPercentRate("100");
         viewModel.setCountOfYears("2");
-        viewModel.setPercentType("complex");
+        viewModel.setPercentType(Factory.PercentAccretionOperations.COMPLEX_PERCENT_SUM.toString());
         viewModel.calculateResultSum();
-        String expectedValue = "4.0";
 
         assertEquals(expectedValue, viewModel.getResultSum());
     }
 
     @Test
     public void whenSumIsCalculatedAndOneOfFieldsIsChangedClearSum() {
+        String expectedValue = "";
+
         viewModel.setInitialSum("1");
         viewModel.setPercentRate("100");
         viewModel.setCountOfYears("2");
-        viewModel.setPercentType("simple");
+        viewModel.setPercentType(Factory.PercentAccretionOperations.SIMPLE_PERCENT_SUM.toString());
         viewModel.calculateResultSum();
         viewModel.setInitialSum("2");
-        String expectedValue = "";
 
         assertEquals(expectedValue, viewModel.getResultSum());
     }
 
     @Test
     public void whenSumIsCalculatedAndPercentTypeIsChangedClearSum() {
+        String expectedValue = "";
+
         viewModel.setInitialSum("1");
         viewModel.setPercentRate("100");
         viewModel.setCountOfYears("2");
-        viewModel.setPercentType("simple");
+        viewModel.setPercentType(Factory.PercentAccretionOperations.SIMPLE_PERCENT_SUM.toString());
         viewModel.calculateResultSum();
-        viewModel.setPercentType("complex");
-        String expectedValue = "";
+        viewModel.setPercentType(Factory.PercentAccretionOperations.COMPLEX_PERCENT_SUM.toString());
 
         assertEquals(expectedValue, viewModel.getResultSum());
     }
-
 }
