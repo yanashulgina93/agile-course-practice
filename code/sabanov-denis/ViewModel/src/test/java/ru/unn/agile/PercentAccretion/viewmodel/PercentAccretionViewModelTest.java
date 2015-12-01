@@ -19,7 +19,8 @@ public class PercentAccretionViewModelTest {
 
     @Test
     public void whenFieldsAreEmptyShowErrorMessage() {
-        assertEquals("Please fill fields!", viewModel.getErrorMessage());
+        assertEquals(PercentAccretionViewModel.PercentAccretionErrors.FIELD_IS_EMPTY.getMessage(),
+                viewModel.getErrorMessage());
     }
 
     @Test
@@ -27,6 +28,7 @@ public class PercentAccretionViewModelTest {
         viewModel.setPercentRate("1");
         viewModel.setCountOfYears("1");
         viewModel.setInitialSum("1");
+
         assertTrue(viewModel.isCalculateButtonEnabled());
     }
 
@@ -35,7 +37,9 @@ public class PercentAccretionViewModelTest {
         viewModel.setPercentRate("1");
         viewModel.setCountOfYears("1");
         viewModel.setInitialSum("1");
-        assertEquals("", viewModel.getErrorMessage());
+
+        assertEquals(PercentAccretionViewModel.PercentAccretionErrors.NO_ERRORS.getMessage(),
+                viewModel.getErrorMessage());
     }
 
     @Test
@@ -43,7 +47,9 @@ public class PercentAccretionViewModelTest {
         viewModel.setInitialSum("1");
         viewModel.setPercentRate("1");
         viewModel.setCountOfYears("a");
-        assertEquals("Please enter correct values!", viewModel.getErrorMessage());
+
+        assertEquals(PercentAccretionViewModel.PercentAccretionErrors.INCORRECT_VALUES.getMessage(),
+                viewModel.getErrorMessage());
     }
 
     @Test
@@ -52,7 +58,9 @@ public class PercentAccretionViewModelTest {
         viewModel.setPercentRate("1");
         viewModel.setCountOfYears("a");
         viewModel.setCountOfYears("1");
-        assertEquals("", viewModel.getErrorMessage());
+
+        assertEquals(PercentAccretionViewModel.PercentAccretionErrors.NO_ERRORS.getMessage(),
+                viewModel.getErrorMessage());
     }
 
     @Test
@@ -61,7 +69,9 @@ public class PercentAccretionViewModelTest {
         viewModel.setPercentRate("1");
         viewModel.setCountOfYears("1");
         viewModel.setCountOfYears("");
-        assertEquals("Please fill fields!", viewModel.getErrorMessage());
+
+        assertEquals(PercentAccretionViewModel.PercentAccretionErrors.FIELD_IS_EMPTY.getMessage(),
+                viewModel.getErrorMessage());
     }
 
     @Test
@@ -72,6 +82,7 @@ public class PercentAccretionViewModelTest {
         viewModel.setPercentType("simple");
         viewModel.calculateResultSum();
         String expectedValue = "3.0";
+
         assertEquals(expectedValue, viewModel.getResultSum());
     }
 
@@ -83,6 +94,7 @@ public class PercentAccretionViewModelTest {
         viewModel.setPercentType("complex");
         viewModel.calculateResultSum();
         String expectedValue = "4.0";
+
         assertEquals(expectedValue, viewModel.getResultSum());
     }
 
@@ -95,6 +107,7 @@ public class PercentAccretionViewModelTest {
         viewModel.calculateResultSum();
         viewModel.setInitialSum("2");
         String expectedValue = "";
+
         assertEquals(expectedValue, viewModel.getResultSum());
     }
 
@@ -107,6 +120,7 @@ public class PercentAccretionViewModelTest {
         viewModel.calculateResultSum();
         viewModel.setPercentType("complex");
         String expectedValue = "";
+
         assertEquals(expectedValue, viewModel.getResultSum());
     }
 

@@ -7,6 +7,6 @@ import static org.junit.Assert.fail;
 public class PercentAccretionViewTest {
     @Ignore @Test
     public void fakePercentAccretionViewTest() {
-        fail("There is no tests for DequeView");
+        fail("There is no tests for PercentAccretionView");
     }
 }

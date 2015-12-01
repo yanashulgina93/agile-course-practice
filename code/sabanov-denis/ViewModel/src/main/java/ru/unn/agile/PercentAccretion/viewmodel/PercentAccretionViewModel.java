@@ -30,8 +30,6 @@ public class PercentAccretionViewModel {
     private String resultSum;
     private static final String EMPTY_STRING = "";
 
-
-
     public String getResultSum() {
         return resultSum;
     }

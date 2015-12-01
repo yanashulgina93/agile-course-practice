@@ -13,43 +13,24 @@ import java.awt.event.ActionListener;
 public final class PercentAccretionView {
     private final PercentAccretionViewModel viewModel;
 
-    private JTextField initialSumTFld;
-    private JTextField percentRateTFld;
-    private JTextField countOfYearsTFld;
-    private JTextArea errorTArea;
+    private JTextField initialSumTextField;
+    private JTextField percentRateTextField;
+    private JTextField countOfYearsTextField;
+    private JTextArea errorTextArea;
     private JPanel labelPanel;
     private JPanel fieldsPanel;
-    private JRadioButton simplePercentRBtn;
-    private JRadioButton complexPercentRBtn;
-    private JLabel initialSumLbl;
-    private JLabel percentRLbl;
-    private JLabel timeLbl;
-    private JButton calculateSumBtn;
+    private JRadioButton simplePercentRadioButton;
+    private JRadioButton complexPercentRadioButton;
+    private JLabel initialSumLabel;
+    private JLabel percentRateLabel;
+    private JLabel timeLabel;
+    private JButton calculateSumButton;
     private JPanel resultPanel;
     private JPanel choosePercentPanel;
     private JPanel calculationPanel;
     private JPanel formPanel;
     private JTextField resultTField;
-    private final ButtonGroup radioBtnGroup;
-    private final DocumentListener textFieldsListener = new DocumentListener() {
-        @Override
-        public void insertUpdate(final DocumentEvent e) {
-            backBindPercentAccretionView();
-            bindPercentAccretionView();
-        }
-
-        @Override
-        public void removeUpdate(final DocumentEvent e) {
-            backBindPercentAccretionView();
-            bindPercentAccretionView();
-        }
-
-        @Override
-        public void changedUpdate(final DocumentEvent e) {
-            backBindPercentAccretionView();
-            bindPercentAccretionView();
-        }
-    };
+    private final ButtonGroup radioButtonGroup;
 
     public static void main(final String[] args) {
         JFrame frame = new JFrame("PercentAccretionView");
@@ -62,15 +43,15 @@ public final class PercentAccretionView {
     private PercentAccretionView() {
         viewModel = new PercentAccretionViewModel();
 
-        radioBtnGroup = new ButtonGroup();
-        radioBtnGroup.add(simplePercentRBtn);
-        radioBtnGroup.add(complexPercentRBtn);
+        radioButtonGroup = new ButtonGroup();
+        radioButtonGroup.add(simplePercentRadioButton);
+        radioButtonGroup.add(complexPercentRadioButton);
 
-        radioBtnGroup.setSelected(simplePercentRBtn.getModel(), true);
-        simplePercentRBtn.setActionCommand("simple");
-        complexPercentRBtn.setActionCommand("complex");
+        radioButtonGroup.setSelected(simplePercentRadioButton.getModel(), true);
+        simplePercentRadioButton.setActionCommand("simple");
+        complexPercentRadioButton.setActionCommand("complex");
 
-        ActionListener radioBtnListener = new ActionListener() {
+        ActionListener radioButtonListener = new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 backBindPercentAccretionView();
@@ -78,14 +59,34 @@ public final class PercentAccretionView {
             }
         };
 
-        simplePercentRBtn.addActionListener(radioBtnListener);
-        complexPercentRBtn.addActionListener(radioBtnListener);
+        simplePercentRadioButton.addActionListener(radioButtonListener);
+        complexPercentRadioButton.addActionListener(radioButtonListener);
 
-        initialSumTFld.getDocument().addDocumentListener(textFieldsListener);
-        countOfYearsTFld.getDocument().addDocumentListener(textFieldsListener);
-        percentRateTFld.getDocument().addDocumentListener(textFieldsListener);
+        DocumentListener textFieldsListener = new DocumentListener() {
+            @Override
+            public void insertUpdate(final DocumentEvent e) {
+                backBindPercentAccretionView();
+                bindPercentAccretionView();
+            }
 
-        calculateSumBtn.addActionListener(new ActionListener() {
+            @Override
+            public void removeUpdate(final DocumentEvent e) {
+                backBindPercentAccretionView();
+                bindPercentAccretionView();
+            }
+
+            @Override
+            public void changedUpdate(final DocumentEvent e) {
+                backBindPercentAccretionView();
+                bindPercentAccretionView();
+            }
+        };
+
+        initialSumTextField.getDocument().addDocumentListener(textFieldsListener);
+        countOfYearsTextField.getDocument().addDocumentListener(textFieldsListener);
+        percentRateTextField.getDocument().addDocumentListener(textFieldsListener);
+
+        calculateSumButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 backBindPercentAccretionView();
@@ -99,15 +100,15 @@ public final class PercentAccretionView {
     }
 
     private void bindPercentAccretionView() {
-        calculateSumBtn.setEnabled(viewModel.isCalculateButtonEnabled());
-        errorTArea.setText(viewModel.getErrorMessage());
+        calculateSumButton.setEnabled(viewModel.isCalculateButtonEnabled());
+        errorTextArea.setText(viewModel.getErrorMessage());
         resultTField.setText(viewModel.getResultSum());
     }
 
     private void backBindPercentAccretionView() {
-        viewModel.setInitialSum(initialSumTFld.getText());
-        viewModel.setPercentRate(percentRateTFld.getText());
-        viewModel.setCountOfYears(countOfYearsTFld.getText());
-        viewModel.setPercentType(radioBtnGroup.getSelection().getActionCommand());
+        viewModel.setInitialSum(initialSumTextField.getText());
+        viewModel.setPercentRate(percentRateTextField.getText());
+        viewModel.setCountOfYears(countOfYearsTextField.getText());
+        viewModel.setPercentType(radioButtonGroup.getSelection().getActionCommand());
     }
 }
