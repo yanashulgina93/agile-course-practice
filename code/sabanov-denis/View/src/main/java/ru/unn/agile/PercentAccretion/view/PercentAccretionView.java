@@ -49,9 +49,8 @@ public final class PercentAccretionView {
             backBindPercentAccretionView();
             bindPercentAccretionView();
         }
-
     };
-    
+
     public static void main(final String[] args) {
         JFrame frame = new JFrame("PercentAccretionView");
         frame.setContentPane(new PercentAccretionView().formPanel);
