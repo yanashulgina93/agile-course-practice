@@ -20,6 +20,7 @@ public class PercentDataTest {
     public void canGetInitialSum() {
         double expectedValue = 100.0;
         double delta = 0.0001;
+
         assertEquals(expectedValue, data.getInitialSum(), delta);
     }
 
@@ -27,6 +28,7 @@ public class PercentDataTest {
     public void canGetPercentRate() {
         double expectedValue = 10.0;
         double delta = 0.0001;
+
         assertEquals(expectedValue, data.getPercentRate(), delta);
     }
 
@@ -34,6 +36,7 @@ public class PercentDataTest {
     public void canGetCountOfYears() {
         double expectedValue = 2.0;
         double delta = 0.0001;
+
         assertEquals(expectedValue, data.getCountOfYears(), delta);
     }
 
@@ -42,6 +45,7 @@ public class PercentDataTest {
         data.setInitialSum(500);
         double expectedValue = 500.0;
         double delta = 0.0001;
+
         assertEquals(expectedValue, data.getInitialSum(), delta);
     }
 
@@ -50,6 +54,7 @@ public class PercentDataTest {
         data.setPercentRate(50);
         double expectedValue = 50.0;
         double delta = 0.0001;
+
         assertEquals(expectedValue, data.getPercentRate(), delta);
     }
 
@@ -58,6 +63,7 @@ public class PercentDataTest {
         data.setCountOfYears(3);
         double expectedValue = 3.0;
         double delta = 0.0001;
+
         assertEquals(expectedValue, data.getCountOfYears(), delta);
     }
 }
