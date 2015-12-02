@@ -5,6 +5,7 @@ import ru.unn.agile.BitArray.model.exception.BitArrayDifferentSizeException;
 import org.junit.Test;
 import org.junit.Before;
 import java.util.Arrays;
+import java.lang.NegativeArraySizeException;
 import static org.junit.Assert.*;
 
 public class BitArrayTest {
@@ -19,6 +20,11 @@ public class BitArrayTest {
     @Test
     public void canCreateBitArrayWithSize() {
         assertNotNull(bitArray);
+    }
+
+    @Test(expected = NegativeArraySizeException.class)
+    public void failWhenCreateBitArrayWithNegativeSize() {
+        bitArray = new BitArray(-1);
     }
 
     @Test

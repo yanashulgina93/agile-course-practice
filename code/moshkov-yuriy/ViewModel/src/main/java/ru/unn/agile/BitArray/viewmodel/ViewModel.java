@@ -27,8 +27,8 @@ public class ViewModel {
         return isDoOperationButtonEnabled;
     }
 
-    public void setSizeArray(final String sizeArray) {
-        this.inputSizeArray = sizeArray;
+    public void setArraySize(final String arraySize) {
+        this.inputSizeArray = arraySize;
         int size;
         try {
             size = Integer.parseInt(inputSizeArray);
@@ -86,10 +86,6 @@ public class ViewModel {
 
     public void setSecondBitArray(final BitArray secondBitArray) {
         this.secondBitArray = secondBitArray;
-    }
-
-    public void setResultBitArray(final BitArray resultBitArray) {
-        this.resultBitArray = resultBitArray;
     }
 
     public enum Operation {

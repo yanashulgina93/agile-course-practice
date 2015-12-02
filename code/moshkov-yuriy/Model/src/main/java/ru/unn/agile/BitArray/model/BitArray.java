@@ -5,40 +5,40 @@ import ru.unn.agile.BitArray.model.exception.BitArrayDifferentSizeException;
 import java.util.Arrays;
 
 public class BitArray {
-    private final Boolean[] arrayBit;
+    private final Boolean[] bitArray;
     private final int size;
 
     public BitArray(final int size) {
         this.size = size;
-        arrayBit = new Boolean[size];
-        Arrays.fill(arrayBit, false);
+        bitArray = new Boolean[size];
+        Arrays.fill(bitArray, false);
     }
 
     public Boolean getBit(final int index) {
-        return arrayBit[index];
+        return bitArray[index];
     }
 
     public void setBit(final int index, final Boolean value) {
         if (value == null) {
             return;
         }
-        arrayBit[index] = value;
+        bitArray[index] = value;
     }
 
     public void setAll(final Boolean value) {
-        Arrays.fill(arrayBit, value);
+        Arrays.fill(bitArray, value);
     }
 
     public BitArray and(final BitArray bitArray) {
-        return doOperationWithArray(bitArray, new AndOperation());
+        return apply(bitArray, new AndOperation());
     }
 
     public BitArray or(final BitArray bitArray) {
-        return doOperationWithArray(bitArray, new OrOperation());
+        return apply(bitArray, new OrOperation());
     }
 
     public BitArray xor(final BitArray bitArray) {
-        return doOperationWithArray(bitArray, new XorOperation());
+        return apply(bitArray, new XorOperation());
 
     }
 
@@ -51,14 +51,14 @@ public class BitArray {
     }
 
     public Boolean[] getBitArray() {
-        return arrayBit;
+        return bitArray;
     }
 
     public int getSize() {
         return size;
     }
 
-    private BitArray doOperationWithArray(final BitArray bitArray, final IOperation operation) {
+    private BitArray apply(final BitArray bitArray, final IOperation operation) {
         BitArray res;
         if (bitArray.getSize() == size) {
             res = new BitArray(size);

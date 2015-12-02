@@ -16,20 +16,19 @@ public final class BitArrayForm {
     private ViewModel viewModel;
 
     private JPanel mainPanel;
-    private JTextField sizeArrayTxt;
-    private JButton initArrayBtn, doOperationBtn;
+    private JTextField sizeArrayTextField;
+    private JButton initArrayButton, doOperationButton;
     private JTable firstBitArrayTable, secondBitArrayTable, resultBitArrayTable;
     private JComboBox<ViewModel.Operation> operationCombobox;
     private JScrollPane firstBitArrayScrollPane, secondBitArrayScrollPane, resultBitArrayScrollPane;
-
-    private BitArrayForm() { }
+    private JTextPane infoTextPane;
 
     private BitArrayForm(final ViewModel viewModel) {
         this.viewModel = viewModel;
         loadListOfOperations();
         backBind();
 
-        initArrayBtn.addActionListener(new ActionListener() {
+        initArrayButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
                 bind();
@@ -38,7 +37,7 @@ public final class BitArrayForm {
             }
         });
 
-        doOperationBtn.addActionListener(new ActionListener() {
+        doOperationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
                 bind();
@@ -55,7 +54,7 @@ public final class BitArrayForm {
             }
         });
 
-        sizeArrayTxt.getDocument().addDocumentListener(new DocumentListener() {
+        sizeArrayTextField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(final DocumentEvent event) {
                 bind();
@@ -85,7 +84,7 @@ public final class BitArrayForm {
     }
 
     private void bind() {
-        viewModel.setSizeArray(sizeArrayTxt.getText());
+        viewModel.setArraySize(sizeArrayTextField.getText());
         viewModel.setOperation((ViewModel.Operation) operationCombobox.getSelectedItem());
 
         BitArray firstBitArray = viewModel.getFirstBitArray();
@@ -105,8 +104,8 @@ public final class BitArrayForm {
     }
 
     private void backBind() {
-        doOperationBtn.setEnabled(viewModel.isDoOperationEnabled());
-        initArrayBtn.setEnabled(viewModel.isInitializeArrayButtonEnabled());
+        doOperationButton.setEnabled(viewModel.isDoOperationEnabled());
+        initArrayButton.setEnabled(viewModel.isInitializeArrayButtonEnabled());
 
         firstBitArrayTable = createTableFromBitArray(viewModel.getFirstBitArray());
         firstBitArrayTable.addMouseListener(new BitArrayMouseAdapter());
