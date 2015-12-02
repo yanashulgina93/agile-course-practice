@@ -97,14 +97,14 @@ public class LabQueueViewModel {
     }
 
     public void findElement() {
-		String outputMessage;
+        String outputMessage;
         String value = getDataInputField();
         try {
-			outputMessage = Integer.toString(testQueue.findElement(value) + 1);
-		} catch (Exception exception) {
-		outputMessage = errorMessage;
-		}
-		setDataOutputField(outputMessage);
+            outputMessage = Integer.toString(testQueue.findElement(value) + 1);
+        } catch (Exception exception) {
+            outputMessage = errorMessage;
+        }
+        setDataOutputField(outputMessage);
     }
 
     public String getErrorMessage() {
