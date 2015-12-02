@@ -13,7 +13,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 public final class BitArrayForm {
-    private ViewModel viewModel;
+    private final ViewModel viewModel;
 
     private JPanel mainPanel;
     private JTextField sizeArrayTextField;

@@ -5,7 +5,6 @@ import ru.unn.agile.BitArray.model.exception.BitArrayDifferentSizeException;
 import org.junit.Test;
 import org.junit.Before;
 import java.util.Arrays;
-import java.lang.NegativeArraySizeException;
 import static org.junit.Assert.*;
 
 public class BitArrayTest {
