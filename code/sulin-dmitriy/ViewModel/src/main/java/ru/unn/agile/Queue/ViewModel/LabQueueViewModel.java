@@ -12,6 +12,7 @@ public class LabQueueViewModel {
     private boolean isFindButtonEnabled;
     private boolean isPopButtonEnabled;
     private final boolean isPushButtonEnabled;
+    private final String errorMessage;
 
     public LabQueueViewModel() {
         sizeField = 0;
@@ -21,6 +22,7 @@ public class LabQueueViewModel {
         isFindButtonEnabled = false;
         isPopButtonEnabled = false;
         isPushButtonEnabled = true;
+        errorMessage = "Element not found.";
     }
 
     public boolean isFindButtonEnabled() {
@@ -95,14 +97,17 @@ public class LabQueueViewModel {
     }
 
     public void findElement() {
-        int answer;
+		String outputMessage;
         String value = getDataInputField();
         try {
-            answer = testQueue.findElement(value);
-        } catch (Exception exception) {
-            setDataOutputField("Element Not Found");
-            return;
-        }
-        setDataOutputField(Integer.toString(answer + 1));
+			outputMessage = Integer.toString(testQueue.findElement(value) + 1);
+		} catch (Exception exception) {
+		outputMessage = errorMessage;
+		}
+		setDataOutputField(outputMessage);
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
     }
 }

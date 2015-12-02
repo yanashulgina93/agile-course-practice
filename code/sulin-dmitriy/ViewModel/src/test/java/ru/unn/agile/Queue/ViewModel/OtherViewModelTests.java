@@ -7,9 +7,6 @@ import java.util.Random;
 
 import static org.junit.Assert.*;
 
-
-
-
 public class OtherViewModelTests {
 
     private LabQueueViewModel viewModel;
@@ -24,7 +21,6 @@ public class OtherViewModelTests {
 
         viewModel.setDataInputField(value);
         viewModel.pushElement();
-        viewModel.updateHeadElementField();
 
         assertEquals(value, viewModel.getHeadElementField());
     }
@@ -106,7 +102,7 @@ public class OtherViewModelTests {
         viewModel.setDataInputField(value2);
         viewModel.findElement();
 
-        assertEquals("Element Not Found", viewModel.getDataOutputField());
+        assertEquals(viewModel.getErrorMessage(), viewModel.getDataOutputField());
     }
 
     @Test
