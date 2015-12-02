@@ -88,7 +88,7 @@ public class ViewModel {
                 status = Status.READY;
                 resultTemperature = "";
                 isConvertButtonEnable = true;
-            } catch (Exception exception) {
+            } catch (NumberFormatException  exception) {
                 status = Status.BAD_FORMAT;
                 isConvertButtonEnable = false;
                 resultTemperature = "";

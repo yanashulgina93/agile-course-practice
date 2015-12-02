@@ -113,7 +113,5 @@ public class ViewModelLoggingTests {
         List<String> log = viewModel.getLog();
         final String expected = LogMessage.SCALE_CHANGED.toString() + TemperatureScaleName.NEWTON.toString();
         assertEquals(expected, log.get(0));
-
     }
-
 }
