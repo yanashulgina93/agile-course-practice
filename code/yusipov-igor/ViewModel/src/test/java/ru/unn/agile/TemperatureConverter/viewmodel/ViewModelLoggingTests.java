@@ -7,11 +7,16 @@ import ru.unn.agile.TemperatureConverter.model.TemperatureScaleName;
 
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
 
 public class ViewModelLoggingTests {
 
     private ViewModel viewModel;
+
+    public void setViewModel(final ViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
 
     @Before
     public void setUp() {
@@ -61,7 +66,7 @@ public class ViewModelLoggingTests {
         viewModel.onInputValueFocusLost();
         List<String> log = viewModel.getLog();
         final String expected = LogMessage.INCORRECT_INPUT.toString() + incorrectInput;
-        assertEquals(expected, log.get(0));
+        assertThat(log.get(0), containsString(expected));
     }
 
     @Test
@@ -71,7 +76,7 @@ public class ViewModelLoggingTests {
         viewModel.onInputValueFocusLost();
         List<String> log = viewModel.getLog();
         final String expected = LogMessage.INPUT_EDITED.toString() + correctInput;
-        assertEquals(expected, log.get(0));
+        assertThat(log.get(0), containsString(expected));
     }
 
 
@@ -82,7 +87,7 @@ public class ViewModelLoggingTests {
         viewModel.onInputValueFocusLost();
         List<String> log = viewModel.getLog();
         final String expected = LogMessage.NON_PHYSICAL_INPUT.toString() + correctInput;
-        assertEquals(expected, log.get(0));
+        assertThat(log.get(0), containsString(expected));
     }
 
     @Test
@@ -112,6 +117,6 @@ public class ViewModelLoggingTests {
         viewModel.setScale(TemperatureScaleName.NEWTON);
         List<String> log = viewModel.getLog();
         final String expected = LogMessage.SCALE_CHANGED.toString() + TemperatureScaleName.NEWTON.toString();
-        assertEquals(expected, log.get(0));
+        assertThat(log.get(0), containsString(expected));
     }
 }
