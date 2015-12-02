@@ -72,12 +72,10 @@ public final class QueueManager {
 
     public static void main(final String[] args) {
         JFrame frame = new JFrame("QueueManager");
-
         frame.setContentPane(new QueueManager(new LabQueueViewModel()).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-
     }
 
 }
