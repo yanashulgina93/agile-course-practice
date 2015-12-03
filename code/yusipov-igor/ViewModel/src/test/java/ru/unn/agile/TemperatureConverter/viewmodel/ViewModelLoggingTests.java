@@ -79,7 +79,6 @@ public class ViewModelLoggingTests {
         assertThat(log.get(0), containsString(expected));
     }
 
-
     @Test
     public void logContainsErrorMessageWhenNewInputIsNonPhysical() {
         final String correctInput = "-300.0";

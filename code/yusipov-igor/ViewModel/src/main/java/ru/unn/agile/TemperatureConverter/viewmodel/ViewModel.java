@@ -109,12 +109,25 @@ public class ViewModel {
     }
 
     public void convert() {
+
+        logger.log(createConvertLogMessage());
+
         if (parse()) {
             TemperatureConverter converter = new TemperatureConverter(scale);
             double temperature = converter.convert(Double.parseDouble(inputTemperature));
             resultTemperature = Double.toString(temperature);
             status = Status.SUCCESS;
         }
+    }
+
+    private String createConvertLogMessage() {
+        String message =
+                LogMessage.CONVERT_PRESSED.toString()
+                        + LogMessage.INPUT_VALUE.toString()
+                        + inputTemperature
+                        + LogMessage.TARGET_SCALE.toString()
+                        + scale.toString();
+        return message;
     }
 
     public List<String> getLog() {
