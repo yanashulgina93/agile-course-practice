@@ -1,7 +1,5 @@
 package ru.unn.agile.Minesweeper.viewmodel;
 
-import javax.swing.*;
-
 import ru.unn.agile.Minesweeper.Model.Model;
 
 public class ViewModel {
