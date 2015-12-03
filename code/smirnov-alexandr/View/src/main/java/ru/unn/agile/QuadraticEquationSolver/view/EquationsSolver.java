@@ -24,7 +24,6 @@ public class EquationsSolver {
         textFieldCoeffA.textProperty().bindBidirectional(viewModel.coeffAProperty());
         textFieldCoeffB.textProperty().bindBidirectional(viewModel.coeffBProperty());
         textFieldCoeffC.textProperty().bindBidirectional(viewModel.coeffCProperty());
-
         buttonSolveEquation.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
