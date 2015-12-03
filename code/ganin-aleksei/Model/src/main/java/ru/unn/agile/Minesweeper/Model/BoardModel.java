@@ -8,8 +8,6 @@ class BoardModel {
     private final int boardWidth;
     private final int boardHeight;
 
-    public static final int CELL_SIZE = 20;
-
     private int mineCounter;
     private int minesCount;
     private int openCellsCount;
