@@ -225,8 +225,12 @@ include "code/smirnov-michael/View"
 project(":code/smirnov-michael/View").name = "smirnov-michael-View"
 
 // Smirnov Vyacheslav
-include "code/smirnov-vyacheslav"
-project(":code/smirnov-vyacheslav").name = "smirnov-vyacheslav-lab1-Model"
+include "code/smirnov-vyacheslav/Model"
+project(":code/smirnov-vyacheslav/Model").name = "smirnov-vyacheslav-Model"
+include "code/smirnov-vyacheslav/View"
+project(":code/smirnov-vyacheslav/View").name = "smirnov-vyacheslav-View"
+include "code/smirnov-vyacheslav/ViewModel"
+project(":code/smirnov-vyacheslav/ViewModel").name = "smirnov-vyacheslav-ViewModel"
 // Sulin Dmitrij
 include "code/sulin-dmitriy"
 project(":code/sulin-dmitriy").name = "sulin-dmitriy-Model"
