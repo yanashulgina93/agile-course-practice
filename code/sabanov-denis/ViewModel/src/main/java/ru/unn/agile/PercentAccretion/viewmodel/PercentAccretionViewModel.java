@@ -1,6 +1,6 @@
 package ru.unn.agile.PercentAccretion.viewmodel;
 
-import ru.unn.agile.PercentAccretion.Model.Factory;
+import ru.unn.agile.PercentAccretion.Model.PercentAccretionFactory;
 import ru.unn.agile.PercentAccretion.Model.PercentAccretion;
 import ru.unn.agile.PercentAccretion.Model.PercentData;
 
@@ -8,7 +8,7 @@ public class PercentAccretionViewModel {
     public enum PercentAccretionErrors {
         FIELD_IS_EMPTY("Please fill fields!"),
         INCORRECT_VALUES("Please enter correct values!"),
-        NO_ERRORS("");
+        SUCCESS("");
 
         private String errorMessage;
 
@@ -24,7 +24,7 @@ public class PercentAccretionViewModel {
     private boolean initialSumIsCorrect;
     private boolean percentRateIsCorrect;
     private boolean countOfYearsIsCorrect;
-    private Factory.PercentAccretionOperations operation;
+    private PercentAccretionFactory.AccretionType operation;
     private final PercentData data;
     private String errorMessage;
     private String resultSum;
@@ -37,7 +37,7 @@ public class PercentAccretionViewModel {
     public boolean isCalculateButtonEnabled() {
         if (checkFieldsHaveRightValues()) {
             calculateButtonEnabled = true;
-            errorMessage = PercentAccretionErrors.NO_ERRORS.getMessage();
+            errorMessage = PercentAccretionErrors.SUCCESS.getMessage();
         } else {
             calculateButtonEnabled = false;
         }
@@ -49,13 +49,13 @@ public class PercentAccretionViewModel {
     }
 
     public void setPercentType(final String value) {
-        if (Factory.PercentAccretionOperations.
+        if (PercentAccretionFactory.AccretionType.
                 SIMPLE_PERCENT_SUM.toString().equals(value)) {
-            operation = Factory.PercentAccretionOperations.SIMPLE_PERCENT_SUM;
+            operation = PercentAccretionFactory.AccretionType.SIMPLE_PERCENT_SUM;
         }
-        if (Factory.PercentAccretionOperations.
+        if (PercentAccretionFactory.AccretionType.
                 COMPLEX_PERCENT_SUM.toString().equals(value)) {
-            operation = Factory.PercentAccretionOperations.COMPLEX_PERCENT_SUM;
+            operation = PercentAccretionFactory.AccretionType.COMPLEX_PERCENT_SUM;
         }
         resultSum = EMPTY_STRING;
     }
@@ -98,8 +98,8 @@ public class PercentAccretionViewModel {
     }
 
     public void calculateResultSum() {
-        Factory factory = new Factory();
-        PercentAccretion percentCounter = factory.getPercentAccretion(operation);
+        PercentAccretionFactory percentAccretionFactory = new PercentAccretionFactory();
+        PercentAccretion percentCounter = percentAccretionFactory.create(operation);
         resultSum = String.valueOf(percentCounter.calculate(data));
     }
 
@@ -109,7 +109,7 @@ public class PercentAccretionViewModel {
         initialSumIsCorrect = false;
         percentRateIsCorrect = false;
         countOfYearsIsCorrect = false;
-        operation = Factory.PercentAccretionOperations.COMPLEX_PERCENT_SUM;
+        operation = PercentAccretionFactory.AccretionType.COMPLEX_PERCENT_SUM;
         errorMessage = PercentAccretionErrors.FIELD_IS_EMPTY.getMessage();
     }
 
@@ -131,7 +131,7 @@ public class PercentAccretionViewModel {
 
     private void clearErrorMessage() {
         if (checkFieldsHaveRightValues()) {
-            errorMessage = PercentAccretionErrors.NO_ERRORS.getMessage();
+            errorMessage = PercentAccretionErrors.SUCCESS.getMessage();
         }
     }
 }

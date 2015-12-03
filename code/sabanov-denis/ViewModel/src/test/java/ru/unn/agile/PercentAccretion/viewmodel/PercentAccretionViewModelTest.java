@@ -1,7 +1,7 @@
 package ru.unn.agile.PercentAccretion.viewmodel;
 import org.junit.Before;
 import org.junit.Test;
-import ru.unn.agile.PercentAccretion.Model.Factory;
+import ru.unn.agile.PercentAccretion.Model.PercentAccretionFactory;
 
 import static org.junit.Assert.*;
 
@@ -20,7 +20,8 @@ public class PercentAccretionViewModelTest {
 
     @Test
     public void whenFieldsAreEmptyShowErrorMessage() {
-        assertEquals(PercentAccretionViewModel.PercentAccretionErrors.FIELD_IS_EMPTY.getMessage(),
+        assertEquals(PercentAccretionViewModel.
+                        PercentAccretionErrors.FIELD_IS_EMPTY.getMessage(),
                 viewModel.getErrorMessage());
     }
 
@@ -39,7 +40,8 @@ public class PercentAccretionViewModelTest {
         viewModel.setCountOfYears("1");
         viewModel.setInitialSum("1");
 
-        assertEquals(PercentAccretionViewModel.PercentAccretionErrors.NO_ERRORS.getMessage(),
+        assertEquals(PercentAccretionViewModel.
+                        PercentAccretionErrors.SUCCESS.getMessage(),
                 viewModel.getErrorMessage());
     }
 
@@ -49,7 +51,8 @@ public class PercentAccretionViewModelTest {
         viewModel.setPercentRate("1");
         viewModel.setCountOfYears("a");
 
-        assertEquals(PercentAccretionViewModel.PercentAccretionErrors.INCORRECT_VALUES.getMessage(),
+        assertEquals(PercentAccretionViewModel.
+                        PercentAccretionErrors.INCORRECT_VALUES.getMessage(),
                 viewModel.getErrorMessage());
     }
 
@@ -60,7 +63,8 @@ public class PercentAccretionViewModelTest {
         viewModel.setCountOfYears("a");
         viewModel.setCountOfYears("1");
 
-        assertEquals(PercentAccretionViewModel.PercentAccretionErrors.NO_ERRORS.getMessage(),
+        assertEquals(PercentAccretionViewModel.
+                        PercentAccretionErrors.SUCCESS.getMessage(),
                 viewModel.getErrorMessage());
     }
 
@@ -71,7 +75,8 @@ public class PercentAccretionViewModelTest {
         viewModel.setCountOfYears("1");
         viewModel.setCountOfYears("");
 
-        assertEquals(PercentAccretionViewModel.PercentAccretionErrors.FIELD_IS_EMPTY.getMessage(),
+        assertEquals(PercentAccretionViewModel.
+                        PercentAccretionErrors.FIELD_IS_EMPTY.getMessage(),
                 viewModel.getErrorMessage());
     }
 
@@ -82,7 +87,8 @@ public class PercentAccretionViewModelTest {
         viewModel.setInitialSum("1");
         viewModel.setPercentRate("100");
         viewModel.setCountOfYears("2");
-        viewModel.setPercentType(Factory.PercentAccretionOperations.SIMPLE_PERCENT_SUM.toString());
+        viewModel.setPercentType(PercentAccretionFactory.
+                AccretionType.SIMPLE_PERCENT_SUM.toString());
         viewModel.calculateResultSum();
 
         assertEquals(expectedValue, viewModel.getResultSum());
@@ -95,7 +101,8 @@ public class PercentAccretionViewModelTest {
         viewModel.setInitialSum("1");
         viewModel.setPercentRate("100");
         viewModel.setCountOfYears("2");
-        viewModel.setPercentType(Factory.PercentAccretionOperations.COMPLEX_PERCENT_SUM.toString());
+        viewModel.setPercentType(PercentAccretionFactory.
+                AccretionType.COMPLEX_PERCENT_SUM.toString());
         viewModel.calculateResultSum();
 
         assertEquals(expectedValue, viewModel.getResultSum());
@@ -108,7 +115,8 @@ public class PercentAccretionViewModelTest {
         viewModel.setInitialSum("1");
         viewModel.setPercentRate("100");
         viewModel.setCountOfYears("2");
-        viewModel.setPercentType(Factory.PercentAccretionOperations.SIMPLE_PERCENT_SUM.toString());
+        viewModel.setPercentType(PercentAccretionFactory.
+                AccretionType.SIMPLE_PERCENT_SUM.toString());
         viewModel.calculateResultSum();
         viewModel.setInitialSum("2");
 
@@ -122,9 +130,11 @@ public class PercentAccretionViewModelTest {
         viewModel.setInitialSum("1");
         viewModel.setPercentRate("100");
         viewModel.setCountOfYears("2");
-        viewModel.setPercentType(Factory.PercentAccretionOperations.SIMPLE_PERCENT_SUM.toString());
+        viewModel.setPercentType(PercentAccretionFactory.
+                AccretionType.SIMPLE_PERCENT_SUM.toString());
         viewModel.calculateResultSum();
-        viewModel.setPercentType(Factory.PercentAccretionOperations.COMPLEX_PERCENT_SUM.toString());
+        viewModel.setPercentType(PercentAccretionFactory.
+                AccretionType.COMPLEX_PERCENT_SUM.toString());
 
         assertEquals(expectedValue, viewModel.getResultSum());
     }

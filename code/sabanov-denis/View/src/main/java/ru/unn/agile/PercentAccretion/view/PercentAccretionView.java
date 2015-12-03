@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import ru.unn.agile.PercentAccretion.Model.Factory;
+import ru.unn.agile.PercentAccretion.Model.PercentAccretionFactory;
 import ru.unn.agile.PercentAccretion.viewmodel.PercentAccretionViewModel;
 
 import java.awt.event.ActionEvent;
@@ -48,9 +48,9 @@ public final class PercentAccretionView {
 
         radioButtonGroup.setSelected(simplePercentRadioButton.getModel(), true);
         simplePercentRadioButton.setActionCommand(
-                Factory.PercentAccretionOperations.SIMPLE_PERCENT_SUM.toString());
+                PercentAccretionFactory.AccretionType.SIMPLE_PERCENT_SUM.toString());
         complexPercentRadioButton.setActionCommand(
-                Factory.PercentAccretionOperations.COMPLEX_PERCENT_SUM.toString());
+                PercentAccretionFactory.AccretionType.COMPLEX_PERCENT_SUM.toString());
 
         ActionListener radioButtonListener = new ActionListener() {
             @Override
