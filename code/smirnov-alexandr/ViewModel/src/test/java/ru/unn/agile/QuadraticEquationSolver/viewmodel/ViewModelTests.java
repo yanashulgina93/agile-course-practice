@@ -20,23 +20,23 @@ public class ViewModelTests {
     }
 
     @Test
-    public void isStatusWaitByDefault() {
+    public void byDefaultStatusIsWait() {
         assertEquals(Status.WAIT.toString(), viewModel.statusProperty().get());
     }
 
     @Test
-    public void isButtonSolveEquationDisabledByDefault() {
+    public void byDefaultButtonSolveEquationIsDisabled() {
         assertTrue(viewModel.solvingEquationDisabledProperty().get());
     }
 
     @Test
-    public void whenEnteredAllCoefficientsStatusIsReady() {
+    public void whenEnteredProperlyAllCoefficientsStatusIsReady() {
         setCoefficients("1", "2", "3");
         assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
     }
 
     @Test
-    public void canChangeStatusToBadDataWhenEnteredNotNumber() {
+    public void whenEnteredNotNumberStatusIsBadData() {
         viewModel.coeffAProperty().set("blabla");
         assertEquals(Status.BAD_DATA.toString(), viewModel.statusProperty().get());
     }

@@ -13,27 +13,35 @@ public class ViewModel {
     public StringProperty coeffAProperty() {
         return a;
     }
+
     public StringProperty coeffBProperty() {
         return b;
     }
+
     public StringProperty coeffCProperty() {
         return c;
     }
+
     public BooleanProperty solvingEquationDisabledProperty() {
         return solvingEquationDisabled;
     }
+
     public StringProperty statusProperty() {
         return status;
     }
+
     public StringProperty resultProperty() {
         return result;
     }
+
     public final String getResult() {
         return result.get();
     }
+
     public final String getStatus() {
         return status.get();
     }
+
     public final boolean getSolvingEquationDisabled() {
         return solvingEquationDisabled.get();
     }
@@ -78,9 +86,6 @@ public class ViewModel {
     }
 
     public void solveQuadraticEquation() {
-        if (solvingEquationDisabled.get()) {
-            return;
-        }
         float coeffA = Float.parseFloat(a.get());
         float coeffB = Float.parseFloat(b.get());
         float coeffC = Float.parseFloat(c.get());
@@ -90,10 +95,10 @@ public class ViewModel {
         } else {
             status.set(Status.SOLVED.toString());
         }
-        result.set(createAnswer(roots));
+        result.set(createAnswerInStringFormat(roots));
     }
 
-    private String createAnswer(float [] roots) {
+    private String createAnswerInStringFormat(float [] roots) {
         String outAnswer = "empty";
         if (roots != null) {
             ArrayList<String> answer = new ArrayList<>();
@@ -155,6 +160,7 @@ enum Status {
     private Status(final String name) {
         this.name = name;
     }
+    @Override
     public String toString() {
         return name;
     }
