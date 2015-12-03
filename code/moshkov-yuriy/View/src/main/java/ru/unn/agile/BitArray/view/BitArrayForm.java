@@ -17,10 +17,15 @@ public final class BitArrayForm {
 
     private JPanel mainPanel;
     private JTextField sizeArrayTextField;
-    private JButton initArrayButton, doOperationButton;
-    private JTable firstBitArrayTable, secondBitArrayTable, resultBitArrayTable;
+    private JButton initArrayButton;
+    private JButton doOperationButton;
+    private JTable firstBitArrayTable;
+    private JTable secondBitArrayTable;
+    private JTable resultBitArrayTable;
     private JComboBox<ViewModel.Operation> operationCombobox;
-    private JScrollPane firstBitArrayScrollPane, secondBitArrayScrollPane, resultBitArrayScrollPane;
+    private JScrollPane firstBitArrayScrollPane;
+    private JScrollPane secondBitArrayScrollPane;
+    private JScrollPane resultBitArrayScrollPane;
     private JTextPane infoTextPane;
     private JLabel notificationLabel;
 
