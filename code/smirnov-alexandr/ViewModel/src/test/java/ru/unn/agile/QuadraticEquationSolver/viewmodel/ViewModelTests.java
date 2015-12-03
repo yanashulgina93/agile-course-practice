@@ -20,12 +20,13 @@ public class ViewModelTests {
     }
 
     @Test
-    public void areDefaultValuesCorrect() {
-        assertEquals("", viewModel.coeffAProperty().get());
-        assertEquals("", viewModel.coeffAProperty().get());
-        assertEquals("", viewModel.coeffAProperty().get());
-        assertEquals("", viewModel.resultProperty().get());
+    public void isStatusWaitByDefault() {
         assertEquals(Status.WAIT.toString(), viewModel.statusProperty().get());
+    }
+
+    @Test
+    public void isButtonSolveEquationDisabledByDefault() {
+        assertTrue(viewModel.solvingEquationDisabledProperty().get());
     }
 
     @Test
@@ -41,11 +42,6 @@ public class ViewModelTests {
     }
 
     @Test
-    public void buttonSolveEquationIsDisabledByDefault() {
-        assertTrue(viewModel.solvingEquationDisabledProperty().get());
-    }
-
-    @Test
     public void whenNotAllCoefficientsEnteredStatusIsWait() {
         viewModel.coeffAProperty().set("4");
         viewModel.coeffCProperty().set("2");
@@ -53,7 +49,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void whenEnteredBadDataButtonSolveEquationIsEnabled() {
+    public void whenEnteredCorrectDataButtonSolveEquationIsEnabled() {
         setCoefficients("1", "2", "3");
         assertFalse(viewModel.solvingEquationDisabledProperty().get());
     }
@@ -96,7 +92,7 @@ public class ViewModelTests {
     public void canGetCorrectSolutionOfQuadraticEquationWithOneRoot() {
         setCoefficients("1", "-4", "4");
         viewModel.solveQuadraticEquation();
-        assertEquals("4.0", viewModel.resultProperty().get());
+        assertEquals("2.0", viewModel.resultProperty().get());
     }
 
     @Test

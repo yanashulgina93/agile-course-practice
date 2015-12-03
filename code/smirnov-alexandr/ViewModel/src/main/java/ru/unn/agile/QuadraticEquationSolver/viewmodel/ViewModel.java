@@ -10,48 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
-    private final StringProperty a = new SimpleStringProperty();
-    private final StringProperty b = new SimpleStringProperty();
-    private final StringProperty c = new SimpleStringProperty();
-    private final BooleanProperty solvingEquationDisabled = new SimpleBooleanProperty();
-
-    private final StringProperty result = new SimpleStringProperty();
-    private final StringProperty status = new SimpleStringProperty();
-
-    private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
-
-    public ViewModel() {
-        a.set("");
-        b.set("");
-        c.set("");
-        result.set("");
-        status.set(Status.WAIT.toString());
-
-        BooleanBinding couldSolveEquation = new BooleanBinding() {
-            {
-                super.bind(a, b, c);
-            }
-            @Override
-            protected boolean computeValue() {
-                return getInputStatus() == Status.READY;
-            }
-        };
-        solvingEquationDisabled.bind(couldSolveEquation.not());
-
-        // Add listeners to the input text fields
-        final List<StringProperty> fields = new ArrayList<StringProperty>() { {
-            add(a);
-            add(b);
-            add(c);
-        } };
-
-        for (StringProperty field : fields) {
-            final ValueChangeListener listener = new ValueChangeListener();
-            field.addListener(listener);
-            valueChangedListeners.add(listener);
-        }
-    }
-
     public StringProperty coeffAProperty() {
         return a;
     }
@@ -73,13 +31,50 @@ public class ViewModel {
     public final String getResult() {
         return result.get();
     }
-
     public final String getStatus() {
         return status.get();
     }
-
-    public final boolean getSolvingDisabled() {
+    public final boolean getSolvingEquationDisabled() {
         return solvingEquationDisabled.get();
+    }
+
+    private final StringProperty a = new SimpleStringProperty();
+    private final StringProperty b = new SimpleStringProperty();
+    private final StringProperty c = new SimpleStringProperty();
+    private final BooleanProperty solvingEquationDisabled = new SimpleBooleanProperty();
+    private final StringProperty result = new SimpleStringProperty();
+    private final StringProperty status = new SimpleStringProperty();
+    private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
+
+    public ViewModel() {
+        a.set("");
+        b.set("");
+        c.set("");
+        result.set("");
+        status.set(Status.WAIT.toString());
+
+        BooleanBinding canSolveEquation = new BooleanBinding() {
+            {
+                super.bind(a, b, c);
+            }
+            @Override
+            protected boolean computeValue() {
+                return getInputStatus() == Status.READY;
+            }
+        };
+        solvingEquationDisabled.bind(canSolveEquation.not());
+
+        final List<StringProperty> fields = new ArrayList<StringProperty>() { {
+            add(a);
+            add(b);
+            add(c);
+        } };
+
+        for (StringProperty field : fields) {
+            final ValueChangeListener listener = new ValueChangeListener();
+            field.addListener(listener);
+            valueChangedListeners.add(listener);
+        }
     }
 
     public void solveQuadraticEquation() {
@@ -92,8 +87,7 @@ public class ViewModel {
         float [] roots = trySolveQuadraticEquation(coeffA, coeffB, coeffC);
         if (roots == null) {
             status.set(Status.NO_ROOTS.toString());
-        }
-        else {
+        } else {
             status.set(Status.SOLVED.toString());
         }
         result.set(createAnswer(roots));
