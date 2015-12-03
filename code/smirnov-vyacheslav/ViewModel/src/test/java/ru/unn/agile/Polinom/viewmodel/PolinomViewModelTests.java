@@ -15,7 +15,6 @@ import java.util.List;
 @RunWith(Enclosed.class)
 public class PolinomViewModelTests {
     public static class ArithmeticOperationsTest {
-
         @Before
         public void setUp() {
             PolinomViewModelTests.viewModel = new PolinomViewModel();
@@ -97,16 +96,16 @@ public class PolinomViewModelTests {
     }
 
     @RunWith(Parameterized.class)
-    public static class IncorrectInputTest {
-        public IncorrectInputTest(final String firstOperand, final String secondOperand,
-            final String output) {
+    public static class CorrectAndIncorrectInputTest {
+        public CorrectAndIncorrectInputTest(final String firstOperand, final String secondOperand,
+            final String expectedResult) {
             this.firstOperand = firstOperand;
             this.secondOperand = secondOperand;
-            this.output = output;
+            this.expectedResult = expectedResult;
         }
 
         @Parameterized.Parameters
-        public static List<Object[]> inputAndExpectedOutput() {
+        public static List<Object[]> inputAndExpectedResult() {
             return Arrays.asList(new Object[][] {
                 {"", "NoPolinom", "Set Polinoms"},
                 {"NoPolinom", "", "Set Polinoms"},
@@ -118,7 +117,11 @@ public class PolinomViewModelTests {
                 {"1 x^1", "2", "Incorrect Input"},
                 {"1y^1", "2", "Incorrect Input"},
                 {"1x^1 * 2", "2", "Incorrect Input"},
-                {"1x^2.0", "2", "Incorrect Input"}
+                {"1x^2.0", "2", "Incorrect Input"},
+                {"1", "2", "3.0"},
+                {"1 + 2x^1", "2", "2.0x^1+3.0"},
+                {"1 - 3x^1 -4x^2", "2x^1 +10", "-4.0x^2-1.0x^1+11.0"},
+                {"1", "-1", "0.0"}
             });
         }
 
@@ -135,15 +138,15 @@ public class PolinomViewModelTests {
         }
 
         @Test
-        public void canRecognizeIncorrectInput() {
-            PolinomViewModelTests.viewModel.operation("DIVIDE");
+        public void canRecognizeCorrectInput() {
+            PolinomViewModelTests.viewModel.operation("ADD");
 
-            assertEquals(output, PolinomViewModelTests.viewModel.resultProperty().get());
+            assertEquals(expectedResult, PolinomViewModelTests.viewModel.resultProperty().get());
         }
 
         private String firstOperand;
         private String secondOperand;
-        private String output;
+        private String expectedResult;
     }
 
     private static PolinomViewModel viewModel;

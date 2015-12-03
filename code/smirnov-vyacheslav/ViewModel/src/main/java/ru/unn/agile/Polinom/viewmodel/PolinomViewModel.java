@@ -53,16 +53,16 @@ public class PolinomViewModel {
     }
 
     private Polinom convertIntoPolinom(final String input) {
-        Pattern reExpression = Pattern.compile("((^| *[+-] *)\\d+(\\.\\d+)?(x\\^\\d+)?)+");
-        Matcher matcher = reExpression.matcher(input);
+        Pattern checkInput = Pattern.compile("((^| *[+-] *)\\d+(\\.\\d+)?(x\\^\\d+)?)+");
+        Matcher matcher = checkInput.matcher(input);
 
         if (!matcher.matches()) {
             return null;
         }
 
         Polinom operand = new Polinom();
-        reExpression = Pattern.compile("([+-] *)?\\d+(\\.\\d+)?(x\\^\\d+)?");
-        matcher = reExpression.matcher(input);
+        Pattern findMonom = Pattern.compile("([+-] *)?\\d+(\\.\\d+)?(x\\^\\d+)?");
+        matcher = findMonom.matcher(input);
         while (matcher.find()) {
             int monomDegree = 0;
             String[] monom = matcher.group().split("x\\^");
