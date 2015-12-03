@@ -29,6 +29,11 @@ public class ViewModelTests {
     }
 
     @Test
+    public void isEmptyNotificationByDefault() {
+        assertEquals(viewModel.getNotification(), ViewModel.Notification.EMPTY_STRING);
+    }
+
+    @Test
     public void isInitArrayNotEnabledWhenInputEmptyString() {
         viewModel.setArraySize("");
         assertFalse(viewModel.isInitializeArrayButtonEnabled());
@@ -38,6 +43,18 @@ public class ViewModelTests {
     public void isInitArrayNotEnabledWhenInputInvalidNumber() {
         viewModel.setArraySize("aaaa");
         assertFalse(viewModel.isInitializeArrayButtonEnabled());
+    }
+
+    @Test
+    public void isInvalidNumberNotificationWhenInputInvalidNumber() {
+        viewModel.setArraySize("aaaa");
+        assertEquals(viewModel.getNotification(), ViewModel.Notification.INVALID_NUMBER);
+    }
+
+    @Test
+    public void isEmptyNotificationWhenInputValidNumber() {
+        viewModel.setArraySize("11");
+        assertEquals(viewModel.getNotification(), ViewModel.Notification.EMPTY_STRING);
     }
 
     @Test

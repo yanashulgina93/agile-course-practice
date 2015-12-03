@@ -22,6 +22,7 @@ public final class BitArrayForm {
     private JComboBox<ViewModel.Operation> operationCombobox;
     private JScrollPane firstBitArrayScrollPane, secondBitArrayScrollPane, resultBitArrayScrollPane;
     private JTextPane infoTextPane;
+    private JLabel notificationLabel;
 
     private BitArrayForm(final ViewModel viewModel) {
         this.viewModel = viewModel;
@@ -106,6 +107,7 @@ public final class BitArrayForm {
     private void backBind() {
         doOperationButton.setEnabled(viewModel.isDoOperationEnabled());
         initArrayButton.setEnabled(viewModel.isInitializeArrayButtonEnabled());
+        notificationLabel.setText(viewModel.getNotification());
 
         firstBitArrayTable = createTableFromBitArray(viewModel.getFirstBitArray());
         firstBitArrayTable.addMouseListener(new BitArrayMouseAdapter());

@@ -12,6 +12,7 @@ public class ViewModel {
     private String inputSizeArray;
     private boolean isInitializeArrayButtonEnabled;
     private Operation operation;
+    private String notification;
 
     public ViewModel() {
         isDoOperationButtonEnabled = false;
@@ -20,6 +21,7 @@ public class ViewModel {
         resultBitArray = new BitArray(0);
         operation = Operation.OR;
         operation.setViewModel(this);
+        notification = Notification.EMPTY_STRING;
     }
 
 
@@ -33,8 +35,10 @@ public class ViewModel {
         try {
             size = Integer.parseInt(inputSizeArray);
             isInitializeArrayButtonEnabled = size > 0;
+            notification = Notification.EMPTY_STRING;
         } catch (NumberFormatException exception) {
             isInitializeArrayButtonEnabled = false;
+            notification = Notification.INVALID_NUMBER;
         }
     }
 
@@ -88,6 +92,10 @@ public class ViewModel {
         this.secondBitArray = secondBitArray;
     }
 
+    public String getNotification() {
+        return notification;
+    }
+
     public enum Operation {
         OR("OR") {
             @Override
@@ -133,5 +141,12 @@ public class ViewModel {
         }
 
         public abstract void doOperation();
+    }
+
+    public final class Notification {
+        public static final String INVALID_NUMBER = "Please input number > 0";
+        public static final String EMPTY_STRING = "";
+
+        private Notification() { }
     }
 }
