@@ -102,7 +102,7 @@ public class ViewModelTests {
         assertEquals("empty", viewModel.resultProperty().get());
     }
 
-    private void setCoefficients(String a, String b, String c) {
+    private void setCoefficients(final String a, final String b, final String c) {
         viewModel.coeffAProperty().set(a);
         viewModel.coeffBProperty().set(b);
         viewModel.coeffCProperty().set(c);

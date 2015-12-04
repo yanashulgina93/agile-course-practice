@@ -10,6 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
+    private final StringProperty a = new SimpleStringProperty();
+    private final StringProperty b = new SimpleStringProperty();
+    private final StringProperty c = new SimpleStringProperty();
+    private final BooleanProperty solvingEquationDisabled = new SimpleBooleanProperty();
+    private final StringProperty result = new SimpleStringProperty();
+    private final StringProperty status = new SimpleStringProperty();
+    private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
+
     public StringProperty coeffAProperty() {
         return a;
     }
@@ -45,14 +53,6 @@ public class ViewModel {
     public final boolean getSolvingEquationDisabled() {
         return solvingEquationDisabled.get();
     }
-
-    private final StringProperty a = new SimpleStringProperty();
-    private final StringProperty b = new SimpleStringProperty();
-    private final StringProperty c = new SimpleStringProperty();
-    private final BooleanProperty solvingEquationDisabled = new SimpleBooleanProperty();
-    private final StringProperty result = new SimpleStringProperty();
-    private final StringProperty status = new SimpleStringProperty();
-    private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
 
     public ViewModel() {
         a.set("");
@@ -98,7 +98,7 @@ public class ViewModel {
         result.set(createAnswerInStringFormat(roots));
     }
 
-    private String createAnswerInStringFormat(float [] roots) {
+    private String createAnswerInStringFormat(final float [] roots) {
         String outAnswer = "empty";
         if (roots != null) {
             ArrayList<String> answer = new ArrayList<>();
