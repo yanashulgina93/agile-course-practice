@@ -16,7 +16,7 @@ public class ViewModel {
     private final BooleanProperty solvingEquationDisabled = new SimpleBooleanProperty();
     private final StringProperty result = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
-    private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
+    private final List<ValueChangeObserver> valueChangedObservers = new ArrayList<>();
 
     public StringProperty coeffAProperty() {
         return a;
@@ -79,9 +79,9 @@ public class ViewModel {
         } };
 
         for (StringProperty field : fields) {
-            final ValueChangeListener listener = new ValueChangeListener();
+            final ValueChangeObserver listener = new ValueChangeObserver();
             field.addListener(listener);
-            valueChangedListeners.add(listener);
+            valueChangedObservers.add(listener);
         }
     }
 
@@ -119,9 +119,9 @@ public class ViewModel {
     }
 
     private Status getInputStatus() {
-        Status inputStatus = Status.READY;
+        Status status = Status.READY;
         if (a.get().isEmpty() || b.get().isEmpty() || c.get().isEmpty()) {
-            inputStatus = Status.WAIT;
+            status = Status.WAIT;
         }
         try {
             if (!a.get().isEmpty()) {
@@ -134,13 +134,13 @@ public class ViewModel {
                 Float.parseFloat(c.get());
             }
         } catch (NumberFormatException nfe) {
-            inputStatus = Status.BAD_DATA;
+            status = Status.BAD_DATA;
         }
 
-        return inputStatus;
+        return status;
     }
 
-    private class ValueChangeListener implements ChangeListener<String> {
+    private class ValueChangeObserver implements ChangeListener<String> {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
