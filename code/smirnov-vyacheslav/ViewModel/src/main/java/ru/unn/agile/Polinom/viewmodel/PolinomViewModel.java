@@ -4,9 +4,36 @@ import javafx.beans.property.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import ru.unn.agile.Polinom.Model.Polinom;
-import ru.unn.agile.Polinom.Model.Polinom.Operation;
 
 public class PolinomViewModel {
+    public enum Operation {
+        ADD {
+            public Polinom apply(final Polinom first, final Polinom second) {
+                first.add(second);
+                return first;
+            }
+        },
+        SUBSTRACT {
+            public Polinom apply(final Polinom first, final Polinom second) {
+                first.subtract(second);
+                return first;
+            }
+        },
+        MULTIPLY {
+            public Polinom apply(final Polinom first, final Polinom second) {
+                first.multiply(second);
+                return first;
+            }
+        },
+        DIVIDE {
+            public Polinom apply(final Polinom first, final Polinom second) {
+                first.divide(second);
+                return first;
+            }
+        };
+        public abstract Polinom apply(final Polinom first, final Polinom second);
+    }
+
     private final StringProperty firstOperand = new SimpleStringProperty();
     private final StringProperty secondOperand = new SimpleStringProperty();
     private final StringProperty result = new SimpleStringProperty();
@@ -17,7 +44,7 @@ public class PolinomViewModel {
         result.set("");
     }
 
-    public void operation(final String operation) {
+    public void operation(final Operation operation) {
         if (firstOperand.get().isEmpty() || secondOperand.get().isEmpty()) {
             result.set(Errors.EMPTY_FIELD.getMessage());
             return;
@@ -32,7 +59,7 @@ public class PolinomViewModel {
         }
 
         try {
-            setResult(Operation.valueOf(operation).apply(first, second));
+            setResult(operation.apply(first, second));
         } catch (IllegalArgumentException iae) {
             result.set(iae.getMessage());
         }
@@ -53,19 +80,18 @@ public class PolinomViewModel {
     }
 
     private Polinom convertIntoPolinom(final String input) {
-        Pattern checkInput = Pattern.compile("((^| *[+-] *)\\d+(\\.\\d+)?(x\\^\\d+)?)+");
-        Matcher matcher = checkInput.matcher(input);
+        Matcher matchedPolinomString = Pattern.compile("((^| *[+-] *)\\d+(\\.\\d+)?(x\\^\\d+)?)+").
+        matcher(input);
 
-        if (!matcher.matches()) {
+        if (!matchedPolinomString.matches()) {
             return null;
         }
 
         Polinom operand = new Polinom();
-        Pattern findMonom = Pattern.compile("([+-] *)?\\d+(\\.\\d+)?(x\\^\\d+)?");
-        matcher = findMonom.matcher(input);
-        while (matcher.find()) {
+        matchedPolinomString = Pattern.compile("([+-] *)?\\d+(\\.\\d+)?(x\\^\\d+)?").matcher(input);
+        while (matchedPolinomString.find()) {
             int monomDegree = 0;
-            String[] monom = matcher.group().split("x\\^");
+            String[] monom = matchedPolinomString.group().split("x\\^");
             if (monom.length > 1) {
                 monomDegree = Integer.parseInt(monom[1]);
             }

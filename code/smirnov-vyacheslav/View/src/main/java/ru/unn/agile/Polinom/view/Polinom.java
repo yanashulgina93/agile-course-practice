@@ -24,7 +24,6 @@ public class Polinom {
     private Button multiply;
     @FXML
     private Button divide;
-
     @FXML
     void initialize() {
 
@@ -34,28 +33,28 @@ public class Polinom {
         add.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
-                viewModel.operation("ADD");
+                viewModel.operation(PolinomViewModel.Operation.ADD);
             }
         });
 
         substract.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
-                viewModel.operation("SUBSTRACT");
+                viewModel.operation(PolinomViewModel.Operation.SUBSTRACT);
             }
         });
 
         multiply.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
-                viewModel.operation("MULTIPLY");
+                viewModel.operation(PolinomViewModel.Operation.MULTIPLY);
             }
         });
 
         divide.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
-                viewModel.operation("DIVIDE");
+                viewModel.operation(PolinomViewModel.Operation.DIVIDE);
             }
         });
     }

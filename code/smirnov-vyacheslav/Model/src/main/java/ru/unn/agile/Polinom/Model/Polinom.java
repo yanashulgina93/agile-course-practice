@@ -137,32 +137,4 @@ public class Polinom {
         }
         coefficients = reducedCoefficient;
     }
-
-    public enum Operation {
-        ADD {
-            public Polinom apply(final Polinom first, final Polinom second) {
-                first.add(second);
-                return first;
-            }
-        },
-        SUBSTRACT {
-            public Polinom apply(final Polinom first, final Polinom second) {
-                first.subtract(second);
-                return first;
-            }
-        },
-        MULTIPLY {
-            public Polinom apply(final Polinom first, final Polinom second) {
-                first.multiply(second);
-                return first;
-            }
-        },
-        DIVIDE {
-            public Polinom apply(final Polinom first, final Polinom second) {
-                first.divide(second);
-                return first;
-            }
-        };
-        public abstract Polinom apply(final Polinom first, final Polinom second);
-    }
 }
