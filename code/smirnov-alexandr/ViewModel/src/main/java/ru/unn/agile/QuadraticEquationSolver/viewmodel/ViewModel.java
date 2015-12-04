@@ -105,7 +105,7 @@ public class ViewModel {
             for (float root : roots) {
                 answer.add(String.valueOf(root));
             }
-            outAnswer = String.join(";", answer);
+            outAnswer = String.join("; ", answer);
         }
         return outAnswer;
     }

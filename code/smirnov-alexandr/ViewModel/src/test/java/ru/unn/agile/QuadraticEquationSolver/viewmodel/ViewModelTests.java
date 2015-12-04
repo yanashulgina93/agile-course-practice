@@ -85,7 +85,7 @@ public class ViewModelTests {
     public void canGetCorrectSolutionOfQuadraticEquationWithTwoRoots() {
         setCoefficients("1", "-7", "6");
         viewModel.solveQuadraticEquation();
-        assertEquals("1.0;6.0", viewModel.resultProperty().get());
+        assertEquals("1.0; 6.0", viewModel.resultProperty().get());
     }
 
     @Test
