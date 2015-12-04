@@ -99,13 +99,13 @@ public class ViewModel {
     }
 
     private String createAnswerInStringFormat(final float [] roots) {
-        String outAnswer = "empty";
+        String outAnswer = "";
         if (roots != null) {
             ArrayList<String> answer = new ArrayList<>();
             for (float root : roots) {
                 answer.add(String.valueOf(root));
             }
-            outAnswer = String.join(" ", answer);
+            outAnswer = String.join(";", answer);
         }
         return outAnswer;
     }

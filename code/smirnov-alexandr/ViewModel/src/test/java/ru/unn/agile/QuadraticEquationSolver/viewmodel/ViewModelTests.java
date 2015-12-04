@@ -85,7 +85,7 @@ public class ViewModelTests {
     public void canGetCorrectSolutionOfQuadraticEquationWithTwoRoots() {
         setCoefficients("1", "-7", "6");
         viewModel.solveQuadraticEquation();
-        assertEquals("1.0 6.0", viewModel.resultProperty().get());
+        assertEquals("1.0;6.0", viewModel.resultProperty().get());
     }
 
     @Test
@@ -99,7 +99,7 @@ public class ViewModelTests {
     public void whenDiscriminantOfQuadraticEquationLessThenZeroResultIsEmpty() {
         setCoefficients("1", "3", "5");
         viewModel.solveQuadraticEquation();
-        assertEquals("empty", viewModel.resultProperty().get());
+        assertEquals("", viewModel.resultProperty().get());
     }
 
     private void setCoefficients(final String a, final String b, final String c) {
