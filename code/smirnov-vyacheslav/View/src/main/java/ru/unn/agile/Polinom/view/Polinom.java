@@ -26,7 +26,6 @@ public class Polinom {
     private Button divide;
     @FXML
     void initialize() {
-
         firstPolinom.textProperty().bindBidirectional(viewModel.firstOperandProperty());
         secondPolinom.textProperty().bindBidirectional(viewModel.secondOperandProperty());
 

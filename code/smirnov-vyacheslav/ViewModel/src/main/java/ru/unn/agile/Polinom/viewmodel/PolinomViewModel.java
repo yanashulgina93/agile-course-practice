@@ -61,7 +61,12 @@ public class PolinomViewModel {
         try {
             setResult(operation.apply(first, second));
         } catch (IllegalArgumentException iae) {
-            result.set(iae.getMessage());
+            Errors error = getErrorByStringValue(iae.getMessage());
+            if (error == null) {
+                result.set(Errors.UNKNOWN_EXEPTION.getMessage());
+            } else {
+                result.set(error.getMessage());
+            }
         }
     }
 
@@ -80,18 +85,19 @@ public class PolinomViewModel {
     }
 
     private Polinom convertIntoPolinom(final String input) {
-        Matcher matchedPolinomString = Pattern.compile("((^| *[+-] *)\\d+(\\.\\d+)?(x\\^\\d+)?)+").
-        matcher(input);
+        Matcher matchedPolinomString = Pattern.
+        compile("((^| *[+-] *)\\d+(\\.\\d+)?(x\\^\\d+)?)+ *").matcher(input);
 
         if (!matchedPolinomString.matches()) {
             return null;
         }
 
         Polinom operand = new Polinom();
-        matchedPolinomString = Pattern.compile("([+-] *)?\\d+(\\.\\d+)?(x\\^\\d+)?").matcher(input);
-        while (matchedPolinomString.find()) {
+        Matcher matchedMonomString = Pattern.
+        compile("([+-] *)?\\d+(\\.\\d+)?(x\\^\\d+)?").matcher(input);
+        while (matchedMonomString.find()) {
             int monomDegree = 0;
-            String[] monom = matchedPolinomString.group().split("x\\^");
+            String[] monom = matchedMonomString.group().split("x\\^");
             if (monom.length > 1) {
                 monomDegree = Integer.parseInt(monom[1]);
             }
@@ -113,9 +119,21 @@ public class PolinomViewModel {
             replaceAll("\\+0\\.0x\\^\\d+", "").replace("x^0", ""));
     }
 
+    private Errors getErrorByStringValue(final String errorMessage) {
+        for (Errors error : Errors.values()) {
+            if (error.getMessage() == errorMessage) {
+                return error;
+            }
+        }
+        return null;
+    }
+
     private enum Errors {
         BAD_FORMAT("Incorrect Input"),
-        EMPTY_FIELD("Set Polinoms");
+        EMPTY_FIELD("Set Polinoms"),
+        DIVIDE_BY_ZERO("Divider can't be zero!"),
+        DIVIDE_BY_LARGE_DEGREE("Divider's degree can't be large than dividend's!"),
+        UNKNOWN_EXEPTION("Unknown exeption");
 
         private String message;
 

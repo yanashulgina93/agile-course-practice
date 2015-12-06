@@ -96,8 +96,8 @@ public class PolinomViewModelTests {
     }
 
     @RunWith(Parameterized.class)
-    public static class CorrectInputTest {
-        public CorrectInputTest(final String firstOperand, final String secondOperand,
+    public static class CalculateUsingCorrectInputTest {
+        public CalculateUsingCorrectInputTest(final String firstOperand, final String secondOperand,
                                             final String expectedResult) {
             PolinomViewModelTests.firstOperand = firstOperand;
             PolinomViewModelTests.secondOperand = secondOperand;
@@ -112,7 +112,8 @@ public class PolinomViewModelTests {
                     {"1 - 3x^1 -4x^2", "2x^1 +10", "-4.0x^2-1.0x^1+11.0"},
                     {"1", "-1", "0.0"},
                     {"2x^1 + 4.25", "2x^1 - 1x^2 - 4.25", "-1.0x^2+4.0x^1"},
-                    {"2x^2 + 2x^2 + 1", "-1", "4.0x^2"}
+                    {"2x^2 + 2x^2 + 1", "-1", "4.0x^2"},
+                    {"  -1   +2x^1+1x^1  ", "1", "3.0x^1"}
             });
         }
 
@@ -131,7 +132,7 @@ public class PolinomViewModelTests {
         }
 
         @Test
-        public void canRecognizeCorrectInput() {
+        public void canCorrectCalculateUsingVariousFormatOfInput() {
             PolinomViewModelTests.viewModel.operation(PolinomViewModel.Operation.ADD);
 
             assertEquals(PolinomViewModelTests.expectedResult,
