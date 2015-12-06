@@ -80,7 +80,7 @@ public class PolinomViewModelTests {
             PolinomViewModelTests.viewModel.operation(PolinomViewModel.Operation.DIVIDE);
 
             assertEquals(PolinomViewModel.Errors.DIVIDE_BY_ZERO.getMessage(),
-            	PolinomViewModelTests.viewModel.resultProperty().get());
+                PolinomViewModelTests.viewModel.resultProperty().get());
         }
 
         @Test
