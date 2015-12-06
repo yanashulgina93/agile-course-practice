@@ -79,8 +79,8 @@ public class PolinomViewModelTests {
 
             PolinomViewModelTests.viewModel.operation(PolinomViewModel.Operation.DIVIDE);
 
-            assertEquals("Divider can't be zero!", PolinomViewModelTests.viewModel.
-                resultProperty().get());
+            assertEquals(PolinomViewModel.Errors.DIVIDE_BY_ZERO.getMessage(),
+            	PolinomViewModelTests.viewModel.resultProperty().get());
         }
 
         @Test
@@ -90,7 +90,7 @@ public class PolinomViewModelTests {
 
             PolinomViewModelTests.viewModel.operation(PolinomViewModel.Operation.DIVIDE);
 
-            assertEquals("Divider's degree can't be large than dividend's!",
+            assertEquals(PolinomViewModel.Errors.DIVIDE_BY_LARGE_DEGREE.getMessage(),
                     PolinomViewModelTests.viewModel.resultProperty().get());
         }
     }
@@ -152,17 +152,17 @@ public class PolinomViewModelTests {
         @Parameterized.Parameters
         public static List<Object[]> incorrectInputAndExpectedErrorMessage() {
             return Arrays.asList(new Object[][] {
-                {"", "NoPolinom", "Set Polinoms"},
-                {"NoPolinom", "", "Set Polinoms"},
-                {"", "", "Set Polinoms"},
-                {"NoPolinom", "NoPolinom", "Incorrect Input"},
-                {"1", "NoPolinom", "Incorrect Input"},
-                {"NoPolinom", "1", "Incorrect Input"},
-                {"1x^ 1", "2", "Incorrect Input"},
-                {"1 x^1", "2", "Incorrect Input"},
-                {"1y^1", "2", "Incorrect Input"},
-                {"1x^1 * 2", "2", "Incorrect Input"},
-                {"1x^2.0", "2", "Incorrect Input"}
+                {"", "NoPolinom", PolinomViewModel.Errors.EMPTY_FIELD.getMessage()},
+                {"NoPolinom", "", PolinomViewModel.Errors.EMPTY_FIELD.getMessage()},
+                {"", "", PolinomViewModel.Errors.EMPTY_FIELD.getMessage()},
+                {"NoPolinom", "NoPolinom", PolinomViewModel.Errors.BAD_FORMAT.getMessage()},
+                {"1", "NoPolinom", PolinomViewModel.Errors.BAD_FORMAT.getMessage()},
+                {"NoPolinom", "1", PolinomViewModel.Errors.BAD_FORMAT.getMessage()},
+                {"1x^ 1", "2", PolinomViewModel.Errors.BAD_FORMAT.getMessage()},
+                {"1 x^1", "2", PolinomViewModel.Errors.BAD_FORMAT.getMessage()},
+                {"1y^1", "2", PolinomViewModel.Errors.BAD_FORMAT.getMessage()},
+                {"1x^1 * 2", "2", PolinomViewModel.Errors.BAD_FORMAT.getMessage()},
+                {"1x^2.0", "2", PolinomViewModel.Errors.BAD_FORMAT.getMessage()}
             });
         }
 

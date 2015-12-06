@@ -34,6 +34,24 @@ public class PolinomViewModel {
         public abstract Polinom apply(final Polinom first, final Polinom second);
     }
 
+    public enum Errors {
+        BAD_FORMAT("Incorrect Input"),
+        EMPTY_FIELD("Set Polinoms"),
+        DIVIDE_BY_ZERO("Divider can't be zero!"),
+        DIVIDE_BY_LARGE_DEGREE("Divider's degree can't be large than dividend's!"),
+        UNKNOWN_EXCEPTION("Unknown exception");
+
+        private String message;
+
+        Errors(final String message) {
+            this.message = message;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+    }
+
     private final StringProperty firstOperand = new SimpleStringProperty();
     private final StringProperty secondOperand = new SimpleStringProperty();
     private final StringProperty result = new SimpleStringProperty();
@@ -63,7 +81,7 @@ public class PolinomViewModel {
         } catch (IllegalArgumentException iae) {
             Errors error = getErrorByStringValue(iae.getMessage());
             if (error == null) {
-                result.set(Errors.UNKNOWN_EXEPTION.getMessage());
+                result.set(Errors.UNKNOWN_EXCEPTION.getMessage());
             } else {
                 result.set(error.getMessage());
             }
@@ -126,23 +144,5 @@ public class PolinomViewModel {
             }
         }
         return null;
-    }
-
-    private enum Errors {
-        BAD_FORMAT("Incorrect Input"),
-        EMPTY_FIELD("Set Polinoms"),
-        DIVIDE_BY_ZERO("Divider can't be zero!"),
-        DIVIDE_BY_LARGE_DEGREE("Divider's degree can't be large than dividend's!"),
-        UNKNOWN_EXEPTION("Unknown exeption");
-
-        private String message;
-
-        Errors(final String message) {
-            this.message = message;
-        }
-
-        public String getMessage() {
-            return message;
-        }
     }
 }
