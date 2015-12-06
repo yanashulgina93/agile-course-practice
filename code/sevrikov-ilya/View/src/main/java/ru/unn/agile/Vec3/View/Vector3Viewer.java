@@ -1,6 +1,8 @@
 package ru.unn.agile.Vec3.View;
 
 import ru.unn.agile.Vec3.ViewModel.Vector3ViewModel;
+import ru.unn.agile.Vec3.ViewModel.FakeLogger;
+import ru.unn.agile.Vec3.ViewModel.Vector3Operation;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -22,7 +24,7 @@ public final class Vector3Viewer {
     private JLabel lblCoordZ1;
     private JTextField txtResult;
     private JLabel lblResult;
-    private JComboBox<ActionList> cmbActionList;
+    private JComboBox<Vector3Operation> cmbActionList;
     private JButton btnCalculate;
     private JTextField txtStatus;
     private JLabel lblStatus;
@@ -43,8 +45,9 @@ public final class Vector3Viewer {
 
     public static void main(final String[] args) {
         JFrame frame = new JFrame("Vector3dViewer");
+        Vector3ViewModel viewModel = new Vector3ViewModel(new FakeLogger());
 
-        frame.setContentPane(new Vector3Viewer(new Vector3ViewModel()).mainPanel);
+        frame.setContentPane(new Vector3Viewer(viewModel).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -56,27 +59,7 @@ public final class Vector3Viewer {
             public void actionPerformed(final ActionEvent e) {
                 backBind();
 
-                switch ((ActionList) cmbActionList.getSelectedItem()) {
-                    case GET_NORM_FIRST_VECTOR:     viewModel.getNormOfFirstVector();
-                                                    break;
-
-                    case GET_NORM_SECOND_VECTOR:    viewModel.getNormOfSecondVector();
-                                                    break;
-
-                    case NORMAlIZE_FIRST_VECTOR:    viewModel.normalizeFirstVector();
-                                                    break;
-
-                    case NORMALIZE_SECOND_VECTOR:   viewModel.normalizeSecondVector();
-                                                    break;
-
-                    case CALCULATE_DOT_PRODUCT:     viewModel.getDotProduct();
-                                                    break;
-
-                    case CALCULATE_CROSS_PRODUCT:   viewModel.getCrossProduct();
-                                                    break;
-
-                    default: break;
-                }
+                viewModel.Compute((Vector3Operation) cmbActionList.getSelectedItem());
 
                 bind();
             }
@@ -84,7 +67,7 @@ public final class Vector3Viewer {
     }
 
     private void loadActionList() {
-        ActionList[] actions = ActionList.values();
+        Vector3Operation[] actions = Vector3Operation.values();
         cmbActionList.setModel(new JComboBox<>(actions).getModel());
     }
 

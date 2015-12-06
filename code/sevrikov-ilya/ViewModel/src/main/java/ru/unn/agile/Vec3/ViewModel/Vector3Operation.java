@@ -1,6 +1,6 @@
-package ru.unn.agile.Vec3.View;
+package ru.unn.agile.Vec3.ViewModel;
 
-public enum ActionList {
+public enum Vector3Operation {
     GET_NORM_FIRST_VECTOR("Get norm first vector", 0),
     GET_NORM_SECOND_VECTOR("Get norm second vector", 1),
     NORMAlIZE_FIRST_VECTOR("Normalize first vector", 2),
@@ -11,8 +11,8 @@ public enum ActionList {
     private final String actionName;
     private final int index;
 
-    ActionList(final String actionName,
-               final int index) {
+    Vector3Operation(final String actionName,
+                     final int index) {
         this.actionName = actionName;
         this.index = index;
     }
@@ -20,9 +20,5 @@ public enum ActionList {
     @Override
     public String toString() {
         return actionName;
-    }
-
-    public final int getIndex() {
-        return index;
     }
 }

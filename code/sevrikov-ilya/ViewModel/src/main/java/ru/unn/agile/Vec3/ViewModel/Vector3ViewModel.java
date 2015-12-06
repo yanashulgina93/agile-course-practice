@@ -3,7 +3,8 @@ package ru.unn.agile.Vec3.ViewModel;
 import ru.unn.agile.Vec3.Model.Vector3;
 
 import java.text.DecimalFormat;
-import java.util.DoubleSummaryStatistics;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class Vector3ViewModel {
@@ -20,7 +21,20 @@ public class Vector3ViewModel {
 
     private DecimalFormat formatter;
 
-    public Vector3ViewModel() {
+    private ILogger logger;
+
+    public final String OUTPUT_MESSAGE_FORMAT = "Operation: %1$s" + "\n\t"
+                                              + "Status: %2$s." + "\n\t"
+                                              + "First vector: (%3$s, %4$s, %5$s)"+ "\n\t"
+                                              + "Second vector: (%6$s, %7$s, %8$s)" + "\n\t"
+                                              + "Result: %9$s.";
+
+    public Vector3ViewModel(final ILogger logger) {
+        if (logger == null) {
+            throw new IllegalArgumentException(Vector3ViewModelStatus.LOGGER_CANNOT_BE_NULL);
+        }
+        this.logger = logger;
+
         formatter = (DecimalFormat) DecimalFormat.getInstance(Locale.ENGLISH);
         formatter.applyPattern("###.####");
     }
@@ -121,114 +135,33 @@ public class Vector3ViewModel {
         return Double.parseDouble(coordZ1);
     }
 
-    public void getNormOfFirstVector() {
-        clearResult();
+    public void Compute(final Vector3Operation operation) {
+        switch (operation) {
+            case GET_NORM_FIRST_VECTOR:     getNormOfFirstVector();
+                                            break;
 
-        checkCorrectFormatOfFirstVector();
-        if (!isFirstVectorOk()) {
-            return;
+            case GET_NORM_SECOND_VECTOR:    getNormOfSecondVector();
+                                            break;
+
+            case NORMAlIZE_FIRST_VECTOR:    normalizeFirstVector();
+                                            break;
+
+            case NORMALIZE_SECOND_VECTOR:   normalizeSecondVector();
+                                            break;
+
+            case CALCULATE_DOT_PRODUCT:     getDotProduct();
+                                            break;
+
+            case CALCULATE_CROSS_PRODUCT:   getCrossProduct();
+                                            break;
+
+            default: break;
         }
 
-        Vector3 vector = getFirstVector();
-
-        resultOfLastAction = Double.toString(vector.getNorm());
-        status = Vector3ViewModelStatus.OK;
-    }
-
-    public void getNormOfSecondVector() {
-        clearResult();
-
-        checkCorrectFormatOfSecondVector();
-        if (!isSecondVectorOk()) {
-            return;
-        }
-
-        Vector3 vector = getSecondVector();
-
-        resultOfLastAction = Double.toString(vector.getNorm());
-        status = Vector3ViewModelStatus.OK;
-    }
-
-    public void normalizeFirstVector() {
-        clearResult();
-
-        checkCorrectFormatOfFirstVector();
-        if (!isFirstVectorOk()) {
-            return;
-        }
-
-        Vector3 vector = getFirstVector();
-
-        try {
-            vector.normalize();
-        } catch (ArithmeticException exception) {
-            status = Vector3ViewModelStatus.FIRST_VECTOR_SMALL_NUMBERS;
-
-            return;
-        }
-
-        resultOfLastAction = vector.toString();
-        status = Vector3ViewModelStatus.OK;
-
-        setComponentsOfFirstVector(vector);
-    }
-
-    public void normalizeSecondVector() {
-        clearResult();
-
-        checkCorrectFormatOfSecondVector();
-        if (!isSecondVectorOk()) {
-            return;
-        }
-
-        Vector3 vector = getSecondVector();
-
-        try {
-            vector.normalize();
-        } catch (ArithmeticException exception) {
-            status = Vector3ViewModelStatus.SECOND_VECTOR_SMALL_NUMBERS;
-
-            return;
-        }
-
-        resultOfLastAction = vector.toString();
-        status = Vector3ViewModelStatus.OK;
-
-        setComponentsOfSecondVector(vector);
-    }
-
-    public void getDotProduct() {
-        clearResult();
-
-        checkCorrectFormatBothVectors();
-        if (!isStatusOk()) {
-            return;
-        }
-
-        Vector3 firstVector  = getFirstVector();
-        Vector3 secondVector = getSecondVector();
-
-        resultOfLastAction = Double.toString(firstVector.dot(secondVector));
-        status = Vector3ViewModelStatus.OK;
-    }
-
-    public void getCrossProduct() {
-        clearResult();
-
-        checkCorrectFormatBothVectors();
-        if (!isStatusOk()) {
-            clearResult();
-            return;
-        }
-
-        Vector3 firstVector  = getFirstVector();
-        Vector3 secondVector = getSecondVector();
-
-        try {
-            resultOfLastAction = firstVector.cross(secondVector).toString();
-        } catch (ArithmeticException exception) {
-            status = Vector3ViewModelStatus.CROSS_PRODUCT_SMALL_NORM;
-        }
+        logger.pushMessage(OUTPUT_MESSAGE_FORMAT, operation.toString(), getStatus(),
+                           coordX0, coordY0, coordZ0,
+                           coordX1, coordY1, coordZ1,
+                           resultOfLastAction);
     }
 
     public String getResultOfLastAction() {
@@ -236,7 +169,117 @@ public class Vector3ViewModel {
     }
 
     public String getStatus() {
-        return status.toString();
+        return status;
+    }
+
+    public List<String> getLog() {
+        return logger.getLog();
+    }
+
+    private void getNormOfFirstVector() {
+        clearResult();
+        resetStatus();
+
+        if (!checkCorrectFormatFirstVector()) {
+            return;
+        }
+
+        Vector3 vector = getFirstVector();
+
+        resultOfLastAction = Double.toString(vector.getNorm());
+    }
+
+    private void getNormOfSecondVector() {
+        clearResult();
+        resetStatus();
+
+        if (!checkCorrectFormatSecondVector()) {
+            return;
+        }
+
+        Vector3 vector = getSecondVector();
+
+        resultOfLastAction = Double.toString(vector.getNorm());
+    }
+
+    private void normalizeFirstVector() {
+        clearResult();
+        resetStatus();
+
+        if (!checkCorrectFormatFirstVector()) {
+            return;
+        }
+
+        Vector3 vector = getFirstVector();
+
+        try {
+            vector.normalize();
+        } catch (ArithmeticException e) {
+            status = Vector3ViewModelStatus.FIRST_VECTOR_SMALL_NUMBERS;
+            return;
+        }
+
+        resultOfLastAction = vector.toString();
+
+        setComponentsOfFirstVector(vector);
+    }
+
+    private void normalizeSecondVector() {
+        clearResult();
+        resetStatus();
+
+        if (!checkCorrectFormatSecondVector()) {
+            return;
+        }
+
+        Vector3 vector = getSecondVector();
+
+        try {
+            vector.normalize();
+        } catch (ArithmeticException e) {
+            status = Vector3ViewModelStatus.SECOND_VECTOR_SMALL_NUMBERS;
+            return;
+        }
+
+        resultOfLastAction = vector.toString();
+
+        setComponentsOfSecondVector(vector);
+    }
+
+    private void getDotProduct() {
+        clearResult();
+        resetStatus();
+
+        if (!checkCorrectFormatBothVectors()) {
+            return;
+        }
+
+        Vector3 firstVector  = getFirstVector();
+        Vector3 secondVector = getSecondVector();
+
+        resultOfLastAction = Double.toString(firstVector.dot(secondVector));
+    }
+
+    private void getCrossProduct() {
+        clearResult();
+        resetStatus();
+
+        if (!checkCorrectFormatBothVectors()) {
+            return;
+        }
+
+        Vector3 firstVector  = getFirstVector();
+        Vector3 secondVector = getSecondVector();
+        Vector3 resultVector;
+
+        try {
+            resultVector = firstVector.cross(secondVector);
+        } catch (ArithmeticException e) {
+            status = Vector3ViewModelStatus.COPLANAR_VECTORS;
+            return;
+        }
+
+        resultOfLastAction = firstVector.cross(secondVector).toString();
     }
 
     private Vector3 getFirstVector() {
@@ -263,21 +306,7 @@ public class Vector3ViewModel {
         coordZ1 = formatter.format(vector.z());
     }
 
-    private boolean isStatusOk() {
-        return status.equals(Vector3ViewModelStatus.OK);
-    }
-
-    private boolean isFirstVectorOk() {
-        return !(status.equals(Vector3ViewModelStatus.FIRST_VECTOR_WRONG_FORMAT)
-              || status.equals(Vector3ViewModelStatus.FIRST_VECTOR_SMALL_NUMBERS));
-    }
-
-    private boolean isSecondVectorOk() {
-        return !(status.equals(Vector3ViewModelStatus.SECOND_VECTOR_WRONG_FORMAT)
-              || status.equals(Vector3ViewModelStatus.SECOND_VECTOR_SMALL_NUMBERS));
-    }
-
-    private void checkCorrectFormatOfFirstVector() {
+    private boolean checkCorrectFormatFirstVector() {
         try {
             Double.valueOf(coordX0);
             Double.valueOf(coordY0);
@@ -285,9 +314,11 @@ public class Vector3ViewModel {
         } catch (NumberFormatException e) {
             status = Vector3ViewModelStatus.FIRST_VECTOR_WRONG_FORMAT;
         }
+
+        return status.equals(Vector3ViewModelStatus.OK);
     }
 
-    private void checkCorrectFormatOfSecondVector() {
+    private boolean checkCorrectFormatSecondVector() {
         try {
             Double.valueOf(coordX1);
             Double.valueOf(coordY1);
@@ -295,14 +326,23 @@ public class Vector3ViewModel {
         } catch (NumberFormatException e) {
             status = Vector3ViewModelStatus.SECOND_VECTOR_WRONG_FORMAT;
         }
+
+        return status.equals(Vector3ViewModelStatus.OK);
     }
 
-    private void checkCorrectFormatBothVectors() {
-        checkCorrectFormatOfFirstVector();
-        checkCorrectFormatOfSecondVector();
+    private boolean checkCorrectFormatBothVectors() {
+        final boolean firstResult = checkCorrectFormatFirstVector();
+        final boolean secondResult = checkCorrectFormatSecondVector();
+
+        return  firstResult && secondResult;
     }
 
     private void clearResult() {
         resultOfLastAction = "";
     }
+
+    private void resetStatus() {
+        status = Vector3ViewModelStatus.OK;
+    }
+
 }

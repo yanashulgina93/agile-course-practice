@@ -66,11 +66,7 @@ public class Vector3 {
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof Vector3) {
-            return equals((Vector3) obj);
-        }
-
-        return false;
+        return (obj instanceof  Vector3) && equals((Vector3) obj);
     }
 
     @Override
@@ -121,7 +117,11 @@ public class Vector3 {
                                      z * vec.x() - x * vec.z(),
                                      x * vec.y() - y * vec.x());
 
-        vector.normalize();
+        try {
+            vector.normalize();
+        } catch (ArithmeticException e) {
+            throw new ArithmeticException(e.getLocalizedMessage());
+        }
 
         return vector;
     }
