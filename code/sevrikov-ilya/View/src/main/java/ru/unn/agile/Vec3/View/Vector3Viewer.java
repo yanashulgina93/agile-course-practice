@@ -24,6 +24,8 @@ public final class Vector3Viewer {
     private JLabel lblResult;
     private JComboBox<ActionList> cmbActionList;
     private JButton btnCalculate;
+    private JTextField txtStatus;
+    private JLabel lblStatus;
 
     private Vector3ViewModel viewModel;
 
@@ -106,5 +108,6 @@ public final class Vector3Viewer {
         txtCoordZ1.setText(viewModel.getCoordZ1());
 
         txtResult.setText(viewModel.getResultOfLastAction());
+        txtStatus.setText(viewModel.getStatus());
     }
 }
