@@ -16,7 +16,6 @@ public class ViewModel {
     private final BooleanProperty solvingEquationDisabled = new SimpleBooleanProperty();
     private final StringProperty result = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
-    private final List<ValueChangeObserver> valueChangedObservers = new ArrayList<>();
 
     public StringProperty coeffAProperty() {
         return a;
@@ -72,16 +71,14 @@ public class ViewModel {
         };
         solvingEquationDisabled.bind(canSolveEquation.not());
 
-        final List<StringProperty> fields = new ArrayList<StringProperty>() { {
+        final List<StringProperty> textFieldsCoefficients = new ArrayList<StringProperty>() { {
             add(a);
             add(b);
             add(c);
         } };
 
-        for (StringProperty field : fields) {
-            final ValueChangeObserver listener = new ValueChangeObserver();
-            field.addListener(listener);
-            valueChangedObservers.add(listener);
+        for (StringProperty textFieldCoefficient : textFieldsCoefficients) {
+            textFieldCoefficient.addListener(new ValueChangeObserver());
         }
     }
 
