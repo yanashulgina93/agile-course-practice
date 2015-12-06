@@ -1,5 +1,6 @@
 package ru.unn.agile.LeftistHeap.view;
 
+import ru.unn.agile.LeftistHeap.infrastructure.LeftistHeapTxtLogger;
 import ru.unn.agile.LeftistHeap.viewmodel.LeftistHeapViewModel;
 
 import javax.swing.*;
@@ -17,9 +18,11 @@ public final class HeapForm {
     private JTextArea errorMessageTextField;
     private JTextArea heapContentTextField;
     private JComboBox<LeftistHeapViewModel.Operations> operationComboBox;
+    private JList list1;
 
     private HeapForm() {
-        viewModel = new LeftistHeapViewModel();
+        LeftistHeapTxtLogger txtLogger = new LeftistHeapTxtLogger();
+        viewModel = new LeftistHeapViewModel(txtLogger);
 
         operationComboBox.setModel(new JComboBox<>(
                 LeftistHeapViewModel.Operations.values()).getModel());

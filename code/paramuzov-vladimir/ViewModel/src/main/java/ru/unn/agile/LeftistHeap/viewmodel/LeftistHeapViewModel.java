@@ -4,8 +4,14 @@ import ru.unn.agile.LeftistHeap.model.LeftistHeap;
 import ru.unn.agile.LeftistHeap.model.LeftistHeapNode;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class LeftistHeapViewModel {
+    public void valueFieldFocusLost() {
+        logger.addMessage(LogMessages.KEY_VALUE_FIELD_CHANGED.getMessage()
+                            + keyValue);
+    }
+
     public enum Errors {
         FIELD_BAD_FORMAT("Wrong value in text field. Only integers, please.\n"),
         VALUE_TO_DELETE_NOT_FOUND("Element to delete not found.\n");
@@ -37,15 +43,37 @@ public class LeftistHeapViewModel {
         }
     }
 
+    public enum LogMessages {
+        KEY_VALUE_FIELD_CHANGED("Key value changed to "),
+        OPERATION_CHANGED("Operation was changed to "),
+        BUTTON_PRESSED("ApplyButton was pressed. ");
+
+        private String logMessage;
+
+        LogMessages(String logMessage) {
+            this.logMessage = logMessage;
+        }
+
+        public String getMessage() {
+            return logMessage;
+        }
+    }
+
     private final LeftistHeap<Integer> heap;
     private boolean applyButtonEnabled = false;
     private String keyValue;
     private String heapContent = "[]";
     private String errorText = "";
     private Operations operation = Operations.INSERT;
+    private ILeftistHeapLogger logger;
 
-    public LeftistHeapViewModel() {
+    public LeftistHeapViewModel(ILeftistHeapLogger logger) {
+        if (logger == null) {
+            throw new NullPointerException("Logger is null");
+        }
+
         heap = new LeftistHeap<>();
+        this.logger = logger;
     }
 
     public boolean isApplyButtonEnabled() {
@@ -72,6 +100,9 @@ public class LeftistHeapViewModel {
 
     public void setOperation(final Operations operation) {
         this.operation = operation;
+
+        logger.addMessage(LogMessages.OPERATION_CHANGED.getMessage()
+                          + "`" + operation.toString() + "`");
     }
 
     public Operations getOperation() {
@@ -79,6 +110,8 @@ public class LeftistHeapViewModel {
     }
 
     public void applyOperation() {
+        logger.addMessage(getApplyOperationLogMessage());
+
         if (operation == Operations.INSERT) {
             insertElement();
         } else {
@@ -92,6 +125,10 @@ public class LeftistHeapViewModel {
 
     public String getErrorText() {
         return errorText;
+    }
+
+    public ILeftistHeapLogger getLogger() {
+        return logger;
     }
 
     private void insertElement() {
@@ -112,5 +149,11 @@ public class LeftistHeapViewModel {
         heap.delete(nodeToDelete);
         Object[] content = heap.toSortedArray();
         heapContent = Arrays.toString(content);
+    }
+
+    private String getApplyOperationLogMessage() {
+        return LogMessages.BUTTON_PRESSED.getMessage()
+               + "Operation: " + operation.toString()
+               + "; Value: " + keyValue;
     }
 }

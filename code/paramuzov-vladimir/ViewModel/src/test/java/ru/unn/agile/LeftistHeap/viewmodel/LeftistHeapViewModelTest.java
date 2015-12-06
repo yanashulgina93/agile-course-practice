@@ -3,16 +3,16 @@ package ru.unn.agile.LeftistHeap.viewmodel;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+import static ru.unn.agile.LeftistHeap.viewmodel.LeftistHeapRegexMatcher.matches;
 
 public class LeftistHeapViewModelTest {
     private LeftistHeapViewModel viewModel;
 
     @Before
     public void setUp() {
-        viewModel = new LeftistHeapViewModel();
+        FakeLeftistHeapLogger fakeLogger = new FakeLeftistHeapLogger();
+        viewModel = new LeftistHeapViewModel(fakeLogger);
     }
 
     @Test
@@ -110,5 +110,84 @@ public class LeftistHeapViewModelTest {
         viewModel.setKeyValue("1");
 
         assertEquals("", viewModel.getErrorText());
+    }
+
+    @Test
+    public void canCreateLeftistHeapViewModelWithLogger() {
+        FakeLeftistHeapLogger fakeLogger = new FakeLeftistHeapLogger();
+
+        LeftistHeapViewModel viewModel = new LeftistHeapViewModel(fakeLogger);
+
+        assertNotNull(viewModel);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void canNotCreateLeftistHeapViewModelWithNullLogger() {
+        new LeftistHeapViewModel(null);
+    }
+
+    @Test
+    public void byDefaultLogIsEmpty() {
+        assertEquals(0, viewModel.getLogger().getSize());
+    }
+
+    @Test
+    public void isEditingKeyValueFieldAddNewMessageToLog() {
+        viewModel.setKeyValue("10");
+
+        viewModel.valueFieldFocusLost();
+
+        assertEquals(1, viewModel.getLogger().getSize());
+    }
+
+    @Test
+    public void isLogContainProperMessageAfterKeyValueFieldEdited() {
+        viewModel.setKeyValue("10");
+
+        viewModel.valueFieldFocusLost();
+        String logMessage = viewModel.getLogger().getLogMessage(0);
+
+        assertThat(logMessage,
+                matches(LeftistHeapViewModel.LogMessages.KEY_VALUE_FIELD_CHANGED.getMessage()
+                + "\\d+|-\\d+"));
+    }
+
+    @Test
+    public void isPressingApplyOperationButtonAddNewMessageToLog() {
+        viewModel.setKeyValue("10");
+
+        viewModel.applyOperation();
+
+        assertEquals(1, viewModel.getLogger().getSize());
+    }
+
+    @Test
+    public void isLogContainProperMessageAfterApplyInsertOperation() {
+        viewModel.setKeyValue("10");
+
+        viewModel.applyOperation();
+        String logMessage = viewModel.getLogger().getLogMessage(0);
+
+        assertThat(logMessage,
+                matches(LeftistHeapViewModel.LogMessages.BUTTON_PRESSED.getMessage()
+                        + "Operation: " + LeftistHeapViewModel.Operations.INSERT.toString()
+                        + "; Value: \\d+|-\\d+"));
+    }
+
+    @Test
+    public void isChangingOperationAddNewMessageToLog() {
+        viewModel.setOperation(LeftistHeapViewModel.Operations.DELETE);
+
+        assertEquals(1, viewModel.getLogger().getSize());
+    }
+
+    @Test
+    public void isLogContainProperMessageAfterChangeOperationToDelete() {
+        viewModel.setOperation(LeftistHeapViewModel.Operations.DELETE);
+        String logMessage = viewModel.getLogger().getLogMessage(0);
+
+        assertThat(logMessage,
+                matches(LeftistHeapViewModel.LogMessages.OPERATION_CHANGED.getMessage()
+                        + "`" + LeftistHeapViewModel.Operations.DELETE.toString() + "`"));
     }
 }
