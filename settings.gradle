@@ -164,8 +164,12 @@ include "code/molotkov-andrei/View"
 project(":code/molotkov-andrei/View").name = "molotkov-andrei-View"
 
 // Moshkov Yurij
-include "code/moshkov-yuriy"
-project(":code/moshkov-yuriy").name = "moshkov-yuriy-lab1-Model"
+include "code/moshkov-yuriy/Model"
+project(":code/moshkov-yuriy/Model").name = "moshkov-yuriy-Model"
+include "code/moshkov-yuriy/View"
+project(":code/moshkov-yuriy/View").name = "moshkov-yuriy-View"
+include "code/moshkov-yuriy/ViewModel"
+project(":code/moshkov-yuriy/ViewModel").name = "moshkov-yuriy-ViewModel"
 // Mozerov Ilya
 // Nesmelov Aleksej
 include "code/nesmelov-aleksey/Model"
