@@ -115,7 +115,8 @@ public class ViewModelLoggingTests {
     public void canAddMessageToLogWhenScaleIsChanged() {
         viewModel.setScale(TemperatureScaleName.NEWTON);
         List<String> log = viewModel.getLog();
-        final String expected = LogMessage.SCALE_CHANGED.toString() + TemperatureScaleName.NEWTON.toString();
+        final String expected = LogMessage.SCALE_CHANGED.toString()
+                + TemperatureScaleName.NEWTON.toString();
         assertThat(log.get(0), containsString(expected));
     }
 
