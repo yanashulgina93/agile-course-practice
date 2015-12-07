@@ -2,23 +2,25 @@ package ru.unn.agile.Queue.ViewModel;
 
 import ru.unn.agile.Queue.Model.LabQueue;
 
+import java.util.Arrays;
+
 public class LabQueueViewModel {
 
-    private final LabQueue<String> testQueue = new LabQueue<>();
-    private int sizeField;
-    private String headElementField;
-    private String dataInputField;
-    private String dataOutputField;
+    private final LabQueue<String> queue = new LabQueue<>();
+    private int size;
+    private String headElement;
+    private String dataInput;
+    private String result;
     private boolean isFindButtonEnabled;
     private boolean isPopButtonEnabled;
     private final boolean isPushButtonEnabled;
     private final String errorMessage;
 
     public LabQueueViewModel() {
-        sizeField = 0;
-        dataInputField = "";
-        dataOutputField = "";
-        headElementField = "";
+        size = 0;
+        dataInput = "";
+        result = "";
+        headElement = "";
         isFindButtonEnabled = false;
         isPopButtonEnabled = false;
         isPushButtonEnabled = true;
@@ -37,36 +39,36 @@ public class LabQueueViewModel {
         return isPushButtonEnabled;
     }
 
-    public int getSizeField() {
-        return sizeField;
+    public int getSize() {
+        return size;
     }
 
-    public void updateSizeField() {
-        sizeField = testQueue.getSize();
+    public void updateSize() {
+        size = queue.getSize();
     }
 
-    public String getHeadElementField() {
-        return headElementField;
+    public String getHeadElement() {
+        return headElement;
     }
 
-    public void updateHeadElementField() {
-        headElementField = testQueue.getHead();
+    public void updateHeadElement() {
+        headElement = queue.getHead();
     }
 
-    public String getDataInputField() {
-        return dataInputField;
+    public String getDataInput() {
+        return dataInput;
     }
 
-    public void setDataInputField(final String newValue) {
-        dataInputField = newValue;
+    public String getResult() {
+        return result;
     }
 
-    public String getDataOutputField() {
-        return dataOutputField;
+    public void setDataInput(final String newDataInput) {
+        dataInput = newDataInput;
     }
 
-    public void setDataOutputField(final String newValue) {
-        dataOutputField = newValue;
+    public void setResult(final String newDataOutput) {
+        result = newDataOutput;
     }
 
     public void setFindButtonEnabled(final boolean newValue) {
@@ -78,19 +80,19 @@ public class LabQueueViewModel {
     }
 
     public void pushElement() {
-        testQueue.push(dataInputField);
-        updateHeadElementField();
-        updateSizeField();
+        queue.push(dataInput);
+        updateHeadElement();
+        updateSize();
         setFindButtonEnabled(true);
         setPopButtonEnabled(true);
      }
 
     public void popElement() {
-        String tempValue = testQueue.pop();
-        updateHeadElementField();
-        updateSizeField();
-        setDataOutputField(tempValue);
-        if (testQueue.isEmpty()) {
+        String tempValue = queue.pop();
+        updateHeadElement();
+        updateSize();
+        setResult(tempValue);
+        if (queue.isEmpty()) {
             setFindButtonEnabled(false);
             setPopButtonEnabled(false);
         }
@@ -98,16 +100,21 @@ public class LabQueueViewModel {
 
     public void findElement() {
         String outputMessage;
-        String value = getDataInputField();
+        String value = getDataInput();
         try {
-            outputMessage = Integer.toString(testQueue.findElement(value) + 1);
+            outputMessage = Integer.toString(queue.findElement(value) + 1);
         } catch (Exception exception) {
             outputMessage = errorMessage;
         }
-        setDataOutputField(outputMessage);
+        setResult(outputMessage);
     }
 
     public String getErrorMessage() {
         return errorMessage;
+    }
+
+    public String[] getQueueAsArray() {
+        String[] array = queue.convertToStringArray();
+        return Arrays.copyOf(array, array.length, String[].class);
     }
 }

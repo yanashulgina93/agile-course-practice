@@ -3,30 +3,39 @@ package ru.unn.agile.Queue.View;
 import ru.unn.agile.Queue.ViewModel.LabQueueViewModel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public final class QueueManager {
     private JPanel mainPanel;
-    private JButton pushElement;
-    private JButton findElement;
-    private JButton popElement;
-    private JFormattedTextField dataOutputTextField;
-    private JFormattedTextField dataInputTextField;
-    private JLabel dataOutputLabel;
+    private JButton pushElementButton;
+    private JButton findElementButton;
+    private JButton popElementButton;
+    private JFormattedTextField result;
+    private JFormattedTextField dataInputText;
+    private JLabel resultLabel;
     private JLabel dataInputLabel;
     private JLabel sizeLabel;
-    private JTextField sizeTextField;
+    private JTextField sizeText;
     private JLabel headElementLabel;
-    private JTextField headElementTextField;
+    private JTextField headElementText;
+    private JList<String> listForQueue;
+    private JPanel listPanel;
+    private JLabel listLabel;
     private LabQueueViewModel viewModel;
 
     private QueueManager() { }
 
     private QueueManager(final LabQueueViewModel newViewModel) {
         this.viewModel = newViewModel;
+        listForQueue = new JList<>(viewModel.getQueueAsArray());
+        JScrollPane scrollForList = new JScrollPane();
+        scrollForList.getViewport().setView(listForQueue);
+        listPanel.setLayout(new BorderLayout());
+        listPanel.add(scrollForList);
 
-        pushElement.addActionListener(new ActionListener() {
+        pushElementButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
                 backBindToViewModel();
@@ -35,7 +44,7 @@ public final class QueueManager {
             }
         });
 
-        findElement.addActionListener(new ActionListener() {
+        findElementButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
                 backBindToViewModel();
@@ -44,7 +53,7 @@ public final class QueueManager {
             }
         });
 
-        popElement.addActionListener(new ActionListener() {
+        popElementButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
                 backBindToViewModel();
@@ -56,18 +65,19 @@ public final class QueueManager {
     }
 
     private void bindFromViewModel() {
-        dataInputTextField.setText(viewModel.getDataInputField());
-        dataOutputTextField.setText(viewModel.getDataOutputField());
-        headElementTextField.setText(viewModel.getHeadElementField());
-        sizeTextField.setText(Integer.toString(viewModel.getSizeField()));
-        findElement.setEnabled(viewModel.isFindButtonEnabled());
-        pushElement.setEnabled(viewModel.isPushButtonEnabled());
-        popElement.setEnabled(viewModel.isPopButtonEnabled());
+        dataInputText.setText(viewModel.getDataInput());
+        result.setText(viewModel.getResult());
+        headElementText.setText(viewModel.getHeadElement());
+        sizeText.setText(Integer.toString(viewModel.getSize()));
+        findElementButton.setEnabled(viewModel.isFindButtonEnabled());
+        pushElementButton.setEnabled(viewModel.isPushButtonEnabled());
+        popElementButton.setEnabled(viewModel.isPopButtonEnabled());
+        listForQueue.setListData(viewModel.getQueueAsArray());
     }
 
     private void backBindToViewModel() {
-        viewModel.setDataInputField(dataInputTextField.getText());
-        viewModel.setDataOutputField(dataOutputTextField.getText());
+        viewModel.setDataInput(dataInputText.getText());
+        viewModel.setResult(result.getText());
      }
 
     public static void main(final String[] args) {

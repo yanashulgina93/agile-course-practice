@@ -43,4 +43,12 @@ public class LabQueue<T> {
         }
         throw new Exception("element not found");
     }
+
+    public String[] convertToStringArray() {
+        String[] result = new String[getSize()];
+        for (int i = 0; i <= queue.size() - 1; i++) {
+            result[i] = queue.get(i).toString();
+        }
+        return result;
+    }
 }
