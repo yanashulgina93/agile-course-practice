@@ -30,21 +30,21 @@ public class TestsForDefaultSettings {
 
     @Test
     public void byDefaultSizeIsZero() {
-        assertEquals(0, viewModel.getSizeField());
+        assertEquals(0, viewModel.getSize());
     }
 
     @Test
-    public void byDefaultHeadElementFieldIsEmpty() {
-        assertEquals("", viewModel.getHeadElementField());
+    public void byDefaultHeadElementIsEmpty() {
+        assertEquals("", viewModel.getHeadElement());
     }
 
     @Test
-    public void byDefaultInputFieldIsEmpty() {
-        assertEquals("", viewModel.getDataInputField());
+    public void byDefaultInputIsEmpty() {
+        assertEquals("", viewModel.getDataInput());
     }
 
     @Test
-    public void byDefaultOutputFieldIsEmpty() {
-        assertEquals("", viewModel.getDataOutputField());
+    public void byDefaultOutputIsEmpty() {
+        assertEquals("", viewModel.getResult());
     }
 }

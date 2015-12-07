@@ -19,17 +19,17 @@ public class OtherViewModelTests {
     public void canPushElement() {
         final String value = "Element";
 
-        viewModel.setDataInputField(value);
+        viewModel.setDataInput(value);
         viewModel.pushElement();
 
-        assertEquals(value, viewModel.getHeadElementField());
+        assertEquals(value, viewModel.getHeadElement());
     }
 
     @Test
     public void whenQueueIsNotEmptyPopButtonIsEnabled() {
         final String value = "Element";
 
-        viewModel.setDataInputField(value);
+        viewModel.setDataInput(value);
         viewModel.pushElement();
 
         assertTrue(viewModel.isPopButtonEnabled());
@@ -39,7 +39,7 @@ public class OtherViewModelTests {
     public void whenQueueIsNotEmptyFindButtonIsEnabled() {
         final String value = "Element";
 
-        viewModel.setDataInputField(value);
+        viewModel.setDataInput(value);
         viewModel.pushElement();
 
         assertTrue(viewModel.isFindButtonEnabled());
@@ -49,7 +49,7 @@ public class OtherViewModelTests {
     public void whenQueueIsEmptyPopButtonIsDisabled() {
         final String value = "Element";
 
-        viewModel.setDataInputField(value);
+        viewModel.setDataInput(value);
         viewModel.pushElement();
         viewModel.popElement();
 
@@ -60,7 +60,7 @@ public class OtherViewModelTests {
     public void whenQueueIsEmptyFindButtonIsDisabled() {
         final String value = "Element";
 
-        viewModel.setDataInputField(value);
+        viewModel.setDataInput(value);
         viewModel.pushElement();
         viewModel.popElement();
 
@@ -71,11 +71,11 @@ public class OtherViewModelTests {
     public void canPopElement() {
         final String value = "Element";
 
-        viewModel.setDataInputField(value);
+        viewModel.setDataInput(value);
         viewModel.pushElement();
         viewModel.popElement();
 
-        assertEquals(value, viewModel.getDataOutputField());
+        assertEquals(value, viewModel.getResult());
     }
 
     @Test
@@ -83,13 +83,13 @@ public class OtherViewModelTests {
         final String value1 = "Element";
         final String value2 = "NewElement";
 
-        viewModel.setDataInputField(value1);
+        viewModel.setDataInput(value1);
         viewModel.pushElement();
-        viewModel.setDataInputField(value2);
+        viewModel.setDataInput(value2);
         viewModel.pushElement();
         viewModel.findElement();
 
-        assertEquals("2", viewModel.getDataOutputField());
+        assertEquals("2", viewModel.getResult());
     }
 
     @Test
@@ -97,12 +97,12 @@ public class OtherViewModelTests {
         final String value1 = "Element";
         final String value2 = "NewElement";
 
-        viewModel.setDataInputField(value1);
+        viewModel.setDataInput(value1);
         viewModel.pushElement();
-        viewModel.setDataInputField(value2);
+        viewModel.setDataInput(value2);
         viewModel.findElement();
 
-        assertEquals(viewModel.getErrorMessage(), viewModel.getDataOutputField());
+        assertEquals(viewModel.getErrorMessage(), viewModel.getResult());
     }
 
     @Test
@@ -110,16 +110,27 @@ public class OtherViewModelTests {
         final int size = 10;
 
         for (int i = size; i > 0; i--) {
-            viewModel.setDataInputField(Integer.toString(i));
+            viewModel.setDataInput(Integer.toString(i));
             viewModel.pushElement();
         }
 
         Random rand = new Random();
         final int value1 = 1 + rand.nextInt(size);
-        viewModel.setDataInputField(Integer.toString(value1));
+        viewModel.setDataInput(Integer.toString(value1));
         viewModel.findElement();
-        final int result = Integer.valueOf(viewModel.getDataOutputField());
+        final int result = Integer.valueOf(viewModel.getResult());
         final int realResult = size - value1 + 1;
         assertEquals(realResult, result);
+    }
+
+    @Test
+    public void canGetQueueAsArray() {
+        String[] testAry = {"First", "Second", "Third"};
+
+        for (int i = 0; i < testAry.length; i++) {
+            viewModel.setDataInput(testAry[i]);
+            viewModel.pushElement();
+        }
+        assertArrayEquals(testAry, viewModel.getQueueAsArray());
     }
 }
