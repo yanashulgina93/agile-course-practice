@@ -11,12 +11,8 @@ public class ViewModel {
     private Status status;
     private TemperatureScaleName scale;
     private boolean isConvertButtonEnable;
-    private TemperatureConverterLogger logger;
+    private final TemperatureConverterLogger logger;
     private boolean isInputChanged;
-
-    public ViewModel() {
-        setStateToDefault();
-    }
 
     public ViewModel(final TemperatureConverterLogger logger) {
 

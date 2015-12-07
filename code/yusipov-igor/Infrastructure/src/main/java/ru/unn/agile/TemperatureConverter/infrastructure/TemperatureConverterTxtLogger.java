@@ -52,6 +52,7 @@ public class TemperatureConverterTxtLogger implements TemperatureConverterLogger
         BufferedReader readerOfLog;
 
         ArrayList<String> log = new ArrayList<String>();
+
         try {
             readerOfLog = new BufferedReader(new FileReader(filename));
             String line = readerOfLog.readLine();
