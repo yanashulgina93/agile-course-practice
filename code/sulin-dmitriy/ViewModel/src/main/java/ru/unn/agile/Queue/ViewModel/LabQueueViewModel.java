@@ -67,16 +67,16 @@ public class LabQueueViewModel {
         dataInput = newDataInput;
     }
 
-    public void setResult(final String newDataOutput) {
-        result = newDataOutput;
+    public void setResult(final String newResult) {
+        result = newResult;
     }
 
-    public void setFindButtonEnabled(final boolean newValue) {
-        isFindButtonEnabled = newValue;
+    public void setFindButtonEnabled(final boolean isFindEnabled) {
+        isFindButtonEnabled = isFindEnabled;
     }
 
-    public void setPopButtonEnabled(final boolean newValue) {
-        isPopButtonEnabled = newValue;
+    public void setPopButtonEnabled(final boolean isPopEnabled) {
+        isPopButtonEnabled = isPopEnabled;
     }
 
     public void pushElement() {
