@@ -32,6 +32,7 @@ public class TemperatureConverterTxtLogger implements TemperatureConverterLogger
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         writerOfLog = logWriter;
     }
 
@@ -49,6 +50,7 @@ public class TemperatureConverterTxtLogger implements TemperatureConverterLogger
     @Override
     public List<String> getFullLog() {
         BufferedReader readerOfLog;
+
         ArrayList<String> log = new ArrayList<String>();
         try {
             readerOfLog = new BufferedReader(new FileReader(filename));
@@ -61,6 +63,7 @@ public class TemperatureConverterTxtLogger implements TemperatureConverterLogger
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
         return log;
     }
 }

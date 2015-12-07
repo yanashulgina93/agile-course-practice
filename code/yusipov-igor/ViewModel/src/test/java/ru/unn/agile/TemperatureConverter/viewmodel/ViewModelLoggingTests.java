@@ -118,4 +118,19 @@ public class ViewModelLoggingTests {
         final String expected = LogMessage.SCALE_CHANGED.toString() + TemperatureScaleName.NEWTON.toString();
         assertThat(log.get(0), containsString(expected));
     }
+
+    @Test
+    public void canAddMessageToLogWhenConvertIsPressed() {
+        final String input = "0.0";
+        viewModel.setInputTemperature(input);
+        viewModel.onInputValueFocusLost();
+        viewModel.convert();
+        String message = viewModel.getLog().get(1);
+        final String expected = LogMessage.CONVERT_PRESSED.toString()
+                + LogMessage.INPUT_VALUE.toString()
+                + input
+                + LogMessage.TARGET_SCALE.toString()
+                + viewModel.getScale().toString();
+        assertThat(message, containsString(expected));
+    }
 }
