@@ -59,7 +59,6 @@ public class LeftistHeapTxtLogger implements ILeftistHeapLogger {
     }
 
     private static String getCurrentDateTime() {
-        String DATE_FORMAT = "dd.MM.yyyy HH:mm:ss";
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
         return dateFormat.format(Calendar.getInstance().getTime());
     }

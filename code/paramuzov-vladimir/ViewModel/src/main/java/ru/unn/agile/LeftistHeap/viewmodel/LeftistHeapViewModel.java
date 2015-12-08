@@ -52,6 +52,7 @@ public class LeftistHeapViewModel {
             return logMessage;
         }
     }
+    public static final String NUMBER_REGEX = "[+-]?\\d+";
 
     private final LeftistHeap<Integer> heap;
     private boolean applyButtonEnabled = false;
@@ -88,7 +89,7 @@ public class LeftistHeapViewModel {
             return;
         }
 
-        if (!keyValue.matches("\\d+|-\\d+")) {
+        if (!keyValue.matches(NUMBER_REGEX)) {
             errorText = Errors.FIELD_BAD_FORMAT.getMessage();
             applyButtonEnabled = false;
             return;

@@ -2,9 +2,9 @@ package ru.unn.agile.LeftistHeap.infrastructure;
 
 import org.junit.Before;
 import org.junit.Test;
+import ru.unn.agile.LeftistHeap.viewmodel.ILeftistHeapLogger;
 
 import java.io.File;
-import java.util.List;
 
 import static org.junit.Assert.*;
 import static ru.unn.agile.LeftistHeap.viewmodel.LeftistHeapRegexMatcher.matches;
@@ -12,7 +12,6 @@ import static ru.unn.agile.LeftistHeap.viewmodel.LeftistHeapRegexMatcher.matches
 public class LeftistHeapTxtLoggerTests {
     private static final String LOG_FILENAME = "./paramuzov-vladimir-logger-test.log";
     private static final String TEST_MESSAGE = "Test message for txt logger";
-    private static final String DATETIME_REGEX = "^<\\d{2}.\\d{2}.\\d{4} \\d{2}:\\d{2}:\\d{2}> ";
     private LeftistHeapTxtLogger txtLogger;
 
     @Before
@@ -43,7 +42,7 @@ public class LeftistHeapTxtLoggerTests {
 
         String message = txtLogger.getLogMessage(0);
 
-        assertThat(message, matches(DATETIME_REGEX + TEST_MESSAGE));
+        assertThat(message, matches(ILeftistHeapLogger.DATE_REGEX + TEST_MESSAGE));
     }
 
     @Test
@@ -62,7 +61,7 @@ public class LeftistHeapTxtLoggerTests {
 
         String message = txtLogger.getLogMessage(1);
 
-        assertThat(message, matches(DATETIME_REGEX + TEST_MESSAGE + "1"));
+        assertThat(message, matches(ILeftistHeapLogger.DATE_REGEX + TEST_MESSAGE + "1"));
     }
 
     @Test
@@ -71,6 +70,6 @@ public class LeftistHeapTxtLoggerTests {
 
         String message = txtLogger.getLogMessage(0);
 
-        assertThat(message, matches(DATETIME_REGEX + ".*"));
+        assertThat(message, matches(ILeftistHeapLogger.DATE_REGEX + ".*"));
     }
 }

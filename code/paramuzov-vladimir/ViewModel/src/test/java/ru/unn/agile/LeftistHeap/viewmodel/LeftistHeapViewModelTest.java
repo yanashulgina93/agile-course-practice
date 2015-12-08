@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 import static ru.unn.agile.LeftistHeap.viewmodel.LeftistHeapRegexMatcher.matches;
 
 public class LeftistHeapViewModelTest {
-    private LeftistHeapViewModel viewModel;
+    protected LeftistHeapViewModel viewModel;
 
     @Before
     public void setUp() {
@@ -142,14 +142,15 @@ public class LeftistHeapViewModelTest {
 
     @Test
     public void isLogContainProperMessageAfterKeyValueFieldEdited() {
-        viewModel.setKeyValue("10");
+        viewModel.setKeyValue("-10");
 
         viewModel.valueFieldFocusLost();
         String logMessage = viewModel.getLogger().getLogMessage(0);
 
-        assertThat(logMessage,
-                matches(LeftistHeapViewModel.LogMessages.KEY_VALUE_FIELD_CHANGED.getMessage()
-                + "\\d+|-\\d+"));
+        assertThat(logMessage, matches(
+                ILeftistHeapLogger.DATE_REGEX
+                + LeftistHeapViewModel.LogMessages.KEY_VALUE_FIELD_CHANGED.getMessage()
+                + LeftistHeapViewModel.NUMBER_REGEX));
     }
 
     @Test
@@ -169,9 +170,11 @@ public class LeftistHeapViewModelTest {
         String logMessage = viewModel.getLogger().getLogMessage(0);
 
         assertThat(logMessage,
-                matches(LeftistHeapViewModel.LogMessages.BUTTON_PRESSED.getMessage()
+                matches(ILeftistHeapLogger.DATE_REGEX
+                        + LeftistHeapViewModel.LogMessages.BUTTON_PRESSED.getMessage()
                         + "Operation: " + LeftistHeapViewModel.Operations.INSERT.toString()
-                        + "; Value: \\d+|-\\d+"));
+                        + "; Value: "
+                        + LeftistHeapViewModel.NUMBER_REGEX));
     }
 
     @Test
@@ -187,7 +190,8 @@ public class LeftistHeapViewModelTest {
         String logMessage = viewModel.getLogger().getLogMessage(0);
 
         assertThat(logMessage,
-                matches(LeftistHeapViewModel.LogMessages.OPERATION_CHANGED.getMessage()
+                matches(ILeftistHeapLogger.DATE_REGEX
+                        + LeftistHeapViewModel.LogMessages.OPERATION_CHANGED.getMessage()
                         + "`" + LeftistHeapViewModel.Operations.DELETE.toString() + "`"));
     }
 }

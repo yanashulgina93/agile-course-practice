@@ -6,6 +6,7 @@ import ru.unn.agile.LeftistHeap.viewmodel.LeftistHeapViewModel;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -104,5 +105,6 @@ public final class HeapForm {
 
         List<String> log = viewModel.getLogger().getLog();
         logList.setListData(log.toArray(new String[log.size()]));
+        logList.ensureIndexIsVisible(log.size() - 1);
     }
 }
