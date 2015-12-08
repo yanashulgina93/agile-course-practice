@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class LeftistHeapTxtLogger implements ILeftistHeapLogger {
-    private String logFileName;
+    private final String logFileName;
     private BufferedWriter logWriter;
 
     public LeftistHeapTxtLogger(final String logFileName) {

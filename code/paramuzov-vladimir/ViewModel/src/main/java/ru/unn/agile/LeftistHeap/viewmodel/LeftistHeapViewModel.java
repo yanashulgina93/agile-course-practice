@@ -44,7 +44,7 @@ public class LeftistHeapViewModel {
 
         private String logMessage;
 
-        LogMessages(String logMessage) {
+        LogMessages(final String logMessage) {
             this.logMessage = logMessage;
         }
 
@@ -62,7 +62,7 @@ public class LeftistHeapViewModel {
     private Operations operation = Operations.INSERT;
     private ILeftistHeapLogger logger;
 
-    public LeftistHeapViewModel(ILeftistHeapLogger logger) {
+    public LeftistHeapViewModel(final ILeftistHeapLogger logger) {
         if (logger == null) {
             throw new NullPointerException("Logger is null");
         }

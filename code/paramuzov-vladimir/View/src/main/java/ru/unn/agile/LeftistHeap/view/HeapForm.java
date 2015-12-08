@@ -6,13 +6,11 @@ import ru.unn.agile.LeftistHeap.viewmodel.LeftistHeapViewModel;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.util.*;
 import java.util.List;
 
 public final class HeapForm {
@@ -34,7 +32,7 @@ public final class HeapForm {
                 LeftistHeapViewModel.Operations.values()).getModel());
         operationComboBox.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 backBind();
                 bind();
             }
@@ -73,7 +71,7 @@ public final class HeapForm {
         keyValueTextField.getDocument().addDocumentListener(fieldsListener);
         keyValueTextField.addFocusListener(new FocusAdapter() {
             @Override
-            public void focusLost(FocusEvent e) {
+            public void focusLost(final FocusEvent e) {
                 backBind();
                 viewModel.valueFieldFocusLost();
                 bind();

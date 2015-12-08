@@ -1,6 +1,5 @@
 dependencies {
     compile project(':paramuzov-vladimir-Model')
-    compile project(':paramuzov-vladimir-Infrastructure')
 }
 
 sourceSets {

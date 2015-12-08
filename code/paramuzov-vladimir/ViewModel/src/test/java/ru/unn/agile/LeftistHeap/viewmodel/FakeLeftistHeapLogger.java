@@ -6,11 +6,11 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class FakeLeftistHeapLogger implements ILeftistHeapLogger{
+public class FakeLeftistHeapLogger implements ILeftistHeapLogger {
     private ArrayList<String> log = new ArrayList<>();
 
     @Override
-    public void log(String message) {
+    public void log(final String message) {
         log.add("<" + getCurrentDateTime() + "> " + message);
     }
 
@@ -20,7 +20,7 @@ public class FakeLeftistHeapLogger implements ILeftistHeapLogger{
     }
 
     @Override
-    public String getLogMessage(int messageIndex) {
+    public String getLogMessage(final int messageIndex) {
         return log.get(messageIndex);
     }
 

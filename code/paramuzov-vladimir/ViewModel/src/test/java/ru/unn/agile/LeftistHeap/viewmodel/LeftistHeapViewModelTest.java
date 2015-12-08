@@ -10,7 +10,11 @@ import static ru.unn.agile.LeftistHeap.viewmodel.LeftistHeapViewModel.Errors;
 import static ru.unn.agile.LeftistHeap.viewmodel.LeftistHeapViewModel.LogMessages;
 
 public class LeftistHeapViewModelTest {
-    protected LeftistHeapViewModel viewModel;
+    private LeftistHeapViewModel viewModel;
+
+    public void setViewModel(final LeftistHeapViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
 
     @Before
     public void setUp() {

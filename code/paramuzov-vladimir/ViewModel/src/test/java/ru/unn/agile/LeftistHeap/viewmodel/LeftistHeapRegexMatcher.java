@@ -6,7 +6,7 @@ import org.hamcrest.TypeSafeMatcher;
 public class LeftistHeapRegexMatcher extends TypeSafeMatcher<String> {
     private final String regex;
 
-    public LeftistHeapRegexMatcher(String regex) {
+    public LeftistHeapRegexMatcher(final String regex) {
         this.regex = regex;
     }
 
@@ -16,7 +16,7 @@ public class LeftistHeapRegexMatcher extends TypeSafeMatcher<String> {
     }
 
     @Override
-    public void describeTo(Description description) {
+    public void describeTo(final Description description) {
         description.appendText("Matches regular expression=`" + regex + "`");
     }
 

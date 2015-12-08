@@ -9,6 +9,6 @@ public class LeftistHeapViewModelWithTxtLoggerTest extends LeftistHeapViewModelT
     public void setUp() {
         final String logFileName = "./paramuzov-vladimir-ViewModelWithTxtLogger-test.log";
         LeftistHeapTxtLogger txtLogger = new LeftistHeapTxtLogger(logFileName);
-        viewModel = new LeftistHeapViewModel(txtLogger);
+        super.setViewModel(new LeftistHeapViewModel(txtLogger));
     }
 }
