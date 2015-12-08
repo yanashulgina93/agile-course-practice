@@ -128,7 +128,7 @@ public class LeftistHeapViewModelTest {
 
     @Test
     public void byDefaultLogIsEmpty() {
-        assertEquals(0, viewModel.getLogger().getSize());
+        assertEquals(0, viewModel.getLogger().getLogSize());
     }
 
     @Test
@@ -137,7 +137,7 @@ public class LeftistHeapViewModelTest {
 
         viewModel.valueFieldFocusLost();
 
-        assertEquals(1, viewModel.getLogger().getSize());
+        assertEquals(1, viewModel.getLogger().getLogSize());
     }
 
     @Test
@@ -158,7 +158,7 @@ public class LeftistHeapViewModelTest {
 
         viewModel.applyOperation();
 
-        assertEquals(1, viewModel.getLogger().getSize());
+        assertEquals(1, viewModel.getLogger().getLogSize());
     }
 
     @Test
@@ -178,7 +178,7 @@ public class LeftistHeapViewModelTest {
     public void isChangingOperationAddNewMessageToLog() {
         viewModel.setOperation(LeftistHeapViewModel.Operations.DELETE);
 
-        assertEquals(1, viewModel.getLogger().getSize());
+        assertEquals(1, viewModel.getLogger().getLogSize());
     }
 
     @Test

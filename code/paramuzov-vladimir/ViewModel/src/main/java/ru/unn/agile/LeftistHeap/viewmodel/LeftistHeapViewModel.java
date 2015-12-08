@@ -4,14 +4,8 @@ import ru.unn.agile.LeftistHeap.model.LeftistHeap;
 import ru.unn.agile.LeftistHeap.model.LeftistHeapNode;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class LeftistHeapViewModel {
-    public void valueFieldFocusLost() {
-        logger.addMessage(LogMessages.KEY_VALUE_FIELD_CHANGED.getMessage()
-                            + keyValue);
-    }
-
     public enum Errors {
         FIELD_BAD_FORMAT("Wrong value in text field. Only integers, please.\n"),
         VALUE_TO_DELETE_NOT_FOUND("Element to delete not found.\n");
@@ -76,6 +70,13 @@ public class LeftistHeapViewModel {
         this.logger = logger;
     }
 
+    public void valueFieldFocusLost() {
+        if (keyValue != null) {
+            logger.log(LogMessages.KEY_VALUE_FIELD_CHANGED.getMessage()
+                    + keyValue);
+        }
+    }
+
     public boolean isApplyButtonEnabled() {
         return applyButtonEnabled;
     }
@@ -99,10 +100,11 @@ public class LeftistHeapViewModel {
     }
 
     public void setOperation(final Operations operation) {
-        this.operation = operation;
-
-        logger.addMessage(LogMessages.OPERATION_CHANGED.getMessage()
-                          + "`" + operation.toString() + "`");
+        if (this.operation != operation) {
+            this.operation = operation;
+            logger.log(LogMessages.OPERATION_CHANGED.getMessage()
+                    + "`" + operation.toString() + "`");
+        }
     }
 
     public Operations getOperation() {
@@ -110,7 +112,7 @@ public class LeftistHeapViewModel {
     }
 
     public void applyOperation() {
-        logger.addMessage(getApplyOperationLogMessage());
+        logger.log(getApplyOperationLogMessage());
 
         if (operation == Operations.INSERT) {
             insertElement();

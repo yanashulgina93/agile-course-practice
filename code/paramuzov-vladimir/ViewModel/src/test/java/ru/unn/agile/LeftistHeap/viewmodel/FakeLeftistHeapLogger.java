@@ -7,7 +7,7 @@ public class FakeLeftistHeapLogger implements ILeftistHeapLogger{
     private ArrayList<String> log = new ArrayList<>();
 
     @Override
-    public void addMessage(String message) {
+    public void log(String message) {
         log.add(message);
     }
 
@@ -22,7 +22,7 @@ public class FakeLeftistHeapLogger implements ILeftistHeapLogger{
     }
 
     @Override
-    public int getSize() {
+    public int getLogSize() {
         return log.size();
     }
 }

@@ -2,26 +2,65 @@ package ru.unn.agile.LeftistHeap.infrastructure;
 
 import ru.unn.agile.LeftistHeap.viewmodel.ILeftistHeapLogger;
 
+import java.io.*;
+import java.nio.file.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class LeftistHeapTxtLogger implements ILeftistHeapLogger {
-    @Override
-    public void addMessage(String message) {
+    private String logFileName;
+    private BufferedWriter logWriter;
 
+    public LeftistHeapTxtLogger(final String logFileName) {
+        this.logFileName = logFileName;
+
+        try {
+            logWriter = new BufferedWriter(new FileWriter(logFileName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void log(final String message) {
+        try {
+            logWriter.write("<" + getCurrentDateTime() + "> " + message);
+            logWriter.newLine();
+            logWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public List<String> getLog() {
-        return null;
+        List<String> logContent = new ArrayList<>();
+
+        try {
+            logContent = Files.readAllLines(Paths.get(logFileName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return logContent;
     }
 
     @Override
-    public String getLogMessage(int messageIndex) {
-        return null;
+    public String getLogMessage(final int messageIndex) {
+        return getLog().get(messageIndex);
     }
 
     @Override
-    public int getSize() {
-        return 0;
+    public int getLogSize() {
+        return getLog().size();
+    }
+
+    private static String getCurrentDateTime() {
+        String DATE_FORMAT = "dd.MM.yyyy HH:mm:ss";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
+        return dateFormat.format(Calendar.getInstance().getTime());
     }
 }
