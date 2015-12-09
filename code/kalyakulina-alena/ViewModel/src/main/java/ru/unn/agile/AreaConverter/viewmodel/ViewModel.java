@@ -3,6 +3,8 @@ package ru.unn.agile.AreaConverter.viewmodel;
 import ru.unn.agile.AreaConverter.model.AreaConverter;
 import ru.unn.agile.AreaConverter.model.AreaMeasure;
 
+import java.util.List;
+
 public class ViewModel {
     private String inputArea;
     private String resultArea;
@@ -51,15 +53,24 @@ public class ViewModel {
     }
 
     public void setInputArea(final String inputArea) {
-        this.inputArea = inputArea;
+        if (this.inputArea != inputArea) {
+            this.inputArea = inputArea;
+            logger.logMessage(LogMessage.INPUT_AREA_CHANGED.toString() + inputArea.toString());
+        }
     }
 
     public void setFrom(final AreaMeasure from) {
-        this.from = from;
+        if (this.from != from) {
+            this.from = from;
+            logger.logMessage(LogMessage.SCALE_FROM_CHANGED.toString() + from.toString());
+        }
     }
 
     public void setTo(final AreaMeasure to) {
-        this.to = to;
+        if (this.to != to) {
+            this.to = to;
+            logger.logMessage(LogMessage.SCALE_TO_CHANGED.toString() + to.toString());
+        }
     }
 
     public boolean parseInput() {
@@ -97,5 +108,9 @@ public class ViewModel {
             resultArea = Double.toString(convertedArea);
             status = Status.SUCCESS;
         }
+    }
+
+    public List<String> getLog() {
+        return logger.getLog();
     }
 }
