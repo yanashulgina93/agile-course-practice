@@ -16,7 +16,8 @@ public class LeftistHeapViewModel {
             this.errorMessage = errorMessage;
         }
 
-        public String getMessage() {
+        @Override
+        public String toString() {
             return errorMessage;
         }
     }
@@ -48,11 +49,12 @@ public class LeftistHeapViewModel {
             this.logMessage = logMessage;
         }
 
-        public String getMessage() {
+        @Override
+        public String toString() {
             return logMessage;
         }
     }
-    public static final String NUMBER_REGEX = "[+-]?\\d+";
+    public static final String KEY_VALUE_REGEX = "[+-]?\\d+";
 
     private final LeftistHeap<Integer> heap;
     private boolean applyButtonEnabled = false;
@@ -73,7 +75,7 @@ public class LeftistHeapViewModel {
 
     public void valueFieldFocusLost() {
         if (keyValue != null) {
-            logger.log(LogMessages.KEY_VALUE_FIELD_CHANGED.getMessage()
+            logger.log(LogMessages.KEY_VALUE_FIELD_CHANGED.toString()
                     + keyValue);
         }
     }
@@ -89,8 +91,8 @@ public class LeftistHeapViewModel {
             return;
         }
 
-        if (!keyValue.matches(NUMBER_REGEX)) {
-            errorText = Errors.FIELD_BAD_FORMAT.getMessage();
+        if (!keyValue.matches(KEY_VALUE_REGEX)) {
+            errorText = Errors.FIELD_BAD_FORMAT.toString();
             applyButtonEnabled = false;
             return;
         }
@@ -103,7 +105,7 @@ public class LeftistHeapViewModel {
     public void setOperation(final Operations operation) {
         if (this.operation != operation) {
             this.operation = operation;
-            logger.log(LogMessages.OPERATION_CHANGED.getMessage()
+            logger.log(LogMessages.OPERATION_CHANGED.toString()
                     + "`" + operation.toString() + "`");
         }
     }
@@ -145,7 +147,7 @@ public class LeftistHeapViewModel {
         try {
             nodeToDelete = heap.findNodeByKey(Integer.parseInt(keyValue));
         } catch (NullPointerException e) {
-            errorText =  Errors.VALUE_TO_DELETE_NOT_FOUND.getMessage();
+            errorText =  Errors.VALUE_TO_DELETE_NOT_FOUND.toString();
             return;
         }
         errorText = "";
@@ -155,7 +157,7 @@ public class LeftistHeapViewModel {
     }
 
     private String getApplyOperationLogMessage() {
-        return LogMessages.BUTTON_PRESSED.getMessage()
+        return LogMessages.BUTTON_PRESSED.toString()
                + "Operation: " + operation.toString()
                + "; Value: " + keyValue;
     }

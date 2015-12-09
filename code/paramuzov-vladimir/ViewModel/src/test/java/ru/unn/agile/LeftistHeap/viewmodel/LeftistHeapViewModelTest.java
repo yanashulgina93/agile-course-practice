@@ -18,8 +18,7 @@ public class LeftistHeapViewModelTest {
 
     @Before
     public void setUp() {
-        FakeLeftistHeapLogger fakeLogger = new FakeLeftistHeapLogger();
-        viewModel = new LeftistHeapViewModel(fakeLogger);
+        viewModel = new LeftistHeapViewModel(new FakeLeftistHeapLogger());
     }
 
     @Test
@@ -66,7 +65,7 @@ public class LeftistHeapViewModelTest {
     public void whenInputWrongKeyValueErrorDisplayed() {
         viewModel.setKeyValue("afc");
 
-        assertEquals(Errors.FIELD_BAD_FORMAT.getMessage(),
+        assertEquals(Errors.FIELD_BAD_FORMAT.toString(),
                      viewModel.getErrorText());
     }
 
@@ -96,7 +95,7 @@ public class LeftistHeapViewModelTest {
         viewModel.setOperation(Operations.DELETE);
         viewModel.applyOperation();
 
-        assertEquals(Errors.VALUE_TO_DELETE_NOT_FOUND.getMessage(),
+        assertEquals(Errors.VALUE_TO_DELETE_NOT_FOUND.toString(),
                      viewModel.getErrorText());
     }
 
@@ -155,8 +154,8 @@ public class LeftistHeapViewModelTest {
         String logMessage = viewModel.getLogger().getLogMessage(0);
 
         assertThat(logMessage, matches(ILeftistHeapLogger.DATE_REGEX
-                                        + LogMessages.KEY_VALUE_FIELD_CHANGED.getMessage()
-                                        + LeftistHeapViewModel.NUMBER_REGEX));
+                                        + LogMessages.KEY_VALUE_FIELD_CHANGED.toString()
+                                        + LeftistHeapViewModel.KEY_VALUE_REGEX));
     }
 
     @Test
@@ -176,11 +175,11 @@ public class LeftistHeapViewModelTest {
         String logMessage = viewModel.getLogger().getLogMessage(0);
 
         assertThat(logMessage, matches(ILeftistHeapLogger.DATE_REGEX
-                                        + LogMessages.BUTTON_PRESSED.getMessage()
+                                        + LogMessages.BUTTON_PRESSED.toString()
                                         + "Operation: "
                                         + Operations.INSERT.toString()
                                         + "; Value: "
-                                        + LeftistHeapViewModel.NUMBER_REGEX));
+                                        + LeftistHeapViewModel.KEY_VALUE_REGEX));
     }
 
     @Test
@@ -196,7 +195,7 @@ public class LeftistHeapViewModelTest {
         String logMessage = viewModel.getLogger().getLogMessage(0);
 
         assertThat(logMessage, matches(ILeftistHeapLogger.DATE_REGEX
-                                        + LogMessages.OPERATION_CHANGED.getMessage()
+                                        + LogMessages.OPERATION_CHANGED.toString()
                                         + "`" + Operations.DELETE.toString() + "`"));
     }
 }
