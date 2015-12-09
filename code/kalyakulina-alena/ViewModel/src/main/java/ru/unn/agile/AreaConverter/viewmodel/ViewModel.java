@@ -10,8 +10,14 @@ public class ViewModel {
     private AreaMeasure from;
     private AreaMeasure to;
     private boolean isConvertButtonEnable;
+    private AreaConverterLogger logger;
 
-    public ViewModel() {
+    public ViewModel(AreaConverterLogger logger) {
+        if (logger == null) {
+            throw new IllegalArgumentException("Logger parameter can't be null");
+        }
+
+        this.logger = logger;
         inputArea = "";
         resultArea = "";
         status = Status.WAITING;
