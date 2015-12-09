@@ -9,21 +9,19 @@ public class LabQueueViewModel {
     private final LabQueue<String> queue = new LabQueue<>();
     private int size;
     private String headElement;
-    private String dataInput;
+    private String element;
     private String result;
     private boolean isFindButtonEnabled;
     private boolean isPopButtonEnabled;
-    private final boolean isPushButtonEnabled;
     private final String errorMessage;
 
     public LabQueueViewModel() {
         size = 0;
-        dataInput = "";
+        element = "";
         result = "";
         headElement = "";
         isFindButtonEnabled = false;
         isPopButtonEnabled = false;
-        isPushButtonEnabled = true;
         errorMessage = "Element not found.";
     }
 
@@ -33,10 +31,6 @@ public class LabQueueViewModel {
 
     public boolean isPopButtonEnabled() {
         return isPopButtonEnabled;
-    }
-
-    public boolean isPushButtonEnabled() {
-        return isPushButtonEnabled;
     }
 
     public int getSize() {
@@ -55,20 +49,20 @@ public class LabQueueViewModel {
         headElement = queue.getHead();
     }
 
-    public String getDataInput() {
-        return dataInput;
+    public String getElement() {
+        return element;
     }
 
     public String getResult() {
         return result;
     }
 
-    public void setDataInput(final String newDataInput) {
-        dataInput = newDataInput;
+    public void setElement(final String element) {
+        this.element = element;
     }
 
-    public void setResult(final String newResult) {
-        result = newResult;
+    public void setResult(final String result) {
+        this.result = result;
     }
 
     public void setFindButtonEnabled(final boolean isFindEnabled) {
@@ -80,7 +74,7 @@ public class LabQueueViewModel {
     }
 
     public void pushElement() {
-        queue.push(dataInput);
+        queue.push(element);
         updateHeadElement();
         updateSize();
         setFindButtonEnabled(true);
@@ -100,7 +94,7 @@ public class LabQueueViewModel {
 
     public void findElement() {
         String outputMessage;
-        String value = getDataInput();
+        String value = getElement();
         try {
             outputMessage = Integer.toString(queue.findElement(value) + 1);
         } catch (Exception exception) {

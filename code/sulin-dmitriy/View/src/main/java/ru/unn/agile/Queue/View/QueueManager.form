@@ -50,7 +50,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="7392d" class="javax.swing.JFormattedTextField" binding="result">
+          <component id="7392d" class="javax.swing.JFormattedTextField" binding="resultText">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -60,7 +60,7 @@
               <horizontalAlignment value="4"/>
             </properties>
           </component>
-          <component id="f2f8c" class="javax.swing.JFormattedTextField" binding="dataInputText">
+          <component id="f2f8c" class="javax.swing.JFormattedTextField" binding="elementInputText">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="190" height="20"/>

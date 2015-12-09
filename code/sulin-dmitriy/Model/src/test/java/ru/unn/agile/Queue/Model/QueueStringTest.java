@@ -40,11 +40,11 @@ public class QueueStringTest {
 
     @Test
     public void canConvertToStringArray() {
-        String[] testAry = {"First", "Second", "Third"};
+        String[] testArray = {"First", "Second", "Third"};
 
-        for (int i = 0; i < testAry.length; i++) {
-            testStrQueue.push(testAry[i]);
+        for (int i = 0; i < testArray.length; i++) {
+            testStrQueue.push(testArray[i]);
         }
-        assertArrayEquals(testAry, testStrQueue.convertToStringArray());
+        assertArrayEquals(testArray, testStrQueue.convertToStringArray());
     }
 }

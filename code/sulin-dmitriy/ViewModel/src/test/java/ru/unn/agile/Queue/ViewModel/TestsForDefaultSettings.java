@@ -24,11 +24,6 @@ public class TestsForDefaultSettings {
     }
 
     @Test
-    public void byDefaultPushButtonIsEnabled() {
-        assertTrue(viewModel.isPushButtonEnabled());
-    }
-
-    @Test
     public void byDefaultSizeIsZero() {
         assertEquals(0, viewModel.getSize());
     }
@@ -40,7 +35,7 @@ public class TestsForDefaultSettings {
 
     @Test
     public void byDefaultInputIsEmpty() {
-        assertEquals("", viewModel.getDataInput());
+        assertEquals("", viewModel.getElement());
     }
 
     @Test

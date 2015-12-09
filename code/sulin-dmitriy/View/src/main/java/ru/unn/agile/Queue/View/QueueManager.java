@@ -12,8 +12,8 @@ public final class QueueManager {
     private JButton pushElementButton;
     private JButton findElementButton;
     private JButton popElementButton;
-    private JFormattedTextField result;
-    private JFormattedTextField dataInputText;
+    private JFormattedTextField resultText;
+    private JFormattedTextField elementInputText;
     private JLabel resultLabel;
     private JLabel dataInputLabel;
     private JLabel sizeLabel;
@@ -27,8 +27,8 @@ public final class QueueManager {
 
     private QueueManager() { }
 
-    private QueueManager(final LabQueueViewModel newViewModel) {
-        this.viewModel = newViewModel;
+    private QueueManager(final LabQueueViewModel viewModel) {
+        this.viewModel = viewModel;
         listForQueue = new JList<>(viewModel.getQueueAsArray());
         JScrollPane scrollForList = new JScrollPane();
         scrollForList.getViewport().setView(listForQueue);
@@ -65,19 +65,18 @@ public final class QueueManager {
     }
 
     private void bindFromViewModel() {
-        dataInputText.setText(viewModel.getDataInput());
-        result.setText(viewModel.getResult());
+        elementInputText.setText(viewModel.getElement());
+        resultText.setText(viewModel.getResult());
         headElementText.setText(viewModel.getHeadElement());
         sizeText.setText(Integer.toString(viewModel.getSize()));
         findElementButton.setEnabled(viewModel.isFindButtonEnabled());
-        pushElementButton.setEnabled(viewModel.isPushButtonEnabled());
         popElementButton.setEnabled(viewModel.isPopButtonEnabled());
         listForQueue.setListData(viewModel.getQueueAsArray());
     }
 
     private void backBindToViewModel() {
-        viewModel.setDataInput(dataInputText.getText());
-        viewModel.setResult(result.getText());
+        viewModel.setElement(elementInputText.getText());
+        viewModel.setResult(resultText.getText());
      }
 
     public static void main(final String[] args) {
