@@ -120,10 +120,6 @@ public class LeftistHeapViewModelTest {
 
     @Test
     public void canCreateLeftistHeapViewModelWithLogger() {
-        FakeLeftistHeapLogger fakeLogger = new FakeLeftistHeapLogger();
-
-        LeftistHeapViewModel viewModel = new LeftistHeapViewModel(fakeLogger);
-
         assertNotNull(viewModel);
     }
 
