@@ -75,10 +75,54 @@ public class ViewModelLoggerTest {
     }
 
     @Test
-    public void canWriteMessageToLogWhenInputChanged() {
+    public void canWriteMessageToLogWhenInputChangedAndFocusLost() {
         viewModel.setInputArea("0.0");
+        viewModel.focusLost();
         List<String> log = viewModel.getLog();
 
-        assertThat(log.get(0), containsString(LogMessage.INPUT_AREA_CHANGED.toString()));
+        assertThat(log.get(0), containsString(LogMessage.INPUT_AREA_EDITED.toString()));
+    }
+
+    @Test
+    public void canWriteMultipleMessagesToLogWithTheSameInput() {
+        viewModel.setInputArea("0.0");
+        viewModel.focusLost();
+        viewModel.setInputArea("0.0");
+        viewModel.focusLost();
+
+        List<String> log = viewModel.getLog();
+
+        assertEquals(2, log.size());
+    }
+
+    @Test
+    public void writeOnlyOneMessageToLogWithTheSameInputWithoutFocusLost() {
+        viewModel.setInputArea("10.0");
+        viewModel.setInputArea("10.0");
+        viewModel.focusLost();
+
+        List<String> log = viewModel.getLog();
+
+        assertEquals(1, log.size());
+    }
+
+    @Test
+    public void canWriteMessageToLogWhenConvertIsPressed() {
+        String inputArea = "1.0";
+        viewModel.setInputArea(inputArea);
+        viewModel.focusLost();
+        viewModel.convert();
+
+        List<String> log = viewModel.getLog();
+        String correctString = LogMessage.CONVERTED.toString()
+                + inputArea
+                + LogMessage.FROM_MEASURE.toString()
+                + viewModel.getFrom().toString()
+                + LogMessage.TO_MEASURE.toString()
+                + viewModel.getTo().toString()
+                + LogMessage.CONVERT_RESULT.toString()
+                + viewModel.getResultArea();
+
+        assertThat(log.get(1), containsString(correctString));
     }
 }

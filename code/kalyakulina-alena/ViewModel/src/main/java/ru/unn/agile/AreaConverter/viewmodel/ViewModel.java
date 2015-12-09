@@ -13,6 +13,7 @@ public class ViewModel {
     private AreaMeasure to;
     private boolean isConvertButtonEnable;
     private AreaConverterLogger logger;
+    private boolean isInputChange;
 
     public ViewModel(AreaConverterLogger logger) {
         if (logger == null) {
@@ -26,6 +27,7 @@ public class ViewModel {
         from = AreaMeasure.SQUARE_METER;
         to = AreaMeasure.SQUARE_KILOMETER;
         isConvertButtonEnable = false;
+        isInputChange = false;
     }
 
     public String getInputArea() {
@@ -53,10 +55,8 @@ public class ViewModel {
     }
 
     public void setInputArea(final String inputArea) {
-        if (this.inputArea != inputArea) {
-            this.inputArea = inputArea;
-            logger.logMessage(LogMessage.INPUT_AREA_CHANGED.toString() + inputArea.toString());
-        }
+        this.inputArea = inputArea;
+        isInputChange = true;
     }
 
     public void setFrom(final AreaMeasure from) {
@@ -101,16 +101,42 @@ public class ViewModel {
         return isConvertButtonEnable;
     }
 
+    private String createLogMessageForConvert() {
+        String logMessage = LogMessage.CONVERTED.toString()
+                + inputArea
+                + LogMessage.FROM_MEASURE.toString()
+                + from.toString()
+                + LogMessage.TO_MEASURE.toString()
+                + to.toString()
+                + LogMessage.CONVERT_RESULT.toString()
+                + resultArea;
+
+        return logMessage;
+    }
+
     public void convert() {
         if (parseInput()) {
             AreaConverter converter = new AreaConverter(from, to);
             double convertedArea = converter.convert(Double.parseDouble(inputArea));
             resultArea = Double.toString(convertedArea);
             status = Status.SUCCESS;
+
+            logger.logMessage(createLogMessageForConvert());
         }
     }
 
     public List<String> getLog() {
         return logger.getLog();
+    }
+
+    public void focusLost() {
+        if (isInputChange) {
+            logger.logMessage(LogMessage.INPUT_AREA_EDITED.toString() + inputArea.toString());
+            isInputChange = false;
+        }
+    }
+
+    public boolean isInputChanged() {
+        return isInputChange;
     }
 }

@@ -6,6 +6,7 @@ import org.junit.Test;
 import ru.unn.agile.AreaConverter.model.AreaMeasure;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ViewModelTest {
 
@@ -30,6 +31,7 @@ public class ViewModelTest {
         assertEquals(AreaMeasure.SQUARE_METER, viewModel.getFrom());
         assertEquals(AreaMeasure.SQUARE_KILOMETER, viewModel.getTo());
         assertEquals(false, viewModel.isConvertButtonEnabled());
+        assertEquals(false, viewModel.isInputChanged());
     }
 
     @Test
@@ -114,5 +116,12 @@ public class ViewModelTest {
         viewModel.setTo(AreaMeasure.SQUARE_KILOMETER);
         viewModel.convert();
         assertEquals(Status.SUCCESS, viewModel.getStatus());
+    }
+
+    @Test
+    public void isInputChangedWhenInputNewAreaValue() {
+        viewModel.setInputArea("56.0");
+
+        assertTrue(viewModel.isInputChanged());
     }
 }
