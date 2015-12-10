@@ -4,50 +4,45 @@ import org.junit.After;
 import org.junit.Before;
 import ru.unn.agile.Vec3.Model.Vector3;
 import org.junit.Test;
-
-import java.util.Formatter;
-import java.util.Locale;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class Vector3ViewModelTest {
     private Vector3ViewModel viewModel;
 
     @Before
-    public void Initialize() {
+    public void initialize() {
         viewModel = new Vector3ViewModel(new FakeLogger());
     }
 
     @After
-    public void Shutdown() {
+    public void shutdown() {
         viewModel = null;
     }
 
     @Test
     public void canGetNormOfDefaultFirstVector() {
-        viewModel.Compute(Vector3Operation.GET_NORM_FIRST_VECTOR);
+        viewModel.compute(Vector3Operation.GET_NORM_FIRST_VECTOR);
 
         assertEquals("0.0", viewModel.getResultOfLastAction());
     }
 
     @Test
     public void canGetNormOfDefaultSecondVector() {
-        viewModel.Compute(Vector3Operation.GET_NORM_SECOND_VECTOR);
+        viewModel.compute(Vector3Operation.GET_NORM_SECOND_VECTOR);
 
         assertEquals("0.0", viewModel.getResultOfLastAction());
     }
 
     @Test
     public void cannotNormalizeOfDefaultFirstVector() {
-        viewModel.Compute(Vector3Operation.NORMAlIZE_FIRST_VECTOR);
+        viewModel.compute(Vector3Operation.NORMAlIZE_FIRST_VECTOR);
 
         assertEquals(Vector3ViewModelStatus.FIRST_VECTOR_SMALL_NUMBERS, viewModel.getStatus());
     }
 
     @Test
     public void cannotNormalizeOfDefaultSecondVector() {
-        viewModel.Compute(Vector3Operation.NORMALIZE_SECOND_VECTOR);
+        viewModel.compute(Vector3Operation.NORMALIZE_SECOND_VECTOR);
 
         assertEquals(Vector3ViewModelStatus.SECOND_VECTOR_SMALL_NUMBERS, viewModel.getStatus());
     }
@@ -59,7 +54,7 @@ public class Vector3ViewModelTest {
 
         SetterVectorInViewModel.setFirstVector(vector, viewModel);
 
-        viewModel.Compute(Vector3Operation.GET_NORM_FIRST_VECTOR);
+        viewModel.compute(Vector3Operation.GET_NORM_FIRST_VECTOR);
 
         assertEquals(Double.toString(norm), viewModel.getResultOfLastAction());
     }
@@ -71,7 +66,7 @@ public class Vector3ViewModelTest {
 
         SetterVectorInViewModel.setSecondVector(vector, viewModel);
 
-        viewModel.Compute(Vector3Operation.GET_NORM_SECOND_VECTOR);
+        viewModel.compute(Vector3Operation.GET_NORM_SECOND_VECTOR);
 
         assertEquals(Double.toString(norm), viewModel.getResultOfLastAction());
     }
@@ -82,7 +77,7 @@ public class Vector3ViewModelTest {
 
         SetterVectorInViewModel.setFirstVector(vector, viewModel);
 
-        viewModel.Compute(Vector3Operation.NORMAlIZE_FIRST_VECTOR);
+        viewModel.compute(Vector3Operation.NORMAlIZE_FIRST_VECTOR);
         vector.normalize();
 
         assertEquals(vector.toString(), viewModel.getResultOfLastAction());
@@ -94,7 +89,7 @@ public class Vector3ViewModelTest {
 
         SetterVectorInViewModel.setSecondVector(vector, viewModel);
 
-        viewModel.Compute(Vector3Operation.NORMALIZE_SECOND_VECTOR);
+        viewModel.compute(Vector3Operation.NORMALIZE_SECOND_VECTOR);
         vector.normalize();
 
         assertEquals(vector.toString(), viewModel.getResultOfLastAction());
@@ -108,7 +103,7 @@ public class Vector3ViewModelTest {
         SetterVectorInViewModel.setFirstVector(firstVector, viewModel);
         SetterVectorInViewModel.setSecondVector(secondVector, viewModel);
 
-        viewModel.Compute(Vector3Operation.CALCULATE_DOT_PRODUCT);
+        viewModel.compute(Vector3Operation.CALCULATE_DOT_PRODUCT);
         double dot = firstVector.dot(secondVector);
 
         assertEquals(Double.toString(dot), viewModel.getResultOfLastAction());
@@ -116,7 +111,7 @@ public class Vector3ViewModelTest {
 
     @Test
     public void getErrorByCalculateCrossProductWithDefaultVectors() {
-        viewModel.Compute(Vector3Operation.CALCULATE_CROSS_PRODUCT);
+        viewModel.compute(Vector3Operation.CALCULATE_CROSS_PRODUCT);
 
         assertEquals(Vector3ViewModelStatus.COPLANAR_VECTORS, viewModel.getStatus());
     }
@@ -129,7 +124,7 @@ public class Vector3ViewModelTest {
         SetterVectorInViewModel.setFirstVector(firstVector, viewModel);
         SetterVectorInViewModel.setSecondVector(secondVector, viewModel);
 
-        viewModel.Compute(Vector3Operation.CALCULATE_CROSS_PRODUCT);
+        viewModel.compute(Vector3Operation.CALCULATE_CROSS_PRODUCT);
         Vector3 crossProduct = firstVector.cross(secondVector);
 
         assertEquals(crossProduct.toString(), viewModel.getResultOfLastAction());
@@ -213,7 +208,7 @@ public class Vector3ViewModelTest {
 
         viewModel.setCoordZ0(value);
 
-        assertEquals( value, viewModel.getCoordZ0AsDouble(),Double.MIN_VALUE);
+        assertEquals(value, viewModel.getCoordZ0AsDouble(), Double.MIN_VALUE);
     }
 
     @Test

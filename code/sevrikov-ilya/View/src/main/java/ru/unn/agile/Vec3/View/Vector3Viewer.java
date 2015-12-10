@@ -59,7 +59,7 @@ public final class Vector3Viewer {
             public void actionPerformed(final ActionEvent e) {
                 backBind();
 
-                viewModel.Compute((Vector3Operation) cmbActionList.getSelectedItem());
+                viewModel.compute((Vector3Operation) cmbActionList.getSelectedItem());
 
                 bind();
             }

@@ -14,12 +14,12 @@ public class FakeLoggerTests {
     private FakeLogger fakeLogger;
 
     @Before
-    public void Initialize() {
+    public void initialize() {
         fakeLogger = new FakeLogger();
     }
 
     @After
-    public void Shutdown() {
+    public void shutdown() {
         fakeLogger = null;
     }
 
@@ -43,8 +43,9 @@ public class FakeLoggerTests {
         StringBuilder stringBuilder = new StringBuilder();
         Formatter formatter = new Formatter(stringBuilder, Locale.ENGLISH);
 
-        String format = "%1$f + %2$f = %3$f";
-        final String formattedMessage = formatter.format(format, 5.0f, 3.0f, 5.0f + 3.0f).toString();
+        final String format = "%1$f + %2$f = %3$f";
+        final String formattedMessage =
+                formatter.format(format, 5.0f, 3.0f, 5.0f + 3.0f).toString();
 
         fakeLogger.pushMessage(format, 5.0f, 3.0f, 5.0f + 3.0f);
 

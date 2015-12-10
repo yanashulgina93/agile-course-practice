@@ -5,7 +5,7 @@ import java.util.List;
 public interface ILogger {
     void pushMessage(final String message);
 
-    void pushMessage(final String format, Object ... args);
+    void pushMessage(final String format, final Object ... args);
 
     List<String> getLog();
 }

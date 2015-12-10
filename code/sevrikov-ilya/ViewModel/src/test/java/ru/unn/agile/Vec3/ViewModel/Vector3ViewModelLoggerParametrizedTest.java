@@ -36,22 +36,28 @@ public class Vector3ViewModelLoggerParametrizedTest {
     @Parameterized.Parameters
     public static Collection operations() {
         return Arrays.asList(new Object[][] {
-                {new Vector3(1.0, 2.0, 3.0), new Vector3(4.0, 5.0, 6.0), Vector3Operation.GET_NORM_FIRST_VECTOR},
-                {new Vector3(7.0, 8.0, 9.0), new Vector3(8.0, 7.0, 6.0), Vector3Operation.GET_NORM_SECOND_VECTOR},
-                {new Vector3(5.0, 4.0, 3.0), new Vector3(2.0, 1.0, 2.0), Vector3Operation.NORMAlIZE_FIRST_VECTOR},
-                {new Vector3(3.0, 4.0, 5.0), new Vector3(6.0, 7.0, 8.0), Vector3Operation.NORMALIZE_SECOND_VECTOR},
-                {new Vector3(9.0, 8.0, 7.0), new Vector3(6.0, 5.0, 4.0), Vector3Operation.CALCULATE_DOT_PRODUCT},
-                {new Vector3(1.0, 0.0, 0.0), new Vector3(0.0, 1.0, 0.0), Vector3Operation.CALCULATE_CROSS_PRODUCT}
+                {new Vector3(1.0, 2.0, 3.0), new Vector3(4.0, 5.0, 6.0),
+                        Vector3Operation.GET_NORM_FIRST_VECTOR},
+                {new Vector3(7.0, 8.0, 9.0), new Vector3(8.0, 7.0, 6.0),
+                        Vector3Operation.GET_NORM_SECOND_VECTOR},
+                {new Vector3(5.0, 4.0, 3.0), new Vector3(2.0, 1.0, 2.0),
+                        Vector3Operation.NORMAlIZE_FIRST_VECTOR},
+                {new Vector3(3.0, 4.0, 5.0), new Vector3(6.0, 7.0, 8.0),
+                        Vector3Operation.NORMALIZE_SECOND_VECTOR},
+                {new Vector3(9.0, 8.0, 7.0), new Vector3(6.0, 5.0, 4.0),
+                        Vector3Operation.CALCULATE_DOT_PRODUCT},
+                {new Vector3(1.0, 0.0, 0.0), new Vector3(0.0, 1.0, 0.0),
+                        Vector3Operation.CALCULATE_CROSS_PRODUCT}
         });
     }
 
     @Before
-    public void Initialize() {
+    public void initialize() {
         viewModel = new Vector3ViewModel(new FakeLogger());
     }
 
     @After
-    public void Shutdown() {
+    public void shutdown() {
         viewModel = null;
     }
 
@@ -60,7 +66,7 @@ public class Vector3ViewModelLoggerParametrizedTest {
         SetterVectorInViewModel.setFirstVector(firstVector, viewModel);
         SetterVectorInViewModel.setSecondVector(secondVector, viewModel);
 
-        viewModel.Compute(operation);
+        viewModel.compute(operation);
 
         String outputMessage = getOutputMessage(operation);
 
@@ -72,7 +78,7 @@ public class Vector3ViewModelLoggerParametrizedTest {
         StringBuilder stringBuilder = new StringBuilder();
         Formatter formatter = new Formatter(stringBuilder, Locale.ENGLISH);
 
-        return formatter.format(viewModel.OUTPUT_MESSAGE_FORMAT,
+        return formatter.format(viewModel.getOutputFormat(),
                 operation.toString(), viewModel.getStatus(),
                 viewModel.getCoordX0(), viewModel.getCoordY0(), viewModel.getCoordZ0(),
                 viewModel.getCoordX1(), viewModel.getCoordY1(), viewModel.getCoordZ1(),

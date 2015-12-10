@@ -15,12 +15,12 @@ public class Vector3ViewModelLoggerTest {
     }
 
     @Before
-    public void Initialize() {
+    public void initialize() {
         viewModel = new Vector3ViewModel(new FakeLogger());
     }
 
     @After
-    public void Shutdown() {
+    public void shutdown() {
         viewModel = null;
     }
 

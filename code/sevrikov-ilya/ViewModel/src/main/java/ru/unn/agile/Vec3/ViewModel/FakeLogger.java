@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Locale;
 
 public final class FakeLogger implements ILogger {
-    private ArrayList<String> messages = new ArrayList<String>();
+    private final ArrayList<String> messages = new ArrayList<String>();
 
-    private StringBuilder stringBuilder = new StringBuilder();
-    private Formatter formatter = new Formatter(stringBuilder, Locale.ENGLISH);
+    private final StringBuilder stringBuilder = new StringBuilder();
+    private final Formatter formatter = new Formatter(stringBuilder, Locale.ENGLISH);
 
     @Override
     public void pushMessage(final String message) {
@@ -17,7 +17,7 @@ public final class FakeLogger implements ILogger {
     }
 
     @Override
-    public void pushMessage(final String format, Object ... args) {
+    public void pushMessage(final String format, final Object ... args) {
         messages.add(formatter.format(format, args).toString());
     }
 

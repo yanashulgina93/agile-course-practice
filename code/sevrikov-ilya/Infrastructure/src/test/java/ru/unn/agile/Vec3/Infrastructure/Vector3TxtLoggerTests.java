@@ -19,12 +19,12 @@ public class Vector3TxtLoggerTests {
     private Vector3TxtLogger logger;
 
     @Before
-    public void Initialize() {
+    public void initialize() {
         logger = new Vector3TxtLogger(LOG_FILE);
     }
 
     @After
-    public void Shutdown() {
+    public void shutdown() {
         logger = null;
     }
 
@@ -58,8 +58,10 @@ public class Vector3TxtLoggerTests {
 
     @Test
     public void canPushTwoMessages() {
-        final String firstMessage = "It is better to die for the Emperor than to live for yourself!";
-        final String secondMessage = "I never asked for this!";
+        final String firstMessage =
+                "It is better to die for the Emperor than to live for yourself!";
+        final String secondMessage =
+                "I never asked for this!";
 
         logger.pushMessage(firstMessage);
         logger.pushMessage(secondMessage);

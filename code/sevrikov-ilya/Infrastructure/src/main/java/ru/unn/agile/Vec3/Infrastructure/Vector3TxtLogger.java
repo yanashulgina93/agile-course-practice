@@ -7,14 +7,15 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Vector3TxtLogger implements ILogger {
-    private static final String FILENAME_EMPTY = "Text logger can't be initialize without filename.";
+    private static final String FILENAME_EMPTY =
+            "Text logger can't be initialize without filename.";
     private static final String FILE_NOT_EXIST = "File not exist.";
     private static final String DATE_FORMAT_NOW = "dd-MM-yyyy HH:mm:ss";
     private final String filename;
     private final BufferedWriter writerLog;
 
-    private StringBuilder stringBuilder = new StringBuilder();
-    private Formatter formatter = new Formatter(stringBuilder, Locale.ENGLISH);
+    private final StringBuilder stringBuilder = new StringBuilder();
+    private final Formatter formatter = new Formatter(stringBuilder, Locale.ENGLISH);
 
     private static String now() {
         Calendar calendar = Calendar.getInstance();
@@ -51,7 +52,7 @@ public class Vector3TxtLogger implements ILogger {
     }
 
     @Override
-    public void pushMessage(final String format, Object ... args) {
+    public void pushMessage(final String format, final Object ... args) {
         pushMessage(formatter.format(format, args).toString());
     }
 

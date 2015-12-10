@@ -1,20 +1,17 @@
 package ru.unn.agile.Vec3.ViewModel;
 
 public enum Vector3Operation {
-    GET_NORM_FIRST_VECTOR("Get norm first vector", 0),
-    GET_NORM_SECOND_VECTOR("Get norm second vector", 1),
-    NORMAlIZE_FIRST_VECTOR("Normalize first vector", 2),
-    NORMALIZE_SECOND_VECTOR("Normalize second vector", 3),
-    CALCULATE_DOT_PRODUCT("Calculate dot product", 4),
-    CALCULATE_CROSS_PRODUCT("Calculate cross product", 5);
+    GET_NORM_FIRST_VECTOR("Get norm first vector"),
+    GET_NORM_SECOND_VECTOR("Get norm second vector"),
+    NORMAlIZE_FIRST_VECTOR("Normalize first vector"),
+    NORMALIZE_SECOND_VECTOR("Normalize second vector"),
+    CALCULATE_DOT_PRODUCT("Calculate dot product"),
+    CALCULATE_CROSS_PRODUCT("Calculate cross product");
 
     private final String actionName;
-    private final int index;
 
-    Vector3Operation(final String actionName,
-                     final int index) {
+    Vector3Operation(final String actionName) {
         this.actionName = actionName;
-        this.index = index;
     }
 
     @Override

@@ -3,7 +3,6 @@ package ru.unn.agile.Vec3.ViewModel;
 import ru.unn.agile.Vec3.Model.Vector3;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -19,15 +18,9 @@ public class Vector3ViewModel {
     private String resultOfLastAction = "";
     private String status = Vector3ViewModelStatus.OK;
 
-    private DecimalFormat formatter;
+    private final DecimalFormat formatter;
 
-    private ILogger logger;
-
-    public final String OUTPUT_MESSAGE_FORMAT = "Operation: %1$s" + "\n\t"
-                                              + "Status: %2$s." + "\n\t"
-                                              + "First vector: (%3$s, %4$s, %5$s)"+ "\n\t"
-                                              + "Second vector: (%6$s, %7$s, %8$s)" + "\n\t"
-                                              + "Result: %9$s.";
+    private final ILogger logger;
 
     public Vector3ViewModel(final ILogger logger) {
         if (logger == null) {
@@ -135,7 +128,15 @@ public class Vector3ViewModel {
         return Double.parseDouble(coordZ1);
     }
 
-    public void Compute(final Vector3Operation operation) {
+    public String getOutputFormat() {
+        return "Operation: %1$s" + "\n\t"
+                + "Status: %2$s." + "\n\t"
+                + "First vector: (%3$s, %4$s, %5$s)" + "\n\t"
+                + "Second vector: (%6$s, %7$s, %8$s)" + "\n\t"
+                + "Result: %9$s.";
+    }
+
+    public void compute(final Vector3Operation operation) {
         switch (operation) {
             case GET_NORM_FIRST_VECTOR:     getNormOfFirstVector();
                                             break;
@@ -158,7 +159,7 @@ public class Vector3ViewModel {
             default: break;
         }
 
-        logger.pushMessage(OUTPUT_MESSAGE_FORMAT, operation.toString(), getStatus(),
+        logger.pushMessage(getOutputFormat(), operation.toString(), getStatus(),
                            coordX0, coordY0, coordZ0,
                            coordX1, coordY1, coordZ1,
                            resultOfLastAction);
@@ -272,8 +273,7 @@ public class Vector3ViewModel {
         Vector3 secondVector = getSecondVector();
         Vector3 resultVector = firstVector.cross(secondVector);
 
-        if (Double.isNaN(resultVector.x()))
-        {
+        if (Double.isNaN(resultVector.x())) {
             status = Vector3ViewModelStatus.COPLANAR_VECTORS;
             return;
         }
