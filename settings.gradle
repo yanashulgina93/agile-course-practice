@@ -263,6 +263,8 @@ include "code/zhbanova-anna/ViewModel"
 project(":code/zhbanova-anna/ViewModel").name = "zhbanova-anna-ViewModel"
 include "code/zhbanova-anna/View"
 project(":code/zhbanova-anna/View").name = "zhbanova-anna-View"
+include "code/zhbanova-anna/Infrastructure"
+project(":code/zhbanova-anna/Infrastructure").name = "zhbanova-anna-Infrastructure"
 
 // Zykov Ilya
 include "code/zykov-ilya"
