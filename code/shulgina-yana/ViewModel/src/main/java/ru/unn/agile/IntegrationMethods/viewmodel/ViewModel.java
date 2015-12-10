@@ -2,6 +2,8 @@ package ru.unn.agile.IntegrationMethods.viewmodel;
 
 import ru.unn.agile.IntegrationMethods.Model.*;
 
+import java.util.List;
+
 public class ViewModel {
     private Function function;
     private String lowerLimit;
@@ -10,8 +12,13 @@ public class ViewModel {
     private String result;
     private String status;
     private boolean isIntegrateButtonEnabled;
+    private NumericalIntegrationLogger logger;
 
-    public ViewModel() {
+    public ViewModel(final NumericalIntegrationLogger logger) {
+        if (logger == null) {
+            throw new IllegalArgumentException("Error: logger is null");
+        }
+        this.logger = logger;
         function = Function.X;
         lowerLimit = "";
         upperLimit = "";
@@ -148,6 +155,10 @@ public class ViewModel {
 
     public boolean isIntegrateButtonEnabled() {
         return isIntegrateButtonEnabled;
+    }
+
+    public List<String> getLoggersRecords() {
+        return logger.getAllRecords();
     }
 
     public enum Function {

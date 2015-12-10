@@ -4,15 +4,19 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertArrayEquals;
+import java.util.List;
+
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class ViewModelTests {
     private ViewModel viewModel;
 
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        FakeNumericalIntegrationLogger fakeLogger = new FakeNumericalIntegrationLogger();
+        viewModel = new ViewModel(fakeLogger);
     }
 
     @After
@@ -248,5 +252,32 @@ public class ViewModelTests {
     private void setTextFields() {
         viewModel.setLowerLimit("0.0");
         viewModel.setUpperLimit("2.0");
+    }
+
+    @Test
+    public void canViewModelAcceptFakeLogger() {
+        FakeNumericalIntegrationLogger fakeLogger = new FakeNumericalIntegrationLogger();
+        ViewModel viewModelWithFakeLogger = new ViewModel(fakeLogger);
+
+        assertNotNull(viewModelWithFakeLogger);
+    }
+
+    @Test
+    public void canViewModelThrowExceptionWhenLoggerIsNull() {
+        try {
+            ViewModel viewModelWithNullLogger = new ViewModel(null);
+            fail("ViewModel hasn't thrown exception");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("Error: logger is null", ex.getMessage());
+        } catch (Exception ex) {
+            fail("ViewModel has thrown another exception");
+        }
+    }
+
+    @Test
+    public void areLoggersRecordsEmptyInTheBeginning() {
+        List<String> records = viewModel.getLoggersRecords();
+
+        assertEquals(0, records.size());
     }
 }
