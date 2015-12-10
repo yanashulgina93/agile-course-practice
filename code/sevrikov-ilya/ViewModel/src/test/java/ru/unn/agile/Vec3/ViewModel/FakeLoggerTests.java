@@ -34,8 +34,8 @@ public class FakeLoggerTests {
 
         fakeLogger.pushMessage(message);
 
-        assertEquals(fakeLogger.size(), 1);
-        assertEquals(fakeLogger.getLastMessage(), message);
+        assertEquals(1, fakeLogger.size());
+        assertEquals(message, fakeLogger.getLastMessage());
     }
 
     @Test
@@ -48,8 +48,8 @@ public class FakeLoggerTests {
 
         fakeLogger.pushMessage(format, 5.0f, 3.0f, 5.0f + 3.0f);
 
-        assertEquals(fakeLogger.size(), 1);
-        assertEquals(fakeLogger.getLastMessage(), formattedMessage);
+        assertEquals(1, fakeLogger.size());
+        assertEquals(formattedMessage, fakeLogger.getLastMessage());
     }
 
     @Test

@@ -28,28 +28,28 @@ public class Vector3ViewModelTest {
     public void canGetNormOfDefaultFirstVector() {
         viewModel.Compute(Vector3Operation.GET_NORM_FIRST_VECTOR);
 
-        assertEquals(viewModel.getResultOfLastAction(), "0.0");
+        assertEquals("0.0", viewModel.getResultOfLastAction());
     }
 
     @Test
     public void canGetNormOfDefaultSecondVector() {
         viewModel.Compute(Vector3Operation.GET_NORM_SECOND_VECTOR);
 
-        assertEquals(viewModel.getResultOfLastAction(), "0.0");
+        assertEquals("0.0", viewModel.getResultOfLastAction());
     }
 
     @Test
     public void cannotNormalizeOfDefaultFirstVector() {
         viewModel.Compute(Vector3Operation.NORMAlIZE_FIRST_VECTOR);
 
-        assertEquals(viewModel.getStatus(), Vector3ViewModelStatus.FIRST_VECTOR_SMALL_NUMBERS);
+        assertEquals(Vector3ViewModelStatus.FIRST_VECTOR_SMALL_NUMBERS, viewModel.getStatus());
     }
 
     @Test
     public void cannotNormalizeOfDefaultSecondVector() {
         viewModel.Compute(Vector3Operation.NORMALIZE_SECOND_VECTOR);
 
-        assertEquals(viewModel.getStatus(), Vector3ViewModelStatus.SECOND_VECTOR_SMALL_NUMBERS);
+        assertEquals(Vector3ViewModelStatus.SECOND_VECTOR_SMALL_NUMBERS, viewModel.getStatus());
     }
 
     @Test
@@ -61,7 +61,7 @@ public class Vector3ViewModelTest {
 
         viewModel.Compute(Vector3Operation.GET_NORM_FIRST_VECTOR);
 
-        assertEquals(viewModel.getResultOfLastAction(), Double.toString(norm));
+        assertEquals(Double.toString(norm), viewModel.getResultOfLastAction());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class Vector3ViewModelTest {
 
         viewModel.Compute(Vector3Operation.GET_NORM_SECOND_VECTOR);
 
-        assertEquals(viewModel.getResultOfLastAction(), Double.toString(norm));
+        assertEquals(Double.toString(norm), viewModel.getResultOfLastAction());
     }
 
     @Test
@@ -85,7 +85,7 @@ public class Vector3ViewModelTest {
         viewModel.Compute(Vector3Operation.NORMAlIZE_FIRST_VECTOR);
         vector.normalize();
 
-        assertEquals(viewModel.getResultOfLastAction(), vector.toString());
+        assertEquals(vector.toString(), viewModel.getResultOfLastAction());
     }
 
     @Test
@@ -97,7 +97,7 @@ public class Vector3ViewModelTest {
         viewModel.Compute(Vector3Operation.NORMALIZE_SECOND_VECTOR);
         vector.normalize();
 
-        assertEquals(viewModel.getResultOfLastAction(), vector.toString());
+        assertEquals(vector.toString(), viewModel.getResultOfLastAction());
     }
 
     @Test
@@ -111,14 +111,14 @@ public class Vector3ViewModelTest {
         viewModel.Compute(Vector3Operation.CALCULATE_DOT_PRODUCT);
         double dot = firstVector.dot(secondVector);
 
-        assertEquals(viewModel.getResultOfLastAction(), Double.toString(dot));
+        assertEquals(Double.toString(dot), viewModel.getResultOfLastAction());
     }
 
     @Test
     public void getErrorByCalculateCrossProductWithDefaultVectors() {
         viewModel.Compute(Vector3Operation.CALCULATE_CROSS_PRODUCT);
 
-        assertEquals(viewModel.getStatus(), Vector3ViewModelStatus.COPLANAR_VECTORS);
+        assertEquals(Vector3ViewModelStatus.COPLANAR_VECTORS, viewModel.getStatus());
     }
 
     @Test
@@ -132,7 +132,7 @@ public class Vector3ViewModelTest {
         viewModel.Compute(Vector3Operation.CALCULATE_CROSS_PRODUCT);
         Vector3 crossProduct = firstVector.cross(secondVector);
 
-        assertEquals(viewModel.getResultOfLastAction(), crossProduct.toString());
+        assertEquals(crossProduct.toString(), viewModel.getResultOfLastAction());
     }
 
     @Test
@@ -141,7 +141,7 @@ public class Vector3ViewModelTest {
 
         viewModel.setCoordX0(value);
 
-        assertEquals(viewModel.getCoordX0(), value);
+        assertEquals(value, viewModel.getCoordX0());
     }
 
     @Test
@@ -150,7 +150,7 @@ public class Vector3ViewModelTest {
 
         viewModel.setCoordY0(value);
 
-        assertEquals(viewModel.getCoordY0(), value);
+        assertEquals(value, viewModel.getCoordY0());
     }
 
     @Test
@@ -159,7 +159,7 @@ public class Vector3ViewModelTest {
 
         viewModel.setCoordZ0(value);
 
-        assertEquals(viewModel.getCoordZ0(), value);
+        assertEquals(value, viewModel.getCoordZ0());
     }
 
     @Test
@@ -168,7 +168,7 @@ public class Vector3ViewModelTest {
 
         viewModel.setCoordX1(value);
 
-        assertEquals(viewModel.getCoordX1(), value);
+        assertEquals(value, viewModel.getCoordX1());
     }
 
     @Test
@@ -177,7 +177,7 @@ public class Vector3ViewModelTest {
 
         viewModel.setCoordY1(value);
 
-        assertEquals(viewModel.getCoordY1(), value);
+        assertEquals(value, viewModel.getCoordY1());
     }
 
     @Test
@@ -186,7 +186,7 @@ public class Vector3ViewModelTest {
 
         viewModel.setCoordZ1(value);
 
-        assertEquals(viewModel.getCoordZ1(), value);
+        assertEquals(value, viewModel.getCoordZ1());
     }
 
     @Test
@@ -195,7 +195,7 @@ public class Vector3ViewModelTest {
 
         viewModel.setCoordX0(value);
 
-        assertEquals(viewModel.getCoordX0AsDouble(), value, Double.MIN_VALUE);
+        assertEquals(value, viewModel.getCoordX0AsDouble(), Double.MIN_VALUE);
     }
 
     @Test
@@ -204,7 +204,7 @@ public class Vector3ViewModelTest {
 
         viewModel.setCoordY0(value);
 
-        assertEquals(viewModel.getCoordY0AsDouble(), value, Double.MIN_VALUE);
+        assertEquals(value, viewModel.getCoordY0AsDouble(), Double.MIN_VALUE);
     }
 
     @Test
@@ -213,7 +213,7 @@ public class Vector3ViewModelTest {
 
         viewModel.setCoordZ0(value);
 
-        assertEquals(viewModel.getCoordZ0AsDouble(), value, Double.MIN_VALUE);
+        assertEquals( value, viewModel.getCoordZ0AsDouble(),Double.MIN_VALUE);
     }
 
     @Test
@@ -222,7 +222,7 @@ public class Vector3ViewModelTest {
 
         viewModel.setCoordX1(value);
 
-        assertEquals(viewModel.getCoordX1AsDouble(), value, Double.MIN_VALUE);
+        assertEquals(value, viewModel.getCoordX1AsDouble(), Double.MIN_VALUE);
     }
 
     @Test
@@ -231,7 +231,7 @@ public class Vector3ViewModelTest {
 
         viewModel.setCoordY1(value);
 
-        assertEquals(viewModel.getCoordY1AsDouble(), value, Double.MIN_VALUE);
+        assertEquals(value, viewModel.getCoordY1AsDouble(), Double.MIN_VALUE);
     }
 
     @Test
@@ -240,108 +240,7 @@ public class Vector3ViewModelTest {
 
         viewModel.setCoordZ1(value);
 
-        assertEquals(viewModel.getCoordZ1AsDouble(), value, Double.MIN_VALUE);
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void viewModelConstructorThrowExceptionWithNullLogger() {
-       new Vector3ViewModel(null);
-    }
-
-    @Test
-    public void canCreateViewModelWithFakeLogger() {
-        FakeLogger fakeLogger = new FakeLogger();
-        Vector3ViewModel viewModel = new Vector3ViewModel(fakeLogger);
-
-        assertNotNull(viewModel);
-    }
-
-    @Test
-    public void viewModelCanLogGetNormOfFirstVector() {
-        final Vector3 vector = new Vector3(1.0, 2.0, 3.0);
-        final Vector3Operation operation = Vector3Operation.GET_NORM_FIRST_VECTOR;
-
-        setFirstVectorInViewModel(vector);
-        viewModel.Compute(operation);
-
-        String outputMessage = getOutputMessage(operation);
-
-        assertEquals(viewModel.getLog().size(), 1);
-        assertEquals(viewModel.getLog().get(0), outputMessage);
-    }
-
-    @Test
-    public void viewModelCanLogGetNormOfSecondVector() {
-        final Vector3 vector = new Vector3(4.0, 5.0, 6.0);
-        final Vector3Operation operation = Vector3Operation.GET_NORM_SECOND_VECTOR;
-
-        setSecondVectorInViewModel(vector);
-        viewModel.Compute(operation);
-
-        String outputMessage = getOutputMessage(operation);
-
-        assertEquals(viewModel.getLog().size(), 1);
-        assertEquals(viewModel.getLog().get(0), outputMessage);
-    }
-
-    @Test
-    public void viewModelCanLogNormalizeFirstVector() {
-        final Vector3 vector = new Vector3(1.0, 2.0, 3.0);
-        final Vector3Operation operation = Vector3Operation.NORMAlIZE_FIRST_VECTOR;
-
-        setFirstVectorInViewModel(vector);
-        viewModel.Compute(operation);
-
-        String outputMessage = getOutputMessage(operation);
-
-        assertEquals(viewModel.getLog().size(), 1);
-        assertEquals(viewModel.getLog().get(0), outputMessage);
-    }
-
-    @Test
-    public void viewModelCanLogNormalizeSecondVector() {
-        final Vector3 vector = new Vector3(4.0, 5.0, 6.0);
-        final Vector3Operation operation = Vector3Operation.NORMALIZE_SECOND_VECTOR;
-
-        setSecondVectorInViewModel(vector);
-        viewModel.Compute(operation);
-
-        String outputMessage = getOutputMessage(operation);
-
-        assertEquals(viewModel.getLog().size(), 1);
-        assertEquals(viewModel.getLog().get(0), outputMessage);
-    }
-
-    @Test
-    public void viewModelCanLogDotProduct() {
-        final Vector3 firstVector = new Vector3(1.0, 2.0, 3.0);
-        final Vector3 secondVector = new Vector3(4.0, 5.0, 6.0);
-        final Vector3Operation operation = Vector3Operation.CALCULATE_DOT_PRODUCT;
-
-        setFirstVectorInViewModel(firstVector);
-        setSecondVectorInViewModel(secondVector);
-        viewModel.Compute(operation);
-
-        String outputMessage = getOutputMessage(operation);
-
-        assertEquals(viewModel.getLog().size(), 1);
-        assertEquals(viewModel.getLog().get(0), outputMessage);
-    }
-
-    @Test
-    public void viewModelCanLogCrossProduct() {
-        final Vector3 firstVector = new Vector3(1.0, 0.0, 0.0);
-        final Vector3 secondVector = new Vector3(0.0, 1.0, 0.0);
-        final Vector3Operation operation = Vector3Operation.CALCULATE_CROSS_PRODUCT;
-
-        setFirstVectorInViewModel(firstVector);
-        setSecondVectorInViewModel(secondVector);
-        viewModel.Compute(operation);
-
-        String outputMessage = getOutputMessage(operation);
-
-        assertEquals(viewModel.getLog().size(), 1);
-        assertEquals(viewModel.getLog().get(0), outputMessage);
+        assertEquals(value, viewModel.getCoordZ1AsDouble(), Double.MIN_VALUE);
     }
 
     private void setFirstVectorInViewModel(final Vector3 vector) {
@@ -354,16 +253,5 @@ public class Vector3ViewModelTest {
         viewModel.setCoordX1(vector.x());
         viewModel.setCoordY1(vector.y());
         viewModel.setCoordZ1(vector.z());
-    }
-
-    private String getOutputMessage(final Vector3Operation operation) {
-        StringBuilder stringBuilder = new StringBuilder();
-        Formatter formatter = new Formatter(stringBuilder, Locale.ENGLISH);
-
-        return formatter.format(viewModel.OUTPUT_MESSAGE_FORMAT,
-                operation.toString(), viewModel.getStatus(),
-                viewModel.getCoordX0(), viewModel.getCoordY0(), viewModel.getCoordZ0(),
-                viewModel.getCoordX1(), viewModel.getCoordY1(), viewModel.getCoordZ1(),
-                viewModel.getResultOfLastAction()).toString();
     }
 }
