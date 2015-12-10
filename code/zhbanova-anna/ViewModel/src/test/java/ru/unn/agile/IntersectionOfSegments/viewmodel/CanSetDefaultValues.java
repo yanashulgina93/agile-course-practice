@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class CanSetDefaultValues {
@@ -51,15 +50,5 @@ public class CanSetDefaultValues {
     @Test
     public void calculateButtonIsDisabledInitially() {
         assertTrue(viewModel.calculationDisabledProperty().get());
-    }
-
-    @Test
-    public void canViewModelWithCorrectLogger() {
-        assertNotNull(viewModel);
-    }
-
-    @Test
-    public void defaultLogIsEmpty() {
-        assertTrue(viewModel.getLog().isEmpty());
     }
 }

@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class ViewModelWithLoggerTests {
@@ -24,6 +25,17 @@ public class ViewModelWithLoggerTests {
     public void tearDown() {
         viewModel = null;
     }
+
+    @Test
+    public void canViewModelWithCorrectLogger() {
+        assertNotNull(viewModel);
+    }
+
+    @Test
+    public void defaultLogIsEmpty() {
+        assertTrue(viewModel.getLog().isEmpty());
+    }
+
     @Test
     public void throwsWhenCreateViewModelWithNullLogger() {
         try {
