@@ -270,11 +270,10 @@ public class Vector3ViewModel {
 
         Vector3 firstVector  = getFirstVector();
         Vector3 secondVector = getSecondVector();
-        Vector3 resultVector;
+        Vector3 resultVector = firstVector.cross(secondVector);
 
-        try {
-            resultVector = firstVector.cross(secondVector);
-        } catch (ArithmeticException e) {
+        if (Double.isNaN(resultVector.x()))
+        {
             status = Vector3ViewModelStatus.COPLANAR_VECTORS;
             return;
         }

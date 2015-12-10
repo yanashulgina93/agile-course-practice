@@ -66,7 +66,11 @@ public class Vector3 {
 
     @Override
     public boolean equals(final Object obj) {
-        return (obj instanceof  Vector3) && equals((Vector3) obj);
+        if (obj instanceof Vector3) {
+            return equals((Vector3) obj);
+        }
+
+        return false;
     }
 
     @Override
@@ -119,8 +123,8 @@ public class Vector3 {
 
         try {
             vector.normalize();
-        } catch (ArithmeticException e) {
-            throw new ArithmeticException(e.getLocalizedMessage());
+        } catch (Throwable t) {
+            vector = new Vector3(Double.NaN, Double.NaN, Double.NaN);
         }
 
         return vector;

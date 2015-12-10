@@ -57,7 +57,7 @@ public class Vector3ViewModelTest {
         Vector3 vector = new Vector3(1.0, 2.0, 3.0);
         double norm = vector.getNorm();
 
-        setFirstVectorInViewModel(vector);
+        SetterVectorInViewModel.setFirstVector(vector, viewModel);
 
         viewModel.Compute(Vector3Operation.GET_NORM_FIRST_VECTOR);
 
@@ -69,7 +69,7 @@ public class Vector3ViewModelTest {
         Vector3 vector = new Vector3(1.0, 2.0, 3.0);
         double  norm   = vector.getNorm();
 
-        setSecondVectorInViewModel(vector);
+        SetterVectorInViewModel.setSecondVector(vector, viewModel);
 
         viewModel.Compute(Vector3Operation.GET_NORM_SECOND_VECTOR);
 
@@ -80,7 +80,7 @@ public class Vector3ViewModelTest {
     public void canNormalizeSpecificFirstVector() {
         Vector3 vector = new Vector3(1.0, 2.0, 3.0);
 
-        setFirstVectorInViewModel(vector);
+        SetterVectorInViewModel.setFirstVector(vector, viewModel);
 
         viewModel.Compute(Vector3Operation.NORMAlIZE_FIRST_VECTOR);
         vector.normalize();
@@ -92,7 +92,7 @@ public class Vector3ViewModelTest {
     public void canNormalizeSpecificSecondVector() {
         Vector3 vector = new Vector3(1.0, 2.0, 3.0);
 
-        setSecondVectorInViewModel(vector);
+        SetterVectorInViewModel.setSecondVector(vector, viewModel);
 
         viewModel.Compute(Vector3Operation.NORMALIZE_SECOND_VECTOR);
         vector.normalize();
@@ -105,8 +105,8 @@ public class Vector3ViewModelTest {
         Vector3 firstVector  = new Vector3(1.0, 2.0, 3.0);
         Vector3 secondVector = new Vector3(3.0, 2.0, 1.0);
 
-        setFirstVectorInViewModel(firstVector);
-        setSecondVectorInViewModel(secondVector);
+        SetterVectorInViewModel.setFirstVector(firstVector, viewModel);
+        SetterVectorInViewModel.setSecondVector(secondVector, viewModel);
 
         viewModel.Compute(Vector3Operation.CALCULATE_DOT_PRODUCT);
         double dot = firstVector.dot(secondVector);
@@ -126,8 +126,8 @@ public class Vector3ViewModelTest {
         Vector3 firstVector  = new Vector3(1.0, 0.0, 0.0);
         Vector3 secondVector = new Vector3(0.0, 1.0, 0.0);
 
-        setFirstVectorInViewModel(firstVector);
-        setSecondVectorInViewModel(secondVector);
+        SetterVectorInViewModel.setFirstVector(firstVector, viewModel);
+        SetterVectorInViewModel.setSecondVector(secondVector, viewModel);
 
         viewModel.Compute(Vector3Operation.CALCULATE_CROSS_PRODUCT);
         Vector3 crossProduct = firstVector.cross(secondVector);
@@ -241,17 +241,5 @@ public class Vector3ViewModelTest {
         viewModel.setCoordZ1(value);
 
         assertEquals(value, viewModel.getCoordZ1AsDouble(), Double.MIN_VALUE);
-    }
-
-    private void setFirstVectorInViewModel(final Vector3 vector) {
-        viewModel.setCoordX0(vector.x());
-        viewModel.setCoordY0(vector.y());
-        viewModel.setCoordZ0(vector.z());
-    }
-
-    private void setSecondVectorInViewModel(final Vector3 vector) {
-        viewModel.setCoordX1(vector.x());
-        viewModel.setCoordY1(vector.y());
-        viewModel.setCoordZ1(vector.z());
     }
 }

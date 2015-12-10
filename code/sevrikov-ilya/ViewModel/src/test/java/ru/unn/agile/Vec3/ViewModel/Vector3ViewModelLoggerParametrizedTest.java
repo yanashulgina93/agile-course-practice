@@ -57,8 +57,8 @@ public class Vector3ViewModelLoggerParametrizedTest {
 
     @Test
     public void viewModelCanLogOperation() {
-        setFirstVectorInViewModel(firstVector);
-        setSecondVectorInViewModel(secondVector);
+        SetterVectorInViewModel.setFirstVector(firstVector, viewModel);
+        SetterVectorInViewModel.setSecondVector(secondVector, viewModel);
 
         viewModel.Compute(operation);
 
@@ -66,19 +66,6 @@ public class Vector3ViewModelLoggerParametrizedTest {
 
         assertEquals(1, viewModel.getLog().size());
         assertEquals(outputMessage, viewModel.getLog().get(0));
-    }
-
-
-    private void setFirstVectorInViewModel(final Vector3 vector) {
-        viewModel.setCoordX0(vector.x());
-        viewModel.setCoordY0(vector.y());
-        viewModel.setCoordZ0(vector.z());
-    }
-
-    private void setSecondVectorInViewModel(final Vector3 vector) {
-        viewModel.setCoordX1(vector.x());
-        viewModel.setCoordY1(vector.y());
-        viewModel.setCoordZ1(vector.z());
     }
 
     private String getOutputMessage(final Vector3Operation operation) {
