@@ -1,6 +1,5 @@
 package ru.unn.agile.IntersectionOfSegments.viewmodel;
 
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

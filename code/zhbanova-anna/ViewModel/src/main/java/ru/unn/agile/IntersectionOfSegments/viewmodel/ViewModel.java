@@ -59,6 +59,7 @@ public class ViewModel {
         setLogger(logger);
         init();
     }
+
     private void init() {
         for (StringProperty field : fields) {
             field.set("");
@@ -104,8 +105,8 @@ public class ViewModel {
         updateLogs();
     }
 
-    public void onFocusChanged(final Boolean oldValue, final Boolean newValue) {
-        if (!oldValue && newValue) {
+    public void onFocusChanged(final Boolean oldFocusValue, final Boolean newFocusValue) {
+        if (!oldFocusValue && newFocusValue) {
             return;
         }
 
@@ -254,22 +255,21 @@ public class ViewModel {
     }
 
     private class ValueCachingChangeListener implements ChangeListener<String> {
-        private String prevValue = new String();
-        private String curValue = new String();
+        private String previousValue = new String();
+        private String currentValue = new String();
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
-            if (oldValue.equals(newValue)) {
-                return;
+            if (!oldValue.equals(newValue)) {
+                status.set(getInputStatus().toString());
+                currentValue = newValue;
             }
-            status.set(getInputStatus().toString());
-            curValue = newValue;
         }
         public boolean isChanged() {
-            return !prevValue.equals(curValue);
+            return !previousValue.equals(currentValue);
         }
         public void cache() {
-            prevValue = curValue;
+            previousValue = currentValue;
         }
     }
 }

@@ -1,6 +1,5 @@
 package ru.unn.agile.IntersectionOfSegments.viewmodel;
 
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +26,7 @@ public class ViewModelWithLoggerTests {
     }
 
     @Test
-    public void canViewModelWithCorrectLogger() {
+    public void canCreateViewModelWithCorrectLogger() {
         assertNotNull(viewModel);
     }
 
@@ -56,7 +55,7 @@ public class ViewModelWithLoggerTests {
     }
 
     @Test
-    public void isLogContainProperMessageAfterCalculation() {
+    public void doesLogContainProperMessageAfterCalculation() {
         setInputData();
         viewModel.calculate();
         String logMessage = viewModel.getLog().get(0);
@@ -65,7 +64,7 @@ public class ViewModelWithLoggerTests {
     }
 
     @Test
-    public void isLogContainProperMessageAfterChangingInputData() {
+    public void doesLogContainProperMessageAfterChangingInputData() {
         viewModel.seg2Point1XProperty().set("1");
         viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
         String logMessage = viewModel.getLog().get(0);

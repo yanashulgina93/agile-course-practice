@@ -1,6 +1,5 @@
 package ru.unn.agile.IntersectionOfSegments.viewmodel;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
