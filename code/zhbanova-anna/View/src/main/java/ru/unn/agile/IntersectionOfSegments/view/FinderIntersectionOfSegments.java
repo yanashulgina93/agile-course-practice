@@ -40,7 +40,7 @@ public class FinderIntersectionOfSegments {
             @Override
             public void changed(final ObservableValue<? extends Boolean> observable,
                                 final Boolean oldValue, final Boolean newValue) {
-                viewModel.onFocusChanged(oldValue, newValue);
+                viewModel.focusWasChanged(newValue);
             }
         };
         txtSeg1Point1X.textProperty().bindBidirectional(viewModel.seg1Point1XProperty());

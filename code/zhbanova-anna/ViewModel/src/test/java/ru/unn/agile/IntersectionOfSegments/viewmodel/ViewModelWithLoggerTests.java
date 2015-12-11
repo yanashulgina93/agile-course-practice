@@ -1,6 +1,5 @@
 package ru.unn.agile.IntersectionOfSegments.viewmodel;
 
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +26,7 @@ public class ViewModelWithLoggerTests {
     }
 
     @Test
-    public void canViewModelWithCorrectLogger() {
+    public void canCreateViewModelWithCorrectLogger() {
         assertNotNull(viewModel);
     }
 
@@ -48,15 +47,15 @@ public class ViewModelWithLoggerTests {
     @Test
     public void logCanHaveSeveralMessages() {
         viewModel.seg2Point1XProperty().set("1");
-        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        viewModel.focusWasChanged(Boolean.FALSE);
         viewModel.seg2Point1YProperty().set("5");
-        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        viewModel.focusWasChanged(Boolean.FALSE);
 
         assertEquals(2, viewModel.getLog().size());
     }
 
     @Test
-    public void isLogContainProperMessageAfterCalculation() {
+    public void doesLogContainProperMessageAfterCalculation() {
         setInputData();
         viewModel.calculate();
         String logMessage = viewModel.getLog().get(0);
@@ -65,9 +64,9 @@ public class ViewModelWithLoggerTests {
     }
 
     @Test
-    public void isLogContainProperMessageAfterChangingInputData() {
+    public void doesLogContainProperMessageAfterChangingInputData() {
         viewModel.seg2Point1XProperty().set("1");
-        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        viewModel.focusWasChanged(Boolean.FALSE);
         String logMessage = viewModel.getLog().get(0);
 
         assertTrue(logMessage.matches(".*" + LogMessages.EDITING_FINISHED + ".*"));
@@ -76,9 +75,9 @@ public class ViewModelWithLoggerTests {
     @Test
     public void doNotAddLogMessageWhenSameParameterWasInput() {
         viewModel.seg1Point1XProperty().set("1");
-        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        viewModel.focusWasChanged(Boolean.FALSE);
         viewModel.seg1Point1XProperty().set("1");
-        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        viewModel.focusWasChanged(Boolean.FALSE);
 
         assertEquals(1, viewModel.getLog().size());
     }
@@ -86,7 +85,7 @@ public class ViewModelWithLoggerTests {
     @Test
     public void logSaveCorrectInputData() {
         setInputData();
-        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        viewModel.focusWasChanged(Boolean.FALSE);
 
         String message = viewModel.getLog().get(0);
         assertTrue(message.matches(".*" + viewModel.seg1Point1XProperty().get()
@@ -103,9 +102,9 @@ public class ViewModelWithLoggerTests {
     @Test
     public void addLogMessageAfterDeletingInputData() {
         viewModel.seg1Point1XProperty().set("1");
-        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        viewModel.focusWasChanged(Boolean.FALSE);
         viewModel.seg1Point1XProperty().set("");
-        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        viewModel.focusWasChanged(Boolean.FALSE);
 
         assertEquals(2, viewModel.getLog().size());
     }
