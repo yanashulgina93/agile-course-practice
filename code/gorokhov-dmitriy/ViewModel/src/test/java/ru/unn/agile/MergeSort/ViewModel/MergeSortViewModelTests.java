@@ -1,16 +1,22 @@
 package ru.unn.agile.MergeSort.ViewModel;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+import static ru.unn.agile.MergeSort.ViewModel.MergeSortRegexMatcher.matches;
+import static ru.unn.agile.MergeSort.ViewModel.MergeSortViewModel.*;
 
 public class MergeSortViewModelTests {
+    public void setMergeSortViewModel(final MergeSortViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
+
     @Before
     public void setUp() {
-        viewModel = new MergeSortViewModel();
+        viewModel = new MergeSortViewModel(new FakeMergeSortLogger());
     }
 
     @Test
@@ -55,7 +61,7 @@ public class MergeSortViewModelTests {
 
     @Test
     public void isSortingOrderSetAscendingByDefault() {
-        assertEquals(MergeSortViewModel.SortingOrder.ASCENDING, viewModel.getSortingOrder());
+        assertEquals(SortingOrder.ASCENDING, viewModel.getSortingOrder());
     }
 
     @Test
@@ -65,9 +71,9 @@ public class MergeSortViewModelTests {
 
     @Test
     public void canChangeSortingOrder() {
-        viewModel.setSortingOrder(MergeSortViewModel.SortingOrder.DESCENDING);
+        viewModel.setSortingOrder(SortingOrder.DESCENDING);
 
-        assertEquals(MergeSortViewModel.SortingOrder.DESCENDING, viewModel.getSortingOrder());
+        assertEquals(SortingOrder.DESCENDING, viewModel.getSortingOrder());
     }
 
     @Test
@@ -103,7 +109,7 @@ public class MergeSortViewModelTests {
     @Test
     public void isResultArrayCorrectWhenSortingIntegerSourceArrayByDescendingOrder() {
         viewModel.setSortingArray("5 -3 -3 0 1");
-        viewModel.setSortingOrder(MergeSortViewModel.SortingOrder.DESCENDING);
+        viewModel.setSortingOrder(SortingOrder.DESCENDING);
         viewModel.sort();
 
         assertEquals("5.0 1.0 0.0 -3.0 -3.0", viewModel.getResultArray());
@@ -112,7 +118,7 @@ public class MergeSortViewModelTests {
     @Test
     public void isResultArrayCorrectWhenSortingFloatingPointSourceArrayByDescendingOrder() {
         viewModel.setSortingArray("34.5 -43.2 11.2 43.4 34.1");
-        viewModel.setSortingOrder(MergeSortViewModel.SortingOrder.DESCENDING);
+        viewModel.setSortingOrder(SortingOrder.DESCENDING);
         viewModel.sort();
 
         assertEquals("43.4 34.5 34.1 11.2 -43.2", viewModel.getResultArray());
@@ -126,7 +132,7 @@ public class MergeSortViewModelTests {
 
     @Test
     public void isSourceArrayStatusSetEmptyByDefault() {
-        assertEquals(MergeSortViewModel.SortingArrayStatus.EMPTY.toString(),
+        assertEquals(SortingArrayStatus.EMPTY.toString(),
                      viewModel.getSortingArrayStatus());
     }
 
@@ -134,7 +140,7 @@ public class MergeSortViewModelTests {
     public void isSourceArrayStatusSetWrongFormatWhenSourceArrayInvalid() {
         viewModel.setSortingArray("12 ds");
 
-        assertEquals(MergeSortViewModel.SortingArrayStatus.WRONG_FORMAT.toString(),
+        assertEquals(SortingArrayStatus.WRONG_FORMAT.toString(),
                      viewModel.getSortingArrayStatus());
     }
 
@@ -142,7 +148,7 @@ public class MergeSortViewModelTests {
     public void isSourceArrayStatusSetValidFormatWhenSourceArrayValid() {
         viewModel.setSortingArray("56.2 123.1");
 
-        assertEquals(MergeSortViewModel.SortingArrayStatus.VALID_FORMAT.toString(),
+        assertEquals(SortingArrayStatus.VALID_FORMAT.toString(),
                      viewModel.getSortingArrayStatus());
     }
 
@@ -151,8 +157,8 @@ public class MergeSortViewModelTests {
         viewModel.setSortingArray("56.2 123.1");
         viewModel.setSortingArray("");
 
-        assertEquals(MergeSortViewModel.SortingArrayStatus.EMPTY.toString(),
-                viewModel.getSortingArrayStatus());
+        assertEquals(SortingArrayStatus.EMPTY.toString(),
+                     viewModel.getSortingArrayStatus());
     }
 
     @Test
@@ -160,8 +166,129 @@ public class MergeSortViewModelTests {
         viewModel.setSortingArray("12 ds");
         viewModel.setSortingArray("56.2 123.1");
 
-        assertEquals(MergeSortViewModel.SortingArrayStatus.VALID_FORMAT.toString(),
-                viewModel.getSortingArrayStatus());
+        assertEquals(SortingArrayStatus.VALID_FORMAT.toString(),
+                     viewModel.getSortingArrayStatus());
+    }
+
+    @Test
+    public void canCreateMergeSortViewModelWithFakeLogger() {
+        MergeSortViewModel viewModelWithLogger = new MergeSortViewModel(new FakeMergeSortLogger());
+
+        assertNotNull(viewModelWithLogger);
+    }
+
+    @Test
+    public void canNotCreateMergeSortViewModelWithNullPointerLogger() {
+        try {
+            new MergeSortViewModel(null);
+            fail("Exceptions wasn't catched");
+        } catch (IllegalArgumentException exception) {
+            Assert.assertEquals("Argument is null pointer", exception.getMessage());
+        } catch (Exception exception) {
+            fail("Not IllegalArgumentException was catched");
+        }
+    }
+
+    @Test
+    public void canAddRecordToLog() {
+        IMergeSortLogger logger = viewModel.getLogger();
+
+        logger.writeRecord("Sample");
+
+        assertEquals(1, logger.getRecordsCount());
+    }
+
+    @Test
+    public void canReadRecordFromLog() {
+        IMergeSortLogger logger = viewModel.getLogger();
+
+        logger.writeRecord("Sample");
+
+        assertThat(logger.readRecord(0), matches(".*" + "Sample" + ".*"));
+    }
+
+    @Test
+    public void canAddSeveralRecordsToLog() {
+        IMergeSortLogger logger = viewModel.getLogger();
+
+        logger.writeRecord("Sample1");
+        logger.writeRecord("Sample2");
+        logger.writeRecord("Sample3");
+
+        assertEquals(3, logger.getRecordsCount());
+    }
+
+    @Test
+    public void canReadArbitraryRecordFromLog() {
+        IMergeSortLogger logger = viewModel.getLogger();
+
+        logger.writeRecord("Sample1");
+        logger.writeRecord("Sample2");
+        logger.writeRecord("Sample3");
+
+        assertThat(viewModel.getLogger().readRecord(2), matches(".*" + "Sample3" + ".*"));
+    }
+
+    @Test
+    public void canReadRecordsListFromLog() {
+        IMergeSortLogger logger = viewModel.getLogger();
+
+        logger.writeRecord("Sample1");
+        logger.writeRecord("Sample2");
+
+        assertEquals(2, logger.getRecordsList().size());
+    }
+
+    @Test
+    public void isReadRecordReturnNullWhenRecordNumberIsOutOfBounds() {
+        IMergeSortLogger logger = viewModel.getLogger();
+
+        logger.writeRecord("Sample");
+
+        assertEquals(null, logger.readRecord(1));
+    }
+
+
+    @Test
+    public void isFakeLoggerEmptyByDefault() {
+        assertEquals(0, viewModel.getLogger().getRecordsCount());
+    }
+
+    @Test
+    public void isCorrectRecordWrittenToLogWhenSortingOrderChanged() {
+        viewModel.setSortingOrder(SortingOrder.DESCENDING);
+        viewModel.setSortingArray("12 31 14");
+        viewModel.sort();
+
+        assertThat(viewModel.getLogger().readRecord(0), matches(".*"
+                + LogRecords.SORTING_ORDER_CHANGED.toString() + SortingOrder.DESCENDING + ".*"));
+    }
+
+    @Test
+    public void isLogNotChangedWhenSortingOrderChangedToSame() {
+        viewModel.setSortingOrder(SortingOrder.ASCENDING);
+        viewModel.setSortingArray("12 31 14");
+        viewModel.sort();
+
+        assertEquals(2, viewModel.getLogger().getRecordsCount());
+    }
+
+    @Test
+    public void isCorrectRecordWrittenToLogWhenSortButtonPressed() {
+        viewModel.setSortingArray("12 31 14");
+        viewModel.sort();
+
+        assertThat(viewModel.getLogger().readRecord(0), matches(".*"
+                + LogRecords.SORT_BUTTON_PRESSED.toString() + "12 31 14" + ".*"));
+    }
+
+    @Test
+    public void isCorrectRecordWrittenToLogWhenSortingFinished() {
+        viewModel.setSortingArray("12 31 14");
+        viewModel.sort();
+
+        assertThat(viewModel.getLogger().readRecord(1), matches(".*"
+                + LogRecords.SOURCE_ARRAY_SORTED.toString() + viewModel.getResultArray() + ".*"));
     }
 
     private MergeSortViewModel viewModel;
