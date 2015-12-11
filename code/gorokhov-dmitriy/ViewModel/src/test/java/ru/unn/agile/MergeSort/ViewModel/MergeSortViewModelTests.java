@@ -1,14 +1,18 @@
 package ru.unn.agile.MergeSort.ViewModel;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNull;
-import static org.junit.Assert.*;
+import static junit.framework.TestCase.assertFalse;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import static ru.unn.agile.MergeSort.ViewModel.MergeSortRegexMatcher.matches;
-import static ru.unn.agile.MergeSort.ViewModel.MergeSortViewModel.*;
+import static ru.unn.agile.MergeSort.ViewModel.MergeSortViewModel.SortingOrder;
+import static ru.unn.agile.MergeSort.ViewModel.MergeSortViewModel.SortingArrayStatus;
+import static ru.unn.agile.MergeSort.ViewModel.MergeSortViewModel.LogRecords;
 
 public class MergeSortViewModelTests {
     public void setMergeSortViewModel(final MergeSortViewModel viewModel) {
@@ -178,88 +182,19 @@ public class MergeSortViewModelTests {
         assertNotNull(viewModelWithLogger);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void canNotCreateMergeSortViewModelWithNullPointerLogger() {
-        try {
-            new MergeSortViewModel(null);
-            fail("Exceptions wasn't catched");
-        } catch (IllegalArgumentException exception) {
-            Assert.assertEquals("Argument is null pointer", exception.getMessage());
-        } catch (Exception exception) {
-            fail("Not IllegalArgumentException was catched");
-        }
+        new MergeSortViewModel(null);
     }
 
     @Test
-    public void canAddRecordToLog() {
-        IMergeSortLogger logger = viewModel.getLogger();
-
-        logger.writeRecord("Sample");
-
-        assertEquals(1, logger.getRecordsCount());
-    }
-
-    @Test
-    public void canReadRecordFromLog() {
-        IMergeSortLogger logger = viewModel.getLogger();
-
-        logger.writeRecord("Sample");
-
-        assertThat(logger.readRecord(0), matches(".*" + "Sample" + ".*"));
-    }
-
-    @Test
-    public void canAddSeveralRecordsToLog() {
-        IMergeSortLogger logger = viewModel.getLogger();
-
-        logger.writeRecord("Sample1");
-        logger.writeRecord("Sample2");
-        logger.writeRecord("Sample3");
-
-        assertEquals(3, logger.getRecordsCount());
-    }
-
-    @Test
-    public void canReadThirdRecordFromLog() {
-        IMergeSortLogger logger = viewModel.getLogger();
-
-        logger.writeRecord("Sample1");
-        logger.writeRecord("Sample2");
-        logger.writeRecord("Sample3");
-
-        assertThat(viewModel.getLogger().readRecord(2), matches(".*" + "Sample3" + ".*"));
-    }
-
-    @Test
-    public void canReadRecordsListFromLog() {
-        IMergeSortLogger logger = viewModel.getLogger();
-
-        logger.writeRecord("Sample1");
-        logger.writeRecord("Sample2");
-
-        assertEquals(2, logger.getRecordsList().size());
-    }
-
-    @Test
-    public void isReadRecordReturnNullWhenRecordNumberIsOutOfBounds() {
-        IMergeSortLogger logger = viewModel.getLogger();
-
-        logger.writeRecord("Sample");
-
-        assertNull(logger.readRecord(1));
-    }
-
-
-    @Test
-    public void isFakeLoggerEmptyByDefault() {
+    public void isLoggerEmptyByDefault() {
         assertEquals(0, viewModel.getLogger().getRecordsCount());
     }
 
     @Test
     public void isCorrectRecordWrittenToLogWhenSortingOrderChanged() {
         viewModel.setSortingOrder(SortingOrder.DESCENDING);
-        viewModel.setSortingArray("12 31 14");
-        viewModel.sort();
 
         assertThat(viewModel.getLogger().readRecord(0), matches(".*"
                 + LogRecords.SORTING_ORDER_CHANGED.toString() + SortingOrder.DESCENDING + ".*"));
@@ -268,10 +203,8 @@ public class MergeSortViewModelTests {
     @Test
     public void isLogNotChangedWhenSortingOrderChangedToSame() {
         viewModel.setSortingOrder(SortingOrder.ASCENDING);
-        viewModel.setSortingArray("12 31 14");
-        viewModel.sort();
 
-        assertEquals(2, viewModel.getLogger().getRecordsCount());
+        assertEquals(0, viewModel.getLogger().getRecordsCount());
     }
 
     @Test
