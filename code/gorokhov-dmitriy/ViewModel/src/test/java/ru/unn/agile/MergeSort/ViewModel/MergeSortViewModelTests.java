@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.*;
 import static ru.unn.agile.MergeSort.ViewModel.MergeSortRegexMatcher.matches;
 import static ru.unn.agile.MergeSort.ViewModel.MergeSortViewModel.*;
@@ -219,7 +220,7 @@ public class MergeSortViewModelTests {
     }
 
     @Test
-    public void canReadArbitraryRecordFromLog() {
+    public void canReadThirdRecordFromLog() {
         IMergeSortLogger logger = viewModel.getLogger();
 
         logger.writeRecord("Sample1");
@@ -245,7 +246,7 @@ public class MergeSortViewModelTests {
 
         logger.writeRecord("Sample");
 
-        assertEquals(null, logger.readRecord(1));
+        assertNull(logger.readRecord(1));
     }
 
 

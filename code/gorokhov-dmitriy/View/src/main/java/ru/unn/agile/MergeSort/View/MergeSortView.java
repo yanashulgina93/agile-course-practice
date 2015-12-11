@@ -6,6 +6,8 @@ import ru.unn.agile.MergeSort.ViewModel.MergeSortViewModel;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public final class MergeSortView {
@@ -33,15 +35,21 @@ public final class MergeSortView {
         this.viewModel = viewModel;
 
         loadListOfSortingOrders();
-        sortingOrderComboBox.addActionListener(e -> {
-            mergeSortViewBackBind();
-            mergeSortViewBind();
+        sortingOrderComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                mergeSortViewBackBind();
+                mergeSortViewBind();
+            }
         });
 
-        sortButton.addActionListener(e -> {
-            mergeSortViewBackBind();
-            viewModel.sort();
-            mergeSortViewBind();
+        sortButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                mergeSortViewBackBind();
+                viewModel.sort();
+                mergeSortViewBind();
+            }
         });
 
         sourceArrayTextField.getDocument().addDocumentListener(new DocumentListener() {

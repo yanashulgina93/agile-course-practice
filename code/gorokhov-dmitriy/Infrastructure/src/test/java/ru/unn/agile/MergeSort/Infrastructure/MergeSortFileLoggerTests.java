@@ -3,14 +3,13 @@ package ru.unn.agile.MergeSort.Infrastructure;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.File;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
+import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertTrue;
 import static ru.unn.agile.MergeSort.ViewModel.MergeSortRegexMatcher.matches;
 
 public class MergeSortFileLoggerTests {
@@ -21,11 +20,7 @@ public class MergeSortFileLoggerTests {
 
     @Test
     public void canCreateFileWithOutputFileName() {
-        try {
-            new BufferedReader(new FileReader(OUTPUT_FILE_NAME));
-        } catch (FileNotFoundException exception) {
-            fail("Output file " + OUTPUT_FILE_NAME + " wasn't created.");
-        }
+        assertTrue(new File(OUTPUT_FILE_NAME).isFile());
     }
 
     @Test
@@ -69,11 +64,11 @@ public class MergeSortFileLoggerTests {
         fileLogger.writeRecord("Sample1");
         fileLogger.writeRecord("Sample2");
 
-        assertEquals(null, fileLogger.readRecord(2));
+        assertNull(fileLogger.readRecord(2));
     }
 
     @Test
-    public void isArbitraryRecordMarkedWithCorrectNumber() {
+    public void isSecondRecordMarkedWithCorrectNumber() {
         fileLogger.writeRecord("Sample1");
         fileLogger.writeRecord("Sample2");
 
