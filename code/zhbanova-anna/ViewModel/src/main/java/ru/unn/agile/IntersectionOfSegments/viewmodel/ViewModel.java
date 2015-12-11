@@ -106,7 +106,7 @@ public class ViewModel {
     }
 
     public void focusWasChanged(final Boolean newFocusValue) {
-       if(!newFocusValue) {
+       if (!newFocusValue) {
            for (ValueCachingChangeListener listener : valueChangedListeners) {
                if (listener.isChanged()) {
                    StringBuilder message = new StringBuilder(LogMessages.EDITING_FINISHED);
