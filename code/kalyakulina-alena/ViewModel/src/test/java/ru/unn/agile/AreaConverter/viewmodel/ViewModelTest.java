@@ -29,7 +29,7 @@ public class ViewModelTest {
         assertEquals("", viewModel.getResultArea());
         assertEquals(Status.WAITING, viewModel.getStatus());
         assertEquals(AreaMeasure.SQUARE_METER, viewModel.getFrom());
-        assertEquals(AreaMeasure.SQUARE_KILOMETER, viewModel.getTo());
+        assertEquals(AreaMeasure.SQUARE_METER, viewModel.getTo());
         assertEquals(false, viewModel.isConvertButtonEnabled());
         assertEquals(false, viewModel.isInputChanged());
     }

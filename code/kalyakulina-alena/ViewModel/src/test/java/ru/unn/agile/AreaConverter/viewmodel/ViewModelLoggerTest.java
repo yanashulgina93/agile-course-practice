@@ -75,7 +75,7 @@ public class ViewModelLoggerTest {
 
     @Test
     public void doNotWriteMessageToLogWhenToScaleIsNotChanged() {
-        viewModel.setTo(AreaMeasure.SQUARE_KILOMETER);
+        viewModel.setTo(AreaMeasure.SQUARE_METER);
 
         List<String> log = viewModel.getLog();
 

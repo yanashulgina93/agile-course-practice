@@ -25,7 +25,7 @@ public class ViewModel {
         resultArea = "";
         status = Status.WAITING;
         from = AreaMeasure.SQUARE_METER;
-        to = AreaMeasure.SQUARE_KILOMETER;
+        to = AreaMeasure.SQUARE_METER;
         isConvertButtonEnable = false;
         isInputChange = false;
     }
