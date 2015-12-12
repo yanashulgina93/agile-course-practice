@@ -14,6 +14,10 @@ public class ViewModelLoggerTest {
 
     private ViewModel viewModel;
 
+    public void setViewModel(final ViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
+
     @Before
     public void setUp() {
         AreaConverterFakeLogger logger = new AreaConverterFakeLogger();
@@ -45,6 +49,7 @@ public class ViewModelLoggerTest {
     @Test
     public void canWriteMessageToLogWhenFromScaleChanged() {
         viewModel.setFrom(AreaMeasure.ARE);
+
         List<String> log = viewModel.getLog();
 
         assertThat(log.get(0), containsString(LogMessage.SCALE_FROM_CHANGED.toString()));
@@ -53,6 +58,7 @@ public class ViewModelLoggerTest {
     @Test
     public void canWriteMessageToLogWhenToScaleChanged() {
         viewModel.setTo(AreaMeasure.HECTARE);
+
         List<String> log = viewModel.getLog();
 
         assertThat(log.get(0), containsString(LogMessage.SCALE_TO_CHANGED.toString()));
@@ -61,6 +67,7 @@ public class ViewModelLoggerTest {
     @Test
     public void doNotWriteMessageToLogWhenFromScaleIsNotChanged() {
         viewModel.setFrom(AreaMeasure.SQUARE_METER);
+
         List<String> log = viewModel.getLog();
 
         assertTrue(log.isEmpty());
@@ -69,6 +76,7 @@ public class ViewModelLoggerTest {
     @Test
     public void doNotWriteMessageToLogWhenToScaleIsNotChanged() {
         viewModel.setTo(AreaMeasure.SQUARE_KILOMETER);
+
         List<String> log = viewModel.getLog();
 
         assertTrue(log.isEmpty());
@@ -78,6 +86,7 @@ public class ViewModelLoggerTest {
     public void canWriteMessageToLogWhenInputChangedAndFocusLost() {
         viewModel.setInputArea("0.0");
         viewModel.focusLost();
+
         List<String> log = viewModel.getLog();
 
         assertThat(log.get(0), containsString(LogMessage.INPUT_AREA_EDITED.toString()));
