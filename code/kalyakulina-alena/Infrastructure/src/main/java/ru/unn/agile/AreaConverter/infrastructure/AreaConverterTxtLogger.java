@@ -17,7 +17,7 @@ public class AreaConverterTxtLogger implements AreaConverterLogger {
     private final BufferedWriter logWriter;
     private final String fileName;
 
-    public AreaConverterTxtLogger(String fileName) {
+    public AreaConverterTxtLogger(final String fileName) {
         this.fileName = fileName;
 
         BufferedWriter writer = null;
@@ -30,7 +30,7 @@ public class AreaConverterTxtLogger implements AreaConverterLogger {
     }
 
     @Override
-    public void logMessage(String string) {
+    public void logMessage(final String string) {
         try {
             logWriter.write(currentTime() + " > " + string);
             logWriter.newLine();

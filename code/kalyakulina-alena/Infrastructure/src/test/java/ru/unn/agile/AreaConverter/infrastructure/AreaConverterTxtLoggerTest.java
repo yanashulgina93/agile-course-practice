@@ -62,6 +62,7 @@ public class AreaConverterTxtLoggerTest {
 
         logger.logMessage(message);
 
-        assertTrue(Pattern.matches("^\\d{2}-\\d{2}-\\d{4} \\d{2}:\\d{2}:\\d{2} > .*", logger.getLog().get(0)));
+        assertTrue(Pattern.matches("^\\d{2}-\\d{2}-\\d{4} \\d{2}:\\d{2}:\\d{2} > .*",
+                logger.getLog().get(0)));
     }
 }

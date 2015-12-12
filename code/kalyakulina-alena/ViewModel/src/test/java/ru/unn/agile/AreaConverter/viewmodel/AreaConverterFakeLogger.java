@@ -8,7 +8,7 @@ public class AreaConverterFakeLogger implements AreaConverterLogger {
     private ArrayList<String> log = new ArrayList<String>();
 
     @Override
-    public void logMessage(String string) {
+    public void logMessage(final String string) {
         log.add(string);
     }
 

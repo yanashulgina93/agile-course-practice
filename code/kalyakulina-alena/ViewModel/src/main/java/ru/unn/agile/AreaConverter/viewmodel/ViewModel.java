@@ -12,10 +12,10 @@ public class ViewModel {
     private AreaMeasure from;
     private AreaMeasure to;
     private boolean isConvertButtonEnable;
-    private AreaConverterLogger logger;
+    private final AreaConverterLogger logger;
     private boolean isInputChange;
 
-    public ViewModel(AreaConverterLogger logger) {
+    public ViewModel(final AreaConverterLogger logger) {
         if (logger == null) {
             throw new IllegalArgumentException("Logger parameter can't be null");
         }
