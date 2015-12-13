@@ -4,15 +4,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.List;
-
 import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.fail;
 
 public class Vector3TxtLoggerTests {
     private static final String LOG_FILE = "./log.txt";
@@ -36,15 +31,6 @@ public class Vector3TxtLoggerTests {
     @Test (expected = IllegalArgumentException.class)
     public void cannotCreateLoggerWithoutFilename() {
         logger = new Vector3TxtLogger(null);
-    }
-
-    @Test
-    public void canCreateLogFile() {
-        try {
-            new BufferedReader(new FileReader(LOG_FILE));
-        } catch (FileNotFoundException e) {
-            fail("File " + LOG_FILE + " wasn't found!");
-        }
     }
 
     @Test
