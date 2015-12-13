@@ -13,6 +13,8 @@ public class ViewModel {
     private String status;
     private boolean isIntegrateButtonEnabled;
     private NumericalIntegrationLogger logger;
+    private boolean isLowerLimitChanged;
+    private boolean isUpperLimitChanged;
 
     public ViewModel(final NumericalIntegrationLogger logger) {
         if (logger == null) {
@@ -26,6 +28,8 @@ public class ViewModel {
         result = "";
         status = Status.WAITING.toString();
         isIntegrateButtonEnabled = false;
+        isLowerLimitChanged = true;
+        isUpperLimitChanged = true;
     }
 
     private boolean isThereEmptyTextField() {
@@ -73,7 +77,20 @@ public class ViewModel {
         return iFunction;
     }
 
+    private String formRecordForLoggerAfterIntegration() {
+        String record = RecordsTemplatesForLogger.INTEGRATE_WAS_PRESSED
+                        + "Lower limit = " + lowerLimit
+                        + ", upper limit = " + upperLimit
+                        + ", function = " + function.toString()
+                        + ", integration method: " + integrationMethod.toString()
+                        + ".";
+
+        return record;
+    }
+
     public void integrate() {
+        logger.addRecord(formRecordForLoggerAfterIntegration());
+
         if (!parseLimitsInput()) {
             return;
         }
@@ -113,12 +130,32 @@ public class ViewModel {
         }
     }
 
+    void lowerLimitHasLostFocus() {
+        if(isLowerLimitChanged) {
+            logger.addRecord(RecordsTemplatesForLogger.LOWER_LIMIT_WAS_CHANGED.toString()
+                    + lowerLimit);
+            isLowerLimitChanged = false;
+        }
+    }
+
+    void upperLimitHasLostFocus() {
+        if(isUpperLimitChanged) {
+            logger.addRecord(RecordsTemplatesForLogger.UPPER_LIMIT_WAS_CHANGED.toString()
+                    + upperLimit);
+            isUpperLimitChanged = false;
+        }
+    }
+
     public Function getFunction() {
         return function;
     }
 
     public void setFunction(final Function function) {
-        this.function = function;
+        if (this.function!= function) {
+            this.function = function;
+            logger.addRecord(RecordsTemplatesForLogger.FUNCTION_WAS_CHANGED.toString()
+                                                            + this.function.toString());
+        }
     }
 
     public String getLowerLimit() {
@@ -126,7 +163,10 @@ public class ViewModel {
     }
 
     public void setLowerLimit(final String lowerLimit) {
-        this.lowerLimit = lowerLimit;
+        if(!this.lowerLimit.equals(lowerLimit)) {
+            this.lowerLimit = lowerLimit;
+            isLowerLimitChanged = true;
+        }
     }
 
     public String getUpperLimit() {
@@ -134,7 +174,10 @@ public class ViewModel {
     }
 
     public void setUpperLimit(final String upperLimit) {
-        this.upperLimit = upperLimit;
+        if(!this.upperLimit.equals(upperLimit)) {
+            this.upperLimit = upperLimit;
+            isUpperLimitChanged = true;
+        }
     }
 
     public IntegrationMethod getIntegrationMethod() {
@@ -142,7 +185,11 @@ public class ViewModel {
     }
 
     public void setIntegrationMethod(final IntegrationMethod integrationMethod) {
-        this.integrationMethod = integrationMethod;
+        if(this.integrationMethod!= integrationMethod) {
+            this.integrationMethod = integrationMethod;
+            logger.addRecord(RecordsTemplatesForLogger.METHOD_WAS_CHANGED.toString()
+                    + this.integrationMethod.toString());
+        }
     }
 
     public String getResult() {
@@ -159,6 +206,13 @@ public class ViewModel {
 
     public List<String> getLoggersRecords() {
         return logger.getAllRecords();
+    }
+
+    public boolean isLowerLimitChanged() {
+        return isLowerLimitChanged;
+    }
+    public boolean isUpperLimitChanged() {
+        return isUpperLimitChanged;
     }
 
     public enum Function {
@@ -211,4 +265,23 @@ public class ViewModel {
             return name;
         }
     }
+
+    public enum RecordsTemplatesForLogger {
+        INTEGRATE_WAS_PRESSED("Integrate. "),
+        LOWER_LIMIT_WAS_CHANGED("Lower limit was changed to "),
+        UPPER_LIMIT_WAS_CHANGED("Upper limit was changed to "),
+        FUNCTION_WAS_CHANGED("Function was changed to "),
+        METHOD_WAS_CHANGED("Integration method was changed to ");
+        private final String name;
+
+        private RecordsTemplatesForLogger(final String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+    }
+
 }

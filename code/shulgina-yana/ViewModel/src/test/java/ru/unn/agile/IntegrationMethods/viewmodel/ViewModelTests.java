@@ -280,4 +280,173 @@ public class ViewModelTests {
 
         assertEquals(0, records.size());
     }
+
+    @Test
+    public void canLoggerWorkWhenLowerLimitHasLostFocus() {
+        setTextFields();
+        viewModel.lowerLimitHasLostFocus();
+
+        String record = viewModel.getLoggersRecords().get(0);
+        boolean doesContainLowerLimit =
+                record.equals(ViewModel.RecordsTemplatesForLogger.LOWER_LIMIT_WAS_CHANGED.toString()
+                        + viewModel.getLowerLimit());
+
+        assertTrue(doesContainLowerLimit);
+    }
+
+    @Test
+    public void canLoggerWorkWhenUpperLimitHasLostFocus() {
+        setTextFields();
+        viewModel.upperLimitHasLostFocus();
+
+        String record = viewModel.getLoggersRecords().get(0);
+        boolean doesContainUpperLimit =
+                record.equals(ViewModel.RecordsTemplatesForLogger.UPPER_LIMIT_WAS_CHANGED.toString()
+                        + viewModel.getUpperLimit());
+
+        assertTrue(doesContainUpperLimit);
+    }
+
+    @Test
+    public void canLoggerNotMakeSameRecordsWhenLowerLimitHasLostFocus() {
+        setTextFields();
+        viewModel.lowerLimitHasLostFocus();
+        viewModel.lowerLimitHasLostFocus();
+        viewModel.lowerLimitHasLostFocus();
+
+        assertEquals(1, viewModel.getLoggersRecords().size());
+    }
+
+    @Test
+    public void canLoggerNotMakeSameRecordsWhenUpperLimitHasLostFocus() {
+        setTextFields();
+        viewModel.upperLimitHasLostFocus();
+        viewModel.upperLimitHasLostFocus();
+        viewModel.upperLimitHasLostFocus();
+
+        assertEquals(1, viewModel.getLoggersRecords().size());
+    }
+
+    @Test
+    public void areLoggersRecordsNotEmptyWhenIntegrate() {
+        viewModel.integrate();
+
+        assertNotEquals(0, viewModel.getLoggersRecords().size());
+    }
+
+    @Test
+    public void doLoggersRecordsContainRecordTemplateWhenIntegrate() {
+        viewModel.integrate();
+        String record = viewModel.getLoggersRecords().get(0);
+        boolean doesContainTemplate =
+                record.contains(ViewModel.RecordsTemplatesForLogger.INTEGRATE_WAS_PRESSED.toString());
+
+        assertTrue(doesContainTemplate);
+    }
+
+    @Test
+    public void doLoggersRecordsContainLimitsWhenIntegrate() {
+        setTextFields();
+
+        viewModel.integrate();
+        String record = viewModel.getLoggersRecords().get(0);
+        boolean doesContainLowerLimit =
+                record.contains(viewModel.getLowerLimit());
+        boolean doesContainUpperLimit =
+                record.contains(viewModel.getUpperLimit());
+
+        assertTrue(doesContainLowerLimit && doesContainUpperLimit);
+    }
+
+    @Test
+    public void doLoggersRecordsContainFunctionWhenIntegrate() {
+        viewModel.integrate();
+        String record = viewModel.getLoggersRecords().get(0);
+        boolean doesContainFunction =
+                record.contains(ViewModel.Function.X.toString());
+
+        assertTrue(doesContainFunction);
+    }
+
+    @Test
+    public void doLoggersRecordsContainIntegrationMethodWhenIntegrate() {
+        viewModel.integrate();
+        String record = viewModel.getLoggersRecords().get(0);
+        boolean doesContainMethod =
+                record.contains(ViewModel.IntegrationMethod.LEFT_RECTANGLES.toString());
+
+        assertTrue(doesContainMethod);
+    }
+
+    @Test
+    public void isRecordFormedCorrectlyWhenIntegrate() {
+        setTextFields();
+
+        viewModel.integrate();
+        String record = viewModel.getLoggersRecords().get(0);
+        boolean isRecordCorrect = record.equals(
+                ViewModel.RecordsTemplatesForLogger.INTEGRATE_WAS_PRESSED.toString()
+                 + "Lower limit = "
+                 + viewModel.getLowerLimit()
+                 + ", upper limit = "
+                 + viewModel.getUpperLimit()
+                 + ", function = "
+                 + viewModel.getFunction().toString()
+                 + ", integration method: "
+                 + viewModel.getIntegrationMethod().toString()
+                 + ".");
+
+        assertTrue(isRecordCorrect);
+    }
+
+    @Test
+    public void canLoggerSaveFunctionChange() {
+        viewModel.setFunction(ViewModel.Function.COS);
+
+        String record = viewModel.getLoggersRecords().get(0);
+        boolean doesContainNewFunction =
+                record.equals(ViewModel.RecordsTemplatesForLogger.FUNCTION_WAS_CHANGED.toString()
+                    + ViewModel.Function.COS.toString());
+        
+        assertTrue(doesContainNewFunction);
+    }
+
+    @Test
+    public void canLoggerSaveMethodChange() {
+        viewModel.setIntegrationMethod(ViewModel.IntegrationMethod.SIMPSON);
+
+        String record = viewModel.getLoggersRecords().get(0);
+        boolean doesContainNewMethod =
+                record.equals(ViewModel.RecordsTemplatesForLogger.METHOD_WAS_CHANGED
+                        + ViewModel.IntegrationMethod.SIMPSON.toString());
+
+        assertTrue(doesContainNewMethod);
+    }
+
+    @Test
+    public void canLoggerNotSaveWhenFunctionHasNotChanged() {
+        viewModel.setFunction(ViewModel.Function.COS);
+        viewModel.setFunction(ViewModel.Function.COS);
+        viewModel.setFunction(ViewModel.Function.COS);
+
+        assertEquals(1, viewModel.getLoggersRecords().size());
+    }
+
+    @Test
+    public void canLoggerNotSaveWhenMethodHasNotChanged() {
+        viewModel.setIntegrationMethod(ViewModel.IntegrationMethod.SIMPSON);
+        viewModel.setIntegrationMethod(ViewModel.IntegrationMethod.SIMPSON);
+        viewModel.setIntegrationMethod(ViewModel.IntegrationMethod.SIMPSON);
+
+        assertEquals(1, viewModel.getLoggersRecords().size());
+    }
+
+    @Test
+    public void canLoggerWorkWhenEnterIsPressed() {
+        setTextFields();
+
+        viewModel.processKeyPressing(KeyboardKeys.ENTER);
+
+        assertEquals(1, viewModel.getLoggersRecords().size());
+    }
 }

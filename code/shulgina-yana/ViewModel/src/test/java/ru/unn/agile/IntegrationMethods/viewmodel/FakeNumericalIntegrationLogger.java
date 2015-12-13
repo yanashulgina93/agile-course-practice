@@ -7,7 +7,7 @@ public class FakeNumericalIntegrationLogger implements NumericalIntegrationLogge
     private ArrayList<String> records = new ArrayList<String>();
 
     @Override
-    public void log(final String newRecord) {
+    public void addRecord(final String newRecord) {
         records.add(newRecord);
     }
 
