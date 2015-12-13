@@ -53,6 +53,7 @@ public class Vector3TxtLogger implements ILogger {
 
     @Override
     public void pushMessage(final String format, final Object ... args) {
+        stringBuilder.setLength(0);
         pushMessage(formatter.format(format, args).toString());
     }
 

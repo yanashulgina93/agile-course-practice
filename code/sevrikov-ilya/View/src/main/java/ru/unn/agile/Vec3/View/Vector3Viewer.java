@@ -7,6 +7,8 @@ import ru.unn.agile.Vec3.Infrastructure.Vector3TxtLogger;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public final class Vector3Viewer {
     private JPanel mainPanel;
@@ -28,6 +30,8 @@ public final class Vector3Viewer {
     private JButton btnCalculate;
     private JTextField txtStatus;
     private JLabel lblStatus;
+    private JCheckBox cbShowLog;
+    private JList<String> listLog;
 
     private Vector3ViewModel viewModel;
 
@@ -66,6 +70,13 @@ public final class Vector3Viewer {
                 bind();
             }
         });
+
+        cbShowLog.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                listLog.setVisible(cbShowLog.isSelected());
+            }
+        });
     }
 
     private void loadActionList() {
@@ -94,5 +105,14 @@ public final class Vector3Viewer {
 
         txtResult.setText(viewModel.getResultOfLastAction());
         txtStatus.setText(viewModel.getStatus());
+
+        bindLog();
+    }
+
+    private void bindLog() {
+        ArrayList<String> log = new ArrayList<>(viewModel.getLog());
+        Collections.reverse(log);
+        String[] messages = log.toArray(new String[log.size()]);
+        listLog.setListData(messages);
     }
 }

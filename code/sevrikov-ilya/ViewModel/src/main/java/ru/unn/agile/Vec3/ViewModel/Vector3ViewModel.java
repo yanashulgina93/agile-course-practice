@@ -129,10 +129,10 @@ public class Vector3ViewModel {
     }
 
     public String getOutputFormat() {
-        return "Operation: %1$s" + "\n\t"
-                + "Status: %2$s." + "\n\t"
-                + "First vector: (%3$s, %4$s, %5$s)" + "\n\t"
-                + "Second vector: (%6$s, %7$s, %8$s)" + "\n\t"
+        return "Operation: %1$s; "
+                + "Status: %2$s; "
+                + "First vector: (%3$s, %4$s, %5$s); "
+                + "Second vector: (%6$s, %7$s, %8$s); "
                 + "Result: %9$s.";
     }
 
