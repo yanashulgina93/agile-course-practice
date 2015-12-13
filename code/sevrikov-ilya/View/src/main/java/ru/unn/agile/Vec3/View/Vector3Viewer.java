@@ -1,8 +1,8 @@
 package ru.unn.agile.Vec3.View;
 
 import ru.unn.agile.Vec3.ViewModel.Vector3ViewModel;
-import ru.unn.agile.Vec3.ViewModel.FakeLogger;
 import ru.unn.agile.Vec3.ViewModel.Vector3Operation;
+import ru.unn.agile.Vec3.Infrastructure.Vector3TxtLogger;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -45,7 +45,9 @@ public final class Vector3Viewer {
 
     public static void main(final String[] args) {
         JFrame frame = new JFrame("Vector3dViewer");
-        Vector3ViewModel viewModel = new Vector3ViewModel(new FakeLogger());
+
+        Vector3TxtLogger logger = new Vector3TxtLogger("./view_log.txt");
+        Vector3ViewModel viewModel = new Vector3ViewModel(logger);
 
         frame.setContentPane(new Vector3Viewer(viewModel).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -2,26 +2,26 @@ package ru.unn.agile.Vec3.Infrastructure;
 
 import ru.unn.agile.Vec3.ViewModel.ILogger;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Formatter;
+import java.util.List;
+import java.util.Locale;
+import java.util.Calendar;
 
 public class Vector3TxtLogger implements ILogger {
     private static final String FILENAME_EMPTY =
-            "Text logger can't be initialize without filename.";
-    private static final String FILE_NOT_EXIST = "File not exist.";
-    private static final String DATE_FORMAT_NOW = "dd-MM-yyyy HH:mm:ss";
+            "Text logger can't be initialized without filename.";
+    private static final String DATE_FORMAT = "dd-MM-yyyy HH:mm:ss";
     private final String filename;
     private final BufferedWriter writerLog;
 
     private final StringBuilder stringBuilder = new StringBuilder();
     private final Formatter formatter = new Formatter(stringBuilder, Locale.ENGLISH);
-
-    private static String now() {
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dataFormat = new SimpleDateFormat(DATE_FORMAT_NOW, Locale.ENGLISH);
-        return dataFormat.format(calendar.getTime());
-    }
 
     public Vector3TxtLogger(final String filename) {
         if (filename == null) {
@@ -73,5 +73,12 @@ public class Vector3TxtLogger implements ILogger {
         }
 
         return log;
+    }
+
+    private static String now() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dataFormat = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
+
+        return dataFormat.format(calendar.getTime());
     }
 }
