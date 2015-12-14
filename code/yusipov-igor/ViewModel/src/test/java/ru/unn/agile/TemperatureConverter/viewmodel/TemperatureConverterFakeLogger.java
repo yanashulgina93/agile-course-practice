@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TemperatureConverterFakeLogger implements TemperatureConverterLogger {
-
     private ArrayList<String> log = new ArrayList<String>();
 
     @Override

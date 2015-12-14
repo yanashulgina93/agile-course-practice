@@ -88,7 +88,11 @@ public final class Converter {
         buttonConvert.setEnabled(viewModel.isConvertButtonEnabled());
         textFieldResult.setText(viewModel.getResultTemperature());
         textFieldStatus.setText(viewModel.getStatusName());
-        List<String> log = viewModel.getLog();
+        buildLog();
+    }
+
+    private void buildLog() {
+        List<String> log = viewModel.getFullLog();
         String[] items = log.toArray(new String[log.size()]);
         logList.setListData(items);
     }

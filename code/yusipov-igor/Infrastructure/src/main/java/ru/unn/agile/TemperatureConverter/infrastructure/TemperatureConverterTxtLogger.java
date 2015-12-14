@@ -17,12 +17,6 @@ public class TemperatureConverterTxtLogger implements TemperatureConverterLogger
     private final String filename;
     private final BufferedWriter writerOfLog;
 
-    private static String now() {
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dataFormat = new SimpleDateFormat(DATE_FORMAT_NOW, Locale.ENGLISH);
-        return dataFormat.format(calendar.getTime());
-    }
-
     public TemperatureConverterTxtLogger(final String filename) {
         this.filename = filename;
 
@@ -39,7 +33,7 @@ public class TemperatureConverterTxtLogger implements TemperatureConverterLogger
     @Override
     public void log(final String s) {
         try {
-            writerOfLog.write(now() + " > " + s);
+            writerOfLog.write(currentTime() + " > " + s);
             writerOfLog.newLine();
             writerOfLog.flush();
         } catch (Exception e) {
@@ -66,5 +60,11 @@ public class TemperatureConverterTxtLogger implements TemperatureConverterLogger
         }
 
         return log;
+    }
+
+    private static String currentTime() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dataFormat = new SimpleDateFormat(DATE_FORMAT_NOW, Locale.ENGLISH);
+        return dataFormat.format(calendar.getTime());
     }
 }

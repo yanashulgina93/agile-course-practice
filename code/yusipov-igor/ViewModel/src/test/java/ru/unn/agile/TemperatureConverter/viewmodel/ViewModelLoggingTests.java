@@ -11,7 +11,6 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
 
 public class ViewModelLoggingTests {
-
     private ViewModel viewModel;
 
     public void setViewModel(final ViewModel viewModel) {
@@ -31,10 +30,7 @@ public class ViewModelLoggingTests {
 
     @Test
     public void canCreateWithLogger() {
-        TemperatureConverterFakeLogger logger = new TemperatureConverterFakeLogger();
-        ViewModel viewModelLogged = new ViewModel(logger);
-
-        assertNotNull(viewModelLogged);
+        assertNotNull(viewModel);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -44,7 +40,7 @@ public class ViewModelLoggingTests {
 
     @Test
     public void logIsEmptyAfterConstruction() {
-        List<String> log = viewModel.getLog();
+        List<String> log = viewModel.getFullLog();
 
         assertTrue(log.isEmpty());
     }
@@ -54,7 +50,7 @@ public class ViewModelLoggingTests {
         viewModel.setInputTemperature("0.0");
         viewModel.onInputValueFocusLost();
 
-        List<String> log = viewModel.getLog();
+        List<String> log = viewModel.getFullLog();
 
         assertEquals(1, log.size());
     }
@@ -64,7 +60,7 @@ public class ViewModelLoggingTests {
         final String incorrectInput = "SomethingWicked";
         viewModel.setInputTemperature(incorrectInput);
         viewModel.onInputValueFocusLost();
-        List<String> log = viewModel.getLog();
+        List<String> log = viewModel.getFullLog();
         final String expected = LogMessage.INCORRECT_INPUT.toString() + incorrectInput;
         assertThat(log.get(0), containsString(expected));
     }
@@ -74,7 +70,7 @@ public class ViewModelLoggingTests {
         final String correctInput = "0.0";
         viewModel.setInputTemperature(correctInput);
         viewModel.onInputValueFocusLost();
-        List<String> log = viewModel.getLog();
+        List<String> log = viewModel.getFullLog();
         final String expected = LogMessage.INPUT_EDITED.toString() + correctInput;
         assertThat(log.get(0), containsString(expected));
     }
@@ -84,7 +80,7 @@ public class ViewModelLoggingTests {
         final String correctInput = "-300.0";
         viewModel.setInputTemperature(correctInput);
         viewModel.onInputValueFocusLost();
-        List<String> log = viewModel.getLog();
+        List<String> log = viewModel.getFullLog();
         final String expected = LogMessage.NON_PHYSICAL_INPUT.toString() + correctInput;
         assertThat(log.get(0), containsString(expected));
     }
@@ -96,7 +92,7 @@ public class ViewModelLoggingTests {
         viewModel.onInputValueFocusLost();
         viewModel.setInputTemperature(input);
         viewModel.onInputValueFocusLost();
-        List<String> log = viewModel.getLog();
+        List<String> log = viewModel.getFullLog();
         assertEquals(2, log.size());
     }
 
@@ -107,14 +103,14 @@ public class ViewModelLoggingTests {
         viewModel.setInputTemperature(input);
         viewModel.onInputValueFocusLost();
         viewModel.onInputValueFocusLost();
-        List<String> log = viewModel.getLog();
+        List<String> log = viewModel.getFullLog();
         assertEquals(1, log.size());
     }
 
     @Test
     public void canAddMessageToLogWhenScaleIsChanged() {
         viewModel.setScale(TemperatureScaleName.NEWTON);
-        List<String> log = viewModel.getLog();
+        List<String> log = viewModel.getFullLog();
         final String expected = LogMessage.SCALE_CHANGED.toString()
                 + TemperatureScaleName.NEWTON.toString();
         assertThat(log.get(0), containsString(expected));
@@ -126,7 +122,7 @@ public class ViewModelLoggingTests {
         viewModel.setInputTemperature(input);
         viewModel.onInputValueFocusLost();
         viewModel.convert();
-        String message = viewModel.getLog().get(1);
+        String message = viewModel.getFullLog().get(1);
         final String expected = LogMessage.CONVERT_PRESSED.toString()
                 + LogMessage.INPUT_VALUE.toString()
                 + input

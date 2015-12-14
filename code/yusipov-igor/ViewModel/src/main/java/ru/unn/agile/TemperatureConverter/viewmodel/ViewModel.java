@@ -15,7 +15,6 @@ public class ViewModel {
     private boolean isInputChanged;
 
     public ViewModel(final TemperatureConverterLogger logger) {
-
         if (logger == null) {
             throw new IllegalArgumentException("Logger parameter can't be null");
         }
@@ -75,16 +74,14 @@ public class ViewModel {
             status = Status.WAITING;
             isConvertButtonEnable = false;
         } else {
-
             double parsedInputTemperature;
-
             try {
                 parsedInputTemperature = Double.parseDouble(inputTemperature);
                 Double.parseDouble(inputTemperature);
                 status = Status.READY;
                 resultTemperature = "";
                 isConvertButtonEnable = true;
-            } catch (NumberFormatException  exception) {
+            } catch (NumberFormatException exception) {
                 status = Status.BAD_FORMAT;
                 isConvertButtonEnable = false;
                 resultTemperature = "";
@@ -105,9 +102,7 @@ public class ViewModel {
     }
 
     public void convert() {
-
         logger.log(createConvertLogMessage());
-
         if (parse()) {
             TemperatureConverter converter = new TemperatureConverter(scale);
             double temperature = converter.convert(Double.parseDouble(inputTemperature));
@@ -126,7 +121,7 @@ public class ViewModel {
         return message;
     }
 
-    public List<String> getLog() {
+    public List<String> getFullLog() {
         return logger.getFullLog();
     }
 
