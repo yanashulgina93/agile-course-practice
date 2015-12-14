@@ -244,8 +244,12 @@ project(":code/smirnov-vyacheslav/View").name = "smirnov-vyacheslav-View"
 include "code/smirnov-vyacheslav/ViewModel"
 project(":code/smirnov-vyacheslav/ViewModel").name = "smirnov-vyacheslav-ViewModel"
 // Sulin Dmitrij
-include "code/sulin-dmitriy"
-project(":code/sulin-dmitriy").name = "sulin-dmitriy-Model"
+include "code/sulin-dmitriy/Model"
+project(":code/sulin-dmitriy/Model").name = "sulin-dmitriy-Model"
+include "code/sulin-dmitriy/View"
+project(":code/sulin-dmitriy/View").name = "sulin-dmitriy-View"
+include "code/sulin-dmitriy/ViewModel"
+project(":code/sulin-dmitriy/ViewModel").name = "sulin-dmitriy-ViewModel"
 // Timonova Anastasiya
 // Vinnickij Vladimir
 

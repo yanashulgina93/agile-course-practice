@@ -35,11 +35,20 @@ public class LabQueue<T> {
     }
 
     public int findElement(final T element) throws Exception {
-        for (int i = queue.size() - 1; i >= 0; i--) {
-            if (queue.get(i) == element) {
+        for (int i = 0; i <= queue.size() - 1; i++) {
+            T temp = queue.get(i);
+            if (temp.equals(element)) {
                 return i;
             }
         }
         throw new Exception("element not found");
+    }
+
+    public String[] convertToStringArray() {
+        String[] result = new String[getSize()];
+        for (int i = 0; i <= queue.size() - 1; i++) {
+            result[i] = queue.get(i).toString();
+        }
+        return result;
     }
 }

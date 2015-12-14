@@ -1,9 +1,9 @@
 package ru.unn.agile.Queue.Model;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class QueueStringTest {
 
@@ -36,5 +36,15 @@ public class QueueStringTest {
         final String value1 = testStrQueue.getHead();
 
         assertEquals(null, value1);
+    }
+
+    @Test
+    public void canConvertToStringArray() {
+        String[] testArray = {"First", "Second", "Third"};
+
+        for (int i = 0; i < testArray.length; i++) {
+            testStrQueue.push(testArray[i]);
+        }
+        assertArrayEquals(testArray, testStrQueue.convertToStringArray());
     }
 }
