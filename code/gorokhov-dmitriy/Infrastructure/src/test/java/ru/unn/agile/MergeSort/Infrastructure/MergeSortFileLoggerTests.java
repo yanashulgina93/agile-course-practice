@@ -30,49 +30,49 @@ public class MergeSortFileLoggerTests {
 
     @Test
     public void canWriteRecordWithFileLogger() {
-        fileLogger.writeRecord("Sample");
+        fileLogger.write("Sample");
 
-        assertEquals(1, fileLogger.getRecordsCount());
+        assertEquals(1, fileLogger.getRecordsList().size());
     }
 
     @Test
     public void canReadRecordWithFileLogger() {
-        fileLogger.writeRecord("Sample");
+        fileLogger.write("Sample");
 
-        assertThat(fileLogger.readRecord(0), matches(".*" + "Sample" + ".*"));
+        assertThat(fileLogger.read(0), matches(".*" + "Sample" + ".*"));
     }
 
     @Test
     public void canWriteSeveralRecordsWithFileLogger() {
-        fileLogger.writeRecord("Sample1");
-        fileLogger.writeRecord("Sample2");
-        fileLogger.writeRecord("Sample3");
+        fileLogger.write("Sample1");
+        fileLogger.write("Sample2");
+        fileLogger.write("Sample3");
 
-        assertEquals(3, fileLogger.getRecordsCount());
+        assertEquals(3, fileLogger.getRecordsList().size());
     }
 
     @Test
     public void canReadRecordsListFromFileLogger() {
-        fileLogger.writeRecord("Sample1");
-        fileLogger.writeRecord("Sample2");
+        fileLogger.write("Sample1");
+        fileLogger.write("Sample2");
 
         assertEquals(2, fileLogger.getRecordsList().size());
     }
 
     @Test
     public void isReadRecordReturnNullWhenRecordNumberIsOutOfBounds() {
-        fileLogger.writeRecord("Sample1");
-        fileLogger.writeRecord("Sample2");
+        fileLogger.write("Sample1");
+        fileLogger.write("Sample2");
 
-        assertNull(fileLogger.readRecord(2));
+        assertNull(fileLogger.read(2));
     }
 
     @Test
     public void isSecondRecordMarkedWithCorrectNumber() {
-        fileLogger.writeRecord("Sample1");
-        fileLogger.writeRecord("Sample2");
+        fileLogger.write("Sample1");
+        fileLogger.write("Sample2");
 
-        assertThat(fileLogger.readRecord(1), matches(".*" + "[1]" + ".*" + "Sample" + ".*"));
+        assertThat(fileLogger.read(1), matches(".*" + "[1]" + ".*" + "Sample" + ".*"));
     }
 
     private static final String OUTPUT_FILE_NAME = "./MergeSortFileLoggerTests.log";

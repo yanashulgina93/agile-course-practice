@@ -189,14 +189,14 @@ public class MergeSortViewModelTests {
 
     @Test
     public void isLoggerEmptyByDefault() {
-        assertEquals(0, viewModel.getLogger().getRecordsCount());
+        assertEquals(0, viewModel.getLogger().getRecordsList().size());
     }
 
     @Test
     public void isCorrectRecordWrittenToLogWhenSortingOrderChanged() {
         viewModel.setSortingOrder(SortingOrder.DESCENDING);
 
-        assertThat(viewModel.getLogger().readRecord(0), matches(".*"
+        assertThat(viewModel.getLogger().read(0), matches(".*"
                 + LogRecords.SORTING_ORDER_CHANGED.toString() + SortingOrder.DESCENDING + ".*"));
     }
 
@@ -204,7 +204,7 @@ public class MergeSortViewModelTests {
     public void isLogNotChangedWhenSortingOrderChangedToSame() {
         viewModel.setSortingOrder(SortingOrder.ASCENDING);
 
-        assertEquals(0, viewModel.getLogger().getRecordsCount());
+        assertEquals(0, viewModel.getLogger().getRecordsList().size());
     }
 
     @Test
@@ -212,7 +212,7 @@ public class MergeSortViewModelTests {
         viewModel.setSortingArray("12 31 14");
         viewModel.sort();
 
-        assertThat(viewModel.getLogger().readRecord(0), matches(".*"
+        assertThat(viewModel.getLogger().read(0), matches(".*"
                 + LogRecords.SORT_BUTTON_PRESSED.toString() + "12 31 14" + ".*"));
     }
 
@@ -221,7 +221,7 @@ public class MergeSortViewModelTests {
         viewModel.setSortingArray("12 31 14");
         viewModel.sort();
 
-        assertThat(viewModel.getLogger().readRecord(1), matches(".*"
+        assertThat(viewModel.getLogger().read(1), matches(".*"
                 + LogRecords.SOURCE_ARRAY_SORTED.toString() + viewModel.getResultArray() + ".*"));
     }
 

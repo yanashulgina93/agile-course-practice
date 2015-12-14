@@ -8,7 +8,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.List;
 
 public final class MergeSortView {
     private final MergeSortViewModel viewModel;
@@ -87,7 +87,7 @@ public final class MergeSortView {
 
         sortButton.setEnabled(viewModel.isSortButtonEnabled());
 
-        ArrayList<String> recordsList = viewModel.getLogger().getRecordsList();
+        List<String> recordsList = viewModel.getLogger().getRecordsList();
         logRecordsList.setListData(recordsList.toArray(new String[recordsList.size()]));
         logRecordsList.ensureIndexIsVisible(recordsList.size() - 1);
     }

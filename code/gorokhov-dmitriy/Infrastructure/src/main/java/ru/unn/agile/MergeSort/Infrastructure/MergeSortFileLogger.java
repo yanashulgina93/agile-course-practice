@@ -26,9 +26,9 @@ public class MergeSortFileLogger implements IMergeSortLogger {
     }
 
     @Override
-    public void writeRecord(final String record) {
+    public void write(final String record) {
         try {
-            recordsToFileWriter.write("[" + getRecordsCount() + "] " + record);
+            recordsToFileWriter.write("[" + getRecordsList().size() + "] " + record);
             recordsToFileWriter.newLine();
             recordsToFileWriter.flush();
         } catch (Exception exception) {
@@ -37,7 +37,7 @@ public class MergeSortFileLogger implements IMergeSortLogger {
     }
 
     @Override
-    public String readRecord(final int recordNumber) {
+    public String read(final int recordNumber) {
         BufferedReader fileReader;
         String record = null;
         try {
@@ -56,12 +56,7 @@ public class MergeSortFileLogger implements IMergeSortLogger {
     }
 
     @Override
-    public int getRecordsCount() {
-        return getRecordsList().size();
-    }
-
-    @Override
-    public ArrayList<String> getRecordsList() {
+    public List<String> getRecordsList() {
         List<String> recordsList = new ArrayList<>();
 
         try {
@@ -69,6 +64,6 @@ public class MergeSortFileLogger implements IMergeSortLogger {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-        return (ArrayList<String>) recordsList;
+        return recordsList;
     }
 }

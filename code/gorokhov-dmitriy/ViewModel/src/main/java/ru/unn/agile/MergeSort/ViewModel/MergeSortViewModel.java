@@ -28,7 +28,7 @@ public class MergeSortViewModel {
     }
 
     public void sort() {
-        logger.writeRecord(sortButtonPressedLoggerRecord());
+        logger.write(sortButtonPressedLoggerRecord());
 
         Double[] sortingArray = parseSourceArrayToSortingArray();
 
@@ -40,7 +40,7 @@ public class MergeSortViewModel {
 
         parseSortingArrayToResultArray(sortingArray);
 
-        logger.writeRecord(sourceArraySortedLoggerRecord());
+        logger.write(sourceArraySortedLoggerRecord());
     }
 
     public String getResultArray() {
@@ -66,7 +66,7 @@ public class MergeSortViewModel {
     public void setSortingOrder(final SortingOrder sortingOrder) {
         if (this.sortingOrder != sortingOrder) {
             this.sortingOrder = sortingOrder;
-            logger.writeRecord(sortingOrderChangedLoggerRecord());
+            logger.write(sortingOrderChangedLoggerRecord());
         }
     }
 

@@ -1,13 +1,11 @@
 package ru.unn.agile.MergeSort.ViewModel;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface IMergeSortLogger {
-    void writeRecord(final String record);
+    void write(final String record);
 
-    String readRecord(final int recordNumber);
+    String read(final int recordNumber);
 
-    int getRecordsCount();
-
-    ArrayList<String> getRecordsList();
+    List<String> getRecordsList();
 }

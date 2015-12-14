@@ -1,16 +1,17 @@
 package ru.unn.agile.MergeSort.ViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FakeMergeSortLogger implements IMergeSortLogger {
     @Override
-    public void writeRecord(final String record) {
+    public void write(final String record) {
         recordsList.add(record);
     }
 
     @Override
-    public String readRecord(final int recordNumber) {
-        if (recordNumber >= getRecordsCount()) {
+    public String read(final int recordNumber) {
+        if (recordNumber >= recordsList.size()) {
             return null;
         }
 
@@ -18,12 +19,7 @@ public class FakeMergeSortLogger implements IMergeSortLogger {
     }
 
     @Override
-    public int getRecordsCount() {
-        return recordsList.size();
-    }
-
-    @Override
-    public ArrayList<String> getRecordsList() {
+    public List<String> getRecordsList() {
         return recordsList;
     }
 
