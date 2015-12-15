@@ -11,7 +11,6 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.containsString;
 
 public class ViewModelLoggerTest {
-
     private ViewModel viewModel;
 
     public void setViewModel(final ViewModel viewModel) {

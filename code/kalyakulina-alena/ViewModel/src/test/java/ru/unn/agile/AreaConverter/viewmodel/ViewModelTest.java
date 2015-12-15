@@ -37,75 +37,95 @@ public class ViewModelTest {
     @Test
     public void canSetInputArea() {
         final String inputArea = "10.0";
+
         viewModel.setInputArea(inputArea);
+
         assertEquals(inputArea, viewModel.getInputArea());
     }
 
     @Test
     public void canSetStatusReadyWhenInputAreaIsFilledCorrectly() {
         viewModel.setInputArea("1.0");
+
         viewModel.parseInput();
+
         assertEquals(Status.READY, viewModel.getStatus());
     }
 
     @Test
     public void isConvertButtonEnableWhenInputAreaIsFilled() {
         viewModel.setInputArea("5.0");
+
         viewModel.parseInput();
+
         assertEquals(true, viewModel.isConvertButtonEnabled());
     }
 
     @Test
     public void canSetStatusWaitingWhenInputAreaIsNotFilled() {
         viewModel.setInputArea("");
+
         viewModel.parseInput();
+
         assertEquals(Status.WAITING, viewModel.getStatus());
     }
 
     @Test
     public void isConvertButtonDisableWhenInputAreaIsNotFilled() {
         viewModel.setInputArea("");
+
         viewModel.parseInput();
+
         assertEquals(false, viewModel.isConvertButtonEnabled());
     }
 
     @Test
     public void canSetStatusWrongFormatWhenInputAreaIsIncorrect() {
         viewModel.setInputArea("z");
+
         viewModel.parseInput();
+
         assertEquals(Status.WRONG_FORMAT, viewModel.getStatus());
     }
 
     @Test
     public void isConvertButtonDisableWhenInputAreaIsIncorrect() {
         viewModel.setInputArea("m");
+
         viewModel.parseInput();
+
         assertEquals(false, viewModel.isConvertButtonEnabled());
     }
 
     @Test
     public void canSetStatusNegativeAreaWhenInputAreaIsNegative() {
         viewModel.setInputArea("-1.0");
+
         viewModel.parseInput();
+
         assertEquals(Status.NEGATIVE_AREA, viewModel.getStatus());
     }
 
     @Test
     public void isConvertButtonDisableWhenInputAreaIsNegative() {
         viewModel.setInputArea("-100.0");
+
         viewModel.parseInput();
+
         assertEquals(false, viewModel.isConvertButtonEnabled());
     }
 
     @Test
     public void canSetAreaMeasureFrom() {
         viewModel.setFrom(AreaMeasure.ARE);
+
         assertEquals(AreaMeasure.ARE, viewModel.getFrom());
     }
 
     @Test
     public void canSetAreaMeasureTo() {
         viewModel.setTo(AreaMeasure.HECTARE);
+
         assertEquals(AreaMeasure.HECTARE, viewModel.getTo());
     }
 
@@ -114,7 +134,9 @@ public class ViewModelTest {
         viewModel.setInputArea("7.0");
         viewModel.setFrom(AreaMeasure.SQUARE_METER);
         viewModel.setTo(AreaMeasure.SQUARE_KILOMETER);
+
         viewModel.convert();
+
         assertEquals(Status.SUCCESS, viewModel.getStatus());
     }
 
