@@ -43,7 +43,7 @@ public class TemperatureConverterTxtLoggerTests {
         String testMessage = "Test message";
         textLog.log(testMessage);
 
-        String message = textLog.getFullLog().get(0);
+        String message = textLog.getLog().get(0);
 
         assertThat(message, containsString(testMessage));
     }
@@ -54,10 +54,10 @@ public class TemperatureConverterTxtLoggerTests {
         textLog.log(messages[0]);
         textLog.log(messages[1]);
 
-        List<String> realMessages = textLog.getFullLog();
+        List<String> loggedMessages = textLog.getLog();
 
-        assertThat(realMessages.get(0), containsString(messages[0]));
-        assertThat(realMessages.get(1), containsString(messages[1]));
+        assertThat(loggedMessages.get(0), containsString(messages[0]));
+        assertThat(loggedMessages.get(1), containsString(messages[1]));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class TemperatureConverterTxtLoggerTests {
         String testMessage = "Test message";
         textLog.log(testMessage);
 
-        String message = textLog.getFullLog().get(0);
+        String message = textLog.getLog().get(0);
 
         assertTrue(Pattern.matches("^\\d{2}-\\d{2}-\\d{4} \\d{2}:\\d{2}:\\d{2} > .*", message));
     }

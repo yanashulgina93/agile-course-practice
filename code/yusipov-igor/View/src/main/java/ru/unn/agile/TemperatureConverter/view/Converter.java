@@ -92,7 +92,7 @@ public final class Converter {
     }
 
     private void buildLog() {
-        List<String> log = viewModel.getFullLog();
+        List<String> log = viewModel.getLog();
         String[] items = log.toArray(new String[log.size()]);
         logList.setListData(items);
     }

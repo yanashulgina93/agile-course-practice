@@ -121,8 +121,8 @@ public class ViewModel {
         return message;
     }
 
-    public List<String> getFullLog() {
-        return logger.getFullLog();
+    public List<String> getLog() {
+        return logger.getLog();
     }
 
     public void onInputValueFocusLost() {

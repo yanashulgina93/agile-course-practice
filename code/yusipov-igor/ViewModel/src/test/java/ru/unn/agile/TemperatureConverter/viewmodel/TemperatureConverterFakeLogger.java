@@ -7,16 +7,12 @@ public class TemperatureConverterFakeLogger implements TemperatureConverterLogge
     private ArrayList<String> log = new ArrayList<String>();
 
     @Override
-    public void log(final String s) {
-        log.add(s);
+    public void log(final String logMessage) {
+        log.add(logMessage);
     }
 
     @Override
-    public List<String> getFullLog() {
+    public List<String> getLog() {
         return log;
-    }
-
-    public int getLogSize() {
-        return log.size();
     }
 }
