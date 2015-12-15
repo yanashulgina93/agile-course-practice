@@ -49,13 +49,8 @@ public class LeftistHeapTxtLogger implements ILeftistHeapLogger {
     }
 
     @Override
-    public String getLogMessage(final int messageIndex) {
+    public String getMessage(final int messageIndex) {
         return getLog().get(messageIndex);
-    }
-
-    @Override
-    public int getLogSize() {
-        return getLog().size();
     }
 
     private static String getCurrentDateTime() {

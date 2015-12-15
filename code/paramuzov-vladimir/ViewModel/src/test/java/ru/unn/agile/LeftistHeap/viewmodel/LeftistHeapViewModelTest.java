@@ -130,7 +130,7 @@ public class LeftistHeapViewModelTest {
 
     @Test
     public void byDefaultLogIsEmpty() {
-        assertEquals(0, viewModel.getLogger().getLogSize());
+        assertEquals(0, viewModel.getLogger().getLog().size());
     }
 
     @Test
@@ -139,7 +139,7 @@ public class LeftistHeapViewModelTest {
 
         viewModel.valueFieldFocusLost();
 
-        assertEquals(1, viewModel.getLogger().getLogSize());
+        assertEquals(1, viewModel.getLogger().getLog().size());
     }
 
     @Test
@@ -147,7 +147,7 @@ public class LeftistHeapViewModelTest {
         viewModel.setKeyValue("-10");
 
         viewModel.valueFieldFocusLost();
-        String logMessage = viewModel.getLogger().getLogMessage(0);
+        String logMessage = viewModel.getLogger().getMessage(0);
 
         assertThat(logMessage, matches(ILeftistHeapLogger.DATE_REGEX
                                         + LogMessages.KEY_VALUE_FIELD_CHANGED.toString()
@@ -160,7 +160,7 @@ public class LeftistHeapViewModelTest {
 
         viewModel.applyOperation();
 
-        assertEquals(1, viewModel.getLogger().getLogSize());
+        assertEquals(1, viewModel.getLogger().getLog().size());
     }
 
     @Test
@@ -168,7 +168,7 @@ public class LeftistHeapViewModelTest {
         viewModel.setKeyValue("10");
 
         viewModel.applyOperation();
-        String logMessage = viewModel.getLogger().getLogMessage(0);
+        String logMessage = viewModel.getLogger().getMessage(0);
 
         assertThat(logMessage, matches(ILeftistHeapLogger.DATE_REGEX
                                         + LogMessages.BUTTON_PRESSED.toString()
@@ -182,13 +182,13 @@ public class LeftistHeapViewModelTest {
     public void isChangingOperationAddNewMessageToLog() {
         viewModel.setOperation(Operations.DELETE);
 
-        assertEquals(1, viewModel.getLogger().getLogSize());
+        assertEquals(1, viewModel.getLogger().getLog().size());
     }
 
     @Test
     public void isLogContainProperMessageAfterChangeOperationToDelete() {
         viewModel.setOperation(Operations.DELETE);
-        String logMessage = viewModel.getLogger().getLogMessage(0);
+        String logMessage = viewModel.getLogger().getMessage(0);
 
         assertThat(logMessage, matches(ILeftistHeapLogger.DATE_REGEX
                                         + LogMessages.OPERATION_CHANGED.toString()

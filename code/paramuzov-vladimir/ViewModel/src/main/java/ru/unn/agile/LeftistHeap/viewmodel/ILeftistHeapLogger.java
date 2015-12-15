@@ -10,7 +10,5 @@ public interface ILeftistHeapLogger {
 
     List<String> getLog();
 
-    String getLogMessage(final int messageIndex);
-
-    int getLogSize();
+    String getMessage(final int messageIndex);
 }

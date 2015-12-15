@@ -33,14 +33,14 @@ public class LeftistHeapTxtLoggerTests {
     public void canWriteMessageToTxtLog() {
         txtLogger.log(TEST_MESSAGE);
 
-        assertEquals(1, txtLogger.getLogSize());
+        assertEquals(1, txtLogger.getLog().size());
     }
 
     @Test
     public void isTxtLogContainProperMessage() {
         txtLogger.log(TEST_MESSAGE);
 
-        String message = txtLogger.getLogMessage(0);
+        String message = txtLogger.getMessage(0);
 
         assertThat(message, matches(ILeftistHeapLogger.DATE_REGEX + TEST_MESSAGE));
     }
@@ -51,7 +51,7 @@ public class LeftistHeapTxtLoggerTests {
             txtLogger.log(TEST_MESSAGE + i);
         }
 
-        assertEquals(10, txtLogger.getLogSize());
+        assertEquals(10, txtLogger.getLog().size());
     }
 
     @Test
@@ -59,7 +59,7 @@ public class LeftistHeapTxtLoggerTests {
         txtLogger.log(TEST_MESSAGE + "0");
         txtLogger.log(TEST_MESSAGE + "1");
 
-        String message = txtLogger.getLogMessage(1);
+        String message = txtLogger.getMessage(1);
 
         assertThat(message, matches(ILeftistHeapLogger.DATE_REGEX + TEST_MESSAGE + "1"));
     }
@@ -68,7 +68,7 @@ public class LeftistHeapTxtLoggerTests {
     public void isLogMessageContainDateTime() {
         txtLogger.log(TEST_MESSAGE);
 
-        String message = txtLogger.getLogMessage(0);
+        String message = txtLogger.getMessage(0);
 
         assertThat(message, matches(ILeftistHeapLogger.DATE_REGEX + ".*"));
     }

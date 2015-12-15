@@ -20,13 +20,8 @@ public class FakeLeftistHeapLogger implements ILeftistHeapLogger {
     }
 
     @Override
-    public String getLogMessage(final int messageIndex) {
+    public String getMessage(final int messageIndex) {
         return log.get(messageIndex);
-    }
-
-    @Override
-    public int getLogSize() {
-        return log.size();
     }
 
     private static String getCurrentDateTime() {
