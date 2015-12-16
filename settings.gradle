@@ -221,6 +221,8 @@ include "code/sevrikov-ilya/View"
 project(":code/sevrikov-ilya/View").name = "sevrikov-ilya-View"
 include "code/sevrikov-ilya/ViewModel"
 project(":code/sevrikov-ilya/ViewModel").name = "sevrikov-ilya-ViewModel"
+include "code/sevrikov-ilya/Infrastructure"
+project(":code/sevrikov-ilya/Infrastructure").name = "sevrikov-ilya-Infrastructure"
 
 // Shulgina Yana
 include "code/shulgina-yana/Model"
