@@ -8,10 +8,13 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public class ViewModelTests {
     private ViewModel viewModel;
+
+    public void setViewModel(final ViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
 
     @Before
     public void setUp() {
@@ -249,13 +252,8 @@ public class ViewModelTests {
         assertArrayEquals(currentMethods, methods);
     }
 
-    private void setTextFields() {
-        viewModel.setLowerLimit("0.0");
-        viewModel.setUpperLimit("2.0");
-    }
-
     @Test
-    public void canViewModelAcceptFakeLogger() {
+    public void canViewModelAcceptLogger() {
         FakeNumericalIntegrationLogger fakeLogger = new FakeNumericalIntegrationLogger();
         ViewModel viewModelWithFakeLogger = new ViewModel(fakeLogger);
 
@@ -288,7 +286,7 @@ public class ViewModelTests {
 
         String record = viewModel.getLoggersRecords().get(0);
         boolean doesContainLowerLimit =
-                record.equals(ViewModel.RecordsTemplatesForLogger.LOWER_LIMIT_WAS_CHANGED.toString()
+                record.contains(ViewModel.RecordsTemplatesForLogger.LOWER_LIMIT_WAS_CHANGED.toString()
                         + viewModel.getLowerLimit());
 
         assertTrue(doesContainLowerLimit);
@@ -301,7 +299,7 @@ public class ViewModelTests {
 
         String record = viewModel.getLoggersRecords().get(0);
         boolean doesContainUpperLimit =
-                record.equals(ViewModel.RecordsTemplatesForLogger.UPPER_LIMIT_WAS_CHANGED.toString()
+                record.contains(ViewModel.RecordsTemplatesForLogger.UPPER_LIMIT_WAS_CHANGED.toString()
                         + viewModel.getUpperLimit());
 
         assertTrue(doesContainUpperLimit);
@@ -384,7 +382,7 @@ public class ViewModelTests {
 
         viewModel.integrate();
         String record = viewModel.getLoggersRecords().get(0);
-        boolean isRecordCorrect = record.equals(
+        boolean isRecordCorrect = record.contains(
                 ViewModel.RecordsTemplatesForLogger.INTEGRATE_WAS_PRESSED.toString()
                  + "Lower limit = "
                  + viewModel.getLowerLimit()
@@ -405,9 +403,9 @@ public class ViewModelTests {
 
         String record = viewModel.getLoggersRecords().get(0);
         boolean doesContainNewFunction =
-                record.equals(ViewModel.RecordsTemplatesForLogger.FUNCTION_WAS_CHANGED.toString()
+                record.contains(ViewModel.RecordsTemplatesForLogger.FUNCTION_WAS_CHANGED.toString()
                     + ViewModel.Function.COS.toString());
-        
+
         assertTrue(doesContainNewFunction);
     }
 
@@ -417,7 +415,7 @@ public class ViewModelTests {
 
         String record = viewModel.getLoggersRecords().get(0);
         boolean doesContainNewMethod =
-                record.equals(ViewModel.RecordsTemplatesForLogger.METHOD_WAS_CHANGED
+                record.contains(ViewModel.RecordsTemplatesForLogger.METHOD_WAS_CHANGED
                         + ViewModel.IntegrationMethod.SIMPSON.toString());
 
         assertTrue(doesContainNewMethod);
@@ -448,5 +446,10 @@ public class ViewModelTests {
         viewModel.processKeyPressing(KeyboardKeys.ENTER);
 
         assertEquals(1, viewModel.getLoggersRecords().size());
+    }
+
+    private void setTextFields() {
+        viewModel.setLowerLimit("0.0");
+        viewModel.setUpperLimit("2.0");
     }
 }

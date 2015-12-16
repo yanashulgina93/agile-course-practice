@@ -225,6 +225,8 @@ include "code/shulgina-yana/View"
 project(":code/shulgina-yana/View").name = "shulgina-yana-View"
 include "code/shulgina-yana/ViewModel"
 project(":code/shulgina-yana/ViewModel").name = "shulgina-yana-ViewModel"
+include "code/shulgina-yana/Infrastructure"
+project(":code/shulgina-yana/Infrastructure").name = "shulgina-yana-Infrastructure"
 // Smirnov Aleksandr
 include "code/smirnov-alexandr"
 project(":code/smirnov-alexandr").name = "smirnov-alexandr-lab1-Model"
