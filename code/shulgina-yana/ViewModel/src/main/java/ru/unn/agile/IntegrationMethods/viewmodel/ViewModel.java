@@ -28,8 +28,8 @@ public class ViewModel {
         result = "";
         status = Status.WAITING.toString();
         isIntegrateButtonEnabled = false;
-        isLowerLimitChanged = true;
-        isUpperLimitChanged = true;
+        isLowerLimitChanged = false;
+        isUpperLimitChanged = false;
     }
 
     private boolean isThereEmptyTextField() {
@@ -130,16 +130,16 @@ public class ViewModel {
         }
     }
 
-    void lowerLimitHasLostFocus() {
-        if(isLowerLimitChanged) {
+    public void lowerLimitHasLostFocus() {
+        if (isLowerLimitChanged) {
             logger.addRecord(RecordsTemplatesForLogger.LOWER_LIMIT_WAS_CHANGED.toString()
                     + lowerLimit);
             isLowerLimitChanged = false;
         }
     }
 
-    void upperLimitHasLostFocus() {
-        if(isUpperLimitChanged) {
+    public void upperLimitHasLostFocus() {
+        if (isUpperLimitChanged) {
             logger.addRecord(RecordsTemplatesForLogger.UPPER_LIMIT_WAS_CHANGED.toString()
                     + upperLimit);
             isUpperLimitChanged = false;
@@ -151,7 +151,7 @@ public class ViewModel {
     }
 
     public void setFunction(final Function function) {
-        if (this.function!= function) {
+        if (this.function != function) {
             this.function = function;
             logger.addRecord(RecordsTemplatesForLogger.FUNCTION_WAS_CHANGED.toString()
                                                             + this.function.toString());
@@ -163,7 +163,7 @@ public class ViewModel {
     }
 
     public void setLowerLimit(final String lowerLimit) {
-        if(!this.lowerLimit.equals(lowerLimit)) {
+        if (!this.lowerLimit.equals(lowerLimit)) {
             this.lowerLimit = lowerLimit;
             isLowerLimitChanged = true;
         }
@@ -174,7 +174,7 @@ public class ViewModel {
     }
 
     public void setUpperLimit(final String upperLimit) {
-        if(!this.upperLimit.equals(upperLimit)) {
+        if (!this.upperLimit.equals(upperLimit)) {
             this.upperLimit = upperLimit;
             isUpperLimitChanged = true;
         }
@@ -185,7 +185,7 @@ public class ViewModel {
     }
 
     public void setIntegrationMethod(final IntegrationMethod integrationMethod) {
-        if(this.integrationMethod!= integrationMethod) {
+        if (this.integrationMethod != integrationMethod) {
             this.integrationMethod = integrationMethod;
             logger.addRecord(RecordsTemplatesForLogger.METHOD_WAS_CHANGED.toString()
                     + this.integrationMethod.toString());
@@ -206,13 +206,6 @@ public class ViewModel {
 
     public List<String> getLoggersRecords() {
         return logger.getAllRecords();
-    }
-
-    public boolean isLowerLimitChanged() {
-        return isLowerLimitChanged;
-    }
-    public boolean isUpperLimitChanged() {
-        return isUpperLimitChanged;
     }
 
     public enum Function {

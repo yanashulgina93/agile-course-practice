@@ -11,12 +11,11 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
+import static org.junit.Assert.*;
 
 public class TxtNumericalIntegrationLoggerTests {
     private TxtNumericalIntegrationLogger txtLogger;
-    private final String NAME_OF_LOG_FILE = "./NumericalIntegrationLog.log";
+    private static final String NAME_OF_LOG_FILE = "./NumericalIntegrationLog.log";
 
     @Before
     public void setUp() {
@@ -47,13 +46,14 @@ public class TxtNumericalIntegrationLoggerTests {
         String[] recordsForAdding = {"the first action", "the second action", "the third action"};
         boolean areRecordsLogged = true;
 
-        for(int i = 0; i < recordsForAdding.length; i++) {
+        for (int i = 0; i < recordsForAdding.length; i++) {
             txtLogger.addRecord(recordsForAdding[i]);
         }
         List<String> recordsFromLogFile = txtLogger.getAllRecords();
         for (int i = 0; i < recordsFromLogFile.size(); i++) {
-            if(!recordsFromLogFile.get(i).contains(recordsForAdding[i]))
+            if (!recordsFromLogFile.get(i).contains(recordsForAdding[i])) {
                 areRecordsLogged = false;
+            }
         }
 
         assertTrue(areRecordsLogged);

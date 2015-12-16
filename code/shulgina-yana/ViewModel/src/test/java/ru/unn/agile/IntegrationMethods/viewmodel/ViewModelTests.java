@@ -285,8 +285,8 @@ public class ViewModelTests {
         viewModel.lowerLimitHasLostFocus();
 
         String record = viewModel.getLoggersRecords().get(0);
-        boolean doesContainLowerLimit =
-                record.contains(ViewModel.RecordsTemplatesForLogger.LOWER_LIMIT_WAS_CHANGED.toString()
+        boolean doesContainLowerLimit = record.contains(
+                ViewModel.RecordsTemplatesForLogger.LOWER_LIMIT_WAS_CHANGED.toString()
                         + viewModel.getLowerLimit());
 
         assertTrue(doesContainLowerLimit);
@@ -298,8 +298,8 @@ public class ViewModelTests {
         viewModel.upperLimitHasLostFocus();
 
         String record = viewModel.getLoggersRecords().get(0);
-        boolean doesContainUpperLimit =
-                record.contains(ViewModel.RecordsTemplatesForLogger.UPPER_LIMIT_WAS_CHANGED.toString()
+        boolean doesContainUpperLimit = record.contains(
+                ViewModel.RecordsTemplatesForLogger.UPPER_LIMIT_WAS_CHANGED.toString()
                         + viewModel.getUpperLimit());
 
         assertTrue(doesContainUpperLimit);
@@ -336,8 +336,8 @@ public class ViewModelTests {
     public void doLoggersRecordsContainRecordTemplateWhenIntegrate() {
         viewModel.integrate();
         String record = viewModel.getLoggersRecords().get(0);
-        boolean doesContainTemplate =
-                record.contains(ViewModel.RecordsTemplatesForLogger.INTEGRATE_WAS_PRESSED.toString());
+        boolean doesContainTemplate = record.contains(
+                ViewModel.RecordsTemplatesForLogger.INTEGRATE_WAS_PRESSED.toString());
 
         assertTrue(doesContainTemplate);
     }
@@ -370,8 +370,8 @@ public class ViewModelTests {
     public void doLoggersRecordsContainIntegrationMethodWhenIntegrate() {
         viewModel.integrate();
         String record = viewModel.getLoggersRecords().get(0);
-        boolean doesContainMethod =
-                record.contains(ViewModel.IntegrationMethod.LEFT_RECTANGLES.toString());
+        boolean doesContainMethod = record.contains(
+                ViewModel.IntegrationMethod.LEFT_RECTANGLES.toString());
 
         assertTrue(doesContainMethod);
     }
@@ -402,8 +402,8 @@ public class ViewModelTests {
         viewModel.setFunction(ViewModel.Function.COS);
 
         String record = viewModel.getLoggersRecords().get(0);
-        boolean doesContainNewFunction =
-                record.contains(ViewModel.RecordsTemplatesForLogger.FUNCTION_WAS_CHANGED.toString()
+        boolean doesContainNewFunction = record.contains(
+                ViewModel.RecordsTemplatesForLogger.FUNCTION_WAS_CHANGED.toString()
                     + ViewModel.Function.COS.toString());
 
         assertTrue(doesContainNewFunction);
@@ -414,8 +414,8 @@ public class ViewModelTests {
         viewModel.setIntegrationMethod(ViewModel.IntegrationMethod.SIMPSON);
 
         String record = viewModel.getLoggersRecords().get(0);
-        boolean doesContainNewMethod =
-                record.contains(ViewModel.RecordsTemplatesForLogger.METHOD_WAS_CHANGED
+        boolean doesContainNewMethod = record.contains(
+                ViewModel.RecordsTemplatesForLogger.METHOD_WAS_CHANGED
                         + ViewModel.IntegrationMethod.SIMPSON.toString());
 
         assertTrue(doesContainNewMethod);

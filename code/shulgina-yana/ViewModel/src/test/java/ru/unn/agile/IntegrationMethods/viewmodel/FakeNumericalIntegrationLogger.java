@@ -3,7 +3,7 @@ package ru.unn.agile.IntegrationMethods.viewmodel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FakeNumericalIntegrationLogger implements NumericalIntegrationLogger{
+public class FakeNumericalIntegrationLogger implements NumericalIntegrationLogger {
     private ArrayList<String> records = new ArrayList<String>();
 
     @Override

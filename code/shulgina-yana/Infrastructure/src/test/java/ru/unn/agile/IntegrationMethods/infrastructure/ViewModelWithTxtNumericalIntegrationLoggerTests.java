@@ -6,7 +6,8 @@ import ru.unn.agile.IntegrationMethods.viewmodel.ViewModelTests;
 import static org.junit.Assert.assertNotNull;
 
 public class ViewModelWithTxtNumericalIntegrationLoggerTests extends ViewModelTests {
-    private final String NAME_OF_LOG_FILE = "./ViewModelWithTxtLoggerTests-lab3-shulgina.log";
+    private static final String NAME_OF_LOG_FILE =
+            "./ViewModelWithTxtLoggerTests-lab3-shulgina.log";
 
     @Override
     public void setUp() {
@@ -17,7 +18,8 @@ public class ViewModelWithTxtNumericalIntegrationLoggerTests extends ViewModelTe
 
     @Override
     public void canViewModelAcceptLogger() {
-        TxtNumericalIntegrationLogger realLogger = new TxtNumericalIntegrationLogger(NAME_OF_LOG_FILE);
+        TxtNumericalIntegrationLogger realLogger =
+                new TxtNumericalIntegrationLogger(NAME_OF_LOG_FILE);
         ViewModel viewModelWithRealLogger = new ViewModel(realLogger);
 
         assertNotNull(viewModelWithRealLogger);
