@@ -1,6 +1,6 @@
 package ru.unn.agile.Vec3.Infrastructure;
 
-import ru.unn.agile.Vec3.ViewModel.ILogger;
+import ru.unn.agile.Vec3.ViewModel.Vector3ILogger;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Calendar;
 
-public class Vector3TxtLogger implements ILogger {
+public class Vector3TxtLogger implements Vector3ILogger {
     private static final String FILENAME_EMPTY =
             "Text logger can't be initialized without filename.";
     private static final String DATE_FORMAT = "dd-MM-yyyy HH:mm:ss";

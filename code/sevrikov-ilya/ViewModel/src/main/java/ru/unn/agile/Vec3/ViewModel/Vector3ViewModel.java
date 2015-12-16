@@ -20,9 +20,9 @@ public class Vector3ViewModel {
 
     private final DecimalFormat formatter;
 
-    private final ILogger logger;
+    private final Vector3ILogger logger;
 
-    public Vector3ViewModel(final ILogger logger) {
+    public Vector3ViewModel(final Vector3ILogger logger) {
         if (logger == null) {
             throw new IllegalArgumentException(Vector3ViewModelStatus.LOGGER_CANNOT_BE_NULL);
         }

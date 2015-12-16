@@ -5,7 +5,7 @@ import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
 
-public final class FakeLogger implements ILogger {
+public final class Vector3FakeLogger implements Vector3ILogger {
     private final ArrayList<String> messages = new ArrayList<String>();
 
     private final StringBuilder stringBuilder = new StringBuilder();

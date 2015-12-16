@@ -16,7 +16,7 @@ public class Vector3ViewModelLoggerTest {
 
     @Before
     public void initialize() {
-        viewModel = new Vector3ViewModel(new FakeLogger());
+        viewModel = new Vector3ViewModel(new Vector3FakeLogger());
     }
 
     @After
