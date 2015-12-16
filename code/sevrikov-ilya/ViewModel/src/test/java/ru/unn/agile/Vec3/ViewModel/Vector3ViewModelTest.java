@@ -60,6 +60,45 @@ public class Vector3ViewModelTest {
     }
 
     @Test
+    public void canSetStatusWrongFormatWhenGetNormOfFirstVectorWithBadFormatting() {
+        viewModel.setCoordX0("imposiburu");
+
+        viewModel.compute(Vector3Operation.GET_NORM_FIRST_VECTOR);
+
+        assertEquals(Vector3ViewModelStatus.FIRST_VECTOR_WRONG_FORMAT, viewModel.getStatus());
+    }
+
+    @Test
+    public void canSetStatusWrongFormatWhenGetNormOfSecondVectorWithBadFormatting() {
+        viewModel.setCoordX1("imposiburu");
+
+        viewModel.compute(Vector3Operation.GET_NORM_SECOND_VECTOR);
+
+        assertEquals(Vector3ViewModelStatus.SECOND_VECTOR_WRONG_FORMAT, viewModel.getStatus());
+    }
+
+
+
+    @Test
+    public void canSetStatusWrongFormatWhenCalculateDotProductWithBadFormatting() {
+        viewModel.setCoordY0("imposiburu");
+
+        viewModel.compute(Vector3Operation.CALCULATE_CROSS_PRODUCT);
+
+        assertEquals(Vector3ViewModelStatus.FIRST_VECTOR_WRONG_FORMAT, viewModel.getStatus());
+    }
+
+    @Test
+    public void canSetStatusWrongFormatWhenCalculateCrossProductWithBadFormatting() {
+        viewModel.setCoordY1("imposiburu");
+
+        viewModel.compute(Vector3Operation.CALCULATE_CROSS_PRODUCT);
+
+        assertEquals(Vector3ViewModelStatus.SECOND_VECTOR_WRONG_FORMAT, viewModel.getStatus());
+    }
+
+
+    @Test
     public void canGetNormOfSpecificSecondVector() {
         Vector3 vector = new Vector3(1.0, 2.0, 3.0);
         double  norm   = vector.getNorm();
