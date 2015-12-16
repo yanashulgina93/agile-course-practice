@@ -196,6 +196,8 @@ include "code/paramuzov-vladimir/ViewModel"
 project(":code/paramuzov-vladimir/ViewModel").name = "paramuzov-vladimir-ViewModel"
 include "code/paramuzov-vladimir/View"
 project(":code/paramuzov-vladimir/View").name = "paramuzov-vladimir-View"
+include "code/paramuzov-vladimir/Infrastructure"
+project(":code/paramuzov-vladimir/Infrastructure").name = "paramuzov-vladimir-Infrastructure"
 // Plankina Elena
 
 // Plankina Elena
