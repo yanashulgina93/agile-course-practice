@@ -16,7 +16,7 @@ public final class Integrator {
     private JTextField txtResult;
     private JPanel mainPanel;
     private JLabel lbStatus;
-    private JList listForLogger;
+    private JList<String> listForLogger;
     private ViewModel viewModel;
 
     private Integrator() { }
