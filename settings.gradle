@@ -225,9 +225,16 @@ include "code/shulgina-yana/View"
 project(":code/shulgina-yana/View").name = "shulgina-yana-View"
 include "code/shulgina-yana/ViewModel"
 project(":code/shulgina-yana/ViewModel").name = "shulgina-yana-ViewModel"
-// Smirnov Aleksandr
-include "code/smirnov-alexandr"
-project(":code/smirnov-alexandr").name = "smirnov-alexandr-lab1-Model"
+
+
+// Smirnov Alexandr
+include "code/smirnov-alexandr/Model"
+project(":code/smirnov-alexandr/Model").name = "smirnov-alexandr-Model"
+include "code/smirnov-alexandr/View"
+project(":code/smirnov-alexandr/View").name = "smirnov-alexandr-View"
+include "code/smirnov-alexandr/ViewModel"
+project(":code/smirnov-alexandr/ViewModel").name = "smirnov-alexandr-ViewModel"
+
 // Smirnov Mixail
 include "code/smirnov-michael/Model"
 project(":code/smirnov-michael/Model").name = "smirnov-michael-Model"
