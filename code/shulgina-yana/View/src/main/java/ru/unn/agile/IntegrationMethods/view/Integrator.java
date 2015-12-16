@@ -84,7 +84,8 @@ public final class Integrator {
 
     public static void main(final String[] args) {
         JFrame frame = new JFrame("Integrator");
-        TxtNumericalIntegrationLogger logger = new TxtNumericalIntegrationLogger("./Integrator-shulgina.log");
+        TxtNumericalIntegrationLogger logger =
+                new TxtNumericalIntegrationLogger("./Integrator-shulgina.log");
         frame.setContentPane(new Integrator(new ViewModel(logger)).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
@@ -106,7 +107,8 @@ public final class Integrator {
         viewModel.setUpperLimit(txtUpperLimit.getText());
 
         viewModel.setFunction((ViewModel.Function) cmbFunction.getSelectedItem());
-        viewModel.setIntegrationMethod((ViewModel.IntegrationMethod) cmbMethod.getSelectedItem());
+        viewModel.setIntegrationMethod(
+                (ViewModel.IntegrationMethod) cmbMethod.getSelectedItem());
     }
 
     private void bindFromViewModel() {
