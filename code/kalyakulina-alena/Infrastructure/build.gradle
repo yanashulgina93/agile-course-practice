@@ -1,6 +1,6 @@
 dependencies {
     compile project(':kalyakulina-alena-ViewModel')
-    compile project(':kalyakulina-alena-Infrastructure')
+    testCompile project(':kalyakulina-alena-ViewModel').sourceSets.test.output
 }
 
 sourceSets {

@@ -110,6 +110,8 @@ include "code/kalyakulina-alena/View"
 project(":code/kalyakulina-alena/View").name = "kalyakulina-alena-View"
 include "code/kalyakulina-alena/ViewModel"
 project(":code/kalyakulina-alena/ViewModel").name = "kalyakulina-alena-ViewModel"
+include "code/kalyakulina-alena/Infrastructure"
+project(":code/kalyakulina-alena/Infrastructure").name = "kalyakulina-alena-Infrastructure"
 
 // Karpunin Yaroslav
 // Kazanbaev Dmitry
