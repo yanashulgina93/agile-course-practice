@@ -59,24 +59,6 @@ public class ViewModel {
         return isIntegrateButtonEnabled;
     }
 
-    private  IFunction createIFunctionObject() {
-        IFunction iFunction;
-        switch (function) {
-            case X:
-                iFunction = new XFunction();
-                break;
-            case COS:
-                iFunction = new CosFunction();
-                break;
-            case EXP:
-                iFunction = new ExpFunction();
-                break;
-            default:
-                throw new IllegalArgumentException("Only x, cos(x) and exp(x) are supported");
-        }
-        return iFunction;
-    }
-
     private String formRecordForLoggerAfterIntegration() {
         String record = RecordsTemplatesForLogger.INTEGRATE_WAS_PRESSED
                         + "Lower limit = " + lowerLimit
@@ -94,9 +76,9 @@ public class ViewModel {
         if (!parseLimitsInput()) {
             return;
         }
-        IFunction iFunction = createIFunctionObject();
+
         Integrator integrator = new Integrator(Double.parseDouble(lowerLimit),
-                Double.parseDouble(upperLimit), iFunction);
+                Double.parseDouble(upperLimit), function.createIFunctionObject());
 
         switch (integrationMethod) {
             case LEFT_RECTANGLES:
@@ -209,9 +191,24 @@ public class ViewModel {
     }
 
     public enum Function {
-        X("x"),
-        COS("cos(x)"),
-        EXP("exp(x)");
+        X("x") {
+            @Override
+            public IFunction createIFunctionObject() {
+                return new XFunction();
+            }
+        },
+        COS("cos(x)") {
+            @Override
+            public IFunction createIFunctionObject() {
+                return new CosFunction();
+            }
+        },
+        EXP("exp(x)") {
+            @Override
+            public IFunction createIFunctionObject() {
+                return new ExpFunction();
+            }
+        };
         private final String name;
 
         private Function(final String name) {
@@ -222,6 +219,8 @@ public class ViewModel {
         public String toString() {
             return name;
         }
+
+        public abstract IFunction createIFunctionObject();
     }
 
     public enum IntegrationMethod {
