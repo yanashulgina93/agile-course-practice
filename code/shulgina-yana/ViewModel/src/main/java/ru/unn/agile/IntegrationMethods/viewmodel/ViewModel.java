@@ -78,7 +78,7 @@ public class ViewModel {
         }
 
         Integrator integrator = new Integrator(Double.parseDouble(lowerLimit),
-                Double.parseDouble(upperLimit), function.createIFunctionObject());
+                Double.parseDouble(upperLimit), function.getIFunctionObject());
 
         switch (integrationMethod) {
             case LEFT_RECTANGLES:
@@ -193,19 +193,19 @@ public class ViewModel {
     public enum Function {
         X("x") {
             @Override
-            public IFunction createIFunctionObject() {
+            public IFunction getIFunctionObject() {
                 return new XFunction();
             }
         },
         COS("cos(x)") {
             @Override
-            public IFunction createIFunctionObject() {
+            public IFunction getIFunctionObject() {
                 return new CosFunction();
             }
         },
         EXP("exp(x)") {
             @Override
-            public IFunction createIFunctionObject() {
+            public IFunction getIFunctionObject() {
                 return new ExpFunction();
             }
         };
@@ -220,7 +220,7 @@ public class ViewModel {
             return name;
         }
 
-        public abstract IFunction createIFunctionObject();
+        public abstract IFunction getIFunctionObject();
     }
 
     public enum IntegrationMethod {
