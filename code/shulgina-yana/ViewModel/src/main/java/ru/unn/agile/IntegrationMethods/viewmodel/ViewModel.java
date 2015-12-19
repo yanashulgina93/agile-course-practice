@@ -70,15 +70,34 @@ public class ViewModel {
         return record;
     }
 
+    private  IFunction createIFunctionObject() {
+        IFunction iFunction;
+        switch (function) {
+            case X:
+                iFunction = new XFunction();
+                break;
+            case COS:
+                iFunction = new CosFunction();
+                break;
+            case EXP:
+                iFunction = new ExpFunction();
+                break;
+            default:
+                throw new IllegalArgumentException("Only x, cos(x) and exp(x) are supported");
+        }
+        return iFunction;
+    }
+
     public void integrate() {
         logger.addRecord(formRecordForLoggerAfterIntegration());
 
         if (!parseLimitsInput()) {
             return;
         }
+        IFunction iFunction = createIFunctionObject();
 
         Integrator integrator = new Integrator(Double.parseDouble(lowerLimit),
-                Double.parseDouble(upperLimit), function.getIFunctionObject());
+                Double.parseDouble(upperLimit), iFunction);
 
         switch (integrationMethod) {
             case LEFT_RECTANGLES:
@@ -191,24 +210,9 @@ public class ViewModel {
     }
 
     public enum Function {
-        X("x") {
-            @Override
-            public IFunction getIFunctionObject() {
-                return new XFunction();
-            }
-        },
-        COS("cos(x)") {
-            @Override
-            public IFunction getIFunctionObject() {
-                return new CosFunction();
-            }
-        },
-        EXP("exp(x)") {
-            @Override
-            public IFunction getIFunctionObject() {
-                return new ExpFunction();
-            }
-        };
+        X("x"),
+        COS("cos(x)"),
+        EXP("exp(x)");
         private final String name;
 
         private Function(final String name) {
@@ -219,8 +223,6 @@ public class ViewModel {
         public String toString() {
             return name;
         }
-
-        public abstract IFunction getIFunctionObject();
     }
 
     public enum IntegrationMethod {
