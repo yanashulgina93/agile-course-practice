@@ -2,10 +2,7 @@ package ru.unn.agile.IntegrationMethods.infrastructure;
 
 import ru.unn.agile.IntegrationMethods.viewmodel.NumericalIntegrationLogger;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,7 +16,9 @@ public class TxtNumericalIntegrationLogger implements NumericalIntegrationLogger
     public TxtNumericalIntegrationLogger(final String nameOfLogFile) {
         this.nameOfLogFile = nameOfLogFile;
         try {
-            bufferedWriter = new BufferedWriter(new FileWriter(nameOfLogFile));
+            File logFile = new File(nameOfLogFile);
+            FileOutputStream fos = new FileOutputStream(logFile);
+            bufferedWriter = new BufferedWriter(new OutputStreamWriter(fos));
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -40,7 +39,9 @@ public class TxtNumericalIntegrationLogger implements NumericalIntegrationLogger
     public List<String> getAllRecords() {
         ArrayList<String> records = new ArrayList<String>();
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(nameOfLogFile));
+            File logFile = new File(nameOfLogFile);
+            FileInputStream fis = new FileInputStream(logFile);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fis));
             String currentRecord = bufferedReader.readLine();
             while (currentRecord != null) {
                 records.add(currentRecord);
