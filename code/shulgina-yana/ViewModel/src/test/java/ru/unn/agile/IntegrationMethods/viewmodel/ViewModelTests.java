@@ -327,6 +327,7 @@ public class ViewModelTests {
 
     @Test
     public void areLoggersRecordsNotEmptyWhenIntegrate() {
+        setTextFields();
         viewModel.integrate();
 
         assertNotEquals(0, viewModel.getLoggersRecords().size());
@@ -334,6 +335,7 @@ public class ViewModelTests {
 
     @Test
     public void doLoggersRecordsContainRecordTemplateWhenIntegrate() {
+        setTextFields();
         viewModel.integrate();
         String record = viewModel.getLoggersRecords().get(0);
         boolean doesContainTemplate = record.contains(
@@ -358,6 +360,7 @@ public class ViewModelTests {
 
     @Test
     public void doLoggersRecordsContainFunctionWhenIntegrate() {
+        setTextFields();
         viewModel.integrate();
         String record = viewModel.getLoggersRecords().get(0);
         boolean doesContainFunction =
@@ -368,6 +371,7 @@ public class ViewModelTests {
 
     @Test
     public void doLoggersRecordsContainIntegrationMethodWhenIntegrate() {
+        setTextFields();
         viewModel.integrate();
         String record = viewModel.getLoggersRecords().get(0);
         boolean doesContainMethod = record.contains(
@@ -384,15 +388,14 @@ public class ViewModelTests {
         String record = viewModel.getLoggersRecords().get(0);
         boolean isRecordCorrect = record.contains(
                 ViewModel.RecordsTemplatesForLogger.INTEGRATE_WAS_PRESSED.toString()
-                        + "Lower limit = "
-                        + viewModel.getLowerLimit()
-                        + ", upper limit = "
-                        + viewModel.getUpperLimit()
-                        + ", function = "
-                        + viewModel.getFunction().toString()
+                        + "Lower limit = " + viewModel.getLowerLimit()
+                        + ", upper limit = " + viewModel.getUpperLimit()
+                        + ", function = " + viewModel.getFunction().toString()
                         + ", integration method: "
                         + viewModel.getIntegrationMethod().toString()
-                        + ".");
+                        + ", status: " + viewModel.getStatus()
+                        + ", result = " + viewModel.getResult() + "."
+        );
 
         assertTrue(isRecordCorrect);
     }

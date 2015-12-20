@@ -6,12 +6,10 @@ import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class TxtNumericalIntegrationLoggerTests {
     private TxtNumericalIntegrationLogger txtLogger;
@@ -62,13 +60,10 @@ public class TxtNumericalIntegrationLoggerTests {
     @Test
     public void canSaveDateAndTimeOfAction() {
         String recordForAdding = "some action";
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH);
-        String dateAndTime = dateFormat.format(cal.getTime());
 
         txtLogger.addRecord(recordForAdding);
         String recordFromLogFile = txtLogger.getAllRecords().get(0);
 
-        assertTrue(recordFromLogFile.contains(dateAndTime));
+        assertTrue(recordFromLogFile.contains("[") && recordFromLogFile.contains("]"));
     }
 }

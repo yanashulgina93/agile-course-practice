@@ -65,14 +65,14 @@ public class ViewModel {
                 + ", upper limit = " + upperLimit
                 + ", function = " + function.toString()
                 + ", integration method: " + integrationMethod.toString()
+                + ", status: " + status
+                + ", result = " + result
                 + ".";
 
         return record;
     }
 
     public void integrate() {
-        logger.addRecord(formRecordForLoggerAfterIntegration());
-
         if (!parseLimitsInput()) {
             return;
         }
@@ -102,6 +102,7 @@ public class ViewModel {
 
         result = Double.toString(integrator.getIntegralValue());
         status = Status.SUCCESS.toString();
+        logger.addRecord(formRecordForLoggerAfterIntegration());
     }
 
     public void processKeyPressing(final int keyCode) {
@@ -115,7 +116,7 @@ public class ViewModel {
     public void lowerLimitHasLostFocus() {
         if (isLowerLimitChanged) {
             logger.addRecord(RecordsTemplatesForLogger.LOWER_LIMIT_WAS_CHANGED.toString()
-                    + lowerLimit);
+                    + lowerLimit + ", status: " + status + ", result = " + result);
             isLowerLimitChanged = false;
         }
     }
@@ -123,7 +124,7 @@ public class ViewModel {
     public void upperLimitHasLostFocus() {
         if (isUpperLimitChanged) {
             logger.addRecord(RecordsTemplatesForLogger.UPPER_LIMIT_WAS_CHANGED.toString()
-                    + upperLimit);
+                    + upperLimit + ", status: " + status + ", result = " + result);
             isUpperLimitChanged = false;
         }
     }
@@ -136,7 +137,8 @@ public class ViewModel {
         if (this.function != function) {
             this.function = function;
             logger.addRecord(RecordsTemplatesForLogger.FUNCTION_WAS_CHANGED.toString()
-                    + this.function.toString());
+                    + this.function.toString() + ", status: " + status + ", result = "
+                    + result);
         }
     }
 
@@ -170,7 +172,8 @@ public class ViewModel {
         if (this.integrationMethod != integrationMethod) {
             this.integrationMethod = integrationMethod;
             logger.addRecord(RecordsTemplatesForLogger.METHOD_WAS_CHANGED.toString()
-                    + this.integrationMethod.toString());
+                    + this.integrationMethod.toString() + ", status: " + status
+                    + ", result = " + result);
         }
     }
 
