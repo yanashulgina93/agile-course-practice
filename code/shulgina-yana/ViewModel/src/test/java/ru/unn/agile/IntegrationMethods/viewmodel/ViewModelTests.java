@@ -260,20 +260,13 @@ public class ViewModelTests {
         assertNotNull(viewModelWithFakeLogger);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void canViewModelThrowExceptionWhenLoggerIsNull() {
-        try {
-            ViewModel viewModelWithNullLogger = new ViewModel(null);
-            fail("ViewModel hasn't thrown exception");
-        } catch (IllegalArgumentException ex) {
-            assertEquals("Error: logger is null", ex.getMessage());
-        } catch (Exception ex) {
-            fail("ViewModel has thrown another exception");
-        }
+        new ViewModel(null);
     }
 
     @Test
-    public void areLoggersRecordsEmptyInTheBeginning() {
+    public void isLoggerEmptyByDefault() {
         List<String> records = viewModel.getLoggersRecords();
 
         assertEquals(0, records.size());
@@ -326,7 +319,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void areLoggersRecordsNotEmptyWhenIntegrate() {
+    public void isLoggerNotEmptyWhenIntegrate() {
         setTextFields();
         viewModel.integrate();
 

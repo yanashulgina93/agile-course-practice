@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -31,25 +32,25 @@ public class TxtNumericalIntegrationLoggerTests {
 
     @Test
     public void canWriteSomethingToLogFile() {
-        String recordForAdding = "some action";
+        String record = "some action";
 
-        txtLogger.addRecord(recordForAdding);
+        txtLogger.addRecord(record);
         String recordFromLogFile = txtLogger.getAllRecords().get(0);
 
-        assertTrue(recordFromLogFile.contains(recordForAdding));
+        assertTrue(recordFromLogFile.contains(record));
     }
 
     @Test
     public void canWriteSeveralLogMessage() {
-        String[] recordsForAdding = {"the first action", "the second action", "the third action"};
+        String[] records = {"the first action", "the second action", "the third action"};
         boolean areRecordsLogged = true;
 
-        for (int i = 0; i < recordsForAdding.length; i++) {
-            txtLogger.addRecord(recordsForAdding[i]);
+        for (int i = 0; i < records.length; i++) {
+            txtLogger.addRecord(records[i]);
         }
         List<String> recordsFromLogFile = txtLogger.getAllRecords();
         for (int i = 0; i < recordsFromLogFile.size(); i++) {
-            if (!recordsFromLogFile.get(i).contains(recordsForAdding[i])) {
+            if (!recordsFromLogFile.get(i).contains(records[i])) {
                 areRecordsLogged = false;
             }
         }
@@ -59,11 +60,11 @@ public class TxtNumericalIntegrationLoggerTests {
 
     @Test
     public void canSaveDateAndTimeOfAction() {
-        String recordForAdding = "some action";
+        txtLogger.addRecord("some action");
 
-        txtLogger.addRecord(recordForAdding);
         String recordFromLogFile = txtLogger.getAllRecords().get(0);
 
-        assertTrue(recordFromLogFile.contains("[") && recordFromLogFile.contains("]"));
+        assertTrue(Pattern.matches("^.\\d{2}-\\D{3}-\\d{4} \\d{2}:\\d{2}:\\d{2}.*",
+               recordFromLogFile));
     }
 }
