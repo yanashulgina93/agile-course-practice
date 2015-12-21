@@ -17,8 +17,8 @@ public class TxtNumericalIntegrationLogger implements NumericalIntegrationLogger
         this.nameOfLogFile = nameOfLogFile;
         try {
             File logFile = new File(nameOfLogFile);
-            FileOutputStream fos = new FileOutputStream(logFile);
-            bufferedWriter = new BufferedWriter(new OutputStreamWriter(fos));
+            FileOutputStream outputStreamForLogFile = new FileOutputStream(logFile);
+            bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStreamForLogFile));
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -40,8 +40,9 @@ public class TxtNumericalIntegrationLogger implements NumericalIntegrationLogger
         ArrayList<String> records = new ArrayList<String>();
         try {
             File logFile = new File(nameOfLogFile);
-            FileInputStream fis = new FileInputStream(logFile);
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fis));
+            FileInputStream inputStreamForLogFile = new FileInputStream(logFile);
+            BufferedReader bufferedReader =
+                    new BufferedReader(new InputStreamReader(inputStreamForLogFile));
             String currentRecord = bufferedReader.readLine();
             while (currentRecord != null) {
                 records.add(currentRecord);
